@@ -209,27 +209,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/HtmlWriter
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SelectItemUtils.java`
-#### Snippet
-```java
-          final String description = uiSelectItem.getItemDescription();
-          final boolean disabled = uiSelectItem.isItemDisabled();
-//          boolean escape = uiSelectItem.isItemEscaped();
-//          boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
-          if (label == null && itemValue != null) {
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
 #### Snippet
 ```java
-        propertyInfo.setTransient(uiComponentTagAttribute.isTransient());
-        propertyInfo.setGenerate(uiComponentTagAttribute.generate());
-//        if (properties.containsKey(name)) {
-//          warn("Redefinition of attribute '" + name + "'.");
-//        }
+    componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
+    componentInfo.addImport("jakarta.faces.context.FacesContext");
+//    if ("markup".equals(info.getName())) {
+//      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
+//    }
 ```
 
 ### CommentedOutCode
@@ -261,11 +249,23 @@ Commented out code (3 lines)
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
 #### Snippet
 ```java
-    componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
-    componentInfo.addImport("jakarta.faces.context.FacesContext");
-//    if ("markup".equals(info.getName())) {
-//      componentInfo.addInterface("org.apache.myfaces.tobago.component.Visual");
-//    }
+        propertyInfo.setTransient(uiComponentTagAttribute.isTransient());
+        propertyInfo.setGenerate(uiComponentTagAttribute.generate());
+//        if (properties.containsKey(name)) {
+//          warn("Redefinition of attribute '" + name + "'.");
+//        }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SelectItemUtils.java`
+#### Snippet
+```java
+          final String description = uiSelectItem.getItemDescription();
+          final boolean disabled = uiSelectItem.isItemDisabled();
+//          boolean escape = uiSelectItem.isItemEscaped();
+//          boolean noSelectionOption = uiSelectItem.isNoSelectionOption();
+          if (label == null && itemValue != null) {
 ```
 
 ### CommentedOutCode
@@ -354,18 +354,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaS
 
 ### CommentedOutCode
 Commented out code (2 lines)
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/LinksRenderer.java`
-#### Snippet
-```java
-  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
-
-//    final boolean insideBar = ComponentUtils.findAncestor(component, AbstractUIBar.class) != null;
-//    final boolean insideBar = facesContext.getAttributes().get("inside-bar") != null;
-    final boolean insideBar = isInside(facesContext, HtmlElements.TOBAGO_BAR);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SplitLayoutRenderer.java`
 #### Snippet
 ```java
@@ -374,6 +362,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 //      final Map<String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
 //      final String position = parameterMap.get(clientId + SUFFIX_SIZES);
       LOG.warn("todo update layout");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/LinksRenderer.java`
+#### Snippet
+```java
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+
+//    final boolean insideBar = ComponentUtils.findAncestor(component, AbstractUIBar.class) != null;
+//    final boolean insideBar = facesContext.getAttributes().get("inside-bar") != null;
+    final boolean insideBar = isInside(facesContext, HtmlElements.TOBAGO_BAR);
 ```
 
 ### CommentedOutCode
@@ -419,6 +419,18 @@ Obsolete collection type `Stack` used
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/sudoku/Sudoku.java`
 #### Snippet
 ```java
+
+  private byte[] field;
+  private Stack<Byte> undefined;
+
+  private int depth;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/sudoku/Sudoku.java`
+#### Snippet
+```java
     }
 
     public Stack<Byte> asStack() {
@@ -451,18 +463,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/sudoku/Sudoku.java`
-#### Snippet
-```java
-
-  private byte[] field;
-  private Stack<Byte> undefined;
-
-  private int depth;
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack<>` used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
 #### Snippet
@@ -475,18 +475,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
-#### Snippet
-```java
-
-    buffer = new StringBuilder();
-    stack = new Stack<>();
-  }
-
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack` used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
 #### Snippet
@@ -496,6 +484,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
   private Stack<String> stack;
 
   public TobagoConfigParser() {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack<>` used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
+#### Snippet
+```java
+
+    buffer = new StringBuilder();
+    stack = new Stack<>();
+  }
+
 ```
 
 ### ObsoleteCollection
@@ -589,30 +589,6 @@ Duplicate branch in 'switch'
 in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/apt/annotation/DynamicExpression.java`
 #### Snippet
 ```java
-        return "ALLOWED";
-      case METHOD_EXPRESSION:
-        return "ALLOWED";
-      case VALUE_EXPRESSION_REQUIRED:
-        return "REQUIRED";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/apt/annotation/DynamicExpression.java`
-#### Snippet
-```java
-        return "REQUIRED";
-      case METHOD_EXPRESSION_REQUIRED:
-        return "REQUIRED";
-      case PROHIBITED:
-        return "PROHIBITED";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/apt/annotation/DynamicExpression.java`
-#### Snippet
-```java
         return "VB";
       case VALUE_EXPRESSION_REQUIRED:
         return "VB";
@@ -630,6 +606,30 @@ in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/a
         return "MB";
       case PROHIBITED:
         return "NONE";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/apt/annotation/DynamicExpression.java`
+#### Snippet
+```java
+        return "ALLOWED";
+      case METHOD_EXPRESSION:
+        return "ALLOWED";
+      case VALUE_EXPRESSION_REQUIRED:
+        return "REQUIRED";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `tobago-tool/tobago-tool-annotation/src/main/java/org/apache/myfaces/tobago/apt/annotation/DynamicExpression.java`
+#### Snippet
+```java
+        return "REQUIRED";
+      case METHOD_EXPRESSION_REQUIRED:
+        return "REQUIRED";
+      case PROHIBITED:
+        return "PROHIBITED";
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -671,14 +671,50 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### SizeReplaceableByIsEmpty
-`tagAttribute.name().length() > 0` can be replaced with '!tagAttribute.name().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
+`annotationTag.deprecatedName().length() > 0` can be replaced with '!annotationTag.deprecatedName().isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
 #### Snippet
 ```java
-        final Element attribute = document.createElement("attribute");
-        String attributeName = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+      }
+      addAttributes(typeElement, taglib, parent, annotationTag.name(), document);
+      if (annotationTag.deprecatedName() != null && annotationTag.deprecatedName().length() > 0) {
+        addTag(taglib, parent, annotationTag.deprecatedName(), document);
+        addAttributes(typeElement, taglib, parent, annotationTag.name(), document);
+```
+
+### SizeReplaceableByIsEmpty
+`tagAttribute.name().length() > 0` can be replaced with '!tagAttribute.name().isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
+#### Snippet
+```java
+
+            String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+            if (tagAttribute.name().length() > 0) {
+              attributeStr = tagAttribute.name();
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`tagAttribute.name().length() > 0` can be replaced with '!tagAttribute.name().isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
+#### Snippet
+```java
+
+        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (tagAttribute.name().length() > 0) {
-          attributeName = tagAttribute.name();
+          attributeStr = tagAttribute.name();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
+#### Snippet
+```java
+      while ((line = reader.readLine()) != null) {
+        line = line.trim();
+        if (!line.startsWith("#") && line.length() > 0) {
+          names.add(line);
         }
 ```
 
@@ -720,49 +756,13 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 
 ### SizeReplaceableByIsEmpty
 `tagAttribute.name().length() > 0` can be replaced with '!tagAttribute.name().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
 #### Snippet
 ```java
-
-            String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
-            if (tagAttribute.name().length() > 0) {
-              attributeStr = tagAttribute.name();
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`annotationTag.deprecatedName().length() > 0` can be replaced with '!annotationTag.deprecatedName().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
-#### Snippet
-```java
-      }
-      addAttributes(typeElement, taglib, parent, annotationTag.name(), document);
-      if (annotationTag.deprecatedName() != null && annotationTag.deprecatedName().length() > 0) {
-        addTag(taglib, parent, annotationTag.deprecatedName(), document);
-        addAttributes(typeElement, taglib, parent, annotationTag.name(), document);
-```
-
-### SizeReplaceableByIsEmpty
-`tagAttribute.name().length() > 0` can be replaced with '!tagAttribute.name().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
-#### Snippet
-```java
-
-        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        final Element attribute = document.createElement("attribute");
+        String attributeName = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (tagAttribute.name().length() > 0) {
-          attributeStr = tagAttribute.name();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
-#### Snippet
-```java
-      while ((line = reader.readLine()) != null) {
-        line = line.trim();
-        if (!line.startsWith("#") && line.length() > 0) {
-          names.add(line);
+          attributeName = tagAttribute.name();
         }
 ```
 
@@ -776,54 +776,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
       return specialEventNames.size() > 0 ? concatStrings(specialEventNames) : "";
     }
 
-```
-
-### SizeReplaceableByIsEmpty
-`sortedNodes.size() > 0` can be replaced with '!sortedNodes.isEmpty()'
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
-#### Snippet
-```java
-
-    // after sorting the first node is the root node.
-    root = sortedNodes.size() > 0 ? sortedNodes.get(0) : null;
-
-    // build the tree from the list
-```
-
-### SizeReplaceableByIsEmpty
-`comment.length() > 0` can be replaced with '!comment.isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      }
-      comment = comment.trim();
-      if (comment.length() > 0) {
-        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
-        description.setText(comment);
-```
-
-### SizeReplaceableByIsEmpty
-`validatorAnn.id().length() > 0` can be replaced with '!validatorAnn.id().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-    if (validatorAnn.id().length() > 0) {
-      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
-      validatorId.setText(validatorAnn.id());
-```
-
-### SizeReplaceableByIsEmpty
-`validatorAnn.forClass().length() > 0` can be replaced with '!validatorAnn.forClass().isEmpty()'
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      validatorId.setText(validatorAnn.id());
-      validator.addContent(validatorId);
-    } else if (validatorAnn.forClass().length() > 0) {
-      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
-      validatorForClass.setText(validatorAnn.forClass());
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -875,6 +827,42 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### SizeReplaceableByIsEmpty
+`validatorAnn.id().length() > 0` can be replaced with '!validatorAnn.id().isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+      validatorId.setText(validatorAnn.id());
+```
+
+### SizeReplaceableByIsEmpty
+`validatorAnn.forClass().length() > 0` can be replaced with '!validatorAnn.forClass().isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      validatorId.setText(validatorAnn.id());
+      validator.addContent(validatorId);
+    } else if (validatorAnn.forClass().length() > 0) {
+      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
+      validatorForClass.setText(validatorAnn.forClass());
+```
+
+### SizeReplaceableByIsEmpty
+`comment.length() > 0` can be replaced with '!comment.isEmpty()'
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      }
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
+        description.setText(comment);
+```
+
+### SizeReplaceableByIsEmpty
 `description.length() > 0` can be replaced with '!description.isEmpty()'
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
@@ -887,15 +875,15 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### SizeReplaceableByIsEmpty
-`resources.size() == 0` can be replaced with 'resources.isEmpty()'
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/BundleController.java`
+`sortedNodes.size() > 0` can be replaced with '!sortedNodes.isEmpty()'
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
 #### Snippet
 ```java
 
-  public List<BundleEntry> getResources() {
-    if (resources.size() == 0) {
-      final FacesContext facesContext = FacesContext.getCurrentInstance();
-      final ResourceBundle bundle =
+    // after sorting the first node is the root node.
+    root = sortedNodes.size() > 0 ? sortedNodes.get(0) : null;
+
+    // build the tree from the list
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -908,6 +896,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
     if (messages.size() == 0) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       final Application application = facesContext.getApplication();
+```
+
+### SizeReplaceableByIsEmpty
+`resources.size() == 0` can be replaced with 'resources.isEmpty()'
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/BundleController.java`
+#### Snippet
+```java
+
+  public List<BundleEntry> getResources() {
+    if (resources.size() == 0) {
+      final FacesContext facesContext = FacesContext.getCurrentInstance();
+      final ResourceBundle bundle =
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -983,15 +983,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`sheetState.getSelectedRows().size() > 0` can be replaced with '!sheetState.getSelectedRows().isEmpty()'
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SortingUtils.java`
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StringUtils.java`
 #### Snippet
 ```java
-      // memorize selected rows
-      List<Object> selectedDataRows = null;
-      if (sheetState.getSelectedRows().size() > 0) {
-        selectedDataRows = new ArrayList<>(sheetState.getSelectedRows().size());
-        Object dataRow;
+   */
+  public static boolean isEmpty(final String value) {
+    return value == null || value.length() == 0;
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1007,39 +1007,15 @@ public class NumberUtils {
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StringUtils.java`
+`sheetState.getSelectedRows().size() > 0` can be replaced with '!sheetState.getSelectedRows().isEmpty()'
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SortingUtils.java`
 #### Snippet
 ```java
-   */
-  public static boolean isEmpty(final String value) {
-    return value == null || value.length() == 0;
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`buffer.toString().trim().length() == 0` can be replaced with 'buffer.toString().trim().isEmpty()'
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
-#### Snippet
-```java
-
-    // No unused content should be collected, specially text mixed with tags.
-    assert buffer.toString().trim().length() == 0;
-
-    buffer.setLength(0);
-```
-
-### SizeReplaceableByIsEmpty
-`result.length() > 0` can be replaced with '!result.isEmpty()'
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/HtmlRendererUtils.java`
-#### Snippet
-```java
-    String result = title;
-    if (tip != null) {
-      if (result != null && result.length() > 0) {
-        result += " :: ";
-      } else {
+      // memorize selected rows
+      List<Object> selectedDataRows = null;
+      if (sheetState.getSelectedRows().size() > 0) {
+        selectedDataRows = new ArrayList<>(sheetState.getSelectedRows().size());
+        Object dataRow;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1079,6 +1055,30 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### SizeReplaceableByIsEmpty
+`buffer.toString().trim().length() == 0` can be replaced with 'buffer.toString().trim().isEmpty()'
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
+#### Snippet
+```java
+
+    // No unused content should be collected, specially text mixed with tags.
+    assert buffer.toString().trim().length() == 0;
+
+    buffer.setLength(0);
+```
+
+### SizeReplaceableByIsEmpty
+`result.length() > 0` can be replaced with '!result.isEmpty()'
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/HtmlRendererUtils.java`
+#### Snippet
+```java
+    String result = title;
+    if (tip != null) {
+      if (result != null && result.length() > 0) {
+        result += " :: ";
+      } else {
+```
+
+### SizeReplaceableByIsEmpty
 `columnWidths.size() > 0` can be replaced with '!columnWidths.isEmpty()'
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/SheetState.java`
 #### Snippet
@@ -1103,18 +1103,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 ```
 
 ### SizeReplaceableByIsEmpty
-`serializableMap.size() == 0` can be replaced with 'serializableMap.isEmpty()'
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-    final Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
-
-    if (serializableMap == null || serializableMap.size() == 0) {
-      return null;
-    }
-```
-
-### SizeReplaceableByIsEmpty
 `searchId.length() > 0` can be replaced with '!searchId.isEmpty()'
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIData.java`
 #### Snippet
@@ -1124,6 +1112,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
     if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
       for (int i = 1; i < searchId.length(); ++i) {
         final char c = searchId.charAt(i);
+```
+
+### SizeReplaceableByIsEmpty
+`serializableMap.size() == 0` can be replaced with 'serializableMap.isEmpty()'
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+    final Map serializableMap = (isInitialStateMarked()) ? deltas : fullState;
+
+    if (serializableMap == null || serializableMap.size() == 0) {
+      return null;
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1229,10 +1229,10 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 #### Snippet
 ```java
 
-  public String getUrl() {
+  public String getSslUrl() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("http://localhost:");
-    builder.append(port);
+    builder.append("https://localhost:");
+    builder.append(sslPort);
 ```
 
 ### StringBufferReplaceableByString
@@ -1241,10 +1241,10 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 #### Snippet
 ```java
 
-  public String getSslUrl() {
+  public String getUrl() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("https://localhost:");
-    builder.append(sslPort);
+    builder.append("http://localhost:");
+    builder.append(port);
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -1493,6 +1493,18 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUIConfig` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIConfig.java`
+#### Snippet
+```java
+ */
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractUIConfig extends UIOutput {
+
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUIRange` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIRange.java`
 #### Snippet
@@ -1502,30 +1514,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUIRange extends AbstractUIInput {
 
   public abstract Integer getMin();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUISeparator` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISeparator.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SeparatorTagDeclaration}
- */
-public abstract class AbstractUISeparator extends UIComponentBase implements Visual {
-
-  public abstract String getLabel();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIColumnNode` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIColumnNode.java`
-#### Snippet
-```java
- * @since Tobago 2.0.0
- */
-public abstract class AbstractUIColumnNode extends AbstractUITreeNode implements Visual {
-}
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -1541,27 +1529,27 @@ public abstract class AbstractUIButton extends AbstractUICommand {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIConfig` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIConfig.java`
+Abstract class `AbstractUIColumnNode` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIColumnNode.java`
 #### Snippet
 ```java
+ * @since Tobago 2.0.0
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUIConfig extends UIOutput {
+public abstract class AbstractUIColumnNode extends AbstractUITreeNode implements Visual {
+}
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIStyle` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIStyle.java`
+Abstract class `AbstractUISeparator` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISeparator.java`
 #### Snippet
 ```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SeparatorTagDeclaration}
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUIStyle extends UIComponentBase {
+public abstract class AbstractUISeparator extends UIComponentBase implements Visual {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  public abstract String getLabel();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1589,27 +1577,15 @@ public abstract class AbstractUIHeader extends AbstractUIPanelBase {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIFile` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIFile.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.FileTagDeclaration}
- */
-public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
-    SupportFieldId, SupportsHelp, SupportsAutoSpacing, SupportsDecorationPosition {
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIScript` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIScript.java`
+Abstract class `AbstractUIStyle` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIStyle.java`
 #### Snippet
 ```java
  */
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUIScript extends UIComponentBase {
+public abstract class AbstractUIStyle extends UIComponentBase {
 
-  @Override
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 ```
 
 ### AbstractClassNeverImplemented
@@ -1621,6 +1597,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
  */
 public abstract class AbstractUITreeLabel extends AbstractUILabelBase {
 }
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIFile` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIFile.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FileTagDeclaration}
+ */
+public abstract class AbstractUIFile extends UIInput implements SupportsLabelLayout, Visual, ClientBehaviorHolder,
+    SupportFieldId, SupportsHelp, SupportsAutoSpacing, SupportsDecorationPosition {
 
 ```
 
@@ -1637,18 +1625,6 @@ public abstract class AbstractUIReload extends UIComponentBase {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectBoolean` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectBoolean.java`
-#### Snippet
-```java
-import jakarta.faces.context.FacesContext;
-
-public abstract class AbstractUISelectBoolean extends UISelectBoolean
-    implements SupportsAutoSpacing, Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey,
-    SupportsLabelLayout, SupportsHelp, SupportsDecorationPosition {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractUIFlowLayout` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIFlowLayout.java`
 #### Snippet
@@ -1658,6 +1634,30 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUIFlowLayout extends AbstractUILayoutBase {
 
   public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlowLayout";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIScript` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIScript.java`
+#### Snippet
+```java
+ */
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractUIScript extends UIComponentBase {
+
+  @Override
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIImage` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIImage.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ImageTagDeclaration}
+ */
+public abstract class AbstractUIImage extends UIGraphic implements Visual {
+
+  public abstract boolean isDisabled();
 ```
 
 ### AbstractClassNeverImplemented
@@ -1673,15 +1673,15 @@ public abstract class AbstractUITextarea extends AbstractUIInput implements Supp
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIImage` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIImage.java`
+Abstract class `AbstractUISelectBoolean` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectBoolean.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ImageTagDeclaration}
- */
-public abstract class AbstractUIImage extends UIGraphic implements Visual {
+import jakarta.faces.context.FacesContext;
 
-  public abstract boolean isDisabled();
+public abstract class AbstractUISelectBoolean extends UISelectBoolean
+    implements SupportsAutoSpacing, Visual, ClientBehaviorHolder, SupportFieldId, SupportsAccessKey,
+    SupportsLabelLayout, SupportsHelp, SupportsDecorationPosition {
 ```
 
 ### AbstractClassNeverImplemented
@@ -1721,6 +1721,18 @@ public abstract class AbstractUITreeSelect extends UISelectBoolean implements Vi
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUIDate` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIDate.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.DateTagDeclaration}
+ */
+public abstract class AbstractUIDate extends AbstractUIInput {
+
+  private transient String pattern;
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUISelectBooleanToggle` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectBooleanToggle.java`
 #### Snippet
@@ -1729,18 +1741,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
  */
 public abstract class AbstractUISelectBooleanToggle extends AbstractUISelectBoolean {
 }
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUICommand` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommand.java`
-#### Snippet
-```java
- * Base class for commands.
- */
-public abstract class AbstractUICommand extends AbstractUICommandBase
-    implements SupportsAutoSpacing, SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
 
 ```
 
@@ -1754,18 +1754,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUITreeNodeBase extends AbstractUIColumnBase implements Visual {
 
   @Override
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIDate` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIDate.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.DateTagDeclaration}
- */
-public abstract class AbstractUIDate extends AbstractUIInput {
-
-  private transient String pattern;
 ```
 
 ### AbstractClassNeverImplemented
@@ -1793,6 +1781,18 @@ public abstract class AbstractUISelectOneRadio extends AbstractUISelectOneBase i
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUICommand` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommand.java`
+#### Snippet
+```java
+ * Base class for commands.
+ */
+public abstract class AbstractUICommand extends AbstractUICommandBase
+    implements SupportsAutoSpacing, SupportsAccessKey, Visual, ClientBehaviorHolder, SupportFieldId {
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUISelectManyBase` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyBase.java`
 #### Snippet
@@ -1802,6 +1802,30 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUISelectManyBase extends UISelectMany
     implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp,
     SupportsDecorationPosition {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUICollapsiblePanel` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICollapsiblePanel.java`
+#### Snippet
+```java
+ * Base class for collapsible panels.
+ */
+public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
+
+  private transient Boolean submittedCollapsed;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIForm` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIForm.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.FormTagDeclaration}
+ */
+public abstract class AbstractUIForm extends AbstractUIFormBase {
+
+  /**
 ```
 
 ### AbstractClassNeverImplemented
@@ -1829,18 +1853,6 @@ public abstract class AbstractUIFigure extends AbstractUIPanelBase {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIMessages` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIMessages.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
- */
-public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessages
-    implements Visual {
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractUILinks` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILinks.java`
 #### Snippet
@@ -1850,102 +1862,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUILinks extends AbstractUIPanelBase implements SupportsAutoSpacing, SupportsDisabled {
 
   enum PropertyKeys {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIForm` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIForm.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.FormTagDeclaration}
- */
-public abstract class AbstractUIForm extends AbstractUIFormBase {
-
-  /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUICollapsiblePanel` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICollapsiblePanel.java`
-#### Snippet
-```java
- * Base class for collapsible panels.
- */
-public abstract class AbstractUICollapsiblePanel extends AbstractUIPanelBase {
-
-  private transient Boolean submittedCollapsed;
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectItem` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectItem.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemTagDeclaration}
- */
-public abstract class AbstractUISelectItem extends UISelectItem implements Visual {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUITreeIcon` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeIcon.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIconTagDeclaration}
- */
-public abstract class AbstractUITreeIcon extends AbstractUIImage {
-
-  public abstract String getOpen();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIBadge` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIBadge.java`
-#### Snippet
-```java
-import jakarta.faces.component.UIOutput;
-
-public abstract class AbstractUIBadge extends UIOutput implements Visual {
-
-  public abstract String getTip();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIRow` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIRow.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.RowTagDeclaration}
- */
-public abstract class AbstractUIRow extends AbstractUIColumnBase implements ClientBehaviorHolder {
-}
-
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIColumn` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIColumn.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnTagDeclaration}
- */
-public abstract class AbstractUIColumn extends AbstractUIColumnBase {
-
-//  public abstract Measure getWidth();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUITabGroup` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITabGroup.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
- */
-public abstract class AbstractUITabGroup extends AbstractUIPanelBase
-    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder, SupportsAutoSpacing {
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -1961,13 +1877,37 @@ public abstract class AbstractUIInput extends jakarta.faces.component.UIInput
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUILayoutBase` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILayoutBase.java`
+Abstract class `AbstractUITreeIcon` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeIcon.java`
 #### Snippet
 ```java
- * Base class for the layout manager components.
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIconTagDeclaration}
  */
-public abstract class AbstractUILayoutBase extends UIComponentBase implements Visual {
+public abstract class AbstractUITreeIcon extends AbstractUIImage {
+
+  public abstract String getOpen();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIColumn` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIColumn.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.ColumnTagDeclaration}
+ */
+public abstract class AbstractUIColumn extends AbstractUIColumnBase {
+
+//  public abstract Measure getWidth();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIRow` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIRow.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.RowTagDeclaration}
+ */
+public abstract class AbstractUIRow extends AbstractUIColumnBase implements ClientBehaviorHolder {
 }
 
 ```
@@ -1985,15 +1925,39 @@ public abstract class AbstractUIPanelBase extends jakarta.faces.component.UIPane
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIFlexLayout` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIFlexLayout.java`
+Abstract class `AbstractUIBadge` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIBadge.java`
 #### Snippet
 ```java
- */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
+import jakarta.faces.component.UIOutput;
 
-  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
+public abstract class AbstractUIBadge extends UIOutput implements Visual {
+
+  public abstract String getTip();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIMessages` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIMessages.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
+ */
+public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessages
+    implements Visual {
+
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUILayoutBase` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILayoutBase.java`
+#### Snippet
+```java
+ * Base class for the layout manager components.
+ */
+public abstract class AbstractUILayoutBase extends UIComponentBase implements Visual {
+}
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -2009,15 +1973,15 @@ public abstract class AbstractUIOperation extends UIComponentBase {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUITreeIndent` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeIndent.java`
+Abstract class `AbstractUISelectItem` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectItem.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectItemTagDeclaration}
  */
-public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
+public abstract class AbstractUISelectItem extends UISelectItem implements Visual {
 
-  public abstract boolean isShowJunctions();
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2033,6 +1997,18 @@ public abstract class AbstractUIButtons extends AbstractUIPanelBase implements S
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUIFlexLayout` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIFlexLayout.java`
+#### Snippet
+```java
+ */
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractUIFlexLayout extends AbstractUILayoutBase {
+
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.FlexLayout";
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUIBox` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIBox.java`
 #### Snippet
@@ -2045,14 +2021,14 @@ public abstract class AbstractUIBox extends AbstractUICollapsiblePanel implement
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectReference` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectReference.java`
+Abstract class `AbstractUICommandBase` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommandBase.java`
 #### Snippet
 ```java
-import jakarta.faces.component.UIOutput;
-
-public abstract class AbstractUISelectReference extends UIOutput {
-  public abstract String getFor();
+ */
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractUICommandBase extends UICommand
+    implements ComponentSystemEventListener {
 
 ```
 
@@ -2069,15 +2045,15 @@ public abstract class AbstractUIGridLayout extends AbstractUILayoutBase implemen
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUILink` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILink.java`
+Abstract class `AbstractUITreeIndent` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeIndent.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.LinkTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeIndentTagDeclaration}
  */
-public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
+public abstract class AbstractUITreeIndent extends UIGraphic implements Visual {
 
-  public abstract Integer getTabIndex();
+  public abstract boolean isShowJunctions();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2105,6 +2081,18 @@ public abstract class AbstractUIFooter extends AbstractUIPanelBase {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUISelectReference` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectReference.java`
+#### Snippet
+```java
+import jakarta.faces.component.UIOutput;
+
+public abstract class AbstractUISelectReference extends UIOutput {
+  public abstract String getFor();
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUIObject` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIObject.java`
 #### Snippet
@@ -2117,15 +2105,15 @@ public abstract class AbstractUIObject extends UIOutput implements Visual {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUILabel` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILabel.java`
+Abstract class `AbstractUILink` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILink.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.LinkTagDeclaration}
  */
-public abstract class AbstractUILabel
-    extends AbstractUILabelBase implements SupportsAccessKey {
+public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
 
+  public abstract Integer getTabIndex();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2141,6 +2129,18 @@ public abstract class AbstractUIFormBase extends UIForm implements Visual {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUILabel` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUILabel.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.LabelTagDeclaration}
+ */
+public abstract class AbstractUILabel
+    extends AbstractUILabelBase implements SupportsAccessKey {
+
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUISelectOneChoice` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectOneChoice.java`
 #### Snippet
@@ -2150,30 +2150,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUISelectOneChoice extends AbstractUISelectOneBase implements SupportFieldId {
 
   @Override
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectManyList` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyList.java`
-#### Snippet
-```java
- * {@link SelectManyListTagDeclaration}
- */
-public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
-    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
-    SupportsFilter {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUITree` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
- */
-public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
-
-  public static final String SUFFIX_PARENT = "parent";
 ```
 
 ### AbstractClassNeverImplemented
@@ -2201,15 +2177,27 @@ public abstract class AbstractUISelectManyShuttle extends AbstractUISelectManyBa
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUICommandBase` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommandBase.java`
+Abstract class `AbstractUITree` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
 #### Snippet
 ```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
  */
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUICommandBase extends UICommand
-    implements ComponentSystemEventListener {
+public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
 
+  public static final String SUFFIX_PARENT = "parent";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUISelectManyList` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyList.java`
+#### Snippet
+```java
+ * {@link SelectManyListTagDeclaration}
+ */
+public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
+    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
+    SupportsFilter {
 ```
 
 ### AbstractClassNeverImplemented
@@ -2249,18 +2237,6 @@ public abstract class AbstractUIProgress extends UIOutput
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIPage` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPage.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.PageTagDeclaration}
- */
-public abstract class AbstractUIPage extends AbstractUIFormBase implements ClientBehaviorHolder {
-
-  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractUITab` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITab.java`
 #### Snippet
@@ -2270,18 +2246,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUITab
     extends AbstractUIPanelBase implements ClientBehaviorHolder, SupportsAccessKey, NamingContainer {
 
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUIStars` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIStars.java`
-#### Snippet
-```java
-
-@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
-public abstract class AbstractUIStars extends AbstractUIInput {
-
-  private int rangeValue;
 ```
 
 ### AbstractClassNeverImplemented
@@ -2297,15 +2261,27 @@ public abstract class AbstractUIEvent extends AbstractUICommandBase implements C
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIPopup` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPopup.java`
+Abstract class `AbstractUISelectOneBase` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectOneBase.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.PopupTagDeclaration}
+ * Base class for select one.
  */
-public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel
-    implements NamingContainer {
-}
+public abstract class AbstractUISelectOneBase extends jakarta.faces.component.UISelectOne
+    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp,
+    SupportsDecorationPosition {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUITabGroup` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITabGroup.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TabGroupTagDeclaration}
+ */
+public abstract class AbstractUITabGroup extends AbstractUIPanelBase
+    implements TabChangeSource, TobagoActionSource, ClientBehaviorHolder, SupportsAutoSpacing {
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -2321,27 +2297,27 @@ public abstract class AbstractUITreeListbox extends AbstractUITree {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectOneBase` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectOneBase.java`
+Abstract class `AbstractUIPopup` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPopup.java`
 #### Snippet
 ```java
- * Base class for select one.
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.PopupTagDeclaration}
  */
-public abstract class AbstractUISelectOneBase extends jakarta.faces.component.UISelectOne
-    implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp,
-    SupportsDecorationPosition {
+public abstract class AbstractUIPopup extends AbstractUICollapsiblePanel
+    implements NamingContainer {
+}
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUISection` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISection.java`
+Abstract class `AbstractUIPage` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPage.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SectionTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.PageTagDeclaration}
  */
-public abstract class AbstractUISection extends AbstractUICollapsiblePanel implements SupportsAutoSpacing {
+public abstract class AbstractUIPage extends AbstractUIFormBase implements ClientBehaviorHolder {
 
-  public abstract String getLabel();
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 ```
 
 ### AbstractClassNeverImplemented
@@ -2357,6 +2333,30 @@ public abstract class AbstractUIHidden extends UIInput {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractUIStars` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIStars.java`
+#### Snippet
+```java
+
+@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
+public abstract class AbstractUIStars extends AbstractUIInput {
+
+  private int rangeValue;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUISection` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISection.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SectionTagDeclaration}
+ */
+public abstract class AbstractUISection extends AbstractUICollapsiblePanel implements SupportsAutoSpacing {
+
+  public abstract String getLabel();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `AbstractUITreeNode` has no concrete subclass
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeNode.java`
 #### Snippet
@@ -2366,6 +2366,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUITreeNode extends AbstractUITreeNodeBase {
 
   public abstract boolean isDisabled();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AbstractUIIn` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIIn.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.InTagDeclaration}
+ */
+public abstract class AbstractUIIn extends AbstractUIInput implements SupportsAutocomplete {
+
+  public abstract String getPlaceholder();
 ```
 
 ### AbstractClassNeverImplemented
@@ -2393,15 +2405,15 @@ public abstract class AbstractUIPanel extends AbstractUICollapsiblePanel impleme
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUIIn` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIIn.java`
+Abstract class `AbstractUISelectManyListbox` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyListbox.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.InTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyListboxTagDeclaration}
  */
-public abstract class AbstractUIIn extends AbstractUIInput implements SupportsAutocomplete {
+public abstract class AbstractUISelectManyListbox extends AbstractUISelectManyBase implements SupportFieldId {
 
-  public abstract String getPlaceholder();
+  @Override
 ```
 
 ### AbstractClassNeverImplemented
@@ -2429,15 +2441,15 @@ public abstract class AbstractUILabelBase
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AbstractUISelectManyListbox` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyListbox.java`
+Abstract class `AbstractUISuggest` has no concrete subclass
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISuggest.java`
 #### Snippet
 ```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SelectManyListboxTagDeclaration}
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.SuggestTagDeclaration}
  */
-public abstract class AbstractUISelectManyListbox extends AbstractUISelectManyBase implements SupportFieldId {
+public abstract class AbstractUISuggest
+    extends UIComponentBase implements ClientBehaviorHolder {
 
-  @Override
 ```
 
 ### AbstractClassNeverImplemented
@@ -2450,18 +2462,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUIMeta extends UIComponentBase {
 
   @Override
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractUISuggest` has no concrete subclass
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISuggest.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.SuggestTagDeclaration}
- */
-public abstract class AbstractUISuggest
-    extends UIComponentBase implements ClientBehaviorHolder {
-
 ```
 
 ### AbstractClassNeverImplemented
@@ -2502,51 +2502,15 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
-#### Snippet
-```java
-  }
-
-  private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
-    for (final String path : listWar) {
-      if (path.contains("/x-") || !path.contains(".xhtml")) {
-```
-
-### BoundedWildcard
-Can generalize to `? super NavigationNode`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
-#### Snippet
-```java
-  }
-
-  private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
-    for (final String path : listWar) {
-      if (path.contains("/x-") || !path.contains(".xhtml")) {
-```
-
-### BoundedWildcard
-Can generalize to `? super org.jdom2.Element`
+Can generalize to `? extends org.jdom2.Element`
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
 
-  private void addValidator(
-      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
-    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-```
-
-### BoundedWildcard
-Can generalize to `? super org.jdom2.Element`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  protected void addRendererElement(
-      final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom2.Element> renderer,
-      final Namespace namespace)
-      throws IOException, NoSuchFieldException, IllegalAccessException {
+  private org.jdom2.Element getEqualElement(
+      final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
+    for (final org.jdom2.Element element : components) {
+      if (equals(element, newElement)) {
 ```
 
 ### BoundedWildcard
@@ -2586,15 +2550,51 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends org.jdom2.Element`
+Can generalize to `? super org.jdom2.Element`
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
 
-  private org.jdom2.Element getEqualElement(
-      final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
-    for (final org.jdom2.Element element : components) {
-      if (equals(element, newElement)) {
+  protected void addRendererElement(
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom2.Element> renderer,
+      final Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+```
+
+### BoundedWildcard
+Can generalize to `? super org.jdom2.Element`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private void addValidator(
+      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
+#### Snippet
+```java
+  }
+
+  private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
+    for (final String path : listWar) {
+      if (path.contains("/x-") || !path.contains(".xhtml")) {
+```
+
+### BoundedWildcard
+Can generalize to `? super NavigationNode`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
+#### Snippet
+```java
+  }
+
+  private void addToResult(List<String> listWar, Map<String, NavigationNode> nodes) {
+    for (final String path : listWar) {
+      if (path.contains("/x-") || !path.contains(".xhtml")) {
 ```
 
 ### BoundedWildcard
@@ -2610,18 +2610,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### BoundedWildcard
-Can generalize to `? super UIComponent`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-  }
-
-  private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
-    for (final UIComponent child : component.getChildren()) {
-      if (child instanceof Visual && !((Visual) child).isPlain()
-```
-
-### BoundedWildcard
 Can generalize to `? extends FacesMessage`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
@@ -2631,6 +2619,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java
   public static FacesMessage.Severity getMaximumSeverity(final List<FacesMessage> messages) {
     FacesMessage.Severity max = null;
     for (final FacesMessage message : messages) {
+```
+
+### BoundedWildcard
+Can generalize to `? super UIComponent`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+  }
+
+  private static void addLayoutChildren(final UIComponent component, final List<UIComponent> result) {
+    for (final UIComponent child : component.getChildren()) {
+      if (child instanceof Visual && !((Visual) child).isPlain()
 ```
 
 ### BoundedWildcard
@@ -2655,6 +2655,30 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SortingUti
   private static UIComponent getFirstSortableChild(final List<UIComponent> children) {
     UIComponent result = null;
 
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
+#### Snippet
+```java
+  }
+
+  protected void addProperty(final ExecutableElement declaration, final Map<String, PropertyInfo> properties) {
+    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+    final UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
+```
+
+### BoundedWildcard
+Can generalize to `? super PropertyInfo`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
+#### Snippet
+```java
+  }
+
+  protected void addProperty(final ExecutableElement declaration, final Map<String, PropertyInfo> properties) {
+    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+    final UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
 ```
 
 ### BoundedWildcard
@@ -2694,18 +2718,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TobagoConfigFragment`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigSorter.java`
-#### Snippet
-```java
-  }
-
-  private TobagoConfigSorter(final List<TobagoConfigFragment> fragmentList) {
-    for (TobagoConfigFragment tobagoConfigFragment : fragmentList) {
-      vertices.add(new Vertex(tobagoConfigFragment));
-```
-
-### BoundedWildcard
 Can generalize to `? super TobagoConfigFragment`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigSorter.java`
 #### Snippet
@@ -2719,14 +2731,14 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
 
 ### BoundedWildcard
 Can generalize to `? extends TobagoConfigFragment`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigMerger.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigSorter.java`
 #### Snippet
 ```java
-  private final TobagoConfig tobagoConfig;
+  }
 
-  private TobagoConfigMerger(final List<TobagoConfigFragment> fragments, final TobagoConfig tobagoConfig) {
-    this.fragments = fragments;
-    this.tobagoConfig = tobagoConfig;
+  private TobagoConfigSorter(final List<TobagoConfigFragment> fragmentList) {
+    for (TobagoConfigFragment tobagoConfigFragment : fragmentList) {
+      vertices.add(new Vertex(tobagoConfigFragment));
 ```
 
 ### BoundedWildcard
@@ -2742,27 +2754,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
+Can generalize to `? extends TobagoConfigFragment`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigMerger.java`
 #### Snippet
 ```java
-  }
+  private final TobagoConfig tobagoConfig;
 
-  protected void addProperty(final ExecutableElement declaration, final Map<String, PropertyInfo> properties) {
-    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
-    final UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
-```
-
-### BoundedWildcard
-Can generalize to `? super PropertyInfo`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
-#### Snippet
-```java
-  }
-
-  protected void addProperty(final ExecutableElement declaration, final Map<String, PropertyInfo> properties) {
-    final TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
-    final UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
+  private TobagoConfigMerger(final List<TobagoConfigFragment> fragments, final TobagoConfig tobagoConfig) {
+    this.fragments = fragments;
+    this.tobagoConfig = tobagoConfig;
 ```
 
 ### BoundedWildcard
@@ -2830,11 +2830,11 @@ Can generalize to `? extends FacesMessage`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/DecorationPositionRendererBase.java`
 #### Snippet
 ```java
-  protected abstract void encodeEndField(FacesContext facesContext, T component) throws IOException;
+  }
 
-  private String getTitle(final List<FacesMessage> messages) {
-    int fatalCount = 0;
-    int errorCount = 0;
+  private String getMessage(final List<FacesMessage> messages) {
+    final StringBuilder stringBuilder = new StringBuilder();
+    boolean firstMessage = true;
 ```
 
 ### BoundedWildcard
@@ -2842,11 +2842,11 @@ Can generalize to `? extends FacesMessage`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/DecorationPositionRendererBase.java`
 #### Snippet
 ```java
-  }
+  protected abstract void encodeEndField(FacesContext facesContext, T component) throws IOException;
 
-  private String getMessage(final List<FacesMessage> messages) {
-    final StringBuilder stringBuilder = new StringBuilder();
-    boolean firstMessage = true;
+  private String getTitle(final List<FacesMessage> messages) {
+    int fatalCount = 0;
+    int errorCount = 0;
 ```
 
 ### BoundedWildcard
@@ -2880,7 +2880,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 ```java
     }
 
-    private boolean containsNameViewport(final List<UIComponent> headComponents) {
+    private boolean containsCharset(final List<UIComponent> headComponents) {
       for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
 ```
@@ -2892,9 +2892,21 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 ```java
     }
 
-    private boolean containsCharset(final List<UIComponent> headComponents) {
+    private boolean containsNameViewport(final List<UIComponent> headComponents) {
       for (final UIComponent headComponent : headComponents) {
         if (headComponent instanceof AbstractUIMeta
+```
+
+### BoundedWildcard
+Can generalize to `? super BootstrapClass`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+    }
+
+    private void generateOffset(final List<BootstrapClass> result, final Object offset, final BootstrapClass[] values) {
+      if (offset != null) {
+        int offsetIndex = Integer.parseInt((String) offset);
 ```
 
 ### BoundedWildcard
@@ -2922,18 +2934,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapC
 ```
 
 ### BoundedWildcard
-Can generalize to `? super BootstrapClass`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-    }
-
-    private void generateOffset(final List<BootstrapClass> result, final Object offset, final BootstrapClass[] values) {
-      if (offset != null) {
-        int offsetIndex = Integer.parseInt((String) offset);
-```
-
-### BoundedWildcard
 Can generalize to `? extends SelectItem`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/RendererBase.java`
 #### Snippet
@@ -2943,6 +2943,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/RendererBase.j
       final Iterable<SelectItem> items, final Object[] values, final String[] submittedValues,
       final Boolean onlySelected, final TobagoResponseWriter writer, final FacesContext facesContext)
       throws IOException {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AbstractUIColumnBase`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SheetRenderer.java`
+#### Snippet
+```java
+  private void encodeHeaderRows(
+      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
+      final List<AbstractUIColumnBase> columns)
+      throws IOException {
+
 ```
 
 ### BoundedWildcard
@@ -2966,18 +2978,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
       final TobagoResponseWriter writer, final List<Integer> columnWidths,
       final List<AbstractUIColumnBase> columns, final boolean isHeader) throws IOException {
     writer.startElement(HtmlElements.COLGROUP);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractUIColumnBase`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SheetRenderer.java`
-#### Snippet
-```java
-  private void encodeHeaderRows(
-      final FacesContext facesContext, final AbstractUISheet sheet, final TobagoResponseWriter writer,
-      final List<AbstractUIColumnBase> columns)
-      throws IOException {
 
 ```
 
@@ -3129,18 +3129,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 ```
 
 ### RedundantMethodOverride
-Method `getSelectedValues()` is identical to its super method
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyList.java`
-#### Snippet
-```java
-
-  @Override
-  public Object[] getSelectedValues() {
-    final Object value = getValue();
-    if (value instanceof Collection) {
-```
-
-### RedundantMethodOverride
 Method `isError()` is identical to its super method
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyList.java`
 #### Snippet
@@ -3153,15 +3141,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 ```
 
 ### RedundantMethodOverride
-Method `encodeBeginInternal()` only delegates to its super method
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneChoiceRenderer.java`
+Method `getSelectedValues()` is identical to its super method
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISelectManyList.java`
 #### Snippet
 ```java
 
   @Override
-  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
-    super.encodeBeginInternal(facesContext, component);
-  }
+  public Object[] getSelectedValues() {
+    final Object value = getValue();
+    if (value instanceof Collection) {
 ```
 
 ### RedundantMethodOverride
@@ -3173,6 +3161,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
   @Override
   public void encodeEndInternal(final FacesContext facesContext, final T component) throws IOException {
     super.encodeEndInternal(facesContext, component);
+  }
+```
+
+### RedundantMethodOverride
+Method `encodeBeginInternal()` only delegates to its super method
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneChoiceRenderer.java`
+#### Snippet
+```java
+
+  @Override
+  public void encodeBeginInternal(final FacesContext facesContext, final T component) throws IOException {
+    super.encodeBeginInternal(facesContext, component);
   }
 ```
 
@@ -3254,11 +3254,11 @@ Redundant default parameter value assignment
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/DataAttributeTagDeclaration.java`
 #### Snippet
 ```java
-   * The value of the attribute in the parent component.
+   * The name of the attribute in the parent component.
    */
-  @TagAttribute(required = true, name = "value", type = "java.lang.String")
-  void setValue(ValueExpression value);
-}
+  @TagAttribute(required = true, name = "name", type = "java.lang.String")
+  void setName(ValueExpression name);
+
 ```
 
 ### DefaultAnnotationParam
@@ -3266,11 +3266,11 @@ Redundant default parameter value assignment
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/taglib/component/DataAttributeTagDeclaration.java`
 #### Snippet
 ```java
-   * The name of the attribute in the parent component.
+   * The value of the attribute in the parent component.
    */
-  @TagAttribute(required = true, name = "name", type = "java.lang.String")
-  void setName(ValueExpression name);
-
+  @TagAttribute(required = true, name = "value", type = "java.lang.String")
+  void setValue(ValueExpression value);
+}
 ```
 
 ### DefaultAnnotationParam
@@ -3426,11 +3426,11 @@ Result of assignment expression used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/LocaleUtils.java`
 #### Snippet
 ```java
-    locales.add(prefix + string);
+    locales.add(locale);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {
       string = string.substring(0, underscore);
-      locales.add(prefix + string);
+      locales.add(createLocale(string));
 ```
 
 ### NestedAssignment
@@ -3438,11 +3438,11 @@ Result of assignment expression used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/LocaleUtils.java`
 #### Snippet
 ```java
-    locales.add(locale);
+    locales.add(prefix + string);
     int underscore;
     while ((underscore = string.lastIndexOf('_')) > 0) {
       string = string.substring(0, underscore);
-      locales.add(createLocale(string));
+      locales.add(prefix + string);
 ```
 
 ### NestedAssignment
@@ -3694,11 +3694,11 @@ Field initialization to `0` is redundant
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeCommandTypesController.java`
 #### Snippet
 ```java
+
   private CommandNode sample;
   private int actionOneCount = 0;
   private int actionTwoCount = 0;
 
-  public TreeCommandTypesController() {
 ```
 
 ### RedundantFieldInitialization
@@ -3706,11 +3706,11 @@ Field initialization to `0` is redundant
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeCommandTypesController.java`
 #### Snippet
 ```java
-
   private CommandNode sample;
   private int actionOneCount = 0;
   private int actionTwoCount = 0;
 
+  public TreeCommandTypesController() {
 ```
 
 ### RedundantFieldInitialization
@@ -3754,6 +3754,18 @@ Field initialization to `0` is redundant
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/EventController.java`
 #### Snippet
 ```java
+  private int action = 0;
+  private int actionListener = 0;
+  private int ajaxListener = 0;
+  private int valueChangeListener = 0;
+  private final List<SolarObject> planets = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/EventController.java`
+#### Snippet
+```java
   private EventsOnComponent selectedComponent;
   private String eventName;
   private int action = 0;
@@ -3786,30 +3798,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/EventController.java`
-#### Snippet
-```java
-  private int action = 0;
-  private int actionListener = 0;
-  private int ajaxListener = 0;
-  private int valueChangeListener = 0;
-  private final List<SolarObject> planets = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeController.java`
-#### Snippet
-```java
-
-  private DefaultMutableTreeNode sample;
-  private boolean treeShowRoot = false;
-  private boolean treeShowRootJunction = false;
-  private boolean treeIndentRendered = true;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeController.java`
 #### Snippet
@@ -3819,6 +3807,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
   private boolean treeShowRootJunction = false;
   private boolean treeIndentRendered = true;
   private boolean treeIndentShowJunction = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeController.java`
+#### Snippet
+```java
+
+  private DefaultMutableTreeNode sample;
+  private boolean treeShowRoot = false;
+  private boolean treeShowRootJunction = false;
+  private boolean treeIndentRendered = true;
 ```
 
 ### RedundantFieldInitialization
@@ -3934,11 +3934,11 @@ Field initialization to `0` is redundant
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/webapp/TobagoResponseWriterBase.java`
 #### Snippet
 ```java
-  protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
-
   private int level = 0;
 
   private int inlineStack = 0;
+
+  private UIComponent component;
 ```
 
 ### RedundantFieldInitialization
@@ -3946,11 +3946,11 @@ Field initialization to `0` is redundant
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/webapp/TobagoResponseWriterBase.java`
 #### Snippet
 ```java
+  protected static final char[] XML_VERSION_1_0_ENCODING_UTF_8_CHARS = XML_VERSION_1_0_ENCODING_UTF_8.toCharArray();
+
   private int level = 0;
 
   private int inlineStack = 0;
-
-  private UIComponent component;
 ```
 
 ### RedundantFieldInitialization
@@ -4052,6 +4052,18 @@ public abstract class AbstractUITreeNodeBase extends AbstractUIColumnBase implem
 
 ### RedundantImplements
 Redundant interface declaration `ComponentSystemEventListener`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommandBase.java`
+#### Snippet
+```java
+@ListenerFor(systemEventClass = PostAddToViewEvent.class)
+public abstract class AbstractUICommandBase extends UICommand
+    implements ComponentSystemEventListener {
+
+  @Override
+```
+
+### RedundantImplements
+Redundant interface declaration `ComponentSystemEventListener`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIGridLayout.java`
 #### Snippet
 ```java
@@ -4072,6 +4084,30 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUILink extends AbstractUICommand implements SupportsAccessKey {
 
   public abstract Integer getTabIndex();
+```
+
+### RedundantImplements
+Redundant interface declaration `NamingContainer`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
+ */
+public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
+
+  public static final String SUFFIX_PARENT = "parent";
+```
+
+### RedundantImplements
+Redundant interface declaration `Visual`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
+#### Snippet
+```java
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
+ */
+public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
+
+  public static final String SUFFIX_PARENT = "parent";
 ```
 
 ### RedundantImplements
@@ -4132,42 +4168,6 @@ public abstract class AbstractUISelectManyList extends AbstractUISelectManyBase
     implements SupportsAutoSpacing, Visual, SupportsLabelLayout, ClientBehaviorHolder, SupportsHelp, SupportFieldId,
     SupportsFilter {
 
-```
-
-### RedundantImplements
-Redundant interface declaration `NamingContainer`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
- */
-public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
-
-  public static final String SUFFIX_PARENT = "parent";
-```
-
-### RedundantImplements
-Redundant interface declaration `Visual`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITree.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.TreeTagDeclaration}
- */
-public abstract class AbstractUITree extends AbstractUIData implements NamingContainer, Visual {
-
-  public static final String SUFFIX_PARENT = "parent";
-```
-
-### RedundantImplements
-Redundant interface declaration `ComponentSystemEventListener`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUICommandBase.java`
-#### Snippet
-```java
-@ListenerFor(systemEventClass = PostAddToViewEvent.class)
-public abstract class AbstractUICommandBase extends UICommand
-    implements ComponentSystemEventListener {
-
-  @Override
 ```
 
 ### RedundantImplements
@@ -4323,6 +4323,42 @@ Allocation of zero length array
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
 #### Snippet
 ```java
+
+  private List<SolarObject> planets;
+  private SolarObject[] selected1 = new SolarObject[0];
+  private SolarObject[] selected2 = new SolarObject[0];
+  private SolarObject[] selected3 = new SolarObject[0];
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
+#### Snippet
+```java
+  private List<SolarObject> planets;
+  private SolarObject[] selected1 = new SolarObject[0];
+  private SolarObject[] selected2 = new SolarObject[0];
+  private SolarObject[] selected3 = new SolarObject[0];
+  private SolarObject[] selected4 = new SolarObject[0];
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
+#### Snippet
+```java
+  private SolarObject[] selected1 = new SolarObject[0];
+  private SolarObject[] selected2 = new SolarObject[0];
+  private SolarObject[] selected3 = new SolarObject[0];
+  private SolarObject[] selected4 = new SolarObject[0];
+  private List<String> names;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
+#### Snippet
+```java
   private SolarObject[] selected4 = new SolarObject[0];
   private List<String> names;
   private String[] selected5 = new String[0];
@@ -4332,38 +4368,14 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
-#### Snippet
-```java
-  private List<SolarObject> planets;
-  private SolarObject[] selected1 = new SolarObject[0];
-  private SolarObject[] selected2 = new SolarObject[0];
-  private SolarObject[] selected3 = new SolarObject[0];
-  private SolarObject[] selected4 = new SolarObject[0];
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyShuttleController.java`
 #### Snippet
 ```java
 
   private List<SolarObject> planets;
-  private SolarObject[] selected1 = new SolarObject[0];
-  private SolarObject[] selected2 = new SolarObject[0];
-  private SolarObject[] selected3 = new SolarObject[0];
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyListController.java`
-#### Snippet
-```java
-  private SolarObject[] selected1 = new SolarObject[0];
-  private SolarObject[] selected2 = new SolarObject[0];
-  private SolarObject[] selected3 = new SolarObject[0];
-  private SolarObject[] selected4 = new SolarObject[0];
-  private List<String> names;
+  private SolarObject[] selectedPlanets = new SolarObject[0];
+  private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
+  private String[] selectedStars = new String[0];
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4376,18 +4388,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
   private String[] selectedStars = new String[0];
   private int countPageReload = 0;
 
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SelectManyShuttleController.java`
-#### Snippet
-```java
-
-  private List<SolarObject> planets;
-  private SolarObject[] selectedPlanets = new SolarObject[0];
-  private List<String> stars = Arrays.asList("Proxima Centauri", "Alpha Centauri", "Wolf 359", "Sirius");
-  private String[] selectedStars = new String[0];
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4431,9 +4431,9 @@ Allocation of zero length array
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/ThemeImpl.java`
 #### Snippet
 ```java
-    final List<ThemeScript> copy = new ArrayList<>(list);
+    final List<ThemeStyle> copy = new ArrayList<>(list);
     copy.sort(Comparator.comparingInt(ThemeResource::getPriority));
-    return copy.toArray(new ThemeScript[0]);
+    return copy.toArray(new ThemeStyle[0]);
   }
 
 ```
@@ -4443,9 +4443,9 @@ Allocation of zero length array
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/ThemeImpl.java`
 #### Snippet
 ```java
-    final List<ThemeStyle> copy = new ArrayList<>(list);
+    final List<ThemeScript> copy = new ArrayList<>(list);
     copy.sort(Comparator.comparingInt(ThemeResource::getPriority));
-    return copy.toArray(new ThemeStyle[0]);
+    return copy.toArray(new ThemeScript[0]);
   }
 
 ```
@@ -4467,11 +4467,11 @@ Allocation of zero length array
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StringUtils.java`
 #### Snippet
 ```java
-  public static int[] getIndices(final String list) {
-    if (list == null) {
-      return new int[0];
+      list.add(string.substring(start, i));
     }
-    final List<String> indexList = new ArrayList<>();
+    return list.toArray(new String[0]);
+  }
+
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4479,11 +4479,11 @@ Allocation of zero length array
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StringUtils.java`
 #### Snippet
 ```java
-      list.add(string.substring(start, i));
+  public static int[] getIndices(final String list) {
+    if (list == null) {
+      return new int[0];
     }
-    return list.toArray(new String[0]);
-  }
-
+    final List<String> indexList = new ArrayList<>();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4614,7 +4614,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaS
 #### Snippet
 ```java
   @Override
-  public Object remove(final Serializable key) {
+  public Object put(final Serializable key, final Object value) {
     Object returnValue = null;
     if (createDeltas()) {
       if (deltas.containsKey(key)) {
@@ -4626,7 +4626,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaS
 #### Snippet
 ```java
   @Override
-  public Object put(final Serializable key, final Object value) {
+  public Object remove(final Serializable key) {
     Object returnValue = null;
     if (createDeltas()) {
       if (deltas.containsKey(key)) {
@@ -4706,18 +4706,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/Markup.java`
 ```
 
 ### ConstantValue
-Condition `uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem` is always `true`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SelectItemUtils.java`
-#### Snippet
-```java
-          String image = null;
-          Markup markup = null;
-          if (uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem) {
-            final org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
-                = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
-```
-
-### ConstantValue
 Value `transition` is always 'false'
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
 #### Snippet
@@ -4727,6 +4715,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.
       encode(builder, "transition", transition);
     }
     final String target = command.getTarget();
+```
+
+### ConstantValue
+Condition `uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem` is always `true`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/SelectItemUtils.java`
+#### Snippet
+```java
+          String image = null;
+          Markup markup = null;
+          if (uiSelectItem instanceof org.apache.myfaces.tobago.component.UISelectItem) {
+            final org.apache.myfaces.tobago.component.UISelectItem tobagoSelectItem
+                = (org.apache.myfaces.tobago.component.UISelectItem) uiSelectItem;
 ```
 
 ### ConstantValue
@@ -4840,18 +4840,6 @@ public class MixedCommandTree {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MessageFormat` has only 'static' members, and lacks a 'private' constructor
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageFormat.java`
-#### Snippet
-```java
- * Helper class for the EL functions <code>tc:format1()</code> ... <code>tc:format9()</code>
- */
-public class MessageFormat {
-
-  public static String format(final String pattern, final Object param0) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ResourceUtils` has only 'static' members, and lacks a 'private' constructor
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ResourceUtils.java`
 #### Snippet
@@ -4861,6 +4849,18 @@ import java.util.ResourceBundle;
 public class ResourceUtils {
 
   public static final String TOBAGO_RESOURCE_BUNDLE = "tobagoResourceBundle";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MessageFormat` has only 'static' members, and lacks a 'private' constructor
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageFormat.java`
+#### Snippet
+```java
+ * Helper class for the EL functions <code>tc:format1()</code> ... <code>tc:format9()</code>
+ */
+public class MessageFormat {
+
+  public static String format(final String pattern, final Object param0) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4936,18 +4936,6 @@ public class SelectItemUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FileTestUtils` has only 'static' members, and lacks a 'private' constructor
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/FileTestUtils.java`
-#### Snippet
-```java
- * Helpful for tests. Not for use in production.
- */
-public class FileTestUtils {
-
-  public static String fileToString(final String file) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `CssClassUtils` has only 'static' members, and lacks a 'private' constructor
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/CssClassUtils.java`
 #### Snippet
@@ -4957,6 +4945,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/CssClassUt
 class CssClassUtils {
 
   /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileTestUtils` has only 'static' members, and lacks a 'private' constructor
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/FileTestUtils.java`
+#### Snippet
+```java
+ * Helpful for tests. Not for use in production.
+ */
+public class FileTestUtils {
+
+  public static String fileToString(final String file) throws IOException {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -5022,15 +5022,15 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### DataFlowIssue
-Dereference of `fileList` may produce `NullPointerException`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
+Dereference of `dir.listFiles()` may produce `NullPointerException`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TestController.java`
 #### Snippet
 ```java
-    final ArrayList<String> result = new ArrayList<String>();
-    final File[] fileList = directory.listFiles();
-    for (final File file : fileList) {
+  private List<String> getXHTMLs(final File dir) {
+    final List<String> xhtmls = new ArrayList<>();
+    for (final File file : dir.listFiles()) {
       if (file.isDirectory()) {
-        result.addAll(getResourcesFromDirectory(file, pattern, base));
+        xhtmls.addAll(getXHTMLs(file));
 ```
 
 ### DataFlowIssue
@@ -5046,15 +5046,15 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### DataFlowIssue
-Dereference of `dir.listFiles()` may produce `NullPointerException`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TestController.java`
+Dereference of `fileList` may produce `NullPointerException`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
 #### Snippet
 ```java
-  private List<String> getXHTMLs(final File dir) {
-    final List<String> xhtmls = new ArrayList<>();
-    for (final File file : dir.listFiles()) {
+    final ArrayList<String> result = new ArrayList<String>();
+    final File[] fileList = directory.listFiles();
+    for (final File file : fileList) {
       if (file.isDirectory()) {
-        xhtmls.addAll(getXHTMLs(file));
+        result.addAll(getResourcesFromDirectory(file, pattern, base));
 ```
 
 ### DataFlowIssue
@@ -5087,6 +5087,18 @@ Variable is already assigned to this value
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/AttributeHandler.java`
 #### Snippet
 ```java
+    @Override
+    public void setTransient(final boolean transientFlagParameter) {
+      this.transientFlag = transientFlag;
+    }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/AttributeHandler.java`
+#### Snippet
+```java
                 }
               } else {
                 result = false;
@@ -5104,18 +5116,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/AttributeHandle
                 result = true;
                 break;
               }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/AttributeHandler.java`
-#### Snippet
-```java
-    @Override
-    public void setTransient(final boolean transientFlagParameter) {
-      this.transientFlag = transientFlag;
-    }
-
 ```
 
 ### DataFlowIssue
@@ -5147,18 +5147,6 @@ Method invocation `getTreeDataModel` may produce `NullPointerException`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeNodeBase.java`
 #### Snippet
 ```java
-
-  public List<Boolean> getJunctions() {
-    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
-    return model.getJunctions();
-  }
-```
-
-### DataFlowIssue
-Method invocation `getTreeDataModel` may produce `NullPointerException`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeNodeBase.java`
-#### Snippet
-```java
   @Override
   public void encodeBegin(final FacesContext facesContext) throws IOException {
     final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
@@ -5172,9 +5160,21 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 #### Snippet
 ```java
 
-  public boolean isFolder() {
+  public TreePath getPath() {
     final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
-    return model.isFolder();
+    return model.getPath();
+  }
+```
+
+### DataFlowIssue
+Method invocation `getTreeDataModel` may produce `NullPointerException`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITreeNodeBase.java`
+#### Snippet
+```java
+
+  public List<Boolean> getJunctions() {
+    final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
+    return model.getJunctions();
   }
 ```
 
@@ -5208,9 +5208,9 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 #### Snippet
 ```java
 
-  public TreePath getPath() {
+  public boolean isFolder() {
     final TreeDataModel model = ComponentUtils.findAncestor(this, AbstractUIData.class).getTreeDataModel();
-    return model.getPath();
+    return model.isFolder();
   }
 ```
 
@@ -5251,18 +5251,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 ```
 
 ### DataFlowIssue
-Casting `targetForConvertedValues` to `Collection` may produce `ClassCastException`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyRendererBase.java`
-#### Snippet
-```java
-        Array.set(targetForConvertedValues, i, value);
-      } else {
-        ((Collection) targetForConvertedValues).add(value);
-      }
-    }
-```
-
-### DataFlowIssue
 Method invocation `equals` may produce `NullPointerException`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyRendererBase.java`
 #### Snippet
@@ -5275,15 +5263,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 ```
 
 ### DataFlowIssue
-Method invocation `isRendersRowContainer` may produce `NullPointerException`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/TreeNodeRenderer.java`
+Casting `targetForConvertedValues` to `Collection` may produce `ClassCastException`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyRendererBase.java`
 #### Snippet
 ```java
-
-    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
-    final boolean dataRendersRowContainer = data.isRendersRowContainer();
-    final String clientId = component.getClientId(facesContext);
-    final String parentId = data.getRowParentClientId();
+        Array.set(targetForConvertedValues, i, value);
+      } else {
+        ((Collection) targetForConvertedValues).add(value);
+      }
+    }
 ```
 
 ### DataFlowIssue
@@ -5296,6 +5284,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
     final boolean expanded = folder && data.getExpandedState().isExpanded(component.getPath()) || level == 0;
 
     final TobagoResponseWriter writer = getResponseWriter(facesContext);
+```
+
+### DataFlowIssue
+Method invocation `isRendersRowContainer` may produce `NullPointerException`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/TreeNodeRenderer.java`
+#### Snippet
+```java
+
+    final AbstractUIData data = ComponentUtils.findAncestor(component, AbstractUIData.class);
+    final boolean dataRendersRowContainer = data.isRendersRowContainer();
+    final String clientId = component.getClientId(facesContext);
+    final String parentId = data.getRowParentClientId();
 ```
 
 ### DataFlowIssue
@@ -5320,18 +5320,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
     final boolean expanded = folder && data.getExpandedState().isExpanded(node.getPath());
 
     final String value = (String) component.getValue();
-```
-
-### DataFlowIssue
-Method invocation `getSelectable` may produce `NullPointerException`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/TreeSelectRenderer.java`
-#### Snippet
-```java
-    final String name;
-
-    if (data.getSelectable().isSingle()) {
-      name = getClientIdWithoutRowIndex(data, clientId);
-    } else {
 ```
 
 ### DataFlowIssue
@@ -5380,6 +5368,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
           change.setExecute(change.getExecute() + " " + tree.getBaseClientId(facesContext));
           change.setRender(change.getRender() + " " + tree.getBaseClientId(facesContext));
         }
+```
+
+### DataFlowIssue
+Method invocation `getSelectable` may produce `NullPointerException`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/TreeSelectRenderer.java`
+#### Snippet
+```java
+    final String name;
+
+    if (data.getSelectable().isSingle()) {
+      name = getClientIdWithoutRowIndex(data, clientId);
+    } else {
 ```
 
 ### DataFlowIssue
@@ -5448,11 +5448,11 @@ Unnecessary string length argument
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/generate/PropertyInfo.java`
 #### Snippet
 ```java
-
-  public String getShortType() {
-    final String shortType = type.substring(type.lastIndexOf('.') + 1, type.length());
-    return shortType.replace("[]", "Array").replace("$", ".");
-  }
+    final int index = shortType.lastIndexOf('.');
+    if (index != -1) {
+      return shortType.substring(shortType.lastIndexOf('.') + 1, shortType.length());
+    }
+    return shortType;
 ```
 
 ### StringOperationCanBeSimplified
@@ -5460,11 +5460,11 @@ Unnecessary string length argument
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/generate/PropertyInfo.java`
 #### Snippet
 ```java
-    final int index = shortType.lastIndexOf('.');
-    if (index != -1) {
-      return shortType.substring(shortType.lastIndexOf('.') + 1, shortType.length());
-    }
-    return shortType;
+
+  public String getShortType() {
+    final String shortType = type.substring(type.lastIndexOf('.') + 1, type.length());
+    return shortType.replace("[]", "Array").replace("$", ".");
+  }
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -5490,18 +5490,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/LocaleUtils.java`
   public static List<Locale> getLocaleList(final Locale locale) {
 
     String string = locale.toString();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'writeURIAttribute' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/webapp/TobagoResponseWriter.java`
-#### Snippet
-```java
-  @Override
-  @Deprecated
-  public abstract void writeURIAttribute(String name, Object value, String property) throws IOException;
-
-  /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -5541,6 +5529,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/ThemeResources.j
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'writeURIAttribute' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/webapp/TobagoResponseWriter.java`
+#### Snippet
+```java
+  @Override
+  @Deprecated
+  public abstract void writeURIAttribute(String name, Object value, String property) throws IOException;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'version' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/UserAgent.java`
 #### Snippet
@@ -5577,13 +5577,37 @@ public interface Cell {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'RENDERER' is still used
+Deprecated member 'OriginCell' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/layout/OriginCell.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class OriginCell implements Cell {
+
+  private UIComponent component;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'RENDERERS' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  private static final int RENDERER = -494845757;
+  private static final int RENDERERS = 1839650832;
+  /**
+   * @deprecated since 4.0.0
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SUPPORTED_MARKUP' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private static final int SUPPORTED_MARKUP = 71904295;
   /**
    * @deprecated since 4.0.0
 ```
@@ -5601,18 +5625,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SUPPORTED_MARKUP' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private static final int SUPPORTED_MARKUP = 71904295;
-  /**
-   * @deprecated since 4.0.0
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'VERSIONED' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
 #### Snippet
@@ -5625,27 +5637,27 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoCo
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'RENDERERS' is still used
+Deprecated member 'RENDERER' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigParser.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  private static final int RENDERERS = 1839650832;
+  private static final int RENDERER = -494845757;
   /**
    * @deprecated since 4.0.0
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'OriginCell' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/layout/OriginCell.java`
+Deprecated member 'getSortedColumnId' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/SheetState.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class OriginCell implements Cell {
-
-  private UIComponent component;
+   */
+  @Deprecated
+  public String getSortedColumnId() {
+    if (sortedColumnList.isEmpty()) {
+      return null;
 ```
 
 ### DeprecatedIsStillUsed
@@ -5661,15 +5673,15 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/SheetState.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSortedColumnId' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/SheetState.java`
+Deprecated member 'isInline' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIForm.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public String getSortedColumnId() {
-    if (sortedColumnList.isEmpty()) {
-      return null;
+  public abstract boolean isInline();
+}
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -5697,18 +5709,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isInline' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIForm.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public abstract boolean isInline();
-}
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'SUFFIX_MARKED' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIData.java`
 #### Snippet
@@ -5733,18 +5733,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'SELECTABLE' is still used
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/html/DataAttributes.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  SELECTABLE("data-tobago-selectable"),
-
-  /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'TREE_PARENT' is still used
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/html/DataAttributes.java`
 #### Snippet
@@ -5752,6 +5740,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/html/DataAttri
    */
   @Deprecated
   TREE_PARENT("data-tobago-tree-parent"),
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'SELECTABLE' is still used
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/html/DataAttributes.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  SELECTABLE("data-tobago-selectable"),
 
   /**
 ```
@@ -5783,18 +5783,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'distanceRangeConverter' in a Serializable class
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
-#### Snippet
-```java
-  private SelectItem[] maxYearItems;
-
-  private DistanceRangeConverter distanceRangeConverter;
-
-  private String name;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'distance' in a Serializable class
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
 #### Snippet
@@ -5804,6 +5792,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
   private DistanceRange distance;
   private String discoverer;
   private Integer minYear;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'distanceRangeConverter' in a Serializable class
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
+#### Snippet
+```java
+  private SelectItem[] maxYearItems;
+
+  private DistanceRangeConverter distanceRangeConverter;
+
+  private String name;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -5883,18 +5883,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `DistanceRange` may be 'static'
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
-#### Snippet
-```java
-  }
-
-  private class DistanceRange {
-
-    private int min;
-```
-
-### InnerClassMayBeStatic
 Inner class `River` may be 'static'
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ForEachController.java`
 #### Snippet
@@ -5904,6 +5892,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
   public class River implements Serializable {
     private String name;
     private int length;
+```
+
+### InnerClassMayBeStatic
+Inner class `DistanceRange` may be 'static'
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
+#### Snippet
+```java
+  }
+
+  private class DistanceRange {
+
+    private int min;
 ```
 
 ### InnerClassMayBeStatic
@@ -5934,18 +5934,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
-#### Snippet
-```java
-      map.put(branch, node);
-      final String parent = branch.substring(0, branch.lastIndexOf('/'));
-      if (!parent.equals("")) { // is root
-        map.get(parent).add(node);
-      }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
@@ -5953,6 +5941,18 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
       String displayName = componentTag.displayName();
       if (displayName.equals("")) {
         displayName = componentInfo.getComponentClassName();
+      }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationTree.java`
+#### Snippet
+```java
+      map.put(branch, node);
+      final String parent = branch.substring(0, branch.lastIndexOf('/'));
+      if (!parent.equals("")) { // is root
+        map.get(parent).add(node);
       }
 ```
 
@@ -6023,11 +6023,11 @@ Redundant boxing, `Double.parseDouble()` call can be used instead
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ProgressController.java`
 #### Snippet
 ```java
-  public double getCurrentSeconds() {
-    final SimpleDateFormat sdf = new SimpleDateFormat("ss");
+  public double getCurrentMinutes() {
+    final SimpleDateFormat sdf = new SimpleDateFormat("mm");
     return Double.valueOf(sdf.format(getCurrentDate()));
   }
-}
+
 ```
 
 ### UnnecessaryBoxing
@@ -6035,11 +6035,11 @@ Redundant boxing, `Double.parseDouble()` call can be used instead
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ProgressController.java`
 #### Snippet
 ```java
-  public double getCurrentMinutes() {
-    final SimpleDateFormat sdf = new SimpleDateFormat("mm");
+  public double getCurrentSeconds() {
+    final SimpleDateFormat sdf = new SimpleDateFormat("ss");
     return Double.valueOf(sdf.format(getCurrentDate()));
   }
-
+}
 ```
 
 ### UnnecessaryBoxing
@@ -6215,30 +6215,6 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/gene
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
-#### Snippet
-```java
-      tagElement.appendChild(componentElement);
-      addLeafTextElement(
-          componentTag.uiComponent().replace(".component.UI", "."),
-          "component-type",
-          componentElement,
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
-#### Snippet
-```java
-          || typeElement.getAnnotation(ConverterTag.class) != null) {
-        final String s = typeElement.getQualifiedName().toString();
-        className = s.replace(".component.", ".");
-      } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
-        className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name()) + "Tag";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/Release.java`
 #### Snippet
@@ -6263,6 +6239,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/CheckstyleConfigGenerator.java`
+#### Snippet
+```java
+          || typeElement.getAnnotation(ConverterTag.class) != null) {
+        final String s = typeElement.getQualifiedName().toString();
+        className = s.replace(".component.", ".");
+      } else if (typeElement.getAnnotation(UIComponentTag.class) != null) {
+        className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name()) + "Tag";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ManifestReader.java`
 #### Snippet
@@ -6272,6 +6260,18 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
         name = name.replaceAll(".+/([^/]+\\.jar)\\!/META-INF/MANIFEST.MF", "$1");
         final ManifestEntry jar = new ManifestEntry(name, null);
         manifestTree.add(jar);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
+#### Snippet
+```java
+      tagElement.appendChild(componentElement);
+      addLeafTextElement(
+          componentTag.uiComponent().replace(".component.UI", "."),
+          "component-type",
+          componentElement,
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6315,11 +6315,11 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StyleRenderUtils.java`
 #### Snippet
 ```java
-    if (selector.contains("<")) {
-      LOG.warn("Found invalid char < inside of style!");
-      writer.write(selector.replaceAll("<", "&lt;"));
-    } else {
-      writer.write(selector);
+   */
+  public static String encodeIdSelector(final String clientId) {
+    return "#" + clientId.replaceAll(":", "\\\\:");
+  }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6327,11 +6327,11 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StyleRende
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/StyleRenderUtils.java`
 #### Snippet
 ```java
-   */
-  public static String encodeIdSelector(final String clientId) {
-    return "#" + clientId.replaceAll(":", "\\\\:");
-  }
-
+    if (selector.contains("<")) {
+      LOG.warn("Found invalid char < inside of style!");
+      writer.write(selector.replaceAll("<", "&lt;"));
+    } else {
+      writer.write(selector);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -6486,138 +6486,6 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```java
   }
 
-  private org.jdom2.Element createElementExtension(
-      final TypeElement typeElement, final UIComponentTag uiComponentTag,
-      final Namespace namespace) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final TypeElement typeElement, final UIComponentTag uiComponentTag,
-      final Namespace namespace) {
-    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
-    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final TypeElement typeElement, final UIComponentTag uiComponentTag,
-      final Namespace namespace) {
-    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
-    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final Namespace namespace) {
-    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
-    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
-    final StringBuilder allowedComponentTypes = new StringBuilder();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final Namespace namespace) {
-    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
-    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
-    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
-    final StringBuilder allowedComponentTypes = new StringBuilder();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementAllowedChildComponents.setText(allowedComponentTypes.toString());
-    elementExtension.addContent(elementAllowedChildComponents);
-    final org.jdom2.Element elementCategory = new org.jdom2.Element(CATEGORY, namespace);
-    elementCategory.setText(uiComponentTag.category().toString());
-    elementExtension.addContent(elementCategory);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementAllowedChildComponents.setText(allowedComponentTypes.toString());
-    elementExtension.addContent(elementAllowedChildComponents);
-    final org.jdom2.Element elementCategory = new org.jdom2.Element(CATEGORY, namespace);
-    elementCategory.setText(uiComponentTag.category().toString());
-    elementExtension.addContent(elementCategory);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    final Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
-    if (deprecated != null) {
-      final org.jdom2.Element elementDeprecated = new org.jdom2.Element(DEPRECATED, namespace);
-      elementDeprecated.setText("Warning: This component is deprecated!");
-      elementExtension.addContent(elementDeprecated);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    final Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
-    if (deprecated != null) {
-      final org.jdom2.Element elementDeprecated = new org.jdom2.Element(DEPRECATED, namespace);
-      elementDeprecated.setText("Warning: This component is deprecated!");
-      elementExtension.addContent(elementDeprecated);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementExtension.addContent(elementDeprecated);
-    }
-    final org.jdom2.Element elementHidden = new org.jdom2.Element(HIDDEN, namespace);
-    elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
-    elementExtension.addContent(elementHidden);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementExtension.addContent(elementDeprecated);
-    }
-    final org.jdom2.Element elementHidden = new org.jdom2.Element(HIDDEN, namespace);
-    elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
-    elementExtension.addContent(elementHidden);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  }
-
   private int getIndexAfter(final org.jdom2.Element rootElement, final String... tagNames) {
     for (final String tagName : tagNames) {
       final int index = getIndexAfter(rootElement, tagName);
@@ -6628,11 +6496,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
+  }
 
-  private void addValidator(
-      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
-    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+  protected org.jdom2.Element createComponentElement(
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6640,11 +6508,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
-    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-    if (validatorAnn.id().length() > 0) {
-      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
+    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6652,11 +6520,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
-    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-    if (validatorAnn.id().length() > 0) {
-      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
+    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6664,11 +6532,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-    if (validatorAnn.id().length() > 0) {
-      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
-      validatorId.setText(validatorAnn.id());
-      validator.addContent(validatorId);
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
+    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
+    element.addContent(elementDisplayName);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6676,11 +6544,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
-    if (validatorAnn.id().length() > 0) {
-      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
-      validatorId.setText(validatorAnn.id());
-      validator.addContent(validatorId);
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
+    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
+    element.addContent(elementDisplayName);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6688,11 +6556,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      validator.addContent(validatorId);
-    } else if (validatorAnn.forClass().length() > 0) {
-      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
-      validatorForClass.setText(validatorAnn.forClass());
-      validator.addContent(validatorForClass);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
+    element.addContent(elementDisplayName);
+    final org.jdom2.Element elementType = new org.jdom2.Element(COMPONENT_TYPE, namespace);
+    elementType.setText(componentInfo.getComponentType());
+    element.addContent(elementType);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6700,11 +6568,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      validator.addContent(validatorId);
-    } else if (validatorAnn.forClass().length() > 0) {
-      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
-      validatorForClass.setText(validatorAnn.forClass());
-      validator.addContent(validatorForClass);
+    elementDisplayName.setText(componentInfo.getComponentClassName());
+    element.addContent(elementDisplayName);
+    final org.jdom2.Element elementType = new org.jdom2.Element(COMPONENT_TYPE, namespace);
+    elementType.setText(componentInfo.getComponentType());
+    element.addContent(elementType);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6712,11 +6580,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-    }
-
-    final org.jdom2.Element validatorClass = new org.jdom2.Element(VALIDATOR_CLASS, namespace);
-    validatorClass.setText(typeElement.getQualifiedName().toString());
-    validator.addContent(validatorClass);
+    elementType.setText(componentInfo.getComponentType());
+    element.addContent(elementType);
+    final org.jdom2.Element elementClass = new org.jdom2.Element(COMPONENT_CLASS, namespace);
+    elementClass.setText(componentTag.uiComponent());
+    element.addContent(elementClass);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6724,11 +6592,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-    }
-
-    final org.jdom2.Element validatorClass = new org.jdom2.Element(VALIDATOR_CLASS, namespace);
-    validatorClass.setText(typeElement.getQualifiedName().toString());
-    validator.addContent(validatorClass);
+    elementType.setText(componentInfo.getComponentType());
+    element.addContent(elementType);
+    final org.jdom2.Element elementClass = new org.jdom2.Element(COMPONENT_CLASS, namespace);
+    elementClass.setText(componentTag.uiComponent());
+    element.addContent(elementClass);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6738,9 +6606,297 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```java
   }
 
-  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
-    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (elements.isEmpty()) {
+  private int getIndexAfter(final org.jdom2.Element rootElement, final String tagName) {
+    final List<org.jdom2.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (components.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private int getIndexAfter(final org.jdom2.Element rootElement, final String tagName) {
+    final List<org.jdom2.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (components.isEmpty()) {
+      return 0;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addElement(
+      final TypeElement typeElement, final List<org.jdom2.Element> components, final List<org.jdom2.Element> renderer,
+      final Namespace namespace) throws Exception {
+    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addElement(
+      final TypeElement typeElement, final List<org.jdom2.Element> components, final List<org.jdom2.Element> renderer,
+      final Namespace namespace) throws Exception {
+    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final ComponentInfo componentInfo = new ComponentInfo(typeElement, componentTag);
+      if (!componentTag.isComponentAlreadyDefined()) {
+        final org.jdom2.Element element = createComponentElement(componentInfo, componentTag, namespace);
+        if (element != null) {
+          if (!containsElement(components, element)) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          if (!containsElement(components, element)) {
+            addFacets(componentTag, namespace, element);
+            final List<org.jdom2.Element> attributes = new ArrayList<>();
+            final List<org.jdom2.Element> properties = new ArrayList<>();
+            addAttributes(typeElement, attributes, properties, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+            addFacets(componentTag, namespace, element);
+            final List<org.jdom2.Element> attributes = new ArrayList<>();
+            final List<org.jdom2.Element> properties = new ArrayList<>();
+            addAttributes(typeElement, attributes, properties, namespace);
+            if (!attributes.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addAttribute(
+      final ExecutableElement executableElement, final List<org.jdom2.Element> attributes,
+      final List<org.jdom2.Element> properties,
+      final Namespace namespace) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+  protected void addAttribute(
+      final ExecutableElement executableElement, final List<org.jdom2.Element> attributes,
+      final List<org.jdom2.Element> properties,
+      final Namespace namespace) {
+    final UIComponentTagAttribute componentAttribute = executableElement.getAnnotation(UIComponentTagAttribute.class);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        if (IGNORED_PROPERTIES.contains(name)) {
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        if (IGNORED_PROPERTIES.contains(name)) {
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        if (IGNORED_PROPERTIES.contains(name)) {
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        if (IGNORED_PROPERTIES.contains(name)) {
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+
+          attributeName.setText(name);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
+          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
+          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
+
+          attributeName.setText(name);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          attribute.addContent(attributeClass);
+          if (componentAttribute.defaultValue().length() > 0) {
+            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            attribute.addContent(defaultValue);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          attribute.addContent(attributeClass);
+          if (componentAttribute.defaultValue().length() > 0) {
+            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            attribute.addContent(defaultValue);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          attributes.add(attribute);
+        } else {
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          attributes.add(attribute);
+        } else {
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        } else {
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        } else {
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+
+          propertyName.setText(name);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
+          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
+          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
+
+          propertyName.setText(name);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          property.addContent(propertyClass);
+          if (componentAttribute.defaultValue().length() > 0) {
+            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            property.addContent(defaultValue);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+          property.addContent(propertyClass);
+          if (componentAttribute.defaultValue().length() > 0) {
+            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            property.addContent(defaultValue);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6750,9 +6906,9 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```java
   }
 
-  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
-    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (elements.isEmpty()) {
+  public boolean equals(final org.jdom2.Element element1, final org.jdom2.Element element2) {
+    final Namespace namespace = element1.getNamespace();
+    if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6760,11 +6916,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
+  }
 
-  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
-    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (elements.isEmpty()) {
-      return null;
+  public boolean equals(final org.jdom2.Element element1, final org.jdom2.Element element2) {
+    final Namespace namespace = element1.getNamespace();
+    if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6942,6 +7098,102 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```java
   }
 
+  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
+    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (elements.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+  }
+
+  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
+    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (elements.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private org.jdom2.Element getFirstElementByName(final org.jdom2.Element rootElement, final String tagName) {
+    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (elements.isEmpty()) {
+      return null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private void addDescription(
+      final ExecutableElement element, final org.jdom2.Element attribute, final Namespace namespace) {
+    String comment = processingEnv.getElementUtils().getDocComment(element);
+    if (comment != null) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
+        description.setText(comment);
+        attribute.addContent(description);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
+        description.setText(comment);
+        attribute.addContent(description);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+  }
+
+  private boolean containsElement(final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
+    return getEqualElement(components, newElement) != null;
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+  }
+
+  private boolean containsElement(final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
+    return getEqualElement(components, newElement) != null;
+  }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+  }
+
   private void applyNamespace(final org.jdom2.Element parent, final Namespace namespace) {
     for (final org.jdom2.Element element : parent.getChildren()) {
       element.setNamespace(namespace);
@@ -6966,9 +7218,9 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```java
   }
 
-  public boolean equals(final org.jdom2.Element element1, final org.jdom2.Element element2) {
-    final Namespace namespace = element1.getNamespace();
-    if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
+  private org.jdom2.Element createElementExtension(
+      final TypeElement typeElement, final UIComponentTag uiComponentTag,
+      final Namespace namespace) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6976,11 +7228,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-  }
-
-  public boolean equals(final org.jdom2.Element element1, final org.jdom2.Element element2) {
-    final Namespace namespace = element1.getNamespace();
-    if (element1.getName().equals(element2.getName()) && element1.getNamespace().equals(element2.getNamespace())) {
+      final TypeElement typeElement, final UIComponentTag uiComponentTag,
+      final Namespace namespace) {
+    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
+    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6988,11 +7240,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-
-  protected void addElement(
-      final TypeElement typeElement, final List<org.jdom2.Element> components, final List<org.jdom2.Element> renderer,
-      final Namespace namespace) throws Exception {
-    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+      final TypeElement typeElement, final UIComponentTag uiComponentTag,
+      final Namespace namespace) {
+    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
+    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7000,11 +7252,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-
-  protected void addElement(
-      final TypeElement typeElement, final List<org.jdom2.Element> components, final List<org.jdom2.Element> renderer,
-      final Namespace namespace) throws Exception {
-    final UIComponentTag componentTag = typeElement.getAnnotation(UIComponentTag.class);
+      final Namespace namespace) {
+    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
+    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
+    final StringBuilder allowedComponentTypes = new StringBuilder();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7012,11 +7264,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      final ComponentInfo componentInfo = new ComponentInfo(typeElement, componentTag);
-      if (!componentTag.isComponentAlreadyDefined()) {
-        final org.jdom2.Element element = createComponentElement(componentInfo, componentTag, namespace);
-        if (element != null) {
-          if (!containsElement(components, element)) {
+      final Namespace namespace) {
+    final org.jdom2.Element elementExtension = new org.jdom2.Element(COMPONENT_EXTENSION, namespace);
+    final org.jdom2.Element elementAllowedChildComponents = new org.jdom2.Element(ALLOWED_CHILD_COMPONENTS, namespace);
+    final String[] allowedChildComponents = uiComponentTag.allowedChildComponenents();
+    final StringBuilder allowedComponentTypes = new StringBuilder();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7024,11 +7276,11 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-          if (!containsElement(components, element)) {
-            addFacets(componentTag, namespace, element);
-            final List<org.jdom2.Element> attributes = new ArrayList<>();
-            final List<org.jdom2.Element> properties = new ArrayList<>();
-            addAttributes(typeElement, attributes, properties, namespace);
+    elementAllowedChildComponents.setText(allowedComponentTypes.toString());
+    elementExtension.addContent(elementAllowedChildComponents);
+    final org.jdom2.Element elementCategory = new org.jdom2.Element(CATEGORY, namespace);
+    elementCategory.setText(uiComponentTag.category().toString());
+    elementExtension.addContent(elementCategory);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7036,11 +7288,59 @@ Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
 in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-            addFacets(componentTag, namespace, element);
-            final List<org.jdom2.Element> attributes = new ArrayList<>();
-            final List<org.jdom2.Element> properties = new ArrayList<>();
-            addAttributes(typeElement, attributes, properties, namespace);
-            if (!attributes.isEmpty()) {
+    elementAllowedChildComponents.setText(allowedComponentTypes.toString());
+    elementExtension.addContent(elementAllowedChildComponents);
+    final org.jdom2.Element elementCategory = new org.jdom2.Element(CATEGORY, namespace);
+    elementCategory.setText(uiComponentTag.category().toString());
+    elementExtension.addContent(elementCategory);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
+    if (deprecated != null) {
+      final org.jdom2.Element elementDeprecated = new org.jdom2.Element(DEPRECATED, namespace);
+      elementDeprecated.setText("Warning: This component is deprecated!");
+      elementExtension.addContent(elementDeprecated);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final Deprecated deprecated = typeElement.getAnnotation(Deprecated.class);
+    if (deprecated != null) {
+      final org.jdom2.Element elementDeprecated = new org.jdom2.Element(DEPRECATED, namespace);
+      elementDeprecated.setText("Warning: This component is deprecated!");
+      elementExtension.addContent(elementDeprecated);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementExtension.addContent(elementDeprecated);
+    }
+    final org.jdom2.Element elementHidden = new org.jdom2.Element(HIDDEN, namespace);
+    elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
+    elementExtension.addContent(elementHidden);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementExtension.addContent(elementDeprecated);
+    }
+    final org.jdom2.Element elementHidden = new org.jdom2.Element(HIDDEN, namespace);
+    elementHidden.setText(Boolean.toString(uiComponentTag.isHidden()));
+    elementExtension.addContent(elementHidden);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7089,6 +7389,390 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
     for (final org.jdom2.Element element : components) {
       if (equals(element, newElement)) {
         return element;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private void addConverter(
+      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
+    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
+    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
+    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
+    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
+    if (converterAnn.id().length() > 0) {
+      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
+    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
+    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
+    if (converterAnn.id().length() > 0) {
+      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
+    if (converterAnn.id().length() > 0) {
+      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
+      converterId.setText(converterAnn.id());
+      converter.addContent(converterId);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
+    if (converterAnn.id().length() > 0) {
+      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
+      converterId.setText(converterAnn.id());
+      converter.addContent(converterId);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      converter.addContent(converterId);
+    } else if (converterAnn.forClass().length() > 0) {
+      final org.jdom2.Element converterForClass = new org.jdom2.Element(CONVERTER_FOR_CLASS, namespace);
+      converterForClass.setText(converterAnn.forClass());
+      converter.addContent(converterForClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      converter.addContent(converterId);
+    } else if (converterAnn.forClass().length() > 0) {
+      final org.jdom2.Element converterForClass = new org.jdom2.Element(CONVERTER_FOR_CLASS, namespace);
+      converterForClass.setText(converterAnn.forClass());
+      converter.addContent(converterForClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    }
+
+    final org.jdom2.Element converterClass = new org.jdom2.Element(CONVERTER_CLASS, namespace);
+    converterClass.setText(typeElement.getQualifiedName().toString());
+    converter.addContent(converterClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    }
+
+    final org.jdom2.Element converterClass = new org.jdom2.Element(CONVERTER_CLASS, namespace);
+    converterClass.setText(typeElement.getQualifiedName().toString());
+    converter.addContent(converterClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addRendererElement(
+      final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom2.Element> renderer,
+      final Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    for (final String rendererType : componentTag.rendererType()) {
+      final org.jdom2.Element element = new org.jdom2.Element(RENDERER, namespace);
+      String displayName = componentTag.displayName();
+      if (displayName.equals("")) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      throws IOException, NoSuchFieldException, IllegalAccessException {
+    for (final String rendererType : componentTag.rendererType()) {
+      final org.jdom2.Element element = new org.jdom2.Element(RENDERER, namespace);
+      String displayName = componentTag.displayName();
+      if (displayName.equals("")) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        displayName = componentInfo.getComponentClassName();
+      }
+      final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+      elementDisplayName.setText(displayName);
+      element.addContent(elementDisplayName);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+        displayName = componentInfo.getComponentClassName();
+      }
+      final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
+      elementDisplayName.setText(displayName);
+      element.addContent(elementDisplayName);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementDisplayName.setText(displayName);
+      element.addContent(elementDisplayName);
+      final org.jdom2.Element elementComponentFamily = new org.jdom2.Element(COMPONENT_FAMILY, namespace);
+      elementComponentFamily.addContent(componentInfo.getComponentFamily());
+      element.addContent(elementComponentFamily);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementDisplayName.setText(displayName);
+      element.addContent(elementDisplayName);
+      final org.jdom2.Element elementComponentFamily = new org.jdom2.Element(COMPONENT_FAMILY, namespace);
+      elementComponentFamily.addContent(componentInfo.getComponentFamily());
+      element.addContent(elementComponentFamily);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementComponentFamily.addContent(componentInfo.getComponentFamily());
+      element.addContent(elementComponentFamily);
+      final org.jdom2.Element elementType = new org.jdom2.Element(RENDERER_TYPE, namespace);
+      elementType.setText(rendererType);
+      element.addContent(elementType);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementComponentFamily.addContent(componentInfo.getComponentFamily());
+      element.addContent(elementComponentFamily);
+      final org.jdom2.Element elementType = new org.jdom2.Element(RENDERER_TYPE, namespace);
+      elementType.setText(rendererType);
+      element.addContent(elementType);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementType.setText(rendererType);
+      element.addContent(elementType);
+      final org.jdom2.Element elementClass = new org.jdom2.Element(RENDERER_CLASS, namespace);
+      final String className = "org.apache.myfaces.tobago.internal.renderkit.renderer." + rendererType + "Renderer";
+      elementClass.setText(className);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      elementType.setText(rendererType);
+      element.addContent(elementType);
+      final org.jdom2.Element elementClass = new org.jdom2.Element(RENDERER_CLASS, namespace);
+      final String className = "org.apache.myfaces.tobago.internal.renderkit.renderer." + rendererType + "Renderer";
+      elementClass.setText(className);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  private void addValidator(
+      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final TypeElement typeElement, final List<org.jdom2.Element> newValidators, final Namespace namespace) {
+    final Validator validatorAnn = typeElement.getAnnotation(Validator.class);
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+      validatorId.setText(validatorAnn.id());
+      validator.addContent(validatorId);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    final org.jdom2.Element validator = new org.jdom2.Element(VALIDATOR, namespace);
+    if (validatorAnn.id().length() > 0) {
+      final org.jdom2.Element validatorId = new org.jdom2.Element(VALIDATOR_ID, namespace);
+      validatorId.setText(validatorAnn.id());
+      validator.addContent(validatorId);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      validator.addContent(validatorId);
+    } else if (validatorAnn.forClass().length() > 0) {
+      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
+      validatorForClass.setText(validatorAnn.forClass());
+      validator.addContent(validatorForClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      validator.addContent(validatorId);
+    } else if (validatorAnn.forClass().length() > 0) {
+      final org.jdom2.Element validatorForClass = new org.jdom2.Element(VALIDATOR_FOR_CLASS, namespace);
+      validatorForClass.setText(validatorAnn.forClass());
+      validator.addContent(validatorForClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    }
+
+    final org.jdom2.Element validatorClass = new org.jdom2.Element(VALIDATOR_CLASS, namespace);
+    validatorClass.setText(typeElement.getQualifiedName().toString());
+    validator.addContent(validatorClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+    }
+
+    final org.jdom2.Element validatorClass = new org.jdom2.Element(VALIDATOR_CLASS, namespace);
+    validatorClass.setText(typeElement.getQualifiedName().toString());
+    validator.addContent(validatorClass);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addAttributes(
+      final TypeElement typeElement, final List<org.jdom2.Element> attributes, final List<org.jdom2.Element> properties,
+      final Namespace namespace) {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+
+  protected void addAttributes(
+      final TypeElement typeElement, final List<org.jdom2.Element> attributes, final List<org.jdom2.Element> properties,
+      final Namespace namespace) {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.lang.model.element` is unnecessary, and can be replaced with an import
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+#### Snippet
+```java
+      final Namespace namespace) {
+
+    for (final javax.lang.model.element.Element element : processingEnv.getElementUtils().getAllMembers(typeElement)) {
+      final ExecutableElement executableElement = (ExecutableElement) element;
+      if (executableElement.getAnnotation(TagAttribute.class) == null
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7404,690 +8088,6 @@ in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/proc
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  private void addDescription(
-      final ExecutableElement element, final org.jdom2.Element attribute, final Namespace namespace) {
-    String comment = processingEnv.getElementUtils().getDocComment(element);
-    if (comment != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      comment = comment.trim();
-      if (comment.length() > 0) {
-        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
-        description.setText(comment);
-        attribute.addContent(description);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      comment = comment.trim();
-      if (comment.length() > 0) {
-        final org.jdom2.Element description = new org.jdom2.Element(DESCRIPTION, namespace);
-        description.setText(comment);
-        attribute.addContent(description);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  }
-
-  protected org.jdom2.Element createComponentElement(
-      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
-    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final ComponentInfo componentInfo, final UIComponentTag componentTag, final Namespace namespace)
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
-    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
-    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-    element.addContent(elementDisplayName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    final org.jdom2.Element element = new org.jdom2.Element(COMPONENT, namespace);
-    final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-    element.addContent(elementDisplayName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-    element.addContent(elementDisplayName);
-    final org.jdom2.Element elementType = new org.jdom2.Element(COMPONENT_TYPE, namespace);
-    elementType.setText(componentInfo.getComponentType());
-    element.addContent(elementType);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementDisplayName.setText(componentInfo.getComponentClassName());
-    element.addContent(elementDisplayName);
-    final org.jdom2.Element elementType = new org.jdom2.Element(COMPONENT_TYPE, namespace);
-    elementType.setText(componentInfo.getComponentType());
-    element.addContent(elementType);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementType.setText(componentInfo.getComponentType());
-    element.addContent(elementType);
-    final org.jdom2.Element elementClass = new org.jdom2.Element(COMPONENT_CLASS, namespace);
-    elementClass.setText(componentTag.uiComponent());
-    element.addContent(elementClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    elementType.setText(componentInfo.getComponentType());
-    element.addContent(elementType);
-    final org.jdom2.Element elementClass = new org.jdom2.Element(COMPONENT_CLASS, namespace);
-    elementClass.setText(componentTag.uiComponent());
-    element.addContent(elementClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  protected void addRendererElement(
-      final ComponentInfo componentInfo, final UIComponentTag componentTag, final List<org.jdom2.Element> renderer,
-      final Namespace namespace)
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    for (final String rendererType : componentTag.rendererType()) {
-      final org.jdom2.Element element = new org.jdom2.Element(RENDERER, namespace);
-      String displayName = componentTag.displayName();
-      if (displayName.equals("")) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      throws IOException, NoSuchFieldException, IllegalAccessException {
-    for (final String rendererType : componentTag.rendererType()) {
-      final org.jdom2.Element element = new org.jdom2.Element(RENDERER, namespace);
-      String displayName = componentTag.displayName();
-      if (displayName.equals("")) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        displayName = componentInfo.getComponentClassName();
-      }
-      final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-      elementDisplayName.setText(displayName);
-      element.addContent(elementDisplayName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        displayName = componentInfo.getComponentClassName();
-      }
-      final org.jdom2.Element elementDisplayName = new org.jdom2.Element(DISPLAY_NAME, namespace);
-      elementDisplayName.setText(displayName);
-      element.addContent(elementDisplayName);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementDisplayName.setText(displayName);
-      element.addContent(elementDisplayName);
-      final org.jdom2.Element elementComponentFamily = new org.jdom2.Element(COMPONENT_FAMILY, namespace);
-      elementComponentFamily.addContent(componentInfo.getComponentFamily());
-      element.addContent(elementComponentFamily);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementDisplayName.setText(displayName);
-      element.addContent(elementDisplayName);
-      final org.jdom2.Element elementComponentFamily = new org.jdom2.Element(COMPONENT_FAMILY, namespace);
-      elementComponentFamily.addContent(componentInfo.getComponentFamily());
-      element.addContent(elementComponentFamily);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementComponentFamily.addContent(componentInfo.getComponentFamily());
-      element.addContent(elementComponentFamily);
-      final org.jdom2.Element elementType = new org.jdom2.Element(RENDERER_TYPE, namespace);
-      elementType.setText(rendererType);
-      element.addContent(elementType);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementComponentFamily.addContent(componentInfo.getComponentFamily());
-      element.addContent(elementComponentFamily);
-      final org.jdom2.Element elementType = new org.jdom2.Element(RENDERER_TYPE, namespace);
-      elementType.setText(rendererType);
-      element.addContent(elementType);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementType.setText(rendererType);
-      element.addContent(elementType);
-      final org.jdom2.Element elementClass = new org.jdom2.Element(RENDERER_CLASS, namespace);
-      final String className = "org.apache.myfaces.tobago.internal.renderkit.renderer." + rendererType + "Renderer";
-      elementClass.setText(className);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      elementType.setText(rendererType);
-      element.addContent(elementType);
-      final org.jdom2.Element elementClass = new org.jdom2.Element(RENDERER_CLASS, namespace);
-      final String className = "org.apache.myfaces.tobago.internal.renderkit.renderer." + rendererType + "Renderer";
-      elementClass.setText(className);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  }
-
-  private int getIndexAfter(final org.jdom2.Element rootElement, final String tagName) {
-    final List<org.jdom2.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (components.isEmpty()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  private int getIndexAfter(final org.jdom2.Element rootElement, final String tagName) {
-    final List<org.jdom2.Element> components = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (components.isEmpty()) {
-      return 0;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  protected void addAttribute(
-      final ExecutableElement executableElement, final List<org.jdom2.Element> attributes,
-      final List<org.jdom2.Element> properties,
-      final Namespace namespace) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  protected void addAttribute(
-      final ExecutableElement executableElement, final List<org.jdom2.Element> attributes,
-      final List<org.jdom2.Element> properties,
-      final Namespace namespace) {
-    final UIComponentTagAttribute componentAttribute = executableElement.getAnnotation(UIComponentTagAttribute.class);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
-        if (IGNORED_PROPERTIES.contains(name)) {
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        final String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
-        if (IGNORED_PROPERTIES.contains(name)) {
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        if (IGNORED_PROPERTIES.contains(name)) {
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        if (IGNORED_PROPERTIES.contains(name)) {
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-
-          attributeName.setText(name);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          final org.jdom2.Element attribute = new org.jdom2.Element(ATTRIBUTE, namespace);
-          final org.jdom2.Element attributeName = new org.jdom2.Element(ATTRIBUTE_NAME, namespace);
-          final org.jdom2.Element attributeClass = new org.jdom2.Element(ATTRIBUTE_CLASS, namespace);
-
-          attributeName.setText(name);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          attribute.addContent(attributeClass);
-          if (componentAttribute.defaultValue().length() > 0) {
-            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
-            defaultValue.setText(componentAttribute.defaultValue());
-            attribute.addContent(defaultValue);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          attribute.addContent(attributeClass);
-          if (componentAttribute.defaultValue().length() > 0) {
-            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
-            defaultValue.setText(componentAttribute.defaultValue());
-            attribute.addContent(defaultValue);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          attributes.add(attribute);
-        } else {
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          attributes.add(attribute);
-        } else {
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        } else {
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-        } else {
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-
-          propertyName.setText(name);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          final org.jdom2.Element property = new org.jdom2.Element(PROPERTY, namespace);
-          final org.jdom2.Element propertyName = new org.jdom2.Element(PROPERTY_NAME, namespace);
-          final org.jdom2.Element propertyClass = new org.jdom2.Element(PROPERTY_CLASS, namespace);
-
-          propertyName.setText(name);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          property.addContent(propertyClass);
-          if (componentAttribute.defaultValue().length() > 0) {
-            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
-            defaultValue.setText(componentAttribute.defaultValue());
-            property.addContent(defaultValue);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-          property.addContent(propertyClass);
-          if (componentAttribute.defaultValue().length() > 0) {
-            final org.jdom2.Element defaultValue = new org.jdom2.Element(DEFAULT_VALUE, namespace);
-            defaultValue.setText(componentAttribute.defaultValue());
-            property.addContent(defaultValue);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  private void addConverter(
-      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
-    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
-    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
-    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
-    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
-    if (converterAnn.id().length() > 0) {
-      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final TypeElement typeElement, final List<org.jdom2.Element> newConverters, final Namespace namespace) {
-    final Converter converterAnn = typeElement.getAnnotation(Converter.class);
-    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
-    if (converterAnn.id().length() > 0) {
-      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
-    if (converterAnn.id().length() > 0) {
-      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
-      converterId.setText(converterAnn.id());
-      converter.addContent(converterId);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    final org.jdom2.Element converter = new org.jdom2.Element(CONVERTER, namespace);
-    if (converterAnn.id().length() > 0) {
-      final org.jdom2.Element converterId = new org.jdom2.Element(CONVERTER_ID, namespace);
-      converterId.setText(converterAnn.id());
-      converter.addContent(converterId);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      converter.addContent(converterId);
-    } else if (converterAnn.forClass().length() > 0) {
-      final org.jdom2.Element converterForClass = new org.jdom2.Element(CONVERTER_FOR_CLASS, namespace);
-      converterForClass.setText(converterAnn.forClass());
-      converter.addContent(converterForClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      converter.addContent(converterId);
-    } else if (converterAnn.forClass().length() > 0) {
-      final org.jdom2.Element converterForClass = new org.jdom2.Element(CONVERTER_FOR_CLASS, namespace);
-      converterForClass.setText(converterAnn.forClass());
-      converter.addContent(converterForClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    }
-
-    final org.jdom2.Element converterClass = new org.jdom2.Element(CONVERTER_CLASS, namespace);
-    converterClass.setText(typeElement.getQualifiedName().toString());
-    converter.addContent(converterClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-    }
-
-    final org.jdom2.Element converterClass = new org.jdom2.Element(CONVERTER_CLASS, namespace);
-    converterClass.setText(typeElement.getQualifiedName().toString());
-    converter.addContent(converterClass);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  protected void addAttributes(
-      final TypeElement typeElement, final List<org.jdom2.Element> attributes, final List<org.jdom2.Element> properties,
-      final Namespace namespace) {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-
-  protected void addAttributes(
-      final TypeElement typeElement, final List<org.jdom2.Element> attributes, final List<org.jdom2.Element> properties,
-      final Namespace namespace) {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.lang.model.element` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-      final Namespace namespace) {
-
-    for (final javax.lang.model.element.Element element : processingEnv.getElementUtils().getAllMembers(typeElement)) {
-      final ExecutableElement executableElement = (ExecutableElement) element;
-      if (executableElement.getAnnotation(TagAttribute.class) == null
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  }
-
-  private boolean containsElement(final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
-    return getEqualElement(components, newElement) != null;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.jdom2` is unnecessary, and can be replaced with an import
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
-#### Snippet
-```java
-  }
-
-  private boolean containsElement(final List<org.jdom2.Element> components, final org.jdom2.Element newElement) {
-    return getEqualElement(components, newElement) != null;
-  }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `jakarta.faces.component` is unnecessary, and can be replaced with an import
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/DebugUtils.java`
 #### Snippet
@@ -8160,18 +8160,6 @@ public class MarkupEditor extends PropertyEditorSupport {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing` is unnecessary and can be removed
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
-#### Snippet
-```java
-
-/**
- * JSF converter for the {@link javax.swing.BoundedRangeModel} class.
- */
-@org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "javax.swing.BoundedRangeModel")
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverter.java`
 #### Snippet
@@ -8181,6 +8169,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverte
  * JSF converter for the {@link java.util.Currency} class.
  */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing` is unnecessary and can be removed
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
+#### Snippet
+```java
+
+/**
+ * JSF converter for the {@link javax.swing.BoundedRangeModel} class.
+ */
+@org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "javax.swing.BoundedRangeModel")
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8389,18 +8389,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `jakarta.faces.component` is unnecessary, and can be replaced with an import
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIMessages.java`
-#### Snippet
-```java
- * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
- */
-public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessages
-    implements Visual {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.faces.component` is unnecessary, and can be replaced with an import
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIInput.java`
 #### Snippet
 ```java
@@ -8409,6 +8397,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 public abstract class AbstractUIInput extends jakarta.faces.component.UIInput
     implements SupportsAccessKey, SupportsAutoSpacing, SupportsLabelLayout, Visual, ClientBehaviorHolder,
     SupportFieldId, SupportsHelp, SupportsDecorationPosition {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.faces.component` is unnecessary, and can be replaced with an import
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPanelBase.java`
+#### Snippet
+```java
+ * Base class for panels.
+ */
+public abstract class AbstractUIPanelBase extends jakarta.faces.component.UIPanel implements Visual {
+
+  public abstract java.lang.String getTip();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8425,14 +8425,14 @@ public abstract class AbstractUIPanelBase extends jakarta.faces.component.UIPane
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `jakarta.faces.component` is unnecessary, and can be replaced with an import
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIPanelBase.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUIMessages.java`
 #### Snippet
 ```java
- * Base class for panels.
+ * {@link org.apache.myfaces.tobago.internal.taglib.component.MessagesTagDeclaration}
  */
-public abstract class AbstractUIPanelBase extends jakarta.faces.component.UIPanel implements Visual {
+public abstract class AbstractUIMessages extends jakarta.faces.component.UIMessages
+    implements Visual {
 
-  public abstract java.lang.String getTip();
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8496,18 +8496,6 @@ public class TobagoClientBehaviorRenderer extends jakarta.faces.render.ClientBeh
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.myfaces.tobago.renderkit.css` is unnecessary and can be removed
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/CustomClassEditor.java`
-#### Snippet
-```java
-
-/**
- * Converter for {@link org.apache.myfaces.tobago.renderkit.css.CustomClass}
- *
- * @since 3.0.0
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.myfaces.tobago.webapp` is unnecessary and can be removed
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/lifecycle/SecretPhaseListener.java`
 #### Snippet
@@ -8517,6 +8505,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/lifecycle/SecretPhaseLis
    * Checks that the request contains a parameter {@link org.apache.myfaces.tobago.webapp.Secret#KEY} which is equals to
    * a secret value in the session.
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.myfaces.tobago.renderkit.css` is unnecessary and can be removed
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/CustomClassEditor.java`
+#### Snippet
+```java
+
+/**
+ * Converter for {@link org.apache.myfaces.tobago.renderkit.css.CustomClass}
+ *
+ * @since 3.0.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8658,158 +8658,14 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationState.java`
 #### Snippet
 ```java
-    copyNode = null;
-    cutNode = findFirstSelected();
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
+      } else {
+        LOG.warn("Strange navigation behavior");
+        return null;
       }
     }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      LOG.warn("No node selected.");
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-    cutNode = null;
-    copyNode = cloneNode(findFirstSelected());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-    cutNode = null;
-    copyNode = null;
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      LOG.warn("No node selected.");
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      LOG.warn("No node selected.");
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
-#### Snippet
-```java
-  private String deprecationComment(final String string) {
-    if (string == null) {
-      return null;
-    }
-    String result = string;
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
-#### Snippet
-```java
-      return result.trim();
-    } else {
-      return null;
-    }
-  }
 ```
 
 ### ReturnNull
@@ -8838,18 +8694,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NavigationState.java`
-#### Snippet
-```java
-      } else {
-        LOG.warn("Strange navigation behavior");
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/NamedNode.java`
 #### Snippet
 ```java
@@ -8858,6 +8702,126 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      LOG.warn("No node selected.");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+    cutNode = null;
+    copyNode = null;
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+    copyNode = null;
+    cutNode = findFirstSelected();
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      LOG.warn("No node selected.");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      LOG.warn("No node selected.");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+    cutNode = null;
+    copyNode = cloneNode(findFirstSelected());
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/TreeEditorController.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -8910,6 +8874,42 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
+#### Snippet
+```java
+  private String deprecationComment(final String string) {
+    if (string == null) {
+      return null;
+    }
+    String result = string;
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
+#### Snippet
+```java
+      return result.trim();
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/TaglibGenerator.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/AttributeController.java`
 #### Snippet
 ```java
@@ -8925,11 +8925,11 @@ Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/WebSocketController.java`
 #### Snippet
 ```java
-      }
-    }, 0, 17, TimeUnit.MILLISECONDS);
+      scheduledExecutorService.shutdown();
+    }
     return null;
   }
-
+}
 ```
 
 ### ReturnNull
@@ -8937,11 +8937,11 @@ Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/WebSocketController.java`
 #### Snippet
 ```java
-      scheduledExecutorService.shutdown();
-    }
+      }
+    }, 0, 17, TimeUnit.MILLISECONDS);
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -8970,35 +8970,11 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ExecuteController.java`
 #### Snippet
 ```java
     LOG.info("action");
     log();
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ForEachController.java`
-#### Snippet
-```java
-        new River("Yangtze", 6300, 30166)));
-    resetInputFields();
     return null;
   }
 
@@ -9018,14 +8994,14 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/RoleController.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ForEachController.java`
 #### Snippet
 ```java
-  public String refreshTime() {
-    time = LocalTime.now().toString();
+        new River("Yangtze", 6300, 30166)));
+    resetInputFields();
     return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -9042,12 +9018,36 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/CurrentValueController.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetFilterController.java`
 #### Snippet
 ```java
+      }
+    }
+    return null;
+  }
 
-  public String toUpperCase(final String text) {
-    return text != null ? text.toUpperCase() : null;
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/RoleController.java`
+#### Snippet
+```java
+  public String refreshTime() {
+    time = LocalTime.now().toString();
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetActionController.java`
+#### Snippet
+```java
+        "We do not delete in this demo! (object='" + solarObject.getName() + "')", null));
+
+    return null;
   }
 
 ```
@@ -9066,11 +9066,23 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/SheetActionController.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/CurrentValueController.java`
 #### Snippet
 ```java
-        "We do not delete in this demo! (object='" + solarObject.getName() + "')", null));
 
+  public String toUpperCase(final String text) {
+    return text != null ? text.toUpperCase() : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/UploadController.java`
+#### Snippet
+```java
+      upload(part, "uploadMulti");
+    }
     return null;
   }
 
@@ -9083,18 +9095,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 ```java
   public String uploadBasic() {
     upload(fileBasic, "uploadBasic");
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/UploadController.java`
-#### Snippet
-```java
-      upload(part, "uploadMulti");
-    }
     return null;
   }
 
@@ -9126,26 +9126,26 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-
-  public String getJsfVersion() {
-    return enabled ? FacesContext.class.getPackage().getImplementationVersion() : null;
+      }
+    }
+    return null;
   }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
 #### Snippet
 ```java
-      return ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getServerInfo();
-    } else {
+    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
+    if (elements.isEmpty()) {
       return null;
-    }
-  }
+    } else {
+      return elements.get(0);
 ```
 
 ### ReturnNull
@@ -9156,18 +9156,6 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
   public String getCdiVersion() {
     return enabled ? NormalScope.class.getPackage().getImplementationVersion() : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
-#### Snippet
-```java
-
-  public List<Map.Entry<Object, Object>> getSystemPropertiesAsList() {
-    return enabled ? new ArrayList<>(getSystemProperties().entrySet()) : null;
   }
 
 ```
@@ -9190,10 +9178,22 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 #### Snippet
 ```java
 
-  public Properties getSystemProperties() {
-    return enabled ? System.getProperties() : null;
+  public List<Map.Entry<Object, Object>> getSystemPropertiesAsList() {
+    return enabled ? new ArrayList<>(getSystemProperties().entrySet()) : null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
+#### Snippet
+```java
+      return ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getServerInfo();
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -9210,24 +9210,24 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
 #### Snippet
 ```java
-    final List<org.jdom2.Element> elements = rootElement.getChildren(tagName, rootElement.getNamespace());
-    if (elements.isEmpty()) {
-      return null;
-    } else {
-      return elements.get(0);
+
+  public Properties getSystemProperties() {
+    return enabled ? System.getProperties() : null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/FacesConfigGenerator.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/ServerInfo.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
+
+  public String getJsfVersion() {
+    return enabled ? FacesContext.class.getPackage().getImplementationVersion() : null;
   }
 
 ```
@@ -9270,14 +9270,14 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/AstroData.java`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/bestpractice/BestPracticeController.java`
 #### Snippet
 ```java
-  public String namesFromArray(SolarObject[] objects) {
-    if (objects == null) {
-      return null;
-    } else {
-      StringBuilder builder = new StringBuilder();
+    }
+    facesContext.responseComplete();
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -9294,24 +9294,60 @@ in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/e
 
 ### ReturnNull
 Return of `null`
-in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/bestpractice/BestPracticeController.java`
-#### Snippet
-```java
-    }
-    facesContext.responseComplete();
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/nonfacesrequest/FishPond.java`
 #### Snippet
 ```java
     LOG.info("select via random: '" + getSelectedFish() + "'");
 
     return null; // is AJAX
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-example/tobago-example-demo/src/main/java/org/apache/myfaces/tobago/example/demo/AstroData.java`
+#### Snippet
+```java
+  public String namesFromArray(SolarObject[] objects) {
+    if (objects == null) {
+      return null;
+    } else {
+      StringBuilder builder = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
+#### Snippet
+```java
+  public static String getLabel(final FacesContext facesContext, final UIComponent component) {
+    if (component == null) {
+      return null;
+    }
+    final Object label = component.getAttributes().get("label");
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
+#### Snippet
+```java
+      } catch (final MissingResourceException damned) {
+        facesContext.getExternalContext().log("resource bundle " + bundleName + " could not be found");
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
+#### Snippet
+```java
+  private static ResourceBundle getApplicationBundle(final FacesContext facesContext, final Locale locale) {
+    final String bundleName = facesContext.getApplication().getMessageBundle();
+    return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
   }
 
 ```
@@ -9342,38 +9378,26 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/ValueExpressionSheetStateChangeListener.java`
 #### Snippet
 ```java
-  private static ResourceBundle getApplicationBundle(final FacesContext facesContext, final Locale locale) {
-    final String bundleName = facesContext.getApplication().getMessageBundle();
-    return bundleName != null ? getBundle(facesContext, locale, bundleName) : null;
+      LOG.error("", e);
+    }
+    return null;
   }
-
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/ValueExpressionTabChangeListener.java`
 #### Snippet
 ```java
-      } catch (final MissingResourceException damned) {
-        facesContext.getExternalContext().log("resource bundle " + bundleName + " could not be found");
-        return null;
-      }
+      LOG.error("", e);
     }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/MessageUtils.java`
-#### Snippet
-```java
-  public static String getLabel(final FacesContext facesContext, final UIComponent component) {
-    if (component == null) {
-      return null;
-    }
-    final Object label = component.getAttributes().get("label");
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -9398,30 +9422,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/WebXmlUtils.java`
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/ValueExpressionSheetStateChangeListener.java`
-#### Snippet
-```java
-      LOG.error("", e);
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/ValueExpressionTabChangeListener.java`
-#### Snippet
-```java
-      LOG.error("", e);
-    }
-    return null;
-  }
-}
 ```
 
 ### ReturnNull
@@ -9462,30 +9462,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/Selectable.java`
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/TobagoActionSource.java`
-#### Snippet
-```java
-  default MethodBinding getActionListener() {
-    LOG.debug("JSF 1.1 style is no longer supported!");
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/TobagoActionSource.java`
-#### Snippet
-```java
-  default MethodBinding getAction() {
-    LOG.debug("JSF 1.1 style is no longer supported!");
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/SuggestFilter.java`
 #### Snippet
 ```java
@@ -9501,47 +9477,23 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
 #### Snippet
 ```java
-      return mapping.get(rowIndex).getClientId();
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
-#### Snippet
-```java
-    final TreeNode parent = node.getParent();
-    if (parent == null) {
-      return null;
-    }
-    for (int i = 0; i < parent.getChildCount() - 1; i++) {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
-#### Snippet
-```java
       p = p.getParent();
       if (p == null) {
         return null;
       }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
+#### Snippet
+```java
+      return mapping.get(rowIndex).getClientId();
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -9570,6 +9522,54 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.
 
 ### ReturnNull
 Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
+#### Snippet
+```java
+    final TreeNode parent = node.getParent();
+    if (parent == null) {
+      return null;
+    }
+    for (int i = 0; i < parent.getChildCount() - 1; i++) {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/TobagoActionSource.java`
+#### Snippet
+```java
+  default MethodBinding getActionListener() {
+    LOG.debug("JSF 1.1 style is no longer supported!");
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/event/TobagoActionSource.java`
+#### Snippet
+```java
+  default MethodBinding getAction() {
+    LOG.debug("JSF 1.1 style is no longer supported!");
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/model/TreeNodeDataModel.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/layout/MarginTokens.java`
 #### Snippet
 ```java
@@ -9582,26 +9582,14 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/layout/MarginTokens.java
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/TransientStateHolder.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/config/TobagoConfig.java`
 #### Snippet
 ```java
-  public Object saveState(final FacesContext context) {
-    // do nothing
+      }
+    }
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/layout/Measure.java`
-#### Snippet
-```java
-  public static Measure valueOf(final Object object) {
-    if (object == null) {
-      return null;
-    }
-    if (object instanceof Measure) {
 ```
 
 ### ReturnNull
@@ -9630,71 +9618,23 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/layout/Measure.java`
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/config/TobagoConfig.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/layout/Measure.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
-#### Snippet
-```java
-      throws ConverterException {
-    if (StringUtils.isBlank(string)) {
-      return null;
-    } else {
-      try {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
-#### Snippet
-```java
-      throws ConverterException {
-    if (boundedRangeModel == null) {
+  public static Measure valueOf(final Object object) {
+    if (object == null) {
       return null;
     }
-    try {
+    if (object instanceof Measure) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverter.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/TransientStateHolder.java`
 #### Snippet
 ```java
-      throws ConverterException {
-    if (StringUtils.isBlank(string)) {
-      return null;
-    } else {
-      return Currency.getInstance(string);
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverter.java`
-#### Snippet
-```java
-      throws ConverterException {
-    if (currency == null) {
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-      LOG.debug("found no clientId");
-    }
+  public Object saveState(final FacesContext context) {
+    // do nothing
     return null;
   }
 
@@ -9705,43 +9645,7 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
-        c = c.getParent();
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-      final String rendererType) {
-    if (rendererType == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-        renderer = (RendererBase) myRenderer;
-      } else {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-      }
+      return max;
     }
     return null;
   }
@@ -9758,6 +9662,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+    }
+    if (result.isEmpty()) {
+      return null;
+    } else {
+      return StringUtils.join(result, ' ');
 ```
 
 ### ReturnNull
@@ -9801,42 +9717,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
-      return Markup.INFO;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-    }
-    if (result.isEmpty()) {
-      return null;
-    } else {
-      return StringUtils.join(result, ' ');
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
       }
     }
     return null;
@@ -9862,20 +9742,8 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java
 #### Snippet
 ```java
       }
-    } else {
-      return null;
     }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
-#### Snippet
-```java
-  public static Object getDataAttribute(final UIComponent component, final String name) {
-    final Map<Object, Object> map = getDataAttributes(component);
-    return map != null ? map.get(name) : null;
+    return null;
   }
 
 ```
@@ -9897,11 +9765,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
-      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
+        c = c.getParent();
+      }
+      return null;
     }
-    return null;
   }
-}
 ```
 
 ### ReturnNull
@@ -9909,11 +9777,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
-      return max;
-    }
-    return null;
-  }
-
+            return ((Collection) converted).iterator().next();
+          } else {
+            return null;
+          }
+        } else {
 ```
 
 ### ReturnNull
@@ -9945,11 +9813,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
-            return ((Collection) converted).iterator().next();
-          } else {
-            return null;
-          }
-        } else {
+      LOG.warn("The content of a confirmation facet must be a ValueHolder. Use e. g. <tc:out>.");
+    }
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -9969,11 +9837,143 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
 #### Snippet
 ```java
+      }
+    } else {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+      return Markup.INFO;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+      LOG.debug("found no clientId");
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
       c = c.getParent();
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+      final String rendererType) {
+    if (rendererType == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+        renderer = (RendererBase) myRenderer;
+      } else {
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/util/ComponentUtils.java`
+#### Snippet
+```java
+  public static Object getDataAttribute(final UIComponent component, final String name) {
+    final Map<Object, Object> map = getDataAttributes(component);
+    return map != null ? map.get(name) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverter.java`
+#### Snippet
+```java
+      throws ConverterException {
+    if (currency == null) {
+      return null;
+    }
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/CurrencyConverter.java`
+#### Snippet
+```java
+      throws ConverterException {
+    if (StringUtils.isBlank(string)) {
+      return null;
+    } else {
+      return Currency.getInstance(string);
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
+#### Snippet
+```java
+      throws ConverterException {
+    if (StringUtils.isBlank(string)) {
+      return null;
+    } else {
+      try {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/convert/BoundedRangeModelConverter.java`
+#### Snippet
+```java
+      throws ConverterException {
+    if (boundedRangeModel == null) {
+      return null;
+    }
+    try {
 ```
 
 ### ReturnNull
@@ -10017,11 +10017,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/Markup.java`
 #### Snippet
 ```java
-  public static Markup valueOf(final String[] values) {
-    if (values == null || values.length == 0) {
+  public static Markup valueOf(final String value) {
+    if (StringUtils.isEmpty(value)) {
       return null;
-    } else if (values.length == 1) {
-      return valueOf(values[0]);
+    }
+    if (value.contains(" ") || value.contains(",")) {
 ```
 
 ### ReturnNull
@@ -10029,11 +10029,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/context/Markup.java`
 #### Snippet
 ```java
-  public static Markup valueOf(final String value) {
-    if (StringUtils.isEmpty(value)) {
+  public static Markup valueOf(final String[] values) {
+    if (values == null || values.length == 0) {
       return null;
-    }
-    if (value.contains(" ") || value.contains(",")) {
+    } else if (values.length == 1) {
+      return valueOf(values[0]);
 ```
 
 ### ReturnNull
@@ -10053,11 +10053,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/EventHandler.java`
 #### Snippet
 ```java
-  public String getEventName() {
-    if (event == null) {
-      return null;
-    } else {
-      return event.getValue();
+  @Override
+  public String getFor() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -10077,16 +10077,16 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/EventHandler.java`
 #### Snippet
 ```java
-  @Override
-  public String getFor() {
-    return null;
-  }
-
+  public String getEventName() {
+    if (event == null) {
+      return null;
+    } else {
+      return event.getValue();
 ```
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/SheetStateChangeSourceRule.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/SupportsMarkupRule.java`
 #### Snippet
 ```java
       }
@@ -10110,7 +10110,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/ContentTypeRule
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/SupportsMarkupRule.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/TabChangeSourceRule.java`
 #### Snippet
 ```java
       }
@@ -10122,7 +10122,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/SupportsMarkupR
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/TabChangeSourceRule.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/facelets/SheetStateChangeSourceRule.java`
 #### Snippet
 ```java
       }
@@ -10197,18 +10197,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/AuthorizationHelper.java`
 #### Snippet
 ```java
-  private UIComponent getParentCompositeComponent(final UIComponent component) {
-    if (component == null) {
-      return null;
-    } else if (UIComponent.isCompositeComponent(component)) {
-      return component;
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/AuthorizationHelper.java`
-#### Snippet
-```java
     @Override
     public Class<? extends Annotation> annotationType() {
       return null;
@@ -10218,10 +10206,22 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/Authorizat
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/RenderUtils.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/AuthorizationHelper.java`
 #### Snippet
 ```java
-      LOG.warn("Ignoring: '{}'", clientBehavior);
+  private UIComponent getParentCompositeComponent(final UIComponent component) {
+    if (component == null) {
+      return null;
+    } else if (UIComponent.isCompositeComponent(component)) {
+      return component;
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
+#### Snippet
+```java
+      }
     }
     return null;
   }
@@ -10242,14 +10242,26 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/RenderUtil
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigSorter.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/RenderUtils.java`
 #### Snippet
 ```java
-      }
+      LOG.warn("Ignoring: '{}'", clientBehavior);
     }
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
+#### Snippet
+```java
+  public static String encode(final String[] strings) {
+    if (strings == null) {
+      return null;
+    }
+    final StringBuilder builder = new StringBuilder();
 ```
 
 ### ReturnNull
@@ -10281,30 +10293,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
 #### Snippet
 ```java
-
-    if (commandMap == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
-#### Snippet
-```java
-  public static String encode(final String[] strings) {
-    if (strings == null) {
-      return null;
-    }
-    final StringBuilder builder = new StringBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
-#### Snippet
-```java
   public static String encode(final Boolean[] booleans) {
     if (booleans == null) {
       return null;
@@ -10317,11 +10305,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
 #### Snippet
 ```java
-  public static List<Integer> decodeIntegerArray(final String json) {
-    if (json == null) {
+
+    if (commandMap == null) {
       return null;
     }
-    String string = json.trim();
+
 ```
 
 ### ReturnNull
@@ -10338,6 +10326,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.
 
 ### ReturnNull
 Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/util/JsonUtils.java`
+#### Snippet
+```java
+  public static List<Integer> decodeIntegerArray(final String json) {
+    if (json == null) {
+      return null;
+    }
+    String string = json.trim();
+```
+
+### ReturnNull
+Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/layout/Grid.java`
 #### Snippet
 ```java
@@ -10350,7 +10350,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/layout/Grid.jav
 
 ### ReturnNull
 Return of `null`
-in `tobago-tool/tobago-tool-apt/src/main/java/org/apache/myfaces/tobago/apt/processor/ClassesGenerator.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/config/TobagoConfigSorter.java`
 #### Snippet
 ```java
       }
@@ -10413,18 +10413,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/EventBehavior.java`
 #### Snippet
 ```java
-      return (ValueExpression) bindings.get(name);
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/EventBehavior.java`
-#### Snippet
-```java
       if (parentSaved == null && stateHelperSaved == null) {
         //No values
         return null;
@@ -10434,14 +10422,14 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/EventB
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITabGroup.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/EventBehavior.java`
 #### Snippet
 ```java
+      return (ValueExpression) bindings.get(name);
+    } else {
+      return null;
     }
-    LOG.error("Found no component with index: " + index + " childCount: " + getChildCount());
-    return null;
   }
-
 ```
 
 ### ReturnNull
@@ -10470,71 +10458,11 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-
-    if (attachedObject == null) {
-      return null;
-    }
-    // StateHolder interface should take precedence over
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-      final StateHolder holder = (StateHolder) attachedObject;
-      if (holder.isTransient()) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUITabGroup.java`
 #### Snippet
 ```java
     }
-    if (stateObj == null) {
-      return null;
-    }
-    if (stateObj instanceof AttachedListStateWrapper) {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-      final Object valueOrKey, final boolean delta) {
-    if (valueOrKey == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-
-    if (serializableMap == null || serializableMap.size() == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
-#### Snippet
-```java
-          .getELContext());
-    }
+    LOG.error("Found no component with index: " + index + " childCount: " + getChildCount());
     return null;
   }
 
@@ -10554,18 +10482,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/CommandMap.java`
-#### Snippet
-```java
-      return Collections.unmodifiableMap(other);
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/AbstractUISuggest.java`
 #### Snippet
 ```java
@@ -10574,6 +10490,18 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
         return null;
       }
     } else {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/CommandMap.java`
+#### Snippet
+```java
+      return Collections.unmodifiableMap(other);
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -10638,6 +10566,78 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/component/Abstr
 
 ### ReturnNull
 Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+
+    if (serializableMap == null || serializableMap.size() == 0) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+
+    if (attachedObject == null) {
+      return null;
+    }
+    // StateHolder interface should take precedence over
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+      final StateHolder holder = (StateHolder) attachedObject;
+      if (holder.isTransient()) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+    }
+    if (stateObj == null) {
+      return null;
+    }
+    if (stateObj instanceof AttachedListStateWrapper) {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+          .getELContext());
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/behavior/DeltaStateHelper.java`
+#### Snippet
+```java
+      final Object valueOrKey, final boolean delta) {
+    if (valueOrKey == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/FileRenderer.java`
 #### Snippet
 ```java
@@ -10665,18 +10665,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/DateRenderer.java`
 #### Snippet
 ```java
-  private String convertToString(Object value) {
-    if (value == null) {
-      return null;
-    } else if (value instanceof String) {
-      return (String) value;
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/DateRenderer.java`
-#### Snippet
-```java
         // todo: log debug instead of warn
         LOG.warn("Can't estimate type (clientId='{}')!", component.getClientId(facesContext));
         return null;
@@ -10694,6 +10682,42 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
         return null;
       } else {
         final DateTimeConverter dateTimeConverter = (DateTimeConverter)
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/DateRenderer.java`
+#### Snippet
+```java
+  private String convertToString(Object value) {
+    if (value == null) {
+      return null;
+    } else if (value instanceof String) {
+      return (String) value;
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneRadioRenderer.java`
+#### Snippet
+```java
+  @Override
+  protected String getFieldId(final FacesContext facesContext, final T component) {
+    return null; // there is not a single input element in the type=radio case.
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneRadioRenderer.java`
+#### Snippet
+```java
+    final int[] indices
+        = StringUtils.getIndices(reference != null ? reference.getRenderRange() : select.getRenderRange());
+    return indices.length > 0 ? indices : null;
+  }
+
 ```
 
 ### ReturnNull
@@ -10726,7 +10750,7 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 #### Snippet
 ```java
 
-  protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
+  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 
@@ -10738,34 +10762,10 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/rende
 #### Snippet
 ```java
 
-  protected CssItem[] getOuterCssItems(final FacesContext facesContext, final T command) {
+  protected CssItem[] getCssItems(final FacesContext facesContext, final T command) {
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneRadioRenderer.java`
-#### Snippet
-```java
-    final int[] indices
-        = StringUtils.getIndices(reference != null ? reference.getRenderRange() : select.getRenderRange());
-    return indices.length > 0 ? indices : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectOneRadioRenderer.java`
-#### Snippet
-```java
-  @Override
-  protected String getFieldId(final FacesContext facesContext, final T component) {
-    return null; // there is not a single input element in the type=radio case.
-  }
-}
 ```
 
 ### ReturnNull
@@ -10797,11 +10797,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyRendererBase.java`
 #### Snippet
 ```java
-        // optimization: no conversion for String values
-        if (String.class.equals(selectItemsType)) {
-          return null;
-        }
 
+    if (submittedValue == null) {
+      return null;
+    } else {
+      if (!(submittedValue instanceof String[])) {
 ```
 
 ### ReturnNull
@@ -10809,11 +10809,11 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyRendererBase.java`
 #### Snippet
 ```java
+        // optimization: no conversion for String values
+        if (String.class.equals(selectItemsType)) {
+          return null;
+        }
 
-    if (submittedValue == null) {
-      return null;
-    } else {
-      if (!(submittedValue instanceof String[])) {
 ```
 
 ### ReturnNull
@@ -10890,30 +10890,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/component/Attributes.jav
 
 ### ReturnNull
 Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/TobagoClass.java`
-#### Snippet
-```java
-  public static CssItem valueOf(final DecorationPosition decorationPosition) {
-    if (decorationPosition == null) {
-      return null;
-    } else {
-      switch (decorationPosition) {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/TobagoClass.java`
-#### Snippet
-```java
-        default:
-          LOG.warn("Undefined decoration position: '{}'.", decorationPosition);
-          return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/internal/renderkit/renderer/SelectManyCheckboxRenderer.java`
 #### Snippet
 ```java
@@ -10950,14 +10926,50 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/Icons.java
 
 ### ReturnNull
 Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/TobagoClass.java`
+#### Snippet
+```java
+  public static CssItem valueOf(final DecorationPosition decorationPosition) {
+    if (decorationPosition == null) {
+      return null;
+    } else {
+      switch (decorationPosition) {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/TobagoClass.java`
+#### Snippet
+```java
+        default:
+          LOG.warn("Undefined decoration position: '{}'.", decorationPosition);
+          return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
 #### Snippet
 ```java
-  public static CssItem borderColor(final FacesMessage.Severity severity) {
+  public static CssItem feedbackColor(final FacesMessage.Severity severity) {
     if (severity == null) {
       return null;
     }
-    return getSeverityCssItem(severity, BORDER_INFO, BORDER_WARNING, BORDER_DANGER);
+    return getSeverityCssItem(severity, INFO_FEEDBACK, WARNING_FEEDBACK, ERROR_FEEDBACK);
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+  public static CssItem buttonColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, BTN_INFO, BTN_WARNING, BTN_DANGER);
 ```
 
 ### ReturnNull
@@ -11013,11 +11025,71 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
 #### Snippet
 ```java
-  public static CssItem validationColor(final FacesMessage.Severity severity) {
+    switch (segmentJustify) {
+      case none:
+        return null;
+      case start:
+        return BootstrapClass.JUSTIFY_CONTENT_START;
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+      default:
+        LOG.warn("Not a bootstrap class defined for {}", segmentJustify);
+        return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+  public static CssItem tooltipColor(final FacesMessage.Severity severity) {
     if (severity == null) {
       return null;
     }
-    return getSeverityCssItem(severity, IS_INFO, IS_WARNING, IS_ERROR);
+    return getSeverityCssItem(severity, INFO_TOOLTIP, WARNING_TOOLTIP, ERROR_TOOLTIP);
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+  public static CssItem valueOf(final AlignItems alignItems) {
+    if (alignItems == null) {
+      return null;
+    } else {
+      switch (alignItems) {
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+        default:
+          LOG.warn("Undefined alignItems: '{}'.", alignItems);
+          return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+      }
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -11049,33 +11121,33 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
 #### Snippet
 ```java
+  public static CssItem validationColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, IS_INFO, IS_WARNING, IS_ERROR);
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
+  public static CssItem borderColor(final FacesMessage.Severity severity) {
+    if (severity == null) {
+      return null;
+    }
+    return getSeverityCssItem(severity, BORDER_INFO, BORDER_WARNING, BORDER_DANGER);
+```
+
+### ReturnNull
+Return of `null`
+in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
+#### Snippet
+```java
       }
     } else {
       return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-    switch (segmentJustify) {
-      case none:
-        return null;
-      case start:
-        return BootstrapClass.JUSTIFY_CONTENT_START;
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-      default:
-        LOG.warn("Not a bootstrap class defined for {}", segmentJustify);
-        return null;
     }
   }
 ```
@@ -11109,30 +11181,6 @@ Return of `null`
 in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
 #### Snippet
 ```java
-  public static CssItem valueOf(final AlignItems alignItems) {
-    if (alignItems == null) {
-      return null;
-    } else {
-      switch (alignItems) {
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-        default:
-          LOG.warn("Undefined alignItems: '{}'.", alignItems);
-          return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
   public static CssItem textColor(final Markup markup) {
     if (markup == null || markup.contains(Markup.NONE)) {
       return null;
@@ -11146,54 +11194,6 @@ in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapC
 #### Snippet
 ```java
       return BootstrapClass.TEXT_DARK;
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-  public static CssItem buttonColor(final FacesMessage.Severity severity) {
-    if (severity == null) {
-      return null;
-    }
-    return getSeverityCssItem(severity, BTN_INFO, BTN_WARNING, BTN_DANGER);
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-  public static CssItem tooltipColor(final FacesMessage.Severity severity) {
-    if (severity == null) {
-      return null;
-    }
-    return getSeverityCssItem(severity, INFO_TOOLTIP, WARNING_TOOLTIP, ERROR_TOOLTIP);
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-  public static CssItem feedbackColor(final FacesMessage.Severity severity) {
-    if (severity == null) {
-      return null;
-    }
-    return getSeverityCssItem(severity, INFO_FEEDBACK, WARNING_FEEDBACK, ERROR_FEEDBACK);
-```
-
-### ReturnNull
-Return of `null`
-in `tobago-core/src/main/java/org/apache/myfaces/tobago/renderkit/css/BootstrapClass.java`
-#### Snippet
-```java
-      }
     } else {
       return null;
     }
