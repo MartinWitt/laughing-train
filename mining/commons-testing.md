@@ -9,7 +9,7 @@ I found 6 bad smells with 2 repairable:
 | DataFlowIssue | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | CommentedOutCode | 1 | false |
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `RuleChainFactory` has only 'static' members, and lacks a 'private' constructor
 in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/RuleChainFactory.java`
@@ -22,7 +22,7 @@ public class RuleChainFactory {
     /**
 ```
 
-## RuleId[ruleID=StringBufferReplaceableByString]
+## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/net/AvailableServerPortSystemPropertyTestRule.java`
@@ -47,7 +47,7 @@ in `commons-testing-junit4-mongodb/src/main/java/org/apache/commons/testing/juni
         builder.append(portSystemPropertyName);
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Variable is already assigned to this value
 in `commons-testing-generic/src/main/java/org/apache/commons/testing/net/AvailableServerPortFinder.java`
@@ -60,7 +60,7 @@ in `commons-testing-generic/src/main/java/org/apache/commons/testing/net/Availab
             }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractAvailableLocalesTest()` of an abstract class should not be declared 'public'
 in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/AbstractAvailableLocalesTest.java`
@@ -73,7 +73,7 @@ in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/Abstr
         this.rule = new DefaultLocaleTestRule(locale);
 ```
 
-## RuleId[ruleID=CommentedOutCode]
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (18 lines)
 in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/AbstractAvailableLocalesTest.java`
