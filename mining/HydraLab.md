@@ -1,24 +1,24 @@
 # HydraLab 
  
 # Bad smells
-I found 671 bad smells with 89 repairable:
+I found 680 bad smells with 92 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ThrowablePrintStackTrace | 77 | false |
-| ReturnNull | 66 | false |
-| UnusedAssignment | 40 | false |
-| SizeReplaceableByIsEmpty | 39 | true |
+| ThrowablePrintStackTrace | 78 | false |
+| ReturnNull | 68 | false |
+| SizeReplaceableByIsEmpty | 40 | true |
+| UnusedAssignment | 38 | false |
 | DynamicRegexReplaceableByCompiledPattern | 38 | false |
-| NullableProblems | 34 | false |
-| RedundantFieldInitialization | 34 | false |
+| RedundantFieldInitialization | 36 | false |
+| NullableProblems | 31 | false |
 | DataFlowIssue | 31 | false |
 | SystemOutErr | 27 | false |
+| MissortedModifiers | 22 | false |
 | UtilityClassWithoutPrivateConstructor | 21 | true |
-| MissortedModifiers | 19 | false |
-| SynchronizeOnThis | 18 | false |
 | IgnoreResultOfCall | 17 | false |
 | BoundedWildcard | 16 | false |
 | NestedAssignment | 16 | false |
+| SynchronizeOnThis | 16 | false |
 | AssignmentToMethodParameter | 14 | false |
 | ConstantValue | 13 | false |
 | UnnecessaryLocalVariable | 12 | true |
@@ -26,22 +26,23 @@ I found 671 bad smells with 89 repairable:
 | StaticCallOnSubclass | 8 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 8 | false |
 | PublicFieldAccessedInSynchronizedContext | 8 | false |
+| UNUSED_IMPORT | 7 | false |
 | KeySetIterationMayUseEntrySet | 6 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 5 | false |
-| UNUSED_IMPORT | 5 | false |
 | StringEqualsEmptyString | 5 | false |
 | UnnecessaryStringEscape | 4 | true |
 | RedundantArrayCreation | 4 | true |
+| DoubleBraceInitialization | 4 | false |
+| OptionalGetWithoutIsPresent | 4 | false |
 | NonProtectedConstructorInAbstractClass | 4 | true |
-| SynchronizationOnLocalVariableOrMethodParameter | 4 | false |
 | CommentedOutCode | 3 | false |
 | ObjectNotify | 3 | false |
 | TrivialStringConcatenation | 3 | false |
 | RedundantMethodOverride | 3 | false |
-| DoubleBraceInitialization | 3 | false |
-| OptionalGetWithoutIsPresent | 3 | false |
+| SwitchStatementWithConfusingDeclaration | 3 | false |
 | ReplaceNullCheck | 3 | false |
-| Convert2Lambda | 3 | false |
+| SynchronizationOnLocalVariableOrMethodParameter | 3 | false |
+| UnnecessaryModifier | 2 | true |
 | RegExpRedundantEscape | 2 | false |
 | RegExpSimplifiable | 2 | false |
 | DuplicateExpressions | 2 | false |
@@ -53,6 +54,7 @@ I found 671 bad smells with 89 repairable:
 | UnnecessaryToStringCall | 2 | true |
 | NonStrictComparisonCanBeEquality | 2 | true |
 | SamePackageImport | 2 | false |
+| Convert2Lambda | 2 | false |
 | WaitNotInLoop | 2 | false |
 | ThreadStartInConstruction | 2 | false |
 | UnnecessaryQualifierForThis | 1 | false |
@@ -73,29 +75,54 @@ I found 671 bad smells with 89 repairable:
 | CharsetObjectCanBeUsed | 1 | false |
 | RegExpSingleCharAlternation | 1 | false |
 | Java8MapApi | 1 | false |
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `toJSONString()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
+## RuleId[id=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `common/src/main/java/com/microsoft/hydralab/common/logger/LogCollector.java`
 #### Snippet
 ```java
 
-        this.apkPath = apkPath;
-        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
-        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
-        this.testSteps = String.valueOf(testSteps);
+public interface LogCollector {
+    static final String LOGGER_PREFIX = "logger.devices.";
+    String start();
+    void stopAndAnalyse();
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `common/src/main/java/com/microsoft/hydralab/common/logger/LogCollector.java`
+#### Snippet
+```java
+
+public interface LogCollector {
+    static final String LOGGER_PREFIX = "logger.devices.";
+    String start();
+    void stopAndAnalyse();
+```
+
+## RuleId[id=StaticCallOnSubclass]
+### StaticCallOnSubclass
+Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+            String b64payload = pieces[1];
+            String jsonString = new String(Base64.decodeBase64(b64payload), FileUtil.UTF_8);
+            userInfo = JSONObject.parseObject(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
 ```
 
 ### StaticCallOnSubclass
-Static method `parseArray()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONArray'
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/JsonConverter.java`
 #### Snippet
 ```java
-                JSONArray values = null;
-                try {
-                    values = JSONArray.parseArray(value);
-                } catch (Exception e) {
-                    e.printStackTrace();
+    @Override
+    public JSONObject convertToEntityAttribute(String dbData) {
+        return JSONObject.parseObject(dbData);
+    }
+}
 ```
 
 ### StaticCallOnSubclass
@@ -123,6 +150,18 @@ in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/control
 ```
 
 ### StaticCallOnSubclass
+Static method `toJSONString()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
+in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
+#### Snippet
+```java
+
+        this.apkPath = apkPath;
+        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
+        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
+        this.testSteps = String.valueOf(testSteps);
+```
+
+### StaticCallOnSubclass
 Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.java`
 #### Snippet
@@ -132,30 +171,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.ja
             res = JSONObject.parseObject(resString);
             isSuccess = res.getBoolean(Const.SmartTestConfig.SUCCESS_TAG);
             crashStack = res.getJSONArray(Const.SmartTestConfig.APP_EXP_TAG);
-```
-
-### StaticCallOnSubclass
-Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/JsonConverter.java`
-#### Snippet
-```java
-    @Override
-    public JSONObject convertToEntityAttribute(String dbData) {
-        return JSONObject.parseObject(dbData);
-    }
-}
-```
-
-### StaticCallOnSubclass
-Static method `parseObject()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONObject'
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-            String b64payload = pieces[1];
-            String jsonString = new String(Base64.decodeBase64(b64payload), FileUtil.UTF_8);
-            userInfo = JSONObject.parseObject(jsonString);
-        } catch (Exception e) {
-            e.printStackTrace();
 ```
 
 ### StaticCallOnSubclass
@@ -170,17 +185,29 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/ActionExecutor.java`
                     throw new HydraLabRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR.value(),
 ```
 
+### StaticCallOnSubclass
+Static method `parseArray()` declared in class 'com.alibaba.fastjson.JSON' but referenced via subclass 'com.alibaba.fastjson.JSONArray'
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+#### Snippet
+```java
+                JSONArray values = null;
+                try {
+                    values = JSONArray.parseArray(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+```
+
 ## RuleId[id=UnnecessaryStringEscape]
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
 in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUtils.java`
 #### Snippet
 ```java
-    public enum MaskSensitiveData {
-        CURRENT_PASSWORD("(current[_\\s-]*password)[=:\"\\s]*(\\w*)"),
-        PASSWORD("[&,;\"\'\\s]+(password|pwd)[=:\"\\s]*(\\w*)"),
         GENERAL_PASSWORD("\\w*(password|pwd)[=:\\\"\\s]*(\\w*)"),
         PASSWORD_CONFIRMATION("(password[_\\s-]*confirmation)[=:\"\\s]*(\\w*)"),
+        EMAIL("[&,;\"\'\\s]+(mail)[=:\"\\s]*(\\w*)"),
+        GENERAL_EMAIL("\\w*(mail)[=:\\\"\\s]*(\\w*)"),
+        API_KEY("(api[_\\s-]*key)[=:\"\\s]*(\\w*)"),
 ```
 
 ### UnnecessaryStringEscape
@@ -188,23 +215,11 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUtils.java`
 #### Snippet
 ```java
+    public enum MaskSensitiveData {
+        CURRENT_PASSWORD("(current[_\\s-]*password)[=:\"\\s]*(\\w*)"),
+        PASSWORD("[&,;\"\'\\s]+(password|pwd)[=:\"\\s]*(\\w*)"),
         GENERAL_PASSWORD("\\w*(password|pwd)[=:\\\"\\s]*(\\w*)"),
         PASSWORD_CONFIRMATION("(password[_\\s-]*confirmation)[=:\"\\s]*(\\w*)"),
-        EMAIL("[&,;\"\'\\s]+(mail)[=:\"\\s]*(\\w*)"),
-        GENERAL_EMAIL("\\w*(mail)[=:\\\"\\s]*(\\w*)"),
-        API_KEY("(api[_\\s-]*key)[=:\"\\s]*(\\w*)"),
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
-#### Snippet
-```java
-        GENERAL_PASSWORD("\\w*(password|pwd)[=:\\\"\\s]*(\\w*)"),
-        PASSWORD_CONFIRMATION("(password[_\\s-]*confirmation)[=:\"\\s]*(\\w*)"),
-        EMAIL("[&,;\"\'\\s]+(mail)[=:\"\\s]*(\\w*)"),
-        GENERAL_EMAIL("\\w*(mail)[=:\\\"\\s]*(\\w*)"),
-        API_KEY("(api[_\\s-]*key)[=:\"\\s]*(\\w*)"),
 ```
 
 ### UnnecessaryStringEscape
@@ -217,6 +232,55 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
         PASSWORD("[&,;\"\'\\s]+(password|pwd)[=:\"\\s]*(\\w*)"),
         GENERAL_PASSWORD("\\w*(password|pwd)[=:\\\"\\s]*(\\w*)"),
         PASSWORD_CONFIRMATION("(password[_\\s-]*confirmation)[=:\"\\s]*(\\w*)"),
+```
+
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
+#### Snippet
+```java
+        GENERAL_PASSWORD("\\w*(password|pwd)[=:\\\"\\s]*(\\w*)"),
+        PASSWORD_CONFIRMATION("(password[_\\s-]*confirmation)[=:\"\\s]*(\\w*)"),
+        EMAIL("[&,;\"\'\\s]+(mail)[=:\"\\s]*(\\w*)"),
+        GENERAL_EMAIL("\\w*(mail)[=:\\\"\\s]*(\\w*)"),
+        API_KEY("(api[_\\s-]*key)[=:\"\\s]*(\\w*)"),
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunListener.java`
+#### Snippet
+```java
+    private static final String ATTR_ASSERTIOMS = "assertions";
+    private static final String ATTR_TESTS = "tests";
+    //private static final String ATTR_TYPE = "type";
+    //private static final String ATTR_MESSAGE = "message";
+    private static final String PROPERTIES = "properties";
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
+#### Snippet
+```java
+        String mergeDestinationPath = new File(baseFolder.getAbsolutePath(), Const.ScreenRecoderConfig.DEFAULT_FILE_NAME).getAbsolutePath();
+        FFmpegConcatUtil.mergeVideosSideBySide(phoneVideoFile.getAbsolutePath(), PCVideoFile.getAbsolutePath(), mergeDestinationPath, logger);
+        // PCVideoFile.delete();
+        // phoneVideoFile.delete();
+        return true;
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+#### Snippet
+```java
+
+    private void startTools() {
+//        try {
+//            pid = adbDeviceManager.getPackagePid(deviceInfo, pkgName, logger);
+//            logger.info("{} is running test with pid {}", pkgName, pid);
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -280,56 +344,7 @@ in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlob
     }
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunListener.java`
-#### Snippet
-```java
-    private static final String ATTR_ASSERTIOMS = "assertions";
-    private static final String ATTR_TESTS = "tests";
-    //private static final String ATTR_TYPE = "type";
-    //private static final String ATTR_MESSAGE = "message";
-    private static final String PROPERTIES = "properties";
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
-#### Snippet
-```java
-
-    private void startTools() {
-//        try {
-//            pid = adbDeviceManager.getPackagePid(deviceInfo, pkgName, logger);
-//            logger.info("{} is running test with pid {}", pkgName, pid);
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
-#### Snippet
-```java
-        String mergeDestinationPath = new File(baseFolder.getAbsolutePath(), Const.ScreenRecoderConfig.DEFAULT_FILE_NAME).getAbsolutePath();
-        FFmpegConcatUtil.mergeVideosSideBySide(phoneVideoFile.getAbsolutePath(), PCVideoFile.getAbsolutePath(), mergeDestinationPath, logger);
-        // PCVideoFile.delete();
-        // phoneVideoFile.delete();
-        return true;
-```
-
 ## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
-#### Snippet
-```java
-
-    private void parseCoordinates(String bounds) {
-        String[] boundsArray = bounds.split("\\[|\\]|,");
-        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
-        int x1 = Integer.parseInt(validArr[0]);
-```
-
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
 in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
@@ -342,7 +357,31 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
                 for (int v = 0; v < length; v++) {
 ```
 
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
+#### Snippet
+```java
+
+    private void parseCoordinates(String bounds) {
+        String[] boundsArray = bounds.split("\\[|\\]|,");
+        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
+        int x1 = Integer.parseInt(validArr[0]);
+```
+
 ## RuleId[id=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `params.keySet()` may be replaced with 'entrySet()' iteration
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+    public static String getFileTextAsCommandParamsTemplateFromResource(String relativePath, Map<String, String> params) {
+        String templateStr = getFileTextAsCommandFromResource(relativePath);
+        for (String key : params.keySet()) {
+            if (!templateStr.contains(key)) {
+                continue;
+```
+
 ### KeySetIterationMayUseEntrySet
 Iteration over `testAgentDevicesMap.keySet()` may be replaced with 'entrySet()' iteration
 in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
@@ -368,15 +407,15 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `keys` may be replaced with 'values()' iteration
+Iteration over `keys` may be replaced with 'entrySet()' iteration
 in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
 #### Snippet
 ```java
-        List<AgentUpdateTask> res = new ArrayList<>();
-        Set<String> keys = agentUpdateMap.keySet();
+        List<DeviceGroup> res = new ArrayList<>();
+        Set<String> keys = deviceGroupListMap.keySet();
         for (String key : keys) {
-            res.add(agentUpdateMap.get(key));
-        }
+            DeviceGroup group = deviceGroupService.getGroupByName(key);
+            if (group == null) {
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -392,30 +431,54 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `keys` may be replaced with 'entrySet()' iteration
+Iteration over `keys` may be replaced with 'values()' iteration
 in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
 #### Snippet
 ```java
-        List<DeviceGroup> res = new ArrayList<>();
-        Set<String> keys = deviceGroupListMap.keySet();
+        List<AgentUpdateTask> res = new ArrayList<>();
+        Set<String> keys = agentUpdateMap.keySet();
         for (String key : keys) {
-            DeviceGroup group = deviceGroupService.getGroupByName(key);
-            if (group == null) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `params.keySet()` may be replaced with 'entrySet()' iteration
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-    public static String getFileTextAsCommandParamsTemplateFromResource(String relativePath, Map<String, String> params) {
-        String templateStr = getFileTextAsCommandFromResource(relativePath);
-        for (String key : params.keySet()) {
-            if (!templateStr.contains(key)) {
-                continue;
+            res.add(agentUpdateMap.get(key));
+        }
 ```
 
 ## RuleId[id=RedundantArrayCreation]
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
+#### Snippet
+```java
+        String parentDir = CENTER_FILE_BASE_DIR + fileRelativeParent;
+        try {
+            File savedPkg = attachmentService.verifyAndSaveFile(packageFile, parentDir, false, null, new String[]{FILE_SUFFIX.JAR_FILE});
+            StorageFileInfo storageFileInfo = new StorageFileInfo(savedPkg, fileRelativeParent, StorageFileInfo.FileType.AGENT_PACKAGE);
+            return Result.ok(attachmentService.saveFileInStorageAndDB(storageFileInfo, savedPkg, EntityType.AGENT_PACKAGE, logger));
+```
+
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
+#### Snippet
+```java
+            //Save app file to server
+            File tempAppFile =
+                    attachmentService.verifyAndSaveFile(appFile, CENTER_FILE_BASE_DIR + relativeParent, false, null, new String[]{FILE_SUFFIX.APK_FILE, FILE_SUFFIX.IPA_FILE});
+            StorageFileInfo appFileInfo = new StorageFileInfo(tempAppFile, relativeParent, StorageFileInfo.FileType.APP_FILE);
+            //Upload app file
+```
+
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
+#### Snippet
+```java
+            if (testAppFile != null && !testAppFile.isEmpty()) {
+                File tempTestAppFile = attachmentService.verifyAndSaveFile(testAppFile, CENTER_FILE_BASE_DIR + relativeParent, false, null,
+                        new String[]{FILE_SUFFIX.APK_FILE, FILE_SUFFIX.JAR_FILE, FILE_SUFFIX.JSON_FILE});
+
+                StorageFileInfo testAppFileInfo = new StorageFileInfo(tempTestAppFile, relativeParent, StorageFileInfo.FileType.TEST_APP_FILE);
+```
+
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
 in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
@@ -428,43 +491,19 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetCont
             testJsonInfo.setBlobPath(fileRelPath);
 ```
 
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-            //Save app file to server
-            File tempAppFile =
-                    attachmentService.verifyAndSaveFile(appFile, CENTER_FILE_BASE_DIR + relativePath, false, null, new String[]{FILE_SUFFIX.APK_FILE, FILE_SUFFIX.IPA_FILE});
-            StorageFileInfo appFileInfo = new StorageFileInfo(tempAppFile, relativePath, StorageFileInfo.FileType.APP_FILE);
-            //Upload app file
-```
-
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-            if (testAppFile != null && !testAppFile.isEmpty()) {
-                File tempTestAppFile = attachmentService.verifyAndSaveFile(testAppFile, CENTER_FILE_BASE_DIR + relativePath, false, null,
-                        new String[]{FILE_SUFFIX.APK_FILE, FILE_SUFFIX.JAR_FILE, FILE_SUFFIX.JSON_FILE});
-
-                StorageFileInfo testAppFileInfo = new StorageFileInfo(tempTestAppFile, relativePath, StorageFileInfo.FileType.TEST_APP_FILE);
-```
-
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-        String parentDir = CENTER_FILE_BASE_DIR + fileRelativePath;
-        try {
-            File savedPkg = attachmentService.verifyAndSaveFile(packageFile, parentDir, false, null, new String[]{FILE_SUFFIX.JAR_FILE});
-            StorageFileInfo storageFileInfo = new StorageFileInfo(savedPkg, fileRelativePath, StorageFileInfo.FileType.AGENT_PACKAGE);
-            return Result.ok(attachmentService.saveFileInStorageAndDB(storageFileInfo, savedPkg, EntityType.AGENT_PACKAGE, logger));
-```
-
 ## RuleId[id=ObjectNotify]
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
+#### Snippet
+```java
+        } finally {
+            synchronized (this) {
+                notify();
+            }
+        }
+```
+
 ### ObjectNotify
 `notify` should probably be replaced with 'notifyAll()'
 in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
@@ -483,18 +522,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.j
 #### Snippet
 ```java
             this.inFinish = true;
-            synchronized (this) {
-                notify();
-            }
-        }
-```
-
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
-#### Snippet
-```java
-        } finally {
             synchronized (this) {
                 notify();
             }
@@ -520,9 +547,9 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient
 in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
 #### Snippet
 ```java
-            templateStr = templateStr.replace(String.format("${%s}", key), params.get(key).trim());
-        }
-        return templateStr.replaceAll(",? ?\\$\\{\\w+},?", "").replaceAll("[\\s]{2,}", " ");
+
+    public static String getFileTextAsCommandFromResource(String relativePath) {
+        return getFileTextFromResource(relativePath).trim().replaceAll("[\n\r]", "").replaceAll("[\\s]{2,}", " ");
     }
 
 ```
@@ -532,9 +559,9 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
 in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
 #### Snippet
 ```java
-
-    public static String getFileTextAsCommandFromResource(String relativePath) {
-        return getFileTextFromResource(relativePath).trim().replaceAll("[\n\r]", "").replaceAll("[\\s]{2,}", " ");
+            templateStr = templateStr.replace(String.format("${%s}", key), params.get(key).trim());
+        }
+        return templateStr.replaceAll(",? ?\\$\\{\\w+},?", "").replaceAll("[\\s]{2,}", " ");
     }
 
 ```
@@ -565,6 +592,18 @@ in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemor
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`criteriaTypes.size() == 0` can be replaced with 'criteriaTypes.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
+#### Snippet
+```java
+            // return all DeviceGroups in TEAMs that user is in
+            List<CriteriaType> criteriaTypes = userTeamManagementService.formTeamIdCriteria(requestor.getTeamAdminMap());
+            if (criteriaTypes.size() == 0) {
+                return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
+            }
+```
+
 ### SizeReplaceableByIsEmpty
 `agentDeviceGroup.getDevices().size() > 0` can be replaced with '!agentDeviceGroup.getDevices().isEmpty()'
 in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceManageController.java`
@@ -602,27 +641,15 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/config/DeviceConfig.jav
 ```
 
 ### SizeReplaceableByIsEmpty
-`maskedMessage.length() > 0` can be replaced with '!maskedMessage.isEmpty()'
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
+`this.inspectionStrategies.size() != 0` can be replaced with '!this.inspectionStrategies.isEmpty()'
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/config/TestConfig.java`
 #### Snippet
 ```java
-            if (matcher.find()) {
-                String maskedMessage = matcher.group(2);
-                if (maskedMessage.length() > 0) {
-                    content = content.replaceFirst(maskedMessage, "***");
-                }
-```
 
-### SizeReplaceableByIsEmpty
-`criteriaTypes.size() == 0` can be replaced with 'criteriaTypes.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-            if (!sysUserService.checkUserAdmin(requestor)) {
-                criteriaTypes = userTeamManagementService.formTeamIdCriteria(requestor.getTeamAdminMap());
-                if (criteriaTypes.size() == 0) {
-                    return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
-                }
+    public void extractFromExistingField(){
+        if (StringUtils.isBlank(this.inspectionStrategiesStr) && this.inspectionStrategies.size() != 0) {
+            this.inspectionStrategiesStr = GSON.toJson(this.inspectionStrategies);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -639,7 +666,7 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetCont
 
 ### SizeReplaceableByIsEmpty
 `criteriaTypes.size() == 0` can be replaced with 'criteriaTypes.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/controller/TestTaskController.java`
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
 #### Snippet
 ```java
             if (!sysUserService.checkUserAdmin(requestor)) {
@@ -647,6 +674,30 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/TestTaskContro
                 if (criteriaTypes.size() == 0) {
                     return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
                 }
+```
+
+### SizeReplaceableByIsEmpty
+`maskedMessage.length() > 0` can be replaced with '!maskedMessage.isEmpty()'
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
+#### Snippet
+```java
+            if (matcher.find()) {
+                String maskedMessage = matcher.group(2);
+                if (maskedMessage.length() > 0) {
+                    content = content.replaceFirst(maskedMessage, "***");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceGroupService.java`
+#### Snippet
+```java
+    public List<DeviceGroup> queryFilteredGroups(List<CriteriaType> queryParams) {
+        Specification<DeviceGroup> spec = null;
+        if (queryParams != null && queryParams.size() > 0) {
+            spec = new CriteriaTypeUtil<DeviceGroup>().transferToSpecification(queryParams, true);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -659,6 +710,30 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/TestTaskContro
                 if (criteriaTypeList.size() == 0) {
                     return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
                 }
+```
+
+### SizeReplaceableByIsEmpty
+`criteriaTypes.size() == 0` can be replaced with 'criteriaTypes.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/controller/TestTaskController.java`
+#### Snippet
+```java
+            if (!sysUserService.checkUserAdmin(requestor)) {
+                criteriaTypes = userTeamManagementService.formTeamIdCriteria(requestor.getTeamAdminMap());
+                if (criteriaTypes.size() == 0) {
+                    return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`criteriaTypes.size() > 0` can be replaced with '!criteriaTypes.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
+#### Snippet
+```java
+    public Page<TestFileSet> queryFileSets(int page, int pageSize, List<CriteriaType> criteriaTypes) {
+        Specification<TestFileSet> spec = null;
+        if (criteriaTypes != null && criteriaTypes.size() > 0) {
+            spec = new CriteriaTypeUtil<TestFileSet>().transferToSpecification(criteriaTypes, false);
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -686,18 +761,6 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 ```
 
 ### SizeReplaceableByIsEmpty
-`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
-#### Snippet
-```java
-    public List<AgentUser> getFilteredAgents(List<CriteriaType> queryParams) {
-        Specification<AgentUser> spec = null;
-        if (queryParams != null && queryParams.size() > 0) {
-            spec = new CriteriaTypeUtil<AgentUser>().transferToSpecification(queryParams, true);
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `testConfig.neededPermissions.size() > 0` can be replaced with '!testConfig.neededPermissions.isEmpty()'
 in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
 #### Snippet
@@ -707,270 +770,6 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient
             if (testConfig.neededPermissions.size() > 0) {
                 jsonElement.add("neededPermissions", GSON.toJsonTree(testConfig.neededPermissions));
             }
-```
-
-### SizeReplaceableByIsEmpty
-`criteriaTypes.size() == 0` can be replaced with 'criteriaTypes.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
-#### Snippet
-```java
-            // return all DeviceGroups in TEAMs that user is in
-            List<CriteriaType> criteriaTypes = userTeamManagementService.formTeamIdCriteria(requestor.getTeamAdminMap());
-            if (criteriaTypes.size() == 0) {
-                return Result.error(HttpStatus.UNAUTHORIZED.value(), "User belongs to no TEAM, please contact administrator for binding TEAM");
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`testWindowsApp.length() > 0` can be replaced with '!testWindowsApp.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
-#### Snippet
-```java
-                    WindowsDriver windowsDriver;
-                    testWindowsApp = driverInfo.getLauncherApp();
-                    if (testWindowsApp.length() > 0 && !testWindowsApp.equalsIgnoreCase("root")) {
-                        windowsDriver = appiumServerManager.getWindowsAppDriver(testWindowsApp, reportLogger);
-                    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`testWindowsApp.length() > 0` can be replaced with '!testWindowsApp.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
-#### Snippet
-```java
-        } finally {
-            appiumServerManager.quitAndroidDriver(deviceInfo, reportLogger);
-            if (testWindowsApp.length() > 0) {
-                appiumServerManager.quitWindowsAppDriver(testWindowsApp, reportLogger);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`values.size() > 0` can be replaced with '!values.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
-#### Snippet
-```java
-                    Assert.isTrue(false, "When querying with in, the value of criteriaType should be a JSONArray String!");
-                }
-                Assert.isTrue(values.size() > 0, "When querying with in, the value of criteriaType should contain 1 element at least!");
-
-                CriteriaBuilder.In<Object> tempPredicate = criteriaBuilder.in(root.get(key).as(String.class));
-```
-
-### SizeReplaceableByIsEmpty
-`deviceSerials.size() > 0` can be replaced with '!deviceSerials.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-        Set<String> deviceSerials = deviceGroupListMap.get(testTaskSpec.deviceIdentifier);
-        Assert.notNull(deviceSerials, "error deviceIdentifier or there is no devices in the group!");
-        Assert.isTrue(deviceSerials.size() > 0, "error deviceIdentifier or there is no devices in the group!");
-        DeviceGroup deviceGroup = deviceGroupService.getGroupByName(testTaskSpec.deviceIdentifier);
-        Assert.notNull(deviceGroup, "error deviceIdentifier !");
-```
-
-### SizeReplaceableByIsEmpty
-`criteriaTypes.size() > 0` can be replaced with '!criteriaTypes.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
-#### Snippet
-```java
-    public Page<TestFileSet> queryFileSets(int page, int pageSize, List<CriteriaType> criteriaTypes) {
-        Specification<TestFileSet> spec = null;
-        if (criteriaTypes != null && criteriaTypes.size() > 0) {
-            spec = new CriteriaTypeUtil<TestFileSet>().transferToSpecification(criteriaTypes, false);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`result[0].trim().length() > 0` can be replaced with '!result\[0\].trim().isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
-#### Snippet
-```java
-                    try {
-                        String[] result = lines[0].split("\\s+");
-                        if (result[0].trim().length() > 0) {
-                            length[0] = Long.parseLong(result[0].trim());
-                        }
-```
-
-### SizeReplaceableByIsEmpty
-`deviceStateChangeList.size() == 0` can be replaced with 'deviceStateChangeList.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
-#### Snippet
-```java
-        }
-
-        DeviceStateChangeRecord lastStateChange = deviceStateChangeList.size() == 0 ? null : deviceStateChangeList.getLast();
-
-        if (lastStateChange == null) {
-```
-
-### SizeReplaceableByIsEmpty
-`oldTestTask.agentIds.size() == 0` can be replaced with 'oldTestTask.agentIds.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-        TestTask oldTestTask = testDataServiceCache.getTestTaskDetail(testTask.getId());
-        //run by device
-        if (oldTestTask.agentIds.size() == 0) {
-            testDataServiceCache.saveTestTaskData(testTask);
-            return;
-```
-
-### SizeReplaceableByIsEmpty
-`oldTestTask.agentIds.size() == 0` can be replaced with 'oldTestTask.agentIds.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-        oldTestTask.agentIds.remove(agentId);
-
-        boolean isAllFinish = oldTestTask.agentIds.size() == 0;
-        if (isAllFinish) {
-            oldTestTask.setStatus(TestTask.TestStatus.FINISHED);
-```
-
-### SizeReplaceableByIsEmpty
-`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-        Root<TestTask> root = query.from(TestTask.class);
-
-        if (queryParams != null && queryParams.size() > 0) {
-            query.where(new CriteriaTypeUtil<TestTask>().transferToPredicate(root, criteriaBuilder, queryParams));
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-    public Page<TestTask> getTestTasks(int page, int pageSize, List<CriteriaType> queryParams) {
-        Specification<TestTask> spec = null;
-        if (queryParams != null && queryParams.size() > 0) {
-            spec = new CriteriaTypeUtil<TestTask>().transferToSpecification(queryParams, false);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`maskedMessage.length() > 0` can be replaced with '!maskedMessage.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
-#### Snippet
-```java
-            if (matcher.find()) {
-                String maskedMessage = matcher.group(2);
-                if (maskedMessage.length() > 0) {
-                    content = content.replaceFirst(maskedMessage, "***");
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`crashStack.size() > 0` can be replaced with '!crashStack.isEmpty()'
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.java`
-#### Snippet
-```java
-                    System.currentTimeMillis() - recordingStartTimeMillis);
-            testRun.oneMoreFailure();
-        } else if (crashStack != null && crashStack.size() > 0) {
-            ongoingSmartTest.setStatusCode(AndroidTestUnit.StatusCodes.FAILURE);
-            ongoingSmartTest.setSuccess(false);
-```
-
-### SizeReplaceableByIsEmpty
-`authTokens.size() > 0` can be replaced with '!authTokens.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
-#### Snippet
-```java
-    public boolean checkAuthToken(String authToken) {
-        List<AuthToken> authTokens = authTokenRepository.queryByToken(authToken);
-        if (authTokens.size() > 0) {
-            Authentication authObj = securityUserService.loadUserAuthentication(authTokens.get(0).getCreator(), null);
-            if (authObj == null) {
-```
-
-### SizeReplaceableByIsEmpty
-`processInfo.length() > 0` can be replaced with '!processInfo.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-        String processInfo = ShellUtils.execLocalCommandWithResult(ShellUtils.POWER_SHELL_PATH + " -Command " + "\"(Get-Process | where {$_.mainWindowTitle -and $_.mainWindowHandle -ne 0 -and $_.Name -eq '" + processName + "'} | Select mainWindowHandle).mainWindowHandle\"", logger);
-        logger.info(processName + " processInfo: " + processInfo);
-        if (processInfo != null && processInfo.length() > 0) {
-            String handlerIdStr = processInfo.trim().split(" ")[0];
-            logger.info(processName + " handlerIdStr: " + handlerIdStr);
-```
-
-### SizeReplaceableByIsEmpty
-`processInfo.length() > 0` can be replaced with '!processInfo.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-        }
-        String processInfo = ShellUtils.execLocalCommandWithResult(ShellUtils.POWER_SHELL_PATH + " -Command " + scriptFile.getAbsolutePath() + " " + appFamilyName, logger);
-        if (processInfo != null && processInfo.length() > 0) {
-            logger.info("handlerIdStr: " + processInfo);
-            int handlerIdInt = Integer.parseInt(processInfo);
-```
-
-### SizeReplaceableByIsEmpty
-`hexAppTopLevelWindowByKeyWord.length() == 0` can be replaced with 'hexAppTopLevelWindowByKeyWord.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            caps = new DesiredCapabilities();
-            String hexAppTopLevelWindowByKeyWord = getHexAppTopLevelWindowByFamilyName(appFamilyName, logger);
-            if (hexAppTopLevelWindowByKeyWord.length() == 0) {
-                throw new RuntimeException(appFamilyName + " is not opened or failed activate it");
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`exceptions.size() > 0` can be replaced with '!exceptions.isEmpty()'
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
-#### Snippet
-```java
-            List<Exception> exceptions = actionExecutor.doActions(testDeviceManager, deviceInfo, testRun.getLogger(),
-                    testTask.getDeviceActions(), DeviceAction.When.TEAR_DOWN);
-            if (exceptions.size() > 0) {
-                testRun.getLogger().error("Execute actions failed when tearDown!", exceptions.get(0));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`exceptions.size() == 0` can be replaced with 'exceptions.isEmpty()'
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
-#### Snippet
-```java
-            List<Exception> exceptions = actionExecutor.doActions(testDeviceManager, deviceInfo, testRun.getLogger(),
-                    testTask.getDeviceActions(), DeviceAction.When.SET_UP);
-            Assert.isTrue(exceptions.size() == 0, () -> exceptions.get(0));
-        }
-
-```
-
-### SizeReplaceableByIsEmpty
-`testJsonInfoList.size() == 0` can be replaced with 'testJsonInfoList.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-    public List<TestJsonInfo> getTestJsonHistory(String packageName, String caseName) {
-        List<TestJsonInfo> testJsonInfoList = testJsonInfoRepository.findByPackageNameAndCaseName(packageName, caseName);
-        if (testJsonInfoList.size() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`files.size() > 0` can be replaced with '!files.isEmpty()'
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-    public StorageFileInfo getLatestAgentPackage() {
-        List<StorageFileInfo> files = storageFileInfoRepository.queryStorageFileInfoByFileTypeOrderByCreateTimeDesc(StorageFileInfo.FileType.AGENT_PACKAGE);
-        if (files != null && files.size() > 0) {
-            return files.get(0);
-        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1010,14 +809,194 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.ja
 ```
 
 ### SizeReplaceableByIsEmpty
-`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceGroupService.java`
+`testJsonInfoList.size() == 0` can be replaced with 'testJsonInfoList.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
 #### Snippet
 ```java
-    public List<DeviceGroup> queryFilteredGroups(List<CriteriaType> queryParams) {
-        Specification<DeviceGroup> spec = null;
+    public List<TestJsonInfo> getTestJsonHistory(String packageName, String caseName) {
+        List<TestJsonInfo> testJsonInfoList = testJsonInfoRepository.findByPackageNameAndCaseName(packageName, caseName);
+        if (testJsonInfoList.size() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`files.size() > 0` can be replaced with '!files.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+    public StorageFileInfo getLatestAgentPackage() {
+        List<StorageFileInfo> files = storageFileInfoRepository.queryStorageFileInfoByFileTypeOrderByCreateTimeDesc(StorageFileInfo.FileType.AGENT_PACKAGE);
+        if (files != null && files.size() > 0) {
+            return files.get(0);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`authTokens.size() > 0` can be replaced with '!authTokens.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+#### Snippet
+```java
+    public boolean checkAuthToken(String authToken) {
+        List<AuthToken> authTokens = authTokenRepository.queryByToken(authToken);
+        if (authTokens.size() > 0) {
+            Authentication authObj = securityUserService.loadUserAuthentication(authTokens.get(0).getCreator(), null);
+            if (authObj == null) {
+```
+
+### SizeReplaceableByIsEmpty
+`processInfo.length() > 0` can be replaced with '!processInfo.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+        }
+        String processInfo = ShellUtils.execLocalCommandWithResult(ShellUtils.POWER_SHELL_PATH + " -Command " + scriptFile.getAbsolutePath() + " " + appFamilyName, logger);
+        if (processInfo != null && processInfo.length() > 0) {
+            logger.info("handlerIdStr: " + processInfo);
+            int handlerIdInt = Integer.parseInt(processInfo);
+```
+
+### SizeReplaceableByIsEmpty
+`processInfo.length() > 0` can be replaced with '!processInfo.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+        String processInfo = ShellUtils.execLocalCommandWithResult(ShellUtils.POWER_SHELL_PATH + " -Command " + "\"(Get-Process | where {$_.mainWindowTitle -and $_.mainWindowHandle -ne 0 -and $_.Name -eq '" + processName + "'} | Select mainWindowHandle).mainWindowHandle\"", logger);
+        logger.info(processName + " processInfo: " + processInfo);
+        if (processInfo != null && processInfo.length() > 0) {
+            String handlerIdStr = processInfo.trim().split(" ")[0];
+            logger.info(processName + " handlerIdStr: " + handlerIdStr);
+```
+
+### SizeReplaceableByIsEmpty
+`hexAppTopLevelWindowByKeyWord.length() == 0` can be replaced with 'hexAppTopLevelWindowByKeyWord.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            caps = new DesiredCapabilities();
+            String hexAppTopLevelWindowByKeyWord = getHexAppTopLevelWindowByFamilyName(appFamilyName, logger);
+            if (hexAppTopLevelWindowByKeyWord.length() == 0) {
+                throw new RuntimeException(appFamilyName + " is not opened or failed activate it");
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`maskedMessage.length() > 0` can be replaced with '!maskedMessage.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
+#### Snippet
+```java
+            if (matcher.find()) {
+                String maskedMessage = matcher.group(2);
+                if (maskedMessage.length() > 0) {
+                    content = content.replaceFirst(maskedMessage, "***");
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`result[0].trim().length() > 0` can be replaced with '!result\[0\].trim().isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+#### Snippet
+```java
+                    try {
+                        String[] result = lines[0].split("\\s+");
+                        if (result[0].trim().length() > 0) {
+                            length[0] = Long.parseLong(result[0].trim());
+                        }
+```
+
+### SizeReplaceableByIsEmpty
+`deviceStateChangeList.size() == 0` can be replaced with 'deviceStateChangeList.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
+#### Snippet
+```java
+        }
+
+        DeviceStateChangeRecord lastStateChange = deviceStateChangeList.size() == 0 ? null : deviceStateChangeList.getLast();
+
+        if (lastStateChange == null) {
+```
+
+### SizeReplaceableByIsEmpty
+`testWindowsApp.length() > 0` can be replaced with '!testWindowsApp.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
+#### Snippet
+```java
+                    WindowsDriver windowsDriver;
+                    testWindowsApp = driverInfo.getLauncherApp();
+                    if (testWindowsApp.length() > 0 && !testWindowsApp.equalsIgnoreCase("root")) {
+                        windowsDriver = appiumServerManager.getWindowsAppDriver(testWindowsApp, reportLogger);
+                    } else {
+```
+
+### SizeReplaceableByIsEmpty
+`testWindowsApp.length() > 0` can be replaced with '!testWindowsApp.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
+#### Snippet
+```java
+        } finally {
+            appiumServerManager.quitAndroidDriver(deviceInfo, reportLogger);
+            if (testWindowsApp.length() > 0) {
+                appiumServerManager.quitWindowsAppDriver(testWindowsApp, reportLogger);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`deviceSerials.size() > 0` can be replaced with '!deviceSerials.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+        Set<String> deviceSerials = deviceGroupListMap.get(testTaskSpec.deviceIdentifier);
+        Assert.notNull(deviceSerials, "error deviceIdentifier or there is no devices in the group!");
+        Assert.isTrue(deviceSerials.size() > 0, "error deviceIdentifier or there is no devices in the group!");
+        DeviceGroup deviceGroup = deviceGroupService.getGroupByName(testTaskSpec.deviceIdentifier);
+        Assert.notNull(deviceGroup, "error deviceIdentifier !");
+```
+
+### SizeReplaceableByIsEmpty
+`crashStack.size() > 0` can be replaced with '!crashStack.isEmpty()'
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.java`
+#### Snippet
+```java
+                    System.currentTimeMillis() - recordingStartTimeMillis);
+            testRun.oneMoreFailure();
+        } else if (crashStack != null && crashStack.size() > 0) {
+            ongoingSmartTest.setStatusCode(AndroidTestUnit.StatusCodes.FAILURE);
+            ongoingSmartTest.setSuccess(false);
+```
+
+### SizeReplaceableByIsEmpty
+`exceptions.size() == 0` can be replaced with 'exceptions.isEmpty()'
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
+#### Snippet
+```java
+            List<Exception> exceptions = actionExecutor.doActions(testDeviceManager, deviceInfo, testRun.getLogger(),
+                    testTask.getDeviceActions(), DeviceAction.When.SET_UP);
+            Assert.isTrue(exceptions.size() == 0, () -> exceptions.get(0));
+        }
+
+```
+
+### SizeReplaceableByIsEmpty
+`exceptions.size() > 0` can be replaced with '!exceptions.isEmpty()'
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
+#### Snippet
+```java
+            List<Exception> exceptions = actionExecutor.doActions(testDeviceManager, deviceInfo, testRun.getLogger(),
+                    testTask.getDeviceActions(), DeviceAction.When.TEAR_DOWN);
+            if (exceptions.size() > 0) {
+                testRun.getLogger().error("Execute actions failed when tearDown!", exceptions.get(0));
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
+#### Snippet
+```java
+    public List<AgentUser> getFilteredAgents(List<CriteriaType> queryParams) {
+        Specification<AgentUser> spec = null;
         if (queryParams != null && queryParams.size() > 0) {
-            spec = new CriteriaTypeUtil<DeviceGroup>().transferToSpecification(queryParams, true);
+            spec = new CriteriaTypeUtil<AgentUser>().transferToSpecification(queryParams, true);
         }
 ```
 
@@ -1031,6 +1010,66 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/service/TestTaskEngineServi
         Assert.isTrue(result.getAttachments().size() > 0, "deviceTestResultBlobUrl should not null");
         String deviceTestResultBlobUrl = result.getAttachments().get(0).getCDNUrl();
         String fileName = result.getAttachments().get(0).getFileName();
+```
+
+### SizeReplaceableByIsEmpty
+`oldTestTask.agentIds.size() == 0` can be replaced with 'oldTestTask.agentIds.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+        TestTask oldTestTask = testDataServiceCache.getTestTaskDetail(testTask.getId());
+        //run by device
+        if (oldTestTask.agentIds.size() == 0) {
+            testDataServiceCache.saveTestTaskData(testTask);
+            return;
+```
+
+### SizeReplaceableByIsEmpty
+`oldTestTask.agentIds.size() == 0` can be replaced with 'oldTestTask.agentIds.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+        oldTestTask.agentIds.remove(agentId);
+
+        boolean isAllFinish = oldTestTask.agentIds.size() == 0;
+        if (isAllFinish) {
+            oldTestTask.setStatus(TestTask.TestStatus.FINISHED);
+```
+
+### SizeReplaceableByIsEmpty
+`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+    public Page<TestTask> getTestTasks(int page, int pageSize, List<CriteriaType> queryParams) {
+        Specification<TestTask> spec = null;
+        if (queryParams != null && queryParams.size() > 0) {
+            spec = new CriteriaTypeUtil<TestTask>().transferToSpecification(queryParams, false);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`queryParams.size() > 0` can be replaced with '!queryParams.isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+        Root<TestTask> root = query.from(TestTask.class);
+
+        if (queryParams != null && queryParams.size() > 0) {
+            query.where(new CriteriaTypeUtil<TestTask>().transferToPredicate(root, criteriaBuilder, queryParams));
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`values.size() > 0` can be replaced with '!values.isEmpty()'
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+#### Snippet
+```java
+                    Assert.isTrue(false, "When querying with in, the value of criteriaType should be a JSONArray String!");
+                }
+                Assert.isTrue(values.size() > 0, "When querying with in, the value of criteriaType should contain 1 element at least!");
+
+                CriteriaBuilder.In<Object> tempPredicate = criteriaBuilder.in(root.get(key).as(String.class));
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
@@ -1084,18 +1123,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends File`
-in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
-#### Snippet
-```java
-public class FFmpegConcatUtil {
-
-    public static File concatVideos(List<File> videos, File outputDir, Logger logger) {
-        if (videos.isEmpty()) {
-            return null;
-```
-
-### BoundedWildcard
 Can generalize to `? extends DeviceInfo`
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/DeviceTaskControlExecutor.java`
 #### Snippet
@@ -1105,78 +1132,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/DeviceTaskControlExe
     public DeviceTaskControl runForAllDeviceAsync(Collection<DeviceInfo> allDevices, DeviceTask task,
                                                   TaskCompletion taskCompletion, boolean logging,
                                                   boolean forceForTesting) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CriteriaType`
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
-#### Snippet
-```java
-    }
-
-    public Predicate[] transferToPredicate(Root<T> root, CriteriaBuilder criteriaBuilder, List<CriteriaType> criteriaTypes) {
-        Predicate[] predicates = new Predicate[criteriaTypes.size()];
-        for (int i = 0; i < criteriaTypes.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeviceInfo`
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-
-    //delete device and group&device relation
-    public void removeDevices(List<DeviceInfo> devices) {
-        for (DeviceInfo device : devices) {
-            Set<String> groups = device.getDeviceGroup();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeviceInfo`
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-    }
-
-    private void updateAgentDevices(List<DeviceInfo> latestDeviceInfos, AgentDeviceGroup agentDeviceGroup) {
-        for (DeviceInfo newDeviceInfo : latestDeviceInfos) {
-            boolean hasDevice = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeviceInfo`
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-    }
-
-    public void updateDeviceGroup(List<DeviceInfo> deviceInfos, String agentId) {
-        for (DeviceInfo deviceInfo : deviceInfos) {
-            //init agent info
-```
-
-### BoundedWildcard
-Can generalize to `? extends DeviceStateChangeRecord`
-in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
-#### Snippet
-```java
-    }
-
-    private void cleanOutdatedDeviceStateChange(ConcurrentLinkedDeque<DeviceStateChangeRecord> recordWindow, LocalDateTime now, DeviceInfo deviceInfo) {
-        /**
-         * Clean outdated state change record in window lists
-```
-
-### BoundedWildcard
-Can generalize to `? extends TestTask`
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-    }
-
-    public void saveAllTestTasks(List<TestTask> testTasks) {
-        testTaskRepository.saveAll(testTasks);
-    }
 ```
 
 ### BoundedWildcard
@@ -1201,6 +1156,18 @@ public class ThreadUtils {
     public static <T> void doInParallel(List<T> dataList, int threadCount, ParallelTask<T> task) {
         CountDownLatch countDownLatch = new CountDownLatch(threadCount);
         int size = dataList.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends StorageFileInfo`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+    }
+
+    public List<StorageFileInfo> filterAttachments(@NotNull List<StorageFileInfo> attachments, @NotNull String fileType) {
+        List<StorageFileInfo> data = new ArrayList<>();
+        for (StorageFileInfo attachment : attachments) {
 ```
 
 ### BoundedWildcard
@@ -1228,18 +1195,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends StorageFileInfo`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-    }
-
-    public List<StorageFileInfo> filterAttachments(@NotNull List<StorageFileInfo> attachments, @NotNull String fileType) {
-        List<StorageFileInfo> data = new ArrayList<>();
-        for (StorageFileInfo attachment : attachments) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `common/src/main/java/com/microsoft/hydralab/common/management/listener/DeviceStatusListenerManager.java`
 #### Snippet
@@ -1263,281 +1218,101 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/listener/Devic
             try {
 ```
 
+### BoundedWildcard
+Can generalize to `? extends DeviceStateChangeRecord`
+in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
+#### Snippet
+```java
+    }
+
+    private void cleanOutdatedDeviceStateChange(ConcurrentLinkedDeque<DeviceStateChangeRecord> recordWindow, LocalDateTime now, DeviceInfo deviceInfo) {
+        /**
+         * Clean outdated state change record in window lists
+```
+
+### BoundedWildcard
+Can generalize to `? extends File`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
+#### Snippet
+```java
+public class FFmpegConcatUtil {
+
+    public static File concatVideos(List<File> videos, File outputDir, Logger logger) {
+        if (videos.isEmpty()) {
+            return null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeviceInfo`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+
+    //delete device and group&device relation
+    public void removeDevices(List<DeviceInfo> devices) {
+        for (DeviceInfo device : devices) {
+            Set<String> groups = device.getDeviceGroup();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeviceInfo`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+    }
+
+    public void updateDeviceGroup(List<DeviceInfo> deviceInfos, String agentId) {
+        for (DeviceInfo deviceInfo : deviceInfos) {
+            //init agent info
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeviceInfo`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+    }
+
+    private void updateAgentDevices(List<DeviceInfo> latestDeviceInfos, AgentDeviceGroup agentDeviceGroup) {
+        for (DeviceInfo newDeviceInfo : latestDeviceInfos) {
+            boolean hasDevice = false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends TestTask`
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+    }
+
+    public void saveAllTestTasks(List<TestTask> testTasks) {
+        testTaskRepository.saveAll(testTasks);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends CriteriaType`
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+#### Snippet
+```java
+    }
+
+    public Predicate[] transferToPredicate(Root<T> root, CriteriaBuilder criteriaBuilder, List<CriteriaType> criteriaTypes) {
+        Predicate[] predicates = new Predicate[criteriaTypes.size()];
+        for (int i = 0; i < criteriaTypes.size(); i++) {
+```
+
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
-
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
-
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
-
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
     }
-
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    }
-
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    }
-
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    }
-
-    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName, @NotNull TestRun testRun, @NotNull Logger logger);
-
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
-
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
-
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
-
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
-
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    }
-
-    public abstract void resetDeviceByTestId(@NotNull String testId, @Nullable Logger logger);
-
-    public abstract void wakeUpDevice(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
-
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
-
-    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
-
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
-
-    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo, @NotNull String recordPackageName, @Nullable Logger logger);
-
-    public abstract void testDeviceSetup(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger) throws IOException;
-
-    public abstract void removeFileInDevice(DeviceInfo deviceInfo, String pathOnDevice, Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val, @Nullable Logger logger);
-
-    public abstract void updateIsPrivateByDeviceSerial(@NotNull String deviceSerial, @NotNull Boolean isPrivate);
-
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
-
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
-
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
-
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void wakeUpDevice(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void resetDeviceByTestId(@NotNull String testId, @Nullable Logger logger);
-
-    public abstract void wakeUpDevice(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-
-    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract Set<DeviceInfo> getActiveDeviceList(@Nullable Logger logger);
 
     public abstract File getScreenShot(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger) throws Exception;
 
-    public File getScreenShotWithStrategy(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger, @NotNull AgentUser.BatteryStrategy batteryStrategy) throws Exception {
+    public File getScreenShotWithStrategy(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger,
 ```
 
 ### NullableProblems
@@ -1545,11 +1320,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void pullFileFromDevice(@NotNull DeviceInfo deviceInfo, @NotNull String pathOnDevice, @Nullable Logger logger) throws Exception;
+                                               @NotNull String defaultActivity, @Nullable Logger logger);
 
-    public abstract ScreenRecorder getScreenRecorder(@NotNull DeviceInfo deviceInfo, @NotNull File folder, @Nullable Logger logger);
+    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                           @Nullable Logger logger);
 
-    public boolean grantAllTaskNeededPermissions(@NotNull DeviceInfo deviceInfo, @NotNull TestTask task, @Nullable Logger logger) {
 ```
 
 ### NullableProblems
@@ -1557,11 +1332,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void pullFileFromDevice(@NotNull DeviceInfo deviceInfo, @NotNull String pathOnDevice, @Nullable Logger logger) throws Exception;
+                                               @NotNull String defaultActivity, @Nullable Logger logger);
 
-    public abstract ScreenRecorder getScreenRecorder(@NotNull DeviceInfo deviceInfo, @NotNull File folder, @Nullable Logger logger);
+    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                           @Nullable Logger logger);
 
-    public boolean grantAllTaskNeededPermissions(@NotNull DeviceInfo deviceInfo, @NotNull TestTask task, @Nullable Logger logger) {
 ```
 
 ### NullableProblems
@@ -1569,11 +1344,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
+                                     @Nullable Logger logger);
 
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
+    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull String defaultActivity, @Nullable Logger logger);
 
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
 ```
 
 ### NullableProblems
@@ -1581,11 +1356,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
+                                     @Nullable Logger logger);
 
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
+    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull String defaultActivity, @Nullable Logger logger);
 
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
 ```
 
 ### NullableProblems
@@ -1593,11 +1368,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String permissionName, @Nullable Logger logger);
 
-    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull Logger logger);
+    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull String defaultActivity, @Nullable Logger logger);
 
-    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath, @Nullable Logger logger) throws InstallException;
+    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
 ```
 
 ### NullableProblems
@@ -1605,11 +1380,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
+                                       @Nullable Logger logger) throws InstallException;
 
-    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
+    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                         @Nullable Logger logger) throws InstallException;
 
-    public abstract void pushFileToDevice(@NotNull DeviceInfo deviceInfo, @NotNull String pathOnAgent, @NotNull String pathOnDevice, @Nullable Logger logger) throws Exception;
 ```
 
 ### NullableProblems
@@ -1617,11 +1392,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger) throws InstallException;
+                                       @Nullable Logger logger) throws InstallException;
 
-    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
+    public abstract boolean uninstallApp(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                         @Nullable Logger logger) throws InstallException;
 
-    public abstract void pushFileToDevice(@NotNull DeviceInfo deviceInfo, @NotNull String pathOnAgent, @NotNull String pathOnDevice, @Nullable Logger logger) throws Exception;
 ```
 
 ### NullableProblems
@@ -1629,11 +1404,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
+                                           @Nullable Logger logger);
 
-    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo, @NotNull String recordPackageName, @Nullable Logger logger);
-
-    public abstract void testDeviceSetup(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger) throws IOException;
+    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo,
+                                                                @NotNull String recordPackageName,
+                                                                @Nullable Logger logger);
 ```
 
 ### NullableProblems
@@ -1641,11 +1416,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
 
-    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo, @NotNull String recordPackageName, @Nullable Logger logger);
+    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo,
+                                                                @NotNull String recordPackageName,
+                                                                @Nullable Logger logger);
 
-    public abstract void testDeviceSetup(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger) throws IOException;
 ```
 
 ### NullableProblems
@@ -1653,11 +1428,11 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
+                                               @NotNull Logger logger);
 
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
+    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath,
+                                       @Nullable Logger logger) throws InstallException;
 
-    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo, @NotNull String recordPackageName, @Nullable Logger logger);
 ```
 
 ### NullableProblems
@@ -1665,11 +1440,239 @@ Overridden method parameters are not annotated
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
-    public abstract boolean setDefaultLauncher(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @NotNull String defaultActivity, @Nullable Logger logger);
+                                               @NotNull Logger logger);
 
-    public abstract boolean isAppInstalled(@NotNull DeviceInfo deviceInfo, @NotNull String packageName, @Nullable Logger logger);
+    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath,
+                                       @Nullable Logger logger) throws InstallException;
 
-    public abstract boolean grantProjectionAndBatteryPermission(@NotNull DeviceInfo deviceInfo, @NotNull String recordPackageName, @Nullable Logger logger);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                         @NotNull String permissionName, @Nullable Logger logger);
+
+    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                         @NotNull String permissionName, @Nullable Logger logger);
+
+    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+
+    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                               @NotNull Logger logger);
+
+    public abstract boolean installApp(@NotNull DeviceInfo deviceInfo, @NotNull String packagePath,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    }
+
+    public abstract void wakeUpDevice(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+
+    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val,
+                                     @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val,
+                                     @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                                                @Nullable Logger logger);
+
+    public abstract void testDeviceSetup(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger)
+            throws IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                            @Nullable Logger logger) throws Exception;
+
+    public abstract ScreenRecorder getScreenRecorder(@NotNull DeviceInfo deviceInfo, @NotNull File folder,
+                                                     @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                            @Nullable Logger logger) throws Exception;
+
+    public abstract ScreenRecorder getScreenRecorder(@NotNull DeviceInfo deviceInfo, @NotNull File folder,
+                                                     @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+
+    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                         @NotNull String permissionName, @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+
+    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                         @NotNull String permissionName, @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+
+    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                         @NotNull String permissionName, @Nullable Logger logger);
+
+    public abstract void addToBatteryWhiteList(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    public abstract void wakeUpDevice(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+
+    public abstract void backToHome(@NotNull DeviceInfo deviceInfo, @Nullable Logger logger);
+
+    public abstract void grantPermission(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                         @Nullable Logger logger) throws InstallException;
+
+    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                      @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                                         @Nullable Logger logger) throws InstallException;
+
+    public abstract void resetPackage(@NotNull DeviceInfo deviceInfo, @NotNull String packageName,
+                                      @Nullable Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    }
+
+    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName,
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    }
+
+    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName,
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+
+    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName,
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+
+    public abstract LogCollector getLogCollector(@NotNull DeviceInfo deviceInfo, @NotNull String pkgName,
+                                                 @NotNull TestRun testRun, @NotNull Logger logger);
+
+    public abstract void setProperty(@NotNull DeviceInfo deviceInfo, @NotNull String property, String val,
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -1680,9 +1683,9 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRec
 ```java
 
     @Override
-    abstract public boolean finishRecording();
-}
+    abstract public void startRecord(int maxTimeInSecond);
 
+    @Override
 ```
 
 ### MissortedModifiers
@@ -1704,81 +1707,33 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRec
 ```java
 
     @Override
-    abstract public void startRecord(int maxTimeInSecond);
-
-    @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/Entity/WindowsBatteryParsedData.java`
-#### Snippet
-```java
-public class WindowsBatteryParsedData {
-
-    public final static String[] METRICS_NAME = {"EnergyLoss", "CPUEnergyConsumption", "SocEnergyConsumption",
-            "DisplayEnergyConsumption", "DiskEnergyConsumption", "NetworkEnergyConsumption", "MBBEnergyConsumption",
-            "OtherEnergyConsumption", "EmiEnergyConsumption", "CPUEnergyConsumptionWorkOnBehalf",
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-
-    // TODO: [Extensible] Make it work with more processes of other Windows apps.
-    private final static String PROCESS_NAME_KEYWORD = "Phone";
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
-    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
-    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
-    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
-
-    protected Logger classLogger = LoggerFactory.getLogger(getClass());
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-    // TODO: [Extensible] Make it work with more processes of other Windows apps.
-    private final static String PROCESS_NAME_KEYWORD = "Phone";
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
-    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
-    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
-    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
-    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
-    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
+    abstract public boolean finishRecording();
+}
 
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
 #### Snippet
 ```java
-    private final static String PROCESS_NAME_KEYWORD = "Phone";
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
-    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
-    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
-    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
+    protected static Logger classLogger = LoggerFactory.getLogger(MachineInfoUtils.class);
+
+    private final static String DETECT_WINDOWS_LAPTOP_SCRIPT_NAME = "DetectWindowsLaptop.ps1";
+
+    public static boolean isOnMacOS() {
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+    public abstract void testDeviceUnset(DeviceInfo deviceInfo, Logger logger);
+
+    abstract public WebDriver getMobileAppiumDriver(DeviceInfo deviceInfo, Logger logger);
+
+    abstract public void quitMobileAppiumDriver(DeviceInfo deviceInfo, Logger logger);
 ```
 
 ### MissortedModifiers
@@ -1806,39 +1761,15 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDev
 ```
 
 ### MissortedModifiers
-Missorted modifiers `abstract public`
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-    public abstract void testDeviceUnset(DeviceInfo deviceInfo, Logger logger);
-
-    abstract public WebDriver getMobileAppiumDriver(DeviceInfo deviceInfo, Logger logger);
-
-    abstract public void quitMobileAppiumDriver(DeviceInfo deviceInfo, Logger logger);
-```
-
-### MissortedModifiers
 Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/Entity/WindowsBatteryParsedData.java`
 #### Snippet
 ```java
-public class WindowsBatteryResultParser implements PerformanceResultParser {
+public class WindowsBatteryParsedData {
 
-    private final static String APP_ID_KEYWORD = "YourPhone";
-    private final static String DELIMITER = ", ";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
-#### Snippet
-```java
-
-    private final static String APP_ID_KEYWORD = "YourPhone";
-    private final static String DELIMITER = ", ";
-
-    private final Logger classLogger = LoggerFactory.getLogger(getClass());
+    public final static String[] METRICS_NAME = {"EnergyLoss", "CPUEnergyConsumption", "SocEnergyConsumption",
+            "DisplayEnergyConsumption", "DiskEnergyConsumption", "NetworkEnergyConsumption", "MBBEnergyConsumption",
+            "OtherEnergyConsumption", "EmiEnergyConsumption", "CPUEnergyConsumptionWorkOnBehalf",
 ```
 
 ### MissortedModifiers
@@ -1867,25 +1798,61 @@ in `common/src/main/java/com/microsoft/hydralab/common/repository/KeyValueReposi
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
 #### Snippet
 ```java
- */
-public class WindowsBatteryInspector implements PerformanceInspector {
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s.csv";
-    private final static String COMMAND_FORMAT = "Start-Process -FilePath Powershell.exe -Verb RunAs -ArgumentList " +
-            "'-command \"powercfg /srumutil /OUTPUT %s /CSV \"'";
+    // TODO: [Extensible] Make it work with more processes of other Windows apps.
+    private final static String PROCESS_NAME_KEYWORD = "Phone";
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
+    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
 #### Snippet
 ```java
-public class WindowsBatteryInspector implements PerformanceInspector {
-    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s.csv";
-    private final static String COMMAND_FORMAT = "Start-Process -FilePath Powershell.exe -Verb RunAs -ArgumentList " +
-            "'-command \"powercfg /srumutil /OUTPUT %s /CSV \"'";
+
+    // TODO: [Extensible] Make it work with more processes of other Windows apps.
+    private final static String PROCESS_NAME_KEYWORD = "Phone";
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
+    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
+#### Snippet
+```java
+    private final static String PROCESS_NAME_KEYWORD = "Phone";
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
+    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
+#### Snippet
+```java
+    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
+
+    protected Logger classLogger = LoggerFactory.getLogger(getClass());
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
+#### Snippet
+```java
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s_%s";
+    private final static String SCRIPT_NAME = "WindowsMemoryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -keyword %s -output %s";
 
 ```
 
@@ -1899,6 +1866,78 @@ public class FileUtil {
     private final static SimpleDateFormat format = new SimpleDateFormat("yyyy" + File.separator + "MM" + File.separator + "dd");
     private static final Pattern paramKeyMatch = Pattern.compile("\\$\\{(\\w+)}");
 
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s.csv";
+    private final static String SCRIPT_NAME = "WindowsBatteryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -output %s";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+ */
+public class WindowsBatteryInspector implements PerformanceInspector {
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s.csv";
+    private final static String SCRIPT_NAME = "WindowsBatteryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+public class WindowsBatteryInspector implements PerformanceInspector {
+    private final static String RAW_RESULT_FILE_NAME_FORMAT = "%s_%s.csv";
+    private final static String SCRIPT_NAME = "WindowsBatteryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -output %s";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+    private final static String SCRIPT_NAME = "WindowsBatteryInspector.ps1";
+    private final static File SCRIPT_FILE = new File(SCRIPT_NAME);
+    private final static String PARAMETER_FORMAT = " -output %s";
+
+    protected Logger classLogger = LoggerFactory.getLogger(getClass());
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+#### Snippet
+```java
+public class WindowsBatteryResultParser implements PerformanceResultParser {
+
+    private final static String APP_ID_KEYWORD = "YourPhone";
+    private final static String DELIMITER = ", ";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+#### Snippet
+```java
+
+    private final static String APP_ID_KEYWORD = "YourPhone";
+    private final static String DELIMITER = ", ";
+
+    private final Logger classLogger = LoggerFactory.getLogger(getClass());
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -1952,26 +1991,26 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
 #### Snippet
 ```java
-            File videoFile = new File(pathOnAgent);
-            if (videoFile.exists()) {
-                videoFile.delete();
-            }
-            try {
+        scriptFile = new File(testBaseDir, name);
+        if (scriptFile.exists()) {
+            scriptFile.delete();
+        }
+        try (InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(name); OutputStream out = new FileOutputStream(scriptFile)) {
 ```
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/ADBScreenRecorder.java`
 #### Snippet
 ```java
-        recordApk = new File(preAppDir, name);
-        if (recordApk.exists()) {
-            recordApk.delete();
-        }
-        try (InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(name); OutputStream out = new FileOutputStream(recordApk)) {
+                if (mergedVideo != null && mergedVideo.exists()) {
+                    logger.info("deleting merged old videos " + list);
+                    list.forEach(File::delete);
+                }
+
 ```
 
 ### IgnoreResultOfCall
@@ -1988,6 +2027,18 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+        }
+        saveRelation(entityId, entityType, storageFileInfo);
+        file.delete();
+        return storageFileInfo;
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
 in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
 #### Snippet
 ```java
@@ -1996,18 +2047,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
                 testApkFile.delete();
             }
             Assert.notNull(testInfo, "Failed to parse the json file for test automation.");
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
-#### Snippet
-```java
-            }
-            if (zipFile.exists()) {
-                zipFile.delete();
-            }
-        }
 ```
 
 ### IgnoreResultOfCall
@@ -2051,6 +2090,18 @@ Result of `File.delete()` is ignored
 in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 #### Snippet
 ```java
+            }
+            if (zipFile.exists()) {
+                zipFile.delete();
+            }
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+#### Snippet
+```java
 
             //If necessary, the decompressed files should be deleted
             file.delete();
@@ -2072,53 +2123,29 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
 #### Snippet
 ```java
-        scriptFile = new File(testBaseDir, name);
-        if (scriptFile.exists()) {
-            scriptFile.delete();
-        }
-        try (InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(name); OutputStream out = new FileOutputStream(scriptFile)) {
+            File videoFile = new File(pathOnAgent);
+            if (videoFile.exists()) {
+                videoFile.delete();
+            }
+            try {
 ```
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
 #### Snippet
 ```java
+        recordApk = new File(preAppDir, name);
+        if (recordApk.exists()) {
+            recordApk.delete();
         }
-        saveRelation(entityId, entityType, storageFileInfo);
-        file.delete();
-        return storageFileInfo;
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `common/src/main/java/com/microsoft/hydralab/common/screen/ADBScreenRecorder.java`
-#### Snippet
-```java
-                if (mergedVideo != null && mergedVideo.exists()) {
-                    logger.info("deleting merged old videos " + list);
-                    list.forEach(File::delete);
-                }
-
+        try (InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(name); OutputStream out = new FileOutputStream(recordApk)) {
 ```
 
 ## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `afterConcurrentHandlingStarted()` only delegates to its super method
-in `center/src/main/java/com/microsoft/hydralab/center/interceptor/BaseInterceptor.java`
-#### Snippet
-```java
-
-    @Override
-    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        super.afterConcurrentHandlingStarted(request, response, handler);
-    }
-```
-
 ### RedundantMethodOverride
 Method `setupDevice()` only delegates to its super method
 in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
@@ -2143,29 +2170,53 @@ in `common/src/main/java/com/microsoft/hydralab/common/logger/MultiLineNoCancelL
     }
 ```
 
+### RedundantMethodOverride
+Method `afterConcurrentHandlingStarted()` only delegates to its super method
+in `center/src/main/java/com/microsoft/hydralab/center/interceptor/BaseInterceptor.java`
+#### Snippet
+```java
+
+    @Override
+    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        super.afterConcurrentHandlingStarted(request, response, handler);
+    }
+```
+
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/KeyValue.java`
+in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
 #### Snippet
 ```java
-    @Id
-    private String keyid;
-    @Column(name = "value", columnDefinition = "CLOB", nullable = true)
-    private String value;
-
+    @SuppressWarnings("IllegalCatch")
+    public Result deleteRelation(@CurrentSecurityContext SysUser requestor,
+                                 @RequestParam(value = "groupName", required = true) String groupName,
+                                 @RequestParam(value = "deviceSerial", required = true) String deviceSerial) {
+        try {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/KeyValue.java`
+in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
 #### Snippet
 ```java
-    @Lob
-    @Basic(fetch = FetchType.EAGER)
-    @Column(name="value", columnDefinition="CLOB", nullable=true)
-    public String getValue() {
-        return value;
+    public Result deleteRelation(@CurrentSecurityContext SysUser requestor,
+                                 @RequestParam(value = "groupName", required = true) String groupName,
+                                 @RequestParam(value = "deviceSerial", required = true) String deviceSerial) {
+        try {
+            if (!deviceGroupService.checkGroupAuthorization(requestor, groupName, true)) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/StatisticData.java`
+#### Snippet
+```java
+@Entity
+@Table(indexes = {
+        @Index(name = "name_index", columnList = "name", unique = false)})
+public class StatisticData {
+    @Id
 ```
 
 ### DefaultAnnotationParam
@@ -2209,18 +2260,6 @@ Redundant default parameter value assignment
 in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
 #### Snippet
 ```java
-    private String testErrorMsg;
-    private String pipelineLink;
-    @Column(nullable = true)
-    private Boolean requireReinstall = false;
-    private Boolean requireClearData = false;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
-#### Snippet
-```java
 @Entity
 @Table(indexes = {
         @Index(name = "start_date_index", columnList = "start_date", unique = false),
@@ -2230,38 +2269,38 @@ public class TestTask implements Serializable {
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
 #### Snippet
 ```java
-    @SuppressWarnings("IllegalCatch")
-    public Result deleteRelation(@CurrentSecurityContext SysUser requestor,
-                                 @RequestParam(value = "groupName", required = true) String groupName,
-                                 @RequestParam(value = "deviceSerial", required = true) String deviceSerial) {
-        try {
+    private String testErrorMsg;
+    private String pipelineLink;
+    @Column(nullable = true)
+    private Boolean requireReinstall = false;
+    private Boolean requireClearData = false;
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupController.java`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/KeyValue.java`
 #### Snippet
 ```java
-    public Result deleteRelation(@CurrentSecurityContext SysUser requestor,
-                                 @RequestParam(value = "groupName", required = true) String groupName,
-                                 @RequestParam(value = "deviceSerial", required = true) String deviceSerial) {
-        try {
-            if (!deviceGroupService.checkGroupAuthorization(requestor, groupName, true)) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/StatisticData.java`
-#### Snippet
-```java
-@Entity
-@Table(indexes = {
-        @Index(name = "name_index", columnList = "name", unique = false)})
-public class StatisticData {
     @Id
+    private String keyid;
+    @Column(name = "value", columnDefinition = "CLOB", nullable = true)
+    private String value;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/KeyValue.java`
+#### Snippet
+```java
+    @Lob
+    @Basic(fetch = FetchType.EAGER)
+    @Column(name="value", columnDefinition="CLOB", nullable=true)
+    public String getValue() {
+        return value;
 ```
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
@@ -2274,6 +2313,31 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/FlowUtil.java`
             }
             ThreadUtils.safeSleep(sleepSeconds * 1000);
             count--;
+        }
+```
+
+## RuleId[id=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+#### Snippet
+```java
+    public AuthToken getAuthToken(Long tokenId) {
+        Optional<AuthToken> authToken = authTokenRepository.findById(tokenId);
+        if (!authToken.isPresent()) {
+            return null;
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+
+        Optional<AgentUser> findUser = agentUserRepository.findById(id);
+        if (!findUser.isPresent()) {
+            return null;
         }
 ```
 
@@ -2290,31 +2354,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecor
         super.startRecord(maxTime);
 ```
 
-## RuleId[id=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-
-        Optional<AgentUser> findUser = agentUserRepository.findById(id);
-        if (!findUser.isPresent()) {
-            return null;
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
-#### Snippet
-```java
-    public AuthToken getAuthToken(Long tokenId) {
-        Optional<AuthToken> authToken = authTokenRepository.findById(tokenId);
-        if (!authToken.isPresent()) {
-            return null;
-        }
-```
-
 ## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import lombok.AllArgsConstructor;`
@@ -2326,6 +2365,42 @@ package com.microsoft.hydralab.common.entity.common;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+```
+
+### UNUSED_IMPORT
+Unused import `import com.microsoft.hydralab.common.management.device.TestDeviceManager;`
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
+#### Snippet
+```java
+import com.microsoft.hydralab.common.entity.common.TestRun;
+import com.microsoft.hydralab.common.logger.LogCollector;
+import com.microsoft.hydralab.common.management.device.TestDeviceManager;
+import com.microsoft.hydralab.common.util.ADBOperateUtil;
+import com.microsoft.hydralab.common.util.LogUtils;
+```
+
+### UNUSED_IMPORT
+Unused import `import com.microsoft.hydralab.common.management.AgentManagementService;`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
+#### Snippet
+```java
+import com.microsoft.hydralab.common.logger.MultiLineNoCancelReceiver;
+import com.microsoft.hydralab.common.logger.impl.ADBLogcatCollector;
+import com.microsoft.hydralab.common.management.AgentManagementService;
+import com.microsoft.hydralab.common.management.AppiumServerManager;
+import com.microsoft.hydralab.common.management.device.DeviceType;
+```
+
+### UNUSED_IMPORT
+Unused import `import com.microsoft.hydralab.common.management.AppiumServerManager;`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
+#### Snippet
+```java
+import com.microsoft.hydralab.common.logger.impl.ADBLogcatCollector;
+import com.microsoft.hydralab.common.management.AgentManagementService;
+import com.microsoft.hydralab.common.management.AppiumServerManager;
+import com.microsoft.hydralab.common.management.device.DeviceType;
+import com.microsoft.hydralab.common.management.device.TestDeviceManager;
 ```
 
 ### UNUSED_IMPORT
@@ -2362,18 +2437,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-```
-
-### UNUSED_IMPORT
-Unused import `import com.microsoft.hydralab.config.DeviceConfig;`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/YamlParser.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.hydralab.config.DeviceConfig;
-import com.microsoft.hydralab.config.HydraLabAPIConfig;
-import com.microsoft.hydralab.config.TestConfig;
 ```
 
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
@@ -2416,6 +2479,42 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/AgentManageCon
 
 ### NestedAssignment
 Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
+#### Snippet
+```java
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (iosDeviceManagerRef.get() == null) break;
+                if (line.contains("MessageType")) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
+#### Snippet
+```java
+                boolean collectCrash = false;
+                StringBuilder crashLines = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (collectCrash) {
+                        if (!line.contains(" E ") && !line.contains(" F ")) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
+#### Snippet
+```java
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (logger == null) {
+                    System.out.println(line);
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
 #### Snippet
 ```java
@@ -2428,14 +2527,62 @@ in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJson
 
 ### NestedAssignment
 Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/IOSLogCollector.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
 #### Snippet
 ```java
-                    try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            crashLines.append(line).append("\n");
-                        }
+        Arrays.fill(memoryValueArr, -1);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(rawFile))) {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.trim().startsWith("App Summary")) {
+                    // PSS title line, used to anchor target index offset
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+            List<String> contents = new ArrayList<>();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                inputLine = inputLine.trim().toLowerCase();
+                contents.add(inputLine);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsMemoryResultParser.java`
+#### Snippet
+```java
+                String line;
+
+                while ((line = reader.readLine()) != null)
+                {
+                    Matcher matcher = pattern.matcher(line);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+        byte[] buffer = new byte[1024];
+        int count = 0;
+        while ((count = bis.read(buffer, 0, 1024)) != -1) {
+            fis.write(buffer, 0, count);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
+#### Snippet
+```java
+        int len = 0;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        while ((len = inputStream.read(buffer)) != -1) {
+            bos.write(buffer, 0, len);
+        }
 ```
 
 ### NestedAssignment
@@ -2452,14 +2599,26 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/ShellUtils.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
 #### Snippet
 ```java
-            List<String> contents = new ArrayList<>();
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                inputLine = inputLine.trim().toLowerCase();
-                contents.add(inputLine);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                logger.info(line);
+                if (line.startsWith("smartTestResult:")) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/IOSLogCollector.java`
+#### Snippet
+```java
+                    try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            crashLines.append(line).append("\n");
+                        }
 ```
 
 ### NestedAssignment
@@ -2498,102 +2657,6 @@ in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatte
                     if (!line.contains(APP_ID_KEYWORD))
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
-#### Snippet
-```java
-        Arrays.fill(memoryValueArr, -1);
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(rawFile))) {
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.trim().startsWith("App Summary")) {
-                    // PSS title line, used to anchor target index offset
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
-#### Snippet
-```java
-        int len = 0;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        while ((len = inputStream.read(buffer)) != -1) {
-            bos.write(buffer, 0, len);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
-#### Snippet
-```java
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (logger == null) {
-                    System.out.println(line);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-        byte[] buffer = new byte[1024];
-        int count = 0;
-        while ((count = bis.read(buffer, 0, 1024)) != -1) {
-            fis.write(buffer, 0, count);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                logger.info(line);
-                if (line.startsWith("smartTestResult:")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
-#### Snippet
-```java
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (iosDeviceManagerRef.get() == null) break;
-                if (line.contains("MessageType")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
-#### Snippet
-```java
-                boolean collectCrash = false;
-                StringBuilder crashLines = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null) {
-                    if (collectCrash) {
-                        if (!line.contains(" E ") && !line.contains(" F ")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsMemoryResultParser.java`
-#### Snippet
-```java
-                String line;
-
-                while ((line = reader.readLine()) != null)
-                {
-                    Matcher matcher = pattern.matcher(line);
-```
-
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -2622,54 +2685,6 @@ public class DeviceScriptCommandLoader {
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `deviceTestResults` is accessed in both synchronized and unsynchronized contexts
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
-#### Snippet
-```java
-    private transient Map<String, String> instrumentationArgs;
-    @Transient
-    private List<TestRun> deviceTestResults = new ArrayList<>();
-    @Transient
-    private Map<String, List<DeviceAction>> deviceActions = new HashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
-#### Snippet
-```java
-    private final PerformanceTestListener performanceTestListener;
-    ADBOperateUtil adbOperateUtil;
-    private long recordingStartTimeMillis;
-    private int index;
-    private File gifFile;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
-#### Snippet
-```java
-    private final AnimatedGifEncoder e = new AnimatedGifEncoder();
-    private final String pkgName;
-    private long recordingStartTimeMillis;
-    private int index;
-    private File gifFile;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
-#### Snippet
-```java
-    TestDeviceManager testDeviceManager;
-    private final PerformanceTestListener performanceTestListener;
-    private long recordingStartTimeMillis;
-    private int index;
-    private File gifFile;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `testFileSetRepository` is accessed in both synchronized and unsynchronized contexts
 in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
 #### Snippet
@@ -2679,18 +2694,6 @@ public class TestFileSetService {
     TestFileSetRepository testFileSetRepository;
     @Resource
     AttachmentService attachmentService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `deviceStateChangeWindowTime` is accessed in both synchronized and unsynchronized contexts
-in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
-#### Snippet
-```java
-    private TestDeviceManager testDeviceManager;
-    private int deviceStateChangeThreshold;
-    private long deviceStateChangeWindowTime;
-    private long deviceStateChangeRecoveryTime;
-    private MeterRegistry meterRegistry;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2715,6 +2718,66 @@ public class IOSAppiumScreenRecorderForWindows extends IOSAppiumScreenRecorder {
     private static File scriptFile;
     private final Timer timer = new Timer();
     private Process recordProcess;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
+#### Snippet
+```java
+    private final AnimatedGifEncoder e = new AnimatedGifEncoder();
+    private final String pkgName;
+    private long recordingStartTimeMillis;
+    private int index;
+    private File gifFile;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
+#### Snippet
+```java
+    private final PerformanceTestListener performanceTestListener;
+    ADBOperateUtil adbOperateUtil;
+    private long recordingStartTimeMillis;
+    private int index;
+    private File gifFile;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `recordingStartTimeMillis` is accessed in both synchronized and unsynchronized contexts
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+#### Snippet
+```java
+    AgentManagementService agentManagementService;
+    private final PerformanceTestListener performanceTestListener;
+    private long recordingStartTimeMillis;
+    private int index;
+    private File gifFile;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `deviceTestResults` is accessed in both synchronized and unsynchronized contexts
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
+#### Snippet
+```java
+    private transient Map<String, String> instrumentationArgs;
+    @Transient
+    private List<TestRun> deviceTestResults = new ArrayList<>();
+    @Transient
+    private Map<String, List<DeviceAction>> deviceActions = new HashMap<>();
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `deviceStateChangeWindowTime` is accessed in both synchronized and unsynchronized contexts
+in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
+#### Snippet
+```java
+    private AgentManagementService agentManagementService;
+    private int deviceStateChangeThreshold;
+    private long deviceStateChangeWindowTime;
+    private long deviceStateChangeRecoveryTime;
+    private MeterRegistry meterRegistry;
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -2744,15 +2807,27 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecor
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/config/TestConfig.java`
+Field initialization to `false` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
 #### Snippet
 ```java
-    public String testSuiteName = "";
-    public String frameworkType = "JUnit4";
-    public int runTimeOutSeconds = 0;
-    public int queueTimeOutSeconds = 0;
-    public String pipelineLink = "";
+    // flag used for frontend only, to set identity of team member (ADMIN/USER)
+    @Transient
+    private boolean teamAdmin = false;
+
+    public void setAuthorities(List<GrantedAuthority> permissions) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysTeam.java`
+#### Snippet
+```java
+    private Date updateTime;
+    @Transient
+    private boolean manageable = false;
+}
+
 ```
 
 ### RedundantFieldInitialization
@@ -2769,26 +2844,62 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/config/TestConfig.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTaskSpec.java`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/config/TestConfig.java`
 #### Snippet
 ```java
-    public int deviceTestCount = 1;
-    public String pipelineLink;
-    public int retryTime = 0;
-    public String frameworkType;
-    public List<String> neededPermissions;
+    public String testSuiteName = "";
+    public String frameworkType = "JUnit4";
+    public int runTimeOutSeconds = 0;
+    public int queueTimeOutSeconds = 0;
+    public String pipelineLink = "";
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java`
+#### Snippet
+```java
+    private boolean connectionActive = false;
+    private boolean shouldRetryConnection = true;
+    private int reconnectTime = 0;
+
+    public AgentWebSocketClient(URI serverUri, AgentWebSocketClientService agentWebSocketClientService) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java`
 #### Snippet
 ```java
-    // flag used for frontend only, to set identity of team member (ADMIN/USER)
-    @Transient
-    private boolean teamAdmin = false;
+    private final AgentWebSocketClientService agentWebSocketClientService;
 
-    public void setAuthorities(List<GrantedAuthority> permissions) {
+    private boolean connectionActive = false;
+    private boolean shouldRetryConnection = true;
+    private int reconnectTime = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/DeviceInfo.java`
+#### Snippet
+```java
+    private transient File screenshotImageFile;
+    private transient File pcScreenshotImageFile;
+    private transient boolean adbTimeout = false;
+    private String type;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunListener.java`
+#### Snippet
+```java
+    private String mHostName = "localhost";
+
+    private File mReportDir = null;
+
+    private String mReportPath = "";
 ```
 
 ### RedundantFieldInitialization
@@ -2817,90 +2928,6 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java`
-#### Snippet
-```java
-    private final AgentWebSocketClientService agentWebSocketClientService;
-
-    private boolean connectionActive = false;
-    private boolean shouldRetryConnection = true;
-    private int reconnectTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/socket/AgentWebSocketClient.java`
-#### Snippet
-```java
-    private boolean connectionActive = false;
-    private boolean shouldRetryConnection = true;
-    private int reconnectTime = 0;
-
-    public AgentWebSocketClient(URI serverUri, AgentWebSocketClientService agentWebSocketClientService) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
-#### Snippet
-```java
-    private int deviceTestCount;
-    @Transient
-    private int retryTime = 0;
-    private String frameworkType;
-    @Column(name = "team_id")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorder.java`
-#### Snippet
-```java
-    protected String recordDir;
-
-    protected boolean isStarted = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunListener.java`
-#### Snippet
-```java
-    private String mHostName = "localhost";
-
-    private File mReportDir = null;
-
-    private String mReportPath = "";
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/DeviceInfo.java`
-#### Snippet
-```java
-    private transient File screenshotImageFile;
-    private transient File pcScreenshotImageFile;
-    private transient boolean adbTimeout = false;
-
-    public void setStatus(String status) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
-#### Snippet
-```java
-    private int index;
-    private File gifFile;
-    private boolean alreadyEnd = false;
-    private AndroidTestUnit ongoingTestUnit;
-    private int numTests;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
 #### Snippet
 ```java
@@ -2920,7 +2947,19 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listene
     private String currentTestName = "";
     private int currentTestIndex = 0;
 
-    public Junit5Listener(TestDeviceManager testDeviceManager, DeviceInfo deviceInfo, TestRun testRun, String pkgName,
+    public Junit5Listener(AgentManagementService agentManagementService, DeviceInfo deviceInfo, TestRun testRun,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
+#### Snippet
+```java
+    private int index;
+    private File gifFile;
+    private boolean alreadyEnd = false;
+    private AndroidTestUnit ongoingTestUnit;
+    private int numTests;
 ```
 
 ### RedundantFieldInitialization
@@ -2936,6 +2975,30 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentWebSocketClien
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentWebSocketClientService.java`
+#### Snippet
+```java
+    @Autowired(required = false)
+    private MetricPushGateway pushGateway;
+    boolean isAgentInit = false;
+
+    public void onMessage(Message message) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorder.java`
+#### Snippet
+```java
+    protected String recordDir;
+
+    protected boolean isStarted = false;
+
+
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/t2c/T2CRunner.java`
 #### Snippet
@@ -2944,139 +3007,19 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/t2c/T2CRunner.java`
     String agentName;
     private int currentIndex = 0;
 
-    public T2CRunner(TestDeviceManager testDeviceManager, TestTaskRunCallback testTaskRunCallback,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
-#### Snippet
-```java
-    public int preSleepSeconds = 30;
-    protected String fileName = Const.ScreenRecoderConfig.DEFAULT_FILE_NAME;
-    boolean started = false;
-    ADBOperateUtil adbOperateUtil;
-    private Thread keepAliveThread;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
-#### Snippet
-```java
-public final class T2CAppiumUtils {
-    static HashMap<String, String> keyToInfoMap = new HashMap<>();
-    private static boolean isSelfTesting = false;
-
-    private T2CAppiumUtils() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
-#### Snippet
-```java
-    private int index;
-    private File gifFile;
-    private boolean alreadyEnd = false;
-    private AndroidTestUnit ongoingTestUnit;
-    private int numTests;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
-#### Snippet
-```java
-    private int addedFrameCount;
-    private String currentTestName = "";
-    private int currentTestIndex = 0;
-
-    public AppiumListener(TestDeviceManager testDeviceManager, DeviceInfo deviceInfo, TestRun testRun, String pkgName,
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysTeam.java`
-#### Snippet
-```java
-    private Date updateTime;
-    @Transient
-    private boolean manageable = false;
-}
-
+    public T2CRunner(AgentManagementService agentManagementService, TestTaskRunCallback testTaskRunCallback,
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
 #### Snippet
 ```java
+    String scope;
 
-public class AppiumParam {
-    String deviceId = null;
-    String deviceName = null;
-    String osVersion = null;
-```
+    Map<String, Boolean> urlMapping = null;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
-#### Snippet
-```java
-public class AppiumParam {
-    String deviceId = null;
-    String deviceName = null;
-    String osVersion = null;
-    int wdaPort = 8100;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
-#### Snippet
-```java
-    String osVersion = null;
-    int wdaPort = 8100;
-    String apkPath = null;
-    String outputDir = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
-#### Snippet
-```java
-    String deviceId = null;
-    String deviceName = null;
-    String osVersion = null;
-    int wdaPort = 8100;
-    String apkPath = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
-#### Snippet
-```java
-    int wdaPort = 8100;
-    String apkPath = null;
-    String outputDir = null;
-
-    public AppiumParam() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-    private final InputStream inputStream;
-    private final Logger logger;
-    private volatile boolean inFinish = false;
-    private String res;
-
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -3104,15 +3047,75 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/ADBScreenRecorder.
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
+Field initialization to `false` is redundant
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
 #### Snippet
 ```java
-    private long SASExpiryUpdate;
-    private SASData sasDataInUse = null;
-    private SASData sasDataForUpdate = null;
-    private boolean isConnected = false;
+public final class T2CAppiumUtils {
+    static HashMap<String, String> keyToInfoMap = new HashMap<>();
+    private static boolean isSelfTesting = false;
 
+    private T2CAppiumUtils() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+#### Snippet
+```java
+    private int addedFrameCount;
+    private String currentTestName = "";
+    private int currentTestIndex = 0;
+
+    public AppiumListener(AgentManagementService agentManagementService, DeviceInfo deviceInfo, TestRun testRun,
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+#### Snippet
+```java
+    private int index;
+    private File gifFile;
+    private boolean alreadyEnd = false;
+    private AndroidTestUnit ongoingTestUnit;
+    private int numTests;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/entity/performance/PerformanceInspection.java`
+#### Snippet
+```java
+    public String description;
+    public String inspectionKey = "";
+    public boolean isReset = false;
+    public File resultFolder;
+}
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTaskSpec.java`
+#### Snippet
+```java
+    public int deviceTestCount = 1;
+    public String pipelineLink;
+    public int retryTime = 0;
+    public String frameworkType;
+    public List<String> neededPermissions;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
+#### Snippet
+```java
+    private int deviceTestCount;
+    @Transient
+    private int retryTime = 0;
+    private String frameworkType;
+    @Column(name = "team_id")
 ```
 
 ### RedundantFieldInitialization
@@ -3120,11 +3123,11 @@ Field initialization to `null` is redundant
 in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
 #### Snippet
 ```java
-    Logger classLogger = LoggerFactory.getLogger(AzureBlobClientAdapter.class);
     private long SASExpiryUpdate;
     private SASData sasDataInUse = null;
     private SASData sasDataForUpdate = null;
     private boolean isConnected = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3141,14 +3144,98 @@ in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlob
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
 #### Snippet
 ```java
-    String scope;
+    Logger classLogger = LoggerFactory.getLogger(AzureBlobClientAdapter.class);
+    private long SASExpiryUpdate;
+    private SASData sasDataInUse = null;
+    private SASData sasDataForUpdate = null;
+    private boolean isConnected = false;
+```
 
-    Map<String, Boolean> urlMapping = null;
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+#### Snippet
+```java
+    int wdaPort = 8100;
+    String apkPath = null;
+    String outputDir = null;
 
-    /**
+    public AppiumParam() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+#### Snippet
+```java
+public class AppiumParam {
+    String deviceId = null;
+    String deviceName = null;
+    String osVersion = null;
+    int wdaPort = 8100;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+#### Snippet
+```java
+    String osVersion = null;
+    int wdaPort = 8100;
+    String apkPath = null;
+    String outputDir = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+#### Snippet
+```java
+    String deviceId = null;
+    String deviceName = null;
+    String osVersion = null;
+    int wdaPort = 8100;
+    String apkPath = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `sdk/src/main/java/com/microsoft/hydralab/appium/AppiumParam.java`
+#### Snippet
+```java
+
+public class AppiumParam {
+    String deviceId = null;
+    String deviceName = null;
+    String osVersion = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
+#### Snippet
+```java
+    private final InputStream inputStream;
+    private final Logger logger;
+    private volatile boolean inFinish = false;
+    private String res;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
+#### Snippet
+```java
+    public int preSleepSeconds = 30;
+    protected String fileName = Const.ScreenRecoderConfig.DEFAULT_FILE_NAME;
+    boolean started = false;
+    ADBOperateUtil adbOperateUtil;
+    private Thread keepAliveThread;
 ```
 
 ## RuleId[id=HtmlWrongAttributeValue]
@@ -3193,14 +3280,14 @@ public class HydraLabRuntimeException extends RuntimeException {
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
 #### Snippet
 ```java
-    public void testRunEnded(long elapsedTime, Map<String, String> runMetrics) {
-        logEnter("testRunEnded", elapsedTime, runMetrics, Thread.currentThread().getName());
-        synchronized (this) {
-            if (alreadyEnd) {
-                return;
+            ThreadUtils.safeSleep(5000);
+            CLASS_LOGGER.info("Stopping recording");
+            synchronized (this) {
+                iosDriver.stopRecordingScreen();
+                if (recordProcess != null) {
 ```
 
 ### SynchronizeOnThis
@@ -3217,11 +3304,11 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listene
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
 #### Snippet
 ```java
-
-        logEnter("testRunEnded", elapsedTime, Thread.currentThread().getName());
+    public void testRunEnded(long elapsedTime, Map<String, String> runMetrics) {
+        logEnter("testRunEnded", elapsedTime, runMetrics, Thread.currentThread().getName());
         synchronized (this) {
             if (alreadyEnd) {
                 return;
@@ -3229,14 +3316,26 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListene
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
 #### Snippet
 ```java
+            e.printStackTrace();
+        } finally {
+            synchronized (this) {
+                notify();
+            }
+```
 
-    public void requestAllAgentDeviceListUpdate() {
-        synchronized (this) {
-            if (System.currentTimeMillis() - lastTimeRequest < TimeUnit.SECONDS.toMillis(5)) {
-                return;
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
+#### Snippet
+```java
+        } finally {
+            synchronized (this) {
+                notify();
+            }
+        }
 ```
 
 ### SynchronizeOnThis
@@ -3261,6 +3360,30 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceive
                 notify();
             }
         }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+#### Snippet
+```java
+
+        logEnter("testRunEnded", elapsedTime, Thread.currentThread().getName());
+        synchronized (this) {
+            if (alreadyEnd) {
+                return;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+#### Snippet
+```java
+            }
+        }
+        synchronized (this) {
+            for (Map.Entry<String, DeviceInfo> infoEntry : iOSDeviceInfoMap.entrySet()) {
+                String serialNum = infoEntry.getKey();
 ```
 
 ### SynchronizeOnThis
@@ -3313,101 +3436,65 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.j
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+in `common/src/main/java/com/microsoft/hydralab/common/management/AgentManagementService.java`
 #### Snippet
 ```java
         Set<DeviceInfo> set = new HashSet<>();
         Set<Map.Entry<String, DeviceInfo>> entries = null;
         synchronized (this) {
-            entries = new HashSet<>(iOSDeviceInfoMap.entrySet());
+            entries = new HashSet<>(deviceInfoMap.entrySet());
         }
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-            }
-        }
-        synchronized (this) {
-            for (Map.Entry<String, DeviceInfo> infoEntry : iOSDeviceInfoMap.entrySet()) {
-                String serialNum = infoEntry.getKey();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+in `common/src/main/java/com/microsoft/hydralab/common/management/AgentManagementService.java`
 #### Snippet
 ```java
         Set<DeviceInfo> set = new HashSet<>();
         Set<Map.Entry<String, DeviceInfo>> entries = null;
         synchronized (this) {
-            entries = new HashSet<>(iOSDeviceInfoMap.entrySet());
+            entries = new HashSet<>(deviceInfoMap.entrySet());
         }
 ```
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
 #### Snippet
 ```java
-            ThreadUtils.safeSleep(5000);
-            CLASS_LOGGER.info("Stopping recording");
-            synchronized (this) {
-                iosDriver.stopRecordingScreen();
-                if (recordProcess != null) {
-```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        } finally {
-            synchronized (this) {
-                notify();
-            }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
-#### Snippet
-```java
-        } finally {
-            synchronized (this) {
-                notify();
-            }
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
-#### Snippet
-```java
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
+    public void requestAllAgentDeviceListUpdate() {
         synchronized (this) {
-            entries = new HashSet<>(adbDeviceInfoMap.entrySet());
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
-#### Snippet
-```java
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
-        synchronized (this) {
-            entries = new HashSet<>(adbDeviceInfoMap.entrySet());
-        }
+            if (System.currentTimeMillis() - lastTimeRequest < TimeUnit.SECONDS.toMillis(5)) {
+                return;
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
+#### Snippet
+```java
+            for (PerfInitActionMetaData actionMetaData : mPerfInitActions) {
+                String description = String.format("Init %s module for driver: %s, app: %s.", actionType, actionMetaData.getDriverId(), actionMetaData.getTargetApp());
+                Map<String, Object> arguments = new HashMap<>() {
+                    {
+                        put("targetApp", actionMetaData.getTargetApp());
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
+#### Snippet
+```java
+public class AndroidMemoryInfoResultParser implements PerformanceResultParser {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Map<String, Integer> MEMORY_FILE_TO_DB_INDEX_MAP = new HashMap<>() {
+        {
+            put("Java Heap", 0);
+```
+
 ### DoubleBraceInitialization
 Double brace initialization
 in `common/src/main/java/com/microsoft/hydralab/common/util/IOSUtils.java`
@@ -3430,18 +3517,6 @@ public class AgentConstant {
     public static final Map<String, String> iOSProductModelMap  = new HashMap<String, String>() {{
         put("i386", "iPhone Simulator");
         put("x86_64", "iPhone Simulator");
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
-#### Snippet
-```java
-public class AndroidMemoryInfoResultParser implements PerformanceResultParser {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private static final Map<String, Integer> MEMORY_FILE_TO_DB_INDEX_MAP = new HashMap<>() {
-        {
-            put("Java Heap", 0);
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -3482,6 +3557,18 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 ```
 
 ### UnusedAssignment
+Variable `phoneVideoFile` initializer `null` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
+#### Snippet
+```java
+    public boolean finishRecording() {
+        File PCVideoFile = null;
+        File phoneVideoFile = null;
+        super.finishRecording();
+        try {
+```
+
+### UnusedAssignment
 Variable `res` initializer `null` is redundant
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.java`
 #### Snippet
@@ -3491,6 +3578,30 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.
         String res = null;
         String[] runArgs = new String[7];
         runArgs[0] = "python";
+```
+
+### UnusedAssignment
+Variable `elementFound` initializer `null` is redundant
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+#### Snippet
+```java
+
+    public static WebElement findElement(BaseDriverController driver, BaseElementInfo element, Logger logger) {
+        WebElement elementFound = null;
+        if (element == null) {
+            return null;
+```
+
+### UnusedAssignment
+Variable `gifFile` initializer `null` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
+#### Snippet
+```java
+        reportLogger.info("ThreadParam init success, AppiumParam is {} , args is {}", appiumParam,
+                LogUtils.scrubSensitiveArgs(instrumentationArgs.toString()));
+        File gifFile = null;
+        if (TestTask.TestFrameworkType.JUNIT5.equals(testTask.getFrameworkType())) {
+            reportLogger.info("Start init listener");
 ```
 
 ### UnusedAssignment
@@ -3522,7 +3633,7 @@ Variable `androidElement` initializer `null` is redundant
 in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
 #### Snippet
 ```java
-        ArrayList<ActionInfo> caseList = new ArrayList<>();
+        PerformanceActionInitializer memoryTestInitializer = new PerformanceActionInitializer(ActionInfo.ACTION_TYPE_INSPECT_MEM_USAGE);
         ActionInfo actionInfo = null;
         AndroidElementInfo androidElement = null;
         WindowsElementInfo windowsElement = null;
@@ -3554,27 +3665,51 @@ in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJson
 ```
 
 ### UnusedAssignment
-Variable `destPath` initializer `""` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+Variable `appUsage` initializer `0.0f` is redundant
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
 #### Snippet
 ```java
-        SimpleDateFormat format = new SimpleDateFormat(
-                "yyyy-MM-dd-HH-mm-ss");
-        String destPath = "";
-        try {
-            // wait 5s to record more info after testing
+        AndroidBatteryInfo batteryInfo = new AndroidBatteryInfo();
+        float totalUsage = 0.0f;
+        float appUsage = 0.0f;
+        // 1. android version lower than 12   2. android version higher than or equal to 12
+        int mode = 1;
 ```
 
 ### UnusedAssignment
-Variable `elementFound` initializer `null` is redundant
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+Variable `count` initializer `0` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
 #### Snippet
 ```java
+        FileOutputStream fis = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int count = 0;
+        while ((count = bis.read(buffer, 0, 1024)) != -1) {
+            fis.write(buffer, 0, count);
+```
 
-    public static WebElement findElement(BaseDriverController driver, BaseElementInfo element, Logger logger) {
-        WebElement elementFound = null;
-        if (element == null) {
-            return null;
+### UnusedAssignment
+Variable `resultSize` initializer `""` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+        int KB = 1024;
+        DecimalFormat df = new DecimalFormat("0.00");
+        String resultSize = "";
+        if (size / GB >= 1) {
+            resultSize = df.format(size / (float) GB) + "GB";
+```
+
+### UnusedAssignment
+Variable `len` initializer `0` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
+#### Snippet
+```java
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        while ((len = inputStream.read(buffer)) != -1) {
 ```
 
 ### UnusedAssignment
@@ -3662,27 +3797,15 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/ShellUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `gifFile` initializer `null` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
+Variable `inFinish` initializer `false` is redundant
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
 #### Snippet
 ```java
-        reportLogger.info("ThreadParam init success, AppiumParam is {} , args is {}", appiumParam,
-                LogUtils.scrubSensitiveArgs(instrumentationArgs.toString()));
-        File gifFile = null;
-        if (TestTask.TestFrameworkType.JUNIT5.equals(testTask.getFrameworkType())) {
-            reportLogger.info("Start init listener");
-```
+    private final InputStream inputStream;
+    private final Logger logger;
+    private volatile boolean inFinish = false;
+    private String res;
 
-### UnusedAssignment
-Variable `process` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSUtils.java`
-#### Snippet
-```java
-
-    public static void startIOSDeviceWatcher(Logger logger, IOSTestDeviceManager deviceManager) {
-        Process process = null;
-        String command = "tidevice watch";
-        ShellUtils.killProcessByCommandStr(command, logger);
 ```
 
 ### UnusedAssignment
@@ -3698,15 +3821,39 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/IOSUtils.java`
 ```
 
 ### UnusedAssignment
-Variable `dateValue` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+Variable `process` initializer `null` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSUtils.java`
 #### Snippet
 ```java
-        String value = criteriaType.getValue();
-        String dateFormatString = criteriaType.getDateFormatString();
-        Date dateValue = null;
 
-        Assert.isTrue(!StringUtils.isEmpty(key), "The key of criteriaType can't be empty!");
+    public static void startIOSDeviceWatcher(Logger logger, IOSTestDeviceManager deviceManager) {
+        Process process = null;
+        String command = "tidevice watch";
+        ShellUtils.killProcessByCommandStr(command, logger);
+```
+
+### UnusedAssignment
+Variable `entries` initializer `null` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/management/AgentManagementService.java`
+#### Snippet
+```java
+    public Set<DeviceInfo> getActiveDeviceList(Logger log) {
+        Set<DeviceInfo> set = new HashSet<>();
+        Set<Map.Entry<String, DeviceInfo>> entries = null;
+        synchronized (this) {
+            entries = new HashSet<>(deviceInfoMap.entrySet());
+```
+
+### UnusedAssignment
+Variable `entries` initializer `null` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/management/AgentManagementService.java`
+#### Snippet
+```java
+    public Set<DeviceInfo> getDeviceList(Logger log) {
+        Set<DeviceInfo> set = new HashSet<>();
+        Set<Map.Entry<String, DeviceInfo>> entries = null;
+        synchronized (this) {
+            entries = new HashSet<>(deviceInfoMap.entrySet());
 ```
 
 ### UnusedAssignment
@@ -3722,15 +3869,15 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
 ```
 
 ### UnusedAssignment
-Variable `appUsage` initializer `0.0f` is redundant
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+Variable `destPath` initializer `""` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
 #### Snippet
 ```java
-        AndroidBatteryInfo batteryInfo = new AndroidBatteryInfo();
-        float totalUsage = 0.0f;
-        float appUsage = 0.0f;
-        // 1. android version lower than 12   2. android version higher than or equal to 12
-        int mode = 1;
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd-HH-mm-ss");
+        String destPath = "";
+        try {
+            // wait 5s to record more info after testing
 ```
 
 ### UnusedAssignment
@@ -3806,90 +3953,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 ```
 
 ### UnusedAssignment
-Variable `len` initializer `0` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
-#### Snippet
-```java
-    public static byte[] readInputStream(InputStream inputStream) throws IOException {
-        byte[] buffer = new byte[1024];
-        int len = 0;
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        while ((len = inputStream.read(buffer)) != -1) {
-```
-
-### UnusedAssignment
-Variable `resultSize` initializer `""` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-        int KB = 1024;
-        DecimalFormat df = new DecimalFormat("0.00");
-        String resultSize = "";
-        if (size / GB >= 1) {
-            resultSize = df.format(size / (float) GB) + "GB";
-```
-
-### UnusedAssignment
-Variable `count` initializer `0` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-        FileOutputStream fis = new FileOutputStream(file);
-        byte[] buffer = new byte[1024];
-        int count = 0;
-        while ((count = bis.read(buffer, 0, 1024)) != -1) {
-            fis.write(buffer, 0, count);
-```
-
-### UnusedAssignment
-Variable `inFinish` initializer `false` is redundant
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-    private final InputStream inputStream;
-    private final Logger logger;
-    private volatile boolean inFinish = false;
-    private String res;
-
-```
-
-### UnusedAssignment
-Variable `phoneVideoFile` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
-#### Snippet
-```java
-    public boolean finishRecording() {
-        File PCVideoFile = null;
-        File phoneVideoFile = null;
-        super.finishRecording();
-        try {
-```
-
-### UnusedAssignment
-Variable `entries` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-    public Set<DeviceInfo> getActiveDeviceList(Logger logger) {
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
-        synchronized (this) {
-            entries = new HashSet<>(iOSDeviceInfoMap.entrySet());
-```
-
-### UnusedAssignment
-Variable `entries` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-    public Set<DeviceInfo> getDeviceList(Logger logger) {
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
-        synchronized (this) {
-            entries = new HashSet<>(iOSDeviceInfoMap.entrySet());
-```
-
-### UnusedAssignment
 Variable `process` initializer `null` is redundant
 in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentManageService.java`
 #### Snippet
@@ -3902,30 +3965,30 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentManageService.
 ```
 
 ### UnusedAssignment
-Variable `entries` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
+Variable `dateValue` initializer `null` is redundant
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
 #### Snippet
 ```java
-    public Set<DeviceInfo> getDeviceList(Logger logger) {
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
-        synchronized (this) {
-            entries = new HashSet<>(adbDeviceInfoMap.entrySet());
-```
+        String value = criteriaType.getValue();
+        String dateFormatString = criteriaType.getDateFormatString();
+        Date dateValue = null;
 
-### UnusedAssignment
-Variable `entries` initializer `null` is redundant
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
-#### Snippet
-```java
-    public Set<DeviceInfo> getActiveDeviceList(Logger logger) {
-        Set<DeviceInfo> set = new HashSet<>();
-        Set<Map.Entry<String, DeviceInfo>> entries = null;
-        synchronized (this) {
-            entries = new HashSet<>(adbDeviceInfoMap.entrySet());
+        Assert.isTrue(!StringUtils.isEmpty(key), "The key of criteriaType can't be empty!");
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `center/src/main/java/com/microsoft/hydralab/center/controller/TestDetailController.java`
+#### Snippet
+```java
+
+            AccessToken token = storageTokenManageService.generateReadToken(requestor.getMailAddress());
+            StorageFileInfo tempFileInfo = storageFileInfoRepository.findById(fileId).get();
+            String blobUrl = tempFileInfo.getBlobUrl();
+
+```
+
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
@@ -3940,18 +4003,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listene
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-        AgentSessionInfo agentSessionInfoByAgentId = getAgentSessionInfoByAgentId(agentId);
-        Assert.notNull(agentSessionInfoByAgentId, "Agent Offline!");
-        StorageFileInfo packageInfo = storageFileInfoRepository.findById(fileId).get();
-        if (packageInfo == null || !StorageFileInfo.FileType.AGENT_PACKAGE.equals(packageInfo.getFileType())) {
-            throw new Exception("Error file info!");
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
 #### Snippet
 ```java
@@ -3960,6 +4011,18 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.ja
             StorageFileInfo tempFileInfo = storageFileInfoRepository.findById(fileRelation.getFileId()).get();
             if (tempFileInfo != null) {
                 result.add(tempFileInfo);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+        AgentSessionInfo agentSessionInfoByAgentId = getAgentSessionInfoByAgentId(agentId);
+        Assert.notNull(agentSessionInfoByAgentId, "Agent Offline!");
+        StorageFileInfo packageInfo = storageFileInfoRepository.findById(fileId).get();
+        if (packageInfo == null || !StorageFileInfo.FileType.AGENT_PACKAGE.equals(packageInfo.getFileType())) {
+            throw new Exception("Error file info!");
 ```
 
 ## RuleId[id=ConstantValue]
@@ -4048,54 +4111,6 @@ in `sdk/src/main/java/com/microsoft/hydralab/appium/ThreadParam.java`
 ```
 
 ### ConstantValue
-Condition `fileAvailableCallback != null` is always `true`
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
-#### Snippet
-```java
-                    ThreadUtils.safeSleep(delayMillis);
-                    File imageFile = getPairScreenShot(deviceInfo, logger);
-                    if (fileAvailableCallback != null) {
-                        fileAvailableCallback.onFileReady(imageFile);
-                    }
-```
-
-### ConstantValue
-Condition `packageInfo == null` is always `false`
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-        Assert.notNull(agentSessionInfoByAgentId, "Agent Offline!");
-        StorageFileInfo packageInfo = storageFileInfoRepository.findById(fileId).get();
-        if (packageInfo == null || !StorageFileInfo.FileType.AGENT_PACKAGE.equals(packageInfo.getFileType())) {
-            throw new Exception("Error file info!");
-        }
-```
-
-### ConstantValue
-Value `deviceInfo` is always 'null'
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoRunner.java`
-#### Snippet
-```java
-                                  int testTimeOutSec, String command) {
-        if (deviceInfo == null) {
-            throw new RuntimeException("No such device: " + deviceInfo);
-        }
-        int testTimeOut = testTimeOutSec;
-```
-
-### ConstantValue
-Condition `fileAvailableCallback != null` is always `true`
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
-#### Snippet
-```java
-                    ThreadUtils.safeSleep(delayMillis);
-                    File imageFile = getScreenShot(deviceInfo, logger);
-                    if (fileAvailableCallback != null) {
-                        fileAvailableCallback.onFileReady(imageFile);
-                    }
-```
-
-### ConstantValue
 Condition `filename == null` is always `false`
 in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
 #### Snippet
@@ -4117,6 +4132,54 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.ja
             if (tempFileInfo != null) {
                 result.add(tempFileInfo);
             }
+```
+
+### ConstantValue
+Condition `fileAvailableCallback != null` is always `true`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+#### Snippet
+```java
+                ThreadUtils.safeSleep(delayMillis);
+                File imageFile = getScreenShot(deviceInfo, logger);
+                if (fileAvailableCallback != null) {
+                    fileAvailableCallback.onFileReady(imageFile);
+                }
+```
+
+### ConstantValue
+Value `deviceInfo` is always 'null'
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoRunner.java`
+#### Snippet
+```java
+                                  int testTimeOutSec, String command) {
+        if (deviceInfo == null) {
+            throw new RuntimeException("No such device: " + deviceInfo);
+        }
+        int testTimeOut = testTimeOutSec;
+```
+
+### ConstantValue
+Condition `fileAvailableCallback != null` is always `true`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
+#### Snippet
+```java
+                    ThreadUtils.safeSleep(delayMillis);
+                    File imageFile = getPairScreenShot(deviceInfo, logger);
+                    if (fileAvailableCallback != null) {
+                        fileAvailableCallback.onFileReady(imageFile);
+                    }
+```
+
+### ConstantValue
+Condition `packageInfo == null` is always `false`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+        Assert.notNull(agentSessionInfoByAgentId, "Agent Offline!");
+        StorageFileInfo packageInfo = storageFileInfoRepository.findById(fileId).get();
+        if (packageInfo == null || !StorageFileInfo.FileType.AGENT_PACKAGE.equals(packageInfo.getFileType())) {
+            throw new Exception("Error file info!");
+        }
 ```
 
 ## RuleId[id=IOResource]
@@ -4208,6 +4271,138 @@ public class HydraLabClientUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `MachineInfoUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
+#### Snippet
+```java
+import java.util.Properties;
+
+public class MachineInfoUtils {
+
+    protected static Logger classLogger = LoggerFactory.getLogger(MachineInfoUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SerializeUtil` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/SerializeUtil.java`
+#### Snippet
+```java
+import java.nio.charset.StandardCharsets;
+
+public class SerializeUtil {
+    static {
+        // add auto type support for following entities
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GraphAPIUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/GraphAPIUtils.java`
+#### Snippet
+```java
+import java.util.concurrent.ExecutionException;
+
+public class GraphAPIUtils {
+
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImageUtil` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/ImageUtil.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class ImageUtil {
+    public static BufferedImage scaleBufferedImage(BufferedImage before, double ratio) {
+        int w = before.getWidth();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
+#### Snippet
+```java
+import java.util.concurrent.CountDownLatch;
+
+public class ThreadUtils {
+
+    public static <T> void doInParallel(List<T> dataList, int threadCount, ParallelTask<T> task) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ThreadPoolUtil` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadPoolUtil.java`
+#### Snippet
+```java
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class ThreadPoolUtil {
+    public static final ScheduledExecutorService TIMER_EXECUTOR = Executors.newScheduledThreadPool(20);
+    public static final ScheduledExecutorService PERFORMANCE_TEST_TIMER_EXECUTOR = Executors.newScheduledThreadPool(5 /* corePoolSize */);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AgentApplication` has only 'static' members, and lacks a 'private' constructor
+in `agent/src/main/java/com/microsoft/hydralab/agent/AgentApplication.java`
+#### Snippet
+```java
+@Slf4j
+@SuppressWarnings("hideutilityclassconstructor")
+public class AgentApplication {
+
+    public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+public class LogUtils {
+
+    public enum MaskSensitiveData {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+import java.util.regex.Pattern;
+
+public class FileUtil {
+    private final static SimpleDateFormat format = new SimpleDateFormat("yyyy" + File.separator + "MM" + File.separator + "dd");
+    private static final Pattern paramKeyMatch = Pattern.compile("\\$\\{(\\w+)}");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DownloadUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
+#### Snippet
+```java
+import java.net.URL;
+
+public class DownloadUtils {
+    public static final int CONNECT_TIMEOUT = 5 * 1000;
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShellUtils` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/ShellUtils.java`
+#### Snippet
+```java
+import java.io.*;
+
+public class ShellUtils {
+    public static final String POWER_SHELL_PATH = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
+    public static boolean isConnectedToWindowsOS = System.getProperty("os.name").startsWith("Windows");
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `TimeUtils` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/com/microsoft/hydralab/common/util/TimeUtils.java`
 #### Snippet
@@ -4244,42 +4439,6 @@ public class FFmpegConcatUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SerializeUtil` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/SerializeUtil.java`
-#### Snippet
-```java
-import java.nio.charset.StandardCharsets;
-
-public class SerializeUtil {
-    static {
-        // add auto type support for following entities
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegisterCenterApplication` has only 'static' members, and lacks a 'private' constructor
-in `center/src/main/java/com/microsoft/hydralab/center/RegisterCenterApplication.java`
-#### Snippet
-```java
-@PropertySource(value = {"classpath:version.properties"}, encoding = "utf-8")
-@SuppressWarnings("HideUtilityClassConstructor")
-public class RegisterCenterApplication {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShellUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/ShellUtils.java`
-#### Snippet
-```java
-import java.io.*;
-
-public class ShellUtils {
-    public static final String POWER_SHELL_PATH = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe";
-    public static boolean isConnectedToWindowsOS = System.getProperty("os.name").startsWith("Windows");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `IOSUtils` has only 'static' members, and lacks a 'private' constructor
 in `common/src/main/java/com/microsoft/hydralab/common/util/IOSUtils.java`
 #### Snippet
@@ -4289,66 +4448,6 @@ import java.util.concurrent.TimeUnit;
 public class IOSUtils {
     public static final String WDA_BUNDLE_ID = "com.microsoft.wdar.xctrunner";
     private static final Map<String, Integer> wdaPortMap = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AgentConstant` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/AgentConstant.java`
-#### Snippet
-```java
-import java.util.Map;
-
-public class AgentConstant {
-    public static final String UNKNOWN_IOS_MODEL = "Unknown iOS Device";
-    public static final Map<String, String> iOSProductModelMap  = new HashMap<String, String>() {{
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PkgUtil` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
-#### Snippet
-```java
-import java.util.zip.ZipFile;
-
-public class PkgUtil {
-    public static JSONObject analysisFile(File file, EntityType entityType) {
-        JSONObject res = new JSONObject();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AgentApplication` has only 'static' members, and lacks a 'private' constructor
-in `agent/src/main/java/com/microsoft/hydralab/agent/AgentApplication.java`
-#### Snippet
-```java
-@Slf4j
-@SuppressWarnings("hideutilityclassconstructor")
-public class AgentApplication {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
-#### Snippet
-```java
-import java.util.regex.Pattern;
-
-public class LogUtils {
-
-    public enum MaskSensitiveData {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DownloadUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
-#### Snippet
-```java
-import java.net.URL;
-
-public class DownloadUtils {
-    public static final int CONNECT_TIMEOUT = 5 * 1000;
-
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4364,75 +4463,39 @@ public class DateUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FileUtil` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+Class `PkgUtil` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 #### Snippet
 ```java
-import java.util.regex.Pattern;
+import java.util.zip.ZipFile;
 
-public class FileUtil {
-    private final static SimpleDateFormat format = new SimpleDateFormat("yyyy" + File.separator + "MM" + File.separator + "dd");
-    private static final Pattern paramKeyMatch = Pattern.compile("\\$\\{(\\w+)}");
+public class PkgUtil {
+    public static JSONObject analysisFile(File file, EntityType entityType) {
+        JSONObject res = new JSONObject();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MachineInfoUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
+Class `RegisterCenterApplication` has only 'static' members, and lacks a 'private' constructor
+in `center/src/main/java/com/microsoft/hydralab/center/RegisterCenterApplication.java`
 #### Snippet
 ```java
-import java.util.Properties;
+@PropertySource(value = {"classpath:version.properties"}, encoding = "utf-8")
+@SuppressWarnings("HideUtilityClassConstructor")
+public class RegisterCenterApplication {
 
-public class MachineInfoUtils {
-
-    public static boolean isOnMacOS() {
+    public static void main(String[] args) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
+Class `AgentConstant` has only 'static' members, and lacks a 'private' constructor
+in `common/src/main/java/com/microsoft/hydralab/common/util/AgentConstant.java`
 #### Snippet
 ```java
-import java.util.concurrent.CountDownLatch;
+import java.util.Map;
 
-public class ThreadUtils {
-
-    public static <T> void doInParallel(List<T> dataList, int threadCount, ParallelTask<T> task) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ImageUtil` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/ImageUtil.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class ImageUtil {
-    public static BufferedImage scaleBufferedImage(BufferedImage before, double ratio) {
-        int w = before.getWidth();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GraphAPIUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/GraphAPIUtils.java`
-#### Snippet
-```java
-import java.util.concurrent.ExecutionException;
-
-public class GraphAPIUtils {
-
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ThreadPoolUtil` has only 'static' members, and lacks a 'private' constructor
-in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadPoolUtil.java`
-#### Snippet
-```java
-import java.util.concurrent.atomic.AtomicInteger;
-
-public class ThreadPoolUtil {
-    public static final ScheduledExecutorService TIMER_EXECUTOR = Executors.newScheduledThreadPool(20);
-    public static final ScheduledExecutorService PERFORMANCE_TEST_TIMER_EXECUTOR = Executors.newScheduledThreadPool(5 /* corePoolSize */);
+public class AgentConstant {
+    public static final String UNKNOWN_IOS_MODEL = "Unknown iOS Device";
+    public static final Map<String, String> iOSProductModelMap  = new HashMap<String, String>() {{
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -4441,7 +4504,7 @@ Unnecessary semicolon `;`
 in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
 #### Snippet
 ```java
-        {
+
             try (ReversedLinesFileReader reversedReader = new ReversedLinesFileReader(inspectionResult.rawResultFile,
                     StandardCharsets.UTF_8);) {
                 WindowsBatteryParsedData windowsBatteryParsedData = new WindowsBatteryParsedData();
@@ -4459,18 +4522,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/AuthController
             byte[] bytes = new byte[inputStream.available()];
             inputStream.read(bytes, 0, inputStream.available());
             response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestTaskService.java`
-#### Snippet
-```java
-        int[] queuedInfo = new int[2];
-        queuedInfo[0] = -1;
-        queuedInfo[1] = 0;
-        taskQueuedInfo.setQueuedInfo(queuedInfo);
-
 ```
 
 ### DataFlowIssue
@@ -4510,111 +4561,27 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/scheduled/ScheduledDeviceCo
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+Method invocation `getInputStream` may produce `NullPointerException`
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
 #### Snippet
 ```java
-            throw new RuntimeException("upload App fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
+        ResponseEntity<Resource> result = restTemplateHttps.exchange(photoUrl, HttpMethod.GET, entity, Resource.class);
+        Resource body = result.getBody();
+        return body.getInputStream();
     }
+}
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+Method invocation `getString` may produce `NullPointerException`
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
 #### Snippet
 ```java
-            throw new RuntimeException("Add attachments fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
 
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            throw new RuntimeException("get test status fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            throw new RuntimeException("cancel test task fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            throw new RuntimeException("Get Blob SAS fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            throw new RuntimeException("trigger test running fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
+            ResponseEntity<JSONObject> json = restTemplateHttps.exchange(tokenUrl, HttpMethod.POST, entity, JSONObject.class);
+            accessToken = json.getBody().getString("access_token");
         } catch (Exception e) {
-            // TODO: no blocking for now, replace after enabling the access key usage
-            printlnf("##[warning]Request generateAccess failed: " + jsonObject.toString());
-            return "";
-//            throw new RuntimeException("generate accessKey fail: " + e.getMessage(), e);
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-//            throw new RuntimeException("generate accessKey fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            throw new RuntimeException("check center alive fail: " + e.getMessage(), e);
-        } finally {
-            response.close();
-        }
-    }
+            e.printStackTrace();
 ```
 
 ### DataFlowIssue
@@ -4702,6 +4669,198 @@ in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppi
 ```
 
 ### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("trigger test running fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("upload App fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("check center alive fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            // TODO: no blocking for now, replace after enabling the access key usage
+            printlnf("##[warning]Request generateAccess failed: " + jsonObject.toString());
+            return "";
+//            throw new RuntimeException("generate accessKey fail: " + e.getMessage(), e);
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+//            throw new RuntimeException("generate accessKey fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("cancel test task fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("Get Blob SAS fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("get test status fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            throw new RuntimeException("Add attachments fail: " + e.getMessage(), e);
+        } finally {
+            response.close();
+        }
+    }
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+            return true;
+        } else if (newFileInfo.getFileName().equals(oldFileInfo.getFileName())
+                && newFileInfo.getLoadType().equals(oldFileInfo.getLoadType())
+                && newFileInfo.getLoadDir().equals(oldFileInfo.getLoadDir())
+                && newFileInfo.getBlobContainer().equals(oldFileInfo.getBlobContainer())) {
+```
+
+### DataFlowIssue
+Argument `fileSuffix` might be null
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+
+        if (StringUtils.isEmpty(newFileName)) {
+            newFileName = filename.replace(fileSuffix, "") + "_" + System.currentTimeMillis() % 10000 + "_" + fileSuffix;
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestTaskService.java`
+#### Snippet
+```java
+        int[] queuedInfo = new int[2];
+        queuedInfo[0] = -1;
+        queuedInfo[1] = 0;
+        taskQueuedInfo.setQueuedInfo(queuedInfo);
+
+```
+
+### DataFlowIssue
+Dereference of `appFiles` may produce `NullPointerException`
+in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/PreInstallListener.java`
+#### Snippet
+```java
+        File appDir = agentManagementService.getPreAppDir();
+        File[] appFiles = appDir.listFiles();
+        for (File appFile : appFiles) {
+            if (!appFile.isFile() ||
+                    suffixMap.getOrDefault(DeviceType.valueOf(deviceInfo.getType()), Set.of())
+```
+
+### DataFlowIssue
+Argument `resourceAsStream` might be null
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(relativePath);
+        try {
+            return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+```
+
+### DataFlowIssue
+Method invocation `exists` may produce `NullPointerException`
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+#### Snippet
+```java
+                }
+            }
+            if (zipFile.exists()) {
+                zipFile.delete();
+            }
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails, according to its method contracts
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
+#### Snippet
+```java
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Assert.isTrue(false, "Transfer String to Date failed!");
+            }
+        }
+```
+
+### DataFlowIssue
 The call to 'isTrue' always fails, according to its method contracts
 in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
 #### Snippet
@@ -4723,102 +4882,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.jav
                 Assert.isTrue(false, "Unsupported op type!");
                 break;
         }
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails, according to its method contracts
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
-#### Snippet
-```java
-            } catch (ParseException e) {
-                e.printStackTrace();
-                Assert.isTrue(false, "Transfer String to Date failed!");
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `exists` may produce `NullPointerException`
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
-#### Snippet
-```java
-                }
-            }
-            if (zipFile.exists()) {
-                zipFile.delete();
-            }
-```
-
-### DataFlowIssue
-Argument `resourceAsStream` might be null
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-        InputStream resourceAsStream = FileUtils.class.getClassLoader().getResourceAsStream(relativePath);
-        try {
-            return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-```
-
-### DataFlowIssue
-Argument `fileSuffix` might be null
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(newFileName)) {
-            newFileName = filename.replace(fileSuffix, "") + "_" + System.currentTimeMillis() % 10000 + "_" + fileSuffix;
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-            return true;
-        } else if (newFileInfo.getFileName().equals(oldFileInfo.getFileName())
-                && newFileInfo.getLoadType().equals(oldFileInfo.getLoadType())
-                && newFileInfo.getLoadDir().equals(oldFileInfo.getLoadDir())
-                && newFileInfo.getBlobContainer().equals(oldFileInfo.getBlobContainer())) {
-```
-
-### DataFlowIssue
-Dereference of `appFiles` may produce `NullPointerException`
-in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/PreInstallListener.java`
-#### Snippet
-```java
-        File appDir = testDeviceManager.getPreAppDir();
-        File[] appFiles = appDir.listFiles();
-        for (File appFile : appFiles) {
-            if (!appFile.isFile()) {
-                continue;
-```
-
-### DataFlowIssue
-Method invocation `getInputStream` may produce `NullPointerException`
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-        ResponseEntity<Resource> result = restTemplateHttps.exchange(photoUrl, HttpMethod.GET, entity, Resource.class);
-        Resource body = result.getBody();
-        return body.getInputStream();
-    }
-}
-```
-
-### DataFlowIssue
-Method invocation `getString` may produce `NullPointerException`
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-
-            ResponseEntity<JSONObject> json = restTemplateHttps.exchange(tokenUrl, HttpMethod.POST, entity, JSONObject.class);
-            accessToken = json.getBody().getString("access_token");
-        } catch (Exception e) {
-            e.printStackTrace();
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -4893,9 +4956,46 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/An
 ```java
         // classLogger.info("Dump on {}: {}", adbDeviceInfo.getSerialNum(), dump);
         if (StringUtils.isBlank(dump)) {
-            logger.error("did not find element with text {} on {}", Arrays.asList(possibleTexts).toString(), deviceInfo.getSerialNum());
+            logger.error("did not find element with text {} on {}", Arrays.asList(possibleTexts).toString(),
+                    deviceInfo.getSerialNum());
             return false;
-        }
+```
+
+## RuleId[id=SwitchStatementWithConfusingDeclaration]
+### SwitchStatementWithConfusingDeclaration
+Local variable `targetApp` declared in one 'switch' branch and used in another
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+#### Snippet
+```java
+                break;
+            case ActionInfo.ACTION_TYPE_INSPECT_BATTERY_USAGE:
+                String targetApp = (String) arguments.get("targetApp");
+                String description = (String) arguments.get("description");
+                boolean isReset = (Boolean) arguments.getOrDefault("isReset", false);
+```
+
+### SwitchStatementWithConfusingDeclaration
+Local variable `description` declared in one 'switch' branch and used in another
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+#### Snippet
+```java
+            case ActionInfo.ACTION_TYPE_INSPECT_BATTERY_USAGE:
+                String targetApp = (String) arguments.get("targetApp");
+                String description = (String) arguments.get("description");
+                boolean isReset = (Boolean) arguments.getOrDefault("isReset", false);
+                driver.inspectBatteryUsage(targetApp, description, isReset);
+```
+
+### SwitchStatementWithConfusingDeclaration
+Local variable `isReset` declared in one 'switch' branch and used in another
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+#### Snippet
+```java
+                String targetApp = (String) arguments.get("targetApp");
+                String description = (String) arguments.get("description");
+                boolean isReset = (Boolean) arguments.getOrDefault("isReset", false);
+                driver.inspectBatteryUsage(targetApp, description, isReset);
+                break;
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -4925,14 +5025,14 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/DeviceGroupCon
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AdbMonkeyRunner.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceGroupService.java`
 #### Snippet
 ```java
-        if (checkTime > 0) {
-            String crashStack = testRun.getCrashStack();
-            if (crashStack != null && !"".equals(crashStack)) {
-                ongoingMonkeyTest.setStatusCode(AndroidTestUnit.StatusCodes.FAILURE);
-                ongoingMonkeyTest.setSuccess(false);
+        }
+
+        if (groupName == null || "".equals(groupName)) {
+            throw new IllegalArgumentException("groupName is required");
+        }
 ```
 
 ### StringEqualsEmptyString
@@ -4949,29 +5049,17 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IO
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceGroupService.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AdbMonkeyRunner.java`
 #### Snippet
 ```java
-        }
-
-        if (groupName == null || "".equals(groupName)) {
-            throw new IllegalArgumentException("groupName is required");
-        }
+        if (checkTime > 0) {
+            String crashStack = testRun.getCrashStack();
+            if (crashStack != null && !"".equals(crashStack)) {
+                ongoingMonkeyTest.setStatusCode(AndroidTestUnit.StatusCodes.FAILURE);
+                ongoingMonkeyTest.setSuccess(false);
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `testJsonFileList` accessed in synchronized context
-in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
-#### Snippet
-```java
-
-    public synchronized void addTestJsonFile(File jsonFile) {
-        testJsonFileList.add(jsonFile);
-    }
-
-```
-
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `testFileSetRepository` accessed in synchronized context
 in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
@@ -4993,42 +5081,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetServic
         if (testFileSet != null) {
             testFileSet.setAttachments(attachmentService.getAttachments(fileSetId, EntityType.APP_FILE_SET));
             saveFileSetToMem(testFileSet);
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `deviceStatusListenerManager` accessed in synchronized context
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-                if (removedInfo != null) {
-                    if (DeviceInfo.OFFLINE.equals(info.getStatus())) {
-                        deviceStatusListenerManager.onDeviceConnected(info);
-                        info.setStatus(DeviceInfo.ONLINE);
-//                        classLogger.info("Device " + serialNum + " updated");
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `deviceStatusListenerManager` accessed in synchronized context
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-//                    classLogger.info("Device " + serialNum + " disconnected");
-                    info.setStatus(DeviceInfo.OFFLINE);
-                    deviceStatusListenerManager.onDeviceInactive(info);
-                    getAppiumServerManager().quitIOSDriver(info, classLogger);
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `deviceStatusListenerManager` accessed in synchronized context
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-                // Add new connected devices
-                iOSDeviceInfoMap.put(serialNum, info);
-                deviceStatusListenerManager.onDeviceConnected(info);
-            }
         }
 ```
 
@@ -5056,6 +5108,54 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRec
         } catch (Throwable e) {
 ```
 
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `agentManagementService` accessed in synchronized context
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+#### Snippet
+```java
+                if (removedInfo != null) {
+                    if (DeviceInfo.OFFLINE.equals(info.getStatus())) {
+                        agentManagementService.getDeviceStatusListenerManager().onDeviceConnected(info);
+                        info.setStatus(DeviceInfo.ONLINE);
+//                        classLogger.info("Device " + serialNum + " updated");
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `agentManagementService` accessed in synchronized context
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+#### Snippet
+```java
+//                    classLogger.info("Device " + serialNum + " disconnected");
+                    info.setStatus(DeviceInfo.OFFLINE);
+                    agentManagementService.getDeviceStatusListenerManager().onDeviceInactive(info);
+                    getAppiumServerManager().quitIOSDriver(info, classLogger);
+                }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `agentManagementService` accessed in synchronized context
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
+#### Snippet
+```java
+                // Add new connected devices
+                iOSDeviceInfoMap.put(serialNum, info);
+                agentManagementService.getDeviceStatusListenerManager().onDeviceConnected(info);
+            }
+        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `testJsonFileList` accessed in synchronized context
+in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.java`
+#### Snippet
+```java
+
+    public synchronized void addTestJsonFile(File jsonFile) {
+        testJsonFileList.add(jsonFile);
+    }
+
+```
+
 ## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
@@ -5072,18 +5172,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunL
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
-#### Snippet
-```java
-        }
-        final String fileName = Const.ScreenRecoderConfig.DEFAULT_FILE_NAME;
-        if (videos.size() <= 1) {
-            File file = videos.get(0);
-            Assert.isTrue(file.renameTo(new File(file.getParentFile(), fileName)), "rename fail");
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
 #### Snippet
 ```java
@@ -5092,6 +5180,18 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDev
                 if (count <= 0) {
                     continue;
                 }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
+#### Snippet
+```java
+        }
+        final String fileName = Const.ScreenRecoderConfig.DEFAULT_FILE_NAME;
+        if (videos.size() <= 1) {
+            File file = videos.get(0);
+            Assert.isTrue(file.renameTo(new File(file.getParentFile(), fileName)), "rename fail");
 ```
 
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -5108,6 +5208,18 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.j
 ```
 
 ## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
+#### Snippet
+```java
+        assertTrue(file.exists(), filePath + " file not exist!", null);
+
+        System.out.println("Param " + paramName + ": " + filePath + " validated.");
+        return file.getAbsolutePath();
+    }
+```
+
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
@@ -5134,13 +5246,49 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
 #### Snippet
 ```java
-        assertTrue(file.exists(), filePath + " file not exist!", null);
+            }
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+```
 
-        System.out.println("Param " + paramName + ": " + filePath + " validated.");
-        return file.getAbsolutePath();
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+#### Snippet
+```java
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+            return false;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+#### Snippet
+```java
+            isStarted = true;
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+#### Snippet
+```java
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+        }
     }
 ```
 
@@ -5165,126 +5313,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listene
         logger.info("TestRunListener: {}", builder);
         System.out.println("TestRunListener: " + builder);
 
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-            isStarted = true;
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-            isStarted = false;
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-            return false;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
-#### Snippet
-```java
-        }
-        logger.info("TestRunListener: {}", builder);
-        System.out.println("TestRunListener: " + builder);
-
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
-#### Snippet
-```java
-    public boolean startJunit(File appiumJarFile, String appiumCommand, AppiumListener listener, Logger logger) {
-        JUnitCore junit = new JUnitCore();
-        junit.addListener(new TextListener(System.out));
-        junit.addListener(listener);
-        URL url = null;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/controller/BaseDriverController.java`
-#### Snippet
-```java
-        assert tagName.equals(expectedValue) : "Doesn't match expectedVal: "
-                + "expectedVal: " + expectedValue + "; " + "resultVal: " + tagName;
-        System.out.println("Matched!" + "Value: " + tagName);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
-#### Snippet
-```java
-        fos.close();
-        inputStream.close();
-        System.out.println("info:" + url + " download success");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
-#### Snippet
-```java
-            while ((line = bufferedReader.readLine()) != null) {
-                if (logger == null) {
-                    System.out.println(line);
-                } else {
-                    logger.info(line);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-
-        if (!file.delete()) {
-            System.err.printf("Unable to delete file or directory : %s%n", file);
-        }
     }
 ```
 
@@ -5326,74 +5354,38 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecor
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
 #### Snippet
 ```java
-            isStarted = true;
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+            while ((line = bufferedReader.readLine()) != null) {
+                if (logger == null) {
+                    System.out.println(line);
+                } else {
+                    logger.info(line);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
 #### Snippet
 ```java
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
         }
+        logger.info("TestRunListener: {}", builder);
+        System.out.println("TestRunListener: " + builder);
+
     }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
 #### Snippet
 ```java
-            }
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
-#### Snippet
-```java
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-            return false;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            String version = FileUtil.getStringFromFilePath(edgeDriverVersionFile);
-            version = version.replaceAll("[^\\d.]", "");
-            System.out.println(version);
-            downloadEdgeDriver(version);
-        } catch (IOException e) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-                throw new RuntimeException(appFamilyName + " is not opened or failed activate it");
-            }
-            System.out.println("HexAppTopLevelWindowByKeyWord: " + hexAppTopLevelWindowByKeyWord);
-            caps.setCapability("platformName", "Windows");
-            caps.setCapability("deviceName", "WindowsPC");
+    public boolean startJunit(File appiumJarFile, String appiumCommand, AppiumListener listener, Logger logger) {
+        JUnitCore junit = new JUnitCore();
+        junit.addListener(new TextListener(System.out));
+        junit.addListener(listener);
+        URL url = null;
 ```
 
 ### SystemOutErr
@@ -5432,7 +5424,127 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerMa
         }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            String version = FileUtil.getStringFromFilePath(edgeDriverVersionFile);
+            version = version.replaceAll("[^\\d.]", "");
+            System.out.println(version);
+            downloadEdgeDriver(version);
+        } catch (IOException e) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+                throw new RuntimeException(appFamilyName + " is not opened or failed activate it");
+            }
+            System.out.println("HexAppTopLevelWindowByKeyWord: " + hexAppTopLevelWindowByKeyWord);
+            caps.setCapability("platformName", "Windows");
+            caps.setCapability("deviceName", "WindowsPC");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+
+        if (!file.delete()) {
+            System.err.printf("Unable to delete file or directory : %s%n", file);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/DownloadUtils.java`
+#### Snippet
+```java
+        fos.close();
+        inputStream.close();
+        System.out.println("info:" + url + " download success");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/controller/BaseDriverController.java`
+#### Snippet
+```java
+        assert tagName.equals(expectedValue) : "Doesn't match expectedVal: "
+                + "expectedVal: " + expectedValue + "; " + "resultVal: " + tagName;
+        System.out.println("Matched!" + "Value: " + tagName);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+            isStarted = false;
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+            return false;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+            isStarted = true;
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+        }
+    }
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
+#### Snippet
+```java
+        }
+        int commitCountInt = Integer.parseInt(commitCount);
+        String localCommitMessage = commitMessage.replaceAll("[\\t\\n\\r]", " ");
+        if (localCommitMessage.length() > messageLength) {
+            localCommitMessage = localCommitMessage.substring(0, messageLength);
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
@@ -5447,62 +5559,14 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-        }
-        int commitCountInt = Integer.parseInt(commitCount);
-        String localCommitMessage = commitMessage.replaceAll("[\\t\\n\\r]", " ");
-        if (localCommitMessage.length() > messageLength) {
-            localCommitMessage = localCommitMessage.substring(0, messageLength);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
+in `center/src/main/java/com/microsoft/hydralab/center/util/SecretGenerator.java`
 #### Snippet
 ```java
 
-        this.apkPath = apkPath;
-        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
-        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
-        this.testSteps = String.valueOf(testSteps);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
-#### Snippet
-```java
-        this.apkPath = apkPath;
-        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
-        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
-        this.testSteps = String.valueOf(testSteps);
-        this.stringTextFolder = stringFolderPath;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
-#### Snippet
-```java
-
-    private void parseCoordinates(String bounds) {
-        String[] boundsArray = bounds.split("\\[|\\]|,");
-        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
-        int x1 = Integer.parseInt(validArr[0]);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `center/src/main/java/com/microsoft/hydralab/center/interceptor/BaseInterceptor.java`
-#### Snippet
-```java
-        String authCode = request.getHeader("Authorization");
-        if (authCode != null) {
-            authCode = authCode.replaceAll("Bearer ", "");
-        }
-        //check is ignore
+    public String generateSecret() {
+        return bCryptPasswordEncoder.encode(UUID.randomUUID().toString().replace("-", "")).replaceAll("\\W", "");
+    }
+}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5531,86 +5595,26 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoRun
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
 #### Snippet
 ```java
-                public void processNewLines(@NotNull String[] lines) {
-                    try {
-                        String[] result = lines[0].split("\\s+");
-                        if (result[0].trim().length() > 0) {
-                            length[0] = Long.parseLong(result[0].trim());
+            storageFileInfo.setCDNUrl(downloadUrl);
+        } else {
+            String originDomain = downloadUrl.split("//")[1].split("/")[0];
+            storageFileInfo.setCDNUrl(downloadUrl.replace(originDomain, this.cdnUrl));
+        }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
 #### Snippet
 ```java
-                    }
-                    if (line.contains(pkgName) && !line.contains(pkgName + ":")) {
-                        String[] args = line.split("\\s+");
-                        for (String arg : args) {
-                            arg = arg.trim();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
-#### Snippet
-```java
-                        for (String arg : args) {
-                            arg = arg.trim();
-                            if (arg.matches("\\d+")) {
-                                pid[0] = Integer.parseInt(arg);
-                                return;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-                    if (Pattern.matches("capacity:.*computed drain:.*", line)) {
-                        // find total usage
-                        totalUsage = parseFloat(line.split("computed drain: ")[1].split(",")[0], line);
-                        if (totalUsage == 0.0) {
-                            mode = 2;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-                // Parse app usage
-                if (Pattern.matches("uid " + uid + ":.*", line)) {
-                    appUsage = parseFloat(line.split(": ")[1].split(" ")[0], line);
-                    batteryInfo.setAppUsage(appUsage);
-                    batteryInfo.setRatio(appUsage / totalUsage);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
-#### Snippet
-```java
-                    }
-
-                    String[] fieldValues = line.split(DELIMITER);
-                    WindowsBatteryParsedData.WindowsBatteryMetrics windowsBatteryMetrics = getWindowsBatteryMetrics(
-                            fieldValues, columnNameToIndexMap);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
-#### Snippet
-```java
-        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
-            String columnNamesLine = reader.readLine();
-            String[] columnNamesList = columnNamesLine.split(DELIMITER);
-
-            int index = 0;
+            FileUtil.downloadFileUsingStream(EDGE_DRIVER_DOWNLOAD_URL + "/LATEST_STABLE", edgeDriverVersionFile);
+            String version = FileUtil.getStringFromFilePath(edgeDriverVersionFile);
+            version = version.replaceAll("[^\\d.]", "");
+            System.out.println(version);
+            downloadEdgeDriver(version);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5719,6 +5723,66 @@ in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemor
                                 memoryValueArr[typeIndex * 2 + 1] = NumberUtils.toLong(values.split(" +")[1]);
                             }
                         }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+                    if (Pattern.matches("capacity:.*computed drain:.*", line)) {
+                        // find total usage
+                        totalUsage = parseFloat(line.split("computed drain: ")[1].split(",")[0], line);
+                        if (totalUsage == 0.0) {
+                            mode = 2;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+                // Parse app usage
+                if (Pattern.matches("uid " + uid + ":.*", line)) {
+                    appUsage = parseFloat(line.split(": ")[1].split(" ")[0], line);
+                    batteryInfo.setAppUsage(appUsage);
+                    batteryInfo.setRatio(appUsage / totalUsage);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+#### Snippet
+```java
+                    }
+                    if (line.contains(pkgName) && !line.contains(pkgName + ":")) {
+                        String[] args = line.split("\\s+");
+                        for (String arg : args) {
+                            arg = arg.trim();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+#### Snippet
+```java
+                        for (String arg : args) {
+                            arg = arg.trim();
+                            if (arg.matches("\\d+")) {
+                                pid[0] = Integer.parseInt(arg);
+                                return;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+#### Snippet
+```java
+                public void processNewLines(@NotNull String[] lines) {
+                    try {
+                        String[] result = lines[0].split("\\s+");
+                        if (result[0].trim().length() > 0) {
+                            length[0] = Long.parseLong(result[0].trim());
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5843,38 +5907,50 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.j
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `center/src/main/java/com/microsoft/hydralab/center/util/SecretGenerator.java`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
 #### Snippet
 ```java
 
-    public String generateSecret() {
-        return bCryptPasswordEncoder.encode(UUID.randomUUID().toString().replace("-", "")).replaceAll("\\W", "");
-    }
-}
+        this.apkPath = apkPath;
+        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
+        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
+        this.testSteps = String.valueOf(testSteps);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/agent/SmartTestParam.java`
 #### Snippet
 ```java
-            FileUtil.downloadFileUsingStream(EDGE_DRIVER_DOWNLOAD_URL + "/LATEST_STABLE", edgeDriverVersionFile);
-            String version = FileUtil.getStringFromFilePath(edgeDriverVersionFile);
-            version = version.replaceAll("[^\\d.]", "");
-            System.out.println(version);
-            downloadEdgeDriver(version);
+        this.apkPath = apkPath;
+        this.deviceInfo = JSONObject.toJSONString(deviceInfo).replaceAll("\"", "'");
+        this.modelInfo = modelInfo.toJSONString().replaceAll("\"", "'");
+        this.testSteps = String.valueOf(testSteps);
+        this.stringTextFolder = stringFolderPath;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `center/src/main/java/com/microsoft/hydralab/center/interceptor/BaseInterceptor.java`
+#### Snippet
+```java
+        String authCode = request.getHeader("Authorization");
+        if (authCode != null) {
+            authCode = authCode.replaceAll("Bearer ", "");
+        }
+        //check is ignore
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
 #### Snippet
 ```java
-            storageFileInfo.setCDNUrl(downloadUrl);
-        } else {
-            String originDomain = downloadUrl.split("//")[1].split("/")[0];
-            storageFileInfo.setCDNUrl(downloadUrl.replace(originDomain, this.cdnUrl));
-        }
+
+    private void parseCoordinates(String bounds) {
+        String[] boundsArray = bounds.split("\\[|\\]|,");
+        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
+        int x1 = Integer.parseInt(validArr[0]);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5889,43 +5965,44 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/An
                 int yStart = Integer.parseInt(boundsVal[2]);
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+#### Snippet
+```java
+                    }
+
+                    String[] fieldValues = line.split(DELIMITER);
+                    WindowsBatteryParsedData.WindowsBatteryMetrics windowsBatteryMetrics = getWindowsBatteryMetrics(
+                            fieldValues, columnNameToIndexMap);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+#### Snippet
+```java
+        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
+            String columnNamesLine = reader.readLine();
+            String[] columnNamesList = columnNamesLine.split(DELIMITER);
+
+            int index = 0;
+```
+
+## RuleId[id=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
+#### Snippet
+```java
+
+    private void parseCoordinates(String bounds) {
+        String[] boundsArray = bounds.split("\\[|\\]|,");
+        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
+        int x1 = Integer.parseInt(validArr[0]);
+```
+
 ## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/controller/AuthController.java`
-#### Snippet
-```java
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-            return Result.error(e.getCode(), e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
-#### Snippet
-```java
-            return Result.error(e.getCode(), e);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e);
-        }
-```
-
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
@@ -5952,14 +6029,38 @@ in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetCont
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUtils.java`
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
 #### Snippet
 ```java
+            return Result.error(e.getCode(), e);
         } catch (IOException e) {
-            // no need to rethrow
+            e.printStackTrace();
+            return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e);
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/controller/PackageSetController.java`
+#### Snippet
+```java
+            return Result.error(e.getCode(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/controller/AuthController.java`
+#### Snippet
+```java
+            out.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -5976,22 +6077,34 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUti
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabClientUtils.java`
 #### Snippet
 ```java
-                return agentConfigFile;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            // no need to rethrow
+            e.printStackTrace();
         }
+
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
 #### Snippet
 ```java
-            }
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+            return false;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
+#### Snippet
+```java
+            IOUtils.copy(Objects.requireNonNull(resourceAsStream), out);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -6000,14 +6113,38 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
 #### Snippet
 ```java
-                addedFrameCount++;
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }), logger);
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
+#### Snippet
+```java
+                        addedFrameCount++;
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }), logger);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
+#### Snippet
+```java
+                                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }), logger);
 ```
 
 ### ThrowablePrintStackTrace
@@ -6024,7 +6161,7 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTes
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listener.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/EspressoTestInfoProcessorListener.java`
 #### Snippet
 ```java
                 addedFrameCount++;
@@ -6036,50 +6173,74 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/Junit5Listene
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/t2c/T2CRunner.java`
 #### Snippet
 ```java
-                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
+                        e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }), reportLogger);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+            url = URLEncoder.encode(url, FileUtil.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String loginUrl =
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+            accessToken = json.getBody().getString("access_token");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accessToken;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+            userInfo = JSONObject.parseObject(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userInfo;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.java`
+#### Snippet
+```java
+                filename.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }), reportLogger);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
-#### Snippet
-```java
-            return new File(outputDir, fileName);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            if (process != null) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
-#### Snippet
-```java
-            powerShellProcess.waitFor();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
         }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
-#### Snippet
-```java
-            IOUtils.copy(Objects.requireNonNull(resourceAsStream), out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6108,54 +6269,6 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestUtil.java`
-#### Snippet
-```java
-                filename.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
-#### Snippet
-```java
-            return parseJson(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-            return false;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
 #### Snippet
 ```java
@@ -6180,110 +6293,86 @@ in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppi
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/IOSLogCollector.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            logger.info("Exception:" + e);
+            e.printStackTrace();
+        } finally {
+            synchronized (this) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
+#### Snippet
+```java
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (process != null) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
 #### Snippet
 ```java
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (logProcess != null) {
+            if (process != null) {
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
 #### Snippet
 ```java
-                addedFrameCount++;
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }), logger);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
-#### Snippet
-```java
-            return true;
-        } catch (ClassNotFoundException e) {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            return false;
         }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
-#### Snippet
-```java
-            return true;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
-#### Snippet
-```java
-            ImageIO.write(imageNew, "jpg", outFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return PCFile;
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
-#### Snippet
-```java
-                    values = JSONArray.parseArray(value);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Assert.isTrue(false, "When querying with in, the value of criteriaType should be a JSONArray String!");
-                }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
-#### Snippet
-```java
-                date = format.parse(value);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                Assert.isTrue(false, "Transfer String to Date failed!");
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
-#### Snippet
-```java
-    public void onError(Session session, Throwable error) {
-        log.error("onError from session " + session.getId(), error);
-        error.printStackTrace();
-        deleteSessionAndDevice(session);
     }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/controller/BaseDriverController.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
 #### Snippet
 ```java
-        } catch (Exception e) {
-            logger.info("Can not find element by AccessibilityId: " + accessibilityId);
+            countDownLatch.await();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return elementFound;
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
+#### Snippet
+```java
+                logger.info("Exception:" + e);
+            }
+            e.printStackTrace();
+        } finally {
+            synchronized (this) {
 ```
 
 ### ThrowablePrintStackTrace
@@ -6300,26 +6389,398 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDev
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
 #### Snippet
 ```java
-            res.put(TaskConst.PARAM_VERSION_CODE, prop.getProperty(TaskConst.PROPERTY_VERSION_CODE));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (propertyStream != null) {
+                        addedFrameCount++;
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }), logger);
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumListener.java`
 #### Snippet
 ```java
-                    propertyStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }), logger);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
+#### Snippet
+```java
+            return true;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/appium/AppiumRunner.java`
+#### Snippet
+```java
+            return true;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
+#### Snippet
+```java
+            return parseJson(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AdbMonkeyRunner.java`
+#### Snippet
+```java
+                        e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }), logger);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting driver for windows edge.");
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            builder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // wait 2s to ensure that process is totally crashed
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            downloadEdgeDriver(version);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            ThreadUtils.safeSleep(TimeUnit.SECONDS.toMillis(2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting Windows driver for app: " + appFamilyName);
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting driver for device: " + udid);
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting driver for Windows. ");
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+                edgeDriver = new EdgeDriver();
+            } catch (Exception e) {
+                e.printStackTrace();
+                updateEdgeDriver(e.getMessage());
+                edgeDriver = new EdgeDriver();
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting driver for device: " + udid);
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                logger.info("Error happened when quitting driver for edge.");
+                e.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+            return IOUtils.toString(Files.newInputStream(new File(path).toPath()), UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+            return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+            fileWriter.write(report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            logger.info("Exception:" + e);
+            e.printStackTrace();
+        } finally {
+            this.inFinish = true;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
+#### Snippet
+```java
+                    wait();
+                } catch (InterruptedException ignore) {
+                    ignore.printStackTrace();
                 }
             }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
+#### Snippet
+```java
+            powerShellProcess.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.java`
+#### Snippet
+```java
+            return new File(outputDir, fileName);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            if (process != null) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
+#### Snippet
+```java
+            ImageIO.write(imageNew, "jpg", outFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return PCFile;
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManagementService.java`
+#### Snippet
+```java
+    public void onError(Session session, Throwable error) {
+        log.error("onError from session " + session.getId(), error);
+        error.printStackTrace();
+        deleteSessionAndDevice(session);
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/IOSLogCollector.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (logProcess != null) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+            return false;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForMac.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
+            e.printStackTrace();
+            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AppiumMonkeyRunner.java`
+#### Snippet
+```java
+                        e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }), reportLogger);
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/DateUtil.java`
+#### Snippet
+```java
+                return appCenterFormat2.parse(timeString);
+            } catch (ParseException parseException) {
+                parseException.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.java`
+#### Snippet
+```java
+                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }), logger);
 ```
 
 ### ThrowablePrintStackTrace
@@ -6332,6 +6793,18 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
             e.printStackTrace();
         }
         return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+#### Snippet
+```java
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
 ```
 
 ### ThrowablePrintStackTrace
@@ -6375,11 +6848,23 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 #### Snippet
 ```java
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            res.put(TaskConst.PARAM_VERSION_CODE, prop.getProperty(TaskConst.PROPERTY_VERSION_CODE));
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            if (input != null) {
+            if (propertyStream != null) {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
+#### Snippet
+```java
+                    propertyStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -6396,354 +6881,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AdbMonkeyRunner.java`
-#### Snippet
-```java
-                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }), logger);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/DateUtil.java`
-#### Snippet
-```java
-                return appCenterFormat2.parse(timeString);
-            } catch (ParseException parseException) {
-                parseException.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/CommandOutputReceiver.java`
-#### Snippet
-```java
-                logger.info("Exception:" + e);
-            }
-            e.printStackTrace();
-        } finally {
-            synchronized (this) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-            return IOUtils.toString(Files.newInputStream(new File(path).toPath()), UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-            fileWriter.write(report);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-            return IOUtils.toString(resourceAsStream, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.info("Exception:" + e);
-            e.printStackTrace();
-        } finally {
-            this.inFinish = true;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-                    wait();
-                } catch (InterruptedException ignore) {
-                    ignore.printStackTrace();
-                }
-            }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/AppiumE2ETestRecorder.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
-#### Snippet
-```java
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/ThreadUtils.java`
-#### Snippet
-```java
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Start recording, Ignore it to unblocking the following tests----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            System.out.println("-------------------------------Fail to Stop recording, Ignore it to unblocking the following tests-----------------------------");
-            e.printStackTrace();
-            System.out.println("-------------------------------------------------------Ignore End--------------------------------------------------------------");
-            return false;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/screen/IOSAppiumScreenRecorderForWindows.java`
-#### Snippet
-```java
-            IOUtils.copy(Objects.requireNonNull(resourceAsStream), out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/util/IOSDeviceWatcher.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.info("Exception:" + e);
-            e.printStackTrace();
-        } finally {
-            synchronized (this) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/monkey/AppiumMonkeyRunner.java`
-#### Snippet
-```java
-                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }), reportLogger);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartRunner.java`
-#### Snippet
-```java
-                e.addFrame(ImgUtil.toBufferedImage(ImgUtil.scale(ImageIO.read(imagePNGFile), 0.3f)));
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }), logger);
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting driver for Windows. ");
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-                edgeDriver = new EdgeDriver();
-            } catch (Exception e) {
-                e.printStackTrace();
-                updateEdgeDriver(e.getMessage());
-                edgeDriver = new EdgeDriver();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            ThreadUtils.safeSleep(TimeUnit.SECONDS.toMillis(2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            downloadEdgeDriver(version);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting driver for device: " + udid);
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting driver for windows edge.");
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // wait 2s to ensure that process is totally crashed
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting Windows driver for app: " + appFamilyName);
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting driver for edge.");
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/management/AppiumServerManager.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                logger.info("Error happened when quitting driver for device: " + udid);
-                e.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentManageService.java`
 #### Snippet
 ```java
@@ -6756,75 +6893,50 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/service/AgentManageService.
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
 #### Snippet
 ```java
+                return agentConfigFile;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `common/src/main/java/com/microsoft/hydralab/common/screen/PhoneAppScreenRecorder.java`
+#### Snippet
+```java
+            IOUtils.copy(Objects.requireNonNull(resourceAsStream), out);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (process != null) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `common/src/main/java/com/microsoft/hydralab/common/logger/impl/ADBLogcatCollector.java`
-#### Snippet
-```java
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (process != null) {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-            url = URLEncoder.encode(url, FileUtil.UTF_8);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        String loginUrl =
+    }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
 #### Snippet
 ```java
-            userInfo = JSONObject.parseObject(jsonString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return userInfo;
+                date = format.parse(value);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Assert.isTrue(false, "Transfer String to Date failed!");
+            }
 ```
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/CriteriaTypeUtil.java`
 #### Snippet
 ```java
-            accessToken = json.getBody().getString("access_token");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return accessToken;
-```
-
-## RuleId[id=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/elements/AndroidElementInfo.java`
-#### Snippet
-```java
-
-    private void parseCoordinates(String bounds) {
-        String[] boundsArray = bounds.split("\\[|\\]|,");
-        String[] validArr = Arrays.stream(boundsArray).filter(StringUtils::isNotEmpty).toArray(String[]::new);
-        int x1 = Integer.parseInt(validArr[0]);
+                    values = JSONArray.parseArray(value);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Assert.isTrue(false, "When querying with in, the value of criteriaType should be a JSONArray String!");
+                }
 ```
 
 ## RuleId[id=SamePackageImport]
@@ -6919,11 +7031,11 @@ Constructor `BaseDriverController()` of an abstract class should not be declared
 in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/controller/BaseDriverController.java`
 #### Snippet
 ```java
-    protected Logger logger;
+    protected String udid;
 
-    public BaseDriverController(WebDriver webDriver, Logger logger) {
+    public BaseDriverController(WebDriver webDriver, String udid, Logger logger) {
         this.webDriver = webDriver;
-        this.logger = logger;
+        this.udid = udid;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6931,11 +7043,11 @@ Constructor `TestRunner()` of an abstract class should not be declared 'public'
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
 #### Snippet
 ```java
-    protected final ActionExecutor actionExecutor = new ActionExecutor();
+    protected TestDeviceManager testDeviceManager;
 
-    public TestRunner(TestDeviceManager testDeviceManager, TestTaskRunCallback testTaskRunCallback,
+    public TestRunner(AgentManagementService agentManagementService, TestTaskRunCallback testTaskRunCallback,
                       PerformanceTestManagementService performanceTestManagementService) {
-        this.testDeviceManager = testDeviceManager;
+        this.agentManagementService = agentManagementService;
 ```
 
 ## RuleId[id=Java8MapApi]
@@ -6954,18 +7066,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
-#### Snippet
-```java
-    @Override
-    public void updateScreenshotImageAsyncDelay(@NotNull DeviceInfo deviceInfo, long delayMillis, @NotNull FileAvailableCallback fileAvailableCallback, @NotNull Logger logger) {
-        ThreadPoolUtil.SCREENSHOT_EXECUTOR.execute(new Runnable() {
-            @Override
-            public void run() {
-```
-
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
 in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/DeviceStabilityMonitor.java`
 #### Snippet
 ```java
@@ -6978,10 +7078,10 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/TestDeviceManager.java`
+in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/WindowsTestDeviceManager.java`
 #### Snippet
 ```java
-
+    @Override
     public void updateScreenshotImageAsyncDelay(@NotNull DeviceInfo deviceInfo, long delayMillis, @NotNull FileAvailableCallback fileAvailableCallback, @NotNull Logger logger) {
         ThreadPoolUtil.SCREENSHOT_EXECUTOR.execute(new Runnable() {
             @Override
@@ -6999,126 +7099,6 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
                     content = content.replaceFirst(maskedMessage, "***");
                 }
             }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `common/src/main/java/com/microsoft/hydralab/common/util/FlowUtil.java`
-#### Snippet
-```java
-                toThrow = new RuntimeException(e);
-            }
-            count--;
-        }
-        if (toThrow != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `common/src/main/java/com/microsoft/hydralab/common/util/FlowUtil.java`
-#### Snippet
-```java
-            }
-            ThreadUtils.safeSleep(sleepSeconds * 1000);
-            count--;
-        }
-        if (toThrow != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `performanceInspection`
-in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
-#### Snippet
-```java
-        if (performanceInspection == null || testRun == null) return null;
-
-        performanceInspection = getDevicePerformanceInspection(performanceInspection);
-        PerformanceInspector.PerformanceInspectorType inspectorType = performanceInspection.inspectorType;
-        PerformanceInspector performanceInspector = getInspectorByType(inspectorType);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `performanceInspection`
-in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
-#### Snippet
-```java
-        if (performanceInspection == null) return null;
-
-        performanceInspection = getDevicePerformanceInspection(performanceInspection);
-        Map<String, PerformanceTestResult> testResultMap = testRunPerfResultMap.get(getTestRun().getId());
-        Assert.notNull(testResultMap, "Found no matched test result for test run");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `content`
-in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
-#### Snippet
-```java
-                String maskedMessage = matcher.group(2);
-                if (maskedMessage.length() > 0) {
-                    content = content.replaceFirst(maskedMessage, "***");
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `size`
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-        boolean isLessZero = false;
-        if (size < 0) {
-            size = -size;
-            isLessZero = true;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `originalFilename`
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-            throw new HydraLabRuntimeException(HttpStatus.BAD_REQUEST.value(), "Illegal file name!");
-        }
-        originalFilename = originalFilename.replaceAll(" ", "");
-        String extension = FilenameUtils.getExtension(originalFilename);
-        extension = extension.replaceAll("\\.", "").replaceAll("/", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `folderPath`
-in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
-#### Snippet
-```java
-    public static boolean isLegalFolderPath(String folderPath) {
-        if (folderPath.endsWith("/")) {
-            folderPath = folderPath.substring(0, folderPath.length() - 1);
-        }
-        String pattern = "^((?! )(?![^\\\\/]*\\s+[\\\\/])[\\w -]+[\\\\/])*(?! )(?![^.]*\\s+\\.)[\\w -]+$";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `newFileName`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(newFileName)) {
-            newFileName = filename.replace(fileSuffix, "") + "_" + System.currentTimeMillis() % 10000 + "_" + fileSuffix;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `newFileName`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-        }
-
-        newFileName = FileUtil.getLegalFileName(newFileName);
-        File file = new File(parentDir, newFileName);// CodeQL [java/path-injection] False Positive: Has verified the string by regular expression
-        InputStream inputStream = originFile.getInputStream();
 ```
 
 ### AssignmentToMethodParameter
@@ -7146,6 +7126,30 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.ja
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `newFileName`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+
+        if (StringUtils.isEmpty(newFileName)) {
+            newFileName = filename.replace(fileSuffix, "") + "_" + System.currentTimeMillis() % 10000 + "_" + fileSuffix;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `newFileName`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+        }
+
+        newFileName = FileUtil.getLegalFileName(newFileName);
+        File file = new File(parentDir, newFileName);// CodeQL [java/path-injection] False Positive: Has verified the string by regular expression
+        InputStream inputStream = originFile.getInputStream();
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `logger`
 in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
 #### Snippet
@@ -7155,6 +7159,102 @@ in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlob
             logger = classLogger;
         }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `performanceInspection`
+in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
+#### Snippet
+```java
+        if (performanceInspection == null) return null;
+
+        performanceInspection = getDevicePerformanceInspection(performanceInspection);
+        Map<String, PerformanceTestResult> testResultMap = testRunPerfResultMap.get(getTestRun().getId());
+        Assert.notNull(testResultMap, "Found no matched test result for test run");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `performanceInspection`
+in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
+#### Snippet
+```java
+        if (performanceInspection == null || testRun == null) return null;
+
+        performanceInspection = getDevicePerformanceInspection(performanceInspection);
+        PerformanceInspector.PerformanceInspectorType inspectorType = performanceInspection.inspectorType;
+        PerformanceInspector performanceInspector = getInspectorByType(inspectorType);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `content`
+in `common/src/main/java/com/microsoft/hydralab/common/util/LogUtils.java`
+#### Snippet
+```java
+                String maskedMessage = matcher.group(2);
+                if (maskedMessage.length() > 0) {
+                    content = content.replaceFirst(maskedMessage, "***");
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `folderPath`
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+    public static boolean isLegalFolderPath(String folderPath) {
+        if (folderPath.endsWith("/")) {
+            folderPath = folderPath.substring(0, folderPath.length() - 1);
+        }
+        String pattern = "^((?! )(?![^\\\\/]*\\s+[\\\\/])[\\w -]+[\\\\/])*(?! )(?![^.]*\\s+\\.)[\\w -]+$";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `originalFilename`
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+            throw new HydraLabRuntimeException(HttpStatus.BAD_REQUEST.value(), "Illegal file name!");
+        }
+        originalFilename = originalFilename.replaceAll(" ", "");
+        String extension = FilenameUtils.getExtension(originalFilename);
+        extension = extension.replaceAll("\\.", "").replaceAll("/", "");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `size`
+in `common/src/main/java/com/microsoft/hydralab/common/util/FileUtil.java`
+#### Snippet
+```java
+        boolean isLessZero = false;
+        if (size < 0) {
+            size = -size;
+            isLessZero = true;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `common/src/main/java/com/microsoft/hydralab/common/util/FlowUtil.java`
+#### Snippet
+```java
+            }
+            ThreadUtils.safeSleep(sleepSeconds * 1000);
+            count--;
+        }
+        if (toThrow != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `common/src/main/java/com/microsoft/hydralab/common/util/FlowUtil.java`
+#### Snippet
+```java
+                toThrow = new RuntimeException(e);
+            }
+            count--;
+        }
+        if (toThrow != null) {
 ```
 
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
@@ -7184,19 +7284,7 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/listener/impl/
 
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `deviceInfo`
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/IOSTestDeviceManager.java`
-#### Snippet
-```java
-            return;
-        }
-        synchronized (deviceInfo) {
-            deviceInfo.reset();
-        }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `deviceInfo`
-in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/AndroidTestDeviceManager.java`
+in `common/src/main/java/com/microsoft/hydralab/common/management/AgentManagementService.java`
 #### Snippet
 ```java
             return;
@@ -7209,14 +7297,50 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/An
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
 #### Snippet
 ```java
-    public static HashMap<String, String> parseArguments(String argsString){
-        if (StringUtils.isBlank(argsString)) {
+    @Override
+    public Object getDetails() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
+#### Snippet
+```java
+    @Override
+    public Object getCredentials() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/SysRoleService.java`
+#### Snippet
+```java
+    public SysRole updateRole(SysRole sysRole) {
+        if (sysRole == null) {
             return null;
         }
-        HashMap<String, String> argsMap = new HashMap<>();
+
+```
+
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/SysRoleService.java`
+#### Snippet
+```java
+    public SysRole getRequestorRole(SysUser requestor) {
+        if (requestor == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -7245,73 +7369,37 @@ in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/SysRoleService.java`
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/CommonUtils.java`
 #### Snippet
 ```java
-    public SysRole getRequestorRole(SysUser requestor) {
-        if (requestor == null) {
+    public static HashMap<String, String> parseArguments(String argsString){
+        if (StringUtils.isBlank(argsString)) {
             return null;
         }
-
+        HashMap<String, String> argsMap = new HashMap<>();
 ```
 
 ### ReturnNull
 Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/SysRoleService.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/SysUserService.java`
 #### Snippet
 ```java
-    public SysRole updateRole(SysRole sysRole) {
-        if (sysRole == null) {
+    public SysUser updateUser(SysUser sysUser) {
+        if (sysUser == null) {
             return null;
         }
-
+        return sysUserRepository.save(sysUser);
 ```
 
 ### ReturnNull
 Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/UserTeamManagementService.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/SysPermissionService.java`
 #### Snippet
 ```java
-        Set<SysUser> users = teamUserListMap.get(teamId);
-        if (users == null) {
+    public SysPermission updatePermission(SysPermission sysPermission) {
+        if (sysPermission == null) {
             return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/UserTeamManagementService.java`
-#### Snippet
-```java
-        Set<SysTeam> teams = userTeamListMap.get(mailAddress);
-        if (teams == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
-#### Snippet
-```java
-    @Override
-    public Object getCredentials() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/entity/center/SysUser.java`
-#### Snippet
-```java
-    @Override
-    public Object getDetails() {
-        return null;
-    }
 
 ```
 
@@ -7325,18 +7413,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/SecurityUserServi
                     return null;
                 }
                 displayName = authUtil.getLoginUserDisplayName(accessToken);
-```
-
-### ReturnNull
-Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/SysUserService.java`
-#### Snippet
-```java
-    public SysUser updateUser(SysUser sysUser) {
-        if (sysUser == null) {
-            return null;
-        }
-        return sysUserRepository.save(sysUser);
 ```
 
 ### ReturnNull
@@ -7361,6 +7437,186 @@ in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestRun.jav
             return null;
         }
         String[] paths = path.split("/");
+```
+
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/UserTeamManagementService.java`
+#### Snippet
+```java
+        Set<SysTeam> teams = userTeamListMap.get(mailAddress);
+        if (teams == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/UserTeamManagementService.java`
+#### Snippet
+```java
+        Set<SysUser> users = teamUserListMap.get(teamId);
+        if (users == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sdk/src/main/java/com/microsoft/hydralab/appium/ThreadParam.java`
+#### Snippet
+```java
+    public static String getConfigString(String key) {
+        if (CONFIG_MAP == null) {
+            return null;
+        }
+        Map<String, String> temp = CONFIG_MAP.get();
+```
+
+### ReturnNull
+Return of `null`
+in `sdk/src/main/java/com/microsoft/hydralab/appium/ThreadParam.java`
+#### Snippet
+```java
+        Map<String, String> temp = CONFIG_MAP.get();
+        if (temp == null) {
+            return null;
+        }
+        return temp.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
+#### Snippet
+```java
+    public static String getCountryNameFromCode(String code) {
+        if (code == null) {
+            return null;
+        }
+        for (Locale availableLocale : Locale.getAvailableLocales()) {
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/DeviceTaskControlExecutor.java`
+#### Snippet
+```java
+        if (activeDevice <= 0) {
+            log.warn("No device available for this task, forceForTesting: {}", forceForTesting);
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
+#### Snippet
+```java
+        WebElement elementFound = null;
+        if (element == null) {
+            return null;
+        }
+        ElementFinder<BaseElementInfo> finder = ElementFinderFactory.createElementFinder(driver);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+
+        if (testJsonInfoList.size() == 0) {
+            return null;
+        }
+        List<TestJsonInfo> testJsonInfoListCopy = new ArrayList<>(testJsonInfoList);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+        List<TestJsonInfo> testJsonInfoList = testJsonInfoRepository.findByPackageNameAndCaseName(packageName, caseName);
+        if (testJsonInfoList.size() == 0) {
+            return null;
+        }
+        List<TestJsonInfo> testJsonInfoListCopy = new ArrayList<>(testJsonInfoList);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+#### Snippet
+```java
+            return files.get(0);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sdk/src/main/java/com/microsoft/hydralab/performance/PerformanceInspectionService.java`
+#### Snippet
+```java
+        @Override
+        public PerformanceInspectionResult inspect(PerformanceInspection performanceInspection) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `sdk/src/main/java/com/microsoft/hydralab/performance/PerformanceInspectionService.java`
+#### Snippet
+```java
+        @Override
+        public PerformanceTestResult parse(PerformanceInspection performanceInspection) {
+            return null;
+        }
+    };
+```
+
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+#### Snippet
+```java
+        Optional<AuthToken> authToken = authTokenRepository.findById(tokenId);
+        if (!authToken.isPresent()) {
+            return null;
+        }
+        return authToken.get();
 ```
 
 ### ReturnNull
@@ -7413,11 +7669,167 @@ in `common/src/main/java/com/microsoft/hydralab/common/entity/common/TestTask.ja
 
 ### ReturnNull
 Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
+in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
 #### Snippet
 ```java
-            }
+    public BlobProperties downloadFileFromBlob(File downloadToFile, String containerName, String blobFilePath) {
+        if (!isConnected) {
+            return null;
         }
+        checkBlobClientUpdate();
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
+#### Snippet
+```java
+    public String uploadFileToBlob(File uploadFile, String containerName, String blobFilePath, Logger logger) {
+        if (!isConnected) {
+            return null;
+        }
+        checkBlobClientUpdate();
+```
+
+### ReturnNull
+Return of `null`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
+#### Snippet
+```java
+    @Override
+    public PerformanceTestResult parse(PerformanceInspection performanceInspection) {
+        if (performanceInspection == null) return null;
+
+        performanceInspection = getDevicePerformanceInspection(performanceInspection);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
+#### Snippet
+```java
+    private List<PerformanceTestResult> parseForTestRun(ITestRun testRun) {
+        Map<String, PerformanceTestResult> testResultMap = testRunPerfResultMap.get(testRun.getId());
+        if (testResultMap == null) return null;
+
+        List<PerformanceTestResult> resultList = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
+#### Snippet
+```java
+
+    private PerformanceInspectionResult inspect(PerformanceInspection performanceInspection, ITestRun testRun) {
+        if (performanceInspection == null || testRun == null) return null;
+
+        performanceInspection = getDevicePerformanceInspection(performanceInspection);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
+#### Snippet
+```java
+        if (performanceTestResult == null || performanceTestResult.performanceInspectionResults == null
+                || performanceTestResult.performanceInspectionResults.isEmpty()) {
+            return null;
+        }
+        List<PerformanceInspectionResult> inspectionResults = performanceTestResult.performanceInspectionResults;
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
+#### Snippet
+```java
+    private AndroidMemoryInfo buildMemoryInfo(String packageName, String description, long timestamp, long[] memInfos) {
+        if (memInfos == null || memInfos.length != 19) {
+            return null;
+        }
+        AndroidMemoryInfo androidMemoryInfo = new AndroidMemoryInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+        return memoryValueArr;
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+
+    private AndroidBatteryInfo parseRawResultFile(File rawFile, String packageName) {
+        if (!rawFile.isFile() || !rawFile.exists()) return null;
+
+        AndroidBatteryInfo batteryInfo = new AndroidBatteryInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+            if (uid == null) {
+                classLogger.error(String.format("Could not parse the battery usage of %s in battery info file: %s", packageName, rawFile.getAbsolutePath()));
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            classLogger.error("Failed to parse the battery info file: " + rawFile.getAbsolutePath());
+            return null;
+        }
+        return batteryInfo;
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
+#### Snippet
+```java
+        if (performanceTestResult == null || performanceTestResult.performanceInspectionResults == null
+                || performanceTestResult.performanceInspectionResults.isEmpty()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/AndroidElementFinder.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 }
@@ -7425,11 +7837,11 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageServic
 
 ### ReturnNull
 Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/SysPermissionService.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
 #### Snippet
 ```java
-    public SysPermission updatePermission(SysPermission sysPermission) {
-        if (sysPermission == null) {
+        {
+            classLogger.error("TestRunThreadContext.getTestRun() return null.");
             return null;
         }
 
@@ -7437,26 +7849,50 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/SysPermissionServ
 
 ### ReturnNull
 Return of `null`
-in `sdk/src/main/java/com/microsoft/hydralab/appium/ThreadParam.java`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
 #### Snippet
 ```java
-    public static String getConfigString(String key) {
-        if (CONFIG_MAP == null) {
+        } catch (InterruptedException e) {
+            classLogger.error("InterruptedException caught on process.waitFor().");
             return null;
         }
-        Map<String, String> temp = CONFIG_MAP.get();
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `sdk/src/main/java/com/microsoft/hydralab/appium/ThreadParam.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
 #### Snippet
 ```java
-        Map<String, String> temp = CONFIG_MAP.get();
-        if (temp == null) {
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
+#### Snippet
+```java
+        IDevice device = getDeviceByInfo(deviceInfo);
+        if (device == null) {
             return null;
         }
-        return temp.get(key);
+        getNotNullLogger(logger).info("getScreenshot");
+```
+
+### ReturnNull
+Return of `null`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/EdgeElementFinder.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -7480,78 +7916,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/FFmpegConcatUtil.j
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/DeviceTaskControlExecutor.java`
-#### Snippet
-```java
-        if (activeDevice <= 0) {
-            log.warn("No device available for this task, forceForTesting: {}", forceForTesting);
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CJsonParser.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/T2CAppiumUtils.java`
-#### Snippet
-```java
-        WebElement elementFound = null;
-        if (element == null) {
-            return null;
-        }
-        ElementFinder<BaseElementInfo> finder = ElementFinderFactory.createElementFinder(driver);
-```
-
-### ReturnNull
-Return of `null`
-in `sdk/src/main/java/com/microsoft/hydralab/performance/PerformanceInspectionService.java`
-#### Snippet
-```java
-        @Override
-        public PerformanceTestResult parse(PerformanceInspection performanceInspection) {
-            return null;
-        }
-    };
-```
-
-### ReturnNull
-Return of `null`
-in `sdk/src/main/java/com/microsoft/hydralab/performance/PerformanceInspectionService.java`
-#### Snippet
-```java
-        @Override
-        public PerformanceInspectionResult inspect(PerformanceInspection performanceInspection) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/RolePermissionManagementService.java`
-#### Snippet
-```java
-        Set<SysPermission> permissions = rolePermissionListMap.get(roleId);
-        if (permissions == null) {
-            return null;
-        }
 
 ```
 
@@ -7605,234 +7969,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/DeviceAgentManage
 
 ### ReturnNull
 Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/ADBOperateUtil.java`
-#### Snippet
-```java
-        IDevice device = getDeviceByInfo(deviceInfo);
-        if (device == null) {
-            return null;
-        }
-        getNotNullLogger(logger).info("getScreenshot");
-```
-
-### ReturnNull
-Return of `null`
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/EdgeElementFinder.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-        {
-            classLogger.error("TestRunThreadContext.getTestRun() return null.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsMemoryInspector.java`
-#### Snippet
-```java
-        } catch (InterruptedException e) {
-            classLogger.error("InterruptedException caught on process.waitFor().");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-
-    private AndroidBatteryInfo parseRawResultFile(File rawFile, String packageName) {
-        if (!rawFile.isFile() || !rawFile.exists()) return null;
-
-        AndroidBatteryInfo batteryInfo = new AndroidBatteryInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-            if (uid == null) {
-                classLogger.error(String.format("Could not parse the battery usage of %s in battery info file: %s", packageName, rawFile.getAbsolutePath()));
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            classLogger.error("Failed to parse the battery info file: " + rawFile.getAbsolutePath());
-            return null;
-        }
-        return batteryInfo;
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidBatteryInfoResultParser.java`
-#### Snippet
-```java
-        if (performanceTestResult == null || performanceTestResult.performanceInspectionResults == null
-                || performanceTestResult.performanceInspectionResults.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-        Optional<TestTask> taskOpt = testTaskRepository.findById(testId);
-        if (taskOpt.isEmpty()) {
-            return null;
-        }
-        TestTask testTask = taskOpt.get();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
-#### Snippet
-```java
-        if (performanceTestResult == null || performanceTestResult.performanceInspectionResults == null
-                || performanceTestResult.performanceInspectionResults.isEmpty()) {
-            return null;
-        }
-        List<PerformanceInspectionResult> inspectionResults = performanceTestResult.performanceInspectionResults;
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
-#### Snippet
-```java
-    private AndroidMemoryInfo buildMemoryInfo(String packageName, String description, long timestamp, long[] memInfos) {
-        if (memInfos == null || memInfos.length != 19) {
-            return null;
-        }
-        AndroidMemoryInfo androidMemoryInfo = new AndroidMemoryInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/parsers/AndroidMemoryInfoResultParser.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.error(e.getMessage(), e);
-            return null;
-        }
-        return memoryValueArr;
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
-#### Snippet
-```java
-
-    private PerformanceInspectionResult inspect(PerformanceInspection performanceInspection, ITestRun testRun) {
-        if (performanceInspection == null || testRun == null) return null;
-
-        performanceInspection = getDevicePerformanceInspection(performanceInspection);
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
-#### Snippet
-```java
-    private List<PerformanceTestResult> parseForTestRun(ITestRun testRun) {
-        Map<String, PerformanceTestResult> testResultMap = testRunPerfResultMap.get(testRun.getId());
-        if (testResultMap == null) return null;
-
-        List<PerformanceTestResult> resultList = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/PerformanceTestManagementService.java`
-#### Snippet
-```java
-    @Override
-    public PerformanceTestResult parse(PerformanceInspection performanceInspection) {
-        if (performanceInspection == null) return null;
-
-        performanceInspection = getDevicePerformanceInspection(performanceInspection);
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
-#### Snippet
-```java
-        {
-            classLogger.error("TestRunThreadContext.getTestRun() return null.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
-#### Snippet
-```java
-        } catch (InterruptedException e) {
-            classLogger.error("InterruptedException caught on process.waitFor().");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `common/src/main/java/com/microsoft/hydralab/common/util/DateUtil.java`
 #### Snippet
 ```java
@@ -7841,66 +7977,6 @@ in `common/src/main/java/com/microsoft/hydralab/common/util/DateUtil.java`
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
-#### Snippet
-```java
-    public static String getCountryNameFromCode(String code) {
-        if (code == null) {
-            return null;
-        }
-        for (Locale availableLocale : Locale.getAvailableLocales()) {
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/MachineInfoUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/AndroidElementFinder.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/WindowsElementFinder.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
-#### Snippet
-```java
-        Optional<AuthToken> authToken = authTokenRepository.findById(tokenId);
-        if (!authToken.isPresent()) {
-            return null;
-        }
-        return authToken.get();
 ```
 
 ### ReturnNull
@@ -7917,74 +7993,86 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/TestRunner.java`
 
 ### ReturnNull
 Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+in `common/src/main/java/com/microsoft/hydralab/common/util/PkgUtil.java`
 #### Snippet
 ```java
-        List<TestJsonInfo> testJsonInfoList = testJsonInfoRepository.findByPackageNameAndCaseName(packageName, caseName);
-        if (testJsonInfoList.size() == 0) {
-            return null;
+            e.printStackTrace();
         }
-        List<TestJsonInfo> testJsonInfoListCopy = new ArrayList<>(testJsonInfoList);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/RolePermissionManagementService.java`
+#### Snippet
+```java
+        Set<SysPermission> permissions = rolePermissionListMap.get(roleId);
+        if (permissions == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+        if (!MachineInfoUtils.isOnWindowsLaptop()) {
+            classLogger.error("Windows battery test must be run on Windows Laptop!");
+            return null;
+        }
+        initializeIfNeeded(performanceInspection);
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+        {
+            classLogger.error("TestRunThreadContext.getTestRun() return null.");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/inspectors/WindowsBatteryInspector.java`
+#### Snippet
+```java
+        } catch (InterruptedException e) {
+            classLogger.error("InterruptedException caught on process.waitFor().");
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `taps_to_cases/runner/src/main/java/com/microsoft/hydralab/t2c/runner/finder/WindowsElementFinder.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
+in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageService.java`
 #### Snippet
 ```java
-            return files.get(0);
+            }
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/util/AttachmentService.java`
-#### Snippet
-```java
-
-        if (testJsonInfoList.size() == 0) {
-            return null;
-        }
-        List<TestJsonInfo> testJsonInfoListCopy = new ArrayList<>(testJsonInfoList);
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
-#### Snippet
-```java
-    public String uploadFileToBlob(File uploadFile, String containerName, String blobFilePath, Logger logger) {
-        if (!isConnected) {
-            return null;
-        }
-        checkBlobClientUpdate();
-```
-
-### ReturnNull
-Return of `null`
-in `common/src/main/java/com/microsoft/hydralab/common/file/impl/azure/AzureBlobClientAdapter.java`
-#### Snippet
-```java
-    public BlobProperties downloadFileFromBlob(File downloadToFile, String containerName, String blobFilePath) {
-        if (!isConnected) {
-            return null;
-        }
-        checkBlobClientUpdate();
+}
 ```
 
 ### ReturnNull
@@ -7999,7 +8087,43 @@ in `common/src/main/java/com/microsoft/hydralab/common/management/device/impl/An
     }
 ```
 
+### ReturnNull
+Return of `null`
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
+#### Snippet
+```java
+        Optional<TestTask> taskOpt = testTaskRepository.findById(testId);
+        if (taskOpt.isEmpty()) {
+            return null;
+        }
+        TestTask testTask = taskOpt.get();
+```
+
+### ReturnNull
+Return of `null`
+in `common/src/main/java/com/microsoft/hydralab/performance/parsers/WindowsBatteryResultParser.java`
+#### Snippet
+```java
+        if (!MachineInfoUtils.isOnWindowsLaptop()) {
+            classLogger.error("Windows battery test must be run on Windows Laptop!");
+            return null;
+        }
+
+```
+
 ## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `pageObj` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
+#### Snippet
+```java
+        }
+        Sort sortByDate = Sort.by(Sort.Direction.DESC, "ingestTime");
+        Page<TestFileSet> pageObj = testFileSetRepository.findAll(spec, PageRequest.of(page, pageSize, sortByDate));
+        return pageObj;
+    }
+```
+
 ### UnnecessaryLocalVariable
 Local variable `timestamp` is redundant
 in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunListener.java`
@@ -8010,6 +8134,66 @@ in `agent/src/main/java/com/microsoft/hydralab/agent/runner/espresso/XmlTestRunL
         String timestamp = dateFormat.format(new Date());
         return timestamp;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `loginUrl` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+     */
+    public String getLoginUrl() {
+        String loginUrl = authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&response_mode=query&scope=" + scope;
+        return loginUrl;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `loginUrl` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
+#### Snippet
+```java
+            e.printStackTrace();
+        }
+        String loginUrl =
+                authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&response_mode=query&scope=" + scope + "&state=" + url;
+        return loginUrl;
+```
+
+### UnnecessaryLocalVariable
+Local variable `jsonObject` is redundant
+in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
+#### Snippet
+```java
+            String string = body.string();
+            printlnf("RunningTestJson: %s", maskCred(string));
+            JsonObject jsonObject = GSON.fromJson(string, JsonObject.class);
+
+            return jsonObject;
+```
+
+### UnnecessaryLocalVariable
+Local variable `authTokens` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+#### Snippet
+```java
+
+    public List<AuthToken> queryAuthTokenByName(String name) {
+        List<AuthToken> authTokens = authTokenRepository.queryByCreator(name);
+
+        return authTokens;
+```
+
+### UnnecessaryLocalVariable
+Local variable `authTokens` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+#### Snippet
+```java
+
+    public List<AuthToken> queryAuthToken() {
+        List<AuthToken> authTokens = authTokenRepository.findAll();
+
+        return authTokens;
 ```
 
 ### UnnecessaryLocalVariable
@@ -8033,42 +8217,6 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/AgentManageServic
 
         List<AgentUser> agentUsers = agentUserRepository.findAll(spec);
         return agentUsers;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `jsonObject` is redundant
-in `gradle_plugin/src/main/groovy/com/microsoft/hydralab/utils/HydraLabAPIClient.java`
-#### Snippet
-```java
-            String string = body.string();
-            printlnf("RunningTestJson: %s", maskCred(string));
-            JsonObject jsonObject = GSON.fromJson(string, JsonObject.class);
-
-            return jsonObject;
-```
-
-### UnnecessaryLocalVariable
-Local variable `pageObj` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestFileSetService.java`
-#### Snippet
-```java
-        }
-        Sort sortByDate = Sort.by(Sort.Direction.DESC, "ingestTime");
-        Page<TestFileSet> pageObj = testFileSetRepository.findAll(spec, PageRequest.of(page, pageSize, sortByDate));
-        return pageObj;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
-#### Snippet
-```java
-        query.orderBy(criteriaBuilder.asc(root.get("testSuite")));
-
-        List<TestTask> result = entityManager.createQuery(query).getResultList();
-        return result;
     }
 ```
 
@@ -8097,66 +8245,18 @@ in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.j
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `authTokens` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
+Local variable `result` is redundant
+in `center/src/main/java/com/microsoft/hydralab/center/service/TestDataService.java`
 #### Snippet
 ```java
+        query.orderBy(criteriaBuilder.asc(root.get("testSuite")));
 
-    public List<AuthToken> queryAuthTokenByName(String name) {
-        List<AuthToken> authTokens = authTokenRepository.queryByCreator(name);
-
-        return authTokens;
-```
-
-### UnnecessaryLocalVariable
-Local variable `authTokens` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/service/AuthTokenService.java`
-#### Snippet
-```java
-
-    public List<AuthToken> queryAuthToken() {
-        List<AuthToken> authTokens = authTokenRepository.findAll();
-
-        return authTokens;
-```
-
-### UnnecessaryLocalVariable
-Local variable `loginUrl` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        }
-        String loginUrl =
-                authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&response_mode=query&scope=" + scope + "&state=" + url;
-        return loginUrl;
-```
-
-### UnnecessaryLocalVariable
-Local variable `loginUrl` is redundant
-in `center/src/main/java/com/microsoft/hydralab/center/util/AuthUtil.java`
-#### Snippet
-```java
-     */
-    public String getLoginUrl() {
-        String loginUrl = authorizationUri + "?client_id=" + clientId + "&response_type=code&redirect_uri=" + redirectUri + "&response_mode=query&scope=" + scope;
-        return loginUrl;
+        List<TestTask> result = entityManager.createQuery(query).getResultList();
+        return result;
     }
 ```
 
 ## RuleId[id=WaitNotInLoop]
-### WaitNotInLoop
-Call to `wait()` is not in loop
-in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
-#### Snippet
-```java
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException ignore) {
-                    ignore.printStackTrace();
-```
-
 ### WaitNotInLoop
 Call to `wait()` is not in loop
 in `common/src/main/java/com/microsoft/hydralab/common/screen/ADBScreenRecorder.java`
@@ -8167,6 +8267,18 @@ in `common/src/main/java/com/microsoft/hydralab/common/screen/ADBScreenRecorder.
                 lock.wait(TimeUnit.MINUTES.toMillis(2));
             }
         } catch (Exception e) {
+```
+
+### WaitNotInLoop
+Call to `wait()` is not in loop
+in `agent/src/main/java/com/microsoft/hydralab/agent/runner/smart/SmartTestLog.java`
+#### Snippet
+```java
+            synchronized (this) {
+                try {
+                    wait();
+                } catch (InterruptedException ignore) {
+                    ignore.printStackTrace();
 ```
 
 ## RuleId[id=ThreadStartInConstruction]
