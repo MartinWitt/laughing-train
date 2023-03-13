@@ -81,6 +81,18 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/PostmanCollectionFileWriter.java`
+#### Snippet
+```java
+        return Paths.get(String.format(
+                "%s.postman_collection.json",
+                collection.info().name().replaceAll(" ", "-").toLowerCase()));
+    }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
 #### Snippet
 ```java
@@ -93,14 +105,26 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanColle
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/writer/PostmanCollectionFileWriter.java`
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
 #### Snippet
 ```java
-        return Paths.get(String.format(
-                "%s.postman_collection.json",
-                collection.info().name().replaceAll(" ", "-").toLowerCase()));
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
     }
-}
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
+#### Snippet
+```java
+                .resolve(endpointDefinition.getHttpPath().get())
+                .toString();
+        return path.replaceAll("\\{", ":").replaceAll("}", "");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -139,30 +163,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
         return wrapped;
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
-#### Snippet
-```java
-                .resolve(endpointDefinition.getHttpPath().get())
-                .toString();
-        return path.replaceAll("\\{", ":").replaceAll("}", "");
-    }
-
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -178,18 +178,6 @@ in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/ConjurePostma
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `CliConfiguration` has no concrete subclass
-in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/CliConfiguration.java`
-#### Snippet
-```java
-
-@Value.Immutable
-public abstract class CliConfiguration {
-    public static final String PRODUCT_NAME = "productName";
-    public static final String PRODUCT_DESCRIPTION = "productDescription";
-```
-
-### AbstractClassNeverImplemented
 Abstract class `UuidProvider` has no concrete subclass
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/UuidProvider.java`
 #### Snippet
@@ -199,6 +187,18 @@ import java.util.UUID;
 public abstract class UuidProvider {
 
     /*
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CliConfiguration` has no concrete subclass
+in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/CliConfiguration.java`
+#### Snippet
+```java
+
+@Value.Immutable
+public abstract class CliConfiguration {
+    public static final String PRODUCT_NAME = "productName";
+    public static final String PRODUCT_DESCRIPTION = "productDescription";
 ```
 
 ## RuleId[id=OptionalContainsCollection]
