@@ -67,18 +67,6 @@ in `agent/src/main/java/EchoServer.java`
 ```
 
 ### IOResource
-'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-            String clientAddress = accept.getRemoteSocketAddress().toString().split("/")[1].split(":")[0];
-            InputStream inputStream = accept.getInputStream();
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            ProcessRegisterMsg msg = (ProcessRegisterMsg) objectInputStream.readObject();
-            listener.onDebuggeeProcess(msg, clientAddress);
-```
-
-### IOResource
 'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
 #### Snippet
@@ -88,6 +76,18 @@ in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
     ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
     stream.writeObject(msg);
     System.err.println("[attachme] Successfully notified attachme listener");
+```
+
+### IOResource
+'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+            String clientAddress = accept.getRemoteSocketAddress().toString().split("/")[1].split(":")[0];
+            InputStream inputStream = accept.getInputStream();
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            ProcessRegisterMsg msg = (ProcessRegisterMsg) objectInputStream.readObject();
+            listener.onDebuggeeProcess(msg, clientAddress);
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -128,26 +128,14 @@ in `agent/src/main/java/EchoServer.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
 #### Snippet
 ```java
-      @Override
-      public void error(String str) {
-        System.out.println(str);
-      }
-    };
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void info(String str) {
-        System.out.println(str);
-      }
+    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
+    stream.writeObject(msg);
+    System.err.println("[attachme] Successfully notified attachme listener");
+  }
 
 ```
 
@@ -176,14 +164,26 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 #### Snippet
 ```java
-    ObjectOutputStream stream = new ObjectOutputStream(sock.getOutputStream());
-    stream.writeObject(msg);
-    System.err.println("[attachme] Successfully notified attachme listener");
-  }
+      @Override
+      public void error(String str) {
+        System.out.println(str);
+      }
+    };
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void info(String str) {
+        System.out.println(str);
+      }
 
 ```
 
@@ -375,18 +375,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
-#### Snippet
-```java
-  @Override
-  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
-    portField.setText(s.getPort() + "");
-  }
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
 #### Snippet
 ```java
@@ -395,6 +383,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
     RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
     AttachmeDebugger.attach(project, config, msg.getPid());
   }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
+#### Snippet
+```java
+  @Override
+  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
+    portField.setText(s.getPort() + "");
+  }
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
