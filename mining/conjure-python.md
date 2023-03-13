@@ -248,18 +248,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/poet/PythonEnd
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
-                        .pythonPackage(rootPackage)
-                        .text(String.format(
-                                "__version__ = \"%s\"", config.packageVersion().get()))
-                        .build()));
-        return builder.build();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
                 .addContents(PythonMetaYaml.builder()
                         .pythonPackage(rootPackage)
                         .condaPackageName(config.packageName().get())
@@ -284,6 +272,30 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
 in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
 #### Snippet
 ```java
+    private PythonFile buildPyTypedFile() {
+        return PythonFile.builder()
+                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
+                .fileName("py.typed")
+                .build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
+                        .pythonPackage(rootPackage)
+                        .text(String.format(
+                                "__version__ = \"%s\"", config.packageVersion().get()))
+                        .build()));
+        return builder.build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
+#### Snippet
+```java
         PythonSetup.Builder builder = PythonSetup.builder()
                 .pythonPackage(rootPackage)
                 .putOptions("name", config.packageName().get())
@@ -301,18 +313,6 @@ in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonG
                 .putOptions("version", config.packageVersion().get())
                 .putOptions("python_requires", ">=3.8")
                 .putRawOptions("package_data", "{\"\": [\"py.typed\"]}")
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `conjure-python-core/src/main/java/com/palantir/conjure/python/ConjurePythonGenerator.java`
-#### Snippet
-```java
-    private PythonFile buildPyTypedFile() {
-        return PythonFile.builder()
-                .pythonPackage(PythonPackage.of(config.pythonicPackageName().get()))
-                .fileName("py.typed")
-                .build();
 ```
 
 ## RuleId[id=UnstableApiUsage]
