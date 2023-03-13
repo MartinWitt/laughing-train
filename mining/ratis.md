@@ -1,11 +1,11 @@
 # ratis 
  
 # Bad smells
-I found 657 bad smells with 18 repairable:
+I found 644 bad smells with 26 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 180 | false |
 | ReturnNull | 159 | false |
+| BoundedWildcard | 153 | false |
 | SystemOutErr | 66 | false |
 | RedundantFieldInitialization | 35 | false |
 | AssignmentToMethodParameter | 34 | false |
@@ -14,27 +14,28 @@ I found 657 bad smells with 18 repairable:
 | NestedAssignment | 14 | false |
 | CatchMayIgnoreException | 14 | false |
 | UnnecessaryFullyQualifiedName | 11 | false |
+| ProtectedMemberInFinalClass | 9 | true |
 | TrivialStringConcatenation | 8 | false |
 | UNUSED_IMPORT | 8 | false |
-| SizeReplaceableByIsEmpty | 5 | true |
+| DataFlowIssue | 6 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 5 | false |
 | IOResource | 5 | false |
 | DynamicRegexReplaceableByCompiledPattern | 5 | false |
 | AssignmentToLambdaParameter | 5 | false |
 | PointlessArithmeticExpression | 4 | false |
-| DataFlowIssue | 4 | false |
+| SizeReplaceableByIsEmpty | 4 | true |
+| EmptyMethod | 4 | false |
+| ConstantValue | 4 | false |
 | NonProtectedConstructorInAbstractClass | 4 | true |
-| EmptyMethod | 3 | false |
 | InstanceofCatchParameter | 3 | false |
 | UnusedAssignment | 3 | false |
 | ThrowablePrintStackTrace | 3 | false |
 | UnnecessaryLocalVariable | 3 | true |
 | UnnecessaryModifier | 2 | true |
 | AbstractClassNeverImplemented | 2 | false |
-| RedundantMethodOverride | 2 | false |
 | DefaultAnnotationParam | 2 | false |
+| RedundantMethodOverride | 2 | false |
 | CodeBlock2Expr | 2 | true |
-| ConstantValue | 2 | false |
 | SimplifyStreamApiCallChains | 2 | false |
 | NonSynchronizedMethodOverridesSynchronizedMethod | 2 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
@@ -44,6 +45,7 @@ I found 657 bad smells with 18 repairable:
 | ClassInitializerMayBeStatic | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RedundantImplements | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | NonFinalFieldOfException | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | UnnecessarySemicolon | 1 | false |
@@ -101,18 +103,6 @@ public interface GrpcUtil {
 
 ## RuleId[id=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
-`1 * 1024 * 1024 * 1024L` can be replaced with '1024 \* 1024 \* 1024L'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
-#### Snippet
-```java
-        SizeInBytes.valueOf(raftSegmentPreallocatedSize));
-    RaftServerConfigKeys.Log.setSegmentSizeMax(raftProperties,
-        SizeInBytes.valueOf(1 * 1024 * 1024 * 1024L));
-    RaftConfigKeys.DataStream.setType(raftProperties, SupportedDataStreamType.NETTY);
-
-```
-
-### PointlessArithmeticExpression
 `1*256` can be replaced with '256'
 in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
 #### Snippet
@@ -122,6 +112,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
   private static final int T8_1_START = 1*256;
   private static final int T8_2_START = 2*256;
   private static final int T8_3_START = 3*256;
+```
+
+### PointlessArithmeticExpression
+`0*256` can be replaced with '0'
+in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
+#### Snippet
+```java
+  //   org.apache.hadoop.util.TestPureJavaCrc32\$Table 82F63B78
+
+  private static final int T8_0_START = 0*256;
+  private static final int T8_1_START = 1*256;
+  private static final int T8_2_START = 2*256;
 ```
 
 ### PointlessArithmeticExpression
@@ -137,78 +139,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
 ```
 
 ### PointlessArithmeticExpression
-`0*256` can be replaced with '0'
-in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
+`1 * 1024 * 1024 * 1024L` can be replaced with '1024 \* 1024 \* 1024L'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
 #### Snippet
 ```java
-  //   org.apache.hadoop.util.TestPureJavaCrc32\$Table 82F63B78
+        SizeInBytes.valueOf(raftSegmentPreallocatedSize));
+    RaftServerConfigKeys.Log.setSegmentSizeMax(raftProperties,
+        SizeInBytes.valueOf(1 * 1024 * 1024 * 1024L));
+    RaftConfigKeys.DataStream.setType(raftProperties, SupportedDataStreamType.NETTY);
 
-  private static final int T8_0_START = 0*256;
-  private static final int T8_1_START = 1*256;
-  private static final int T8_2_START = 2*256;
 ```
 
 ## RuleId[id=ForLoopReplaceableByWhile]
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
-#### Snippet
-```java
-    raftServer.start();
-
-    for (; raftServer.getLifeCycleState() != LifeCycle.State.CLOSED; ) {
-      TimeUnit.SECONDS.sleep(1);
-    }
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Server.java`
-#### Snippet
-```java
-    raftServer.start();
-
-    for(; raftServer.getLifeCycleState() != LifeCycle.State.CLOSED;) {
-      TimeUnit.SECONDS.sleep(1);
-    }
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-          final ByteBuffer buffer = data.asReadOnlyByteBuffer();
-          try {
-            for (; buffer.remaining() > 0; ) {
-              n += out.write(buffer);
-            }
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftOutputStream.java`
-#### Snippet
-```java
-    final long pos = byteFlushed;
-    flushAsync();
-    for(; !flushFutures.isEmpty();) {
-      final Long flushed = flushFutures.poll().join();
-      if (flushed == null) {
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-
-    RaftPeer highest = i.next();
-    for(; i.hasNext(); ) {
-      final RaftPeer peer = i.next();
-      if (peer.getPriority() > highest.getPriority()) {
-```
-
 ### ForLoopReplaceableByWhile
 `for` loop statement may be replace by 'while' loop
 in `ratis-common/src/main/java/org/apache/ratis/util/ResourceSemaphore.java`
@@ -259,14 +201,62 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JvmPauseMonitor.java`
 
 ### ForLoopReplaceableByWhile
 `for` loop statement may be replace by 'while' loop
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/WatchRequests.java`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftOutputStream.java`
 #### Snippet
 ```java
-      index = newIndex;
+    final long pos = byteFlushed;
+    flushAsync();
+    for(; !flushFutures.isEmpty();) {
+      final Long flushed = flushFutures.poll().join();
+      if (flushed == null) {
+```
 
-      for(; !q.isEmpty();) {
-        final PendingWatch first = q.firstKey();
-        if (first.getIndex() > newIndex) {
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+
+    RaftPeer highest = i.next();
+    for(; i.hasNext(); ) {
+      final RaftPeer peer = i.next();
+      if (peer.getPriority() > highest.getPriority()) {
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
+#### Snippet
+```java
+    raftServer.start();
+
+    for (; raftServer.getLifeCycleState() != LifeCycle.State.CLOSED; ) {
+      TimeUnit.SECONDS.sleep(1);
+    }
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Server.java`
+#### Snippet
+```java
+    raftServer.start();
+
+    for(; raftServer.getLifeCycleState() != LifeCycle.State.CLOSED;) {
+      TimeUnit.SECONDS.sleep(1);
+    }
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+          final ByteBuffer buffer = data.asReadOnlyByteBuffer();
+          try {
+            for (; buffer.remaining() > 0; ) {
+              n += out.write(buffer);
+            }
 ```
 
 ### ForLoopReplaceableByWhile
@@ -295,6 +285,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.
 
 ### ForLoopReplaceableByWhile
 `for` loop statement may be replace by 'while' loop
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/WatchRequests.java`
+#### Snippet
+```java
+      index = newIndex;
+
+      for(; !q.isEmpty();) {
+        final PendingWatch first = q.firstKey();
+        if (first.getIndex() > newIndex) {
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
 #### Snippet
 ```java
@@ -303,18 +305,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
           for(; i.hasNext(); ) {
             failClientRequest.accept(i.next());
           }
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
-in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
-#### Snippet
-```java
-      }
-
-      for (; !dirsPerVol.isEmpty(); ) {
-        final File vol = chooseMin(dirsPerVol);
-        final File dir = new File(vol, storageDirName);
 ```
 
 ### ForLoopReplaceableByWhile
@@ -341,19 +331,19 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
             "the worker thread is not alive");
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`newPeers.size() > 0` can be replaced with '!newPeers.isEmpty()'
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
 #### Snippet
 ```java
+      }
 
-  private void refreshPeers(Collection<RaftPeer> newPeers) {
-    if (newPeers != null && newPeers.size() > 0) {
-      peers.set(newPeers);
-      // also refresh the rpc proxies for these peers
+      for (; !dirsPerVol.isEmpty(); ) {
+        final File vol = chooseMin(dirsPerVol);
+        final File dir = new File(vol, storageDirName);
 ```
 
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `val.length() == 0` can be replaced with 'val.isEmpty()'
 in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
@@ -367,15 +357,15 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`id.size() > 0` can be replaced with '!id.isEmpty()'
-in `ratis-common/src/main/java/org/apache/ratis/protocol/RaftPeerId.java`
+`newPeers.size() > 0` can be replaced with '!newPeers.isEmpty()'
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
 #### Snippet
 ```java
-  private RaftPeerId(ByteString id) {
-    this.id = Objects.requireNonNull(id, "id == null");
-    Preconditions.assertTrue(id.size() > 0, "id is empty.");
-    this.idString = id.toString(StandardCharsets.UTF_8);
-    this.raftPeerIdProto = JavaUtils.memoize(this::buildRaftPeerIdProto);
+
+  private void refreshPeers(Collection<RaftPeer> newPeers) {
+    if (newPeers != null && newPeers.size() > 0) {
+      peers.set(newPeers);
+      // also refresh the rpc proxies for these peers
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -432,30 +422,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/RaftLogBase.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/UnaryExpression.java`
-#### Snippet
-```java
-public class UnaryExpression implements Expression {
-  static final BiFunction<Op, Expression, String> PREFIX_OP_TO_STRING = (op, e) -> op + "" + e;
-  static final BiFunction<Op, Expression, String> POSTFIX_OP_TO_STRING = (op, e) -> e + "" + op;
-
-  public enum Op implements UnaryOperator<Expression>, DoubleFunction<Expression> {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/UnaryExpression.java`
-#### Snippet
-```java
-
-public class UnaryExpression implements Expression {
-  static final BiFunction<Op, Expression, String> PREFIX_OP_TO_STRING = (op, e) -> op + "" + e;
-  static final BiFunction<Op, Expression, String> POSTFIX_OP_TO_STRING = (op, e) -> e + "" + op;
-
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 #### Snippet
 ```java
@@ -492,14 +458,26 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/UnaryExpression.java`
 #### Snippet
 ```java
 
-    String toString(RaftGroupId groupId, CompletableFuture<RaftServerImpl> f) {
-      return "" + (f != null && f.isDone()? f.join(): groupId + ":" + f);
-    }
-  }
+public class UnaryExpression implements Expression {
+  static final BiFunction<Op, Expression, String> PREFIX_OP_TO_STRING = (op, e) -> op + "" + e;
+  static final BiFunction<Op, Expression, String> POSTFIX_OP_TO_STRING = (op, e) -> e + "" + op;
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/UnaryExpression.java`
+#### Snippet
+```java
+public class UnaryExpression implements Expression {
+  static final BiFunction<Op, Expression, String> PREFIX_OP_TO_STRING = (op, e) -> op + "" + e;
+  static final BiFunction<Op, Expression, String> POSTFIX_OP_TO_STRING = (op, e) -> e + "" + op;
+
+  public enum Op implements UnaryOperator<Expression>, DoubleFunction<Expression> {
 ```
 
 ### TrivialStringConcatenation
@@ -512,6 +490,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/LogProtoUtils.jav
           .orElseGet(() -> proto -> "" + ClientInvocationId.valueOf(proto))
           .apply(entry.getStateMachineLogEntry());
     } else if (entry.hasMetadataEntry()) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+#### Snippet
+```java
+
+    String toString(RaftGroupId groupId, CompletableFuture<RaftServerImpl> f) {
+      return "" + (f != null && f.isDone()? f.join(): groupId + ":" + f);
+    }
+  }
 ```
 
 ### TrivialStringConcatenation
@@ -553,627 +543,27 @@ public abstract class MD5FileUtil {
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/AssignmentMessage.java`
+Can generalize to `? extends WriteOption`
+in `ratis-common/src/main/java/org/apache/ratis/io/WriteOption.java`
 #### Snippet
 ```java
+  WriteOption[] EMPTY_ARRAY = {};
 
-  @Override
-  public Double evaluate(Map<String, Double> variableMap) {
-    final Double value = expression.evaluate(variableMap);
-    final String name = variable.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? super Double`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/AssignmentMessage.java`
-#### Snippet
-```java
-
-  @Override
-  public Double evaluate(Map<String, Double> variableMap) {
-    final Double value = expression.evaluate(variableMap);
-    final String name = variable.getName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileStoreClient`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
-#### Snippet
-```java
-
-  @SuppressFBWarnings("DM_EXIT")
-  protected void stop(List<FileStoreClient> clients) throws IOException {
-    for (FileStoreClient client : clients) {
-      client.close();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`>>
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
-#### Snippet
-```java
-  }
-
-  private long waitWriteFinish(Map<String, CompletableFuture<List<CompletableFuture<Long>>>> fileMap)
-      throws ExecutionException, InterruptedException {
-    long totalBytes = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileStoreClient`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
-#### Snippet
-```java
-
-  private Map<String, CompletableFuture<List<CompletableFuture<Long>>>> writeByHeapByteBuffer(
-      List<String> paths, List<FileStoreClient> clients, ExecutorService executor) {
-    Map<String, CompletableFuture<List<CompletableFuture<Long>>>> fileMap = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super CompletableFuture`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
-#### Snippet
-```java
-
-  long write(FileChannel in, long offset, FileStoreClient fileStoreClient, String path,
-      List<CompletableFuture<Long>> futures) throws IOException {
-    final int bufferSize = getBufferSizeInBytes();
-    final ByteBuf buf = PooledByteBufAllocator.DEFAULT.heapBuffer(bufferSize);
-```
-
-### BoundedWildcard
-Can generalize to `? super Message`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
-#### Snippet
-```java
-
-  static ByteString send(
-      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
-      throws IOException {
-    final RaftClientReply reply = sendFunction.apply(request);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RaftClientReply`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
-#### Snippet
-```java
-
-  static ByteString send(
-      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
-      throws IOException {
-    final RaftClientReply reply = sendFunction.apply(request);
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
-#### Snippet
-```java
-
-  static ByteString send(
-      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
-      throws IOException {
-    final RaftClientReply reply = sendFunction.apply(request);
-```
-
-### BoundedWildcard
-Can generalize to `? super Message`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
-#### Snippet
-```java
-
-  static CompletableFuture<ByteString> sendAsync(
-      Message request, Function<Message, CompletableFuture<RaftClientReply>> sendFunction) {
-    return sendFunction.apply(request).thenApply(reply -> {
-      final StateMachineException sme = reply.getStateMachineException();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
-#### Snippet
-```java
-
-  static CompletableFuture<ByteString> sendAsync(
-      Message request, Function<Message, CompletableFuture<RaftClientReply>> sendFunction) {
-    return sendFunction.apply(request).thenApply(reply -> {
-      final StateMachineException sme = reply.getStateMachineException();
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
-#### Snippet
-```java
-    }
-
-    private FileInfo applyFunction(String relative, Function<Path, FileInfo> f)
-        throws FileNotFoundException {
-      final FileInfo info = f.apply(normalize(relative));
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileInfo`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
-#### Snippet
-```java
-    }
-
-    private FileInfo applyFunction(String relative, Function<Path, FileInfo> f)
-        throws FileNotFoundException {
-      final FileInfo info = f.apply(normalize(relative));
+  static boolean containsOption(Iterable<WriteOption> options,
+                                WriteOption target) {
+    for (WriteOption option : options) {
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
+in `ratis-common/src/main/java/org/apache/ratis/conf/Parameters.java`
 #### Snippet
 ```java
 
-  static <T> CompletableFuture<T> submit(
-      CheckedSupplier<T, IOException> task, ExecutorService executor) {
-    final CompletableFuture<T> f = new CompletableFuture<>();
-    executor.submit(() -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
-#### Snippet
-```java
-
-  static <T> CompletableFuture<T> submit(
-      CheckedSupplier<T, IOException> task, ExecutorService executor) {
-    final CompletableFuture<T> f = new CompletableFuture<>();
-    executor.submit(() -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileStoreClient`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-
-  private Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> streamWrite(
-      List<String> paths, List<FileStoreClient> clients, RoutingTable routingTable,
-      ExecutorService executor) {
-    Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> fileMap = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super CompletableFuture`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-
-    @Override
-    long write(FileChannel in, DataStreamOutput out, long offset, List<CompletableFuture<DataStreamReply>> futures) {
-      final long packetSize = getPacketSize(offset);
-      futures.add(isSync(offset + packetSize) ?
-```
-
-### BoundedWildcard
-Can generalize to `? super CompletableFuture`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-
-    @Override
-    long write(FileChannel in, DataStreamOutput out, long offset, List<CompletableFuture<DataStreamReply>> futures)
-        throws IOException {
-      final int bufferSize = getBufferSize();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`>>
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-  }
-
-  private long waitStreamFinish(Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> fileMap)
-      throws ExecutionException, InterruptedException {
-    long totalBytes = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? super CompletableFuture`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-
-    @Override
-    long write(FileChannel in, DataStreamOutput out, long offset, List<CompletableFuture<DataStreamReply>> futures)
-        throws IOException {
-      final long packetSize = getPacketSize(offset);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetricRegistries`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/MetricRegistriesLoader.java`
-#### Snippet
-```java
-   */
-  @VisibleForTesting
-  static MetricRegistries load(List<MetricRegistries> availableImplementations) {
-
-    if (availableImplementations.size() == 1) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-  }
-
-  ByteString read(CheckedFunction<Path, Path, IOException> resolver, long offset, long length, boolean readCommitted)
-      throws IOException {
-    if (readCommitted && offset + length > getCommittedSize()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-  }
-
-  ByteString read(CheckedFunction<Path, Path, IOException> resolver, long offset, long length, boolean readCommitted)
-      throws IOException {
-    if (readCommitted && offset + length > getCommittedSize()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-  }
-
-  ByteString read(CheckedFunction<Path, Path, IOException> resolver, long offset, long length, boolean readCommitted)
-      throws IOException {
-    if (readCommitted && offset + length > getCommittedSize()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super UnderConstruction`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-    CompletableFuture<Integer> submitCommit(
-        long offset, int size, Function<UnderConstruction, ReadOnly> closeFunction,
-        ExecutorService executor, RaftPeerId id, long index) {
-      final boolean close = closeFunction != null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReadOnly`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-    CompletableFuture<Integer> submitCommit(
-        long offset, int size, Function<UnderConstruction, ReadOnly> closeFunction,
-        ExecutorService executor, RaftPeerId id, long index) {
-      final boolean close = closeFunction != null;
-```
-
-### BoundedWildcard
-Can generalize to `? super Path`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-    CompletableFuture<Integer> submitCreate(
-        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
-        ExecutorService executor, RaftPeerId id, long index) {
-      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
-```
-
-### BoundedWildcard
-Can generalize to `? extends Path`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-    CompletableFuture<Integer> submitCreate(
-        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
-        ExecutorService executor, RaftPeerId id, long index) {
-      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-    CompletableFuture<Integer> submitCreate(
-        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
-        ExecutorService executor, RaftPeerId id, long index) {
-      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-
-  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
-      Class<T> clazz, Function<T, Timekeeper> constructor) {
-    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
-    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-
-  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
-      Class<T> clazz, Function<T, Timekeeper> constructor) {
-    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
-    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Timekeeper`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-
-  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
-      Class<T> clazz, Function<T, Timekeeper> constructor) {
-    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
-    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-  }
-
-  protected static <T extends Enum<T>> Map<T, Map<String, LongCounter>> newCounterMaps(Class<T> clazz) {
-    final EnumMap<T,Map<String, LongCounter>> maps = new EnumMap<>(clazz);
-    Arrays.stream(clazz.getEnumConstants()).forEach(t -> maps.put(t, new ConcurrentHashMap<>()));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-  }
-
-  private static <T> Function<Boolean, T> newHeartbeatFunction(String prefix, Function<String, T> function) {
-    final T trueValue = function.apply(prefix + getHeartbeatSuffix(true));
-    final T falseValue = function.apply(prefix + getHeartbeatSuffix(false));
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
-#### Snippet
-```java
-  }
-
-  private static <T> Function<Boolean, T> newHeartbeatFunction(String prefix, Function<String, T> function) {
-    final T trueValue = function.apply(prefix + getHeartbeatSuffix(true));
-    final T falseValue = function.apply(prefix + getHeartbeatSuffix(false));
-```
-
-### BoundedWildcard
-Can generalize to `? extends RaftClientRequest`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/BlockingImpl.java`
-#### Snippet
-```java
-  }
-
-  RaftClientReply sendRequestWithRetry(Supplier<RaftClientRequest> supplier) throws IOException {
-    RaftClientImpl.PendingClientRequest pending = new RaftClientImpl.PendingClientRequest() {
-      @Override
-```
-
-### BoundedWildcard
-Can generalize to `? extends RaftClientRequest`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/UnorderedAsync.java`
-#### Snippet
-```java
-    private final Supplier<RaftClientRequest> requestConstructor;
-
-    PendingUnorderedRequest(Supplier<RaftClientRequest> requestConstructor) {
-      this.requestConstructor = requestConstructor;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStreamWindowRequest`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedStreamAsync.java`
-#### Snippet
-```java
-
-  private void sendRequestToNetwork(DataStreamWindowRequest request,
-      SlidingWindow.Client<DataStreamWindowRequest, DataStreamReply> slidingWindow) {
-    CompletableFuture<DataStreamReply> f = request.getReplyFuture();
-    if(f.isDone()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super DataStreamReply`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedStreamAsync.java`
-#### Snippet
-```java
-
-  private void sendRequestToNetwork(DataStreamWindowRequest request,
-      SlidingWindow.Client<DataStreamWindowRequest, DataStreamReply> slidingWindow) {
-    CompletableFuture<DataStreamReply> f = request.getReplyFuture();
-    if(f.isDone()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
-#### Snippet
-```java
-  private final ConcurrentMap<K, Payload<V>> map = new ConcurrentHashMap<>();
-
-  V put(K k, Supplier<V> supplier) {
-    return map.compute(k, (k1, old) -> old != null? old: new Payload<>(supplier.get())).increment();
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
-#### Snippet
-```java
-  private final ConcurrentMap<K, Payload<V>> map = new ConcurrentHashMap<>();
-
-  V put(K k, Supplier<V> supplier) {
-    return map.compute(k, (k1, old) -> old != null? old: new Payload<>(supplier.get())).increment();
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftException`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-
-  static <E extends Throwable> RaftClientReply handleRaftException(
-      RaftClientReply reply, Function<RaftException, E> converter) throws E {
-    if (reply != null) {
-      final RaftException e = reply.getException();
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftClientRequest`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-
-  void handleIOException(RaftClientRequest request, IOException ioe,
-      RaftPeerId newLeader, Consumer<RaftClientRequest> handler) {
-    LOG.debug("{}: suggested new leader: {}. Failed {} with {}",
-        clientId, newLeader, request, ioe);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStreamReply`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/DataStreamClientImpl.java`
-#### Snippet
-```java
-    }
-
-    private CompletableFuture<DataStreamReply> combineHeader(CompletableFuture<DataStreamReply> future) {
-      return future.thenCombine(headerFuture, (reply, headerReply) -> headerReply.isSuccess()? reply : headerReply);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/Dm3RatisMetricRegistryImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> void gauge(String name, Supplier<Supplier<T>> gaugeSupplier) {
-    metricRegistry.gauge(getMetricName(name), () -> toGauge(gaugeSupplier.get()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/Dm3RatisMetricRegistryImpl.java`
-#### Snippet
-```java
-  }
-
-  static <T> Gauge<T> toGauge(Supplier<T> supplier) {
-    return supplier::get;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RatisMetricRegistryImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <T> void gauge(String name, Supplier<Supplier<T>> gaugeSupplier) {
-    metricRegistry.gauge(getMetricName(name), () -> toGauge(gaugeSupplier.get()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RatisMetricRegistryImpl.java`
-#### Snippet
-```java
-  }
-
-  static <T> Gauge<T> toGauge(Supplier<T> supplier) {
-    return supplier::get;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcFactory.java`
-#### Snippet
-```java
-  }
-
-  static boolean checkPooledByteBufAllocatorUseCacheForAllThreads(Consumer<String> log) {
-    final boolean value = PooledByteBufAllocator.defaultUseCacheForAllThreads();
-    if (value) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/util/StreamObserverWithTimeout.java`
-#### Snippet
-```java
-
-  private StreamObserverWithTimeout(String name, TimeDuration timeout, IntSupplier responseCount,
-      StreamObserver<T> observer) {
-    this.name = JavaUtils.getClassSimpleName(getClass()) + "-" + name;
-    this.timeout = timeout;
-```
-
-### BoundedWildcard
-Can generalize to `? super ClientInterceptor`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/util/StreamObserverWithTimeout.java`
-#### Snippet
-```java
-
-  public static <T> StreamObserverWithTimeout<T> newInstance(String name, TimeDuration timeout,
-      Function<ClientInterceptor, StreamObserver<T>> newStreamObserver) {
-    final AtomicInteger responseCount = new AtomicInteger();
-    final ResponseNotifyClientInterceptor interceptor = new ResponseNotifyClientInterceptor(
-```
-
-### BoundedWildcard
-Can generalize to `? extends StreamObserver`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/util/StreamObserverWithTimeout.java`
-#### Snippet
-```java
-
-  public static <T> StreamObserverWithTimeout<T> newInstance(String name, TimeDuration timeout,
-      Function<ClientInterceptor, StreamObserver<T>> newStreamObserver) {
-    final AtomicInteger responseCount = new AtomicInteger();
-    final ResponseNotifyClientInterceptor interceptor = new ResponseNotifyClientInterceptor(
+  /** Put the key-value pair to the map. */
+  public <T> T put(String key, T value, Class<T> valueClass) {
+    return valueClass.cast(map.put(
+        Objects.requireNonNull(key, "key is null"),
 ```
 
 ### BoundedWildcard
@@ -1225,162 +615,6 @@ in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRati
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RaftPeer`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientProtocolProxy.java`
-#### Snippet
-```java
-
-  public GrpcClientProtocolProxy(ClientId clientId, RaftPeer target,
-      Function<RaftPeer, CloseableStreamObserver> responseHandlerCreation,
-      RaftProperties properties, GrpcTlsConfig tlsConfig) {
-    proxy = new GrpcClientProtocolClient(clientId, target, properties, tlsConfig, tlsConfig);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CloseableStreamObserver`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientProtocolProxy.java`
-#### Snippet
-```java
-
-  public GrpcClientProtocolProxy(ClientId clientId, RaftPeer target,
-      Function<RaftPeer, CloseableStreamObserver> responseHandlerCreation,
-      RaftProperties properties, GrpcTlsConfig tlsConfig) {
-    proxy = new GrpcClientProtocolClient(clientId, target, properties, tlsConfig, tlsConfig);
-```
-
-### BoundedWildcard
-Can generalize to `? super REPLY_PROTO`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-
-  static <REPLY extends RaftClientReply, REPLY_PROTO> void asyncCall(
-      StreamObserver<REPLY_PROTO> responseObserver,
-      CheckedSupplier<CompletableFuture<REPLY>, IOException> supplier,
-      Function<REPLY, REPLY_PROTO> toProto) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-  static <REPLY extends RaftClientReply, REPLY_PROTO> void asyncCall(
-      StreamObserver<REPLY_PROTO> responseObserver,
-      CheckedSupplier<CompletableFuture<REPLY>, IOException> supplier,
-      Function<REPLY, REPLY_PROTO> toProto) {
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-  static <REPLY extends RaftClientReply, REPLY_PROTO> void asyncCall(
-      StreamObserver<REPLY_PROTO> responseObserver,
-      CheckedSupplier<CompletableFuture<REPLY>, IOException> supplier,
-      Function<REPLY, REPLY_PROTO> toProto) {
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? super REPLY`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-      StreamObserver<REPLY_PROTO> responseObserver,
-      CheckedSupplier<CompletableFuture<REPLY>, IOException> supplier,
-      Function<REPLY, REPLY_PROTO> toProto) {
-    try {
-      supplier.get().whenCompleteAsync((reply, exception) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends REPLY_PROTO`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-      StreamObserver<REPLY_PROTO> responseObserver,
-      CheckedSupplier<CompletableFuture<REPLY>, IOException> supplier,
-      Function<REPLY, REPLY_PROTO> toProto) {
-    try {
-      supplier.get().whenCompleteAsync((reply, exception) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super CompletableFuture`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientProtocolClient.java`
-#### Snippet
-```java
-    }
-
-    private void handleReplyFuture(long callId, Consumer<CompletableFuture<RaftClientReply>> handler) {
-      replies.remove(callId).ifPresent(handler);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends StatusRuntimeException`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientProtocolClient.java`
-#### Snippet
-```java
-
-  private static RaftClientReplyProto blockingCall(
-      CheckedSupplier<RaftClientReplyProto, StatusRuntimeException> supplier
-      ) throws IOException {
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftClientReply`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcClientProtocolService.java`
-#### Snippet
-```java
-    }
-
-    CompletableFuture<Void> processClientRequest(RaftClientRequest request, Consumer<RaftClientReply> replyHandler) {
-      try {
-        final String errMsg = LOG.isDebugEnabled() ? "processClientRequest for " + request : "";
-```
-
-### BoundedWildcard
-Can generalize to `? super REPLY`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolService.java`
-#### Snippet
-```java
-    private final AtomicBoolean isClosed = new AtomicBoolean(false);
-
-    ServerRequestStreamObserver(RaftServer.Op op, StreamObserver<REPLY> responseObserver) {
-      this.op = op;
-      this.responseObserver = responseObserver;
-```
-
-### BoundedWildcard
-Can generalize to `? extends WriteOption`
-in `ratis-common/src/main/java/org/apache/ratis/io/WriteOption.java`
-#### Snippet
-```java
-  WriteOption[] EMPTY_ARRAY = {};
-
-  static boolean containsOption(Iterable<WriteOption> options,
-                                WriteOption target) {
-    for (WriteOption option : options) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `ratis-common/src/main/java/org/apache/ratis/conf/Parameters.java`
-#### Snippet
-```java
-
-  /** Put the key-value pair to the map. */
-  public <T> T put(String key, T value, Class<T> valueClass) {
-    return valueClass.cast(map.put(
-        Objects.requireNonNull(key, "key is null"),
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedSupplier.java`
 #### Snippet
@@ -1405,15 +639,15 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JmxRegister.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ByteBuffer`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
+Can generalize to `? extends BASE`
+in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
 #### Snippet
 ```java
-     *   the content of the buffer could possibly be changed unexpectedly, and it will cause data corruption.
-     */
-    default int write(ReferenceCountedObject<ByteBuffer> referenceCountedBuffer) throws IOException {
-      return write(referenceCountedBuffer.get());
-    }
+   */
+  public <BASE> Class<? extends BASE> getClass(
+      String name, Class<? extends BASE> defaultValue, Class<BASE> xface) {
+    try {
+      Class<?> theClass = getClass(name, defaultValue);
 ```
 
 ### BoundedWildcard
@@ -1426,18 +660,6 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
   public void setFiles(String name, List<File> value) {
     String paths = value.stream().map(File::getAbsolutePath)
         .collect(Collectors.joining(","));
-```
-
-### BoundedWildcard
-Can generalize to `? extends BASE`
-in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
-#### Snippet
-```java
-   */
-  public <BASE> Class<? extends BASE> getClass(
-      String name, Class<? extends BASE> defaultValue, Class<BASE> xface) {
-    try {
-      Class<?> theClass = getClass(name, defaultValue);
 ```
 
 ### BoundedWildcard
@@ -1549,6 +771,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/AutoCloseableReadWriteLock.
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends IOException`
+in `ratis-common/src/main/java/org/apache/ratis/util/FileUtils.java`
+#### Snippet
+```java
+  TimeDuration SLEEP_TIME = TimeDuration.ONE_SECOND;
+
+  static <T> T attempt(CheckedSupplier<T, IOException> op, Supplier<?> name) throws IOException {
+    try {
+      return JavaUtils.attempt(op, NUM_ATTEMPTS, SLEEP_TIME, name, LOG);
+```
+
+### BoundedWildcard
 Can generalize to `? super E`
 in `ratis-common/src/main/java/org/apache/ratis/util/DataQueue.java`
 #### Snippet
@@ -1621,15 +855,15 @@ in `ratis-common/src/main/java/org/apache/ratis/util/DataQueue.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends IOException`
-in `ratis-common/src/main/java/org/apache/ratis/util/FileUtils.java`
+Can generalize to `? super Integer`
+in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
 #### Snippet
 ```java
-  TimeDuration SLEEP_TIME = TimeDuration.ONE_SECOND;
+  }
 
-  static <T> T attempt(CheckedSupplier<T, IOException> op, Supplier<?> name) throws IOException {
-    try {
-      return JavaUtils.attempt(op, NUM_ATTEMPTS, SLEEP_TIME, name, LOG);
+  private synchronized void onTimeout(TimeDuration timeout, Consumer<Integer> toSchedule) {
+    numTasks++;
+    final int sid = scheduleID++;
 ```
 
 ### BoundedWildcard
@@ -1693,42 +927,6 @@ in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedCheckedSupplier.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Integer`
-in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
-#### Snippet
-```java
-  }
-
-  private synchronized void onTimeout(TimeDuration timeout, Consumer<Integer> toSchedule) {
-    numTasks++;
-    final int sid = scheduleID++;
-```
-
-### BoundedWildcard
-Can generalize to `? super REQUEST`
-in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
-#### Snippet
-```java
-    }
-
-    void endOfRequests(long nextToProcess, REQUEST end, Consumer<REQUEST> replyMethod) {
-      final REQUEST nextToProcessRequest = requests.get(nextToProcess);
-      Preconditions.assertNull(nextToProcessRequest,
-```
-
-### BoundedWildcard
-Can generalize to `? super REQUEST`
-in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
-#### Snippet
-```java
-    }
-
-    private boolean sendOrDelayRequest(REQUEST request, Consumer<REQUEST> sendMethod) {
-      final long seqNum = request.getSeqNum();
-      Preconditions.assertTrue(requests.getNonRepliedRequest(seqNum, "sendOrDelayRequest") == request);
-```
-
-### BoundedWildcard
 Can generalize to `? super REQUEST`
 in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 #### Snippet
@@ -1759,9 +957,33 @@ in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 ```java
     }
 
+    void endOfRequests(long nextToProcess, REQUEST end, Consumer<REQUEST> replyMethod) {
+      final REQUEST nextToProcessRequest = requests.get(nextToProcess);
+      Preconditions.assertNull(nextToProcessRequest,
+```
+
+### BoundedWildcard
+Can generalize to `? super REQUEST`
+in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
+#### Snippet
+```java
+    }
+
     private void processRequestsFromHead(Consumer<REQUEST> processingMethod) {
       for(REQUEST r : requests) {
         if (r.getSeqNum() > nextToProcess) {
+```
+
+### BoundedWildcard
+Can generalize to `? super REQUEST`
+in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
+#### Snippet
+```java
+    }
+
+    private boolean sendOrDelayRequest(REQUEST request, Consumer<REQUEST> sendMethod) {
+      final long seqNum = request.getSeqNum();
+      Preconditions.assertTrue(requests.getNonRepliedRequest(seqNum, "sendOrDelayRequest") == request);
 ```
 
 ### BoundedWildcard
@@ -1837,15 +1059,15 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JvmPauseMonitor.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ByteString`
-in `ratis-common/src/main/java/org/apache/ratis/protocol/RaftId.java`
+Can generalize to `? super String`
+in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
 #### Snippet
 ```java
-  private final Supplier<String> uuidString;
+  }
 
-  private RaftId(UUID uuid, Supplier<ByteString> uuidBytes) {
-    this.uuid = Preconditions.assertNotNull(uuid, "uuid");
-    this.uuidBytes = uuidBytes;
+  static void dumpAllThreads(Consumer<String> println) {
+    final ThreadMXBean threadMxBean = ManagementFactory.getThreadMXBean();
+    for (ThreadInfo ti : threadMxBean.dumpAllThreads(true, true)) {
 ```
 
 ### BoundedWildcard
@@ -1898,14 +1120,26 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
+in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
 #### Snippet
 ```java
-  }
+  /** Assert if the current state equals to one of the expected states. */
+  public <T extends Throwable> State assertCurrentState(
+      BiFunction<String, State, T> newThrowable, Set<State> expected) throws T {
+    final State c = getCurrentState();
+    if (!expected.contains(c)) {
+```
 
-  static void dumpAllThreads(Consumer<String> println) {
-    final ThreadMXBean threadMxBean = ManagementFactory.getThreadMXBean();
-    for (ThreadInfo ti : threadMxBean.dumpAllThreads(true, true)) {
+### BoundedWildcard
+Can generalize to `? super State`
+in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
+#### Snippet
+```java
+  /** Assert if the current state equals to one of the expected states. */
+  public <T extends Throwable> State assertCurrentState(
+      BiFunction<String, State, T> newThrowable, Set<State> expected) throws T {
+    final State c = getCurrentState();
+    if (!expected.contains(c)) {
 ```
 
 ### BoundedWildcard
@@ -1933,183 +1167,51 @@ in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
+Can generalize to `? super CompletableFuture`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientProtocolClient.java`
 #### Snippet
 ```java
-  /** Assert if the current state equals to one of the expected states. */
-  public <T extends Throwable> State assertCurrentState(
-      BiFunction<String, State, T> newThrowable, Set<State> expected) throws T {
-    final State c = getCurrentState();
-    if (!expected.contains(c)) {
+    }
+
+    private void handleReplyFuture(long callId, Consumer<CompletableFuture<RaftClientReply>> handler) {
+      replies.remove(callId).ifPresent(handler);
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super State`
-in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
+Can generalize to `? super RaftClientReply`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcClientProtocolService.java`
 #### Snippet
 ```java
-  /** Assert if the current state equals to one of the expected states. */
-  public <T extends Throwable> State assertCurrentState(
-      BiFunction<String, State, T> newThrowable, Set<State> expected) throws T {
-    final State c = getCurrentState();
-    if (!expected.contains(c)) {
+    }
+
+    CompletableFuture<Void> processClientRequest(RaftClientRequest request, Consumer<RaftClientReply> replyHandler) {
+      try {
+        final String errMsg = LOG.isDebugEnabled() ? "processClientRequest for " + request : "";
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ByteBuf`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+Can generalize to `? super T`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
 #### Snippet
 ```java
+
+public interface CollectionUtils {
+  static <T> T min(T left, T right, Comparator<T> comparator) {
+    return comparator.compare(left, right) < 0? left: right;
   }
-
-  static <DATA> DATA decodeData(ByteBuf buf, DataStreamPacketHeader header, Function<ByteBuf, DATA> toData) {
-    final int dataLength = Math.toIntExact(header.getDataLength());
-    final DATA data;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TlsConf`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyUtils.java`
+Can generalize to `? extends T`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
 #### Snippet
 ```java
-  }
-
-  static SslContext buildSslContext(String name, TlsConf tlsConf, Function<TlsConf, SslContextBuilder> builder) {
-    if (tlsConf == null) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? super RequestType`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/metrics/NettyServerStreamRpcMetrics.java`
-#### Snippet
-```java
-    private final Function<RequestType, String> stringFunction;
-
-    Op(Function<RequestType, String> stringFunction) {
-      this.stringFunction = stringFunction;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftPeerId`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/FollowerInfoImpl.java`
-#### Snippet
-```java
-  private volatile boolean ackInstallSnapshotAttempt = false;
-
-  FollowerInfoImpl(RaftGroupMemberId id, RaftPeer peer, Function<RaftPeerId, RaftPeer> getPeer,
-      Timestamp lastRpcTime, long nextIndex, boolean attendVote) {
-    this.name = id + "->" + peer.getId();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ChannelInitializer`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
-#### Snippet
-```java
-
-    Connection(InetSocketAddress address, WorkerGroupGetter workerGroup,
-        Supplier<ChannelInitializer<SocketChannel>> channelInitializerSupplier) {
-      this.address = address;
-      this.workerGroup = workerGroup;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStreamClient`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
-#### Snippet
-```java
-    private final PeerProxyMap<DataStreamClient> map;
-
-    Proxies(PeerProxyMap<DataStreamClient> map) {
-      this.map = map;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super DataStreamOutputRpc`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
-#### Snippet
-```java
-    }
-
-    private void getDataStreamOutput(RaftClientRequest request, Set<RaftPeer> peers, Set<DataStreamOutputRpc> outs)
-        throws IOException {
-      for (RaftPeer peer : peers) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PendingRequest`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
-#### Snippet
-```java
-    }
-
-    PendingRequest getAndUpdate(Supplier<PendingRequest> supplier) {
-      return ref.getAndUpdate(p -> p != null? p: supplier.get());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super TransferLeadershipRequest`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
-#### Snippet
-```java
-    }
-
-    void complete(Function<TransferLeadershipRequest, RaftClientReply> newSuccessReply) {
-      LOG.info("Successfully step down leader at {} for request {}", leader, request);
-      replyFuture.complete(newSuccessReply.apply(request));
-```
-
-### BoundedWildcard
-Can generalize to `? extends RaftClientReply`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
-#### Snippet
-```java
-    }
-
-    void complete(Function<TransferLeadershipRequest, RaftClientReply> newSuccessReply) {
-      LOG.info("Successfully step down leader at {} for request {}", leader, request);
-      replyFuture.complete(newSuccessReply.apply(request));
-```
-
-### BoundedWildcard
-Can generalize to `? super AtomicInteger`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/FollowerState.java`
-#### Snippet
-```java
-    private final ToIntFunction<AtomicInteger> updateFunction;
-
-    UpdateType(ToIntFunction<AtomicInteger> updateFunction) {
-      this.updateFunction = updateFunction;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`>
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.java`
-#### Snippet
-```java
-  }
-
-  private void checkAndTakeSnapshot(MemoizedSupplier<List<CompletableFuture<Message>>> futures)
-      throws ExecutionException, InterruptedException {
-    // check if need to trigger a snapshot
-```
-
-### BoundedWildcard
-Can generalize to `? super Long`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.java`
-#### Snippet
-```java
-
-  StateMachineUpdater(StateMachine stateMachine, RaftServerImpl server,
-      ServerState serverState, long lastAppliedIndex, RaftProperties properties, Consumer<Long> appliedIndexConsumer) {
-    this.name = serverState.getMemberId() + "-" + JavaUtils.getClassSimpleName(getClass());
-    this.appliedIndexConsumer = appliedIndexConsumer;
+   *  @return a randomly picked element which is not the given element.
+   */
+  static <T> T random(final T given, Iterable<T> iteration) {
+    Objects.requireNonNull(given, "given == null");
+    Objects.requireNonNull(iteration, "iteration == null");
 ```
 
 ### BoundedWildcard
@@ -2146,6 +1248,30 @@ in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
   static <V> boolean equalsIgnoreOrder(List<V> left, List<V> right, Comparator<V> comparator) {
     if (left == right) {
       return true;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+#### Snippet
+```java
+  }
+
+  static <K, V> V putNew(K key, V value, BiFunction<K, V, V> putMethod, Supplier<Object> name) {
+    final V returned = putMethod.apply(key, value);
+    Preconditions.assertNull(returned,
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+#### Snippet
+```java
+  }
+
+  static <K, V> V putNew(K key, V value, BiFunction<K, V, V> putMethod, Supplier<Object> name) {
+    final V returned = putMethod.apply(key, value);
+    Preconditions.assertNull(returned,
 ```
 
 ### BoundedWildcard
@@ -2185,51 +1311,603 @@ in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+Can generalize to `? extends ByteBuffer`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
 #### Snippet
 ```java
-
-public interface CollectionUtils {
-  static <T> T min(T left, T right, Comparator<T> comparator) {
-    return comparator.compare(left, right) < 0? left: right;
-  }
+     *   the content of the buffer could possibly be changed unexpectedly, and it will cause data corruption.
+     */
+    default int write(ReferenceCountedObject<ByteBuffer> referenceCountedBuffer) throws IOException {
+      return write(referenceCountedBuffer.get());
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+Can generalize to `? extends RaftClientRequest`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/UnorderedAsync.java`
 #### Snippet
 ```java
-  }
+    private final Supplier<RaftClientRequest> requestConstructor;
 
-  static <K, V> V putNew(K key, V value, BiFunction<K, V, V> putMethod, Supplier<Object> name) {
-    final V returned = putMethod.apply(key, value);
-    Preconditions.assertNull(returned,
+    PendingUnorderedRequest(Supplier<RaftClientRequest> requestConstructor) {
+      this.requestConstructor = requestConstructor;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+Can generalize to `? extends RaftClientRequest`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/BlockingImpl.java`
 #### Snippet
 ```java
   }
 
-  static <K, V> V putNew(K key, V value, BiFunction<K, V, V> putMethod, Supplier<Object> name) {
-    final V returned = putMethod.apply(key, value);
-    Preconditions.assertNull(returned,
+  RaftClientReply sendRequestWithRetry(Supplier<RaftClientRequest> supplier) throws IOException {
+    RaftClientImpl.PendingClientRequest pending = new RaftClientImpl.PendingClientRequest() {
+      @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStreamWindowRequest`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedStreamAsync.java`
+#### Snippet
+```java
+
+  private void sendRequestToNetwork(DataStreamWindowRequest request,
+      SlidingWindow.Client<DataStreamWindowRequest, DataStreamReply> slidingWindow) {
+    CompletableFuture<DataStreamReply> f = request.getReplyFuture();
+    if(f.isDone()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super DataStreamReply`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedStreamAsync.java`
+#### Snippet
+```java
+
+  private void sendRequestToNetwork(DataStreamWindowRequest request,
+      SlidingWindow.Client<DataStreamWindowRequest, DataStreamReply> slidingWindow) {
+    CompletableFuture<DataStreamReply> f = request.getReplyFuture();
+    if(f.isDone()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super RaftClientRequest`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+
+  void handleIOException(RaftClientRequest request, IOException ioe,
+      RaftPeerId newLeader, Consumer<RaftClientRequest> handler) {
+    LOG.debug("{}: suggested new leader: {}. Failed {} with {}",
+        clientId, newLeader, request, ioe);
+```
+
+### BoundedWildcard
+Can generalize to `? super RaftException`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+
+  static <E extends Throwable> RaftClientReply handleRaftException(
+      RaftClientReply reply, Function<RaftException, E> converter) throws E {
+    if (reply != null) {
+      final RaftException e = reply.getException();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStreamReply`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/DataStreamClientImpl.java`
+#### Snippet
+```java
+    }
+
+    private CompletableFuture<DataStreamReply> combineHeader(CompletableFuture<DataStreamReply> future) {
+      return future.thenCombine(headerFuture, (reply, headerReply) -> headerReply.isSuccess()? reply : headerReply);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/AssignmentMessage.java`
+#### Snippet
+```java
+
+  @Override
+  public Double evaluate(Map<String, Double> variableMap) {
+    final Double value = expression.evaluate(variableMap);
+    final String name = variable.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super Double`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/AssignmentMessage.java`
+#### Snippet
+```java
+
+  @Override
+  public Double evaluate(Map<String, Double> variableMap) {
+    final Double value = expression.evaluate(variableMap);
+    final String name = variable.getName();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
+#### Snippet
+```java
+  }
+
+  static <T> void logFallback(String key, String fallbackKey, T fallbackValue, Consumer<String> logger) {
+    if (logger != null) {
+      logger.accept(String.format("%s = %s (fallback to %s)", key, fallbackValue, fallbackKey));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileStoreClient`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+#### Snippet
+```java
+
+  @SuppressFBWarnings("DM_EXIT")
+  protected void stop(List<FileStoreClient> clients) throws IOException {
+    for (FileStoreClient client : clients) {
+      client.close();
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileStoreClient`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
+#### Snippet
+```java
+
+  private Map<String, CompletableFuture<List<CompletableFuture<Long>>>> writeByHeapByteBuffer(
+      List<String> paths, List<FileStoreClient> clients, ExecutorService executor) {
+    Map<String, CompletableFuture<List<CompletableFuture<Long>>>> fileMap = new HashMap<>();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`>>
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
+#### Snippet
+```java
+  }
+
+  private long waitWriteFinish(Map<String, CompletableFuture<List<CompletableFuture<Long>>>> fileMap)
+      throws ExecutionException, InterruptedException {
+    long totalBytes = 0;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
 #### Snippet
 ```java
-   *  @return a randomly picked element which is not the given element.
+
+  static <T> CompletableFuture<T> submit(
+      CheckedSupplier<T, IOException> task, ExecutorService executor) {
+    final CompletableFuture<T> f = new CompletableFuture<>();
+    executor.submit(() -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
+#### Snippet
+```java
+
+  static <T> CompletableFuture<T> submit(
+      CheckedSupplier<T, IOException> task, ExecutorService executor) {
+    final CompletableFuture<T> f = new CompletableFuture<>();
+    executor.submit(() -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super Path`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
+#### Snippet
+```java
+    }
+
+    private FileInfo applyFunction(String relative, Function<Path, FileInfo> f)
+        throws FileNotFoundException {
+      final FileInfo info = f.apply(normalize(relative));
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileInfo`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStore.java`
+#### Snippet
+```java
+    }
+
+    private FileInfo applyFunction(String relative, Function<Path, FileInfo> f)
+        throws FileNotFoundException {
+      final FileInfo info = f.apply(normalize(relative));
+```
+
+### BoundedWildcard
+Can generalize to `? super CompletableFuture`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+
+    @Override
+    long write(FileChannel in, DataStreamOutput out, long offset, List<CompletableFuture<DataStreamReply>> futures) {
+      final long packetSize = getPacketSize(offset);
+      futures.add(isSync(offset + packetSize) ?
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileStoreClient`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+
+  private Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> streamWrite(
+      List<String> paths, List<FileStoreClient> clients, RoutingTable routingTable,
+      ExecutorService executor) {
+    Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> fileMap = new HashMap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`>>
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+  }
+
+  private long waitStreamFinish(Map<String, CompletableFuture<List<CompletableFuture<DataStreamReply>>>> fileMap)
+      throws ExecutionException, InterruptedException {
+    long totalBytes = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? super CompletableFuture`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+
+    @Override
+    long write(FileChannel in, DataStreamOutput out, long offset, List<CompletableFuture<DataStreamReply>> futures)
+        throws IOException {
+      final long packetSize = getPacketSize(offset);
+```
+
+### BoundedWildcard
+Can generalize to `? super Message`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
+#### Snippet
+```java
+
+  static ByteString send(
+      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
+      throws IOException {
+    final RaftClientReply reply = sendFunction.apply(request);
+```
+
+### BoundedWildcard
+Can generalize to `? extends RaftClientReply`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
+#### Snippet
+```java
+
+  static ByteString send(
+      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
+      throws IOException {
+    final RaftClientReply reply = sendFunction.apply(request);
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreClient.java`
+#### Snippet
+```java
+
+  static ByteString send(
+      Message request, CheckedFunction<Message, RaftClientReply, IOException> sendFunction)
+      throws IOException {
+    final RaftClientReply reply = sendFunction.apply(request);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/Dm3RatisMetricRegistryImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <T> void gauge(String name, Supplier<Supplier<T>> gaugeSupplier) {
+    metricRegistry.gauge(getMetricName(name), () -> toGauge(gaugeSupplier.get()));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/Dm3RatisMetricRegistryImpl.java`
+#### Snippet
+```java
+  }
+
+  static <T> Gauge<T> toGauge(Supplier<T> supplier) {
+    return supplier::get;
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
+#### Snippet
+```java
+  private final ConcurrentMap<K, Payload<V>> map = new ConcurrentHashMap<>();
+
+  V put(K k, Supplier<V> supplier) {
+    return map.compute(k, (k1, old) -> old != null? old: new Payload<>(supplier.get())).increment();
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? super UnderConstruction`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+    CompletableFuture<Integer> submitCommit(
+        long offset, int size, Function<UnderConstruction, ReadOnly> closeFunction,
+        ExecutorService executor, RaftPeerId id, long index) {
+      final boolean close = closeFunction != null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ReadOnly`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+    CompletableFuture<Integer> submitCommit(
+        long offset, int size, Function<UnderConstruction, ReadOnly> closeFunction,
+        ExecutorService executor, RaftPeerId id, long index) {
+      final boolean close = closeFunction != null;
+```
+
+### BoundedWildcard
+Can generalize to `? super Path`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+    CompletableFuture<Integer> submitCreate(
+        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
+        ExecutorService executor, RaftPeerId id, long index) {
+      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+    CompletableFuture<Integer> submitCreate(
+        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
+        ExecutorService executor, RaftPeerId id, long index) {
+      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
+```
+
+### BoundedWildcard
+Can generalize to `? extends IOException`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+    CompletableFuture<Integer> submitCreate(
+        CheckedFunction<Path, Path, IOException> resolver, ByteString data, boolean close, boolean sync,
+        ExecutorService executor, RaftPeerId id, long index) {
+      final Supplier<String> name = () -> "create(" + getRelativePath() + ", "
+```
+
+### BoundedWildcard
+Can generalize to `? super RequestType`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/metrics/NettyServerStreamRpcMetrics.java`
+#### Snippet
+```java
+    private final Function<RequestType, String> stringFunction;
+
+    Op(Function<RequestType, String> stringFunction) {
+      this.stringFunction = stringFunction;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends MetricRegistries`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/MetricRegistriesLoader.java`
+#### Snippet
+```java
    */
-  static <T> T random(final T given, Iterable<T> iteration) {
-    Objects.requireNonNull(given, "given == null");
-    Objects.requireNonNull(iteration, "iteration == null");
+  @VisibleForTesting
+  static MetricRegistries load(List<MetricRegistries> availableImplementations) {
+
+    if (availableImplementations.size() == 1) {
+```
+
+### BoundedWildcard
+Can generalize to `? super RaftPeerId`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/FollowerInfoImpl.java`
+#### Snippet
+```java
+  private volatile boolean ackInstallSnapshotAttempt = false;
+
+  FollowerInfoImpl(RaftGroupMemberId id, RaftPeer peer, Function<RaftPeerId, RaftPeer> getPeer,
+      Timestamp lastRpcTime, long nextIndex, boolean attendVote) {
+    this.name = id + "->" + peer.getId();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+  }
+
+  private static <T> Function<Boolean, T> newHeartbeatFunction(String prefix, Function<String, T> function) {
+    final T trueValue = function.apply(prefix + getHeartbeatSuffix(true));
+    final T falseValue = function.apply(prefix + getHeartbeatSuffix(false));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+  }
+
+  private static <T> Function<Boolean, T> newHeartbeatFunction(String prefix, Function<String, T> function) {
+    final T trueValue = function.apply(prefix + getHeartbeatSuffix(true));
+    final T falseValue = function.apply(prefix + getHeartbeatSuffix(false));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+  }
+
+  protected static <T extends Enum<T>> Map<T, Map<String, LongCounter>> newCounterMaps(Class<T> clazz) {
+    final EnumMap<T,Map<String, LongCounter>> maps = new EnumMap<>(clazz);
+    Arrays.stream(clazz.getEnumConstants()).forEach(t -> maps.put(t, new ConcurrentHashMap<>()));
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+
+  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
+      Class<T> clazz, Function<T, Timekeeper> constructor) {
+    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
+    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+
+  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
+      Class<T> clazz, Function<T, Timekeeper> constructor) {
+    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
+    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
+```
+
+### BoundedWildcard
+Can generalize to `? extends Timekeeper`
+in `ratis-metrics-api/src/main/java/org/apache/ratis/metrics/RatisMetrics.java`
+#### Snippet
+```java
+
+  protected static <T extends Enum<T>> Map<T, Timekeeper> newTimerMap(
+      Class<T> clazz, Function<T, Timekeeper> constructor) {
+    final EnumMap<T, Timekeeper> map = new EnumMap<>(clazz);
+    Arrays.stream(clazz.getEnumConstants()).forEach(t -> map.put(t, constructor.apply(t)));
+```
+
+### BoundedWildcard
+Can generalize to `? super AtomicInteger`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/FollowerState.java`
+#### Snippet
+```java
+    private final ToIntFunction<AtomicInteger> updateFunction;
+
+    UpdateType(ToIntFunction<AtomicInteger> updateFunction) {
+      this.updateFunction = updateFunction;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends PendingRequest`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
+#### Snippet
+```java
+    }
+
+    PendingRequest getAndUpdate(Supplier<PendingRequest> supplier) {
+      return ref.getAndUpdate(p -> p != null? p: supplier.get());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super TransferLeadershipRequest`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
+#### Snippet
+```java
+    }
+
+    void complete(Function<TransferLeadershipRequest, RaftClientReply> newSuccessReply) {
+      LOG.info("Successfully step down leader at {} for request {}", leader, request);
+      replyFuture.complete(newSuccessReply.apply(request));
+```
+
+### BoundedWildcard
+Can generalize to `? extends RaftClientReply`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingStepDown.java`
+#### Snippet
+```java
+    }
+
+    void complete(Function<TransferLeadershipRequest, RaftClientReply> newSuccessReply) {
+      LOG.info("Successfully step down leader at {} for request {}", leader, request);
+      replyFuture.complete(newSuccessReply.apply(request));
+```
+
+### BoundedWildcard
+Can generalize to `? super DataStreamOutputRpc`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
+#### Snippet
+```java
+    }
+
+    private void getDataStreamOutput(RaftClientRequest request, Set<RaftPeer> peers, Set<DataStreamOutputRpc> outs)
+        throws IOException {
+      for (RaftPeer peer : peers) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStreamClient`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
+#### Snippet
+```java
+    private final PeerProxyMap<DataStreamClient> map;
+
+    Proxies(PeerProxyMap<DataStreamClient> map) {
+      this.map = map;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`>
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.java`
+#### Snippet
+```java
+  }
+
+  private void checkAndTakeSnapshot(MemoizedSupplier<List<CompletableFuture<Message>>> futures)
+      throws ExecutionException, InterruptedException {
+    // check if need to trigger a snapshot
+```
+
+### BoundedWildcard
+Can generalize to `? super Long`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.java`
+#### Snippet
+```java
+
+  StateMachineUpdater(StateMachine stateMachine, RaftServerImpl server,
+      ServerState serverState, long lastAppliedIndex, RaftProperties properties, Consumer<Long> appliedIndexConsumer) {
+    this.name = serverState.getMemberId() + "-" + JavaUtils.getClassSimpleName(getClass());
+    this.appliedIndexConsumer = appliedIndexConsumer;
 ```
 
 ### BoundedWildcard
@@ -2317,30 +1995,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
-#### Snippet
-```java
-  }
-
-  static <T> void logFallback(String key, String fallbackKey, T fallbackValue, Consumer<String> logger) {
-    if (logger != null) {
-      logger.accept(String.format("%s = %s (fallback to %s)", key, fallbackValue, fallbackKey));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
-#### Snippet
-```java
-  Logger LOG = LoggerFactory.getLogger(ConfUtils.class);
-
-  static <T> void logGet(String key, T value, T defaultValue, Consumer<String> logger) {
-    if (logger != null) {
-      logger.accept(String.format("%s = %s (%s)", key, value,
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement.java`
 #### Snippet
@@ -2389,6 +2043,18 @@ in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement.java`
+#### Snippet
+```java
+  }
+
+  static boolean checkSuccessRemoteWrite(List<CompletableFuture<DataStreamReply>> replyFutures, long bytesWritten,
+      final DataStreamRequestByteBuf request) {
+    for (CompletableFuture<DataStreamReply> replyFuture : replyFutures) {
+```
+
+### BoundedWildcard
 Can generalize to `? super ClientInvocationId`
 in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement.java`
 #### Snippet
@@ -2425,54 +2091,6 @@ in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/server/DataStreamManagement.java`
-#### Snippet
-```java
-  }
-
-  static boolean checkSuccessRemoteWrite(List<CompletableFuture<DataStreamReply>> replyFutures, long bytesWritten,
-      final DataStreamRequestByteBuf request) {
-    for (CompletableFuture<DataStreamReply> replyFuture : replyFutures) {
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftGroupId`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
-#### Snippet
-```java
-  }
-
-  private void initGroupDir(File sub, Predicate<RaftGroupId> shouldAdd) {
-    try {
-      LOG.info("{}: found a subdirectory {}", getId(), sub);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
-#### Snippet
-```java
-    }
-
-    String toString(Map.Entry<RaftGroupId, CompletableFuture<RaftServerImpl>> e) {
-      return toString(e.getKey(), e.getValue());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RaftServerImpl`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
-#### Snippet
-```java
-    }
-
-    private void close(RaftGroupId groupId, CompletableFuture<RaftServerImpl> future) {
-      final RaftServerImpl impl;
-      try {
-```
-
-### BoundedWildcard
 Can generalize to `? extends IOException`
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogFormat.java`
 #### Snippet
@@ -2494,6 +2112,42 @@ in `ratis-server/src/main/java/org/apache/ratis/server/metrics/RaftServerMetrics
   private void addRetryCacheMetric(Supplier<RetryCache.Statistics> retryCacheStatistics) {
     getRegistry().gauge(RETRY_CACHE_ENTRY_COUNT_METRIC, () -> () -> retryCacheStatistics.get().size());
     getRegistry().gauge(RETRY_CACHE_HIT_COUNT_METRIC  , () -> () -> retryCacheStatistics.get().hitCount());
+```
+
+### BoundedWildcard
+Can generalize to `? extends RaftServerImpl`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+#### Snippet
+```java
+    }
+
+    private void close(RaftGroupId groupId, CompletableFuture<RaftServerImpl> future) {
+      final RaftServerImpl impl;
+      try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CompletableFuture`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+#### Snippet
+```java
+    }
+
+    String toString(Map.Entry<RaftGroupId, CompletableFuture<RaftServerImpl>> e) {
+      return toString(e.getKey(), e.getValue());
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super RaftGroupId`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+#### Snippet
+```java
+  }
+
+  private void initGroupDir(File sub, Predicate<RaftGroupId> shouldAdd) {
+    try {
+      LOG.info("{}: found a subdirectory {}", getId(), sub);
 ```
 
 ### BoundedWildcard
@@ -2530,6 +2184,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Buffere
   void preallocateIfNecessary(long size, CheckedBiFunction<FileChannel, Long, Long, IOException> preallocate)
       throws IOException {
     final long outstanding = writeBuffer.position() + size;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
+#### Snippet
+```java
+  private final ConcurrentMap<K, Payload<V>> map = new ConcurrentHashMap<>();
+
+  V put(K k, Supplier<V> supplier) {
+    return map.compute(k, (k1, old) -> old != null? old: new Payload<>(supplier.get())).increment();
+  }
 ```
 
 ### BoundedWildcard
@@ -2581,90 +2247,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FollowerInfo`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-  }
-
-  private long[] getSorted(List<FollowerInfo> followerInfos, boolean includeSelf,
-      ToLongFunction<FollowerInfo> getFollowerIndex, LongSupplier getLogIndex) {
-    final int length = includeSelf ? followerInfos.size() + 1 : followerInfos.size();
-```
-
-### BoundedWildcard
-Can generalize to `? super FollowerInfo`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-
-  private long[] getSorted(List<FollowerInfo> followerInfos, boolean includeSelf,
-      ToLongFunction<FollowerInfo> getFollowerIndex, LongSupplier getLogIndex) {
-    final int length = includeSelf ? followerInfos.size() + 1 : followerInfos.size();
-    if (length == 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? super RaftPeerId`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-  }
-
-  private boolean hasMajority(Predicate<RaftPeerId> isAcked, List<FollowerInfo> followers, boolean includeSelf) {
-    if (followers.isEmpty() && !includeSelf) {
-      return true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends FollowerInfo`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-  }
-
-  private boolean hasMajority(Predicate<RaftPeerId> isAcked, List<FollowerInfo> followers, boolean includeSelf) {
-    if (followers.isEmpty() && !includeSelf) {
-      return true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends LogAppender`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-    }
-
-    void addAll(Collection<LogAppender> newSenders) {
-      if (newSenders.isEmpty()) {
-        return;
-```
-
-### BoundedWildcard
-Can generalize to `? super LogAppender`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
-#### Snippet
-```java
-  }
-
-  private void stopAndRemoveSenders(Predicate<LogAppender> predicate) {
-    stopAndRemoveSenders(getLogAppenders().filter(predicate).collect(Collectors.toList()));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Message`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-
-  CompletableFuture<RaftClientReply> processQueryFuture(
-      CompletableFuture<Message> queryFuture, RaftClientRequest request) {
-    return queryFuture.thenApply(r -> newReplyBuilder(request).setSuccess().setMessage(r).build())
-        .exceptionally(e -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends REPLY`
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
@@ -2712,28 +2294,87 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
         () -> JavaUtils.callAsUnchecked(submitFunction, CompletionException::new),
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `getOptions()` only delegates to its super method
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/group/GroupInfoCommand.java`
+### BoundedWildcard
+Can generalize to `? extends Message`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
 
-  @Override
-  public Options getOptions() {
-    return super.getOptions();
-  }
+  CompletableFuture<RaftClientReply> processQueryFuture(
+      CompletableFuture<Message> queryFuture, RaftClientRequest request) {
+    return queryFuture.thenApply(r -> newReplyBuilder(request).setSuccess().setMessage(r).build())
+        .exceptionally(e -> {
 ```
 
-### RedundantMethodOverride
-Method `getOptions()` only delegates to its super method
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/election/StepDownCommand.java`
+### BoundedWildcard
+Can generalize to `? extends FollowerInfo`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+  }
+
+  private long[] getSorted(List<FollowerInfo> followerInfos, boolean includeSelf,
+      ToLongFunction<FollowerInfo> getFollowerIndex, LongSupplier getLogIndex) {
+    final int length = includeSelf ? followerInfos.size() + 1 : followerInfos.size();
+```
+
+### BoundedWildcard
+Can generalize to `? super FollowerInfo`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
 #### Snippet
 ```java
 
-  @Override
-  public Options getOptions() {
-    return super.getOptions();
+  private long[] getSorted(List<FollowerInfo> followerInfos, boolean includeSelf,
+      ToLongFunction<FollowerInfo> getFollowerIndex, LongSupplier getLogIndex) {
+    final int length = includeSelf ? followerInfos.size() + 1 : followerInfos.size();
+    if (length == 0) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends LogAppender`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+    }
+
+    void addAll(Collection<LogAppender> newSenders) {
+      if (newSenders.isEmpty()) {
+        return;
+```
+
+### BoundedWildcard
+Can generalize to `? super RaftPeerId`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+  }
+
+  private boolean hasMajority(Predicate<RaftPeerId> isAcked, List<FollowerInfo> followers, boolean includeSelf) {
+    if (followers.isEmpty() && !includeSelf) {
+      return true;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FollowerInfo`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+  }
+
+  private boolean hasMajority(Predicate<RaftPeerId> isAcked, List<FollowerInfo> followers, boolean includeSelf) {
+    if (followers.isEmpty() && !includeSelf) {
+      return true;
+```
+
+### BoundedWildcard
+Can generalize to `? super LogAppender`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+  }
+
+  private void stopAndRemoveSenders(Predicate<LogAppender> predicate) {
+    stopAndRemoveSenders(getLogAppenders().filter(predicate).collect(Collectors.toList()));
   }
 ```
 
@@ -2760,6 +2401,31 @@ public class LoadGen extends Client {
   @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
   private int sync = 0;
 
+```
+
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `getOptions()` only delegates to its super method
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/group/GroupInfoCommand.java`
+#### Snippet
+```java
+
+  @Override
+  public Options getOptions() {
+    return super.getOptions();
+  }
+```
+
+### RedundantMethodOverride
+Method `getOptions()` only delegates to its super method
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/election/StepDownCommand.java`
+#### Snippet
+```java
+
+  @Override
+  public Options getOptions() {
+    return super.getOptions();
+  }
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
@@ -3095,18 +2761,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `out` is accessed in both synchronized and unsynchronized contexts
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
-#### Snippet
-```java
-
-  static class UnderConstruction extends FileInfo {
-    private FileStore.FileStoreDataChannel out;
-
-    /** The size written to a local file. */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `nextSeqNum` is accessed in both synchronized and unsynchronized contexts
 in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 #### Snippet
@@ -3116,6 +2770,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
     private long nextSeqNum = 1;
     /** The seqNum of the first request. */
     private long firstSeqNum = -1;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `out` is accessed in both synchronized and unsynchronized contexts
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
+#### Snippet
+```java
+
+  static class UnderConstruction extends FileInfo {
+    private FileStore.FileStoreDataChannel out;
+
+    /** The size written to a local file. */
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3131,18 +2797,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/leader/InstallSnapshotReq
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `totalFileSize` is accessed in both synchronized and unsynchronized contexts
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
-#### Snippet
-```java
-
-  private volatile boolean isOpen;
-  private long totalFileSize = SegmentedRaftLogFormat.getHeaderLength();
-  private AtomicLong totalCacheSize = new AtomicLong(0);
-  /** Segment start index, inclusive. */
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `startIndex` is accessed in both synchronized and unsynchronized contexts
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
 #### Snippet
@@ -3154,7 +2808,31 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegm
   private volatile long endIndex;
 ```
 
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `totalFileSize` is accessed in both synchronized and unsynchronized contexts
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
+#### Snippet
+```java
+
+  private volatile boolean isOpen;
+  private long totalFileSize = SegmentedRaftLogFormat.getHeaderLength();
+  private AtomicLong totalCacheSize = new AtomicLong(0);
+  /** Segment start index, inclusive. */
+```
+
 ## RuleId[id=EmptyMethod]
+### EmptyMethod
+The method is empty
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcService.java`
+#### Snippet
+```java
+
+        @Override
+        public void onCompleted() {
+        }
+      };
+```
+
 ### EmptyMethod
 All implementations of this method are empty
 in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachineStorage.java`
@@ -3193,27 +2871,15 @@ in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/group/GroupInfoComma
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
+Field initialization to `null` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedSupplier.java`
 #### Snippet
 ```java
 
-  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
-  private int sync = 0;
+  private final Supplier<T> initializer;
+  private volatile T value = null;
 
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-    private final int bufferSize;
-    private final long syncSize;
-    private long syncPosition = 0;
-
-    TransferType(String path, DataStream cli) {
+  /**
 ```
 
 ### RedundantFieldInitialization
@@ -3242,26 +2908,110 @@ in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
+in `ratis-common/src/main/java/org/apache/ratis/util/ExitUtils.java`
 #### Snippet
 ```java
-    private final long seqNum;
-    private final AtomicReference<Function<SlidingWindowEntry, RaftClientRequest>> requestConstructor;
-    private volatile boolean isFirst = false;
+    private static final States INSTANCE = new States();
 
-    PendingOrderedRequest(long callId, long seqNum,
+    private volatile boolean systemExitDisabled = false;
+    private volatile boolean terminateOnUncaughtException = true;
+    private final AtomicReference<ExitException> firstExitException = new AtomicReference<>();
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/DataStreamClientImpl.java`
+in `ratis-common/src/main/java/org/apache/ratis/util/DataQueue.java`
 #### Snippet
 ```java
-    });
+  private final Queue<E> q;
 
-    private long streamOffset = 0;
+  private long numBytes = 0;
 
-    private DataStreamOutputImpl(RaftClientRequest request) {
+  public DataQueue(Object name, SizeInBytes byteLimit, int elementLimit,
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
+#### Snippet
+```java
+  private int numTasks = 0;
+  /** The scheduleID for each task */
+  private int scheduleID = 0;
+
+  private ShutdownTask shutdownTask = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
+#### Snippet
+```java
+
+  /** The number of scheduled tasks. */
+  private int numTasks = 0;
+  /** The scheduleID for each task */
+  private int scheduleID = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
+#### Snippet
+```java
+  private int scheduleID = 0;
+
+  private ShutdownTask shutdownTask = null;
+
+  private final Scheduler scheduler = new Scheduler();
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/PeerProxyMap.java`
+#### Snippet
+```java
+  private class PeerAndProxy {
+    private final RaftPeer peer;
+    private volatile PROXY proxy = null;
+    private final LifeCycle lifeCycle;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedCheckedSupplier.java`
+#### Snippet
+```java
+
+  private final CheckedSupplier<RETURN, THROW> initializer;
+  private volatile RETURN value = null;
+
+  /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/LongMinMax.java`
+#### Snippet
+```java
+  private long min;
+  private long max;
+  private boolean initialized = false;
+
+  /** @return the min */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/retry/ExponentialBackoffRetry.java`
+#### Snippet
+```java
+
+    private TimeDuration baseSleepTime;
+    private TimeDuration maxSleepTime = null;
+    private int maxAttempts = Integer.MAX_VALUE;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3301,123 +3051,51 @@ in `ratis-server-api/src/main/java/org/apache/ratis/server/RaftServer.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedSupplier.java`
-#### Snippet
-```java
-
-  private final Supplier<T> initializer;
-  private volatile T value = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/ExitUtils.java`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
 #### Snippet
 ```java
-    private static final States INSTANCE = new States();
+    private final long seqNum;
+    private final AtomicReference<Function<SlidingWindowEntry, RaftClientRequest>> requestConstructor;
+    private volatile boolean isFirst = false;
 
-    private volatile boolean systemExitDisabled = false;
-    private volatile boolean terminateOnUncaughtException = true;
-    private final AtomicReference<ExitException> firstExitException = new AtomicReference<>();
+    PendingOrderedRequest(long callId, long seqNum,
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/DataQueue.java`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/DataStreamClientImpl.java`
 #### Snippet
 ```java
-  private final Queue<E> q;
+    });
 
-  private long numBytes = 0;
+    private long streamOffset = 0;
 
-  public DataQueue(Object name, SizeInBytes byteLimit, int elementLimit,
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/PeerProxyMap.java`
-#### Snippet
-```java
-  private class PeerAndProxy {
-    private final RaftPeer peer;
-    private volatile PROXY proxy = null;
-    private final LifeCycle lifeCycle;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/MemoizedCheckedSupplier.java`
-#### Snippet
-```java
-
-  private final CheckedSupplier<RETURN, THROW> initializer;
-  private volatile RETURN value = null;
-
-  /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
-#### Snippet
-```java
-  private int scheduleID = 0;
-
-  private ShutdownTask shutdownTask = null;
-
-  private final Scheduler scheduler = new Scheduler();
+    private DataStreamOutputImpl(RaftClientRequest request) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
 #### Snippet
 ```java
 
-  /** The number of scheduled tasks. */
-  private int numTasks = 0;
-  /** The scheduleID for each task */
-  private int scheduleID = 0;
+  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
+  private int sync = 0;
+
+  @Override
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/TimeoutScheduler.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
 #### Snippet
 ```java
-  private int numTasks = 0;
-  /** The scheduleID for each task */
-  private int scheduleID = 0;
+    private final int bufferSize;
+    private final long syncSize;
+    private long syncPosition = 0;
 
-  private ShutdownTask shutdownTask = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/LongMinMax.java`
-#### Snippet
-```java
-  private long min;
-  private long max;
-  private boolean initialized = false;
-
-  /** @return the min */
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/retry/ExponentialBackoffRetry.java`
-#### Snippet
-```java
-
-    private TimeDuration baseSleepTime;
-    private TimeDuration maxSleepTime = null;
-    private int maxAttempts = Integer.MAX_VALUE;
-
+    TransferType(String path, DataStream cli) {
 ```
 
 ### RedundantFieldInitialization
@@ -3462,10 +3140,10 @@ in `ratis-server/src/main/java/org/apache/ratis/server/leader/InstallSnapshotReq
 #### Snippet
 ```java
 
-  /** The index of the current request. */
-  private int requestIndex = 0;
-
   /** The index of the current file. */
+  private int fileIndex = 0;
+  /** The current file. */
+  private FileChunkReader current;
 ```
 
 ### RedundantFieldInitialization
@@ -3474,10 +3152,10 @@ in `ratis-server/src/main/java/org/apache/ratis/server/leader/InstallSnapshotReq
 #### Snippet
 ```java
 
+  /** The index of the current request. */
+  private int requestIndex = 0;
+
   /** The index of the current file. */
-  private int fileIndex = 0;
-  /** The current file. */
-  private FileChunkReader current;
 ```
 
 ### RedundantFieldInitialization
@@ -3505,15 +3183,15 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImp
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+Field initialization to `null` is redundant
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/RaftLogBase.java`
 #### Snippet
 ```java
-  class ImplMap implements Closeable {
-    private final ConcurrentMap<RaftGroupId, CompletableFuture<RaftServerImpl>> map = new ConcurrentHashMap<>();
-    private boolean isClosed = false;
+  private final long purgePreservation;
 
-    synchronized CompletableFuture<RaftServerImpl> addNew(RaftGroup group, StartupOption option) {
+  private volatile LogEntryProto lastMetadataEntry = null;
+
+  protected RaftLogBase(RaftGroupMemberId memberId,
 ```
 
 ### RedundantFieldInitialization
@@ -3529,15 +3207,15 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/RaftLogBase.java`
+Field initialization to `false` is redundant
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
 #### Snippet
 ```java
-  private final long purgePreservation;
+  class ImplMap implements Closeable {
+    private final ConcurrentMap<RaftGroupId, CompletableFuture<RaftServerImpl>> map = new ConcurrentHashMap<>();
+    private boolean isClosed = false;
 
-  private volatile LogEntryProto lastMetadataEntry = null;
-
-  protected RaftLogBase(RaftGroupMemberId memberId,
+    synchronized CompletableFuture<RaftServerImpl> addNew(RaftGroup group, StartupOption option) {
 ```
 
 ### RedundantFieldInitialization
@@ -3577,18 +3255,6 @@ in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/SimpleStateMac
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
-#### Snippet
-```java
-  /** the index of the last entry that has been written */
-  private long lastWrittenIndex;
-  private volatile int flushBatchSize = 0;
-  /** the largest index of the entry that has been flushed */
-  private final RaftLogIndex flushIndex = new RaftLogIndex("flushIndex", 0);
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
 #### Snippet
@@ -3598,6 +3264,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
     private CompletableFuture<Void> stateMachineFuture = null;
 
     TruncateLog(TruncationSegments ts, long index) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
+#### Snippet
+```java
+  /** the index of the last entry that has been written */
+  private long lastWrittenIndex;
+  private volatile int flushBatchSize = 0;
+  /** the largest index of the entry that has been flushed */
+  private final RaftLogIndex flushIndex = new RaftLogIndex("flushIndex", 0);
 ```
 
 ### RedundantFieldInitialization
@@ -3625,6 +3303,19 @@ public interface DataStreamClient extends DataStreamRpcApi, Closeable {
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-13-10-46-49.088.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
@@ -3640,18 +3331,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/StateMachineUpdater.
 
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
-in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
-#### Snippet
-```java
-        return storage;
-      } catch (Throwable e) {
-        if (e instanceof IOException) {
-          throw e;
-        }
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
 #### Snippet
 ```java
@@ -3660,6 +3339,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
       if (e instanceof InterruptedException && !running) {
         LOG.info("Got InterruptedException when adding task " + task
             + ". The SegmentedRaftLogWorker already stopped.");
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
+#### Snippet
+```java
+        return storage;
+      } catch (Throwable e) {
+        if (e instanceof IOException) {
+          throw e;
+        }
 ```
 
 ## RuleId[id=NonFinalFieldOfException]
@@ -3790,8 +3481,8 @@ Lock operations on 'this' may have unforeseen side-effects
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/SnapshotInstallationHandler.java`
 #### Snippet
 ```java
-    final InstallSnapshotRequestProto.SnapshotChunkProto snapshotChunkRequest = request.getSnapshotChunk();
-    final long lastIncludedIndex = snapshotChunkRequest.getTermIndex().getIndex();
+        request.getNotification().getFirstAvailableTermIndex());
+    final long firstAvailableLogIndex = firstAvailableLogTermIndex.getIndex();
     synchronized (this) {
       final boolean recognized = state.recognizeLeader(leaderId, leaderTerm);
       currentTerm = state.getCurrentTerm();
@@ -3802,35 +3493,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/SnapshotInstallationHandler.java`
 #### Snippet
 ```java
-        request.getNotification().getFirstAvailableTermIndex());
-    final long firstAvailableLogIndex = firstAvailableLogTermIndex.getIndex();
+    final InstallSnapshotRequestProto.SnapshotChunkProto snapshotChunkRequest = request.getSnapshotChunk();
+    final long lastIncludedIndex = snapshotChunkRequest.getTermIndex().getIndex();
     synchronized (this) {
       final boolean recognized = state.recognizeLeader(leaderId, leaderTerm);
       currentTerm = state.getCurrentTerm();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-
-  boolean resume() throws IOException {
-    synchronized (this) {
-      if (!lifeCycle.compareAndTransition(PAUSED, STARTING)) {
-        return false;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-    assertGroup(request.getRequestorId(), request.getRaftGroupId());
-
-    synchronized (this) {
-      CompletableFuture<RaftClientReply> reply = checkLeaderState(request, null, false);
-      if (reply != null) {
 ```
 
 ### SynchronizeOnThis
@@ -3850,47 +3517,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
-    }
-
-    synchronized (this) {
-      final long installSnapshot = snapshotInstallationHandler.getInProgressInstallSnapshotIndex();
-      // check snapshot install/load
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-    // Pause() should pause ongoing operations:
-    //  a. call {@link StateMachine#pause()}.
-    synchronized (this) {
-      if (!lifeCycle.compareAndTransition(RUNNING, PAUSING)) {
-        return false;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
 
     final PendingRequest pending;
     synchronized (this) {
       reply = checkLeaderState(request, cacheEntry, true);
       if (reply != null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-    assertGroup(leaderId, leaderGroupId);
-
-    synchronized (this) {
-      // leaderLastEntry should not be null because LeaderStateImpl#start append a placeHolder entry
-      // so leader at each term should has at least one entry
 ```
 
 ### SynchronizeOnThis
@@ -3922,11 +3553,71 @@ Lock operations on 'this' may have unforeseen side-effects
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
+    assertGroup(leaderId, leaderGroupId);
+
+    synchronized (this) {
+      // leaderLastEntry should not be null because LeaderStateImpl#start append a placeHolder entry
+      // so leader at each term should has at least one entry
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
     boolean shouldShutdown = false;
     final RequestVoteReplyProto reply;
     synchronized (this) {
       // Check life cycle state again to avoid the PAUSING/PAUSED state.
       assertLifeCycleState(LifeCycle.States.RUNNING);
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+
+  boolean resume() throws IOException {
+    synchronized (this) {
+      if (!lifeCycle.compareAndTransition(PAUSED, STARTING)) {
+        return false;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+    // Pause() should pause ongoing operations:
+    //  a. call {@link StateMachine#pause()}.
+    synchronized (this) {
+      if (!lifeCycle.compareAndTransition(RUNNING, PAUSING)) {
+        return false;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+    assertGroup(request.getRequestorId(), request.getRaftGroupId());
+
+    synchronized (this) {
+      CompletableFuture<RaftClientReply> reply = checkLeaderState(request, null, false);
+      if (reply != null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+    }
+
+    synchronized (this) {
+      final long installSnapshot = snapshotInstallationHandler.getInProgressInstallSnapshotIndex();
+      // check snapshot install/load
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -3968,6 +3659,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Value `t` is always 'null'
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+      e = GrpcUtil.unwrapException((StatusRuntimeException) t);
+    } else {
+      e = IOUtils.asIOException(t);
+    }
+    return e;
+```
+
+### ConstantValue
 Value `updated` is always 'true'
 in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogIndex.java`
 #### Snippet
@@ -3977,6 +3680,18 @@ in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogIndex.
           () -> name + ": updateToMax old=" + old + ", new=" + newIndex + ", updated? " + updated));
     }
     return updated;
+```
+
+### ConstantValue
+Result of `entry.getValue()` is always 'null'
+in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RatisMetricRegistryImpl.java`
+#### Snippet
+```java
+        registerAll(prefix + "." + entry.getKey(), (MetricSet) entry.getValue());
+      } else {
+        register(prefix + "." + entry.getKey(), entry.getValue());
+      }
+    }
 ```
 
 ### ConstantValue
@@ -3992,6 +3707,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java
 ```
 
 ## RuleId[id=IOResource]
+### IOResource
+'RatisShell' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/RatisShell.java`
+#### Snippet
+```java
+   */
+  public static void main(String[] args) {
+    final RatisShell shell = new RatisShell(System.out);
+    System.exit(shell.run(args));
+  }
+```
+
 ### IOResource
 'CounterServer' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `ratis-examples/src/main/java/org/apache/ratis/examples/debug/server/Server.java`
@@ -4013,18 +3740,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/server/Counte
       //exit when any input entered
       new Scanner(System.in, UTF_8.name()).nextLine();
     }
-  }
-```
-
-### IOResource
-'RatisShell' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/RatisShell.java`
-#### Snippet
-```java
-   */
-  public static void main(String[] args) {
-    final RatisShell shell = new RatisShell(System.out);
-    System.exit(shell.run(args));
   }
 ```
 
@@ -4052,41 +3767,78 @@ class BufferedWriteChannel implements Closeable {
     if (append) {
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `ratis-client/src/main/java/org/apache/ratis/client/api/AdminApi.java`
+#### Snippet
+```java
+  default RaftClientReply transferLeadership(RaftPeerId newLeader, long timeoutMs) throws IOException {
+    return transferLeadership(newLeader, null, timeoutMs);
+  };
+
+  RaftClientReply transferLeadership(RaftPeerId newLeader, RaftPeerId leaderId, long timeoutMs) throws IOException;
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
+Condition `t instanceof StatusRuntimeException` is redundant and can be replaced with a null check
 in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
 #### Snippet
 ```java
+
+  static long getCallId(Throwable t) {
     if (t instanceof StatusRuntimeException) {
       final Metadata trailers = ((StatusRuntimeException)t).getTrailers();
       String callId = trailers.get(CALL_ID);
-      return callId != null ? Integer.parseInt(callId) : -1;
-    }
 ```
 
 ### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/client/MetricClientInterceptor.java`
+Condition `t instanceof StatusRuntimeException` is redundant and can be replaced with a null check
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
 #### Snippet
 ```java
-  private String getMethodMetricPrefix(MethodDescriptor<?, ?> method){
-    String serviceName = MethodDescriptor.extractFullServiceName(method.getFullMethodName());
-    String methodName = method.getFullMethodName().substring(serviceName.length() + 1);
-    return identifier + "_" + serviceName + "_" + methodName;
-  }
+  static IOException unwrapIOException(Throwable t) {
+    final IOException e;
+    if (t instanceof StatusRuntimeException) {
+      e = GrpcUtil.unwrapException((StatusRuntimeException) t);
+    } else {
 ```
 
 ### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/MetricServerInterceptor.java`
+Condition `t instanceof StatusRuntimeException` is redundant and can be replaced with a null check
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
 #### Snippet
 ```java
-  private String getMethodMetricPrefix(MethodDescriptor<?, ?> method){
-    String serviceName = MethodDescriptor.extractFullServiceName(method.getFullMethodName());
-    String methodName = method.getFullMethodName().substring(serviceName.length() + 1);
-    return identifier + "_" + serviceName + "_" + methodName;
-  }
+
+  static Throwable unwrapThrowable(Throwable t) {
+    if (t instanceof StatusRuntimeException) {
+      final Throwable unwrapped = tryUnwrapThrowable((StatusRuntimeException)t);
+      if (unwrapped != null) {
+```
+
+### DataFlowIssue
+Condition `t instanceof StatusRuntimeException` is redundant and can be replaced with a null check
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+
+  static boolean isHeartbeat(Throwable t) {
+    if (t instanceof StatusRuntimeException) {
+      final Metadata trailers = ((StatusRuntimeException)t).getTrailers();
+      String isHeartbeat = trailers != null ? trailers.get(HEARTBEAT) : null;
+```
+
+### DataFlowIssue
+Condition `cause instanceof StatusRuntimeException` is redundant and can be replaced with a null check
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/client/GrpcClientRpc.java`
+#### Snippet
+```java
+  public boolean shouldReconnect(Throwable e) {
+    final Throwable cause = e.getCause();
+    if (e instanceof IOException && cause instanceof StatusRuntimeException) {
+      return !((StatusRuntimeException) cause).getStatus().isOk();
+    } else if (e instanceof IllegalArgumentException) {
 ```
 
 ### DataFlowIssue
@@ -4099,19 +3851,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
           currentOpenSegment.getLastTermIndex().getTerm() != entry.getTerm()) {
         // the term changes
         final long currentTerm = currentOpenSegment.getLastTermIndex().getTerm();
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `ratis-client/src/main/java/org/apache/ratis/client/api/AdminApi.java`
-#### Snippet
-```java
-  default RaftClientReply transferLeadership(RaftPeerId newLeader, long timeoutMs) throws IOException {
-    return transferLeadership(newLeader, null, timeoutMs);
-  };
-
-  RaftClientReply transferLeadership(RaftPeerId newLeader, RaftPeerId leaderId, long timeoutMs) throws IOException;
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -4411,6 +4150,115 @@ in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
   protected abstract Map<String, Command> loadCommands(Context context);
 ```
 
+## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyRpcProxy.java`
+#### Snippet
+```java
+          = new SimpleChannelInboundHandler<RaftNettyServerReplyProto>() {
+        @Override
+        protected void channelRead0(ChannelHandlerContext ctx,
+                                    RaftNettyServerReplyProto proto) {
+          final CompletableFuture<RaftNettyServerReplyProto> future = pollReply();
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyRpcProxy.java`
+#### Snippet
+```java
+          = new ChannelInitializer<SocketChannel>() {
+        @Override
+        protected void initChannel(SocketChannel ch) throws Exception {
+          final ChannelPipeline p = ch.pipeline();
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyRpcService.java`
+#### Snippet
+```java
+        = new ChannelInitializer<SocketChannel>() {
+      @Override
+      protected void initChannel(SocketChannel ch) {
+        final ChannelPipeline p = ch.pipeline();
+
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+    return new MessageToMessageEncoder<DataStreamRequestFilePositionCount>() {
+      @Override
+      protected void encode(ChannelHandlerContext ctx, DataStreamRequestFilePositionCount request, List<Object> out) {
+        NettyDataStreamUtils.encodeDataStreamRequestFilePositionCount(request, out::add, ctx.alloc());
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+    return new MessageToMessageEncoder<DataStreamRequestByteBuffer>() {
+      @Override
+      protected void encode(ChannelHandlerContext context, DataStreamRequestByteBuffer request, List<Object> out) {
+        NettyDataStreamUtils.encodeDataStreamRequestByteBuffer(request, out::add, context.alloc());
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+
+      @Override
+      protected void decode(ChannelHandlerContext context, ByteBuf buf, List<Object> out) {
+        Optional.ofNullable(NettyDataStreamUtils.decodeDataStreamReplyByteBuffer(buf)).ifPresent(out::add);
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+    return new MessageToMessageEncoder<ByteBuffer>() {
+      @Override
+      protected void encode(ChannelHandlerContext ctx, ByteBuffer request, List<Object> out) {
+        NettyDataStreamUtils.encodeByteBuffer(request, out::add);
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
+#### Snippet
+```java
+
+      @Override
+      protected void decode(ChannelHandlerContext context, ByteBuf buf, List<Object> out) {
+        Optional.ofNullable(NettyDataStreamUtils.decodeDataStreamRequestByteBuf(buf)).ifPresent(out::add);
+      }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `ratis-netty/src/main/java/org/apache/ratis/netty/server/NettyServerStreamRpc.java`
+#### Snippet
+```java
+    return new MessageToMessageEncoder<DataStreamReplyByteBuffer>() {
+      @Override
+      protected void encode(ChannelHandlerContext context, DataStreamReplyByteBuffer reply, List<Object> out) {
+        NettyDataStreamUtils.encodeDataStreamReplyByteBuffer(reply, out::add, context.alloc());
+      }
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -4490,6 +4338,246 @@ public class AssignmentMessage implements Message, Evaluable {
 ```
 
 ## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/RatisShell.java`
+#### Snippet
+```java
+   */
+  public static void main(String[] args) {
+    final RatisShell shell = new RatisShell(System.out);
+    System.exit(shell.run(args));
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/peer/RemoveCommand.java`
+#### Snippet
+```java
+      final List<RaftPeer> remaining = getRaftGroup().getPeers().stream()
+          .filter(raftPeer -> !ids.contains(raftPeer.getId())).collect(Collectors.toList());
+      System.out.println("New peer list: " + remaining);
+      RaftClientReply reply = client.admin().setConfiguration(remaining);
+      processReply(reply, () -> "Failed to change raft peer");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+    if (command == null) {
+      // Unknown command (we didn't find the cmd in our dict)
+      System.err.printf("%s is an unknown command.%n", cmd);
+      printUsage();
+      return -1;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+    } catch (IllegalArgumentException e) {
+      // It outputs a prompt message when passing wrong args to CLI
+      System.out.println(e.getMessage());
+      System.out.println("Usage: " + command.getUsage());
+      System.out.println(command.getDescription());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+      // It outputs a prompt message when passing wrong args to CLI
+      System.out.println(e.getMessage());
+      System.out.println("Usage: " + command.getUsage());
+      System.out.println(command.getDescription());
+      LOG.error("Invalid arguments for command {}:", command.getCommandName(), e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+      System.out.println(e.getMessage());
+      System.out.println("Usage: " + command.getUsage());
+      System.out.println(command.getDescription());
+      LOG.error("Invalid arguments for command {}:", command.getCommandName(), e);
+      return -1;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+      return command.run(cmdline);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      LOG.error("Error running" + Arrays.stream(argv).reduce("", (a, b) -> a + " " + b), e);
+      return -1;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+   */
+  protected void printUsage() {
+    System.out.println("Usage: ratis " + getShellName() + " [generic options]");
+    SortedSet<String> sortedCmds = new TreeSet<>(mCommands.keySet());
+    for (String cmd : sortedCmds) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
+#### Snippet
+```java
+    SortedSet<String> sortedCmds = new TreeSet<>(mCommands.keySet());
+    for (String cmd : sortedCmds) {
+      System.out.format("%-60s%n", "\t [" + mCommands.get(cmd).getUsage() + "]");
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/peer/AddCommand.java`
+#### Snippet
+```java
+          .build());
+      final List<RaftPeer> peers = Stream.concat(remaining, adding).collect(Collectors.toList());
+      System.out.println("New peer list: " + peers);
+      RaftClientReply reply = client.admin().setConfiguration(peers);
+      processReply(reply, () -> "Failed to change raft peer");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/DefaultLogDump.java`
+#### Snippet
+```java
+  public static void main(String[] args) throws Exception {
+    String filePath = args[0];
+    System.out.println("file path is " + filePath);
+    File logFile = new File(filePath);
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+      numStateMachineEntries++;
+    } else {
+      System.out.println("Found invalid entry" + proto.toString());
+      numInvalidEntries++;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+
+    String str = LogProtoUtils.toLogEntryString(proto, smLogToString);
+    System.out.println(str);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    final LogSegmentPath pi = LogSegmentPath.matchLogSegment(file.toPath());
+    if (pi == null) {
+      System.out.println("Invalid segment file");
+      return;
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    }
+
+    System.out.println("Processing Raft Log file: " + file.getAbsolutePath() + " size:" + file.length());
+    final int entryCount = LogSegment.readSegmentFile(file, pi.getStartEnd(), maxOpSize,
+        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    final int entryCount = LogSegment.readSegmentFile(file, pi.getStartEnd(), maxOpSize,
+        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
+    System.out.println("Num Total Entries: " + entryCount);
+    System.out.println("Num Conf Entries: " + numConfEntries);
+    System.out.println("Num Metadata Entries: " + numMetadataEntries);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
+    System.out.println("Num Total Entries: " + entryCount);
+    System.out.println("Num Conf Entries: " + numConfEntries);
+    System.out.println("Num Metadata Entries: " + numMetadataEntries);
+    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    System.out.println("Num Total Entries: " + entryCount);
+    System.out.println("Num Conf Entries: " + numConfEntries);
+    System.out.println("Num Metadata Entries: " + numMetadataEntries);
+    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
+    System.out.println("Num Invalid Entries: " + numInvalidEntries);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    System.out.println("Num Conf Entries: " + numConfEntries);
+    System.out.println("Num Metadata Entries: " + numMetadataEntries);
+    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
+    System.out.println("Num Invalid Entries: " + numInvalidEntries);
+  }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
+#### Snippet
+```java
+    System.out.println("Num Metadata Entries: " + numMetadataEntries);
+    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
+    System.out.println("Num Invalid Entries: " + numInvalidEntries);
+  }
+
+```
+
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `ratis-examples/src/main/java/org/apache/ratis/examples/debug/server/Server.java`
@@ -4671,54 +4759,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/Counte
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
-#### Snippet
-```java
-    final RaftClientReply reply = client.io().sendReadOnly(CounterCommand.GET.getMessage());
-    final String count = reply.getMessage().getContent().toStringUtf8();
-    System.out.println("Current counter value: " + count);
-
-    // using Linearizable Read
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
-#### Snippet
-```java
-                  return client.io().sendReadOnly(CounterCommand.GET.getMessage(), p.getId());
-                } catch (IOException e) {
-                  System.err.println("Failed read-only request");
-                  return RaftClientReply.newBuilder().setSuccess(false).build();
-                }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
-#### Snippet
-```java
-              }, executor).whenCompleteAsync((r, ex) -> {
-                if (ex != null || !r.isSuccess()) {
-                  System.err.println("Failed " + r);
-                  return;
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
-#### Snippet
-```java
-                final long elapsedSec = (endTime-startTime) / 1000;
-                final String countValue = r.getMessage().getContent().toStringUtf8();
-                System.out.println("read from " + p.getId() + " and get counter value: " + countValue
-                    + ", time elapsed: " + elapsedSec + " seconds");
-              });
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/server/CounterServer.java`
 #### Snippet
@@ -4792,6 +4832,54 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/server/Counte
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
+#### Snippet
+```java
+    final RaftClientReply reply = client.io().sendReadOnly(CounterCommand.GET.getMessage());
+    final String count = reply.getMessage().getContent().toStringUtf8();
+    System.out.println("Current counter value: " + count);
+
+    // using Linearizable Read
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
+#### Snippet
+```java
+                  return client.io().sendReadOnly(CounterCommand.GET.getMessage(), p.getId());
+                } catch (IOException e) {
+                  System.err.println("Failed read-only request");
+                  return RaftClientReply.newBuilder().setSuccess(false).build();
+                }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
+#### Snippet
+```java
+              }, executor).whenCompleteAsync((r, ex) -> {
+                if (ex != null || !r.isSuccess()) {
+                  System.err.println("Failed " + r);
+                  return;
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
+#### Snippet
+```java
+                final long elapsedSec = (endTime-startTime) / 1000;
+                final String countValue = r.getMessage().getContent().toStringUtf8();
+                System.out.println("read from " + p.getId() + " and get counter value: " + countValue
+                    + ", time elapsed: " + elapsedSec + " seconds");
+              });
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/ArithmeticLogDump.java`
 #### Snippet
 ```java
@@ -4803,27 +4891,27 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/Arithmetic
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
 #### Snippet
 ```java
-      long size = futures.get(i).join();
-      if (size != fileSizeInBytes) {
-        System.err.println("Error: path:" + paths.get(i) + " write:" + size +
-            " mismatch expected size:" + fileSizeInBytes);
-      }
+
+  static void printAll(Class<?> confClass) {
+    ConfUtils.printAll(confClass, System.out::println);
+  }
+
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Get.java`
 #### Snippet
 ```java
-      pro.waitFor();
-    } catch (Throwable t) {
-      System.err.println("Failed to run command:" + Arrays.toString(cmds) + ":" + t.getMessage());
-    }
+    Expression response =
+        Expression.Utils.bytes2Expression(getValue.getMessage().getContent().toByteArray(), 0);
+    System.out.println(String.format("%s=%s", name, (DoubleValue) response).toString());
   }
+}
 ```
 
 ### SystemOutErr
@@ -4899,15 +4987,27 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Get.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
 #### Snippet
 ```java
-    Expression response =
-        Expression.Utils.bytes2Expression(getValue.getMessage().getContent().toByteArray(), 0);
-    System.out.println(String.format("%s=%s", name, (DoubleValue) response).toString());
+      pro.waitFor();
+    } catch (Throwable t) {
+      System.err.println("Failed to run command:" + Arrays.toString(cmds) + ":" + t.getMessage());
+    }
   }
-}
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+#### Snippet
+```java
+      long size = futures.get(i).join();
+      if (size != fileSizeInBytes) {
+        System.err.println("Error: path:" + paths.get(i) + " write:" + size +
+            " mismatch expected size:" + fileSizeInBytes);
+      }
 ```
 
 ### SystemOutErr
@@ -4931,6 +5031,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Assign
     System.out.println("Success: " + send.isSuccess());
     System.out.println("Response: " + send.getMessage().getClass());
   }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+
+      if (writtenLen != getFileSizeInBytes()) {
+        System.out.println("File written:" + writtenLen + " does not match expected:" + getFileSizeInBytes());
+      }
 
 ```
 
@@ -5018,270 +5130,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStr
     }
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-
-      if (writtenLen != getFileSizeInBytes()) {
-        System.out.println("File written:" + writtenLen + " does not match expected:" + getFileSizeInBytes());
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/DefaultLogDump.java`
-#### Snippet
-```java
-  public static void main(String[] args) throws Exception {
-    String filePath = args[0];
-    System.out.println("file path is " + filePath);
-    File logFile = new File(filePath);
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    final LogSegmentPath pi = LogSegmentPath.matchLogSegment(file.toPath());
-    if (pi == null) {
-      System.out.println("Invalid segment file");
-      return;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    }
-
-    System.out.println("Processing Raft Log file: " + file.getAbsolutePath() + " size:" + file.length());
-    final int entryCount = LogSegment.readSegmentFile(file, pi.getStartEnd(), maxOpSize,
-        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    final int entryCount = LogSegment.readSegmentFile(file, pi.getStartEnd(), maxOpSize,
-        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
-    System.out.println("Num Total Entries: " + entryCount);
-    System.out.println("Num Conf Entries: " + numConfEntries);
-    System.out.println("Num Metadata Entries: " + numMetadataEntries);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-        RaftServerConfigKeys.Log.CorruptionPolicy.EXCEPTION, null, this::processLogEntry);
-    System.out.println("Num Total Entries: " + entryCount);
-    System.out.println("Num Conf Entries: " + numConfEntries);
-    System.out.println("Num Metadata Entries: " + numMetadataEntries);
-    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    System.out.println("Num Total Entries: " + entryCount);
-    System.out.println("Num Conf Entries: " + numConfEntries);
-    System.out.println("Num Metadata Entries: " + numMetadataEntries);
-    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
-    System.out.println("Num Invalid Entries: " + numInvalidEntries);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    System.out.println("Num Conf Entries: " + numConfEntries);
-    System.out.println("Num Metadata Entries: " + numMetadataEntries);
-    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
-    System.out.println("Num Invalid Entries: " + numInvalidEntries);
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-    System.out.println("Num Metadata Entries: " + numMetadataEntries);
-    System.out.println("Num StateMachineEntries Entries: " + numStateMachineEntries);
-    System.out.println("Num Invalid Entries: " + numInvalidEntries);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-      numStateMachineEntries++;
-    } else {
-      System.out.println("Found invalid entry" + proto.toString());
-      numInvalidEntries++;
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-tools/src/main/java/org/apache/ratis/tools/ParseRatisLog.java`
-#### Snippet
-```java
-
-    String str = LogProtoUtils.toLogEntryString(proto, smLogToString);
-    System.out.println(str);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-    if (command == null) {
-      // Unknown command (we didn't find the cmd in our dict)
-      System.err.printf("%s is an unknown command.%n", cmd);
-      printUsage();
-      return -1;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-    } catch (IllegalArgumentException e) {
-      // It outputs a prompt message when passing wrong args to CLI
-      System.out.println(e.getMessage());
-      System.out.println("Usage: " + command.getUsage());
-      System.out.println(command.getDescription());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-      // It outputs a prompt message when passing wrong args to CLI
-      System.out.println(e.getMessage());
-      System.out.println("Usage: " + command.getUsage());
-      System.out.println(command.getDescription());
-      LOG.error("Invalid arguments for command {}:", command.getCommandName(), e);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/RatisShell.java`
-#### Snippet
-```java
-   */
-  public static void main(String[] args) {
-    final RatisShell shell = new RatisShell(System.out);
-    System.exit(shell.run(args));
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-      System.out.println(e.getMessage());
-      System.out.println("Usage: " + command.getUsage());
-      System.out.println(command.getDescription());
-      LOG.error("Invalid arguments for command {}:", command.getCommandName(), e);
-      return -1;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-      return command.run(cmdline);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-      LOG.error("Error running" + Arrays.stream(argv).reduce("", (a, b) -> a + " " + b), e);
-      return -1;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-   */
-  protected void printUsage() {
-    System.out.println("Usage: ratis " + getShellName() + " [generic options]");
-    SortedSet<String> sortedCmds = new TreeSet<>(mCommands.keySet());
-    for (String cmd : sortedCmds) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/AbstractShell.java`
-#### Snippet
-```java
-    SortedSet<String> sortedCmds = new TreeSet<>(mCommands.keySet());
-    for (String cmd : sortedCmds) {
-      System.out.format("%-60s%n", "\t [" + mCommands.get(cmd).getUsage() + "]");
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/peer/RemoveCommand.java`
-#### Snippet
-```java
-      final List<RaftPeer> remaining = getRaftGroup().getPeers().stream()
-          .filter(raftPeer -> !ids.contains(raftPeer.getId())).collect(Collectors.toList());
-      System.out.println("New peer list: " + remaining);
-      RaftClientReply reply = client.admin().setConfiguration(remaining);
-      processReply(reply, () -> "Failed to change raft peer");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/peer/AddCommand.java`
-#### Snippet
-```java
-          .build());
-      final List<RaftPeer> peers = Stream.concat(remaining, adding).collect(Collectors.toList());
-      System.out.println("New peer list: " + peers);
-      RaftClientReply reply = client.admin().setConfiguration(peers);
-      processReply(reply, () -> "Failed to change raft peer");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
-#### Snippet
-```java
-
-  static void printAll(Class<?> confClass) {
-    ConfUtils.printAll(confClass, System.out::println);
-  }
-
-```
-
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'obj == null' covered by subsequent condition '!(obj instanceof Variable)'
@@ -5358,39 +5206,15 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.ratis.conf` is unnecessary, and can be replaced with an import
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `ratis-common/src/main/java/org/apache/ratis/util/ConcurrentUtils.java`
 #### Snippet
 ```java
-      builder.setRaftGroup(raftGroup);
-      builder.setClientRpc(
-          new GrpcFactory(new org.apache.ratis.conf.Parameters())
-              .newRaftClientRpc(ClientId.randomId(), raftProperties));
-      RaftPeer[] peers = getPeers();
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `ratis-server-api/src/main/java/org/apache/ratis/server/DataStreamMap.java`
-#### Snippet
-```java
-      Function<ClientInvocationId, CompletableFuture<DataStream>> newDataStream);
-
-  /** Similar to {@link java.util.Map#remove(java.lang.Object). */
-  CompletableFuture<DataStream> remove(ClientInvocationId invocationId);
-}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.ratis.server.raftlog` is unnecessary and can be removed
-in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogSequentialOps.java`
-#### Snippet
-```java
-   *
-   * @return the index of the new log entry if it is appended;
-   *         otherwise, return {@link org.apache.ratis.server.raftlog.RaftLog#INVALID_LOG_INDEX}.
-   */
-  long appendMetadata(long term, long commitIndex);
+  /**
+    * This method is similar to {@link java.util.concurrent.Executors#newSingleThreadExecutor(ThreadFactory)}
+    * except that this method takes a specific thread name as there is only one thread.g
+    *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5422,35 +5246,11 @@ Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `ratis-common/src/main/java/org/apache/ratis/util/ConcurrentUtils.java`
 #### Snippet
 ```java
-
-  /**
-    * This method is similar to {@link java.util.concurrent.Executors#newSingleThreadExecutor(ThreadFactory)}
-    * except that this method takes a specific thread name as there is only one thread.g
-    *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `ratis-common/src/main/java/org/apache/ratis/util/ConcurrentUtils.java`
-#### Snippet
-```java
    * Create a new {@link ExecutorService} with a maximum pool size.
    * If it is cached, this method is similar to {@link #newCachedThreadPool(int, ThreadFactory)}.
    * Otherwise, this method is similar to {@link java.util.concurrent.Executors#newFixedThreadPool(int)}.
    *
    * @param cached Use cached thread pool?  If not, use a fixed thread pool.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent.locks` is unnecessary and can be removed
-in `ratis-common/src/main/java/org/apache/ratis/util/AwaitForSignal.java`
-#### Snippet
-```java
-
-/**
- * This class is a partial implementation of {@link java.util.concurrent.locks.Condition}.
- * Only some of the await and signal methods are implemented.
- * <p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5472,8 +5272,8 @@ in `ratis-common/src/main/java/org/apache/ratis/util/AwaitForSignal.java`
 ```java
   }
 
-  /** The same as {@link java.util.concurrent.locks.Condition#await()} */
-  public void await() throws InterruptedException {
+  /** The same as {@link java.util.concurrent.locks.Condition#signal()} */
+  public void signal() {
     lock.lock();
 ```
 
@@ -5484,12 +5284,72 @@ in `ratis-common/src/main/java/org/apache/ratis/util/AwaitForSignal.java`
 ```java
   }
 
-  /** The same as {@link java.util.concurrent.locks.Condition#signal()} */
-  public void signal() {
+  /** The same as {@link java.util.concurrent.locks.Condition#await()} */
+  public void await() throws InterruptedException {
     lock.lock();
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.concurrent.locks` is unnecessary and can be removed
+in `ratis-common/src/main/java/org/apache/ratis/util/AwaitForSignal.java`
+#### Snippet
+```java
+
+/**
+ * This class is a partial implementation of {@link java.util.concurrent.locks.Condition}.
+ * Only some of the await and signal methods are implemented.
+ * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `ratis-server-api/src/main/java/org/apache/ratis/server/DataStreamMap.java`
+#### Snippet
+```java
+      Function<ClientInvocationId, CompletableFuture<DataStream>> newDataStream);
+
+  /** Similar to {@link java.util.Map#remove(java.lang.Object). */
+  CompletableFuture<DataStream> remove(ClientInvocationId invocationId);
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.ratis.server.raftlog` is unnecessary and can be removed
+in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogSequentialOps.java`
+#### Snippet
+```java
+   *
+   * @return the index of the new log entry if it is appended;
+   *         otherwise, return {@link org.apache.ratis.server.raftlog.RaftLog#INVALID_LOG_INDEX}.
+   */
+  long appendMetadata(long term, long commitIndex);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.ratis.conf` is unnecessary, and can be replaced with an import
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
+#### Snippet
+```java
+      builder.setRaftGroup(raftGroup);
+      builder.setClientRpc(
+          new GrpcFactory(new org.apache.ratis.conf.Parameters())
+              .newRaftClientRpc(ClientId.randomId(), raftProperties));
+      RaftPeer[] peers = getPeers();
+```
+
 ## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRatisCommand.java`
+#### Snippet
+```java
+        }
+      } catch (Throwable e) {
+        e.printStackTrace();
+      }
+    }
+```
+
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/client/CounterClient.java`
@@ -5512,18 +5372,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/counter/server/Counte
       e.printStackTrace();
       System.err.println();
       System.err.println("args = " + Arrays.toString(args));
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRatisCommand.java`
-#### Snippet
-```java
-        }
-      } catch (Throwable e) {
-        e.printStackTrace();
-      }
-    }
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -5589,78 +5437,6 @@ in `ratis-common/src/main/java/org/apache/ratis/util/ReflectionUtils.java`
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/DoubleValue.java`
-#### Snippet
-```java
-  public int toBytes(byte[] buf, int offset) {
-    Preconditions.assertTrue(offset + length() <= buf.length);
-    buf[offset++] = Type.DOUBLE.byteValue();
-    Utils.double2bytes(value, buf, offset);
-    return length();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `slidingWindowEntry`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/ClientProtoUtils.java`
-#### Snippet
-```java
-      SlidingWindowEntry slidingWindowEntry, RoutingTable routingTable, long timeoutMs) {
-    if (slidingWindowEntry == null) {
-      slidingWindowEntry = SlidingWindowEntry.getDefaultInstance();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `newLeader`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-    final boolean stillLeader = oldLeader.equals(curLeader);
-    if (newLeader == null && stillLeader) {
-      newLeader = CollectionUtils.random(oldLeader,
-          CollectionUtils.as(peers, RaftPeer::getId));
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-
-  static StatusRuntimeException wrapException(Throwable t, long callId) {
-    t = JavaUtils.unwrapCompletionException(t);
-    Metadata trailers = new StatusRuntimeExceptionMetadataBuilder(t)
-        .addCallId(callId)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-
-  static StatusRuntimeException wrapException(Throwable t, long callId, boolean isHeartbeat) {
-    t = JavaUtils.unwrapCompletionException(t);
-    Metadata trailers = new StatusRuntimeExceptionMetadataBuilder(t)
-        .addCallId(callId)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `t`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcClientProtocolService.java`
-#### Snippet
-```java
-    boolean responseError(Throwable t, Supplier<String> message) {
-      if (setClose()) {
-        t = JavaUtils.unwrapCompletionException(t);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(name + ": Failed " + message.get(), t);
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
@@ -5770,6 +5546,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/PureJavaCrc32C.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `symbol`
+in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.java`
+#### Snippet
+```java
+   */
+  public static TraditionalBinaryPrefix valueOf(char symbol) {
+    symbol = Character.toUpperCase(symbol);
+    for(TraditionalBinaryPrefix prefix : TraditionalBinaryPrefix.values()) {
+      if (symbol == prefix.symbol) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `unit`
 in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.java`
 #### Snippet
@@ -5794,18 +5582,6 @@ in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `symbol`
-in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.java`
-#### Snippet
-```java
-   */
-  public static TraditionalBinaryPrefix valueOf(char symbol) {
-    symbol = Character.toUpperCase(symbol);
-    for(TraditionalBinaryPrefix prefix : TraditionalBinaryPrefix.values()) {
-      if (symbol == prefix.symbol) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `s`
 in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.java`
 #### Snippet
@@ -5818,18 +5594,6 @@ in `ratis-common/src/main/java/org/apache/ratis/util/TraditionalBinaryPrefix.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `off`
-in `ratis-common/src/main/java/org/apache/ratis/util/IOUtils.java`
-#### Snippet
-```java
-      }
-      toRead -= ret;
-      off += ret;
-    }
-  }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `offset`
 in `ratis-common/src/main/java/org/apache/ratis/util/IOUtils.java`
 #### Snippet
@@ -5838,6 +5602,18 @@ in `ratis-common/src/main/java/org/apache/ratis/util/IOUtils.java`
     do {
       offset += fc.write(buf, offset);
     } while (buf.remaining() > 0);
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `off`
+in `ratis-common/src/main/java/org/apache/ratis/util/IOUtils.java`
+#### Snippet
+```java
+      }
+      toRead -= ret;
+      off += ret;
+    }
   }
 ```
 
@@ -5902,6 +5678,42 @@ in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+
+  static StatusRuntimeException wrapException(Throwable t, long callId, boolean isHeartbeat) {
+    t = JavaUtils.unwrapCompletionException(t);
+    Metadata trailers = new StatusRuntimeExceptionMetadataBuilder(t)
+        .addCallId(callId)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+
+  static StatusRuntimeException wrapException(Throwable t, long callId) {
+    t = JavaUtils.unwrapCompletionException(t);
+    Metadata trailers = new StatusRuntimeExceptionMetadataBuilder(t)
+        .addCallId(callId)
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `t`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcClientProtocolService.java`
+#### Snippet
+```java
+    boolean responseError(Throwable t, Supplier<String> message) {
+      if (setClose()) {
+        t = JavaUtils.unwrapCompletionException(t);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(name + ": Failed " + message.get(), t);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `left`
 in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
 #### Snippet
@@ -5923,6 +5735,42 @@ in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
     right = new ArrayList<>(right);
     right.sort(comparator);
     return left.equals(right);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `newLeader`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+    final boolean stillLeader = oldLeader.equals(curLeader);
+    if (newLeader == null && stillLeader) {
+      newLeader = CollectionUtils.random(oldLeader,
+          CollectionUtils.as(peers, RaftPeer::getId));
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `slidingWindowEntry`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/ClientProtoUtils.java`
+#### Snippet
+```java
+      SlidingWindowEntry slidingWindowEntry, RoutingTable routingTable, long timeoutMs) {
+    if (slidingWindowEntry == null) {
+      slidingWindowEntry = SlidingWindowEntry.getDefaultInstance();
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/DoubleValue.java`
+#### Snippet
+```java
+  public int toBytes(byte[] buf, int offset) {
+    Preconditions.assertTrue(offset + length() <= buf.length);
+    buf[offset++] = Type.DOUBLE.byteValue();
+    Utils.double2bytes(value, buf, offset);
+    return length();
 ```
 
 ### AssignmentToMethodParameter
@@ -5962,15 +5810,15 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/RaftLogBase.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+Assignment to method parameter `request`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
-
-  private RaftClientReply exception2RaftClientReply(RaftClientRequest request, Throwable e) {
-    e = JavaUtils.unwrapCompletionException(e);
-    if (e instanceof NotReplicatedException) {
-      final NotReplicatedException nre = (NotReplicatedException)e;
+            return f.thenApply(r -> null);
+          }
+          request = f.join();
+          type = request.getType();
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -5986,217 +5834,25 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `request`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+Assignment to method parameter `e`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
 #### Snippet
 ```java
-            return f.thenApply(r -> null);
-          }
-          request = f.join();
-          type = request.getType();
-        }
+
+  private RaftClientReply exception2RaftClientReply(RaftClientRequest request, Throwable e) {
+    e = JavaUtils.unwrapCompletionException(e);
+    if (e instanceof NotReplicatedException) {
+      final NotReplicatedException nre = (NotReplicatedException)e;
 ```
 
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/common/Runner.java`
-#### Snippet
-```java
-      return Arithmetic.getSubCommands();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
-#### Snippet
-```java
-    }
-    if (proto.getRequestCase() != FileStoreRequestProto.RequestCase.WRITEHEADER) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
-#### Snippet
-```java
-        smLog.getStateMachineEntry().getStateMachineData());
-    // sync only if closing the file
-    return h.getClose()? f: null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
-#### Snippet
-```java
-    }
-    if (proto.getRequestCase() != FileStoreRequestProto.RequestCase.WRITEHEADER) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/NullValue.java`
-#### Snippet
-```java
-  @Override
-  public Double evaluate(Map<String, Double> variableMap) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftOutputStream.java`
-#### Snippet
-```java
-        Message.valueOf(ProtoUtils.toByteString(buffer, 0, byteCount))
-    ).thenApply(reply -> RaftClientImpl.handleRaftException(reply, CompletionException::new)
-    ).thenApply(reply -> reply != null && reply.isSuccess()? pos: null);
-    flushFutures.offer(f);
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
+in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRatisCommand.java`
 #### Snippet
 ```java
       }
-      failAllAsyncRequests(request, e);
-      return null;
-    });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/ClientProtoUtils.java`
-#### Snippet
-```java
-  static RoutingTable getRoutingTable(RaftRpcRequestProto p) {
-    if (!p.hasRoutingTable()) {
-      return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
-#### Snippet
-```java
-
-    Payload<V> decrement() {
-      return refCount.decrementAndGet() > 0? this: null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
-#### Snippet
-```java
-
-    V increment() {
-      return refCount.incrementAndGet() > 0? value: null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
-#### Snippet
-```java
-
-  static <V> V get(Payload<V> p) {
-    return p == null ? null : p.get();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
-#### Snippet
-```java
-
-  static <V> V get(Payload<V> p) {
-    return p == null ? null : p.get();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
-#### Snippet
-```java
-
-    V increment() {
-      return refCount.incrementAndGet() > 0? value: null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
-#### Snippet
-```java
-
-    Payload<V> decrement() {
-      return refCount.decrementAndGet() > 0? this: null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-  RaftClientReply handleLeaderException(RaftClientRequest request, RaftClientReply reply) {
-    if (reply == null || reply.getException() instanceof LeaderNotReadyException) {
-      return null;
-    }
-    final NotLeaderException nle = reply.getNotLeaderException();
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
-#### Snippet
-```java
-        : nle.getSuggestedLeader().getId();
-    handleIOException(request, nle, newLeader, handler);
     return null;
   }
 
@@ -6228,198 +5884,6 @@ in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRati
 
 ### ReturnNull
 Return of `null`
-in `ratis-shell/src/main/java/org/apache/ratis/shell/cli/sh/command/AbstractRatisCommand.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-    final Metadata trailers = se.getTrailers();
-    if (trailers == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcLogAppender.java`
-#### Snippet
-```java
-    final long followerNextIndex = follower.getNextIndex();
-    if (followerNextIndex >= leaderNextIndex) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcLogAppender.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
-#### Snippet
-```java
-    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
-    static GrpcTlsConfig tlsConf(Parameters parameters) {
-      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
-    }
-    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
-#### Snippet
-```java
-    Class<GrpcTlsConfig> CONF_CLASS = GrpcTlsConfig.class;
-    static GrpcTlsConfig conf(Parameters parameters) {
-      return parameters != null ? parameters.get(CONF_PARAMETER, CONF_CLASS): null;
-    }
-    static void setConf(Parameters parameters, GrpcTlsConfig conf) {
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
-#### Snippet
-```java
-    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
-    static GrpcTlsConfig tlsConf(Parameters parameters) {
-      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
-    }
-    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
-#### Snippet
-```java
-    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
-    static GrpcTlsConfig tlsConf(Parameters parameters) {
-      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
-    }
-    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachineStorage.java`
-#### Snippet
-```java
-  /** @return the state machine directory. */
-  default File getSnapshotDir() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachineStorage.java`
-#### Snippet
-```java
-  /** @return the temporary directory. */
-  default File getTmpDir() {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogSequentialOps.java`
-#### Snippet
-```java
-        } finally {
-          // prev is expected to be current
-          final Thread got = runner.getAndUpdate(prev -> prev != current? prev: null);
-          Preconditions.assertTrue(got == current,
-              () -> name + ": Unexpected runner " + got + " != " + current);
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolService.java`
-#### Snippet
-```java
-          handleError(e, request);
-          current.getFuture().completeExceptionally(e);
-          return null;
-        }).thenCombine(previousFuture, (reply, v) -> {
-          handleReply(reply);
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolService.java`
-#### Snippet
-```java
-          handleReply(reply);
-          current.getFuture().complete(null);
-          return null;
-        });
-      } catch (Exception e) {
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/JmxRegister.java`
-#### Snippet
-```java
-
-    // failed
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/util/JmxRegister.java`
 #### Snippet
 ```java
@@ -6432,23 +5896,11 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JmxRegister.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
+in `ratis-common/src/main/java/org/apache/ratis/util/JmxRegister.java`
 #### Snippet
 ```java
-     */
-    default Executor getExecutor() {
-      return null;
-    }
-  }
-```
 
-### ReturnNull
-Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
-#### Snippet
-```java
-      return hexString;
-    }
+    // failed
     return null;
   }
 
@@ -6471,11 +5923,11 @@ Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
 #### Snippet
 ```java
-  private String substituteVars(String expr) {
-    if (expr == null) {
-      return null;
+      return hexString;
     }
-    String eval = expr;
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -6488,6 +5940,18 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
       return null;
     } else {
       return value.trim();
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/conf/RaftProperties.java`
+#### Snippet
+```java
+  private String substituteVars(String expr) {
+    if (expr == null) {
+      return null;
+    }
+    String eval = expr;
 ```
 
 ### ReturnNull
@@ -6528,30 +5992,6 @@ in `ratis-common/src/main/java/org/apache/ratis/util/NetUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/DataBlockingQueue.java`
-#### Snippet
-```java
-        }
-        if (nanos <= 0) {
-          return null;
-        }
-        nanos = notEmpty.awaitNanos(nanos);
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/MD5FileUtil.java`
-#### Snippet
-```java
-    final File md5File = getDigestFileForFile(dataFile);
-    if (!md5File.exists()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 #### Snippet
 ```java
@@ -6572,6 +6012,30 @@ in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
         return null;
       }
       return request;
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/util/MD5FileUtil.java`
+#### Snippet
+```java
+    final File md5File = getDigestFileForFile(dataFile);
+    if (!md5File.exists()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/util/DataBlockingQueue.java`
+#### Snippet
+```java
+        }
+        if (nanos <= 0) {
+          return null;
+        }
+        nanos = notEmpty.awaitNanos(nanos);
 ```
 
 ### ReturnNull
@@ -6639,6 +6103,30 @@ Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.java`
 #### Snippet
 ```java
+    } catch(Exception t) {
+      LOG.warn("Failed to parse \"{}\", which is the index {} element in \"{}\"", s, i, input, t);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.java`
+#### Snippet
+```java
+      curRetry -= pairs.get(i).numRetries;
+    }
+    return i == pairs.size()? null: pairs.get(i);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.java`
+#### Snippet
+```java
     if (elements.length == 0) {
       LOG.warn("Illegal value: there is no element in \"{}\".", input);
       return null;
@@ -6684,30 +6172,6 @@ in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.
 
 ### ReturnNull
 Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.java`
-#### Snippet
-```java
-      curRetry -= pairs.get(i).numRetries;
-    }
-    return i == pairs.size()? null: pairs.get(i);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/retry/MultipleLinearRandomRetry.java`
-#### Snippet
-```java
-    } catch(Exception t) {
-      LOG.warn("Failed to parse \"{}\", which is the index {} element in \"{}\"", s, i, input, t);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/protocol/SnapshotManagementRequest.java`
 #### Snippet
 ```java
@@ -6748,8 +6212,8 @@ in `ratis-common/src/main/java/org/apache/ratis/protocol/GroupManagementRequest.
 #### Snippet
 ```java
 
-  public Remove getRemove() {
-    return op instanceof Remove? (Remove)op: null;
+  public Add getAdd() {
+    return op instanceof Add? (Add)op: null;
   }
 
 ```
@@ -6760,8 +6224,8 @@ in `ratis-common/src/main/java/org/apache/ratis/protocol/GroupManagementRequest.
 #### Snippet
 ```java
 
-  public Add getAdd() {
-    return op instanceof Add? (Add)op: null;
+  public Remove getRemove() {
+    return op instanceof Remove? (Remove)op: null;
   }
 
 ```
@@ -6783,6 +6247,18 @@ Return of `null`
 in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
 #### Snippet
 ```java
+   */
+  static <T> T cast(Object obj, Class<T> clazz) {
+    return clazz.isInstance(obj)? clazz.cast(obj): null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
+#### Snippet
+```java
     return doPrivileged(action, e -> {
       LOG.warn("Failed to " + name.get(), e);
       return null;
@@ -6792,12 +6268,36 @@ in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/JavaUtils.java`
+in `ratis-common/src/main/java/org/apache/ratis/security/TlsConf.java`
 #### Snippet
 ```java
-   */
-  static <T> T cast(Object obj, Class<T> clazz) {
-    return clazz.isInstance(obj)? clazz.cast(obj): null;
+        return new KeyManagerConf(keyManager);
+      } else if (privateKey == null && keyCertificates == null) {
+        return null;
+      } else if (privateKey != null && keyCertificates != null) {
+        return new KeyManagerConf(privateKey, keyCertificates);
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+    final Metadata trailers = se.getTrailers();
+    if (trailers == null) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+      }
+    }
+    return null;
   }
 
 ```
@@ -6816,59 +6316,179 @@ in `ratis-common/src/main/java/org/apache/ratis/util/LifeCycle.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/security/TlsConf.java`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolService.java`
 #### Snippet
 ```java
-        return new KeyManagerConf(keyManager);
-      } else if (privateKey == null && keyCertificates == null) {
-        return null;
-      } else if (privateKey != null && keyCertificates != null) {
-        return new KeyManagerConf(privateKey, keyCertificates);
+          handleError(e, request);
+          current.getFuture().completeExceptionally(e);
+          return null;
+        }).thenCombine(previousFuture, (reply, v) -> {
+          handleReply(reply);
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolService.java`
 #### Snippet
 ```java
-  static DataStreamReplyHeader decodeDataStreamReplyHeader(ByteBuf buf) {
-    if (DataStreamPacketHeader.getSizeOfHeaderLen() > buf.readableBytes()) {
-      return null;
+          handleReply(reply);
+          current.getFuture().complete(null);
+          return null;
+        });
+      } catch (Exception e) {
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
+#### Snippet
+```java
+    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
+    static GrpcTlsConfig tlsConf(Parameters parameters) {
+      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
     }
-
+    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
 #### Snippet
 ```java
-    if (headerBufLen > buf.readableBytes()) {
-      buf.resetReaderIndex();
-      return null;
+    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
+    static GrpcTlsConfig tlsConf(Parameters parameters) {
+      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
     }
-
+    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
 #### Snippet
 ```java
-      } else {
-        buf.resetReaderIndex();
-        return null;
+    Class<GrpcTlsConfig> TLS_CONF_CLASS = TLS.CONF_CLASS;
+    static GrpcTlsConfig tlsConf(Parameters parameters) {
+      return parameters != null ? parameters.get(TLS_CONF_PARAMETER, TLS_CONF_CLASS): null;
+    }
+    static void setTlsConf(Parameters parameters, GrpcTlsConfig conf) {
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcConfigKeys.java`
+#### Snippet
+```java
+    Class<GrpcTlsConfig> CONF_CLASS = GrpcTlsConfig.class;
+    static GrpcTlsConfig conf(Parameters parameters) {
+      return parameters != null ? parameters.get(CONF_PARAMETER, CONF_CLASS): null;
+    }
+    static void setConf(Parameters parameters, GrpcTlsConfig conf) {
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
+#### Snippet
+```java
       }
-    } catch (InvalidProtocolBufferException e) {
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcLogAppender.java`
 #### Snippet
 ```java
-      LOG.error("Fail to decode reply header:", e);
-      buf.resetReaderIndex();
+    final long followerNextIndex = follower.getNextIndex();
+    if (followerNextIndex >= leaderNextIndex) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcLogAppender.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/raftlog/RaftLogSequentialOps.java`
+#### Snippet
+```java
+        } finally {
+          // prev is expected to be current
+          final Thread got = runner.getAndUpdate(prev -> prev != current? prev: null);
+          Preconditions.assertTrue(got == current,
+              () -> name + ": Unexpected runner " + got + " != " + current);
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachineStorage.java`
+#### Snippet
+```java
+  /** @return the temporary directory. */
+  default File getTmpDir() {
+    return null;
+  }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachineStorage.java`
+#### Snippet
+```java
+  /** @return the state machine directory. */
+  default File getSnapshotDir() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+#### Snippet
+```java
+        .collect(Collectors.toList());
+    final int size = list.size();
+    return size == 0? null: list.get(ThreadLocalRandom.current().nextInt(size));
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+#### Snippet
+```java
+  static <T> T random(Collection<T> elements) {
+    if (elements == null || elements.isEmpty()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
+#### Snippet
+```java
+     */
+    default Executor getExecutor() {
       return null;
     }
   }
@@ -6876,26 +6496,194 @@ in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftOutputStream.java`
 #### Snippet
 ```java
-  static <HEADER extends DataStreamPacketHeader> HEADER checkHeader(HEADER header, ByteBuf buf) {
-    if (header == null) {
-      return null;
-    }
-    if (buf.readableBytes() < header.getDataLength()) {
+        Message.valueOf(ProtoUtils.toByteString(buffer, 0, byteCount))
+    ).thenApply(reply -> RaftClientImpl.handleRaftException(reply, CompletionException::new)
+    ).thenApply(reply -> reply != null && reply.isSuccess()? pos: null);
+    flushFutures.offer(f);
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
 #### Snippet
 ```java
-    if (buf.readableBytes() < header.getDataLength()) {
-      buf.resetReaderIndex();
+      }
+      failAllAsyncRequests(request, e);
+      return null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/common/Runner.java`
+#### Snippet
+```java
+      return Arithmetic.getSubCommands();
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+  RaftClientReply handleLeaderException(RaftClientRequest request, RaftClientReply reply) {
+    if (reply == null || reply.getException() instanceof LeaderNotReadyException) {
       return null;
     }
-    return header;
+    final NotLeaderException nle = reply.getNotLeaderException();
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
+#### Snippet
+```java
+        : nle.getSuggestedLeader().getId();
+    handleIOException(request, nle, newLeader, handler);
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-client/src/main/java/org/apache/ratis/client/impl/ClientProtoUtils.java`
+#### Snippet
+```java
+  static RoutingTable getRoutingTable(RaftRpcRequestProto p) {
+    if (!p.hasRoutingTable()) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
+#### Snippet
+```java
+    }
+    if (proto.getRequestCase() != FileStoreRequestProto.RequestCase.WRITEHEADER) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
+#### Snippet
+```java
+    }
+    if (proto.getRequestCase() != FileStoreRequestProto.RequestCase.WRITEHEADER) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreStateMachine.java`
+#### Snippet
+```java
+        smLog.getStateMachineEntry().getStateMachineData());
+    // sync only if closing the file
+    return h.getClose()? f: null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/expression/NullValue.java`
+#### Snippet
+```java
+  @Override
+  public Double evaluate(Map<String, Double> variableMap) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
+#### Snippet
+```java
+
+    V increment() {
+      return refCount.incrementAndGet() > 0? value: null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
+#### Snippet
+```java
+
+  static <V> V get(Payload<V> p) {
+    return p == null ? null : p.get();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-metrics-dropwizard3/src/main/java/org/apache/ratis/metrics/dropwizard3/RefCountingMap.java`
+#### Snippet
+```java
+
+    Payload<V> decrement() {
+      return refCount.decrementAndGet() > 0? this: null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyUtils.java`
+#### Snippet
+```java
+  static SslContext buildSslContext(String name, TlsConf tlsConf, Function<TlsConf, SslContextBuilder> builder) {
+    if (tlsConf == null) {
+      return null;
+    }
+    final SslContext sslContext;
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/DisabledDataStreamServerFactory.java`
+#### Snippet
+```java
+      @Override
+      public InetSocketAddress getInetSocketAddress() {
+        return null;
+      }
+
 ```
 
 ### ReturnNull
@@ -6960,50 +6748,74 @@ in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyUtils.java`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
 #### Snippet
 ```java
-  static SslContext buildSslContext(String name, TlsConf tlsConf, Function<TlsConf, SslContextBuilder> builder) {
-    if (tlsConf == null) {
+  static <HEADER extends DataStreamPacketHeader> HEADER checkHeader(HEADER header, ByteBuf buf) {
+    if (header == null) {
       return null;
     }
-    final SslContext sslContext;
+    if (buf.readableBytes() < header.getDataLength()) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/DisabledDataStreamServerFactory.java`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
 #### Snippet
 ```java
-      @Override
-      public InetSocketAddress getInetSocketAddress() {
-        return null;
-      }
-
+    if (buf.readableBytes() < header.getDataLength()) {
+      buf.resetReaderIndex();
+      return null;
+    }
+    return header;
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
 #### Snippet
 ```java
-
-      final MemoizedSupplier<ChannelFuture> supplier = MemoizedSupplier.valueOf(this::connect);
-      final ChannelFuture previous = ref.getAndUpdate(prev -> prev == null? null: supplier.get());
-      if (previous != null) {
-        previous.channel().close();
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
-#### Snippet
-```java
-        previous.channel().close();
-      }
-      return supplier.isInitialized() ? supplier.get() : null;
+  static DataStreamReplyHeader decodeDataStreamReplyHeader(ByteBuf buf) {
+    if (DataStreamPacketHeader.getSizeOfHeaderLen() > buf.readableBytes()) {
+      return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+#### Snippet
+```java
+    if (headerBufLen > buf.readableBytes()) {
+      buf.resetReaderIndex();
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+#### Snippet
+```java
+      } else {
+        buf.resetReaderIndex();
+        return null;
+      }
+    } catch (InvalidProtocolBufferException e) {
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/NettyDataStreamUtils.java`
+#### Snippet
+```java
+      LOG.error("Fail to decode reply header:", e);
+      buf.resetReaderIndex();
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -7038,6 +6850,30 @@ in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc
       }
       ChannelFuture f = reconnect();
       return f == null ? null : f.syncUninterruptibly().channel();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+
+      final MemoizedSupplier<ChannelFuture> supplier = MemoizedSupplier.valueOf(this::connect);
+      final ChannelFuture previous = ref.getAndUpdate(prev -> prev == null? null: supplier.get());
+      if (previous != null) {
+        previous.channel().close();
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-netty/src/main/java/org/apache/ratis/netty/client/NettyClientStreamRpc.java`
+#### Snippet
+```java
+        previous.channel().close();
+      }
+      return supplier.isInitialized() ? supplier.get() : null;
     }
 
 ```
@@ -7095,18 +6931,6 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.java`
-#### Snippet
-```java
   RaftPeerRole contains(RaftPeerId id, EnumSet<RaftPeerRole> roles) {
     if (roles == null || roles.isEmpty()) {
       return peers.containsKey(id)? RaftPeerRole.FOLLOWER: null;
@@ -7128,24 +6952,12 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.ja
 
 ### ReturnNull
 Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.java`
 #### Snippet
 ```java
-  static <T> T random(Collection<T> elements) {
-    if (elements == null || elements.isEmpty()) {
-      return null;
+      }
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-common/src/main/java/org/apache/ratis/util/CollectionUtils.java`
-#### Snippet
-```java
-        .collect(Collectors.toList());
-    final int size = list.size();
-    return size == 0? null: list.get(ThreadLocalRandom.current().nextInt(size));
+    return null;
   }
 
 ```
@@ -7160,30 +6972,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/ReadIndexHeartbeats.
       return null;
     }
     return appendEntriesListeners.add(commitIndex, constructor);
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java`
-#### Snippet
-```java
-    private synchronized Permit putPermit() {
-      if (resource.isClosed()) {
-        return null;
-      }
-      final Permit permit = new Permit();
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java`
-#### Snippet
-```java
-      final Permit removed = permits.remove(permit);
-      if (removed == null) {
-        return null;
-      }
-      Preconditions.assertTrue(removed == permit);
 ```
 
 ### ReturnNull
@@ -7227,6 +7015,30 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java`
 #### Snippet
 ```java
+    private synchronized Permit putPermit() {
+      if (resource.isClosed()) {
+        return null;
+      }
+      final Permit permit = new Permit();
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java`
+#### Snippet
+```java
+      final Permit removed = permits.remove(permit);
+      if (removed == null) {
+        return null;
+      }
+      Preconditions.assertTrue(removed == permit);
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PendingRequests.java`
+#### Snippet
+```java
       LOG.debug("{}: PendingRequests.remove {} returns {}", name, index, r);
       if (r == null) {
         return null;
@@ -7244,18 +7056,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/util/ServerStringUtils.ja
       return null;
     }
     final String s;
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/util/ServerStringUtils.java`
-#### Snippet
-```java
-  public static String toRequestVoteReplyString(RequestVoteReplyProto proto) {
-    if (proto == null) {
-      return null;
-    }
-    return ProtoUtils.toString(proto.getServerReply()) + "-t" + proto.getTerm();
 ```
 
 ### ReturnNull
@@ -7287,47 +7087,23 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/util/ServerStringUtils.java`
 #### Snippet
 ```java
+  public static String toRequestVoteReplyString(RequestVoteReplyProto proto) {
+    if (proto == null) {
+      return null;
+    }
+    return ProtoUtils.toString(proto.getServerReply()) + "-t" + proto.getTerm();
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/util/ServerStringUtils.java`
+#### Snippet
+```java
   public static String toAppendEntriesReplyString(AppendEntriesReplyProto reply) {
     if (reply == null) {
       return null;
     }
     return ProtoUtils.toString(reply.getServerReply())
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
-#### Snippet
-```java
-  private TermIndex getPrevious(long nextIndex) {
-    if (nextIndex == RaftLog.LEAST_VALID_LOG_INDEX) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
-#### Snippet
-```java
-    }
-    if (buffer.isEmpty()) {
-      return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -7380,23 +7156,35 @@ in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderDefault
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImpl.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
 #### Snippet
 ```java
-  public RaftPeer getPeer(RaftPeerId id, RaftPeerRole... roles) {
-    if (id == null) {
+    }
+    if (buffer.isEmpty()) {
       return null;
     }
-    final RaftPeer peer = conf.getPeer(id, roles);
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImpl.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
 #### Snippet
 ```java
-      return oldConf.getPeer(id, roles);
+  private TermIndex getPrevious(long nextIndex) {
+    if (nextIndex == RaftLog.LEAST_VALID_LOG_INDEX) {
+      return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
+#### Snippet
+```java
+    }
+
     return null;
   }
 
@@ -7404,26 +7192,14 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImp
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/LogProtoUtils.java`
 #### Snippet
 ```java
-      if (!map.containsKey(groupId)) {
-        LOG.warn("{}: does not contain group: {}", getId(), groupId);
-        return null;
-      }
 
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
-#### Snippet
-```java
-  @Override
-  public GroupInfoReply getGroupInfo(GroupInfoRequest request) throws IOException {
-    return RaftServerImpl.waitForReply(getId(), request, getGroupInfoAsync(request), r -> null);
+  public static String toLogEntriesString(List<LogEntryProto> entries) {
+    return entries == null ? null
+        : entries.stream().map(LogProtoUtils::toLogEntryString).collect(Collectors.toList()).toString();
   }
-
 ```
 
 ### ReturnNull
@@ -7452,26 +7228,14 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/LogProtoUtils.jav
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/LogProtoUtils.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/memory/MemoryRaftLog.java`
 #### Snippet
 ```java
-
-  public static String toLogEntriesString(List<LogEntryProto> entries) {
-    return entries == null ? null
-        : entries.stream().map(LogProtoUtils::toLogEntryString).collect(Collectors.toList()).toString();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/metrics/RaftServerMetricsImpl.java`
-#### Snippet
-```java
-      return writeTimer;
-    }
-    return null;
-  }
-
+    try(AutoCloseableLock readLock = readLock()) {
+      if (startIndex >= entries.size()) {
+        return null;
+      }
+      final int from = Math.toIntExact(startIndex);
 ```
 
 ### ReturnNull
@@ -7488,14 +7252,38 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/memory/MemoryRaft
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/memory/MemoryRaftLog.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImpl.java`
 #### Snippet
 ```java
-    try(AutoCloseableLock readLock = readLock()) {
-      if (startIndex >= entries.size()) {
-        return null;
-      }
-      final int from = Math.toIntExact(startIndex);
+  public RaftPeer getPeer(RaftPeerId id, RaftPeerRole... roles) {
+    if (id == null) {
+      return null;
+    }
+    final RaftPeer peer = conf.getPeer(id, roles);
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftConfigurationImpl.java`
+#### Snippet
+```java
+      return oldConf.getPeer(id, roles);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/metrics/RaftServerMetricsImpl.java`
+#### Snippet
+```java
+      return writeTimer;
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -7508,6 +7296,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
       return null;
     }
     throw new IOException("Failed to get next entry from " + this, state.getThrowable());
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogReader.java`
+#### Snippet
+```java
+        LOG.trace("Ignoring the last partial written log entry in " + file , eof);
+      }
+      return null;
+    } catch (IOException e) {
+      in.reset();
 ```
 
 ### ReturnNull
@@ -7536,14 +7336,14 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogReader.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegmentPath.java`
 #### Snippet
 ```java
-        LOG.trace("Ignoring the last partial written log entry in " + file , eof);
       }
-      return null;
-    } catch (IOException e) {
-      in.reset();
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -7560,36 +7360,36 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegm
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegmentPath.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
 #### Snippet
 ```java
+  @Override
+  public GroupInfoReply getGroupInfo(GroupInfoRequest request) throws IOException {
+    return RaftServerImpl.waitForReply(getId(), request, getGroupInfoAsync(request), r -> null);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
+#### Snippet
+```java
+      if (!map.containsKey(groupId)) {
+        LOG.warn("{}: does not contain group: {}", getId(), groupId);
+        return null;
       }
-    }
-    return null;
-  }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
 #### Snippet
 ```java
-      return records.get(Math.toIntExact(index - startIndex));
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
-#### Snippet
-```java
-  TermIndex getLastTermIndex() {
-    LogRecord last = getLastRecord();
-    return last == null ? null : last.getTermIndex();
+  LogRecord getLogRecord(long index) {
+    LogSegment segment = getSegment(index);
+    return segment == null ? null : segment.getLogRecord(index);
   }
 
 ```
@@ -7608,6 +7408,66 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegm
 
 ### ReturnNull
 Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
+#### Snippet
+```java
+                  + segmentIndex + ", segments=" + segments);
+        }
+        return list.isEmpty() ? null : new TruncationSegments(null, list);
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
+#### Snippet
+```java
+  TermIndex getLastTermIndex() {
+    LogRecord last = getLastRecord();
+    return last == null ? null : last.getTermIndex();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
+#### Snippet
+```java
+      return (openSegment != null && openSegment.numOfEntries() > 0) ?
+          openSegment.getLastTermIndex() :
+          (closedSegments.isEmpty() ? null :
+              closedSegments.get(closedSegments.size() - 1).getLastTermIndex());
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
+#### Snippet
+```java
+      return records.get(Math.toIntExact(index - startIndex));
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
+#### Snippet
+```java
+      try(AutoCloseableLock readLock = readLock()) {
+        final int i = Collections.binarySearch(segments, index);
+        return i < 0? null: segments.get(i);
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
 #### Snippet
 ```java
@@ -7616,6 +7476,30 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegm
       return null;
     } else if (file.length() > segment.getTotalFileSize()) {
       // The segment has extra padding, truncate it.
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
+#### Snippet
+```java
+          return new TruncationSegments(t, list);
+        }
+        return null;
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
+#### Snippet
+```java
+    LogSegment getLast() {
+      try(AutoCloseableLock readLock = readLock()) {
+        return segments.isEmpty()? null: segments.get(segments.size() - 1);
+      }
+    }
 ```
 
 ### ReturnNull
@@ -7640,102 +7524,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/storage/RaftStorageImpl.j
       return null;
     }
   }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-    LogSegment getLast() {
-      try(AutoCloseableLock readLock = readLock()) {
-        return segments.isEmpty()? null: segments.get(segments.size() - 1);
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-      return (openSegment != null && openSegment.numOfEntries() > 0) ?
-          openSegment.getLastTermIndex() :
-          (closedSegments.isEmpty() ? null :
-              closedSegments.get(closedSegments.size() - 1).getLastTermIndex());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-  LogRecord getLogRecord(long index) {
-    LogSegment segment = getSegment(index);
-    return segment == null ? null : segment.getLogRecord(index);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-                  + segmentIndex + ", segments=" + segments);
-        }
-        return list.isEmpty() ? null : new TruncationSegments(null, list);
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-          return new TruncationSegments(t, list);
-        }
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
-#### Snippet
-```java
-      try(AutoCloseableLock readLock = readLock()) {
-        final int i = Collections.binarySearch(segments, index);
-        return i < 0? null: segments.get(i);
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/BaseStateMachine.java`
-#### Snippet
-```java
-      @Override
-      public SnapshotInfo getLatestSnapshot() {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/BaseStateMachine.java`
-#### Snippet
-```java
-
-  public RaftPeerId getId() {
-    return server.isDone()? server.join().getId(): null;
-  }
-
 ```
 
 ### ReturnNull
@@ -7767,18 +7555,6 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLog.java`
 #### Snippet
 ```java
-
-    default long[] getFollowerNextIndices() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLog.java`
-#### Snippet
-```java
     try(AutoCloseableLock readLock = readLock()) {
       LogRecord record = cache.getLogRecord(index);
       return record != null ? record.getTermIndex() : null;
@@ -7788,13 +7564,37 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/SimpleStateMachineStorage.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLog.java`
 #### Snippet
 ```java
-    final Iterator<SingleFileSnapshotInfo> i = getSingleFileSnapshotInfos(dir).iterator();
-    if (!i.hasNext()) {
+
+    default long[] getFollowerNextIndices() {
       return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/BaseStateMachine.java`
+#### Snippet
+```java
+
+  public RaftPeerId getId() {
+    return server.isDone()? server.join().getId(): null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/BaseStateMachine.java`
+#### Snippet
+```java
+      @Override
+      public SnapshotInfo getLatestSnapshot() {
+        return null;
+      }
 
 ```
 
@@ -7824,26 +7624,50 @@ in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/SimpleStateMac
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+in `ratis-server/src/main/java/org/apache/ratis/statemachine/impl/SimpleStateMachineStorage.java`
 #### Snippet
 ```java
-        LOG.warn("{} send StartLeaderElectionRequest throw exception", this, e);
-      }
+    final Iterator<SingleFileSnapshotInfo> i = getSingleFileSnapshotInfos(dir).iterator();
+    if (!i.hasNext()) {
       return null;
-    });
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
+#### Snippet
+```java
+
+    Payload<V> decrement() {
+      return refCount.decrementAndGet() > 0? this: null;
+    }
   }
 ```
 
 ### ReturnNull
 Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
 #### Snippet
 ```java
-        if (isStopped.get()) {
-          LOG.info(s + " gracefully");
-          return null;
-        } else {
-          throw new IllegalStateException(s + " UNEXPECTEDLY", ie);
+
+  static <V> V get(Payload<V> p) {
+    return p == null ? null : p.get();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-metrics-default/src/main/java/org/apache/ratis/metrics/impl/RefCountingMap.java`
+#### Snippet
+```java
+
+    V increment() {
+      return refCount.incrementAndGet() > 0? value: null;
+    }
+
 ```
 
 ### ReturnNull
@@ -7851,22 +7675,10 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
-      }
     }
+
     return null;
   }
-
-```
-
-### ReturnNull
-Return of `null`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
-    final long replyNextIndex = checkInconsistentAppendEntries(previous, entries);
-    if (replyNextIndex == -1) {
-      return null;
-    }
 
 ```
 
@@ -7887,8 +7699,8 @@ Return of `null`
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
+      }
     }
-
     return null;
   }
 
@@ -7904,6 +7716,42 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
         return null;
       }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+    final long replyNextIndex = checkInconsistentAppendEntries(previous, entries);
+    if (replyNextIndex == -1) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+        LOG.warn("{} send StartLeaderElectionRequest throw exception", this, e);
+      }
+      return null;
+    });
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/LeaderStateImpl.java`
+#### Snippet
+```java
+        if (isStopped.get()) {
+          LOG.info(s + " gracefully");
+          return null;
+        } else {
+          throw new IllegalStateException(s + " UNEXPECTEDLY", ie);
 ```
 
 ## RuleId[id=AssignmentToLambdaParameter]
@@ -7936,11 +7784,11 @@ Assignment to lambda parameter `e`
 in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
 #### Snippet
 ```java
-    }).exceptionally(e -> {
-      if (e instanceof CompletionException) {
-        e = JavaUtils.unwrapCompletionException(e);
-        scheduleWithTimeout(pending, request, retryPolicy, e);
-        return null;
+        LOG.debug("{}: Failed* {} with {}", client.getId(), request, e);
+      }
+      e = JavaUtils.unwrapCompletionException(e);
+      if (e instanceof IOException && !(e instanceof GroupMismatchException)) {
+        pending.incrementExceptionCount(e);
 ```
 
 ### AssignmentToLambdaParameter
@@ -7948,11 +7796,11 @@ Assignment to lambda parameter `e`
 in `ratis-client/src/main/java/org/apache/ratis/client/impl/OrderedAsync.java`
 #### Snippet
 ```java
-        LOG.debug("{}: Failed* {} with {}", client.getId(), request, e);
-      }
-      e = JavaUtils.unwrapCompletionException(e);
-      if (e instanceof IOException && !(e instanceof GroupMismatchException)) {
-        pending.incrementExceptionCount(e);
+    }).exceptionally(e -> {
+      if (e instanceof CompletionException) {
+        e = JavaUtils.unwrapCompletionException(e);
+        scheduleWithTimeout(pending, request, retryPolicy, e);
+        return null;
 ```
 
 ### AssignmentToLambdaParameter
@@ -7969,15 +7817,15 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `r` is redundant
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolClient.java`
+Local variable `throwable` is redundant
+in `ratis-common/src/main/java/org/apache/ratis/util/LogUtils.java`
 #### Snippet
 ```java
-
-  public StartLeaderElectionReplyProto startLeaderElection(StartLeaderElectionRequestProto request) {
-    StartLeaderElectionReplyProto r =
-        blockingStub.withDeadlineAfter(requestTimeoutDuration.getDuration(), requestTimeoutDuration.getUnit())
-            .startLeaderElection(request);
+        log.warn("Failed to " + name.get() + ": " + e);
+      }
+      final THROWABLE throwable = JavaUtils.cast(e);
+      throw throwable;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -7993,14 +7841,14 @@ in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolClie
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `throwable` is redundant
-in `ratis-common/src/main/java/org/apache/ratis/util/LogUtils.java`
+Local variable `r` is redundant
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/server/GrpcServerProtocolClient.java`
 #### Snippet
 ```java
-        log.warn("Failed to " + name.get() + ": " + e);
-      }
-      final THROWABLE throwable = JavaUtils.cast(e);
-      throw throwable;
-    }
+
+  public StartLeaderElectionReplyProto startLeaderElection(StartLeaderElectionRequestProto request) {
+    StartLeaderElectionReplyProto r =
+        blockingStub.withDeadlineAfter(requestTimeoutDuration.getDuration(), requestTimeoutDuration.getUnit())
+            .startLeaderElection(request);
 ```
 
