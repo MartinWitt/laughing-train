@@ -237,6 +237,18 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+    private volatile long id = -1;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
 
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
@@ -254,18 +266,6 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
-    private volatile long id = -1;
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
