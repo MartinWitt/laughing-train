@@ -6,11 +6,11 @@ I found 20 bad smells with 1 repairable:
 | --- | --- | --- |
 | UNUSED_IMPORT | 14 | false |
 | ReturnNull | 1 | false |
-| MissingDeprecatedAnnotation | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
+| MissingDeprecatedAnnotation | 1 | false |
 | BoundedWildcard | 1 | false |
-| EqualsWhichDoesntCheckParameterClass | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -24,19 +24,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventLis
         return new SimpleCredentials(username, password);
 ```
 
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
-#### Snippet
-```java
- */
-@Component
-public class AsyncEventDispatcher {
-
-    private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
-```
-
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `EventNames` has only 'static' members, and lacks a 'private' constructor
@@ -48,6 +35,19 @@ public class WebhooksManager {
     public static final class EventNames {
         public static final String AGENT_REGISTRED = "AGENT_REGISTRED";
         public static final String AGENT_UNREGISTERED = "AGENT_UNREGISTERED";
+```
+
+## RuleId[id=MissingDeprecatedAnnotation]
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+#### Snippet
+```java
+ */
+@Component
+public class AsyncEventDispatcher {
+
+    private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -232,19 +232,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
             handle(event);
 ```
 
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
-#### Snippet
-```java
-
-            @Override
-            public boolean equals(Object obj) {
-                return listener.equals(obj);
-            }
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'AsyncEventDispatcher' is still used
@@ -256,5 +243,18 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 public class AsyncEventDispatcher {
 
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+```
+
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+#### Snippet
+```java
+
+            @Override
+            public boolean equals(Object obj) {
+                return listener.equals(obj);
+            }
 ```
 
