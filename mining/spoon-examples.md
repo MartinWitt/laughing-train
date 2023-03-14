@@ -335,18 +335,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 
 ### BoundedWildcard
 Can generalize to `? extends CtLocalVariable`
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unchecked")
-	public void instrument(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
-		ctLocalVariables.forEach(ctLocalVariable -> this.instrument(testMethod, ctLocalVariable));
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtLocalVariable`
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
 #### Snippet
 ```java
@@ -355,6 +343,18 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.
 	public void addAssertion(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
 		ctLocalVariables.forEach(ctLocalVariable -> this.addAssertion(testMethod, ctLocalVariable));
 		System.out.println(testMethod);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtLocalVariable`
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unchecked")
+	public void instrument(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
+		ctLocalVariables.forEach(ctLocalVariable -> this.instrument(testMethod, ctLocalVariable));
+	}
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -497,6 +497,18 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+				throw new MutantNotKilledException();
+			} catch (AssertionError expected) {
+				System.out.println("mutant killed!");
+			}
+		}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/analysis/PatternTest.java`
 #### Snippet
 ```java
@@ -521,18 +533,6 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/PatternTest.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-				throw new MutantNotKilledException();
-			} catch (AssertionError expected) {
-				System.out.println("mutant killed!");
-			}
-		}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/SecondTest.java`
 #### Snippet
 ```java
@@ -545,30 +545,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/SecondTest.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
-#### Snippet
-```java
-	public boolean compile() {
-		File target = compiler.getSourceOutputDirectory();
-		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
-		return compile;
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
-#### Snippet
-```java
-	public boolean compile() {
-		File target = compiler.getSourceOutputDirectory();
-		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
-		return compile;
-	}
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/fr/inria/gforge/spoon/HelloWorldProcessor.java`
 #### Snippet
 ```java
@@ -577,6 +553,54 @@ in `src/main/java/fr/inria/gforge/spoon/HelloWorldProcessor.java`
 		System.out.println(getFactory().Class().get(getClass().getCanonicalName()).getField("msg").getDefaultExpression());
 	}
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
+#### Snippet
+```java
+	public boolean compile() {
+		File target = compiler.getSourceOutputDirectory();
+		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
+		return compile;
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
+#### Snippet
+```java
+	public boolean compile() {
+		File target = compiler.getSourceOutputDirectory();
+		final boolean compile = Main.compile(new String[]{"-1.7 " , "-proc:none", target.toString()}, new PrintWriter(System.out), new PrintWriter(System.out),null);
+		return compile;
+	}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
+#### Snippet
+```java
+	public void addAssertion(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
+		ctLocalVariables.forEach(ctLocalVariable -> this.addAssertion(testMethod, ctLocalVariable));
+		System.out.println(testMethod);
+	}
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
+#### Snippet
+```java
+		instrument(clone, localVariables);
+		testClass.addMethod(clone);
+		System.out.println(clone);
+		run(launcher, testClass, clone);
+		testClass.removeMethod(clone);
 ```
 
 ### SystemOutErr
@@ -649,30 +673,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 	  System.out.println("yes y.m()="+y.m());
   }
 }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
-#### Snippet
-```java
-		instrument(clone, localVariables);
-		testClass.addMethod(clone);
-		System.out.println(clone);
-		run(launcher, testClass, clone);
-		testClass.removeMethod(clone);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
-#### Snippet
-```java
-	public void addAssertion(CtMethod<?> testMethod, List<CtLocalVariable> ctLocalVariables) {
-		ctLocalVariables.forEach(ctLocalVariable -> this.addAssertion(testMethod, ctLocalVariable));
-		System.out.println(testMethod);
-	}
-
 ```
 
 ## RuleId[id=DefaultAnnotationParam]
@@ -955,6 +955,31 @@ import spoon.reflect.factory.Factory;
 import java.lang.annotation.Annotation;
 ```
 
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
+#### Snippet
+```java
+                        return true;
+                    }
+                } while ((current = current.getSuperclass()) != null);
+                return false;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
+#### Snippet
+```java
+		long count = 0;
+		int n = 0;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+			count += n;
+```
+
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -1052,31 +1077,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/template/DBCodeT
         }
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/transformation/spoonerism/Spoonerism.java`
-#### Snippet
-```java
-                        return true;
-                    }
-                } while ((current = current.getSuperclass()) != null);
-                return false;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/fr/inria/gforge/spoon/utils/IOUtils.java`
-#### Snippet
-```java
-		long count = 0;
-		int n = 0;
-		while (-1 != (n = input.read(buffer))) {
-			output.write(buffer, 0, n);
-			count += n;
-```
-
 ## RuleId[id=SamePackageImport]
 ### SamePackageImport
 Unnecessary import from the same package `import fr.inria.gforge.spoon.analysis.CatchProcessor;`
@@ -1118,7 +1118,7 @@ class TestListener extends RunListener {
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-11-04-23-05.212.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-08-12-34.425.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1135,7 +1135,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getLastName() {
+    public String getFirstName() {
         return null;
     }
 
@@ -1147,7 +1147,7 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/dbaccess/src/Person.java`
 #### Snippet
 ```java
 
-    public String getFirstName() {
+    public String getLastName() {
         return null;
     }
 
