@@ -27,79 +27,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsProps.java`
             return "org:" + sanitized;
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-
-    static boolean isFailOnVersionConflict(Configuration conf) {
-        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
-                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
-                                conf.getResolutionStrategy())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-    static boolean isFailOnVersionConflict(Configuration conf) {
-        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
-                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
-                                conf.getResolutionStrategy())
-                        .getConflictResolution();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-                                conf.getResolutionStrategy())
-                        .getConflictResolution();
-        return conflictResolution == org.gradle.api.internal.artifacts.configurations.ConflictResolution.strict;
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    static <T> ListProperty<T> fixListProperty(ListProperty<T> property) {
-        Class<?> propertyInternalClass = org.gradle.api.internal.provider.CollectionPropertyInternal.class;
-        return (ListProperty<T>) Proxy.newProxyInstance(
-                GradleWorkarounds.class.getClassLoader(),
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-        return (ListProperty<T>) Proxy.newProxyInstance(
-                GradleWorkarounds.class.getClassLoader(),
-                new Class<?>[] {org.gradle.api.internal.provider.CollectionProviderInternal.class, ListProperty.class},
-                (_proxy, method, args) -> {
-                    // Find matching method on CollectionPropertyInternal
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-                    // org.gradle.api.internal.provider.CollectionProviderInternal
-                    if (method.getDeclaringClass()
-                            == org.gradle.api.internal.provider.CollectionProviderInternal.class) {
-                        if (method.getName().equals("getElementType")) {
-                            // Proxy to `propertyInternalClass` which we know DefaultListProperty implements.
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getGroup` may produce `NullPointerException`
@@ -185,6 +112,79 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             }
 ```
 
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+
+    static boolean isFailOnVersionConflict(Configuration conf) {
+        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
+                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
+                                conf.getResolutionStrategy())
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+    static boolean isFailOnVersionConflict(Configuration conf) {
+        org.gradle.api.internal.artifacts.configurations.ConflictResolution conflictResolution =
+                ((org.gradle.api.internal.artifacts.configurations.ResolutionStrategyInternal)
+                                conf.getResolutionStrategy())
+                        .getConflictResolution();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.artifacts.configurations` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+                                conf.getResolutionStrategy())
+                        .getConflictResolution();
+        return conflictResolution == org.gradle.api.internal.artifacts.configurations.ConflictResolution.strict;
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    static <T> ListProperty<T> fixListProperty(ListProperty<T> property) {
+        Class<?> propertyInternalClass = org.gradle.api.internal.provider.CollectionPropertyInternal.class;
+        return (ListProperty<T>) Proxy.newProxyInstance(
+                GradleWorkarounds.class.getClassLoader(),
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+        return (ListProperty<T>) Proxy.newProxyInstance(
+                GradleWorkarounds.class.getClassLoader(),
+                new Class<?>[] {org.gradle.api.internal.provider.CollectionProviderInternal.class, ListProperty.class},
+                (_proxy, method, args) -> {
+                    // Find matching method on CollectionPropertyInternal
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.gradle.api.internal.provider` is unnecessary, and can be replaced with an import
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+                    // org.gradle.api.internal.provider.CollectionProviderInternal
+                    if (method.getDeclaringClass()
+                            == org.gradle.api.internal.provider.CollectionProviderInternal.class) {
+                        if (method.getName().equals("getElementType")) {
+                            // Proxy to `propertyInternalClass` which we know DefaultListProperty implements.
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -213,18 +213,6 @@ in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends FullLockState`
-in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
-#### Snippet
-```java
-    }
-
-    public final void fullLockState(Provider<FullLockState> provider) {
-        this.fullLockState.set(provider);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/palantir/gradle/versions/GradleComparators.java`
 #### Snippet
@@ -233,6 +221,18 @@ in `src/main/java/com/palantir/gradle/versions/GradleComparators.java`
 
     static <A, T> Optional<T> tryCast(Class<T> to, A value) {
         return to.isInstance(value) ? Optional.of(to.cast(value)) : Optional.empty();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends FullLockState`
+in `src/main/java/com/palantir/gradle/versions/WhyDependencyTask.java`
+#### Snippet
+```java
+    }
+
+    public final void fullLockState(Provider<FullLockState> provider) {
+        this.fullLockState.set(provider);
     }
 ```
 
@@ -273,15 +273,15 @@ in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ScopeConfigurer`
+Can generalize to `? super String`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
 #### Snippet
 ```java
-    }
+        private final SetProperty<String> configurations;
 
-    public final void test(Action<ScopeConfigurer> action) {
-        action.execute(testConfigurer);
-    }
+        public ScopeConfigurer(SetProperty<String> configurations) {
+            this.configurations = configurations;
+        }
 ```
 
 ### BoundedWildcard
@@ -297,15 +297,15 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? super ScopeConfigurer`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockExtension.java`
 #### Snippet
 ```java
-        private final SetProperty<String> configurations;
+    }
 
-        public ScopeConfigurer(SetProperty<String> configurations) {
-            this.configurations = configurations;
-        }
+    public final void test(Action<ScopeConfigurer> action) {
+        action.execute(testConfigurer);
+    }
 ```
 
 ### BoundedWildcard
@@ -333,15 +333,15 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ResolvedComponentResult`
+Can generalize to `? extends DependencyConstraint`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-    private static GcvScope getScope(
-            ResolvedComponentResult component,
-            Map<ResolvedComponentResult, GcvScope> scopeCache,
-            DirectDependencyScopes directDependencyScopes) {
-        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
+            Project subproject,
+            ProjectDependency locksDependency,
+            List<DependencyConstraint> publishableConstraints,
+            LockedConfigurations lockedConfigurations) {
+        Configuration locksConfiguration = subproject
 ```
 
 ### BoundedWildcard
@@ -354,18 +354,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
             Map<Configuration, String> copiedConfigurationsCache,
             DirectDependencyScopes.Builder dependencyScopes,
             GcvScope scope) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyConstraint`
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-            Project subproject,
-            ProjectDependency locksDependency,
-            List<DependencyConstraint> publishableConstraints,
-            LockedConfigurations lockedConfigurations) {
-        Configuration locksConfiguration = subproject
 ```
 
 ### BoundedWildcard
@@ -392,19 +380,19 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
     }
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `MyModuleVersionIdentifier` has no concrete subclass
-in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
+### BoundedWildcard
+Can generalize to `? super ResolvedComponentResult`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-@Value.Immutable
-@ImmutablesStyle
-public abstract class MyModuleVersionIdentifier implements ModuleVersionIdentifier {
-
-    public static MyModuleVersionIdentifier copyOf(ModuleVersionIdentifier moduleVersion) {
+    private static GcvScope getScope(
+            ResolvedComponentResult component,
+            Map<ResolvedComponentResult, GcvScope> scopeCache,
+            DirectDependencyScopes directDependencyScopes) {
+        Optional<GcvScope> cached = Optional.ofNullable(scopeCache.get(component));
 ```
 
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `MyModuleIdentifier` has no concrete subclass
 in `src/main/java/com/palantir/gradle/versions/internal/MyModuleIdentifier.java`
@@ -415,6 +403,18 @@ in `src/main/java/com/palantir/gradle/versions/internal/MyModuleIdentifier.java`
 public abstract class MyModuleIdentifier implements ModuleIdentifier {
     @Override
     @Parameter
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MyModuleVersionIdentifier` has no concrete subclass
+in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutablesStyle
+public abstract class MyModuleVersionIdentifier implements ModuleVersionIdentifier {
+
+    public static MyModuleVersionIdentifier copyOf(ModuleVersionIdentifier moduleVersion) {
 ```
 
 ### AbstractClassNeverImplemented
@@ -483,6 +483,18 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 #### Snippet
 ```java
+                });
+
+        project.getConfigurations().configureEach(conf -> {
+            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+#### Snippet
+```java
 
     private static void configureResolvedVersionsWithVersionMapping(Project project) {
         project.getPluginManager().withPlugin("maven-publish", _plugin -> {
@@ -500,30 +512,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
                     .configureEach(publication -> publication.versionMapping(mapping -> {
                         mapping.allVariants(VariantVersionMappingStrategy::fromResolutionResult);
                     }));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
-#### Snippet
-```java
-                });
-
-        project.getConfigurations().configureEach(conf -> {
-            setupConfiguration(project, extension, rootConfiguration.get(), versionsProps, conf);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
-        if (rootProject != project) {
-            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
-                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
-            });
 ```
 
 ### CodeBlock2Expr
@@ -622,6 +610,18 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
                     RecommendationProviderContainer container =
 ```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        // Parallel 'resolveConfigurations' sometimes breaks unless we force the root one to run first.
+        if (rootProject != project) {
+            project.getPluginManager().withPlugin("com.palantir.configuration-resolver", _plugin -> {
+                project.getTasks().named("resolveConfigurations", task -> task.mustRunAfter(":resolveConfigurations"));
+            });
+```
+
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
@@ -636,6 +636,18 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 ```
 
 ## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
+in `src/main/java/com/palantir/gradle/versions/TaskNameMatcher.java`
+#### Snippet
+```java
+        }
+
+        return Streams.zip(fullTaskNameParts.stream(), taskNameParts.stream(), String::startsWith)
+                .allMatch(bool -> bool);
+    }
+```
+
 ### UnstableApiUsage
 'com.google.common.hash.Hasher' is marked unstable with @Beta
 in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
@@ -685,18 +697,6 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 ```
 
 ### UnstableApiUsage
-'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
-in `src/main/java/com/palantir/gradle/versions/TaskNameMatcher.java`
-#### Snippet
-```java
-        }
-
-        return Streams.zip(fullTaskNameParts.stream(), taskNameParts.stream(), String::startsWith)
-                .allMatch(bool -> bool);
-    }
-```
-
-### UnstableApiUsage
 'isConfigureOnDemand()' is marked unstable with @Incubating
 in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 #### Snippet
@@ -713,11 +713,11 @@ in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-                        unifiedClasspath.getIncoming().getResolutionResult();
-                // Throw if there are dependencies that are not present in the lock state.
-                if (startParameter.isConfigureOnDemand()
-                        && project.getAllprojects().stream()
-                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
+    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
+        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
+            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
+                    && !subproject.getState().getExecuted()) {
+                return ImmutableLockedConfigurations.builder().build();
 ```
 
 ### UnstableApiUsage
@@ -725,10 +725,10 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
-        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
-            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
-                    && !subproject.getState().getExecuted()) {
-                return ImmutableLockedConfigurations.builder().build();
+                        unifiedClasspath.getIncoming().getResolutionResult();
+                // Throw if there are dependencies that are not present in the lock state.
+                if (startParameter.isConfigureOnDemand()
+                        && project.getAllprojects().stream()
+                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
 ```
 
