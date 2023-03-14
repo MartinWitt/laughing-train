@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 40 bad smells with 4 repairable:
+I found 39 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,7 +18,6 @@ I found 40 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
@@ -190,18 +189,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
-#### Snippet
-```java
-                }
-                indent(sb, newindent);
-                sb.append(quote(o.toString()));
-                sb.append(": ");
-                sb.append(valueToString(v,
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
 #### Snippet
 ```java
@@ -210,6 +197,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java
                 obj.add(resource.getName(), value.toString());
             } else {
                 final String[] values = resource.adaptTo(String[].class);
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
+#### Snippet
+```java
+                }
+                indent(sb, newindent);
+                sb.append(quote(o.toString()));
+                sb.append(": ");
+                sb.append(valueToString(v,
 ```
 
 ### StringOperationCanBeSimplified
@@ -277,18 +276,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `response`
-in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
-#### Snippet
-```java
-            IOException {
-
-        response = new HeadServletResponse(response);
-        doGet(request, response);
-    }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `currentLevel`
 in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
 #### Snippet
@@ -298,6 +285,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
                 currentLevel++;
                 currentQueue = nextQueue;
                 nextQueue = new LinkedList<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `response`
+in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
+#### Snippet
+```java
+            IOException {
+
+        response = new HeadServletResponse(response);
+        doGet(request, response);
+    }
 ```
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
@@ -372,19 +371,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                 return null;
             }
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-01-47-12.990.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -505,18 +491,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `targetPath` is always 'null'
-in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
-#### Snippet
-```java
-        // no way of finding the target, just fail
-        response.sendError(HttpServletResponse.SC_NOT_FOUND,
-            "Cannot redirect to target resource " + targetPath);
-    }
-
-```
-
-### ConstantValue
 Condition `selectors != null` is always `true`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 #### Snippet
@@ -526,5 +500,17 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
         if (selectors != null && selectors.length > 0) {
             final String level = selectors[selectors.length - 1];
             if(!TIDY.equals(level) && !HARRAY.equals(level)) {
+```
+
+### ConstantValue
+Value `targetPath` is always 'null'
+in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
+#### Snippet
+```java
+        // no way of finding the target, just fail
+        response.sendError(HttpServletResponse.SC_NOT_FOUND,
+            "Cannot redirect to target resource " + targetPath);
+    }
+
 ```
 
