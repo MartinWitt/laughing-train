@@ -40,8 +40,8 @@ I found 211 bad smells with 23 repairable:
 | AssignmentToForLoopParameter | 1 | false |
 | BoundedWildcard | 1 | false |
 | StringEqualsEmptyString | 1 | false |
-| ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | NestedAssignment | 1 | false |
+| ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | NonExceptionNameEndsWithException | 1 | false |
@@ -130,6 +130,127 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMon
         public default long getCollectionCount()
         {
             return 0;
+```
+
+## RuleId[id=MarkedForRemoval]
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
+#### Snippet
+```java
+package org.eclipse.jetty.toolchain.test.policy;
+
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
+#### Snippet
+```java
+    public boolean testReadSystemProperty( String property ) throws Exception
+    {
+        AccessController.doPrivileged( new TestAction( property ) );
+       
+        return true;
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
+#### Snippet
+```java
+    public boolean testReadSystemProperty( String property ) throws Exception
+    {
+        AccessController.doPrivileged( new TestAction( property ) );
+       
+        return true;
+```
+
+### MarkedForRemoval
+'org.eclipse.jetty.toolchain.test.IO.SafeFileFilter' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+        URI baseURI = baseDir.toURI();
+
+        for (File file : srcDir.listFiles(IO.SafeFileFilter.INSTANCE))
+        {
+            if (file.isDirectory())
+```
+
+### MarkedForRemoval
+'org.eclipse.jetty.toolchain.test.IO.SafeFileFilter' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+        URI baseURI = baseDir.toURI();
+
+        for (File file : srcDir.listFiles(IO.SafeFileFilter.INSTANCE))
+        {
+            if (file.isDirectory())
+```
+
+### MarkedForRemoval
+'org.eclipse.jetty.toolchain.test.PathAssert' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+    public static void unpack(File jarFile, File destDir) throws IOException
+    {
+        PathAssert.assertFileExists("Jar File", jarFile);
+        PathAssert.assertDirExists("Destination Path", destDir);
+
+```
+
+### MarkedForRemoval
+'assertFileExists(java.lang.String, java.io.File)' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+    public static void unpack(File jarFile, File destDir) throws IOException
+    {
+        PathAssert.assertFileExists("Jar File", jarFile);
+        PathAssert.assertDirExists("Destination Path", destDir);
+
+```
+
+### MarkedForRemoval
+'org.eclipse.jetty.toolchain.test.PathAssert' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+    {
+        PathAssert.assertFileExists("Jar File", jarFile);
+        PathAssert.assertDirExists("Destination Path", destDir);
+
+        JarFile jar = null;
+```
+
+### MarkedForRemoval
+'assertDirExists(java.lang.String, java.io.File)' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+    {
+        PathAssert.assertFileExists("Jar File", jarFile);
+        PathAssert.assertDirExists("Destination Path", destDir);
+
+        JarFile jar = null;
+```
+
+### MarkedForRemoval
+'ensureDirExists(java.io.File)' is deprecated and marked for removal
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
+#### Snippet
+```java
+                if (entry.isDirectory())
+                {
+                    FS.ensureDirExists(destFile);
+                }
+                else
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -265,127 +386,6 @@ public final class MavenPaths
     private static Path basePath;
 ```
 
-## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
-#### Snippet
-```java
-    public boolean testReadSystemProperty( String property ) throws Exception
-    {
-        AccessController.doPrivileged( new TestAction( property ) );
-       
-        return true;
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
-#### Snippet
-```java
-    public boolean testReadSystemProperty( String property ) throws Exception
-    {
-        AccessController.doPrivileged( new TestAction( property ) );
-       
-        return true;
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
-#### Snippet
-```java
-package org.eclipse.jetty.toolchain.test.policy;
-
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-
-```
-
-### MarkedForRemoval
-'org.eclipse.jetty.toolchain.test.IO.SafeFileFilter' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-        URI baseURI = baseDir.toURI();
-
-        for (File file : srcDir.listFiles(IO.SafeFileFilter.INSTANCE))
-        {
-            if (file.isDirectory())
-```
-
-### MarkedForRemoval
-'org.eclipse.jetty.toolchain.test.IO.SafeFileFilter' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-        URI baseURI = baseDir.toURI();
-
-        for (File file : srcDir.listFiles(IO.SafeFileFilter.INSTANCE))
-        {
-            if (file.isDirectory())
-```
-
-### MarkedForRemoval
-'org.eclipse.jetty.toolchain.test.PathAssert' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-    public static void unpack(File jarFile, File destDir) throws IOException
-    {
-        PathAssert.assertFileExists("Jar File", jarFile);
-        PathAssert.assertDirExists("Destination Path", destDir);
-
-```
-
-### MarkedForRemoval
-'assertFileExists(java.lang.String, java.io.File)' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-    public static void unpack(File jarFile, File destDir) throws IOException
-    {
-        PathAssert.assertFileExists("Jar File", jarFile);
-        PathAssert.assertDirExists("Destination Path", destDir);
-
-```
-
-### MarkedForRemoval
-'org.eclipse.jetty.toolchain.test.PathAssert' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-    {
-        PathAssert.assertFileExists("Jar File", jarFile);
-        PathAssert.assertDirExists("Destination Path", destDir);
-
-        JarFile jar = null;
-```
-
-### MarkedForRemoval
-'assertDirExists(java.lang.String, java.io.File)' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-    {
-        PathAssert.assertFileExists("Jar File", jarFile);
-        PathAssert.assertDirExists("Destination Path", destDir);
-
-        JarFile jar = null;
-```
-
-### MarkedForRemoval
-'ensureDirExists(java.io.File)' is deprecated and marked for removal
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/JAR.java`
-#### Snippet
-```java
-                if (entry.isDirectory())
-                {
-                    FS.ensureDirExists(destFile);
-                }
-                else
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `srcDir.listFiles(IO.SafeFileFilter.INSTANCE)` may produce `NullPointerException`
@@ -476,14 +476,14 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/StringMangl
 
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `reserved`
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/RequireDebianCompatibleVersionRule.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/RequireRedhatCompatibleVersionRule.java`
 #### Snippet
 ```java
+        }
 
-        // Architecture IDs 
         String reserved[] =
-        { "all", "i386", "i486", "i586", "i686", "pentium", "athlon", "ia64", "x86_64", "amd64", "ia32", "alpha", "sparc", "m68k", "ppc", "hppa", "arm" };
-
+        {
+                // Special IDs 
 ```
 
 ### CStyleArrayDeclaration
@@ -511,6 +511,18 @@ in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/SourceFetchExten
 ```
 
 ### CStyleArrayDeclaration
+C-style array declaration of local variable `reserved`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/RequireDebianCompatibleVersionRule.java`
+#### Snippet
+```java
+
+        // Architecture IDs 
+        String reserved[] =
+        { "all", "i386", "i486", "i586", "i686", "pentium", "athlon", "ia64", "x86_64", "amd64", "ia32", "alpha", "sparc", "m68k", "ppc", "hppa", "arm" };
+
+```
+
+### CStyleArrayDeclaration
 C-style array declaration of local variable `parts`
 in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/RequireOsgiCompatibleVersionRule.java`
 #### Snippet
@@ -535,15 +547,15 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestin
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of local variable `reserved`
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/RequireRedhatCompatibleVersionRule.java`
+C-style array declaration of local variable `buffer`
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/IO.java`
 #### Snippet
 ```java
-        }
+    public static void copy(InputStream in, OutputStream out) throws IOException
+    {
+        byte buffer[] = new byte[BUFFER_SIZE];
+        int len = BUFFER_SIZE;
 
-        String reserved[] =
-        {
-                // Special IDs 
 ```
 
 ### CStyleArrayDeclaration
@@ -554,18 +566,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/IO.java`
     public static void copy(Reader in, Writer out) throws IOException
     {
         char buffer[] = new char[BUFFER_SIZE];
-        int len = BUFFER_SIZE;
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `buffer`
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/IO.java`
-#### Snippet
-```java
-    public static void copy(InputStream in, OutputStream out) throws IOException
-    {
-        byte buffer[] = new byte[BUFFER_SIZE];
         int len = BUFFER_SIZE;
 
 ```
@@ -596,18 +596,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/ByteBufferA
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'PathAssert' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathAssert.java`
-#### Snippet
-```java
- */
-@Deprecated(forRemoval = true, since = "6.0")
-public final class PathAssert
-{
-    private PathAssert()
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'assertDirExists' is still used
 in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathAssert.java`
 #### Snippet
@@ -617,6 +605,18 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathAssert.
     public static void assertDirExists(String msg, File path)
     {
         assertThat(msg, path.toPath(), PathMatchers.isDirectory());
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PathAssert' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathAssert.java`
+#### Snippet
+```java
+ */
+@Deprecated(forRemoval = true, since = "6.0")
+public final class PathAssert
+{
+    private PathAssert()
 ```
 
 ### DeprecatedIsStillUsed
@@ -632,66 +632,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathAssert.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getTestResourceFile' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getTestResourceFile(String name)
-    {
-        File file = new File(getTestResourcesDir(), FS.separators(name));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTestResourceDir' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getTestResourceDir(String name)
-    {
-        return getTestResourcePathDir(name).toFile();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTargetTestingDir' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getTargetTestingDir(String testname)
-    {
-        return getTargetTestingPath(testname).toFile();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTargetFile' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getTargetFile(String path)
-    {
-        return getTargetPath(path).toFile();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getTargetDir' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getTargetDir()
-    {
-        return getTargetPath().toFile();
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getTargetTestingDir' is still used
 in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
 #### Snippet
@@ -701,18 +641,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestin
     public static File getTargetTestingDir()
     {
         return getTargetTestingPath().toFile();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getBaseDir' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static File getBaseDir()
-    {
-        return getBasePath().toFile();
 ```
 
 ### DeprecatedIsStillUsed
@@ -728,15 +656,87 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestin
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'deleteDirectory' is still used
+Deprecated member 'getTargetTestingDir' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getTargetTestingDir(String testname)
+    {
+        return getTargetTestingPath(testname).toFile();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTestResourceDir' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getTestResourceDir(String name)
+    {
+        return getTestResourcePathDir(name).toFile();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTargetFile' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getTargetFile(String path)
+    {
+        return getTargetPath(path).toFile();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTestResourceFile' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getTestResourceFile(String name)
+    {
+        File file = new File(getTestResourcesDir(), FS.separators(name));
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getBaseDir' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getBaseDir()
+    {
+        return getBasePath().toFile();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getTargetDir' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestingUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static File getTargetDir()
+    {
+        return getTargetPath().toFile();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'touch' is still used
 in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
 #### Snippet
 ```java
      */
     @Deprecated(forRemoval = true, since = "6.0")
-    public static void deleteDirectory(File dir)
+    public static void touch(File file) throws IOException
     {
-        deleteDirectory(dir.toPath());
+        touch(file.toPath());
 ```
 
 ### DeprecatedIsStillUsed
@@ -752,6 +752,18 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'deleteDirectory' is still used
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
+#### Snippet
+```java
+     */
+    @Deprecated(forRemoval = true, since = "6.0")
+    public static void deleteDirectory(File dir)
+    {
+        deleteDirectory(dir.toPath());
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'isTestingDir' is still used
 in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
 #### Snippet
@@ -763,19 +775,43 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
         return isTestingDir(dir.toPath());
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'touch' is still used
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/FS.java`
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
 #### Snippet
 ```java
-     */
-    @Deprecated(forRemoval = true, since = "6.0")
-    public static void touch(File file) throws IOException
-    {
-        touch(file.toPath());
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 ```
 
-## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\{` in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\(` in RegExp
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
@@ -858,42 +894,6 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
       <xsd:pattern value="[&#33;-&#126;-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
      </xsd:restriction>
 
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\{` in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 ```
 
 ### RegExpRedundantEscape
@@ -984,67 +984,7 @@ in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[^\s]` can be simplified to '\\S'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[^\s]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1056,7 +996,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1068,7 +1008,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1080,7 +1020,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1088,78 +1028,6 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
         <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
      </xsd:restriction>
 
-```
-
-### RegExpSimplifiable
-`[^\s]` can be simplified to '\\S'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_4.xsd`
-#### Snippet
-```java
-
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[^\s]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[^\s]` can be simplified to '\\S'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
-#### Snippet
-```java
-
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[^\s]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 ```
 
 ### RegExpSimplifiable
@@ -1224,7 +1092,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/jakartaee_web_ser
 
 ### RegExpSimplifiable
 `[^\s]` can be simplified to '\\S'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -1236,7 +1104,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xs
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1248,7 +1116,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1260,7 +1128,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1272,7 +1140,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1284,12 +1152,144 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpSimplifiable
 `[^\s]` can be simplified to '\\S'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
+#### Snippet
+```java
+
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[^\s]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[^\s]` can be simplified to '\\S'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[^\s]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[^\s]` can be simplified to '\\S'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_4.xsd`
+#### Snippet
+```java
+
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[^\s]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[^\s]` can be simplified to '\\S'
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:pattern value="[^\s]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
     </xsd:restriction>
   </xsd:simpleType>
 ```
@@ -1384,7 +1384,7 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMon
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/VersionTxtRule.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
 #### Snippet
 ```java
     public String getCacheId()
@@ -1396,7 +1396,7 @@ in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/VersionTxtRule.java`
 #### Snippet
 ```java
     public String getCacheId()
@@ -1421,18 +1421,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/Hex.java`
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `TestAction` may be 'static'
-in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
-#### Snippet
-```java
-    }
-    
-    class TestAction implements PrivilegedAction
-    {
-        private String _value;
-```
-
-### InnerClassMayBeStatic
 Inner class `XmlId` may be 'static'
 in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
 #### Snippet
@@ -1444,70 +1432,22 @@ in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules
         private String filename;
 ```
 
+### InnerClassMayBeStatic
+Inner class `TestAction` may be 'static'
+in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
+#### Snippet
+```java
+    }
+    
+    class TestAction implements PrivilegedAction
+    {
+        private String _value;
+```
+
 ## RuleId[id=RegExpRedundantNestedCharacterClass]
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1519,7 +1459,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1531,7 +1471,7 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
@@ -1543,72 +1483,12 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_servic
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
 #### Snippet
 ```java
 
      <xsd:restriction base="xsd:token">
         <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-     </xsd:restriction>
-
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
-#### Snippet
-```java
-
-     <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[&#33;-&#126;-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
      </xsd:restriction>
 
 ```
@@ -1675,6 +1555,126 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/jakartaee_web_ser
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+#### Snippet
+```java
+
+     <xsd:restriction base="xsd:token">
+        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+     </xsd:restriction>
+
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+#### Snippet
+```java
+
+     <xsd:restriction base="xsd:token">
+        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+     </xsd:restriction>
+
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+#### Snippet
+```java
+
+     <xsd:restriction base="xsd:token">
+        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+     </xsd:restriction>
+
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_1_2.xsd`
+#### Snippet
+```java
+
+     <xsd:restriction base="xsd:token">
+        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+     </xsd:restriction>
+
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
+#### Snippet
+```java
+
+     <xsd:restriction base="xsd:token">
+      <xsd:pattern value="[&#33;-&#126;-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+     </xsd:restriction>
+
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xsd`
 #### Snippet
 ```java
@@ -1687,60 +1687,60 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xs
 
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
-#### Snippet
-```java
-
-     <xsd:restriction base="xsd:token">
-        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-     </xsd:restriction>
-
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
-#### Snippet
-```java
-
-     <xsd:restriction base="xsd:token">
-        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-     </xsd:restriction>
-
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
-#### Snippet
-```java
-
-     <xsd:restriction base="xsd:token">
-        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-     </xsd:restriction>
-
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_2.xsd`
-#### Snippet
-```java
-
-     <xsd:restriction base="xsd:token">
-        <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-     </xsd:restriction>
-
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
     <xsd:restriction base="xsd:token">
       <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/javaee_web_services_client_1_3.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
     </xsd:restriction>
   </xsd:simpleType>
 ```
@@ -1873,14 +1873,26 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/jupiter/Tes
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
 #### Snippet
 ```java
-        public Object run()
-        {  
-            System.out.println( "checking out system property -=> " + _value );
-            
-            return System.getProperty( _value ); 
+                    if (idList.size() > 1)
+                    {
+                        System.out.println("Duplicate Global Id: " + id);
+                        for ( XmlId xid : idList )
+                        {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
+#### Snippet
+```java
+                        for ( XmlId xid : idList )
+                        {
+                            System.out.println(" - " + xid.getLineNumber() + ": " + xid.getFilename() );
+                        }
+                    }
 ```
 
 ### SystemOutErr
@@ -1909,26 +1921,14 @@ in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/AbstractFetchExc
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
+in `jetty-test-policy/src/main/java/org/eclipse/jetty/toolchain/test/policy/Tester.java`
 #### Snippet
 ```java
-                    if (idList.size() > 1)
-                    {
-                        System.out.println("Duplicate Global Id: " + id);
-                        for ( XmlId xid : idList )
-                        {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
-#### Snippet
-```java
-                        for ( XmlId xid : idList )
-                        {
-                            System.out.println(" - " + xid.getLineNumber() + ": " + xid.getFilename() );
-                        }
-                    }
+        public Object run()
+        {  
+            System.out.println( "checking out system property -=> " + _value );
+            
+            return System.getProperty( _value ); 
 ```
 
 ### SystemOutErr
@@ -2025,33 +2025,9 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatcher
 ```java
      * @return the isDirectory matcher
      */
-    public static org.hamcrest.Matcher<Path> isSame(final Path expected)
-    {
-        return new PathPredicate(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.hamcrest` is unnecessary, and can be replaced with an import
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatchers.java`
-#### Snippet
-```java
-     * @return the isDirectory matcher
-     */
     public static org.hamcrest.Matcher<Path> isDirectory()
     {
         return new PathPredicate(Files::isDirectory, "path is directory", (p) ->
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.hamcrest` is unnecessary, and can be replaced with an import
-in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatchers.java`
-#### Snippet
-```java
-     * @return the isEmptyDirectory matcher
-     */
-    public static org.hamcrest.Matcher<Path> isEmptyDirectory()
-    {
-        return new PathPredicate(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2079,15 +2055,27 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatcher
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.jetty.toolchain.perf` is unnecessary and can be removed
-in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/MeasureRecorder.java`
+Qualifier `org.hamcrest` is unnecessary, and can be replaced with an import
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatchers.java`
 #### Snippet
 ```java
-/**
- * @deprecated Use {@link org.HdrHistogram.Histogram} to record measures instead,
- *             and {@link org.eclipse.jetty.toolchain.perf.HistogramSnapshot} to
- *             format the histogram values.
- */
+     * @return the isEmptyDirectory matcher
+     */
+    public static org.hamcrest.Matcher<Path> isEmptyDirectory()
+    {
+        return new PathPredicate(
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.hamcrest` is unnecessary, and can be replaced with an import
+in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/PathMatchers.java`
+#### Snippet
+```java
+     * @return the isDirectory matcher
+     */
+    public static org.hamcrest.Matcher<Path> isSame(final Path expected)
+    {
+        return new PathPredicate(
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2100,6 +2088,18 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/MeasureReco
      * @deprecated Use {@link org.eclipse.jetty.toolchain.perf.HistogramSnapshot} instead
      */
     @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.jetty.toolchain.perf` is unnecessary and can be removed
+in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/MeasureRecorder.java`
+#### Snippet
+```java
+/**
+ * @deprecated Use {@link org.HdrHistogram.Histogram} to record measures instead,
+ *             and {@link org.eclipse.jetty.toolchain.perf.HistogramSnapshot} to
+ *             format the histogram values.
+ */
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -2127,19 +2127,6 @@ import java.net.URL;
 
 ```
 
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`value = value - 1` could be simplified to 'value -= 1'
-in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/MeasureRecorder.java`
-#### Snippet
-```java
-                    int value = maxLatencyBucketFrequency == 0 ? 0 : Math.round(latencyBucketFrequency * (float)measureBucketFrequencies.length / maxLatencyBucketFrequency);
-                    if (value == measureBucketFrequencies.length)
-                        value = value - 1;
-                    for (int j = 0; j < value; ++j)
-                        builder.append(" ");
-```
-
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -2153,10 +2140,59 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMon
             if (operatingSystem instanceof com.sun.management.OperatingSystemMXBean)
 ```
 
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`value = value - 1` could be simplified to 'value -= 1'
+in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/MeasureRecorder.java`
+#### Snippet
+```java
+                    int value = maxLatencyBucketFrequency == 0 ? 0 : Math.round(latencyBucketFrequency * (float)measureBucketFrequencies.length / maxLatencyBucketFrequency);
+                    if (value == measureBucketFrequencies.length)
+                        value = value - 1;
+                    for (int j = 0; j < value; ++j)
+                        builder.append(" ");
+```
+
 ## RuleId[id=RegExpSingleCharAlternation]
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_4_0.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
+#### Snippet
+```java
+
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xsd`
 #### Snippet
 ```java
     </xsd:annotation>
@@ -2180,42 +2216,6 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_4.xsd`
 
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-app_2_5.xsd`
-#### Snippet
-```java
-
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_1.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_5_0.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
 in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_0.xsd`
 #### Snippet
 ```java
@@ -2227,6 +2227,18 @@ in `jetty-schemas/src/main/resources/jakarta/servlet/resources/web-common_3_0.xs
 ```
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `lastTenured` is accessed in both synchronized and unsynchronized contexts
+in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
+#### Snippet
+```java
+    private long lastEden;
+    private long lastSurvivor;
+    private long lastTenured;
+    private long time;
+    private long cpuTime;
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `stop` is accessed in both synchronized and unsynchronized contexts
 in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
@@ -2249,18 +2261,6 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMon
     private long lastEden;
     private long lastSurvivor;
     private long lastTenured;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `lastTenured` is accessed in both synchronized and unsynchronized contexts
-in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
-#### Snippet
-```java
-    private long lastEden;
-    private long lastSurvivor;
-    private long lastTenured;
-    private long time;
-    private long cpuTime;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -2290,7 +2290,7 @@ in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMon
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/VersionTxtRule.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
 #### Snippet
 ```java
      * Simple param. This rule will fail if the value is true.
@@ -2302,7 +2302,7 @@ in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/UniqueXmlIdDocbookRule.java`
+in `jetty-build-support/src/main/java/org/eclipse/jetty/toolchain/enforcer/rules/VersionTxtRule.java`
 #### Snippet
 ```java
      * Simple param. This rule will fail if the value is true.
@@ -2326,6 +2326,30 @@ public class IncludeDirectoryTransformer implements ResourceTransformer
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `byteCount`
+in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/SourceFetchExtension.java`
+#### Snippet
+```java
+                    break;
+                
+                byteCount -= len;
+                out.write(buffer,0,len);
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `byteCount`
+in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/SourceFetchExtension.java`
+#### Snippet
+```java
+                    break;
+                
+                byteCount -= len;
+                out.write(buffer,0,len);
+            }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `toMangle`
 in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/AbstractFetchException.java`
 #### Snippet
@@ -2347,30 +2371,6 @@ in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/AbstractFetchExc
         toMangle = toMangle.replace("/","_");
 
         return toMangle;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `byteCount`
-in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/SourceFetchExtension.java`
-#### Snippet
-```java
-                    break;
-                
-                byteCount -= len;
-                out.write(buffer,0,len);
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `byteCount`
-in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/SourceFetchExtension.java`
-#### Snippet
-```java
-                    break;
-                
-                byteCount -= len;
-                out.write(buffer,0,len);
-            }
 ```
 
 ## RuleId[id=ReturnNull]
@@ -2396,30 +2396,6 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenTestin
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
-#### Snippet
-```java
-        {
-            if (starts.incrementAndGet() > 1)
-                return null;
-
-            Start start = new Start();
-```
-
-### ReturnNull
-Return of `null`
-in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
-#### Snippet
-```java
-        {
-            if (starts.decrementAndGet() > 0)
-                return null;
-
-            stop.date = System.currentTimeMillis();
 ```
 
 ### ReturnNull
@@ -2458,10 +2434,34 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/MavenPaths.
 
 ```
 
+### ReturnNull
+Return of `null`
+in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
+#### Snippet
+```java
+        {
+            if (starts.decrementAndGet() > 0)
+                return null;
+
+            stop.date = System.currentTimeMillis();
+```
+
+### ReturnNull
+Return of `null`
+in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
+#### Snippet
+```java
+        {
+            if (starts.incrementAndGet() > 1)
+                return null;
+
+            Start start = new Start();
+```
+
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-22-36-25.107.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-06-14-20.093.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -2490,11 +2490,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
 #### Snippet
 ```java
-    public Start start()
+    public Stop stop()
     {
         synchronized (this)
         {
-            if (starts.incrementAndGet() > 1)
+            if (starts.decrementAndGet() > 0)
 ```
 
 ### SynchronizeOnThis
@@ -2502,11 +2502,24 @@ Lock operations on 'this' may have unforeseen side-effects
 in `jetty-perf-helper/src/main/java/org/eclipse/jetty/toolchain/perf/PlatformMonitor.java`
 #### Snippet
 ```java
-    public Stop stop()
+    public Start start()
     {
         synchronized (this)
         {
-            if (starts.decrementAndGet() > 0)
+            if (starts.incrementAndGet() > 1)
+```
+
+## RuleId[id=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
+Non-exception class name `AbstractFetchException` ends with 'Exception'
+in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/AbstractFetchException.java`
+#### Snippet
+```java
+import org.eclipse.jetty.util.IO;
+
+public class AbstractFetchException
+{
+
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -2552,7 +2565,7 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/IO.java`
 #### Snippet
 ```java
     {
-        char buffer[] = new char[BUFFER_SIZE];
+        byte buffer[] = new byte[BUFFER_SIZE];
         int len = BUFFER_SIZE;
 
         while (true)
@@ -2564,23 +2577,10 @@ in `jetty-test-helper/src/main/java/org/eclipse/jetty/toolchain/test/IO.java`
 #### Snippet
 ```java
     {
-        byte buffer[] = new byte[BUFFER_SIZE];
+        char buffer[] = new char[BUFFER_SIZE];
         int len = BUFFER_SIZE;
 
         while (true)
-```
-
-## RuleId[id=NonExceptionNameEndsWithException]
-### NonExceptionNameEndsWithException
-Non-exception class name `AbstractFetchException` ends with 'Exception'
-in `jetty-xslt-tools/src/main/java/org/eclipse/jetty/xslt/tools/AbstractFetchException.java`
-#### Snippet
-```java
-import org.eclipse.jetty.util.IO;
-
-public class AbstractFetchException
-{
-
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
