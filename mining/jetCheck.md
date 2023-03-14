@@ -34,18 +34,6 @@ in `src/main/java/org/jetbrains/jetCheck/Iteration.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `DataSerializer` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
-#### Snippet
-```java
- * @author peter
- */
-class DataSerializer {
-
-  private static int readINT(ByteArrayInputStream record) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PropertyChecker` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -57,19 +45,19 @@ public class PropertyChecker {
 
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'rechecking' is still used
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+### UtilityClassWithoutPrivateConstructor
+Class `DataSerializer` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public Parameters rechecking(@NotNull String serializedData) {
-      return DataSerializer.deserializeInto(serializedData, this);
-    }
+ * @author peter
+ */
+class DataSerializer {
+
+  private static int readINT(ByteArrayInputStream record) {
 ```
 
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'recheckingIteration' is still used
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
@@ -92,6 +80,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters withSeed(long seed) {
       if (serializedData != null) {
         System.err.println("withSeed ignored, because 'rechecking' is used");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'rechecking' is still used
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Parameters rechecking(@NotNull String serializedData) {
+      return DataSerializer.deserializeInto(serializedData, this);
+    }
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -122,6 +122,18 @@ in `src/main/java/org/jetbrains/jetCheck/StatusNotifier.java`
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `step`
+in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
+#### Snippet
+```java
+      }
+
+      step = step.onFailure();
+    }
+    return processDelayedCombinations(combinatorial);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `val`
 in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
 #### Snippet
@@ -143,18 +155,6 @@ in `src/main/java/org/jetbrains/jetCheck/DataSerializer.java`
         val >>>= 7;
       }
     }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `step`
-in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
-#### Snippet
-```java
-      }
-
-      step = step.onFailure();
-    }
-    return processDelayedCombinations(combinatorial);
 ```
 
 ### AssignmentToMethodParameter
@@ -224,6 +224,18 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
+
+  private ShrinkStep divisionLoop(int value) {
+    if (value == 0) return null;
+    int divided = value / 2;
+    return tryInt(divided, () -> divisionLoop(divided), null);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+#### Snippet
+```java
     return distribution.isValidValue(value)
             ? ShrinkStep.create(id, new IntData(id, value, distribution), __ -> success.get(), fail)
             : fail == null ? null : fail.get();
@@ -243,31 +255,20 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-05-27-30.428.html`
 #### Snippet
 ```java
-
-  private ShrinkStep divisionLoop(int value) {
-    if (value == 0) return null;
-    int divided = value / 2;
-    return tryInt(divided, () -> divisionLoop(divided), null);
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `WrongDataStructure` does not end with 'Exception'
-in `src/main/java/org/jetbrains/jetCheck/GenerativeDataStructure.java`
-#### Snippet
-```java
-}
-
-class WrongDataStructure extends IllegalStateException {
-  WrongDataStructure() {
-    super("You're calling methods on wrong environment, confusing nested lambda arguments?");
-```
-
 ### ExceptionNameDoesntEndWithException
 Exception class name `CannotRestoreValue` does not end with 'Exception'
 in `src/main/java/org/jetbrains/jetCheck/CannotRestoreValue.java`
@@ -280,17 +281,16 @@ class CannotRestoreValue extends RuntimeException {
   }
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-09-22-38-28.929.html`
+### ExceptionNameDoesntEndWithException
+Exception class name `WrongDataStructure` does not end with 'Exception'
+in `src/main/java/org/jetbrains/jetCheck/GenerativeDataStructure.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+}
+
+class WrongDataStructure extends IllegalStateException {
+  WrongDataStructure() {
+    super("You're calling methods on wrong environment, confusing nested lambda arguments?");
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -473,6 +473,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 ```java
       }
 
+      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    }
+
+```
+
+### ConstantValue
+Value `serializedData` is always 'null'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+      }
+
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
@@ -486,18 +498,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters printGeneratedValues() {
       if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
-    }
-
-```
-
-### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
-      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
