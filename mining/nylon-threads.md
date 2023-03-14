@@ -10,18 +10,6 @@ I found 11 bad smells with 0 repairable:
 | RedundantSuppression | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for field 'maxThreads'
-in `nylon-threads/src/main/java/com/palantir/nylon/threads/NylonExecutor.java`
-#### Snippet
-```java
-        private Executor executor;
-        private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
-        private OptionalInt maxThreads = OptionalInt.empty();
-        private OptionalInt queueSize = OptionalInt.empty();
-        private boolean built;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for field 'queueSize'
 in `nylon-threads/src/main/java/com/palantir/nylon/threads/NylonExecutor.java`
 #### Snippet
@@ -31,6 +19,18 @@ in `nylon-threads/src/main/java/com/palantir/nylon/threads/NylonExecutor.java`
         private OptionalInt queueSize = OptionalInt.empty();
         private boolean built;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for field 'maxThreads'
+in `nylon-threads/src/main/java/com/palantir/nylon/threads/NylonExecutor.java`
+#### Snippet
+```java
+        private Executor executor;
+        private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
+        private OptionalInt maxThreads = OptionalInt.empty();
+        private OptionalInt queueSize = OptionalInt.empty();
+        private boolean built;
 ```
 
 ## RuleId[id=RedundantImplements]
