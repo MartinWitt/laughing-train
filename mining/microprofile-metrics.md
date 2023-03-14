@@ -40,42 +40,6 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
-     * String constant to represent the scope value used for the vendor scope
-     */
-    public static final String VENDOR_SCOPE = "vendor";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * String constant to represent the scope value used for the vendor scope
-     */
-    public static final String VENDOR_SCOPE = "vendor";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * String constant to represent the scope value used for the vendor scope
-     */
-    public static final String VENDOR_SCOPE = "vendor";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
      * String constant to represent the scope value used for the application scope
      */
     public static final String APPLICATION_SCOPE = "application";
@@ -139,6 +103,42 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
      * String constant to represent the scope value used for the base scope
      */
     public static final String BASE_SCOPE = "base";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the vendor scope
+     */
+    public static final String VENDOR_SCOPE = "vendor";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the vendor scope
+     */
+    public static final String VENDOR_SCOPE = "vendor";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the vendor scope
+     */
+    public static final String VENDOR_SCOPE = "vendor";
 
     /**
 ```
@@ -154,67 +154,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleM
     // @Test
     // @InSequence(1)
     // public void metricsConstructorNotCalledYet() {
-```
-
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'RegistryType' is still used
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/RegistryType.java`
-#### Snippet
-```java
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-public @interface RegistryType {
-    /**
-     * The scope of the MetricRegistry.
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'VENDOR' is still used
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        VENDOR("vendor");
-
-        private final String name;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'APPLICATION' is still used
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        APPLICATION("application"),
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Type' is still used
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    enum Type {
-        /**
-         * The Application (default) scoped MetricRegistry. Any metric registered/accessed via CDI will use this
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'BASE' is still used
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        BASE("base"),
-
-        /**
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -315,25 +254,25 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/Histogram
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `gaugeMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+Assignment to static field `constructorMID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
 #### Snippet
 ```java
          * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
          */
-        gaugeMID = new MetricID(GAUGE_NAME);
-
-        privateGaugeMID = new MetricID(PRIVATE_GAUGE_NAME);
+        constructorMID = new MetricID(CONSTRUCTOR_COUNTER_NAME);
+        counterMIDs = MetricsUtil.createMetricIDs(COUNTER_NAMES);
+    }
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `privateGaugeMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+Assignment to static field `counterMIDs` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
 #### Snippet
 ```java
-        gaugeMID = new MetricID(GAUGE_NAME);
-
-        privateGaugeMID = new MetricID(PRIVATE_GAUGE_NAME);
+         */
+        constructorMID = new MetricID(CONSTRUCTOR_COUNTER_NAME);
+        counterMIDs = MetricsUtil.createMetricIDs(COUNTER_NAMES);
     }
 
 ```
@@ -363,49 +302,25 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTag
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `constructorMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+Assignment to static field `gaugeMID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
 #### Snippet
 ```java
          * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
          */
-        constructorMID = new MetricID(CONSTRUCTOR_COUNTER_NAME);
-        counterMIDs = MetricsUtil.createMetricIDs(COUNTER_NAMES);
-    }
+        gaugeMID = new MetricID(GAUGE_NAME);
+
+        privateGaugeMID = new MetricID(PRIVATE_GAUGE_NAME);
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `counterMIDs` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+Assignment to static field `privateGaugeMID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
 #### Snippet
 ```java
-         */
-        constructorMID = new MetricID(CONSTRUCTOR_COUNTER_NAME);
-        counterMIDs = MetricsUtil.createMetricIDs(COUNTER_NAMES);
-    }
+        gaugeMID = new MetricID(GAUGE_NAME);
 
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `timerMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-         * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
-         */
-        timerMID = new MetricID(TIMED_NAME);
-        extendedTimedMID = new MetricID(EXTENDED_TIMED_NAME);
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `extendedTimedMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-         */
-        timerMID = new MetricID(TIMED_NAME);
-        extendedTimedMID = new MetricID(EXTENDED_TIMED_NAME);
+        privateGaugeMID = new MetricID(PRIVATE_GAUGE_NAME);
     }
 
 ```
@@ -430,6 +345,30 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest
             globalTimer.update(Duration.ofNanos(i));
         }
         isInitialized = true;
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `timerMID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+         * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
+         */
+        timerMID = new MetricID(TIMED_NAME);
+        extendedTimedMID = new MetricID(EXTENDED_TIMED_NAME);
+    }
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `extendedTimedMID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+         */
+        timerMID = new MetricID(TIMED_NAME);
+        extendedTimedMID = new MetricID(EXTENDED_TIMED_NAME);
     }
 
 ```
@@ -466,6 +405,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFi
          * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
          */
         counterMID = new MetricID(COUNTER_NAME);
+    }
+
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `counterMetricID` from instance context
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+#### Snippet
+```java
+         * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
+         */
+        counterMetricID = new MetricID(COUNTER_NAME);
     }
 
 ```
@@ -516,18 +467,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFiel
         timerTwoMID = new MetricID(TIMER_NAME, NUMBER_TWO_TAG);
 
     }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `counterMetricID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
-#### Snippet
-```java
-         * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
-         */
-        counterMetricID = new MetricID(COUNTER_NAME);
-    }
-
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -640,7 +579,7 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMeth
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `timerMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
 #### Snippet
 ```java
          * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
@@ -652,7 +591,7 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMeth
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `timerMID` from instance context
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
 #### Snippet
 ```java
          * This will cause client instantiated MetricIDs to throw an exception. (i.e the global MetricIDs)
@@ -662,19 +601,68 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationSc
 
 ```
 
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'RegistryType' is still used
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/RegistryType.java`
+#### Snippet
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface RegistryType {
+    /**
+     * The scope of the MetricRegistry.
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Type' is still used
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
      */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
+    @Deprecated
+    enum Type {
+        /**
+         * The Application (default) scoped MetricRegistry. Any metric registered/accessed via CDI will use this
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'VENDOR' is still used
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        VENDOR("vendor");
+
+        private final String name;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'BASE' is still used
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        BASE("base"),
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'APPLICATION' is still used
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        APPLICATION("application"),
+
+        /**
+```
+
+## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
 in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTest.java`
@@ -685,30 +673,6 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTe
         return responseBody.replaceAll(OPENMETRICS_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}",
                 "}");
     }
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-            // explicitly check for the metric line wth value (i.e. the use of `{`)
-            if (line.contains("gc_time_seconds_total{")) {
-                final Pattern gcTimeTotalPattern = Pattern.compile("(gc_time_seconds_total\\{.*?\\}) (\\d+\\.\\d+)");
-                assertThat("Line format should be gc_time_seconds_total\\{.*?\\} \\d+\\.\\d+",
-                        gcTimeTotalPattern.matcher(line).matches());
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-
-                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
-                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
-
-                for (String expectedTag : expectedTags) {
 ```
 
 ### RegExpRedundantEscape
@@ -745,6 +709,42 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
                 final String tags = metricID.replaceAll("^gc_total\\{", "").replaceAll("\\}$", "");
 
                 for (String expectedTag : expectedTags) {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+            // explicitly check for the metric line wth value (i.e. the use of `{`)
+            if (line.contains("gc_time_seconds_total{")) {
+                final Pattern gcTimeTotalPattern = Pattern.compile("(gc_time_seconds_total\\{.*?\\}) (\\d+\\.\\d+)");
+                assertThat("Line format should be gc_time_seconds_total\\{.*?\\} \\d+\\.\\d+",
+                        gcTimeTotalPattern.matcher(line).matches());
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+
+                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
+                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
+
+                for (String expectedTag : expectedTags) {
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
 ```
 
 ### RegExpRedundantEscape
@@ -800,18 +800,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Mp
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
-#### Snippet
-```java
-                asyncResponse.resume("This is a GET request with AsyncResponse");
-            } catch (Exception e) {
-                System.err.println(e.toString());
-            }
-        });
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
 #### Snippet
 ```java
@@ -832,6 +820,18 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
             assertTrue("Not found [" + mm.toString() + "]", found);
 
         }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
+#### Snippet
+```java
+                asyncResponse.resume("This is a GET request with AsyncResponse");
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+        });
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -878,11 +878,11 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
 #### Snippet
 ```java
-public class ConcreteExtendedTimedBeanTest {
 
     private final static String TIMED_NAME = MetricRegistry.name(ConcreteExtendedTimedBean.class, "timedMethod");
     private final static String EXTENDED_TIMED_NAME =
             MetricRegistry.name(ConcreteExtendedTimedBean.class, "anotherTimedMethod");
+
 ```
 
 ### MissortedModifiers
@@ -890,35 +890,11 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
 #### Snippet
 ```java
+public class ConcreteExtendedTimedBeanTest {
 
     private final static String TIMED_NAME = MetricRegistry.name(ConcreteExtendedTimedBean.class, "timedMethod");
     private final static String EXTENDED_TIMED_NAME =
             MetricRegistry.name(ConcreteExtendedTimedBean.class, "anotherTimedMethod");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-public class MultipleMetricsMethodBeanTest {
-
-    private final static String[] METRIC_NAMES = {"counter", "gauge", "timer"};
-
-    private Set<String> absoluteMetricNames() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodTagBeanTest.java`
-#### Snippet
-```java
-    private final static String COUNTER_NAME = "countedMethod";
-
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-
 ```
 
 ### MissortedModifiers
@@ -938,11 +914,35 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodTagBeanTest.java`
 #### Snippet
 ```java
+    private final static String COUNTER_NAME = "countedMethod";
+
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodTagBeanTest.java`
+#### Snippet
+```java
 public class CountedMethodTagBeanTest {
 
     private final static String COUNTER_NAME = "countedMethod";
 
     private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+public class MultipleMetricsMethodBeanTest {
+
+    private final static String[] METRIC_NAMES = {"counter", "gauge", "timer"};
+
+    private Set<String> absoluteMetricNames() {
 ```
 
 ### MissortedModifiers
@@ -986,18 +986,6 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
 #### Snippet
 ```java
-            96, 96, 96, 96, 97, 97, 97, 97, 98, 98, 98, 99, 99};
-
-    final static long[] SAMPLE_LONG_DATA = {0, 10, 20, 20, 20, 30, 30, 30, 30, 30, 40, 50, 50, 60, 70, 70, 70, 80, 90,
-            90, 100, 110, 110, 120, 120, 120, 120, 130, 130, 130, 130, 140, 140, 150, 150, 170, 180, 180, 200, 200, 200,
-            210, 220, 220, 220, 240, 240, 250, 250, 270, 270, 270, 270, 270, 270, 270, 280, 280, 290, 300, 310, 310,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
-#### Snippet
-```java
 
     private static boolean isInitialized = false;
     final static int[] SAMPLE_INT_DATA = {0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 5, 5, 6, 7, 7, 7, 8, 9, 9, 10, 11, 11, 12,
@@ -1007,26 +995,14 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/Histogram
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
 #### Snippet
 ```java
-public class GaugeMethodBeanTest {
+            96, 96, 96, 96, 97, 97, 97, 97, 98, 98, 98, 99, 99};
 
-    private final static String GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "gaugeMethod");
-
-    private final static String PRIVATE_GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "privateGaugeMethod");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-    private final static String GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "gaugeMethod");
-
-    private final static String PRIVATE_GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "privateGaugeMethod");
-
-    private static MetricID gaugeMID;
+    final static long[] SAMPLE_LONG_DATA = {0, 10, 20, 20, 20, 30, 30, 30, 30, 30, 40, 50, 50, 60, 70, 70, 70, 80, 90,
+            90, 100, 110, 110, 120, 120, 120, 120, 130, 130, 130, 130, 140, 140, 150, 150, 170, 180, 180, 200, 200, 200,
+            210, 220, 220, 220, 240, 240, 250, 250, 270, 270, 270, 270, 270, 270, 270, 280, 280, 290, 300, 310, 310,
 ```
 
 ### MissortedModifiers
@@ -1046,6 +1022,18 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
 #### Snippet
 ```java
+    private final static String HISTOGRAM_NAME = MetricRegistry.name(HistogramTagFieldBean.class, "histogramName");
+
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
 public class HistogramTagFieldBeanTest {
 
     private final static String HISTOGRAM_NAME = MetricRegistry.name(HistogramTagFieldBean.class, "histogramName");
@@ -1055,14 +1043,38 @@ public class HistogramTagFieldBeanTest {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
 #### Snippet
 ```java
-    private final static String HISTOGRAM_NAME = MetricRegistry.name(HistogramTagFieldBean.class, "histogramName");
+    private final static String GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "gaugeMethod");
 
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+    private final static String PRIVATE_GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "privateGaugeMethod");
 
+    private static MetricID gaugeMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+#### Snippet
+```java
+public class GaugeMethodBeanTest {
+
+    private final static String GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "gaugeMethod");
+
+    private final static String PRIVATE_GAUGE_NAME = MetricRegistry.name(GaugeMethodBean.class, "privateGaugeMethod");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest.java`
+#### Snippet
+```java
+    private static boolean isInitialized = false;
+
+    final static long[] SAMPLE_LONG_DATA = {0, 10, 20, 20, 20, 30, 30, 30, 30, 30, 40, 50, 50, 60, 70, 70, 70, 80, 90,
+            90, 100, 110, 110, 120, 120, 120, 120, 130, 130, 130, 130, 140, 140, 150, 150, 170, 180, 180, 200, 200, 200,
+            210, 220, 220, 220, 240, 240, 250, 250, 270, 270, 270, 270, 270, 270, 270, 280, 280, 290, 300, 310, 310,
 ```
 
 ### MissortedModifiers
@@ -1087,18 +1099,6 @@ public class ConcreteTimedBeanTest {
     private final static String TIMED_NAME = MetricRegistry.name(ConcreteTimedBean.class, "timedMethod");
     private final static String EXTENDED_TIMED_NAME =
             MetricRegistry.name(ConcreteTimedBean.class, "normallyNotTimedMethod");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest.java`
-#### Snippet
-```java
-    private static boolean isInitialized = false;
-
-    final static long[] SAMPLE_LONG_DATA = {0, 10, 20, 20, 20, 30, 30, 30, 30, 30, 40, 50, 50, 60, 70, 70, 70, 80, 90,
-            90, 100, 110, 110, 120, 120, 120, 120, 130, 130, 130, 130, 140, 140, 150, 150, 170, 180, 180, 200, 200, 200,
-            210, 220, 220, 220, 240, 240, 250, 250, 270, 270, 270, 270, 270, 270, 270, 280, 280, 290, 300, 310, 310,
 ```
 
 ### MissortedModifiers
@@ -1150,6 +1150,30 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFiel
 ```
 
 ### MissortedModifiers
+Missorted modifiers `static public`
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTest.java`
+#### Snippet
+```java
+
+    @BeforeClass
+    static public void setup() throws MalformedURLException {
+        // set base URI and port number to use for all requests
+        String serverUrl = System.getProperty("test.url");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+#### Snippet
+```java
+public class CounterFieldBeanTest {
+
+    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldBean.class, "counterName");
+
+    private static MetricID counterMID;
+```
+
+### MissortedModifiers
 Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNameMetricMethodBeanTest.java`
 #### Snippet
@@ -1175,14 +1199,26 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNa
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
 #### Snippet
 ```java
-public class CounterFieldBeanTest {
+    private static MetricID counterMetricID; // new MetricID(COUNTER_NAME);
 
-    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldBean.class, "counterName");
+    private final static AtomicLong COUNTER_COUNT = new AtomicLong();
 
-    private static MetricID counterMID;
+    @Deployment
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+#### Snippet
+```java
+public class CountedMethodBeanTest {
+
+    private final static String COUNTER_NAME = "countedMethod";
+    private static MetricID counterMetricID; // new MetricID(COUNTER_NAME);
+
 ```
 
 ### MissortedModifiers
@@ -1226,18 +1262,6 @@ Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
 #### Snippet
 ```java
-
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-
-    private static MetricID timerOneMID;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
-#### Snippet
-```java
 public class TimerTagFieldBeanTest {
 
     private final static String TIMER_NAME = "timerName";
@@ -1259,26 +1283,26 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFiel
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
 #### Snippet
 ```java
-public class CountedMethodBeanTest {
 
-    private final static String COUNTER_NAME = "countedMethod";
-    private static MetricID counterMetricID; // new MetricID(COUNTER_NAME);
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
 
+    private static MetricID timerOneMID;
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
 #### Snippet
 ```java
-    private static MetricID counterMetricID; // new MetricID(COUNTER_NAME);
+    private final static String COUNTER_NAME_NO_TAG =
+            MetricRegistry.name(CounterFieldTagBean.class, "counterNameNoTag");
+    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldTagBean.class, "counterName");
 
-    private final static AtomicLong COUNTER_COUNT = new AtomicLong();
-
-    @Deployment
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
 ```
 
 ### MissortedModifiers
@@ -1291,6 +1315,30 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterField
     private final static Tag COLOUR_BLUE_TAG = new Tag("colour", "blue");
 
     private static MetricID counterMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
+#### Snippet
+```java
+    private final static Tag NUMBER_THREE_TAG = new Tag("number", "three");
+
+    private final static Tag COLOUR_RED_TAG = new Tag("colour", "red");
+    private final static Tag COLOUR_BLUE_TAG = new Tag("colour", "blue");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
+#### Snippet
+```java
+    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldTagBean.class, "counterName");
+
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+    private final static Tag NUMBER_THREE_TAG = new Tag("number", "three");
+
 ```
 
 ### MissortedModifiers
@@ -1319,42 +1367,6 @@ public class CounterFieldTagBeanTest {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
-#### Snippet
-```java
-    private final static Tag NUMBER_THREE_TAG = new Tag("number", "three");
-
-    private final static Tag COLOUR_RED_TAG = new Tag("colour", "red");
-    private final static Tag COLOUR_BLUE_TAG = new Tag("colour", "blue");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
-#### Snippet
-```java
-    private final static String COUNTER_NAME_NO_TAG =
-            MetricRegistry.name(CounterFieldTagBean.class, "counterNameNoTag");
-    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldTagBean.class, "counterName");
-
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
-#### Snippet
-```java
-    private final static String COUNTER_NAME = MetricRegistry.name(CounterFieldTagBean.class, "counterName");
-
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-    private final static Tag NUMBER_THREE_TAG = new Tag("number", "three");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
 #### Snippet
 ```java
@@ -1363,6 +1375,126 @@ public class TimedConstructorBeanTest {
     private final static String TIMER_NAME = MetricRegistry.name(TimedConstructorBean.class, "timedConstructor");
 
     private static MetricID timerMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+    private final static String GAUGE_NAME = MetricRegistry.name(GaugeTagMethodBean.class, "gaugeMethod");
+
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
+
+    private static MetricID gaugeOneMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+public class GaugeTagMethodBeanTest {
+
+    private final static String GAUGE_NAME = MetricRegistry.name(GaugeTagMethodBean.class, "gaugeMethod");
+
+    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
+#### Snippet
+```java
+public class OverloadedTimedMethodBeanTest {
+
+    private final static String[] TIMER_NAMES =
+            {"overloadedTimedMethodWithNoArguments", "overloadedTimedMethodWithStringArgument",
+                    "overloadedTimedMethodWithListOfStringArgument", "overloadedTimedMethodWithObjectArgument"};
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+
+    @BeforeClass
+    static public void setup() throws MalformedURLException {
+        // set base URI and port number to use for all requests
+        String serverUrl = System.getProperty("test.url");
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+
+    @BeforeClass
+    static public void setup() throws MalformedURLException {
+        // set base URI and port number to use for all requests
+        String serverUrl = System.getProperty("test.url");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+public class ApplicationScopedTimedMethodBeanTest {
+
+    private final static String TIMER_NAME =
+            MetricRegistry.name(ApplicationScopedTimedMethodBean.class, "applicationScopedTimedMethod");
+    private static MetricID timerMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+public class TimedMethodBeanLookupTest {
+
+    private final static String TIMER_NAME = MetricRegistry.name(TimedMethodBean1.class, "timedMethod");
+
+    private static MetricID timerMID;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+    private static MetricID timerMID;
+
+    private final static AtomicLong TIMER_COUNT = new AtomicLong();
+
+    @Deployment
+```
+
+### MissortedModifiers
+Missorted modifiers `static public`
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MpMetricOptionalTest.java`
+#### Snippet
+```java
+
+    @BeforeClass
+    static public void setup() throws MalformedURLException {
+        // set base URI and port number to use for all requests
+        String serverUrl = System.getProperty("test.url");
 ```
 
 ### MissortedModifiers
@@ -1459,138 +1591,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Me
             final @Context Configuration configuration) throws Exception {
 
         return "This is a GET request with context parameters";
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
-#### Snippet
-```java
-public class OverloadedTimedMethodBeanTest {
-
-    private final static String[] TIMER_NAMES =
-            {"overloadedTimedMethodWithNoArguments", "overloadedTimedMethodWithStringArgument",
-                    "overloadedTimedMethodWithListOfStringArgument", "overloadedTimedMethodWithObjectArgument"};
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
-#### Snippet
-```java
-
-    @BeforeClass
-    static public void setup() throws MalformedURLException {
-        // set base URI and port number to use for all requests
-        String serverUrl = System.getProperty("test.url");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-
-    private static MetricID gaugeOneMID;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-    private final static String GAUGE_NAME = MetricRegistry.name(GaugeTagMethodBean.class, "gaugeMethod");
-
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-    private final static Tag NUMBER_TWO_TAG = new Tag("number", "two");
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-public class GaugeTagMethodBeanTest {
-
-    private final static String GAUGE_NAME = MetricRegistry.name(GaugeTagMethodBean.class, "gaugeMethod");
-
-    private final static Tag NUMBER_ONE_TAG = new Tag("number", "one");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-public class TimedMethodBeanLookupTest {
-
-    private final static String TIMER_NAME = MetricRegistry.name(TimedMethodBean1.class, "timedMethod");
-
-    private static MetricID timerMID;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-    private static MetricID timerMID;
-
-    private final static AtomicLong TIMER_COUNT = new AtomicLong();
-
-    @Deployment
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-public class ApplicationScopedTimedMethodBeanTest {
-
-    private final static String TIMER_NAME =
-            MetricRegistry.name(ApplicationScopedTimedMethodBean.class, "applicationScopedTimedMethod");
-    private static MetricID timerMID;
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTest.java`
-#### Snippet
-```java
-
-    @BeforeClass
-    static public void setup() throws MalformedURLException {
-        // set base URI and port number to use for all requests
-        String serverUrl = System.getProperty("test.url");
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-
-    @BeforeClass
-    static public void setup() throws MalformedURLException {
-        // set base URI and port number to use for all requests
-        String serverUrl = System.getProperty("test.url");
-```
-
-### MissortedModifiers
-Missorted modifiers `static public`
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MpMetricOptionalTest.java`
-#### Snippet
-```java
-
-    @BeforeClass
-    static public void setup() throws MalformedURLException {
-        // set base URI and port number to use for all requests
-        String serverUrl = System.getProperty("test.url");
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -1740,50 +1740,13 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectio
 
 ```
 
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-                final String value = gcTimeTotalPattern.matcher(line).replaceAll("$2");
-                Assert.assertTrue("gc.time.seconds.total value should be numeric and not negative",
-                        Double.valueOf(value).doubleValue() >= 0);
-
-                found = true;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-                final String value = gcTotalPattern.matcher(line).replaceAll("$2");
-                Assert.assertTrue("gc.total value should be numeric and not negative",
-                        Double.valueOf(value).doubleValue() >= 0);
-
-                found = true;
-```
-
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
-#### Snippet
-```java
-                asyncResponse.resume("This is a GET request with AsyncResponse");
-            } catch (Exception e) {
-                System.err.println(e.toString());
-            }
-        });
-```
-
-### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
 #### Snippet
 ```java
-                .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
+        WebArchive jar = ShrinkWrap.create(WebArchive.class).addAsWebInfResource("META-INF/beans.xml", "beans.xml");
 
         System.out.println(jar.toString(true));
         return jar;
@@ -1792,10 +1755,10 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.ja
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
 #### Snippet
 ```java
-        WebArchive jar = ShrinkWrap.create(WebArchive.class).addAsWebInfResource("META-INF/beans.xml", "beans.xml");
+                .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
 
         System.out.println(jar.toString(true));
         return jar;
@@ -1814,6 +1777,43 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Mp
     }
 ```
 
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
+#### Snippet
+```java
+                asyncResponse.resume("This is a GET request with AsyncResponse");
+            } catch (Exception e) {
+                System.err.println(e.toString());
+            }
+        });
+```
+
+## RuleId[id=UnnecessaryUnboxing]
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+                final String value = gcTotalPattern.matcher(line).replaceAll("$2");
+                Assert.assertTrue("gc.total value should be numeric and not negative",
+                        Double.valueOf(value).doubleValue() >= 0);
+
+                found = true;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+                final String value = gcTimeTotalPattern.matcher(line).replaceAll("$2");
+                Assert.assertTrue("gc.time.seconds.total value should be numeric and not negative",
+                        Double.valueOf(value).doubleValue() >= 0);
+
+                found = true;
+```
+
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -1830,42 +1830,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFiel
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTest.java`
 #### Snippet
 ```java
@@ -1898,66 +1862,6 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTe
         return responseBody.replaceAll(OPENMETRICS_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}",
                 "}");
     }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-
-                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
-                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
-
-                for (String expectedTag : expectedTags) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-
-                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
-                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
-
-                for (String expectedTag : expectedTags) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1982,6 +1886,42 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
                 final String tags = metricID.replaceAll("^gc_total\\{", "").replaceAll("\\}$", "");
 
                 for (String expectedTag : expectedTags) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2006,6 +1946,66 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
             assertFalse("Found __ in " + line, line.matches(".*__.*"));
         }
     }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+
+                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
+                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
+
+                for (String expectedTag : expectedTags) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MPMetricBaseMetricsTest.java`
+#### Snippet
+```java
+
+                final String metricID = gcTimeTotalPattern.matcher(line).replaceAll("$1");
+                final String tags = metricID.replaceAll("^gc_time_seconds_total\\{", "").replaceAll("\\}$", "");
+
+                for (String expectedTag : expectedTags) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -2046,44 +2046,32 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Mp
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/Timer.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Gauge.java`
 #### Snippet
 ```java
-     * {@link #update(Duration)}.
-     * 
-     * @return the elapsed time {@link java.time.Duration duration}
-     */
-    Duration getElapsedTime();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/metrics/package-info.java`
-#### Snippet
-```java
- * </pre>
+ * return value as its value.
+ * 
+ * The annotated method/field must be of numeric type (extends {@link java.lang.Number}).
+ *
  */
-@org.osgi.annotation.versioning.Version("5.0")
-package org.eclipse.microprofile.metrics;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.time` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/Timer.java`
-#### Snippet
-```java
-     *
-     * @param duration
-     *            the length of the {@link java.time.Duration duration}
-     */
-    void update(Duration duration);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.microprofile.metrics` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Timed.java`
+#### Snippet
+```java
+     *
+     * @see org.eclipse.microprofile.metrics.Metadata
+     * @see org.eclipse.microprofile.metrics.MetricUnits
+     */
+    @Nonbinding
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.metrics` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Metric.java`
 #### Snippet
 ```java
      *
@@ -2118,111 +2106,27 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/RegistryType.j
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * {@link Metadata} object is already registered with this metric name then that {@link Metadata} will be used.
-     *
-     * The created {@link Gauge} will return the value that the {@link java.util.function.Supplier Supplier} will
-     * provide.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+Qualifier `org.eclipse.microprofile.metrics` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Counted.java`
 #### Snippet
 ```java
      *
-     * @param <T>
-     *            A {@link java.lang.Number Number}
-     * @param name
-     *            The name of the Gauge
+     * @see org.eclipse.microprofile.metrics.Metadata
+     * @see org.eclipse.microprofile.metrics.MetricUnits
+     */
+    @Nonbinding
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.java`
 #### Snippet
 ```java
-     *            The name of the Gauge
-     * @param supplier
-     *            The {@link java.util.function.Supplier Supplier} function that will return the value for the Gauge
-     *            metric
-     * @param tags
-```
+ * 
+ */
+@org.osgi.annotation.versioning.Version("5.0")
+package org.eclipse.microprofile.metrics.annotation;
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-
-    /**
-     * Return the {@link Gauge} of type {@link java.lang.Number Number} registered under the {@link MetricID} with
-     * the @{link Metadata}'s name and with the provided {@link Tag}s; or create and register this gauge if none is
-     * registered.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * {@link Metadata} object is already registered with this metric name then that {@link Metadata} will be used.
-     *
-     * The created {@link Gauge} will apply a {@link java.util.function.Function Function} to the provided object to
-     * resolve a {@link java.lang.Number Number} value.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     *
-     * The created {@link Gauge} will apply a {@link java.util.function.Function Function} to the provided object to
-     * resolve a {@link java.lang.Number Number} value.
-     *
-     * @param <T>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     *            The Type of the Object of which the function <code>func</code> is applied to
-     * @param <R>
-     *            A {@link java.lang.Number Number}
-     * @param metadata
-     *            The Metadata of the Gauge
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     *            The Metadata of the Gauge
-     * @param object
-     *            The object that the {@link java.util.function.Function Function} <code>func</code> will be applied to
-     * @param func
-     *            The {@link java.util.function.Function Function} that will be applied to <code>object</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.function` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     *            The object that the {@link java.util.function.Function Function} <code>func</code> will be applied to
-     * @param func
-     *            The {@link java.util.function.Function Function} that will be applied to <code>object</code>
-     * @param tags
-     *            The tags of the metric
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2334,15 +2238,15 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.metrics` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Metric.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
-     *
-     * @see org.eclipse.microprofile.metrics.Metadata
-     * @see org.eclipse.microprofile.metrics.MetricUnits
-     */
-    @Nonbinding
+
+    /**
+     * Return the {@link Gauge} of type {@link java.lang.Number Number} registered under the {@link MetricID} with
+     * the @{link Metadata}'s name and with the provided {@link Tag}s; or create and register this gauge if none is
+     * registered.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2352,8 +2256,8 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 ```java
      * {@link Metadata} object is already registered with this metric name then that {@link Metadata} will be used.
      *
-     * The created {@link Gauge} will return the value that the {@link java.util.function.Supplier Supplier} will
-     * provide.
+     * The created {@link Gauge} will apply a {@link java.util.function.Function Function} to the provided object to
+     * resolve a {@link java.lang.Number Number} value.
      *
 ```
 
@@ -2363,10 +2267,22 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
      *
+     * The created {@link Gauge} will apply a {@link java.util.function.Function Function} to the provided object to
+     * resolve a {@link java.lang.Number Number} value.
+     *
      * @param <T>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     *            The Type of the Object of which the function <code>func</code> is applied to
+     * @param <R>
      *            A {@link java.lang.Number Number}
      * @param metadata
-     *            The metadata of the gauge
+     *            The Metadata of the Gauge
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2374,11 +2290,23 @@ Qualifier `java.util.function` is unnecessary and can be removed
 in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
-     *            The metadata of the gauge
-     * @param supplier
-     *            The {@link java.util.function.Supplier Supplier} function that will return the value for the Gauge
-     *            metric
+     *            The Metadata of the Gauge
+     * @param object
+     *            The object that the {@link java.util.function.Function Function} <code>func</code> will be applied to
+     * @param func
+     *            The {@link java.util.function.Function Function} that will be applied to <code>object</code>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     *            The object that the {@link java.util.function.Function Function} <code>func</code> will be applied to
+     * @param func
+     *            The {@link java.util.function.Function Function} that will be applied to <code>object</code>
      * @param tags
+     *            The tags of the metric
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2454,38 +2382,110 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Gauge.java`
+Qualifier `java.util.function` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
- * return value as its value.
- * 
- * The annotated method/field must be of numeric type (extends {@link java.lang.Number}).
- *
- */
+     * {@link Metadata} object is already registered with this metric name then that {@link Metadata} will be used.
+     *
+     * The created {@link Gauge} will return the value that the {@link java.util.function.Supplier Supplier} will
+     * provide.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.metrics` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/Counted.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
      *
-     * @see org.eclipse.microprofile.metrics.Metadata
-     * @see org.eclipse.microprofile.metrics.MetricUnits
+     * @param <T>
+     *            A {@link java.lang.Number Number}
+     * @param metadata
+     *            The metadata of the gauge
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     *            The metadata of the gauge
+     * @param supplier
+     *            The {@link java.util.function.Supplier Supplier} function that will return the value for the Gauge
+     *            metric
+     * @param tags
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * {@link Metadata} object is already registered with this metric name then that {@link Metadata} will be used.
+     *
+     * The created {@link Gauge} will return the value that the {@link java.util.function.Supplier Supplier} will
+     * provide.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     *
+     * @param <T>
+     *            A {@link java.lang.Number Number}
+     * @param name
+     *            The name of the Gauge
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.function` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     *            The name of the Gauge
+     * @param supplier
+     *            The {@link java.util.function.Supplier Supplier} function that will return the value for the Gauge
+     *            metric
+     * @param tags
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/Timer.java`
+#### Snippet
+```java
+     * {@link #update(Duration)}.
+     * 
+     * @return the elapsed time {@link java.time.Duration duration}
      */
-    @Nonbinding
+    Duration getElapsedTime();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.time` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/metrics/Timer.java`
+#### Snippet
+```java
+     *
+     * @param duration
+     *            the length of the {@link java.time.Duration duration}
+     */
+    void update(Duration duration);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.java`
+in `api/src/main/java/org/eclipse/microprofile/metrics/package-info.java`
 #### Snippet
 ```java
- * 
+ * </pre>
  */
 @org.osgi.annotation.versioning.Version("5.0")
-package org.eclipse.microprofile.metrics.annotation;
+package org.eclipse.microprofile.metrics;
 
 ```
 
@@ -2504,18 +2504,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 
 ## RuleId[id=JUnitMalformedDeclaration]
 ### JUnitMalformedDeclaration
-Method `callExtendedTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    @Test
-    @InSequence(4)
-    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-```
-
-### JUnitMalformedDeclaration
 Method `callTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
 #### Snippet
@@ -2548,6 +2536,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteE
     @InSequence(1)
     public void timedMethodNotCalledYet(MetricRegistry registry) {
         Timer timer = registry.getTimer(timedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+```
+
+### JUnitMalformedDeclaration
+Method `callExtendedTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    @Test
+    @InSequence(4)
+    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
         assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
@@ -2564,18 +2564,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 ```
 
 ### JUnitMalformedDeclaration
-Method `extendedTimedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-    @Test
-    @InSequence(2)
-    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
-```
-
-### JUnitMalformedDeclaration
 Method `callTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
 #### Snippet
@@ -2588,15 +2576,15 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteT
 ```
 
 ### JUnitMalformedDeclaration
-Method `timedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
+Method `extendedTimedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
 #### Snippet
 ```java
     @Test
-    @InSequence(1)
-    public void timedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
+    @InSequence(2)
+    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
 ```
 
 ### JUnitMalformedDeclaration
@@ -2608,6 +2596,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteT
     @InSequence(4)
     public void callExtendedTimedMethodOnce(MetricRegistry registry) {
         Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+```
+
+### JUnitMalformedDeclaration
+Method `timedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+    @Test
+    @InSequence(1)
+    public void timedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timerMID);
         assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
@@ -2662,18 +2662,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 ```
 
 ### Convert2Lambda
-Anonymous new Callable() can be replaced with lambda
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
-#### Snippet
-```java
-        try {
-            // Call the counted method and assert an exception is thrown
-            bean.countedMethod(new Callable<Long>() {
-                @Override
-                public Long call() throws Exception {
-```
-
-### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
 #### Snippet
@@ -2695,6 +2683,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
         thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread t, Throwable e) {
+```
+
+### Convert2Lambda
+Anonymous new Callable() can be replaced with lambda
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+#### Snippet
+```java
+        try {
+            // Call the counted method and assert an exception is thrown
+            bean.countedMethod(new Callable<Long>() {
+                @Override
+                public Long call() throws Exception {
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -3288,18 +3288,6 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstanc
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
-#### Snippet
-```java
-    private static Histogram histogramLong = null;
-
-    private static boolean isInitialized = false;
-    final static int[] SAMPLE_INT_DATA = {0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 5, 5, 6, 7, 7, 7, 8, 9, 9, 10, 11, 11, 12,
-            12,
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
 #### Snippet
@@ -3309,6 +3297,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/Histogram
     private static Histogram histogramLong = null;
 
     private static boolean isInitialized = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
+#### Snippet
+```java
+    private static Histogram histogramLong = null;
+
+    private static boolean isInitialized = false;
+    final static int[] SAMPLE_INT_DATA = {0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 5, 5, 6, 7, 7, 7, 8, 9, 9, 10, 11, 11, 12,
+            12,
 ```
 
 ### RedundantFieldInitialization
@@ -3351,7 +3351,7 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-13-13-07-53.009.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-21-05-21.919.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -3375,18 +3375,6 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstanc
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `myAtomicInteger` is redundant
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest.java`
-#### Snippet
-```java
-        metrics.gauge("tck.gaugetest.toDoubleFunctionGaugeManual", value,
-                (atomicInteger) -> {
-                    AtomicInteger myAtomicInteger = (AtomicInteger) atomicInteger;
-                    return myAtomicInteger.getAndIncrement();
-                }, null);
-```
-
-### UnnecessaryLocalVariable
 Local variable `jar` is redundant
 in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTest.java`
 #### Snippet
@@ -3396,6 +3384,18 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTe
         WebArchive jar = ShrinkWrap.create(WebArchive.class).addClass(MetricAppBean2.class)
                 .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
 
+```
+
+### UnnecessaryLocalVariable
+Local variable `myAtomicInteger` is redundant
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest.java`
+#### Snippet
+```java
+        metrics.gauge("tck.gaugetest.toDoubleFunctionGaugeManual", value,
+                (atomicInteger) -> {
+                    AtomicInteger myAtomicInteger = (AtomicInteger) atomicInteger;
+                    return myAtomicInteger.getAndIncrement();
+                }, null);
 ```
 
 ## RuleId[id=NullArgumentToVariableArgMethod]
