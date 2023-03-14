@@ -1,7 +1,7 @@
 # maven-artifact-plugin 
  
 # Bad smells
-I found 36 bad smells with 3 repairable:
+I found 37 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 10 | false |
@@ -17,21 +17,10 @@ I found 36 bad smells with 3 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
 | UseOfPropertiesAsHashtable | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryBoxing | 1 | false |
 ## RuleId[id=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
-#### Snippet
-```java
- * @since 3.3.0
- */
-@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
-public class CheckBuildPlanMojo extends AbstractMojo {
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-```
-
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -42,6 +31,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
     @Parameter(property = "buildinfo.ignore", defaultValue = "")
     private Set<String> ignore;
 
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
+#### Snippet
+```java
+ * @since 3.3.0
+ */
+@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
+public class CheckBuildPlanMojo extends AbstractMojo {
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -186,6 +187,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `prefix`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+
+    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
+        prefix = prefix + i;
+        File artifactFile = artifact.getFile();
+        if (artifactFile.isDirectory()) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `javaVersion`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
 #### Snippet
@@ -197,16 +210,17 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
         int index = javaVersion.indexOf('.'); // for example 8.0_202
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-01-43-31.426.html`
 #### Snippet
 ```java
-
-    private void printArtifact(String prefix, int i, Artifact artifact) throws MojoExecutionException {
-        prefix = prefix + i;
-        File artifactFile = artifact.getFile();
-        if (artifactFile.isDirectory()) {
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -251,44 +265,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        @Override
-        public WorkspaceReader getWorkspaceReader() {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
         }
 
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        ZipEntry zipEntry = jar.getEntry(entryName);
-        if (zipEntry == null) {
-            return null;
-        }
-        try (InputStream in = jar.getInputStream(zipEntry)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("Unable to read " + entryName + " from " + jar, e);
-        }
         return null;
     }
 
@@ -313,6 +291,42 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 ```java
         }
 
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        @Override
+        public WorkspaceReader getWorkspaceReader() {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        ZipEntry zipEntry = jar.getEntry(entryName);
+        if (zipEntry == null) {
+            return null;
+        }
+        try (InputStream in = jar.getInputStream(zipEntry)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("Unable to read " + entryName + " from " + jar, e);
+        }
         return null;
     }
 
