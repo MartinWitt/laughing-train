@@ -41,18 +41,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
-#### Snippet
-```java
-
-    private static String identity(String... parts) {
-        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
-    }
-}
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
@@ -62,6 +50,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
     if (!StringUtil.isEmptyOrSpaces(token)) {
       if (token.startsWith(TOKEN_PREFIX_OAUTH)) {
         // oauth token
+```
+
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
+#### Snippet
+```java
+
+    private static String identity(String... parts) {
+        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
+    }
+}
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -88,19 +88,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
 
   /* Matches github http and https urls of format https://github.com/owner/repo.git */
-```
-
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
-#### Snippet
-```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -150,6 +137,19 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         throw new IllegalArgumentException("URL + [" + url.toString() + "] does not contain owner and repository info");
       }
       return getFromCacheOrFetch(issueURL, new MyFetchFunction(url, m.group(1), m.group(2), issueId, credentials,
+```
+
+## RuleId[id=DoubleBraceInitialization]
+### DoubleBraceInitialization
+Double brace initialization
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProviderType.java`
+#### Snippet
+```java
+  @Override
+  public Map<String, String> getDefaultProperties() {
+    return new HashMap<String, String>() {{
+      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
+      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
 ```
 
 ## RuleId[id=BoundedWildcard]
