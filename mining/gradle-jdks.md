@@ -50,18 +50,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/SynchronizedInterface.java`
-#### Snippet
-```java
-
-final class SynchronizedInterface {
-    public static <T> T synchronizeAllInterfaceMethods(Class<T> returnInterface, T original) {
-        Object sync = new Object();
-        return returnInterface.cast(Proxy.newProxyInstance(
-```
-
-### BoundedWildcard
 Can generalize to `? extends Directory`
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
@@ -73,19 +61,19 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         this.jdkDistributions = jdkDistributions;
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `JdkExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
+### BoundedWildcard
+Can generalize to `? extends T`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/SynchronizedInterface.java`
 #### Snippet
 ```java
-import org.gradle.api.provider.Property;
 
-public abstract class JdkExtension {
-    // Not called `version` to avoid being interfered with by `Project#setVersion`!
-    public abstract Property<String> getJdkVersion();
+final class SynchronizedInterface {
+    public static <T> T synchronizeAllInterfaceMethods(Class<T> returnInterface, T original) {
+        Object sync = new Object();
+        return returnInterface.cast(Proxy.newProxyInstance(
 ```
 
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `PalantirCaExtension` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaExtension.java`
@@ -111,15 +99,15 @@ public abstract class JdksExtension {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
+Abstract class `JdkExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkExtension.java`
 #### Snippet
 ```java
+import org.gradle.api.provider.Property;
 
-@Value.Immutable
-abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
-    protected abstract Provider<Directory> installationPathProvider();
-
+public abstract class JdkExtension {
+    // Not called `version` to avoid being interfered with by `Project#setVersion`!
+    public abstract Property<String> getJdkVersion();
 ```
 
 ### AbstractClassNeverImplemented
@@ -132,6 +120,18 @@ import org.gradle.api.provider.Property;
 public abstract class JdkDistributionExtension {
     public abstract Property<String> getBaseUrl();
 }
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
+#### Snippet
+```java
+
+@Value.Immutable
+abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
+    protected abstract Provider<Directory> installationPathProvider();
+
 ```
 
 ## RuleId[id=OptionalContainsCollection]
@@ -162,42 +162,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
-#### Snippet
-```java
-                                () -> new File(System.getProperty("user.home"), ".gradle/gradle-jdks"))));
-
-        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
-            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
-                jdkDistributionExtension
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
-#### Snippet
-```java
-
-        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
-            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
-                jdkDistributionExtension
-                        .getBaseUrl()
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
-#### Snippet
-```java
-        StringBuilder stringBuilder = new StringBuilder();
-
-        caCerts().forEach((alias, caCert) -> {
-            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
 #### Snippet
 ```java
@@ -218,6 +182,42 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
             project.delete(delete -> {
                 delete.delete(temporaryJdkPath.toFile());
             });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
+#### Snippet
+```java
+        StringBuilder stringBuilder = new StringBuilder();
+
+        caCerts().forEach((alias, caCert) -> {
+            stringBuilder.append(alias).append(": ").append(caCert).append('\n');
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
+#### Snippet
+```java
+                                () -> new File(System.getProperty("user.home"), ".gradle/gradle-jdks"))));
+
+        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
+            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
+                jdkDistributionExtension
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
+#### Snippet
+```java
+
+        Arrays.stream(JdkDistributionName.values()).forEach(jdkDistributionName -> {
+            jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
+                jdkDistributionExtension
+                        .getBaseUrl()
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -283,15 +283,15 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+'com.google.common.io.Closer' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
 ```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+        PathLock(Path path) throws IOException {
 ```
 
 ### UnstableApiUsage
@@ -379,14 +379,14 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
 #### Snippet
 ```java
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-        PathLock(Path path) throws IOException {
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
 ```
 
