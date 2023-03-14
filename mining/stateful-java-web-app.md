@@ -57,9 +57,9 @@ in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 ```java
     }
 
-    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        LOG.info("=========================================");
-        LOG.info("Writing out Page Visit into output stream");
+    private void readObject(java.io.ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -69,9 +69,9 @@ in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
 ```java
     }
 
-    private void readObject(java.io.ObjectInputStream in)
-            throws IOException, ClassNotFoundException {
-
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        LOG.info("=========================================");
+        LOG.info("Writing out Page Visit into output stream");
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
