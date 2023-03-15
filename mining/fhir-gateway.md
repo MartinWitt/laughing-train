@@ -1,7 +1,7 @@
 # fhir-gateway 
  
 # Bad smells
-I found 45 bad smells with 6 repairable:
+I found 44 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,7 +16,6 @@ I found 45 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
@@ -47,6 +46,18 @@ public class ExceptionUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `MainApp` has only 'static' members, and lacks a 'private' constructor
+in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
+#### Snippet
+```java
+@SpringBootApplication
+@ServletComponentScan
+public class MainApp {
+
+  public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
 #### Snippet
@@ -68,18 +79,6 @@ import org.apache.http.entity.ContentType;
 public class ProxyConstants {
 
   // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
-#### Snippet
-```java
-@SpringBootApplication
-@ServletComponentScan
-public class MainApp {
-
-  public static void main(String[] args) {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -121,30 +120,6 @@ in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 ```
 
 ### DataFlowIssue
-Argument `authHeader` might be null
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "No Authorization header provided!", AuthenticationException.class);
-    }
-    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
-    FhirContext fhirContext = server.getFhirContext();
-    RequestDetailsReader requestDetailsReader = new RequestDetailsToReader(requestDetails);
-```
-
-### DataFlowIssue
-Method invocation `checkAccess` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
-    }
-    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
-    if (!outcome.canAccess()) {
-      ExceptionUtil.throwRuntimeExceptionAndLog(
-```
-
-### DataFlowIssue
 Method invocation `getIssuer` may produce `NullPointerException`
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
@@ -166,6 +141,30 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
       verifiedJwt = jwtVerifier.verify(jwt);
     } catch (JWTVerificationException e) {
       // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
+```
+
+### DataFlowIssue
+Argument `authHeader` might be null
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "No Authorization header provided!", AuthenticationException.class);
+    }
+    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
+    FhirContext fhirContext = server.getFhirContext();
+    RequestDetailsReader requestDetailsReader = new RequestDetailsToReader(requestDetails);
+```
+
+### DataFlowIssue
+Method invocation `checkAccess` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
+    }
+    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
+    if (!outcome.canAccess()) {
+      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ### DataFlowIssue
@@ -306,19 +305,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-17-42-06.487.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -339,18 +325,6 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 ```java
           logger, "Error in building URI for resource " + uriString);
     }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
-#### Snippet
-```java
-  @Override
-  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -382,6 +356,18 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 
 ### ReturnNull
 Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+#### Snippet
+```java
+  @Override
+  public String postProcess(HttpResponse response) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
 #### Snippet
 ```java
@@ -397,11 +383,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          e,
-          ForbiddenOperationException.class);
+          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
+          InvalidRequestException.class);
       return null;
     }
-  }
+    Map<String, String[]> queryParams = requestDetails.getParameters();
 ```
 
 ### ReturnNull
@@ -421,11 +407,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
+          e,
+          ForbiddenOperationException.class);
       return null;
     }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
+  }
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
