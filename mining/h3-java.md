@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-18-35-54.301.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-15-13-05-57.787.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,6 +116,31 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+   * @param osName Value of system property "os.name"
+   */
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+   * @param osArch Value of system property "os.arch"
+   */
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
+```
+
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -129,44 +154,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     }
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-   * @param osArch Value of system property "os.arch"
-   */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-   * @param osName Value of system property "os.name"
-   */
-  static final OperatingSystem detectOs(String javaVendor, String osName) {
-    // Detecting Android using the properties from:
-    // https://developer.android.com/reference/java/lang/System.html
-```
-
 ## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException Invalid resolution
-   */
-  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
-    checkResolution(res);
-
-```
-
 ### BoundedWildcard
 Can generalize to `? extends LatLng`
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -176,6 +164,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
    */
   private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
     assert arr.length >= (original.size() * 2) + offset;
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException Invalid resolution
+   */
+  public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
+    checkResolution(res);
 
 ```
 
