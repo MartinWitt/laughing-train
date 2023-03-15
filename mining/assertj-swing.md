@@ -1,7 +1,7 @@
 # assertj-swing 
  
 # Bad smells
-I found 1113 bad smells with 68 repairable:
+I found 1114 bad smells with 68 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | MissortedModifiers | 571 | false |
@@ -39,13 +39,13 @@ I found 1113 bad smells with 68 repairable:
 | KeySetIterationMayUseEntrySet | 2 | false |
 | RedundantArrayCreation | 2 | true |
 | AbstractClassNeverImplemented | 2 | false |
-| ClassNameSameAsAncestorName | 2 | false |
 | MalformedFormatString | 2 | false |
+| ClassNameSameAsAncestorName | 2 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
 | SynchronizeOnThis | 2 | false |
 | StringOperationCanBeSimplified | 2 | false |
-| CharsetObjectCanBeUsed | 2 | false |
 | SystemOutErr | 2 | false |
+| CharsetObjectCanBeUsed | 2 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
 | SizeReplaceableByIsEmpty | 1 | true |
@@ -53,6 +53,7 @@ I found 1113 bad smells with 68 repairable:
 | UnnecessaryUnboxing | 1 | false |
 | WhileLoopSpinsOnField | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
 | InstanceofCatchParameter | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
@@ -65,6 +66,18 @@ I found 1113 bad smells with 68 repairable:
 | UseBulkOperation | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[parts.size()\]'
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotFileNameGenerator.java`
+#### Snippet
+```java
+    addParameters(result, parts);
+    parts.add(PNG);
+    return parts.toArray(new String[parts.size()]);
+  }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Container\[roots.size()\]'
 in `assertj-swing/src/main/java/org/assertj/swing/core/HierarchyRootsSource.java`
 #### Snippet
@@ -74,18 +87,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/HierarchyRootsSource.java
     return roots.toArray(new Container[roots.size()]);
   }
 }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[selection.size()\]'
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-  @Nonnull public String[] selectionOf(@Nonnull JList<?> list) {
-    List<String> selection = selectionValues(list, cellReader());
-    return selection.toArray(new String[selection.size()]);
-  }
-
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -101,15 +102,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreePathFinder.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[allTitles.size()\]'
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+Call to `toArray()` with pre-sized array argument 'new String\[selection.size()\]'
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
 #### Snippet
 ```java
-        allTitles.add(tabbedPane.getTitleAt(i));
-      }
-      return allTitles.toArray(new String[allTitles.size()]);
-    });
-    return checkNotNull(result);
+  @Nonnull public String[] selectionOf(@Nonnull JList<?> list) {
+    List<String> selection = selectionValues(list, cellReader());
+    return selection.toArray(new String[selection.size()]);
+  }
+
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -125,15 +126,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/KeyStrokes.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[parts.size()\]'
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotFileNameGenerator.java`
+Call to `toArray()` with pre-sized array argument 'new String\[allTitles.size()\]'
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
 #### Snippet
 ```java
-    addParameters(result, parts);
-    parts.add(PNG);
-    return parts.toArray(new String[parts.size()]);
-  }
-
+        allTitles.add(tabbedPane.getTitleAt(i));
+      }
+      return allTitles.toArray(new String[allTitles.size()]);
+    });
+    return checkNotNull(result);
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -278,7 +279,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/Arrays.java`
 #### Snippet
 ```java
     int arraySize = array.length;
-    T[] copy = (T[]) Array.newInstance(array.getClass().getComponentType(), arraySize);
+    int[] copy = new int[arraySize];
     for (int i = 0; i < arraySize; i++) {
       copy[i] = array[i];
     }
@@ -290,7 +291,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/Arrays.java`
 #### Snippet
 ```java
     int arraySize = array.length;
-    int[] copy = new int[arraySize];
+    T[] copy = (T[]) Array.newInstance(array.getClass().getComponentType(), arraySize);
     for (int i = 0; i < arraySize; i++) {
       copy[i] = array[i];
     }
@@ -298,54 +299,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/Arrays.java`
 
 ## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-  private Point locationOnScreen = new Point(0, 0);
-
-  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
-  private final Stack<Point> locationStack = new Stack<Point>();
-  private final Stack<Point> screenLocationStack = new Stack<Point>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-  private Point locationOnScreen = new Point(0, 0);
-
-  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
-  private final Stack<Point> locationStack = new Stack<Point>();
-  private final Stack<Point> screenLocationStack = new Stack<Point>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-
-  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
-  private final Stack<Point> locationStack = new Stack<Point>();
-  private final Stack<Point> screenLocationStack = new Stack<Point>();
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-
-  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
-  private final Stack<Point> locationStack = new Stack<Point>();
-  private final Stack<Point> screenLocationStack = new Stack<Point>();
-
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack` used
 in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
 #### Snippet
@@ -367,6 +320,54 @@ in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
   private final Stack<Point> screenLocationStack = new Stack<Point>();
 
   private int buttons;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+
+  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
+  private final Stack<Point> locationStack = new Stack<Point>();
+  private final Stack<Point> screenLocationStack = new Stack<Point>();
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+
+  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
+  private final Stack<Point> locationStack = new Stack<Point>();
+  private final Stack<Point> screenLocationStack = new Stack<Point>();
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+  private Point locationOnScreen = new Point(0, 0);
+
+  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
+  private final Stack<Point> locationStack = new Stack<Point>();
+  private final Stack<Point> screenLocationStack = new Stack<Point>();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+  private Point locationOnScreen = new Point(0, 0);
+
+  private final Stack<WeakReference<Component>> componentStack = new Stack<WeakReference<Component>>();
+  private final Stack<Point> locationStack = new Stack<Point>();
+  private final Stack<Point> screenLocationStack = new Stack<Point>();
 ```
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
@@ -439,9 +440,9 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/testcase/AssertJSw
 #### Snippet
 ```java
    */
-  @BeforeClass
-  public static final void setUpOnce() {
-    FailOnThreadViolationRepaintManager.install();
+  @AfterClass
+  public static final void tearDownOnce() {
+    FailOnThreadViolationRepaintManager.uninstall();
   }
 ```
 
@@ -451,7 +452,19 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/testcase/AssertJSw
 #### Snippet
 ```java
    */
-  @AfterClass
+  @BeforeClass
+  public static final void setUpOnce() {
+    FailOnThreadViolationRepaintManager.install();
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/testcase/AssertJSwingTestngTestCase.java`
+#### Snippet
+```java
+   */
+  @AfterClass(alwaysRun = true)
   public static final void tearDownOnce() {
     FailOnThreadViolationRepaintManager.uninstall();
   }
@@ -493,18 +506,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/Range.java`
   }
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/testcase/AssertJSwingTestngTestCase.java`
-#### Snippet
-```java
-   */
-  @AfterClass(alwaysRun = true)
-  public static final void tearDownOnce() {
-    FailOnThreadViolationRepaintManager.uninstall();
-  }
-```
-
 ## RuleId[id=MismatchedStringBuilderQueryUpdate]
 ### MismatchedStringBuilderQueryUpdate
 Contents of `StringBuilder message` are updated, but never queried
@@ -519,6 +520,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/UnexpectedJOptionPaneFind
 ```
 
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super String`
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotFileNameGenerator.java`
+#### Snippet
+```java
+  }
+
+  private static void addParameters(ITestResult result, List<String> parts) {
+    Object[] parameters = result.getParameters();
+    if (parameters == null)
+```
+
 ### BoundedWildcard
 Can generalize to `? super String`
 in `assertj-swing/src/main/java/org/assertj/swing/core/Settings.java`
@@ -556,6 +569,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/UnexpectedJOptionPaneFind
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Component`
+in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
+#### Snippet
+```java
+  @RunsInEDT
+  private void find(@Nonnull ComponentHierarchy h, @Nonnull ComponentMatcher m, @Nonnull Component root,
+                    @Nonnull Set<Component> found) {
+    for (Component c : childrenOfComponent(root, h)) {
+      find(h, m, checkNotNull(c), found);
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 #### Snippet
@@ -577,42 +602,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
                                           @Nonnull Component root, Set<T> found) {
     for (Component c : childrenOfComponent(root, h)) {
       find(h, m, checkNotNull(c), found);
-```
-
-### BoundedWildcard
-Can generalize to `? super Component`
-in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
-#### Snippet
-```java
-  @RunsInEDT
-  private void find(@Nonnull ComponentHierarchy h, @Nonnull ComponentMatcher m, @Nonnull Component root,
-                    @Nonnull Set<Component> found) {
-    for (Component c : childrenOfComponent(root, h)) {
-      find(h, m, checkNotNull(c), found);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Component`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
-    execute(() -> {
-      for (Component c : found) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Component`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private Collection<? extends JPopupMenu> determineInnerPopupsToRemove(List<Component> found) {
-    // JPopupMenu contains JMenuItem's (note: JMenu extends JMenuItem):
-    // ...... JMenu [implying a cascading JPopupMenu automatically set up]
 ```
 
 ### BoundedWildcard
@@ -640,27 +629,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Point`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-  }
-
-  @Nonnull private Point cellCenterIn(@Nonnull Pair<Integer, Point> scrollInfo) {
-    return checkNotNull(scrollInfo.second);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Point`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+Can generalize to `? extends Component`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  private void scroll(@Nonnull JScrollBar scrollBar, @Nonnull Pair<Point, Integer> scrollInfo) {
-    // For now, do it programmatically, faking the mouse movement and clicking
-    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
+  private Collection<? extends JPopupMenu> determineInnerPopupsToRemove(List<Component> found) {
+    // JPopupMenu contains JMenuItem's (note: JMenu extends JMenuItem):
+    // ...... JMenu [implying a cascading JPopupMenu automatically set up]
+```
+
+### BoundedWildcard
+Can generalize to `? extends Component`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
+    execute(() -> {
+      for (Component c : found) {
 ```
 
 ### BoundedWildcard
@@ -676,6 +665,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Point`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void scroll(@Nonnull JScrollBar scrollBar, @Nonnull Pair<Point, Integer> scrollInfo) {
+    // For now, do it programmatically, faking the mouse movement and clicking
+    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
+```
+
+### BoundedWildcard
 Can generalize to `? extends Component`
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
 #### Snippet
@@ -685,6 +686,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java
   private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
     execute(() -> {
       for (Component c : found) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Point`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+  }
+
+  @Nonnull private Point cellCenterIn(@Nonnull Pair<Integer, Point> scrollInfo) {
+    return checkNotNull(scrollInfo.second);
+  }
 ```
 
 ### BoundedWildcard
@@ -752,11 +765,11 @@ Can generalize to `? extends Dimension`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
+  }
 
-  @RunsInEDT
-  private void simulateMoveStarted(@Nonnull Container c, @Nonnull Triple<Dimension, Insets, Point> moveInfo, int x,
-      int y) {
-    Point p = moveLocation(checkNotNull(moveInfo.first), checkNotNull(moveInfo.second));
+  @Nonnull private static Point resizeLocation(final @Nonnull Pair<Dimension, Insets> resizeInfo) {
+    return resizeLocation(checkNotNull(resizeInfo.first), checkNotNull(resizeInfo.second));
+  }
 ```
 
 ### BoundedWildcard
@@ -764,11 +777,11 @@ Can generalize to `? extends Insets`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
+  }
 
-  @RunsInEDT
-  private void simulateMoveStarted(@Nonnull Container c, @Nonnull Triple<Dimension, Insets, Point> moveInfo, int x,
-      int y) {
-    Point p = moveLocation(checkNotNull(moveInfo.first), checkNotNull(moveInfo.second));
+  @Nonnull private static Point resizeLocation(final @Nonnull Pair<Dimension, Insets> resizeInfo) {
+    return resizeLocation(checkNotNull(resizeInfo.first), checkNotNull(resizeInfo.second));
+  }
 ```
 
 ### BoundedWildcard
@@ -776,11 +789,11 @@ Can generalize to `? extends Dimension`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-  }
 
-  @Nonnull private static Point resizeLocation(final @Nonnull Pair<Dimension, Insets> resizeInfo) {
-    return resizeLocation(checkNotNull(resizeInfo.first), checkNotNull(resizeInfo.second));
-  }
+  @RunsInEDT
+  private void simulateMoveStarted(@Nonnull Container c, @Nonnull Triple<Dimension, Insets, Point> moveInfo, int x,
+      int y) {
+    Point p = moveLocation(checkNotNull(moveInfo.first), checkNotNull(moveInfo.second));
 ```
 
 ### BoundedWildcard
@@ -788,11 +801,11 @@ Can generalize to `? extends Insets`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-  }
 
-  @Nonnull private static Point resizeLocation(final @Nonnull Pair<Dimension, Insets> resizeInfo) {
-    return resizeLocation(checkNotNull(resizeInfo.first), checkNotNull(resizeInfo.second));
-  }
+  @RunsInEDT
+  private void simulateMoveStarted(@Nonnull Container c, @Nonnull Triple<Dimension, Insets, Point> moveInfo, int x,
+      int y) {
+    Point p = moveLocation(checkNotNull(moveInfo.first), checkNotNull(moveInfo.second));
 ```
 
 ### BoundedWildcard
@@ -829,18 +842,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/keystroke/ParsedKeyStrokeMappi
   ParsedKeyStrokeMappingProvider(@Nonnull List<KeyStrokeMapping> mappings) {
     this.mappings.addAll(defaultMappings());
     this.mappings.addAll(mappings);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotFileNameGenerator.java`
-#### Snippet
-```java
-  }
-
-  private static void addParameters(ITestResult result, List<String> parts) {
-    Object[] parameters = result.getParameters();
-    if (parameters == null)
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -942,15 +943,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/format/ComponentFormatterTempl
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
+Overridden methods are not annotated
+in `assertj-swing/src/main/java/org/assertj/swing/timing/Condition.java`
 #### Snippet
 ```java
+   * @return by default, an empty {@code String}.
    */
-  @RunsInEDT
-  public void click(@Nonnull Component c) {
-    checkClickAllowed(c);
-    robot.click(c);
+  @Nonnull protected String descriptionAddendum() {
+    return EMPTY_TEXT;
+  }
 ```
 
 ### NullableProblems
@@ -966,15 +967,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/ComponentFixtureExtens
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `assertj-swing/src/main/java/org/assertj/swing/timing/Condition.java`
+Overridden method parameters are not annotated
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
-   * @return by default, an empty {@code String}.
    */
-  @Nonnull protected String descriptionAddendum() {
-    return EMPTY_TEXT;
-  }
+  @RunsInEDT
+  public void click(@Nonnull Component c) {
+    checkClickAllowed(c);
+    robot.click(c);
 ```
 
 ### NullableProblems
@@ -1015,30 +1016,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiAction.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiQuery.java`
-#### Snippet
-```java
-  protected abstract @Nullable T executeInEDT() throws Throwable;
-
-  final @Nullable T result() {
-    return result;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `protected abstract @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiQuery.java`
-#### Snippet
-```java
-   * @throws Throwable any error thrown when executing an action in the event dispatch thread (EDT).
-   */
-  protected abstract @Nullable T executeInEDT() throws Throwable;
-
-  final @Nullable T result() {
-```
-
-### MissortedModifiers
 Missorted modifiers `protected abstract @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiLazyLoadingDescription.java`
 #### Snippet
@@ -1063,15 +1040,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiLazyLoadingDescription.
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
+Missorted modifiers `final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiQuery.java`
 #### Snippet
 ```java
-  @RunsInCurrentThread
-  @Nullable public static
-  Component invokerOf(final @Nonnull Component c) {
-    if (c instanceof JPopupMenu) {
-      return ((JPopupMenu) c).getInvoker();
+  protected abstract @Nullable T executeInEDT() throws Throwable;
+
+  final @Nullable T result() {
+    return result;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected abstract @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiQuery.java`
+#### Snippet
+```java
+   * @throws Throwable any error thrown when executing an action in the event dispatch thread (EDT).
+   */
+  protected abstract @Nullable T executeInEDT() throws Throwable;
+
+  final @Nullable T result() {
 ```
 
 ### MissortedModifiers
@@ -1099,6 +1088,18 @@ class ActivateWindowTask {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
+#### Snippet
+```java
+  @RunsInCurrentThread
+  @Nullable public static
+  Component invokerOf(final @Nonnull Component c) {
+    if (c instanceof JPopupMenu) {
+      return ((JPopupMenu) c).getInvoker();
+```
+
+### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/core/FocusOwnerFinder.java`
 #### Snippet
@@ -1120,18 +1121,6 @@ final class ComponentIsFocusableQuery {
   static boolean isFocusable(final @Nonnull Component component) {
     Boolean result = execute(() -> component.isFocusable());
     return Preconditions.checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.java`
-#### Snippet
-```java
-   * @return the component hierarchy used by this printer.
-   */
-  protected final @Nonnull ComponentHierarchy hierarchy() {
-    return hierarchy;
-  }
 ```
 
 ### MissortedModifiers
@@ -1159,6 +1148,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/Scrolling.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `protected final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.java`
+#### Snippet
+```java
+   * @return the component hierarchy used by this printer.
+   */
+  protected final @Nonnull ComponentHierarchy hierarchy() {
+    return hierarchy;
+  }
+```
+
+### MissortedModifiers
 Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/core/ComponentRequestFocusTask.java`
 #### Snippet
@@ -1183,75 +1184,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/GenericTypeMatcher.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.java`
 #### Snippet
 ```java
-   *         not been set.
-   */
-  protected final @Nullable Object quotedName() {
-    return quoted(name);
-  }
-```
 
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
-#### Snippet
-```java
-   *         has not been set.
-   */
-  protected final @Nullable Object quoted(@Nullable Object propertyValue) {
-    if (ANY.equals(propertyValue)) {
-      return ANY;
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
-#### Snippet
-```java
-  }
-
-  protected final @Nullable Object name() {
-    return name;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `protected static final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
-#### Snippet
-```java
-  }
-
-  protected static final @Nonnull Object anyValue() {
-    return ANY;
-  }
+  @RunsInCurrentThread
+  private static void validateEqualSize(final @Nonnull JTable table, final @Nonnull String[] values) {
+    int columnCount = table.getColumnCount();
+    if (values.length != columnCount) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
+in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.java`
 #### Snippet
 ```java
 
-  @RunsInEDT
-  @Nonnull private static TableCell findCell(final @Nonnull JTable table, final int row, final @Nonnull Object columnId) {
-    TableCell result = execute(() -> {
-      int column = columnIndexByIdentifier(table, columnId);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static TableCell findCell(final @Nonnull JTable table, final int row, final @Nonnull Object columnId) {
-    TableCell result = execute(() -> {
-      int column = columnIndexByIdentifier(table, columnId);
+  @RunsInCurrentThread
+  private static void validateEqualSize(final @Nonnull JTable table, final @Nonnull String[] values) {
+    int columnCount = table.getColumnCount();
+    if (values.length != columnCount) {
 ```
 
 ### MissortedModifiers
@@ -1292,26 +1245,26 @@ in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.jav
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.java`
+in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
 #### Snippet
 ```java
 
-  @RunsInCurrentThread
-  private static void validateEqualSize(final @Nonnull JTable table, final @Nonnull String[] values) {
-    int columnCount = table.getColumnCount();
-    if (values.length != columnCount) {
+  @RunsInEDT
+  @Nonnull private static TableCell findCell(final @Nonnull JTable table, final int row, final @Nonnull Object columnId) {
+    TableCell result = execute(() -> {
+      int column = columnIndexByIdentifier(table, columnId);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.java`
+in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
 #### Snippet
 ```java
 
-  @RunsInCurrentThread
-  private static void validateEqualSize(final @Nonnull JTable table, final @Nonnull String[] values) {
-    int columnCount = table.getColumnCount();
-    if (values.length != columnCount) {
+  @RunsInEDT
+  @Nonnull private static TableCell findCell(final @Nonnull JTable table, final int row, final @Nonnull Object columnId) {
+    TableCell result = execute(() -> {
+      int column = columnIndexByIdentifier(table, columnId);
 ```
 
 ### MissortedModifiers
@@ -1327,6 +1280,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/text/TextReader.java`
 ```
 
 ### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
+#### Snippet
+```java
+   *         has not been set.
+   */
+  protected final @Nullable Object quoted(@Nullable Object propertyValue) {
+    if (ANY.equals(propertyValue)) {
+      return ANY;
+```
+
+### MissortedModifiers
 Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/text/TextReaders.java`
 #### Snippet
@@ -1348,6 +1313,102 @@ in `assertj-swing/src/main/java/org/assertj/swing/text/TextReaders.java`
   public boolean containsText(final @Nonnull Container container, final @Nonnull String text) {
     checkNotNull(container);
     checkNotNull(text);
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
+#### Snippet
+```java
+  }
+
+  protected final @Nullable Object name() {
+    return name;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
+#### Snippet
+```java
+   *         not been set.
+   */
+  protected final @Nullable Object quotedName() {
+    return quoted(name);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected static final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/NamedComponentMatcherTemplate.java`
+#### Snippet
+```java
+  }
+
+  protected static final @Nonnull Object anyValue() {
+    return ANY;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/util/Range.java`
+#### Snippet
+```java
+   * @return the created {@code To}.
+   */
+  public static final @Nonnull To to(int value) {
+    return new To(value);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/util/Range.java`
+#### Snippet
+```java
+   * @return the created {@code From}.
+   */
+  public static final @Nonnull From from(int value) {
+    return new From(value);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void showCaretOf(final @Nonnull JTextComponent textComponent) {
+    execute(() -> {
+      Caret caret = textComponent.getCaret();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
+#### Snippet
+```java
+
+  // TODO(Alex): Verify that this method really needs to be executed in the EDT.
+  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
+    BufferedImage result = execute(() -> robot.createScreenCapture(r));
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
+#### Snippet
+```java
+
+  // TODO(Alex): Verify that this method really needs to be executed in the EDT.
+  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
+    BufferedImage result = execute(() -> robot.createScreenCapture(r));
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -1357,9 +1418,21 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 ```java
 
   @RunsInEDT
-  @Nonnull private static Collection<? extends Component> rootsOf(final @Nonnull ComponentHierarchy h) {
-    return checkNotNull(execute(() -> h.roots()));
-  }
+  private static <T extends Component> boolean isMatching(final @Nonnull Component c,
+                                                          final @Nonnull GenericTypeMatcher<T> m) {
+    Boolean matching = execute(() -> m.matches(c));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
+#### Snippet
+```java
+  @RunsInEDT
+  private static <T extends Component> boolean isMatching(final @Nonnull Component c,
+                                                          final @Nonnull GenericTypeMatcher<T> m) {
+    Boolean matching = execute(() -> m.matches(c));
+    return checkNotNull(matching);
 ```
 
 ### MissortedModifiers
@@ -1393,177 +1466,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 ```java
 
   @RunsInEDT
-  private static <T extends Component> boolean isMatching(final @Nonnull Component c,
-                                                          final @Nonnull GenericTypeMatcher<T> m) {
-    Boolean matching = execute(() -> m.matches(c));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
-#### Snippet
-```java
-  @RunsInEDT
-  private static <T extends Component> boolean isMatching(final @Nonnull Component c,
-                                                          final @Nonnull GenericTypeMatcher<T> m) {
-    Boolean matching = execute(() -> m.matches(c));
-    return checkNotNull(matching);
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/util/Range.java`
-#### Snippet
-```java
-   * @return the created {@code To}.
-   */
-  public static final @Nonnull To to(int value) {
-    return new To(value);
+  @Nonnull private static Collection<? extends Component> rootsOf(final @Nonnull ComponentHierarchy h) {
+    return checkNotNull(execute(() -> h.roots()));
   }
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/util/Range.java`
-#### Snippet
-```java
-   * @return the created {@code From}.
-   */
-  public static final @Nonnull From from(int value) {
-    return new From(value);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
-#### Snippet
-```java
-
-  // TODO(Alex): Verify that this method really needs to be executed in the EDT.
-  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
-    BufferedImage result = execute(() -> robot.createScreenCapture(r));
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
-#### Snippet
-```java
-
-  // TODO(Alex): Verify that this method really needs to be executed in the EDT.
-  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
-    BufferedImage result = execute(() -> robot.createScreenCapture(r));
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void showCaretOf(final @Nonnull JTextComponent textComponent) {
-    execute(() -> {
-      Caret caret = textComponent.getCaret();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  final @Nullable Object screenLockOwner() {
-    return screenLockOwner;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
-    execute(() -> {
-      for (Component c : found) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
-    execute(() -> {
-      for (Component c : found) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Component, Point> invokerAndCenterOfInvoker(final @Nonnull JPopupMenu popupMenu) {
-    Pair<Component, Point> result = execute(new GuiQuery<Pair<Component, Point>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInCurrentThread
-  private static void dispose(final @Nonnull ComponentHierarchy hierarchy, @Nonnull Window w) {
-    hierarchy.dispose(w);
-    w.setVisible(false);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void disposeWindows(final @Nonnull ComponentHierarchy hierarchy) {
-    execute(() -> {
-      for (Container c : hierarchy.roots()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static Pair<Window, Window> windowAncestorsOf(final @Nullable Component one, final @Nullable Component two) {
-    return execute(new GuiQuery<Pair<Window, Window>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static Pair<Window, Window> windowAncestorsOf(final @Nullable Component one, final @Nullable Component two) {
-    return execute(new GuiQuery<Pair<Window, Window>>() {
-      @Override
 ```
 
 ### MissortedModifiers
@@ -1591,6 +1496,66 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentVisibleQuery.ja
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentSizeQuery.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nonnull public static Dimension sizeOf(final @Nonnull Component component) {
+    Dimension result = execute(() -> component.getSize());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentEnabledQuery.java`
+#### Snippet
+```java
+   * @see Component#isEnabled()
+   */
+  public static boolean isEnabled(final @Nonnull Component component) {
+    Boolean result = execute(() -> component.isEnabled());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentShowingQuery.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public static boolean isShowing(final @Nonnull Component component) {
+    Boolean result = execute(() -> component.isShowing());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentParentQuery.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nullable public static Container parentOf(final @Nonnull Component component) {
+    return execute(() -> component.getParent());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentLocationOnScreenQuery.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nonnull public static Point locationOnScreen(final @Nonnull Component component) {
+    Point result = execute(() -> component.getLocationOnScreen());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
 Missorted modifiers `public synchronized @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/input/InputState.java`
 #### Snippet
@@ -1600,18 +1565,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/input/InputState.java`
   public synchronized @Nullable Component deepestComponentUnderMousePointer() {
     Component c = mouseComponent();
     if (c != null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `public synchronized @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/input/InputState.java`
-#### Snippet
-```java
-   * @return the last known mouse location.
-   */
-  public synchronized @Nullable Point mouseLocationOnScreen() {
-    return mouseInfo.locationOnScreen();
-  }
 ```
 
 ### MissortedModifiers
@@ -1639,43 +1592,19 @@ in `assertj-swing/src/main/java/org/assertj/swing/input/InputState.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentEnabledQuery.java`
+Missorted modifiers `public synchronized @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/input/InputState.java`
 #### Snippet
 ```java
-   * @see Component#isEnabled()
+   * @return the last known mouse location.
    */
-  public static boolean isEnabled(final @Nonnull Component component) {
-    Boolean result = execute(() -> component.isEnabled());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentParentQuery.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nullable public static Container parentOf(final @Nonnull Component component) {
-    return execute(() -> component.getParent());
+  public synchronized @Nullable Point mouseLocationOnScreen() {
+    return mouseInfo.locationOnScreen();
   }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentShowingQuery.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public static boolean isShowing(final @Nonnull Component component) {
-    Boolean result = execute(() -> component.isShowing());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/query/JTableColumnByIdentifierQuery.java`
 #### Snippet
 ```java
@@ -1696,18 +1625,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/JTableColumnByIdentifier
   public static int columnIndexByIdentifier(final @Nonnull JTable table, final @Nonnull Object identifier) {
     try {
       TableColumn column = table.getColumn(identifier);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentSizeQuery.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nonnull public static Dimension sizeOf(final @Nonnull Component component) {
-    Dimension result = execute(() -> component.getSize());
-    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -1724,42 +1641,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/AbstractButtonTextQuery.
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentLocationOnScreenQuery.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nonnull public static Point locationOnScreen(final @Nonnull Component component) {
-    Point result = execute(() -> component.getLocationOnScreen());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellEditorQuery.java`
-#### Snippet
-```java
-final class JTableCellEditorQuery {
-  @RunsInCurrentThread
-  static @Nullable Component cellEditorIn(final @Nonnull JTable table, final int row, final int column) {
-    TableCellEditor cellEditor = table.getCellEditor(row, column);
-    return cellEditor.getTableCellEditorComponent(table, table.getValueAt(row, column), false, row, column);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellEditorQuery.java`
-#### Snippet
-```java
-final class JTableCellEditorQuery {
-  @RunsInCurrentThread
-  static @Nullable Component cellEditorIn(final @Nonnull JTable table, final int row, final int column) {
-    TableCellEditor cellEditor = table.getCellEditor(row, column);
-    return cellEditor.getTableCellEditorComponent(table, table.getValueAt(row, column), false, row, column);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabQuery.java`
 #### Snippet
 ```java
@@ -1771,27 +1652,27 @@ final class JTabbedPaneSelectTabQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/TextAssert.java`
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellEditorQuery.java`
 #### Snippet
 ```java
-  }
-
-  static @Nonnull TextAssert verifyThat(@Nullable String s) {
-    return new TextAssert(s);
-  }
+final class JTableCellEditorQuery {
+  @RunsInCurrentThread
+  static @Nullable Component cellEditorIn(final @Nonnull JTable table, final int row, final int column) {
+    TableCellEditor cellEditor = table.getCellEditor(row, column);
+    return cellEditor.getTableCellEditorComponent(table, table.getValueAt(row, column), false, row, column);
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/TextAssert.java`
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellEditorQuery.java`
 #### Snippet
 ```java
- */
-class TextAssert extends AbstractCharSequenceAssert<TextAssert, String> {
-  static @Nonnull TextAssert assertThat(@Nullable String s) {
-    return new TextAssert(s);
-  }
+final class JTableCellEditorQuery {
+  @RunsInCurrentThread
+  static @Nullable Component cellEditorIn(final @Nonnull JTable table, final int row, final int column) {
+    TableCellEditor cellEditor = table.getCellEditor(row, column);
+    return cellEditor.getTableCellEditorComponent(table, table.getValueAt(row, column), false, row, column);
 ```
 
 ### MissortedModifiers
@@ -1819,63 +1700,63 @@ final class JSpinnerValueQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
-#### Snippet
-```java
-  abstract @Nonnull Point thumbLocation(@Nonnull JScrollBar scrollBar, double fraction);
-
-  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
-
-  abstract @Nonnull Point unitLocationToScrollDown(@Nonnull JScrollBar scrollBar);
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
-#### Snippet
-```java
-  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
-
-  abstract @Nonnull Point unitLocationToScrollDown(@Nonnull JScrollBar scrollBar);
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
-#### Snippet
-```java
-  abstract int arrow(@Nonnull JScrollBar scrollBar);
-
-  abstract @Nonnull Point thumbLocation(@Nonnull JScrollBar scrollBar, double fraction);
-
-  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
-```
-
-### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  private static void validateAndDoClick(final @Nonnull JMenuItem menuItem) {
-    execute(() -> {
-      checkEnabledAndShowing(menuItem);
+  @Nullable private static AppletContext appletContext(final @Nonnull JApplet applet) {
+    return execute(() -> applet.getAppletContext());
+  }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  @Nonnull private static JMenuItemLocation locationOf(final @Nonnull JMenuItem menuItem) {
-    JMenuItemLocation result = execute(() -> new JMenuItemLocation(menuItem));
+  @Nullable private static URL codeBase(final @Nonnull JApplet applet) {
+    return execute(() -> applet.getCodeBase());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void doResize(final @Nonnull JApplet applet, final int width, final int height) {
+    execute(() -> applet.resize(width, height));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static boolean active(final @Nonnull JApplet applet) {
+    Boolean result = execute(() -> applet.isActive());
     return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static URL documentBase(final @Nonnull JApplet applet) {
+    return execute(() -> applet.getDocumentBase());
+  }
 ```
 
 ### MissortedModifiers
@@ -1903,63 +1784,63 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/TextAssert.java`
 #### Snippet
 ```java
-
-  @RunsInEDT
-  @Nullable private static AppletContext appletContext(final @Nonnull JApplet applet) {
-    return execute(() -> applet.getAppletContext());
+ */
+class TextAssert extends AbstractCharSequenceAssert<TextAssert, String> {
+  static @Nonnull TextAssert assertThat(@Nullable String s) {
+    return new TextAssert(s);
   }
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/TextAssert.java`
 #### Snippet
 ```java
+  }
 
-  @RunsInEDT
-  private static void doResize(final @Nonnull JApplet applet, final int width, final int height) {
-    execute(() -> applet.resize(width, height));
+  static @Nonnull TextAssert verifyThat(@Nullable String s) {
+    return new TextAssert(s);
   }
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+Missorted modifiers `abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
 #### Snippet
 ```java
+  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
 
-  @RunsInEDT
-  @Nullable private static URL documentBase(final @Nonnull JApplet applet) {
-    return execute(() -> applet.getDocumentBase());
-  }
+  abstract @Nonnull Point unitLocationToScrollDown(@Nonnull JScrollBar scrollBar);
+}
+
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+Missorted modifiers `abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
 #### Snippet
 ```java
+  abstract @Nonnull Point thumbLocation(@Nonnull JScrollBar scrollBar, double fraction);
 
-  @RunsInEDT
-  @Nullable private static URL codeBase(final @Nonnull JApplet applet) {
-    return execute(() -> applet.getCodeBase());
-  }
+  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
+
+  abstract @Nonnull Point unitLocationToScrollDown(@Nonnull JScrollBar scrollBar);
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+Missorted modifiers `abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarLocationStrategy.java`
 #### Snippet
 ```java
+  abstract int arrow(@Nonnull JScrollBar scrollBar);
 
-  @RunsInEDT
-  private static boolean active(final @Nonnull JApplet applet) {
-    Boolean result = execute(() -> applet.isActive());
-    return checkNotNull(result);
+  abstract @Nonnull Point thumbLocation(@Nonnull JScrollBar scrollBar, double fraction);
+
+  abstract @Nonnull Point blockLocation(@Nonnull JScrollBar scrollBar, @Nonnull Point unitLocation, int offset);
 ```
 
 ### MissortedModifiers
@@ -2008,6 +1889,54 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableMatchingCellQuery
                                           final @Nonnull JTableCellReader cellReader) {
     TableCell result = execute(() -> findMatchingCell(table, matcher, cellReader));
     return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static JMenuItemLocation locationOf(final @Nonnull JMenuItem menuItem) {
+    JMenuItemLocation result = execute(() -> new JMenuItemLocation(menuItem));
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateAndDoClick(final @Nonnull JMenuItem menuItem) {
+    execute(() -> {
+      checkEnabledAndShowing(menuItem);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery.java`
+#### Snippet
+```java
+final class AbstractButtonTextQuery {
+  @RunsInEDT
+  static @Nonnull String textOf(final @Nonnull AbstractButton button) {
+    String result = execute(() -> button.getText());
+    return result == null ? "" : result;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery.java`
+#### Snippet
+```java
+final class AbstractButtonTextQuery {
+  @RunsInEDT
+  static @Nonnull String textOf(final @Nonnull AbstractButton button) {
+    String result = execute(() -> button.getText());
+    return result == null ? "" : result;
 ```
 
 ### MissortedModifiers
@@ -2047,30 +1976,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneLocation.jav
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery.java`
-#### Snippet
-```java
-final class AbstractButtonTextQuery {
-  @RunsInEDT
-  static @Nonnull String textOf(final @Nonnull AbstractButton button) {
-    String result = execute(() -> button.getText());
-    return result == null ? "" : result;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery.java`
-#### Snippet
-```java
-final class AbstractButtonTextQuery {
-  @RunsInEDT
-  static @Nonnull String textOf(final @Nonnull AbstractButton button) {
-    String result = execute(() -> button.getText());
-    return result == null ? "" : result;
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JComponentToolTipQuery.java`
 #### Snippet
@@ -2095,98 +2000,38 @@ final class JComponentToolTipQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildrenShowUpCondition.java`
 #### Snippet
 ```java
-  @RunsInEDT
-  @Nonnull private static Triple<Boolean, Container, Point> validateAndfindDeiconifyInfo(
-                                                                                         final @Nonnull JInternalFrame internalFrame) {
-    Triple<Boolean, Container, Point> result = execute(new GuiQuery<Triple<Boolean, Container, Point>>() {
-      @Override
+  private TreePath path;
+
+  static @Nonnull JTreeChildrenShowUpCondition untilChildrenShowUp(@Nonnull JTree tree, @Nonnull TreePath path) {
+    return new JTreeChildrenShowUpCondition(tree, path);
+  }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
 #### Snippet
 ```java
-
+final class JTreeChildOfPathCountQuery {
   @RunsInEDT
-  private static Pair<Container, Point> validateAndFindNormalizeLocation(final @Nonnull JInternalFrame internalFrame) {
-    return execute(new GuiQuery<Pair<Container, Point>>() {
-      @Override
+  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
+    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
+  }
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
 #### Snippet
 ```java
-   */
+final class JTreeChildOfPathCountQuery {
   @RunsInEDT
-  public void moveToBack(final @Nonnull JInternalFrame internalFrame) {
-    execute(() -> // it seems that moving to back always works, regardless if the internal frame is invisible and/or
-                  // disabled.
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> findIconifyInfo(final @Nonnull JInternalFrame internalFrame) {
-    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Container, Point> maximizeLocationOf(final @Nonnull JInternalFrame internalFrame) {
-    Pair<Container, Point> result = execute(new GuiQuery<Pair<Container, Point>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static Point findCloseButtonLocation(final @Nonnull JInternalFrame internalFrame) {
-    return execute(() -> {
-      checkShowing(internalFrame);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void moveToFront(final @Nonnull JInternalFrame internalFrame) {
-    execute(() -> // it seems that moving to front always works, regardless if the internal frame is invisible and/or
-                  // disabled.
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarSetValueTask.java`
-#### Snippet
-```java
- */
-final class JScrollBarSetValueTask {
-  static void setValue(final @Nonnull JScrollBar scrollBar, final int value) {
-    execute(() -> scrollBar.setValue(value));
+  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
+    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
   }
 ```
 
@@ -2204,385 +2049,13 @@ final class JListSelectedIndexQuery {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarSetValueTask.java`
 #### Snippet
 ```java
-
-  @RunsInEDT
-  private void selectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
-    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
-    if (indices.isEmpty()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private void selectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
-    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
-    if (indices.isEmpty()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   *           the {@code JList}.
-   */
-  public void selectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
-    checkNotNullOrEmpty(indices);
-    clearSelection(list);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   *           the {@code JList}.
-   */
-  public void selectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
-    checkNotNullOrEmpty(indices);
-    clearSelection(list);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void clearSelectionOf(final @Nonnull JList<?> list) {
-    execute(() -> list.clearSelection());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   *           the {@code JList}.
-   */
-  public void unselectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
-    checkNotNullOrEmpty(indices);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   *           the {@code JList}.
-   */
-  public void unselectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
-    checkNotNullOrEmpty(indices);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateIndicesAndClearSelection(final @Nonnull JList<?> list, final @Nonnull int... indices) {
-    execute(() -> {
-      checkIndicesInBounds(list, indices);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateIndicesAndClearSelection(final @Nonnull JList<?> list, final @Nonnull int... indices) {
-    execute(() -> {
-      checkIndicesInBounds(list, indices);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-  }
-
-  @Nullable private String requiredSelection(final @Nonnull JList<?> list) {
-    Object selection = singleSelectionValue(list, cellReader());
-    if (NO_SELECTION_VALUE == selection) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                               final @Nonnull JListCellReader cellReader) {
-    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                               final @Nonnull JListCellReader cellReader) {
-    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                               final @Nonnull JListCellReader cellReader) {
-    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void requireSelection(final @Nonnull JList<?> list, @Nullable String value) {
-    String selection = requiredSelection(list);
-    verifyThat(selection).as(selectedIndexProperty(list)).isEqualOrMatches(value);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private void unselectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
-    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
-    if (indices.isEmpty()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private void unselectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
-    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
-    if (indices.isEmpty()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void requireSelection(final @Nonnull JList<?> list, int index) {
-    int selectedIndex = selectedIndexOf(list);
-    if (selectedIndex == -1) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMinimumInfo(
-      final @Nonnull JScrollBar scrollBar, final JScrollBarLocation location) {
-    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Point, Integer> validateAndFindScrollBlockInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int times) {
-    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Point, Integer> validateAndFindScrollBlockInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int times) {
-    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Point, Integer> findScrollUnitInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int times) {
-    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Point, Integer> findScrollUnitInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int times) {
-    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static GenericRange<Point> validateAndFindScrollInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int position) {
-    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static GenericRange<Point> validateAndFindScrollInfo(final @Nonnull JScrollBar scrollBar,
-      final @Nonnull JScrollBarLocation location, final int position) {
-    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMaximumInfo(
-      final @Nonnull JScrollBar scrollBar, final @Nonnull JScrollBarLocation location) {
-    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMaximumInfo(
-      final @Nonnull JScrollBar scrollBar, final @Nonnull JScrollBarLocation location) {
-    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
-#### Snippet
-```java
-final class JComboBoxContentQuery {
-  @RunsInEDT
-  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
-    String[] result = execute(() -> {
-      int itemCount = comboBox.getItemCount();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
-#### Snippet
-```java
-final class JComboBoxContentQuery {
-  @RunsInEDT
-  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
-    String[] result = execute(() -> {
-      int itemCount = comboBox.getItemCount();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
-#### Snippet
-```java
-final class JComboBoxContentQuery {
-  @RunsInEDT
-  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
-    String[] result = execute(() -> {
-      int itemCount = comboBox.getItemCount();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
-    execute(() -> {
-      for (Component c : found) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
-    execute(() -> {
-      for (Component c : found) {
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildrenShowUpCondition.java`
-#### Snippet
-```java
-  private TreePath path;
-
-  static @Nonnull JTreeChildrenShowUpCondition untilChildrenShowUp(@Nonnull JTree tree, @Nonnull TreePath path) {
-    return new JTreeChildrenShowUpCondition(tree, path);
+ */
+final class JScrollBarSetValueTask {
+  static void setValue(final @Nonnull JScrollBar scrollBar, final int value) {
+    execute(() -> scrollBar.setValue(value));
   }
 ```
 
@@ -2648,6 +2121,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeNodeTextQuery.java
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeExpandPathTask.java`
+#### Snippet
+```java
+final class JTreeExpandPathTask {
+  @RunsInEDT
+  static void expandTreePath(final @Nonnull JTree tree, final @Nonnull TreePath path) {
+    execute(() -> {
+      TreePath realPath = addRootIfInvisible(tree, path);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeNodeTextQuery.java`
 #### Snippet
 ```java
@@ -2656,6 +2141,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeNodeTextQuery.java
   static @Nullable String nodeText(final @Nonnull JTree tree, final @Nonnull String path,
                                    final @Nonnull JTreePathFinder pathFinder) {
     return execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeExpandPathTask.java`
+#### Snippet
+```java
+final class JTreeExpandPathTask {
+  @RunsInEDT
+  static void expandTreePath(final @Nonnull JTree tree, final @Nonnull TreePath path) {
+    execute(() -> {
+      TreePath realPath = addRootIfInvisible(tree, path);
 ```
 
 ### MissortedModifiers
@@ -2684,50 +2181,230 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeNodeTextQuery.java
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-final class JTreeChildOfPathCountQuery {
+
   @RunsInEDT
-  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
-    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
+  private static Pair<Container, Point> validateAndFindNormalizeLocation(final @Nonnull JInternalFrame internalFrame) {
+    return execute(new GuiQuery<Pair<Container, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static Point findCloseButtonLocation(final @Nonnull JInternalFrame internalFrame) {
+    return execute(() -> {
+      checkShowing(internalFrame);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Triple<Boolean, Container, Point> validateAndfindDeiconifyInfo(
+                                                                                         final @Nonnull JInternalFrame internalFrame) {
+    Triple<Boolean, Container, Point> result = execute(new GuiQuery<Triple<Boolean, Container, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Boolean, Point> findIconifyInfo(final @Nonnull JInternalFrame internalFrame) {
+    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Container, Point> maximizeLocationOf(final @Nonnull JInternalFrame internalFrame) {
+    Pair<Container, Point> result = execute(new GuiQuery<Pair<Container, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void moveToFront(final @Nonnull JInternalFrame internalFrame) {
+    execute(() -> // it seems that moving to front always works, regardless if the internal frame is invisible and/or
+                  // disabled.
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void moveToBack(final @Nonnull JInternalFrame internalFrame) {
+    execute(() -> // it seems that moving to back always works, regardless if the internal frame is invisible and/or
+                  // disabled.
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
+#### Snippet
+```java
+final class JComboBoxContentQuery {
+  @RunsInEDT
+  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
+    String[] result = execute(() -> {
+      int itemCount = comboBox.getItemCount();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
+#### Snippet
+```java
+final class JComboBoxContentQuery {
+  @RunsInEDT
+  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
+    String[] result = execute(() -> {
+      int itemCount = comboBox.getItemCount();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.java`
+#### Snippet
+```java
+final class JComboBoxContentQuery {
+  @RunsInEDT
+  static @Nonnull String[] contents(final @Nonnull JComboBox<?> comboBox, final @Nonnull JComboBoxCellReader cellReader) {
+    String[] result = execute(() -> {
+      int itemCount = comboBox.getItemCount();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
+    execute(() -> {
+      for (Component c : found) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
+    execute(() -> {
+      for (Component c : found) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void disposeWindows(final @Nonnull ComponentHierarchy hierarchy) {
+    execute(() -> {
+      for (Container c : hierarchy.roots()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInCurrentThread
+  private static void dispose(final @Nonnull ComponentHierarchy hierarchy, @Nonnull Window w) {
+    hierarchy.dispose(w);
+    w.setVisible(false);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Component, Point> invokerAndCenterOfInvoker(final @Nonnull JPopupMenu popupMenu) {
+    Pair<Component, Point> result = execute(new GuiQuery<Pair<Component, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  final @Nullable Object screenLockOwner() {
+    return screenLockOwner;
   }
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
+Missorted modifiers `final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
-final class JTreeChildOfPathCountQuery {
+
   @RunsInEDT
-  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
-    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
-  }
+  private static Pair<Window, Window> windowAncestorsOf(final @Nullable Component one, final @Nullable Component two) {
+    return execute(new GuiQuery<Pair<Window, Window>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static Pair<Window, Window> windowAncestorsOf(final @Nullable Component one, final @Nullable Component two) {
+    return execute(new GuiQuery<Pair<Window, Window>>() {
+      @Override
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeExpandPathTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/DialogModalQuery.java`
 #### Snippet
 ```java
-final class JTreeExpandPathTask {
+final class DialogModalQuery {
   @RunsInEDT
-  static void expandTreePath(final @Nonnull JTree tree, final @Nonnull TreePath path) {
-    execute(() -> {
-      TreePath realPath = addRootIfInvisible(tree, path);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeExpandPathTask.java`
-#### Snippet
-```java
-final class JTreeExpandPathTask {
-  @RunsInEDT
-  static void expandTreePath(final @Nonnull JTree tree, final @Nonnull TreePath path) {
-    execute(() -> {
-      TreePath realPath = addRootIfInvisible(tree, path);
+  static boolean isModal(final @Nonnull Dialog dialog) {
+    Boolean result = execute(() -> dialog.isModal());
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -2767,15 +2444,39 @@ final class JProgressBarWaitUntilIsDeterminate {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/DialogModalQuery.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
 #### Snippet
 ```java
-final class DialogModalQuery {
+
   @RunsInEDT
-  static boolean isModal(final @Nonnull Dialog dialog) {
-    Boolean result = execute(() -> dialog.isModal());
-    return checkNotNull(result);
+  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
+                                                  final @Nonnull JComboBoxCellReader cellReader) {
+    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
+                                                  final @Nonnull JComboBoxCellReader cellReader) {
+    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
+                                                  final @Nonnull JComboBoxCellReader cellReader) {
+    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -2824,54 +2525,6 @@ final class JTabbedPaneTabTitlesQuery {
   static @Nonnull String[] tabTitlesOf(final @Nonnull JTabbedPane tabbedPane) {
     String[] result = execute(new GuiQuery<String[]>() {
       @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
-                                                  final @Nonnull JComboBoxCellReader cellReader) {
-    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
-                                                  final @Nonnull JComboBoxCellReader cellReader) {
-    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nonnull Pair<Boolean, String> selection(final @Nonnull JComboBox<?> comboBox,
-                                                  final @Nonnull JComboBoxCellReader cellReader) {
-    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentSelectAllTask.java`
-#### Snippet
-```java
-final class JTextComponentSelectAllTask {
-  @RunsInEDT
-  static void selectAllText(final @Nonnull JTextComponent textBox) {
-    execute(() -> textBox.selectAll());
-  }
 ```
 
 ### MissortedModifiers
@@ -2900,25 +2553,13 @@ final class FrameTitleQuery {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCancelCellEditingTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentSelectAllTask.java`
 #### Snippet
 ```java
-final class JTableCancelCellEditingTask {
+final class JTextComponentSelectAllTask {
   @RunsInEDT
-  static void cancelEditing(final @Nonnull JTable table, final int row, final int column) {
-    execute(() -> {
-      checkCellIndicesInBounds(table, row, column);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCancelCellEditingTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void cancelEditing(final @Nonnull TableCellEditor cellEditor) {
-    execute(() -> doCancelEditing(cellEditor));
+  static void selectAllText(final @Nonnull JTextComponent textBox) {
+    execute(() -> textBox.selectAll());
   }
 ```
 
@@ -2936,6 +2577,174 @@ final class JProgressBarMaximumQuery {
 
 ### MissortedModifiers
 Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListCellCenterQuery.java`
+#### Snippet
+```java
+   */
+  @RunsInCurrentThread
+  static @Nonnull Point cellCenter(@Nonnull JList<?> list, @Nonnull Rectangle cellBounds) {
+    Point cellCenter = centerOf(cellBounds);
+    Rectangle visibleRect = list.getVisibleRect();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCancelCellEditingTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void cancelEditing(final @Nonnull TableCellEditor cellEditor) {
+    execute(() -> doCancelEditing(cellEditor));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCancelCellEditingTask.java`
+#### Snippet
+```java
+final class JTableCancelCellEditingTask {
+  @RunsInEDT
+  static void cancelEditing(final @Nonnull JTable table, final int row, final int column) {
+    execute(() -> {
+      checkCellIndicesInBounds(table, row, column);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMinimumInfo(
+      final @Nonnull JScrollBar scrollBar, final JScrollBarLocation location) {
+    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static GenericRange<Point> validateAndFindScrollInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int position) {
+    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static GenericRange<Point> validateAndFindScrollInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int position) {
+    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Integer> validateAndFindScrollBlockInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int times) {
+    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Integer> validateAndFindScrollBlockInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int times) {
+    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMaximumInfo(
+      final @Nonnull JScrollBar scrollBar, final @Nonnull JScrollBarLocation location) {
+    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findScrollToMaximumInfo(
+      final @Nonnull JScrollBar scrollBar, final @Nonnull JScrollBarLocation location) {
+    Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Integer> findScrollUnitInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int times) {
+    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Integer> findScrollUnitInfo(final @Nonnull JScrollBar scrollBar,
+      final @Nonnull JScrollBarLocation location, final int times) {
+    Pair<Point, Integer> result = execute(new GuiQuery<Pair<Point, Integer>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
+#### Snippet
+```java
+final class JProgressBarMinimumAndMaximumQuery {
+  @RunsInEDT
+  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
+    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
+#### Snippet
+```java
+final class JProgressBarMinimumAndMaximumQuery {
+  @RunsInEDT
+  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
+    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.java`
 #### Snippet
 ```java
@@ -2980,18 +2789,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.
                                            final @Nonnull JTreePathFinder pathFinder) {
     TreePath result = execute(() -> matchingPathWithRootIfInvisible(tree, path, pathFinder));
     return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.java`
-#### Snippet
-```java
-
-  @RunsInCurrentThread
-  static @Nonnull TreePath matchingPathWithRootIfInvisible(@Nonnull JTree tree, @Nonnull String path,
-                                                           @Nonnull JTreePathFinder pathFinder) {
-    TreePath matchingPath = pathFinder.findMatchingPath(tree, path);
 ```
 
 ### MissortedModifiers
@@ -3044,38 +2841,14 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.
 
 ### MissortedModifiers
 Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.java`
 #### Snippet
 ```java
-final class JProgressBarMinimumAndMaximumQuery {
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
-    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
-    return checkNotNull(result);
-```
 
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
-#### Snippet
-```java
-final class JProgressBarMinimumAndMaximumQuery {
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
-    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListCellCenterQuery.java`
-#### Snippet
-```java
-   */
   @RunsInCurrentThread
-  static @Nonnull Point cellCenter(@Nonnull JList<?> list, @Nonnull Rectangle cellBounds) {
-    Point cellCenter = centerOf(cellBounds);
-    Rectangle visibleRect = list.getVisibleRect();
+  static @Nonnull TreePath matchingPathWithRootIfInvisible(@Nonnull JTree tree, @Nonnull String path,
+                                                           @Nonnull JTreePathFinder pathFinder) {
+    TreePath matchingPath = pathFinder.findMatchingPath(tree, path);
 ```
 
 ### MissortedModifiers
@@ -3103,6 +2876,18 @@ final class JInternalFrameSetIconTask {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetIconTask.java`
+#### Snippet
+```java
+final class JInternalFrameSetIconTask {
+  @RunsInEDT
+  static void setIcon(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
+    execute(() -> {
+      internalFrame.setMaximum(false);
+```
+
+### MissortedModifiers
 Missorted modifiers `static @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarStringQuery.java`
 #### Snippet
@@ -3128,14 +2913,50 @@ final class JProgressBarStringQuery {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetIconTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
 #### Snippet
 ```java
-final class JInternalFrameSetIconTask {
+
   @RunsInEDT
-  static void setIcon(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
+  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
     execute(() -> {
-      internalFrame.setMaximum(false);
+      for (Component c : found) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void appendComponents(final @Nonnull StringBuilder message, final @Nonnull Collection<Component> found) {
+    execute(() -> {
+      for (Component c : found) {
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
+#### Snippet
+```java
+  }
+
+  private static abstract class LocationFinder {
+    abstract int locationToMoveDividerTo(@Nonnull JSplitPane splitPane, int desiredLocation);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static int locationToMoveDividerTo(final @Nonnull JSplitPane splitPane, final int desiredLocation) {
+    Integer result = execute(() -> FINDERS.get(splitPane.getOrientation()).locationToMoveDividerTo(splitPane,
+                                                                                                   desiredLocation));
 ```
 
 ### MissortedModifiers
@@ -3164,14 +2985,206 @@ final class JSpinnerSetValueTask {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void requireSelection(final @Nonnull JList<?> list, int index) {
+    int selectedIndex = selectedIndexOf(list);
+    if (selectedIndex == -1) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  private static void requireEditableEqualTo(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                             boolean editable) {
-    checkNotNull(cell);
+  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                               final @Nonnull JListCellReader cellReader) {
+    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                               final @Nonnull JListCellReader cellReader) {
+    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  private static int itemIndex(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                               final @Nonnull JListCellReader cellReader) {
+    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+  }
+
+  @Nullable private String requiredSelection(final @Nonnull JList<?> list) {
+    Object selection = singleSelectionValue(list, cellReader());
+    if (NO_SELECTION_VALUE == selection) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateIndicesAndClearSelection(final @Nonnull JList<?> list, final @Nonnull int... indices) {
+    execute(() -> {
+      checkIndicesInBounds(list, indices);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateIndicesAndClearSelection(final @Nonnull JList<?> list, final @Nonnull int... indices) {
+    execute(() -> {
+      checkIndicesInBounds(list, indices);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   *           the {@code JList}.
+   */
+  public void unselectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
+    checkNotNullOrEmpty(indices);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   *           the {@code JList}.
+   */
+  public void unselectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
+    checkNotNullOrEmpty(indices);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void unselectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
+    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
+    if (indices.isEmpty()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void unselectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
+    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
+    if (indices.isEmpty()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void selectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
+    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
+    if (indices.isEmpty()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void selectItems(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher) {
+    final List<Integer> indices = matchingItemIndices(list, matcher, cellReader());
+    if (indices.isEmpty()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void clearSelectionOf(final @Nonnull JList<?> list) {
+    execute(() -> list.clearSelection());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   *           the {@code JList}.
+   */
+  public void selectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
+    checkNotNullOrEmpty(indices);
+    clearSelection(list);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   *           the {@code JList}.
+   */
+  public void selectItems(final @Nonnull JList<?> list, final @Nonnull int[] indices) {
+    checkNotNullOrEmpty(indices);
+    clearSelection(list);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void requireSelection(final @Nonnull JList<?> list, @Nullable String value) {
+    String selection = requiredSelection(list);
+    verifyThat(selection).as(selectedIndexProperty(list)).isEqualOrMatches(value);
 ```
 
 ### MissortedModifiers
@@ -3196,6 +3209,774 @@ final class MenuElementComponentQuery {
   static @Nonnull Component componentIn(final @Nonnull MenuElement menuElement) {
     Component result = execute(() -> menuElement.getComponent());
     return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableSingleRowCellSelectedQuery.java`
+#### Snippet
+```java
+final class JTableRowCellSelectedQuery {
+  @RunsInCurrentThread
+  static boolean isCellSelected(final @Nonnull JTable table, final int row, final int column) {
+    return table.isCellSelected(row, column);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateAndDecrementValue(final @Nonnull JSpinner spinner) {
+    execute(() -> {
+      checkEnabledAndShowing(spinner);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void checkEditorNotNull(final @Nonnull JSpinner spinner, final @Nullable JTextComponent editor) {
+    execute(() -> {
+      if (editor == null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void checkEditorNotNull(final @Nonnull JSpinner spinner, final @Nullable JTextComponent editor) {
+    execute(() -> {
+      if (editor == null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void commit(final @Nonnull JSpinner spinner) {
+    execute(() -> spinner.commitEdit());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateAndIncrementValue(final @Nonnull JSpinner spinner, final int times) {
+    execute(() -> {
+      checkEnabledAndShowing(spinner);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateAndIncrementValue(final @Nonnull JSpinner spinner) {
+    execute(() -> {
+      checkEnabledAndShowing(spinner);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void validateAndDecrementValue(final @Nonnull JSpinner spinner, final int times) {
+    execute(() -> {
+      checkEnabledAndShowing(spinner);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
+    ArrayPreconditions.checkNotNullOrEmpty(rows);
+    clearSelection(tree);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
+    ArrayPreconditions.checkNotNullOrEmpty(rows);
+    clearSelection(tree);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void unselectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
+    ArrayPreconditions.checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void unselectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
+    ArrayPreconditions.checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nonnull private static Triple<Boolean, Point, Integer> scrollToRowAndGetToggleInfo(final @Nonnull JTree tree,
+                                                                                      final int row,
+                                                                                      final @Nonnull JTreeLocation location) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @Nonnull private static Triple<Boolean, Point, Integer> scrollToRowAndGetToggleInfo(final @Nonnull JTree tree,
+                                                                                      final int row,
+                                                                                      final @Nonnull JTreeLocation location) {
+    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Triple<Boolean, Point, Integer> scrollToMatchingPathAndGetToggleInfo(
+                                                                                               final @Nonnull JTree tree,
+                                                                                               final @Nonnull String path,
+                                                                                               final @Nonnull JTreePathFinder pathFinder,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @Nonnull private static Triple<Boolean, Point, Integer> scrollToMatchingPathAndGetToggleInfo(
+                                                                                               final @Nonnull JTree tree,
+                                                                                               final @Nonnull String path,
+                                                                                               final @Nonnull JTreePathFinder pathFinder,
+                                                                                               final @Nonnull JTreeLocation location) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+                                                                                               final @Nonnull JTree tree,
+                                                                                               final @Nonnull String path,
+                                                                                               final @Nonnull JTreePathFinder pathFinder,
+                                                                                               final @Nonnull JTreeLocation location) {
+    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+                                                                                               final @Nonnull String path,
+                                                                                               final @Nonnull JTreePathFinder pathFinder,
+                                                                                               final @Nonnull JTreeLocation location) {
+    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
+                                                                    final @Nonnull TreePath path,
+                                                                    final @Nonnull JTreeLocation location,
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
+                                                                    final @Nonnull TreePath path,
+                                                                    final @Nonnull JTreeLocation location,
+                                                                    boolean singleSelectionRequired) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
+#### Snippet
+```java
+  }
+
+  private static Description untilValueIsEqualTo(final @Nonnull JProgressBar progressBar, final int expected) {
+    return new GuiLazyLoadingDescription() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
+                                                                    final @Nonnull TreePath path,
+                                                                    final @Nonnull JTreeLocation location,
+                                                                    boolean singleSelectionRequired) {
+    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  @Nonnull private static Pair<Boolean, Point> scrollToRow(final @Nonnull JTree tree, final int row,
+                                                           final @Nonnull JTreeLocation location,
+                                                           boolean singleSelectRequired) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Boolean, Point> scrollToRow(final @Nonnull JTree tree, final int row,
+                                                           final @Nonnull JTreeLocation location,
+                                                           boolean singleSelectRequired) {
+    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
+#### Snippet
+```java
+final class JProgressBarWaitUntilValueIsEqualToExpectedTask {
+  @RunsInEDT
+  static void waitUntilValueIsEqualToExpected(final @Nonnull JProgressBar progressBar, final int expected,
+      final @Nonnull Timeout timeout) {
+    pause(new Condition(untilValueIsEqualTo(progressBar, expected)) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void toggleRowThroughTreeUI(final @Nonnull JTree tree, final @Nonnull Point p) {
+    execute(() -> {
+      TreeUI treeUI = tree.getUI();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void toggleRowThroughTreeUI(final @Nonnull JTree tree, final @Nonnull Point p) {
+    execute(() -> {
+      TreeUI treeUI = tree.getUI();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectedIndexQuery.java`
+#### Snippet
+```java
+final class JComboBoxSelectedIndexQuery {
+  @RunsInEDT
+  static int selectedIndexOf(final @Nonnull JComboBox<?> comboBox) {
+    Integer result = execute(() -> comboBox.getSelectedIndex());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static void waitUntilValueIsEqualToExpected(final @Nonnull JProgressBar progressBar, final int expected,
+      final @Nonnull Timeout timeout) {
+    pause(new Condition(untilValueIsEqualTo(progressBar, expected)) {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    clearSelection(tree);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    clearSelection(tree);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private void clearSelection(final @Nonnull JTree tree) {
+    clearSelectionOf(tree);
+    robot.waitForIdle();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComponentDriver.java`
+#### Snippet
+```java
+  }
+
+  @Nullable private static Object clientPropertyIn(final @Nonnull JComponent c, final @Nonnull Object key) {
+    return execute(() -> c.getClientProperty(key));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComponentDriver.java`
+#### Snippet
+```java
+  }
+
+  @Nullable private static Object clientPropertyIn(final @Nonnull JComponent c, final @Nonnull Object key) {
+    return execute(() -> c.getClientProperty(key));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeAddRootIfInvisibleTask.java`
+#### Snippet
+```java
+   */
+  @RunsInCurrentThread
+  static @Nonnull TreePath addRootIfInvisible(@Nonnull JTree tree, @Nonnull TreePath path) {
+    Object root = tree.getModel().getRoot();
+    if (tree.isRootVisible() || root == null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private String actualMessageTypeAsText(final @Nonnull JOptionPane optionPane) {
+    return messageTypeAsText(messageTypeOf(optionPane));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageQuery.java`
+#### Snippet
+```java
+final class JOptionPaneMessageQuery {
+  @RunsInEDT
+  static @Nullable Object messageOf(final @Nonnull JOptionPane optionPane) {
+    return execute(() -> optionPane.getMessage());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageQuery.java`
+#### Snippet
+```java
+final class JOptionPaneMessageQuery {
+  @RunsInEDT
+  static @Nullable Object messageOf(final @Nonnull JOptionPane optionPane) {
+    return execute(() -> optionPane.getMessage());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemCountQuery.java`
+#### Snippet
+```java
+@RunsInEDT
+final class JListItemCountQuery {
+  static int itemCountIn(final @Nonnull JList<?> list) {
+    Integer result = execute(() -> list.getModel().getSize());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentPerformDefaultAccessibleActionTask.java`
+#### Snippet
+```java
+
+  @RunsInCurrentThread
+  static void performDefaultAccessibleAction(final @Nonnull Component c) {
+    AccessibleAction action = c.getAccessibleContext().getAccessibleAction();
+    if (action == null || action.getAccessibleActionCount() == 0) {
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
+#### Snippet
+```java
+final class JOptionPaneOptionsQuery {
+  @RunsInEDT
+  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
+    Object[] result = execute(() -> optionPane.getOptions());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
+#### Snippet
+```java
+final class JOptionPaneOptionsQuery {
+  @RunsInEDT
+  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
+    Object[] result = execute(() -> optionPane.getOptions());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellValueQuery.java`
+#### Snippet
+```java
+final class JTableCellValueQuery {
+  @RunsInEDT
+  static @Nullable Object cellValueOf(final @Nonnull JTable table, final int row, final int column) {
+    return execute(() -> table.getValueAt(row, column));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellValueQuery.java`
+#### Snippet
+```java
+final class JTableCellValueQuery {
+  @RunsInEDT
+  static @Nullable Object cellValueOf(final @Nonnull JTable table, final int row, final int column) {
+    return execute(() -> table.getValueAt(row, column));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabTask.java`
+#### Snippet
+```java
+final class JTabbedPaneSelectTabTask {
+  @RunsInEDT
+  static void setSelectedTab(final @Nonnull JTabbedPane tabbedPane, final int index) {
+    execute(() -> tabbedPane.setSelectedIndex(index));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeToggleExpandStateTask.java`
+#### Snippet
+```java
+final class JTreeToggleExpandStateTask {
+  @RunsInCurrentThread
+  static void toggleExpandState(final @Nonnull JTree tree, final @Nonnull Point pathLocation) {
+    TreePath path = tree.getPathForLocation(pathLocation.x, pathLocation.y);
+    TreeUI treeUI = tree.getUI();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeToggleExpandStateTask.java`
+#### Snippet
+```java
+final class JTreeToggleExpandStateTask {
+  @RunsInCurrentThread
+  static void toggleExpandState(final @Nonnull JTree tree, final @Nonnull Point pathLocation) {
+    TreePath path = tree.getPathForLocation(pathLocation.x, pathLocation.y);
+    TreeUI treeUI = tree.getUI();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentEditableQuery.java`
+#### Snippet
+```java
+final class JTextComponentEditableQuery {
+  @RunsInEDT
+  static boolean isEditable(final @Nonnull JTextComponent textBox) {
+    Boolean result = execute(() -> textBox.isEditable());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentSetTextTask.java`
+#### Snippet
+```java
+final class JTextComponentSetTextTask {
+  @RunsInEDT
+  static void setTextIn(final @Nonnull JTextComponent textBox, final String text) {
+    execute(() -> textBox.setText(text));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
+    checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void selectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
+    checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                             final @Nonnull JTableLocation location) {
+    checkNotNull(cell);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                             final @Nonnull JTableLocation location) {
+    checkNotNull(cell);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                             final @Nonnull JTableLocation location) {
+    checkNotNull(cell);
+    Point result = execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static int findColumnIndex(final @Nonnull JTable table, final @Nonnull Object columnId) {
+    Integer result = execute(() -> {
+      int index = columnIndexByIdentifier(table, columnId);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static int findColumnIndex(final @Nonnull JTable table, final @Nonnull Object columnId) {
+    Integer result = execute(() -> {
+      int index = columnIndexByIdentifier(table, columnId);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void checkCellIndicesInBounds(final @Nonnull JTable table, final @Nonnull TableCell cell) {
+    execute(() -> JTableCellPreconditions.checkCellIndicesInBounds(table, cell));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void checkCellIndicesInBounds(final @Nonnull JTable table, final @Nonnull TableCell cell) {
+    execute(() -> JTableCellPreconditions.checkCellIndicesInBounds(table, cell));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  private static void requireEditableEqualTo(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                             boolean editable) {
+    checkNotNull(cell);
 ```
 
 ### MissortedModifiers
@@ -3240,10 +4021,34 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
 
+  @RunsInCurrentThread
+  private void scrollToCell(final @Nonnull JTable table, final int row, final int column,
+                            final @Nonnull JTableLocation location) {
+    checkClickAllowed(table);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @RunsInCurrentThread
+  private void scrollToCell(final @Nonnull JTable table, final int row, final int column,
+                            final @Nonnull JTableLocation location) {
+    checkClickAllowed(table);
+    JTableCellPreconditions.checkCellIndicesInBounds(table, row, column);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
   @RunsInEDT
-  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                                final @Nonnull JTableCellReader cellReader) {
+  @Nullable private static String selectionValue(final @Nonnull JTable table, final @Nonnull JTableCellReader cellReader) {
     return execute(() -> {
+      if (table.getSelectedRowCount() == 0) {
 ```
 
 ### MissortedModifiers
@@ -3253,21 +4058,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 ```java
 
   @RunsInEDT
-  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                                final @Nonnull JTableCellReader cellReader) {
+  @Nullable private static String selectionValue(final @Nonnull JTable table, final @Nonnull JTableCellReader cellReader) {
     return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                                final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
+      if (table.getSelectedRowCount() == 0) {
 ```
 
 ### MissortedModifiers
@@ -3277,32 +4070,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 ```java
 
   @RunsInEDT
-  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                             final @Nonnull JTableLocation location) {
-    checkNotNull(cell);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                             final @Nonnull JTableLocation location) {
-    checkNotNull(cell);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private Point scrollToPointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                             final @Nonnull JTableLocation location) {
-    checkNotNull(cell);
+  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableLocation location) {
     Point result = execute(() -> {
 ```
 
@@ -3313,69 +4082,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 ```java
 
   @RunsInEDT
-  @Nullable private static String selectionValue(final @Nonnull JTable table, final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-      if (table.getSelectedRowCount() == 0) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String selectionValue(final @Nonnull JTable table, final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-      if (table.getSelectedRowCount() == 0) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
-    int[] result = execute(() -> table.getSelectedRows());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableSingleRowCellSelectedQuery.java`
-#### Snippet
-```java
-final class JTableRowCellSelectedQuery {
-  @RunsInCurrentThread
-  static boolean isCellSelected(final @Nonnull JTable table, final int row, final int column) {
-    return table.isCellSelected(row, column);
-  }
+  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableLocation location) {
+    Point result = execute(() -> {
 ```
 
 ### MissortedModifiers
@@ -3384,9 +4093,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
   @RunsInEDT
-  @Nullable private static String cellValue(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
+  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                            final @Nonnull JTableLocation location) {
+    Point result = execute(() -> {
       JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
 ```
 
@@ -3400,150 +4109,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
   private static void assertNoSelection(final @Nonnull JTable table) {
     execute(() -> {
       if (!hasSelection(table)) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                         final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                         final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                         final @Nonnull JTableCellReader cellReader) {
-    return execute(() -> {
-      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
-    checkNotNullOrEmpty(rows);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
-    checkNotNullOrEmpty(rows);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static int findColumnIndex(final @Nonnull JTable table, final @Nonnull Object columnId) {
-    Integer result = execute(() -> {
-      int index = columnIndexByIdentifier(table, columnId);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static int findColumnIndex(final @Nonnull JTable table, final @Nonnull Object columnId) {
-    Integer result = execute(() -> {
-      int index = columnIndexByIdentifier(table, columnId);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-   * @throws IndexOutOfBoundsException if any of the indices of any of the {@code cells} are out of bounds.
-   */
-  public void unselectCells(final @Nonnull JTable table, final @Nonnull TableCell[] cells) {
-    checkNotNullOrEmpty(cells);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-   * @throws IndexOutOfBoundsException if any of the indices of any of the {@code cells} are out of bounds.
-   */
-  public void unselectCells(final @Nonnull JTable table, final @Nonnull TableCell[] cells) {
-    checkNotNullOrEmpty(cells);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableLocation location) {
-    Point result = execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableLocation location) {
-    Point result = execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Point pointAtCell(final @Nonnull JTable table, final @Nonnull TableCell cell,
-                                            final @Nonnull JTableLocation location) {
-    Point result = execute(() -> {
-      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
 ```
 
 ### MissortedModifiers
@@ -3599,6 +4164,66 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
+   */
+  @RunsInEDT
+  public void unselectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
+    checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+   */
+  @RunsInEDT
+  public void unselectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
+    checkNotNullOrEmpty(rows);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                         final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                         final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable private static Font cellFont(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                         final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
 
   @RunsInEDT
   @Nullable private static Color cellForeground(final @Nonnull JTable table, final @Nonnull TableCell cell,
@@ -3635,10 +4260,10 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
+   * @throws IndexOutOfBoundsException if any of the indices of any of the {@code cells} are out of bounds.
    */
-  @RunsInEDT
-  public void unselectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
-    checkNotNullOrEmpty(rows);
+  public void unselectCells(final @Nonnull JTable table, final @Nonnull TableCell[] cells) {
+    checkNotNullOrEmpty(cells);
     new MultipleSelectionTemplate(robot) {
 ```
 
@@ -3647,10 +4272,10 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
+   * @throws IndexOutOfBoundsException if any of the indices of any of the {@code cells} are out of bounds.
    */
-  @RunsInEDT
-  public void unselectRows(final @Nonnull JTable table, final @Nonnull int... rows) {
-    checkNotNullOrEmpty(rows);
+  public void unselectCells(final @Nonnull JTable table, final @Nonnull TableCell[] cells) {
+    checkNotNullOrEmpty(cells);
     new MultipleSelectionTemplate(robot) {
 ```
 
@@ -3660,10 +4285,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
 
-  @RunsInCurrentThread
-  private void scrollToCell(final @Nonnull JTable table, final int row, final int column,
-                            final @Nonnull JTableLocation location) {
-    checkClickAllowed(table);
+  @RunsInEDT
+  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                                final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
 ```
 
 ### MissortedModifiers
@@ -3671,11 +4296,11 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
-  @RunsInCurrentThread
-  private void scrollToCell(final @Nonnull JTable table, final int row, final int column,
-                            final @Nonnull JTableLocation location) {
-    checkClickAllowed(table);
-    JTableCellPreconditions.checkCellIndicesInBounds(table, row, column);
+
+  @RunsInEDT
+  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                                final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
 ```
 
 ### MissortedModifiers
@@ -3683,11 +4308,11 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
-   */
   @RunsInEDT
-  public void checkCellIndicesInBounds(final @Nonnull JTable table, final @Nonnull TableCell cell) {
-    execute(() -> JTableCellPreconditions.checkCellIndicesInBounds(table, cell));
-  }
+  @Nullable private static Color cellBackground(final @Nonnull JTable table, final @Nonnull TableCell cell,
+                                                final @Nonnull JTableCellReader cellReader) {
+    return execute(() -> {
+      JTableCellPreconditions.checkCellIndicesInBounds(table, cell);
 ```
 
 ### MissortedModifiers
@@ -3695,539 +4320,23 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
-   */
+
   @RunsInEDT
-  public void checkCellIndicesInBounds(final @Nonnull JTable table, final @Nonnull TableCell cell) {
-    execute(() -> JTableCellPreconditions.checkCellIndicesInBounds(table, cell));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComponentDriver.java`
-#### Snippet
-```java
-  }
-
-  @Nullable private static Object clientPropertyIn(final @Nonnull JComponent c, final @Nonnull Object key) {
-    return execute(() -> c.getClientProperty(key));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComponentDriver.java`
-#### Snippet
-```java
-  }
-
-  @Nullable private static Object clientPropertyIn(final @Nonnull JComponent c, final @Nonnull Object key) {
-    return execute(() -> c.getClientProperty(key));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectedIndexQuery.java`
-#### Snippet
-```java
-final class JComboBoxSelectedIndexQuery {
-  @RunsInEDT
-  static int selectedIndexOf(final @Nonnull JComboBox<?> comboBox) {
-    Integer result = execute(() -> comboBox.getSelectedIndex());
+  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
+    int[] result = execute(() -> table.getSelectedRows());
     return checkNotNull(result);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemCountQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarIndeterminateQuery.java`
 #### Snippet
 ```java
-@RunsInEDT
-final class JListItemCountQuery {
-  static int itemCountIn(final @Nonnull JList<?> list) {
-    Integer result = execute(() -> list.getModel().getSize());
+final class JProgressBarIndeterminateQuery {
+  @RunsInEDT
+  static boolean isIndeterminate(final @Nonnull JProgressBar progressBar) {
+    Boolean result = execute(() -> progressBar.isIndeterminate());
     return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
-#### Snippet
-```java
-  }
-
-  private static abstract class LocationFinder {
-    abstract int locationToMoveDividerTo(@Nonnull JSplitPane splitPane, int desiredLocation);
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static int locationToMoveDividerTo(final @Nonnull JSplitPane splitPane, final int desiredLocation) {
-    Integer result = execute(() -> FINDERS.get(splitPane.getOrientation()).locationToMoveDividerTo(splitPane,
-                                                                                                   desiredLocation));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private String actualMessageTypeAsText(final @Nonnull JOptionPane optionPane) {
-    return messageTypeAsText(messageTypeOf(optionPane));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
-#### Snippet
-```java
-  }
-
-  private static Description untilValueIsEqualTo(final @Nonnull JProgressBar progressBar, final int expected) {
-    return new GuiLazyLoadingDescription() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
-#### Snippet
-```java
-final class JProgressBarWaitUntilValueIsEqualToExpectedTask {
-  @RunsInEDT
-  static void waitUntilValueIsEqualToExpected(final @Nonnull JProgressBar progressBar, final int expected,
-      final @Nonnull Timeout timeout) {
-    pause(new Condition(untilValueIsEqualTo(progressBar, expected)) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarWaitUntilValueIsEqualToExpectedTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static void waitUntilValueIsEqualToExpected(final @Nonnull JProgressBar progressBar, final int expected,
-      final @Nonnull Timeout timeout) {
-    pause(new Condition(untilValueIsEqualTo(progressBar, expected)) {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
-#### Snippet
-```java
-final class JOptionPaneOptionsQuery {
-  @RunsInEDT
-  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
-    Object[] result = execute(() -> optionPane.getOptions());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
-#### Snippet
-```java
-final class JOptionPaneOptionsQuery {
-  @RunsInEDT
-  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
-    Object[] result = execute(() -> optionPane.getOptions());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageQuery.java`
-#### Snippet
-```java
-final class JOptionPaneMessageQuery {
-  @RunsInEDT
-  static @Nullable Object messageOf(final @Nonnull JOptionPane optionPane) {
-    return execute(() -> optionPane.getMessage());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageQuery.java`
-#### Snippet
-```java
-final class JOptionPaneMessageQuery {
-  @RunsInEDT
-  static @Nullable Object messageOf(final @Nonnull JOptionPane optionPane) {
-    return execute(() -> optionPane.getMessage());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellValueQuery.java`
-#### Snippet
-```java
-final class JTableCellValueQuery {
-  @RunsInEDT
-  static @Nullable Object cellValueOf(final @Nonnull JTable table, final int row, final int column) {
-    return execute(() -> table.getValueAt(row, column));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCellValueQuery.java`
-#### Snippet
-```java
-final class JTableCellValueQuery {
-  @RunsInEDT
-  static @Nullable Object cellValueOf(final @Nonnull JTable table, final int row, final int column) {
-    return execute(() -> table.getValueAt(row, column));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void unselectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
-    ArrayPreconditions.checkNotNullOrEmpty(rows);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void unselectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
-    ArrayPreconditions.checkNotNullOrEmpty(rows);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    clearSelection(tree);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    clearSelection(tree);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nonnull private static Triple<Boolean, Point, Integer> scrollToRowAndGetToggleInfo(final @Nonnull JTree tree,
-                                                                                      final int row,
-                                                                                      final @Nonnull JTreeLocation location) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @Nonnull private static Triple<Boolean, Point, Integer> scrollToRowAndGetToggleInfo(final @Nonnull JTree tree,
-                                                                                      final int row,
-                                                                                      final @Nonnull JTreeLocation location) {
-    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Triple<Boolean, Point, Integer> scrollToMatchingPathAndGetToggleInfo(
-                                                                                               final @Nonnull JTree tree,
-                                                                                               final @Nonnull String path,
-                                                                                               final @Nonnull JTreePathFinder pathFinder,
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @Nonnull private static Triple<Boolean, Point, Integer> scrollToMatchingPathAndGetToggleInfo(
-                                                                                               final @Nonnull JTree tree,
-                                                                                               final @Nonnull String path,
-                                                                                               final @Nonnull JTreePathFinder pathFinder,
-                                                                                               final @Nonnull JTreeLocation location) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-                                                                                               final @Nonnull JTree tree,
-                                                                                               final @Nonnull String path,
-                                                                                               final @Nonnull JTreePathFinder pathFinder,
-                                                                                               final @Nonnull JTreeLocation location) {
-    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-                                                                                               final @Nonnull String path,
-                                                                                               final @Nonnull JTreePathFinder pathFinder,
-                                                                                               final @Nonnull JTreeLocation location) {
-    Triple<Boolean, Point, Integer> result = execute(new GuiQuery<Triple<Boolean, Point, Integer>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> scrollToRow(final @Nonnull JTree tree, final int row,
-                                                           final @Nonnull JTreeLocation location,
-                                                           boolean singleSelectRequired) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> scrollToRow(final @Nonnull JTree tree, final int row,
-                                                           final @Nonnull JTreeLocation location,
-                                                           boolean singleSelectRequired) {
-    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void toggleRowThroughTreeUI(final @Nonnull JTree tree, final @Nonnull Point p) {
-    execute(() -> {
-      TreeUI treeUI = tree.getUI();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void toggleRowThroughTreeUI(final @Nonnull JTree tree, final @Nonnull Point p) {
-    execute(() -> {
-      TreeUI treeUI = tree.getUI();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
-                                                                    final @Nonnull TreePath path,
-                                                                    final @Nonnull JTreeLocation location,
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeAddRootIfInvisibleTask.java`
-#### Snippet
-```java
-   */
-  @RunsInCurrentThread
-  static @Nonnull TreePath addRootIfInvisible(@Nonnull JTree tree, @Nonnull TreePath path) {
-    Object root = tree.getModel().getRoot();
-    if (tree.isRootVisible() || root == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
-                                                                    final @Nonnull TreePath path,
-                                                                    final @Nonnull JTreeLocation location,
-                                                                    boolean singleSelectionRequired) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @Nonnull private static Pair<Boolean, Point> scrollToPathToSelect(final @Nonnull JTree tree,
-                                                                    final @Nonnull TreePath path,
-                                                                    final @Nonnull JTreeLocation location,
-                                                                    boolean singleSelectionRequired) {
-    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabTask.java`
-#### Snippet
-```java
-final class JTabbedPaneSelectTabTask {
-  @RunsInEDT
-  static void setSelectedTab(final @Nonnull JTabbedPane tabbedPane, final int index) {
-    execute(() -> tabbedPane.setSelectedIndex(index));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
-    ArrayPreconditions.checkNotNullOrEmpty(rows);
-    clearSelection(tree);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-   */
-  @RunsInEDT
-  public void selectRows(final @Nonnull JTree tree, final @Nonnull int[] rows) {
-    ArrayPreconditions.checkNotNullOrEmpty(rows);
-    clearSelection(tree);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private void clearSelection(final @Nonnull JTree tree) {
-    clearSelectionOf(tree);
-    robot.waitForIdle();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeToggleExpandStateTask.java`
-#### Snippet
-```java
-final class JTreeToggleExpandStateTask {
-  @RunsInCurrentThread
-  static void toggleExpandState(final @Nonnull JTree tree, final @Nonnull Point pathLocation) {
-    TreePath path = tree.getPathForLocation(pathLocation.x, pathLocation.y);
-    TreeUI treeUI = tree.getUI();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeToggleExpandStateTask.java`
-#### Snippet
-```java
-final class JTreeToggleExpandStateTask {
-  @RunsInCurrentThread
-  static void toggleExpandState(final @Nonnull JTree tree, final @Nonnull Point pathLocation) {
-    TreePath path = tree.getPathForLocation(pathLocation.x, pathLocation.y);
-    TreeUI treeUI = tree.getUI();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentEditableQuery.java`
-#### Snippet
-```java
-final class JTextComponentEditableQuery {
-  @RunsInEDT
-  static boolean isEditable(final @Nonnull JTextComponent textBox) {
-    Boolean result = execute(() -> textBox.isEditable());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentSetTextTask.java`
-#### Snippet
-```java
-final class JTextComponentSetTextTask {
-  @RunsInEDT
-  static void setTextIn(final @Nonnull JTextComponent textBox, final String text) {
-    execute(() -> textBox.setText(text));
-  }
 ```
 
 ### MissortedModifiers
@@ -4255,102 +4364,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentPerformDefaultAccessibleActionTask.java`
-#### Snippet
-```java
-
-  @RunsInCurrentThread
-  static void performDefaultAccessibleAction(final @Nonnull Component c) {
-    AccessibleAction action = c.getAccessibleContext().getAccessibleAction();
-    if (action == null || action.getAccessibleActionCount() == 0) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateAndIncrementValue(final @Nonnull JSpinner spinner, final int times) {
-    execute(() -> {
-      checkEnabledAndShowing(spinner);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateAndDecrementValue(final @Nonnull JSpinner spinner, final int times) {
-    execute(() -> {
-      checkEnabledAndShowing(spinner);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void checkEditorNotNull(final @Nonnull JSpinner spinner, final @Nullable JTextComponent editor) {
-    execute(() -> {
-      if (editor == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void checkEditorNotNull(final @Nonnull JSpinner spinner, final @Nullable JTextComponent editor) {
-    execute(() -> {
-      if (editor == null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void commit(final @Nonnull JSpinner spinner) {
-    execute(() -> spinner.commitEdit());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateAndIncrementValue(final @Nonnull JSpinner spinner) {
-    execute(() -> {
-      checkEnabledAndShowing(spinner);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  private static void validateAndDecrementValue(final @Nonnull JSpinner spinner) {
-    execute(() -> {
-      checkEnabledAndShowing(spinner);
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/PointAndParentForScrollingJTextFieldQuery.java`
 #### Snippet
@@ -4372,42 +4385,6 @@ final class PointAndParentForScrollingJTextFieldQuery {
   static @Nonnull Pair<Point, Container> pointAndParentForScrolling(final @Nonnull JTextField textField) {
     Point origin = new Point(textField.getX(), textField.getY());
     Container parent = textField.getParent();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarIndeterminateQuery.java`
-#### Snippet
-```java
-final class JProgressBarIndeterminateQuery {
-  @RunsInEDT
-  static boolean isIndeterminate(final @Nonnull JProgressBar progressBar) {
-    Boolean result = execute(() -> progressBar.isIndeterminate());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentTextQuery.java`
-#### Snippet
-```java
-final class JTextComponentTextQuery {
-  @RunsInEDT
-  static @Nullable String textOf(final @Nonnull JTextComponent textComponent) {
-    return execute(() -> textComponent.getText());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentTextQuery.java`
-#### Snippet
-```java
-final class JTextComponentTextQuery {
-  @RunsInEDT
-  static @Nullable String textOf(final @Nonnull JTextComponent textComponent) {
-    return execute(() -> textComponent.getText());
-  }
 ```
 
 ### MissortedModifiers
@@ -4444,30 +4421,6 @@ final class JTableContentsQuery {
   static @Nonnull String[][] tableContents(final @Nonnull JTable table, final @Nonnull JTableCellReader cellReader) {
     String[][] result = execute(new GuiQuery<String[][]>() {
       @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
-#### Snippet
-```java
-final class JListItemValueQuery {
-  @RunsInEDT
-  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
-                                    final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
-#### Snippet
-```java
-final class JListItemValueQuery {
-  @RunsInEDT
-  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
-                                    final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
 ```
 
 ### MissortedModifiers
@@ -4484,18 +4437,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameDriver.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
-                                    final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
-      checkIndexInBounds(list, index);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameDriver.java`
 #### Snippet
 ```java
@@ -4507,15 +4448,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonDriver.java`
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentTextQuery.java`
 #### Snippet
 ```java
-
+final class JTextComponentTextQuery {
   @RunsInEDT
-  private static boolean checkSelected(final @Nonnull AbstractButton button) {
-    Boolean result = execute(() -> {
-      checkEnabledAndShowing(button);
+  static @Nullable String textOf(final @Nonnull JTextComponent textComponent) {
+    return execute(() -> textComponent.getText());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentTextQuery.java`
+#### Snippet
+```java
+final class JTextComponentTextQuery {
+  @RunsInEDT
+  static @Nullable String textOf(final @Nonnull JTextComponent textComponent) {
+    return execute(() -> textComponent.getText());
+  }
 ```
 
 ### MissortedModifiers
@@ -4528,6 +4481,18 @@ final class ComponentSetSizeTask {
   static void setComponentSize(final @Nonnull Component c, final int width, final int height) {
     execute(() -> c.setSize(width, height));
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
+#### Snippet
+```java
+final class JScrollBarValueQuery {
+  @RunsInEDT
+  static int valueOf(final @Nonnull JScrollBar scrollBar) {
+    Integer result = execute(() -> scrollBar.getValue());
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -4555,63 +4520,75 @@ final class JTableHeaderQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
 #### Snippet
 ```java
-
-  @RunsInCurrentThread
-  @Nonnull private static Pair<Window, Point> ancestorAndLocation(final @Nonnull JToolBar toolBar) {
-    Window window = getWindowAncestor(toolBar);
-    return Pair.of(window, window.getLocation());
+final class JListItemValueQuery {
+  @RunsInEDT
+  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
+                                    final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
 #### Snippet
 ```java
-
+final class JListItemValueQuery {
   @RunsInEDT
-  private static void checkFloated(final @Nonnull JToolBar toolBar) {
-    execute(() -> {
-      if (!isJToolBarFloating(toolBar)) {
+  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
+                                    final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemValueQuery.java`
 #### Snippet
 ```java
-   */
   @RunsInEDT
-  public boolean isFloating(final @Nonnull JToolBar toolBar) {
-    Boolean result = execute(() -> isJToolBarFloating(toolBar));
+  static @Nullable String itemValue(final @Nonnull JList<?> list, final int index,
+                                    final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
+      checkIndexInBounds(list, index);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
+#### Snippet
+```java
+final class JListSelectionIndicesQuery {
+  @RunsInEDT
+  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
+    int[] result = execute(() -> list.getSelectedIndices());
     return checkNotNull(result);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
 #### Snippet
 ```java
-
+final class JListSelectionIndicesQuery {
   @RunsInEDT
-  @Nonnull private static Pair<Point, Pair<Window, Point>> floatInfo(final @Nonnull JToolBar toolBar,
-                                                                     final @Nonnull JToolBarLocation location) {
-    Pair<Point, Pair<Window, Point>> result = execute(new GuiQuery<Pair<Point, Pair<Window, Point>>>() {
+  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
+    int[] result = execute(() -> list.getSelectedIndices());
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonDriver.java`
 #### Snippet
 ```java
+
   @RunsInEDT
-  @Nonnull private static Pair<Point, Pair<Window, Point>> floatInfo(final @Nonnull JToolBar toolBar,
-                                                                     final @Nonnull JToolBarLocation location) {
-    Pair<Point, Pair<Window, Point>> result = execute(new GuiQuery<Pair<Point, Pair<Window, Point>>>() {
-      @Override
+  private static boolean checkSelected(final @Nonnull AbstractButton button) {
+    Boolean result = execute(() -> {
+      checkEnabledAndShowing(button);
 ```
 
 ### MissortedModifiers
@@ -4648,6 +4625,54 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
   private static void validateIsNotFloating(final @Nonnull JToolBar toolBar, final @Nonnull String constraint) {
     execute(() -> {
       if (isJToolBarFloating(toolBar)) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInCurrentThread
+  @Nonnull private static Pair<Window, Point> ancestorAndLocation(final @Nonnull JToolBar toolBar) {
+    Window window = getWindowAncestor(toolBar);
+    return Pair.of(window, window.getLocation());
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Pair<Window, Point>> floatInfo(final @Nonnull JToolBar toolBar,
+                                                                     final @Nonnull JToolBarLocation location) {
+    Pair<Point, Pair<Window, Point>> result = execute(new GuiQuery<Pair<Point, Pair<Window, Point>>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/BasicJTableCellReader.java`
+#### Snippet
+```java
+
+  @RunsInCurrentThread
+  @Nullable private Component cellRendererIn(final @Nonnull JTable table, final int row, final int column) {
+    return table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Point, Pair<Window, Point>> floatInfo(final @Nonnull JToolBar toolBar,
+                                                                     final @Nonnull JToolBarLocation location) {
+    Pair<Point, Pair<Window, Point>> result = execute(new GuiQuery<Pair<Point, Pair<Window, Point>>>() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -4700,50 +4725,26 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/BasicJTableCellReader.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 #### Snippet
 ```java
-
-  @RunsInCurrentThread
-  @Nullable private Component cellRendererIn(final @Nonnull JTable table, final int row, final int column) {
-    return table.prepareRenderer(table.getCellRenderer(row, column), row, column);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
-#### Snippet
-```java
-final class JScrollBarValueQuery {
+   */
   @RunsInEDT
-  static int valueOf(final @Nonnull JScrollBar scrollBar) {
-    Integer result = execute(() -> scrollBar.getValue());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
-#### Snippet
-```java
-final class JListSelectionIndicesQuery {
-  @RunsInEDT
-  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
-    int[] result = execute(() -> list.getSelectedIndices());
+  public boolean isFloating(final @Nonnull JToolBar toolBar) {
+    Boolean result = execute(() -> isJToolBarFloating(toolBar));
     return checkNotNull(result);
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 #### Snippet
 ```java
-final class JListSelectionIndicesQuery {
+
   @RunsInEDT
-  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
-    int[] result = execute(() -> list.getSelectedIndices());
-    return checkNotNull(result);
+  private static void checkFloated(final @Nonnull JToolBar toolBar) {
+    execute(() -> {
+      if (!isJToolBarFloating(toolBar)) {
 ```
 
 ### MissortedModifiers
@@ -4772,14 +4773,14 @@ final class JSplitPaneSetDividerLocationTask {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneTabIndexQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.java`
 #### Snippet
 ```java
-final class JTabbedPaneTabIndexQuery {
+final class JComboBoxEditableQuery {
   @RunsInEDT
-  static int indexOfTab(final @Nonnull JTabbedPane tabbedPane, final @Nonnull TextMatcher matcher) {
-    Integer result = execute(() -> {
-      int tabCount = tabbedPane.getTabCount();
+  static boolean isEditable(final @Nonnull JComboBox<?> comboBox) {
+    Boolean result = execute(() -> comboBox.isEditable());
+    return Preconditions.checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -4796,26 +4797,38 @@ final class JTabbedPaneTabIndexQuery {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneTabIndexQuery.java`
 #### Snippet
 ```java
-
+final class JTabbedPaneTabIndexQuery {
   @RunsInEDT
-  @Nonnull private static GenericRange<Point> findWhereToMoveDividerVertically(final @Nonnull JSplitPane splitPane,
-                                                                               final int location) {
-    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
+  static int indexOfTab(final @Nonnull JTabbedPane tabbedPane, final @Nonnull TextMatcher matcher) {
+    Integer result = execute(() -> {
+      int tabCount = tabbedPane.getTabCount();
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentMoveTask.java`
 #### Snippet
 ```java
-
+final class ComponentMoveTask {
   @RunsInEDT
-  @Nonnull private static GenericRange<Point> findWhereToMoveDividerHorizontally(final @Nonnull JSplitPane splitPane,
-                                                                                 final int location) {
-    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
+  static void moveComponent(final @Nonnull Component c, final @Nonnull Point location) {
+    execute(() -> c.setLocation(location));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentMoveTask.java`
+#### Snippet
+```java
+final class ComponentMoveTask {
+  @RunsInEDT
+  static void moveComponent(final @Nonnull Component c, final @Nonnull Point location) {
+    execute(() -> c.setLocation(location));
+  }
 ```
 
 ### MissortedModifiers
@@ -4831,27 +4844,15 @@ final class JComboBoxItemCountQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.java`
-#### Snippet
-```java
-final class JComboBoxEditableQuery {
-  @RunsInEDT
-  static boolean isEditable(final @Nonnull JComboBox<?> comboBox) {
-    Boolean result = execute(() -> comboBox.isEditable());
-    return Preconditions.checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
+Missorted modifiers `protected final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
 #### Snippet
 ```java
+  }
 
-  @RunsInEDT
-  @Nullable private static Component cellEditorComponent(final @Nonnull JTable table, final int row, final int column) {
-    return execute(() -> {
-      checkCellIndicesInBounds(table, row, column);
+  protected final @Nonnull JTableLocation location() {
+    return location;
+  }
 ```
 
 ### MissortedModifiers
@@ -4867,15 +4868,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWrite
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
+Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
 #### Snippet
 ```java
-   * @return the cell editor being currently used, or {@code null} if no table cell is being currently edited.
+
+  @RunsInEDT
+  @Nullable private static Component cellEditorComponent(final @Nonnull JTable table, final int row, final int column) {
+    return execute(() -> {
+      checkCellIndicesInBounds(table, row, column);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
+#### Snippet
+```java
    */
-  protected final @Nullable TableCellEditor cellEditor() {
-    return cellEditor;
-  }
+  @RunsInCurrentThread
+  protected static void validate(final @Nonnull JTable table, final int row, final int column) {
+    checkCellIndicesInBounds(table, row, column);
+    checkEnabledAndShowing(table);
 ```
 
 ### MissortedModifiers
@@ -4903,6 +4916,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWrite
 ```
 
 ### MissortedModifiers
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ModelValueToString.java`
+#### Snippet
+```java
+   *         {@code toString}.
+   */
+  static @Nullable String asText(@Nullable Object o) {
+    if (o == null) {
+      return null;
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
+#### Snippet
+```java
+   * @return the cell editor being currently used, or {@code null} if no table cell is being currently edited.
+   */
+  protected final @Nullable TableCellEditor cellEditor() {
+    return cellEditor;
+  }
+```
+
+### MissortedModifiers
 Missorted modifiers `protected final @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
 #### Snippet
@@ -4927,66 +4964,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWrite
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
-#### Snippet
-```java
-  }
-
-  protected final @Nonnull JTableLocation location() {
-    return location;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
-#### Snippet
-```java
-   */
-  @RunsInCurrentThread
-  protected static void validate(final @Nonnull JTable table, final int row, final int column) {
-    checkCellIndicesInBounds(table, row, column);
-    checkEnabledAndShowing(table);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentMoveTask.java`
-#### Snippet
-```java
-final class ComponentMoveTask {
-  @RunsInEDT
-  static void moveComponent(final @Nonnull Component c, final @Nonnull Point location) {
-    execute(() -> c.setLocation(location));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentMoveTask.java`
-#### Snippet
-```java
-final class ComponentMoveTask {
-  @RunsInEDT
-  static void moveComponent(final @Nonnull Component c, final @Nonnull Point location) {
-    execute(() -> c.setLocation(location));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ModelValueToString.java`
-#### Snippet
-```java
-   *         {@code toString}.
-   */
-  static @Nullable String asText(@Nullable Object o) {
-    if (o == null) {
-      return null;
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserCancelButtonTextQuery.java`
 #### Snippet
@@ -4999,15 +4976,39 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserCancelButto
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
 #### Snippet
 ```java
-final class JTableRowCountQuery {
+final class JListSelectionValuesQuery {
   @RunsInEDT
-  static int rowCountOf(final @Nonnull JTable table) {
-    Integer result = execute(() -> table.getRowCount());
-    return checkNotNull(result);
+  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
+#### Snippet
+```java
+final class JListSelectionValuesQuery {
+  @RunsInEDT
+  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
+#### Snippet
+```java
+final class JListSelectionValuesQuery {
+  @RunsInEDT
+  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -5048,25 +5049,49 @@ final class JInternalFrameCloseTask {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  @Nullable private static Component editorComponentOf(final @Nonnull JComboBox<?> comboBox) {
-    return execute(() -> editorComponent(comboBox));
-  }
+  @Nonnull private static GenericRange<Point> findWhereToMoveDividerHorizontally(final @Nonnull JSplitPane splitPane,
+                                                                                 final int location) {
+    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
 #### Snippet
 ```java
-   */
+
   @RunsInEDT
-  public void requireEditable(final @Nonnull JComboBox<?> comboBox) {
-    checkEditable(comboBox, true);
+  @Nonnull private static GenericRange<Point> findWhereToMoveDividerVertically(final @Nonnull JSplitPane splitPane,
+                                                                               final int location) {
+    GenericRange<Point> result = execute(new GuiQuery<GenericRange<Point>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
+#### Snippet
+```java
+final class JTableRowCountQuery {
+  @RunsInEDT
+  static int rowCountOf(final @Nonnull JTable table) {
+    Integer result = execute(() -> table.getRowCount());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSetSelectedIndexTask.java`
+#### Snippet
+```java
+final class JComboBoxSetSelectedIndexTask {
+  @RunsInEDT
+  static void setSelectedIndex(final @Nonnull JComboBox<?> comboBox, final int index) {
+    execute(() -> comboBox.setSelectedIndex(index));
   }
 ```
 
@@ -5123,11 +5148,23 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
 #### Snippet
 ```java
+   */
+  @RunsInEDT
+  public void requireEditable(final @Nonnull JComboBox<?> comboBox) {
+    checkEditable(comboBox, true);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
+#### Snippet
+```java
 
   @RunsInEDT
-  @Nullable private static Component accessibleEditorOf(final @Nonnull JComboBox<?> comboBox) {
-    return execute(() -> {
-      checkAccessibleEditor(comboBox);
+  @Nullable private static Component editorComponentOf(final @Nonnull JComboBox<?> comboBox) {
+    return execute(() -> editorComponent(comboBox));
+  }
 ```
 
 ### MissortedModifiers
@@ -5144,122 +5181,74 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSetSelectedIndexTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
 #### Snippet
 ```java
-final class JComboBoxSetSelectedIndexTask {
+
   @RunsInEDT
-  static void setSelectedIndex(final @Nonnull JComboBox<?> comboBox, final int index) {
-    execute(() -> comboBox.setSelectedIndex(index));
+  @Nullable private static Component accessibleEditorOf(final @Nonnull JComboBox<?> comboBox) {
+    return execute(() -> {
+      checkAccessibleEditor(comboBox);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
+#### Snippet
+```java
+   */
+  @RunsInCurrentThread
+  static @Nonnull Point iconifyButtonLocation(@Nonnull Container c) {
+    Insets insets = c.getInsets();
+    // From Abbot: We know the exact layout of the window manager frames for w32 and OSX. Currently no way of detecting
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
+#### Snippet
+```java
+   */
+  @RunsInCurrentThread
+  static @Nonnull Point closeButtonLocation(@Nonnull Container c) {
+    Insets insets = c.getInsets();
+    if (isOSX()) {
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
+#### Snippet
+```java
+   */
+  @RunsInCurrentThread
+  static @Nonnull Point maximizeButtonLocation(@Nonnull Container c) {
+    Point p = iconifyButtonLocation(c);
+    p.x += MAXIMIZE_BUTTON_OFFSET;
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameTitleQuery.java`
+#### Snippet
+```java
+final class JInternalFrameTitleQuery {
+  @RunsInEDT
+  static @Nullable String titleOf(final @Nonnull JInternalFrame f) {
+    return execute(() -> f.getTitle());
   }
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
-#### Snippet
-```java
-final class JListSelectionValuesQuery {
-  @RunsInEDT
-  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-      @Override
-```
-
-### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameTitleQuery.java`
 #### Snippet
 ```java
-final class JListSelectionValuesQuery {
+final class JInternalFrameTitleQuery {
   @RunsInEDT
-  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQuery.java`
-#### Snippet
-```java
-final class JListSelectionValuesQuery {
-  @RunsInEDT
-  static @Nonnull List<String> selectionValues(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  /** @return the index of first matching element and the point that the JList was scrolled to. */
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                    final @Nonnull JListCellReader cellReader) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  /** @return the index of first matching element and the point that the JList was scrolled to. */
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                    final @Nonnull JListCellReader cellReader) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  /** @return the index of first matching element and the point that the JList was scrolled to. */
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                    final @Nonnull JListCellReader cellReader) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                    final @Nonnull JListCellReader cellReader) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
-      @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  /** @return the point that the JList was scrolled to. */
-  @RunsInEDT
-  static @Nonnull Point scrollToItem(final @Nonnull JList<?> list, final int index) {
-    Point result = execute(() -> {
-      checkEnabledAndShowing(list);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
-#### Snippet
-```java
-  /** @return the point that the JList was scrolled to. */
-  @RunsInEDT
-  static @Nonnull Point scrollToItem(final @Nonnull JList<?> list, final int index) {
-    Point result = execute(() -> {
-      checkEnabledAndShowing(list);
+  static @Nullable String titleOf(final @Nonnull JInternalFrame f) {
+    return execute(() -> f.getTitle());
+  }
 ```
 
 ### MissortedModifiers
@@ -5347,54 +5336,114 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.j
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameTitleQuery.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-final class JInternalFrameTitleQuery {
+  /** @return the index of first matching element and the point that the JList was scrolled to. */
   @RunsInEDT
-  static @Nullable String titleOf(final @Nonnull JInternalFrame f) {
-    return execute(() -> f.getTitle());
-  }
+  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                    final @Nonnull JListCellReader cellReader) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameTitleQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-final class JInternalFrameTitleQuery {
+  /** @return the index of first matching element and the point that the JList was scrolled to. */
   @RunsInEDT
-  static @Nullable String titleOf(final @Nonnull JInternalFrame f) {
-    return execute(() -> f.getTitle());
-  }
+  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                    final @Nonnull JListCellReader cellReader) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-
+  /** @return the index of first matching element and the point that the JList was scrolled to. */
   @RunsInEDT
-  @Nonnull private static Pair<Boolean, Point> doStartCellEditing(final @Nonnull JTable table, final int row,
-                                                                  final int column,
-                                                                  final @Nonnull JTableLocation location) {
+  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                    final @Nonnull JListCellReader cellReader) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-  @Nonnull private static Pair<Boolean, Point> doStartCellEditing(final @Nonnull JTable table, final int row,
-                                                                  final int column,
-                                                                  final @Nonnull JTableLocation location) {
-    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
+  @RunsInEDT
+  static @Nonnull Pair<Integer, Point> scrollToItem(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                    final @Nonnull JListCellReader cellReader) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
       @Override
 ```
 
 ### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
+#### Snippet
+```java
+  /** @return the point that the JList was scrolled to. */
+  @RunsInEDT
+  static @Nonnull Point scrollToItem(final @Nonnull JList<?> list, final int index) {
+    Point result = execute(() -> {
+      checkEnabledAndShowing(list);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
+#### Snippet
+```java
+  /** @return the point that the JList was scrolled to. */
+  @RunsInEDT
+  static @Nonnull Point scrollToItem(final @Nonnull JList<?> list, final int index) {
+    Point result = execute(() -> {
+      checkEnabledAndShowing(list);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
+#### Snippet
+```java
+final class JTableStopCellEditingTask {
+  @RunsInEDT
+  static void stopEditing(final @Nonnull TableCellEditor cellEditor) {
+    execute(() -> doStopCellEditing(cellEditor));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void checkStateAndStopEditing(final @Nonnull JTable table, final int row, final int column) {
+    execute(() -> {
+      checkCellIndicesInBounds(table, row, column);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void stopEditing(final @Nonnull JTable table, final int row, final int column) {
+    execute(() -> doStopCellEditing(table, row, column));
+  }
+```
+
+### MissortedModifiers
 Missorted modifiers `static @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JLabelTextQuery.java`
 #### Snippet
@@ -5419,39 +5468,15 @@ final class JLabelTextQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderSetValueTask.java`
 #### Snippet
 ```java
-   */
-  @RunsInCurrentThread
-  static @Nonnull Point maximizeButtonLocation(@Nonnull Container c) {
-    Point p = iconifyButtonLocation(c);
-    p.x += MAXIMIZE_BUTTON_OFFSET;
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
-#### Snippet
-```java
-   */
-  @RunsInCurrentThread
-  static @Nonnull Point closeButtonLocation(@Nonnull Container c) {
-    Insets insets = c.getInsets();
-    if (isOSX()) {
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowLikeContainers.java`
-#### Snippet
-```java
-   */
-  @RunsInCurrentThread
-  static @Nonnull Point iconifyButtonLocation(@Nonnull Container c) {
-    Insets insets = c.getInsets();
-    // From Abbot: We know the exact layout of the window manager frames for w32 and OSX. Currently no way of detecting
+final class JSliderSetValueTask {
+  @RunsInEDT
+  static void setValue(final @Nonnull JSlider slider, final int newValue) {
+    execute(() -> slider.setValue(newValue));
+  }
 ```
 
 ### MissortedModifiers
@@ -5492,182 +5517,26 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxMatchingItemQu
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderSetValueTask.java`
-#### Snippet
-```java
-final class JSliderSetValueTask {
-  @RunsInEDT
-  static void setValue(final @Nonnull JSlider slider, final int newValue) {
-    execute(() -> slider.setValue(newValue));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
-#### Snippet
-```java
-final class JTableStopCellEditingTask {
-  @RunsInEDT
-  static void stopEditing(final @Nonnull TableCellEditor cellEditor) {
-    execute(() -> doStopCellEditing(cellEditor));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  static void checkStateAndStopEditing(final @Nonnull JTable table, final int row, final int column) {
-    execute(() -> {
-      checkCellIndicesInBounds(table, row, column);
+  @Nonnull private static Pair<Boolean, Point> doStartCellEditing(final @Nonnull JTable table, final int row,
+                                                                  final int column,
+                                                                  final @Nonnull JTableLocation location) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableStopCellEditingTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
 #### Snippet
 ```java
-
-  @RunsInEDT
-  static void stopEditing(final @Nonnull JTable table, final int row, final int column) {
-    execute(() -> doStopCellEditing(table, row, column));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static String[] allTabTitlesIn(final @Nonnull JTabbedPane tabbedPane) {
-    String[] result = execute(() -> {
-      List<String> allTitles = newArrayList();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.isEnabledAt(index.value));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.isEnabledAt(index.value));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Point pointAtTabWhenShowing(final @Nonnull JTabbedPaneLocation location,
-                                                      final @Nonnull JTabbedPane tabbedPane, final int index) {
-    Point result = execute(() -> {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Point pointAtTabWhenShowing(final @Nonnull JTabbedPaneLocation location,
-                                                      final @Nonnull JTabbedPane tabbedPane, final int index) {
-    Point result = execute(() -> {
-      location.checkIndexInBounds(tabbedPane, index);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
-                                                               final @Nonnull JTabbedPane tabbedPane,
-                                                               final @Nonnull TextMatcher matcher) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
-                                                               final @Nonnull JTabbedPane tabbedPane,
-                                                               final @Nonnull TextMatcher matcher) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
-                                                               final @Nonnull JTabbedPane tabbedPane,
-                                                               final @Nonnull TextMatcher matcher) {
-    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
+  @Nonnull private static Pair<Boolean, Point> doStartCellEditing(final @Nonnull JTable table, final int row,
+                                                                  final int column,
+                                                                  final @Nonnull JTableLocation location) {
+    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
       @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String toolTipTextAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.getToolTipTextAt(index.value));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String toolTipTextAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.getToolTipTextAt(index.value));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String titleAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.getTitleAt(index.value));
-  }
 ```
 
 ### MissortedModifiers
@@ -5692,42 +5561,6 @@ final class JTreeClearSelectionTask {
   static void clearSelectionOf(final @Nonnull JTree tree) {
     execute(() -> tree.clearSelection());
   }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nullable private static String titleAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.getTitleAt(index.value));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Point pointAtTab(final @Nonnull JTabbedPaneLocation location,
-                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
-    Point result = execute(() -> location.pointAt(tabbedPane, index));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nonnull private static Point pointAtTab(final @Nonnull JTabbedPaneLocation location,
-                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
-    Point result = execute(() -> location.pointAt(tabbedPane, index));
-    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -5767,15 +5600,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JPopupMenuElementsAsTextQuery.java`
 #### Snippet
 ```java
-
+final class JPopupMenuElementsAsTextQuery {
   @RunsInEDT
-  @Nonnull private static Point pointAtIndex(final @Nonnull JTableHeader tableHeader, final int columnIndex,
-                                             final JTableHeaderLocation location) {
-    Point result = execute(() -> {
+  static @Nonnull String[] menuElementsAsText(final @Nonnull JPopupMenu popupMenu) {
+    String[] result = execute(new GuiQuery<String[]>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JPopupMenuElementsAsTextQuery.java`
+#### Snippet
+```java
+final class JPopupMenuElementsAsTextQuery {
+  @RunsInEDT
+  static @Nonnull String[] menuElementsAsText(final @Nonnull JPopupMenu popupMenu) {
+    String[] result = execute(new GuiQuery<String[]>() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -5815,27 +5660,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JPopupMenuElementsAsTextQuery.java`
-#### Snippet
-```java
-final class JPopupMenuElementsAsTextQuery {
-  @RunsInEDT
-  static @Nonnull String[] menuElementsAsText(final @Nonnull JPopupMenu popupMenu) {
-    String[] result = execute(new GuiQuery<String[]>() {
-      @Override
-```
-
-### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JPopupMenuElementsAsTextQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
 #### Snippet
 ```java
-final class JPopupMenuElementsAsTextQuery {
+
   @RunsInEDT
-  static @Nonnull String[] menuElementsAsText(final @Nonnull JPopupMenu popupMenu) {
-    String[] result = execute(new GuiQuery<String[]>() {
-      @Override
+  @Nonnull private static Point pointAtIndex(final @Nonnull JTableHeader tableHeader, final int columnIndex,
+                                             final JTableHeaderLocation location) {
+    Point result = execute(() -> {
 ```
 
 ### MissortedModifiers
@@ -5863,30 +5696,6 @@ final class JFileChooserApproveButtonTextQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetMaximumTask.java`
-#### Snippet
-```java
-final class JInternalFrameSetMaximumTask {
-  @RunsInEDT
-  static void setMaximum(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
-    execute(() -> {
-      internalFrame.setIcon(false);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetMaximumTask.java`
-#### Snippet
-```java
-final class JInternalFrameSetMaximumTask {
-  @RunsInEDT
-  static void setMaximum(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
-    execute(() -> {
-      internalFrame.setIcon(false);
-```
-
-### MissortedModifiers
 Missorted modifiers `static @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypes.java`
 #### Snippet
@@ -5900,6 +5709,258 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypes
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetMaximumTask.java`
+#### Snippet
+```java
+final class JInternalFrameSetMaximumTask {
+  @RunsInEDT
+  static void setMaximum(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
+    execute(() -> {
+      internalFrame.setIcon(false);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameSetMaximumTask.java`
+#### Snippet
+```java
+final class JInternalFrameSetMaximumTask {
+  @RunsInEDT
+  static void setMaximum(final @Nonnull JInternalFrame internalFrame, final @Nonnull JInternalFrameAction action) {
+    execute(() -> {
+      internalFrame.setIcon(false);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void checkNoSelection(final @Nonnull JTree tree, final @Nonnull Description errMsg) {
+    execute(() -> {
+      if (tree.getSelectionCount() == 0) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void checkNoSelection(final @Nonnull JTree tree, final @Nonnull Description errMsg) {
+    execute(() -> {
+      if (tree.getSelectionCount() == 0) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
+                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
+                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
+                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
+                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+  }
+
+  private static void failNoSelection(final @Nonnull Description errMessage) {
+    fail(String.format("[%s] No selection", errMessage.value()));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+final class JTreeVerifySelectionTask {
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
+                                final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, errMsg));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+final class JTreeVerifySelectionTask {
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
+                                final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, errMsg));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
+                                final @Nonnull Description errMsg) {
+    execute(() -> checkSelection(tree, selection, errMsg));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void setSelectedFiles(final @Nonnull JFileChooser fileChooser, final @Nonnull File[] files) {
+    execute(() -> {
+      checkEnabledAndShowing(fileChooser);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static void setSelectedFiles(final @Nonnull JFileChooser fileChooser, final @Nonnull File[] files) {
+    execute(() -> {
+      checkEnabledAndShowing(fileChooser);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
+#### Snippet
+```java
+final class JFileChooserSelectFileTask {
+  @RunsInEDT
+  static void setSelectedFile(final @Nonnull JFileChooser fileChooser, final @Nonnull File file) {
+    execute(() -> {
+      checkEnabledAndShowing(fileChooser);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
+#### Snippet
+```java
+final class JFileChooserSelectFileTask {
+  @RunsInEDT
+  static void setSelectedFile(final @Nonnull JFileChooser fileChooser, final @Nonnull File file) {
+    execute(() -> {
+      checkEnabledAndShowing(fileChooser);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableColumnCountQuery.java`
+#### Snippet
+```java
+final class JTableColumnCountQuery {
+  @RunsInEDT
+  static int columnCountOf(final @Nonnull JTable table) {
+    Integer result = execute(() -> table.getColumnCount());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
+      int selectedIndex = list.getSelectedIndex();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
+      int selectedIndex = list.getSelectedIndex();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
+    return execute(() -> {
+      int selectedIndex = list.getSelectedIndex();
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/KeyStrokes.java`
+#### Snippet
+```java
+final class KeyStrokes {
+  @RunsInCurrentThread
+  static @Nonnull KeyStroke[] findKeyStrokesForAction(@Nonnull String actionName, @Nonnull Object actionKey,
+      @Nonnull InputMap inputMap) {
+    List<KeyStroke> keyStrokes = newArrayList();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
 #### Snippet
 ```java
@@ -5908,6 +5969,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.ja
   @Nonnull private static Point scrollToPosition(final @Nonnull JTextComponent textBox, final int index) {
     Point result = execute(() -> scrollToVisible(textBox, index));
     return checkNotNull(result);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Point checkStateAndScrollToPosition(final @Nonnull JTextComponent textBox, final int index) {
+    Point result = execute(() -> {
+      checkEnabledAndShowing(textBox);
 ```
 
 ### MissortedModifiers
@@ -5948,78 +6021,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.ja
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private static Point checkStateAndScrollToPosition(final @Nonnull JTextComponent textBox, final int index) {
-    Point result = execute(() -> {
-      checkEnabledAndShowing(textBox);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableColumnCountQuery.java`
-#### Snippet
-```java
-final class JTableColumnCountQuery {
-  @RunsInEDT
-  static int columnCountOf(final @Nonnull JTable table) {
-    Integer result = execute(() -> table.getColumnCount());
-    return checkNotNull(result);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
-#### Snippet
-```java
-final class JFileChooserSelectFileTask {
-  @RunsInEDT
-  static void setSelectedFile(final @Nonnull JFileChooser fileChooser, final @Nonnull File file) {
-    execute(() -> {
-      checkEnabledAndShowing(fileChooser);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
-#### Snippet
-```java
-final class JFileChooserSelectFileTask {
-  @RunsInEDT
-  static void setSelectedFile(final @Nonnull JFileChooser fileChooser, final @Nonnull File file) {
-    execute(() -> {
-      checkEnabledAndShowing(fileChooser);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void setSelectedFiles(final @Nonnull JFileChooser fileChooser, final @Nonnull File[] files) {
-    execute(() -> {
-      checkEnabledAndShowing(fileChooser);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JFileChooserSelectFileTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void setSelectedFiles(final @Nonnull JFileChooser fileChooser, final @Nonnull File[] files) {
-    execute(() -> {
-      checkEnabledAndShowing(fileChooser);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderLocation.java`
 #### Snippet
 ```java
@@ -6052,174 +6053,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderLocation.java`
     abstract @Nonnull Point update(@Nonnull Point center, int coordinate);
 
     @RunsInCurrentThread
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-  }
-
-  private static void failNoSelection(final @Nonnull Description errMessage) {
-    fail(String.format("[%s] No selection", errMessage.value()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
-                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
-                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
-                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull String[] selection,
-                                final @Nonnull JTreePathFinder pathFinder, final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, pathFinder, errMsg));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void checkNoSelection(final @Nonnull JTree tree, final @Nonnull Description errMsg) {
-    execute(() -> {
-      if (tree.getSelectionCount() == 0) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static void checkNoSelection(final @Nonnull JTree tree, final @Nonnull Description errMsg) {
-    execute(() -> {
-      if (tree.getSelectionCount() == 0) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-final class JTreeVerifySelectionTask {
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
-                                final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, errMsg));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-final class JTreeVerifySelectionTask {
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
-                                final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, errMsg));
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static void checkHasSelection(final @Nonnull JTree tree, final @Nonnull int[] selection,
-                                final @Nonnull Description errMsg) {
-    execute(() -> checkSelection(tree, selection, errMsg));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                  final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                  final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                  final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
-                                                  final @Nonnull JListCellReader cellReader) {
-    List<String> result = execute(new GuiQuery<List<String>>() {
-      @Override
 ```
 
 ### MissortedModifiers
@@ -6319,6 +6152,54 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.
 ```
 
 ### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                  final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                  final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                  final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static @Nonnull List<String> matchingItemValues(final @Nonnull JList<?> list, final @Nonnull TextMatcher matcher,
+                                                  final @Nonnull JListCellReader cellReader) {
+    List<String> result = execute(new GuiQuery<List<String>>() {
+      @Override
+```
+
+### MissortedModifiers
 Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeEditableQuery.java`
 #### Snippet
@@ -6331,63 +6212,171 @@ final class JTreeEditableQuery {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
-      int selectedIndex = list.getSelectedIndex();
+  @Nonnull private static String[] allTabTitlesIn(final @Nonnull JTabbedPane tabbedPane) {
+    String[] result = execute(() -> {
+      List<String> allTitles = newArrayList();
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
 #### Snippet
 ```java
 
   @RunsInEDT
-  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
-      int selectedIndex = list.getSelectedIndex();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValueQuery.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  static @Nullable Object singleSelectionValue(final @Nonnull JList<?> list, final @Nonnull JListCellReader cellReader) {
-    return execute(() -> {
-      int selectedIndex = list.getSelectedIndex();
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/KeyStrokes.java`
-#### Snippet
-```java
-final class KeyStrokes {
-  @RunsInCurrentThread
-  static @Nonnull KeyStroke[] findKeyStrokesForAction(@Nonnull String actionName, @Nonnull Object actionKey,
-      @Nonnull InputMap inputMap) {
-    List<KeyStroke> keyStrokes = newArrayList();
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentEnabledCondition.java`
-#### Snippet
-```java
-  private Component c;
-
-  static @Nonnull ComponentEnabledCondition untilIsEnabled(@Nonnull Component c) {
-    return new ComponentEnabledCondition(c);
+  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.isEnabledAt(index.value));
   }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.isEnabledAt(index.value));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String titleAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getTitleAt(index.value));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String titleAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getTitleAt(index.value));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Point pointAtTabWhenShowing(final @Nonnull JTabbedPaneLocation location,
+                                                      final @Nonnull JTabbedPane tabbedPane, final int index) {
+    Point result = execute(() -> {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Point pointAtTabWhenShowing(final @Nonnull JTabbedPaneLocation location,
+                                                      final @Nonnull JTabbedPane tabbedPane, final int index) {
+    Point result = execute(() -> {
+      location.checkIndexInBounds(tabbedPane, index);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String toolTipTextAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getToolTipTextAt(index.value));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nullable private static String toolTipTextAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getToolTipTextAt(index.value));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
+                                                               final @Nonnull JTabbedPane tabbedPane,
+                                                               final @Nonnull TextMatcher matcher) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
+                                                               final @Nonnull JTabbedPane tabbedPane,
+                                                               final @Nonnull TextMatcher matcher) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @Nonnull private static Pair<Integer, Point> tabToSelectInfo(final @Nonnull JTabbedPaneLocation location,
+                                                               final @Nonnull JTabbedPane tabbedPane,
+                                                               final @Nonnull TextMatcher matcher) {
+    Pair<Integer, Point> result = execute(new GuiQuery<Pair<Integer, Point>>() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+
+  @RunsInEDT
+  @Nonnull private static Point pointAtTab(final @Nonnull JTabbedPaneLocation location,
+                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
+    Point result = execute(() -> location.pointAt(tabbedPane, index));
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static Point pointAtTab(final @Nonnull JTabbedPaneLocation location,
+                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
+    Point result = execute(() -> location.pointAt(tabbedPane, index));
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -6403,15 +6392,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentEnabledConditi
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypeQuery.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentEnabledCondition.java`
 #### Snippet
 ```java
-class JOptionPaneMessageTypeQuery {
-  @RunsInEDT
-  static int messageTypeOf(final @Nonnull JOptionPane optionPane) {
-    Integer result = execute(() -> optionPane.getMessageType());
-    return checkNotNull(result);
+  private Component c;
+
+  static @Nonnull ComponentEnabledCondition untilIsEnabled(@Nonnull Component c) {
+    return new ComponentEnabledCondition(c);
+  }
 ```
 
 ### MissortedModifiers
@@ -6452,13 +6441,13 @@ final class JListContentQuery {
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonSelectedQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypeQuery.java`
 #### Snippet
 ```java
-final class AbstractButtonSelectedQuery {
+class JOptionPaneMessageTypeQuery {
   @RunsInEDT
-  static boolean isSelected(final @Nonnull AbstractButton button) {
-    Boolean result = execute(() -> button.isSelected());
+  static int messageTypeOf(final @Nonnull JOptionPane optionPane) {
+    Integer result = execute(() -> optionPane.getMessageType());
     return checkNotNull(result);
 ```
 
@@ -6469,7 +6458,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
 ```java
 
   @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMaximumInfo(final @Nonnull JSlider slider,
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMinimumInfo(final @Nonnull JSlider slider,
       final @Nonnull JSliderLocation location) {
     Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
 ```
@@ -6480,7 +6469,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
 #### Snippet
 ```java
   @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMaximumInfo(final @Nonnull JSlider slider,
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMinimumInfo(final @Nonnull JSlider slider,
       final @Nonnull JSliderLocation location) {
     Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
       @Override
@@ -6493,7 +6482,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
 ```java
 
   @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMinimumInfo(final @Nonnull JSlider slider,
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMaximumInfo(final @Nonnull JSlider slider,
       final @Nonnull JSliderLocation location) {
     Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
 ```
@@ -6504,7 +6493,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
 #### Snippet
 ```java
   @RunsInEDT
-  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMinimumInfo(final @Nonnull JSlider slider,
+  @Nonnull private static Pair<Integer, GenericRange<Point>> findSlideToMaximumInfo(final @Nonnull JSlider slider,
       final @Nonnull JSliderLocation location) {
     Pair<Integer, GenericRange<Point>> result = execute(new GuiQuery<Pair<Integer, GenericRange<Point>>>() {
       @Override
@@ -6547,6 +6536,18 @@ final class Actions {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonSelectedQuery.java`
+#### Snippet
+```java
+final class AbstractButtonSelectedQuery {
+  @RunsInEDT
+  static boolean isSelected(final @Nonnull AbstractButton button) {
+    Boolean result = execute(() -> button.isSelected());
+    return checkNotNull(result);
+```
+
+### MissortedModifiers
 Missorted modifiers `public abstract @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/finder/WindowFinderTemplate.java`
 #### Snippet
@@ -6556,30 +6557,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/finder/WindowFinderTemplate.ja
   public abstract @Nonnull AbstractWindowFixture<?, T, ?> using(@Nonnull Robot robot);
 }
 
-```
-
-### MissortedModifiers
-Missorted modifiers `public abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate.java`
-#### Snippet
-```java
-   *           not be found.
-   */
-  public abstract @Nonnull AbstractComponentFixture<?, T, ?> using(@Nonnull Robot robot);
-
-  /**
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate.java`
-#### Snippet
-```java
-   *           not be found.
-   */
-  protected final @Nonnull T findComponentWith(@Nonnull Robot robot) {
-    ComponentFoundCondition condition = new ComponentFoundCondition(searchDescription, robot.finder(), matcher);
-    pause(condition, timeout);
 ```
 
 ### MissortedModifiers
@@ -6595,15 +6572,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/format/ComponentFormatterTemplate.java`
+Missorted modifiers `protected final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate.java`
 #### Snippet
 ```java
+   *           not be found.
    */
-  @RunsInCurrentThread
-  protected abstract @Nonnull String doFormat(@Nonnull Component c);
+  protected final @Nonnull T findComponentWith(@Nonnull Robot robot) {
+    ComponentFoundCondition condition = new ComponentFoundCondition(searchDescription, robot.finder(), matcher);
+    pause(condition, timeout);
+```
 
-  private void checkTypeOf(@Nonnull Component c) {
+### MissortedModifiers
+Missorted modifiers `public abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate.java`
+#### Snippet
+```java
+   *           not be found.
+   */
+  public abstract @Nonnull AbstractComponentFixture<?, T, ?> using(@Nonnull Robot robot);
+
+  /**
 ```
 
 ### MissortedModifiers
@@ -6619,15 +6608,51 @@ in `assertj-swing/src/main/java/org/assertj/swing/format/ComponentFormatterTempl
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
+Missorted modifiers `protected abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/format/ComponentFormatterTemplate.java`
 #### Snippet
 ```java
+   */
+  @RunsInCurrentThread
+  protected abstract @Nonnull String doFormat(@Nonnull Component c);
+
+  private void checkTypeOf(@Nonnull Component c) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/format/Formatting.java`
+#### Snippet
+```java
+   */
   @RunsInEDT
-  @Nonnull
-  public Color foregroundOf(final @Nonnull Component c) {
-    Color result = execute(() -> c.getForeground());
-    return checkNotNull(result);
+  @Nonnull public static String inEdtFormat(final @Nonnull Component c) {
+    return checkNotNull(execute(() -> format(c)));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/timing/Condition.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull String toString() {
+    String descriptionText = description != null ? description.value() : defaultDescription();
+    String addendum = descriptionAddendum();
+```
+
+### MissortedModifiers
+Missorted modifiers `public abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/ComponentFixtureExtension.java`
+#### Snippet
+```java
+   * @return the created {@code ComponentFixture}.
+   */
+  public abstract @Nonnull F createFixture(@Nonnull Robot robot, @Nonnull Container root);
+}
+
 ```
 
 ### MissortedModifiers
@@ -6659,11 +6684,11 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
+   */
   @RunsInEDT
-  @Nonnull
-  public static Description propertyName(final @Nonnull Component c, final @Nonnull String propertyName) {
-    return new GuiLazyLoadingDescription() {
-      @Override
+  protected void checkClickAllowed(final @Nonnull Component c) {
+    if (robot.settings().clickOnDisabledComponentsAllowed()) {
+      checkInEdtShowing(c);
 ```
 
 ### MissortedModifiers
@@ -6673,9 +6698,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 ```java
   @RunsInEDT
   @Nonnull
-  public static Description propertyName(final @Nonnull Component c, final @Nonnull String propertyName) {
-    return new GuiLazyLoadingDescription() {
-      @Override
+  public Color foregroundOf(final @Nonnull Component c) {
+    Color result = execute(() -> c.getForeground());
+    return checkNotNull(result);
 ```
 
 ### MissortedModifiers
@@ -6695,11 +6720,23 @@ Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
-   */
   @RunsInEDT
-  protected void checkClickAllowed(final @Nonnull Component c) {
-    if (robot.settings().clickOnDisabledComponentsAllowed()) {
-      checkInEdtShowing(c);
+  @Nonnull
+  public static Description propertyName(final @Nonnull Component c, final @Nonnull String propertyName) {
+    return new GuiLazyLoadingDescription() {
+      @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull
+  public static Description propertyName(final @Nonnull Component c, final @Nonnull String propertyName) {
+    return new GuiLazyLoadingDescription() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -6715,38 +6752,50 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/ComponentFixtureExtension.java`
-#### Snippet
-```java
-   * @return the created {@code ComponentFixture}.
-   */
-  public abstract @Nonnull F createFixture(@Nonnull Robot robot, @Nonnull Container root);
-}
-
-```
-
-### MissortedModifiers
 Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/timing/Condition.java`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 #### Snippet
 ```java
    */
   @Override
-  public final @Nonnull String toString() {
-    String descriptionText = description != null ? description.value() : defaultDescription();
-    String addendum = descriptionAddendum();
+  public final @Nonnull JListItemFixture doubleClick() {
+    list.clickItem(index, LEFT_BUTTON, 2);
+    return this;
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/format/Formatting.java`
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 #### Snippet
 ```java
    */
-  @RunsInEDT
-  @Nonnull public static String inEdtFormat(final @Nonnull Component c) {
-    return checkNotNull(execute(() -> format(c)));
+  @Override
+  public final @Nonnull JListItemFixture rightClick() {
+    list.clickItem(index, RIGHT_BUTTON, 1);
+    return this;
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
+#### Snippet
+```java
+   *           the {@code JList}.
+   */
+  public final @Nonnull JListItemFixture unselect() {
+    list.unselectItem(index);
+    return this;
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nullable String value() {
+    return list.valueAt(index);
   }
 ```
 
@@ -6757,8 +6806,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 ```java
    */
   @Override
-  public final @Nonnull JListItemFixture click(@Nonnull MouseClickInfo mouseClickInfo) {
-    list.clickItem(index, mouseClickInfo.button(), mouseClickInfo.times());
+  public final @Nonnull JListItemFixture drag() {
+    list.drag(index);
     return this;
 ```
 
@@ -6779,22 +6828,10 @@ Missorted modifiers `public final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 #### Snippet
 ```java
-   *           the {@code JList}.
-   */
-  public final @Nonnull JListItemFixture unselect() {
-    list.unselectItem(index);
-    return this;
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
-#### Snippet
-```java
    */
   @Override
-  public final @Nonnull JListItemFixture doubleClick() {
-    list.clickItem(index, LEFT_BUTTON, 2);
+  public final @Nonnull JListItemFixture click(@Nonnull MouseClickInfo mouseClickInfo) {
+    list.clickItem(index, mouseClickInfo.button(), mouseClickInfo.times());
     return this;
 ```
 
@@ -6817,30 +6854,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 ```java
    */
   @Override
-  public final @Nonnull JPopupMenuFixture showPopupMenu() {
-    return list.showPopupMenuAt(index);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nullable String value() {
-    return list.valueAt(index);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
-#### Snippet
-```java
-   */
-  @Override
   public final @Nonnull JListItemFixture click(@Nonnull MouseButton button) {
     list.clickItem(index, button, 1);
     return this;
@@ -6853,45 +6866,21 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
 ```java
    */
   @Override
+  public final @Nonnull JPopupMenuFixture showPopupMenu() {
+    return list.showPopupMenuAt(index);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
+#### Snippet
+```java
+   */
+  @Override
   public final @Nonnull JListItemFixture select() {
     list.selectItem(index);
     return this;
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull JListItemFixture drag() {
-    list.drag(index);
-    return this;
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/JListItemFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull JListItemFixture rightClick() {
-    list.clickItem(index, RIGHT_BUTTON, 1);
-    return this;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-
-  @RunsInEDT
-  @Nonnull private Triple<Dimension, Insets, Point> moveInfo(final @Nonnull Container c) {
-    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
-      @Override
 ```
 
 ### MissortedModifiers
@@ -6919,51 +6908,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
+Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is selected.
-   */
-  public final @Nonnull S requireNotSelected() {
-    driver().requireNotSelected(target());
-    return myself();
-```
 
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not armed.
-   */
-  public final @Nonnull S requireArmed(boolean armed) {
-    if (armed) {
-      return requireArmed();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not selected.
-   */
-  public final @Nonnull S requireSelected() {
-    driver().requireSelected(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not selected.
-   */
-  public final @Nonnull S requireSelected(boolean selected) {
-    if (selected) {
-      return requireSelected();
+  @RunsInEDT
+  @Nonnull private Triple<Dimension, Insets, Point> moveInfo(final @Nonnull Container c) {
+    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
+      @Override
 ```
 
 ### MissortedModifiers
@@ -6983,11 +6936,11 @@ Missorted modifiers `public final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
 #### Snippet
 ```java
-   * @throws IllegalStateException if this fixture's {@code AbstractButton} is not showing on the screen.
+   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not selected.
    */
-  public final @Nonnull S uncheck() {
-    driver().deselect(target());
-    return myself();
+  public final @Nonnull S requireSelected(boolean selected) {
+    if (selected) {
+      return requireSelected();
 ```
 
 ### MissortedModifiers
@@ -7009,8 +6962,32 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButton
 ```java
    * @throws IllegalStateException if this fixture's {@code AbstractButton} is not showing on the screen.
    */
+  public final @Nonnull S uncheck() {
+    driver().deselect(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
+#### Snippet
+```java
+   * @throws IllegalStateException if this fixture's {@code AbstractButton} is not showing on the screen.
+   */
   public final @Nonnull S check() {
     driver().select(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is selected.
+   */
+  public final @Nonnull S requireNotSelected() {
+    driver().requireNotSelected(target());
     return myself();
 ```
 
@@ -7039,6 +7016,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButton
 ```
 
 ### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not armed.
+   */
+  public final @Nonnull S requireArmed(boolean armed) {
+    if (armed) {
+      return requireArmed();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if the {@code AbstractButton} managed by this fixture is not selected.
+   */
+  public final @Nonnull S requireSelected() {
+    driver().requireSelected(target());
+    return myself();
+```
+
+### MissortedModifiers
 Missorted modifiers `public final @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/ColorFixture.java`
 #### Snippet
@@ -7057,8 +7058,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractButtonFixture.
 ```java
    */
   @Override
-  public final @Nonnull S requireText(@Nullable String expected) {
-    driver().requireText(target(), expected);
+  public final @Nonnull S requireText(@Nonnull Pattern pattern) {
+    driver().requireText(target(), pattern);
     return myself();
 ```
 
@@ -7069,8 +7070,44 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractButtonFixture.
 ```java
    */
   @Override
-  public final @Nonnull S requireText(@Nonnull Pattern pattern) {
-    driver().requireText(target(), pattern);
+  public final @Nonnull S requireText(@Nullable String expected) {
+    driver().requireText(target(), expected);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nullable Object clientProperty(@Nonnull Object key) {
+    return driver().clientProperty(target(), key);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S requireToolTip(@Nullable String expected) {
+    driver().requireToolTip(target(), expected);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S requireToolTip(@Nonnull Pattern pattern) {
+    driver().requireToolTip(target(), pattern);
     return myself();
 ```
 
@@ -7087,15 +7124,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/FontFixture.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
+Missorted modifiers `public final @Nullable`
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
 #### Snippet
 ```java
    */
   @Override
-  public final @Nonnull S requireToolTip(@Nullable String expected) {
-    driver().requireToolTip(target(), expected);
-    return myself();
+  public final @Nullable Object clientProperty(@Nonnull Object key) {
+    return driver().clientProperty(target(), key);
+  }
 ```
 
 ### MissortedModifiers
@@ -7117,30 +7154,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainer
 ```java
    */
   @Override
-  public final @Nonnull JPopupMenuFixture showPopupMenu() {
-    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nullable Object clientProperty(@Nonnull Object key) {
-    return driver().clientProperty(target(), key);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
-#### Snippet
-```java
-   */
-  @Override
   public final @Nonnull S requireToolTip(@Nonnull Pattern pattern) {
     driver().requireToolTip(target(), pattern);
     return myself();
@@ -7148,7 +7161,19 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainer
 
 ### MissortedModifiers
 Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull JPopupMenuFixture showPopupMenu() {
+    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target()));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
 #### Snippet
 ```java
    */
@@ -7156,30 +7181,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixt
   public final @Nonnull S requireToolTip(@Nullable String expected) {
     driver().requireToolTip(target(), expected);
     return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S requireToolTip(@Nonnull Pattern pattern) {
-    driver().requireToolTip(target(), pattern);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nullable Object clientProperty(@Nonnull Object key) {
-    return driver().clientProperty(target(), key);
-  }
 ```
 
 ### MissortedModifiers
@@ -7220,6 +7221,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/testing/AssertJSwingTestCaseTe
 
 ### MissortedModifiers
 Missorted modifiers `final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/monitor/Windows.java`
+#### Snippet
+```java
+   * @param w the given window.
+   */
+  void markAsShowing(final @Nonnull Window w) {
+    synchronized (lock) {
+      TimerTask task = new TimerTask() {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/monitor/WindowStatus.java`
 #### Snippet
 ```java
@@ -7243,18 +7256,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/monitor/WindowStatus.java`
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/monitor/Windows.java`
-#### Snippet
-```java
-   * @param w the given window.
-   */
-  void markAsShowing(final @Nonnull Window w) {
-    synchronized (lock) {
-      TimerTask task = new TimerTask() {
-```
-
-### MissortedModifiers
 Missorted modifiers `public final @Nonnull`
 in `assertj-swing/src/main/java/org/assertj/swing/exception/ComponentLookupException.java`
 #### Snippet
@@ -7263,18 +7264,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/exception/ComponentLookupExcep
    */
   public final @Nonnull Collection<Component> found() {
     return unmodifiableCollection(found);
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/hierarchy/ChildrenFinder.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  static @Nonnull List<ChildrenFinderStrategy> strategies() {
-    return newArrayList(strategies);
   }
 ```
 
@@ -7288,6 +7277,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/launcher/AppletLauncher.java`
   @Nonnull private static AppletLauncher instantiate(final @Nonnull Class<?> appletType) {
     try {
       Object applet = execute(() -> appletType.newInstance());
+```
+
+### MissortedModifiers
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/hierarchy/ChildrenFinder.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  static @Nonnull List<ChildrenFinderStrategy> strategies() {
+    return newArrayList(strategies);
+  }
 ```
 
 ### MissortedModifiers
@@ -7339,15 +7340,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/launcher/NewAppletViewerQuery.
 ```
 
 ### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
+Missorted modifiers `static @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/keystroke/KeyStrokeMappings.java`
 #### Snippet
 ```java
-   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   */
-  protected final @Nonnull <T extends Component> T findByName(@Nullable String name, @Nonnull Class<T> type) {
-    return finder().findByName(target(), name, type, requireShowing());
-  }
+ */
+final class KeyStrokeMappings {
+  static @Nonnull Collection<KeyStrokeMapping> defaultMappings() {
+    List<KeyStrokeMapping> mappings = newArrayList();
+    mappings.add(mapping('\b', VK_BACK_SPACE, NO_MASK));
 ```
 
 ### MissortedModifiers
@@ -7381,21 +7382,345 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixtu
 ```java
    * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
    */
+  protected final @Nonnull <T extends Component> T findByName(@Nullable String name, @Nonnull Class<T> type) {
+    return finder().findByName(target(), name, type, requireShowing());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
+   */
   protected final @Nonnull <T extends Component> T findByType(@Nonnull Class<T> type) {
     return finder().findByType(target(), type, requireShowing());
   }
 ```
 
 ### MissortedModifiers
-Missorted modifiers `static @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/keystroke/KeyStrokeMappings.java`
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
 #### Snippet
 ```java
- */
-final class KeyStrokeMappings {
-  static @Nonnull Collection<KeyStrokeMapping> defaultMappings() {
-    List<KeyStrokeMapping> mappings = newArrayList();
-    mappings.add(mapping('\b', VK_BACK_SPACE, NO_MASK));
+   * @throws AssertionError if this fixture's {@code Component} is visible.
+   */
+  public final @Nonnull S requireNotVisible() {
+    driver.requireNotVisible(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S doubleClick() {
+    driver.doubleClick(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `protected abstract @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+  }
+
+  protected abstract @Nonnull D createDriver(@Nonnull Robot robot);
+
+  protected final @Nonnull D driver() {
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @return a fixture that checks properties of the background color of this fixture's {@code Component}.
+   */
+  public final @Nonnull ColorFixture background() {
+    Color background = driver.backgroundOf(target);
+    return new ColorFixture(background, propertyName(target(), BACKGROUND_PROPERTY));
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S click(@Nonnull MouseButton button) {
+    driver.click(target(), button);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S rightClick() {
+    driver.rightClick(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+
+  /** @return the {@link Robot} that simulates user events on {@link #target()}. */
+  public final @Nonnull Robot robot() {
+    return robot;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+  protected abstract @Nonnull D createDriver(@Nonnull Robot robot);
+
+  protected final @Nonnull D driver() {
+    return driver;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @return a fixture that checks properties of the foreground color of this fixture's {@code Component}.
+   */
+  public final @Nonnull ColorFixture foreground() {
+    Color foreground = driver.foregroundOf(target);
+    return new ColorFixture(foreground, propertyName(target(), FOREGROUND_PROPERTY));
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws IllegalStateException if this fixture's {@code Component} is not showing on the screen.
+   */
+  public final @Nonnull S focus() {
+    driver.focus(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if this fixture's {@code Component} does not have input focus.
+   */
+  public final @Nonnull S requireFocused() {
+    driver.requireFocused(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if this fixture's {@code Component} is not visible.
+   */
+  public final @Nonnull S requireVisible() {
+    driver.requireVisible(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @return the GUI component in this fixture.
+   */
+  public final @Nonnull C target() {
+    return target;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.ActionFailedException if there is no drag action in effect.
+   */
+  public final @Nonnull S drop() {
+    driver().drop(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @see KeyPressInfo
+   */
+  public final @Nonnull S pressAndReleaseKey(@Nonnull KeyPressInfo keyPressInfo) {
+    driver.pressAndReleaseKey(target(), keyPressInfo);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @see java.awt.event.KeyEvent
+   */
+  public final @Nonnull S pressAndReleaseKeys(@Nonnull int... keyCodes) {
+    driver.pressAndReleaseKeys(target(), keyCodes);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @return {@code this} casted to the "self type".
+   */
+  protected final @Nonnull S myself() {
+    return myself;
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @return a fixture that checks properties of the font of this fixture's {@code Component}.
+   */
+  public final @Nonnull FontFixture font() {
+    Font font = driver.fontOf(target);
+    return new FontFixture(font, propertyName(target(), FONT_PROPERTY));
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if this fixture's {@code Component} is enabled.
+   */
+  public final @Nonnull S requireDisabled() {
+    driver.requireDisabled(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S click() {
+    driver.click(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if this fixture's {@code Component} is disabled.
+   */
+  public final @Nonnull S requireEnabled() {
+    driver.requireEnabled(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S click(@Nonnull MouseClickInfo mouseClickInfo) {
+    driver.click(target(), mouseClickInfo);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @see java.awt.event.KeyEvent
+   */
+  public final @Nonnull S pressKeyWhileRunning(int keyCode, @Nonnull Runnable runnable) {
+    driver.pressKeyWhileRunning(target(), keyCode, runnable);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws AssertionError if this fixture's {@code Component} is not an instance of the given type.
+   */
+  public final @Nonnull <T extends C> T targetCastedTo(@Nonnull Class<T> type) {
+    assertThat(target).as(format(target)).isInstanceOf(type);
+    return type.cast(target);
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.WaitTimedOutError if this fixture's {@code Component} is never enabled.
+   */
+  public final @Nonnull S requireEnabled(@Nonnull Timeout timeout) {
+    driver.requireEnabled(target(), timeout);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @see java.awt.event.KeyEvent
+   */
+  public final @Nonnull S releaseKey(int keyCode) {
+    driver.releaseKey(target(), keyCode);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @see java.awt.event.KeyEvent
+   */
+  public final @Nonnull S pressKey(int keyCode) {
+    driver.pressKey(target(), keyCode);
+    return myself();
 ```
 
 ### MissortedModifiers
@@ -7407,66 +7732,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.
    */
   public final @Nonnull S show(@Nonnull Dimension size) {
     driver().show(target(), size);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S resizeHeightTo(int height) {
-    driver().resizeHeightTo(target(), height);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull JPopupMenuFixture showPopupMenu() {
-    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
-#### Snippet
-```java
-   * @return this fixture.
-   */
-  public final @Nonnull S show() {
-    driver().show(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull JPopupMenuFixture showPopupMenuAt(@Nonnull Point p) {
-    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target(), p));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S moveTo(@Nonnull Point p) {
-    driver().moveTo(target(), p);
     return myself();
 ```
 
@@ -7513,8 +7778,56 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.
 ```java
    */
   @Override
+  public final @Nonnull JPopupMenuFixture showPopupMenu() {
+    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target()));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
+#### Snippet
+```java
+   */
+  @Override
   public final @Nonnull S moveToBack() {
     driver().moveToBack(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
+#### Snippet
+```java
+   * @return this fixture.
+   */
+  public final @Nonnull S show() {
+    driver().show(target());
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S moveTo(@Nonnull Point p) {
+    driver().moveTo(target(), p);
+    return myself();
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nonnull`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final @Nonnull S resizeHeightTo(int height) {
+    driver().resizeHeightTo(target(), height);
     return myself();
 ```
 
@@ -7532,326 +7845,14 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.
 
 ### MissortedModifiers
 Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} is not an instance of the given type.
-   */
-  public final @Nonnull <T extends C> T targetCastedTo(@Nonnull Class<T> type) {
-    assertThat(target).as(format(target)).isInstanceOf(type);
-    return type.cast(target);
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-  protected abstract @Nonnull D createDriver(@Nonnull Robot robot);
-
-  protected final @Nonnull D driver() {
-    return driver;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
 #### Snippet
 ```java
    */
   @Override
-  public final @Nonnull S click(@Nonnull MouseClickInfo mouseClickInfo) {
-    driver.click(target(), mouseClickInfo);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S click(@Nonnull MouseButton button) {
-    driver.click(target(), button);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S click() {
-    driver.click(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} is not visible.
-   */
-  public final @Nonnull S requireVisible() {
-    driver.requireVisible(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @see java.awt.event.KeyEvent
-   */
-  public final @Nonnull S releaseKey(int keyCode) {
-    driver.releaseKey(target(), keyCode);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @return a fixture that checks properties of the font of this fixture's {@code Component}.
-   */
-  public final @Nonnull FontFixture font() {
-    Font font = driver.fontOf(target);
-    return new FontFixture(font, propertyName(target(), FONT_PROPERTY));
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws IllegalStateException if this fixture's {@code Component} is not showing on the screen.
-   */
-  public final @Nonnull S focus() {
-    driver.focus(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @return a fixture that checks properties of the background color of this fixture's {@code Component}.
-   */
-  public final @Nonnull ColorFixture background() {
-    Color background = driver.backgroundOf(target);
-    return new ColorFixture(background, propertyName(target(), BACKGROUND_PROPERTY));
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @see java.awt.event.KeyEvent
-   */
-  public final @Nonnull S pressKeyWhileRunning(int keyCode, @Nonnull Runnable runnable) {
-    driver.pressKeyWhileRunning(target(), keyCode, runnable);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `protected abstract @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
+  public final @Nonnull JPopupMenuFixture showPopupMenuAt(@Nonnull Point p) {
+    return new JPopupMenuFixture(robot(), driver().invokePopupMenu(target(), p));
   }
-
-  protected abstract @Nonnull D createDriver(@Nonnull Robot robot);
-
-  protected final @Nonnull D driver() {
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws org.assertj.swing.exception.WaitTimedOutError if this fixture's {@code Component} is never enabled.
-   */
-  public final @Nonnull S requireEnabled(@Nonnull Timeout timeout) {
-    driver.requireEnabled(target(), timeout);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws org.assertj.swing.exception.ActionFailedException if there is no drag action in effect.
-   */
-  public final @Nonnull S drop() {
-    driver().drop(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} does not have input focus.
-   */
-  public final @Nonnull S requireFocused() {
-    driver.requireFocused(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S rightClick() {
-    driver.rightClick(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @return a fixture that checks properties of the foreground color of this fixture's {@code Component}.
-   */
-  public final @Nonnull ColorFixture foreground() {
-    Color foreground = driver.foregroundOf(target);
-    return new ColorFixture(foreground, propertyName(target(), FOREGROUND_PROPERTY));
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-
-  /** @return the {@link Robot} that simulates user events on {@link #target()}. */
-  public final @Nonnull Robot robot() {
-    return robot;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @return the GUI component in this fixture.
-   */
-  public final @Nonnull C target() {
-    return target;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @see java.awt.event.KeyEvent
-   */
-  public final @Nonnull S pressKey(int keyCode) {
-    driver.pressKey(target(), keyCode);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @return {@code this} casted to the "self type".
-   */
-  protected final @Nonnull S myself() {
-    return myself;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} is visible.
-   */
-  public final @Nonnull S requireNotVisible() {
-    driver.requireNotVisible(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} is enabled.
-   */
-  public final @Nonnull S requireDisabled() {
-    driver.requireDisabled(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws AssertionError if this fixture's {@code Component} is disabled.
-   */
-  public final @Nonnull S requireEnabled() {
-    driver.requireEnabled(target());
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @see KeyPressInfo
-   */
-  public final @Nonnull S pressAndReleaseKey(@Nonnull KeyPressInfo keyPressInfo) {
-    driver.pressAndReleaseKey(target(), keyPressInfo);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @see java.awt.event.KeyEvent
-   */
-  public final @Nonnull S pressAndReleaseKeys(@Nonnull int... keyCodes) {
-    driver.pressAndReleaseKeys(target(), keyCodes);
-    return myself();
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nonnull`
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final @Nonnull S doubleClick() {
-    driver.doubleClick(target());
-    return myself();
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -7905,6 +7906,42 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
 
 ### IgnoreResultOfCall
 Result of `Preconditions.checkNotNullOrEmpty()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    new MultipleSelectionTemplate(robot) {
+      @Override
+```
+
+### IgnoreResultOfCall
+Result of `Preconditions.checkNotNullOrEmpty()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
+    checkNotNullOrEmpty(paths);
+    clearSelection(tree);
+    new MultipleSelectionTemplate(robot) {
+```
+
+### IgnoreResultOfCall
+Result of `Fail.fail()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+      String msg = String.format(format, propertyName(table, SELECTION_PROPERTY).value(),
+                                 format(selectedRowsOf(table)), format(table.getSelectedColumns()));
+      fail(msg);
+    });
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Preconditions.checkNotNullOrEmpty()` is ignored
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
 ```java
@@ -7928,18 +7965,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `Fail.fail()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-      String msg = String.format(format, propertyName(table, SELECTION_PROPERTY).value(),
-                                 format(selectedRowsOf(table)), format(table.getSelectedColumns()));
-      fail(msg);
-    });
-  }
-```
-
-### IgnoreResultOfCall
 Result of `Preconditions.checkNotNullOrEmpty()` is ignored
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 #### Snippet
@@ -7949,42 +7974,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
     checkNotNullOrEmpty(cells);
     new MultipleSelectionTemplate(robot) {
       @Override
-```
-
-### IgnoreResultOfCall
-Result of `Preconditions.checkNotNullOrEmpty()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  public void selectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    clearSelection(tree);
-    new MultipleSelectionTemplate(robot) {
-```
-
-### IgnoreResultOfCall
-Result of `Preconditions.checkNotNullOrEmpty()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  public void unselectPaths(final @Nonnull JTree tree, final @Nonnull String[] paths) {
-    checkNotNullOrEmpty(paths);
-    new MultipleSelectionTemplate(robot) {
-      @Override
-```
-
-### IgnoreResultOfCall
-Result of `Fail.fail()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
-#### Snippet
-```java
-    }
-    String format = "[%s] Expecting no selection, but found:<%s>";
-    fail(String.format(format, selectedIndexProperty(comboBox).value(), quote(selection.second)));
-  }
-
 ```
 
 ### IgnoreResultOfCall
@@ -8001,6 +7990,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
 
 ### IgnoreResultOfCall
 Result of `Fail.fail()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
+#### Snippet
+```java
+    }
+    String format = "[%s] Expecting no selection, but found:<%s>";
+    fail(String.format(format, selectedIndexProperty(comboBox).value(), quote(selection.second)));
+  }
+
+```
+
+### IgnoreResultOfCall
+Result of `Fail.fail()` is ignored
 in `assertj-swing/src/main/java/org/assertj/swing/driver/MultipleSelectionTemplate.java`
 #### Snippet
 ```java
@@ -8009,6 +8010,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/MultipleSelectionTempla
     Fail.fail("Unexpected method call.");
   }
 }
+```
+
+### IgnoreResultOfCall
+Result of `Fail.fail()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+      String format = "[%s] expected no selection but was:<%s>";
+      String message = String.format(format, errMsg.value(), format(tree.getSelectionPaths()));
+      fail(message);
+    });
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Fail.fail()` is ignored
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
+#### Snippet
+```java
+    String format = "[%s] expecting selection:<%s> but was:<%s>";
+    String msg = String.format(format, errMsg.value(), format(expected), format(actual));
+    fail(msg);
+  }
+
 ```
 
 ### IgnoreResultOfCall
@@ -8033,30 +8058,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTas
     fail(msg);
   }
 
-```
-
-### IgnoreResultOfCall
-Result of `Fail.fail()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-    String format = "[%s] expecting selection:<%s> but was:<%s>";
-    String msg = String.format(format, errMsg.value(), format(expected), format(actual));
-    fail(msg);
-  }
-
-```
-
-### IgnoreResultOfCall
-Result of `Fail.fail()` is ignored
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeVerifySelectionTask.java`
-#### Snippet
-```java
-      String format = "[%s] expected no selection but was:<%s>";
-      String message = String.format(format, errMsg.value(), format(tree.getSelectionPaths()));
-      fail(message);
-    });
-  }
 ```
 
 ### IgnoreResultOfCall
@@ -8108,31 +8109,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/assertions/data/RgbColor.java`
       return false;
 ```
 
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Assertions` is the same as one of its superclass' names
-in `assertj-swing/src/main/java/org/assertj/swing/assertions/Assertions.java`
-#### Snippet
-```java
- * </pre>
- */
-public class Assertions extends org.assertj.core.api.Assertions {
-
-  /**
-```
-
-### ClassNameSameAsAncestorName
-Class name `ScreenshotOnFailureListener` is the same as one of its superclass' names
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/ScreenshotOnFailureListener.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class ScreenshotOnFailureListener extends org.assertj.swing.testng.listener.ScreenshotOnFailureListener {
-}
-
-```
-
 ## RuleId[id=MalformedFormatString]
 ### MalformedFormatString
 Too many arguments for format string (found: 2, expected: 1)
@@ -8171,6 +8147,31 @@ in `assertj-swing/src/main/java/org/assertj/swing/lock/ScreenLock.java`
       }
 ```
 
+## RuleId[id=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `ScreenshotOnFailureListener` is the same as one of its superclass' names
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/ScreenshotOnFailureListener.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class ScreenshotOnFailureListener extends org.assertj.swing.testng.listener.ScreenshotOnFailureListener {
+}
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `Assertions` is the same as one of its superclass' names
+in `assertj-swing/src/main/java/org/assertj/swing/assertions/Assertions.java`
+#### Snippet
+```java
+ * </pre>
+ */
+public class Assertions extends org.assertj.core.api.Assertions {
+
+  /**
+```
+
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
 settings().eventPostingDelay() \* 4: integer multiplication implicitly cast to long
@@ -8185,6 +8186,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/ComponentDragAndDrop.java
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+    Point cellCenter = scrollToItem(list, index);
+    robot.waitForIdle();
+    super.drag(list, cellCenter);
+  }
+
+```
+
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
@@ -8217,18 +8230,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
     robot.waitForIdle();
     checkItemFound(list, scrollInfo, matcher);
     super.drag(list, cellCenterIn(scrollInfo));
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-    Point cellCenter = scrollToItem(list, index);
-    robot.waitForIdle();
-    super.drag(list, cellCenter);
   }
 
 ```
@@ -8285,6 +8286,30 @@ import static org.assertj.swing.keystroke.KeyStrokeMapping.mapping;
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+
+  void clear() {
+    buttons = modifiers = clickCount = 0;
+    componentStack.clear();
+    locationStack.clear();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
+#### Snippet
+```java
+
+  void clear() {
+    buttons = modifiers = clickCount = 0;
+    componentStack.clear();
+    locationStack.clear();
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
@@ -8293,30 +8318,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
     while ((popup = activePopupMenu()) == null) {
       if (watch.isTimeOut()) {
         break;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-
-  void clear() {
-    buttons = modifiers = clickCount = 0;
-    componentStack.clear();
-    locationStack.clear();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `assertj-swing/src/main/java/org/assertj/swing/input/MouseInfo.java`
-#### Snippet
-```java
-
-  void clear() {
-    buttons = modifiers = clickCount = 0;
-    componentStack.clear();
-    locationStack.clear();
 ```
 
 ### NestedAssignment
@@ -8417,6 +8418,19 @@ in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/testcase/AssertJ
 }
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-15-14-53-40.297.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ExceptionNameDoesntEndWithException]
 ### ExceptionNameDoesntEndWithException
 Exception class name `WaitTimedOutError` does not end with 'Exception'
@@ -8446,6 +8460,18 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/runner/FolderCreat
 ## RuleId[id=NonStaticFinalLogger]
 ### NonStaticFinalLogger
 Non-constant logger field `logger`
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/runner/FailureScreenshotTaker.java`
+#### Snippet
+```java
+public class FailureScreenshotTaker {
+
+  private static Logger logger = Logger.getAnonymousLogger();
+
+  private final File imageFolder;
+```
+
+### NonStaticFinalLogger
+Non-constant logger field `logger`
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
 #### Snippet
 ```java
@@ -8458,14 +8484,14 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.j
 
 ### NonStaticFinalLogger
 Non-constant logger field `logger`
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/runner/FailureScreenshotTaker.java`
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotOnFailureListener.java`
 #### Snippet
 ```java
-public class FailureScreenshotTaker {
+public class ScreenshotOnFailureListener extends AbstractTestListener {
 
   private static Logger logger = Logger.getAnonymousLogger();
 
-  private final File imageFolder;
+  private ScreenshotTakerIF screenshotTaker;
 ```
 
 ### NonStaticFinalLogger
@@ -8530,18 +8556,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/monitor/WindowStatus.java`
 
 ### NonStaticFinalLogger
 Non-constant logger field `LOGGER`
-in `assertj-swing/src/main/java/org/assertj/swing/keystroke/KeyStrokeMappingProviderPicker.java`
-#### Snippet
-```java
- */
-class KeyStrokeMappingProviderPicker {
-  private static Logger LOGGER = Logger.getLogger(KeyStrokeMappingProviderPicker.class.getName());
-  private final KeyStrokeMappingProviderFactory factory;
-
-```
-
-### NonStaticFinalLogger
-Non-constant logger field `LOGGER`
 in `assertj-swing/src/main/java/org/assertj/swing/keystroke/KeyStrokeLocale.java`
 #### Snippet
 ```java
@@ -8553,15 +8567,15 @@ class KeyStrokeLocale {
 ```
 
 ### NonStaticFinalLogger
-Non-constant logger field `logger`
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotOnFailureListener.java`
+Non-constant logger field `LOGGER`
+in `assertj-swing/src/main/java/org/assertj/swing/keystroke/KeyStrokeMappingProviderPicker.java`
 #### Snippet
 ```java
-public class ScreenshotOnFailureListener extends AbstractTestListener {
+ */
+class KeyStrokeMappingProviderPicker {
+  private static Logger LOGGER = Logger.getLogger(KeyStrokeMappingProviderPicker.class.getName());
+  private final KeyStrokeMappingProviderFactory factory;
 
-  private static Logger logger = Logger.getAnonymousLogger();
-
-  private ScreenshotTakerIF screenshotTaker;
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -8607,11 +8621,11 @@ Allocation of zero length array
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
 #### Snippet
 ```java
-      return UNKNOWN;
+  private static Method methodInType(Class<?> type, String name) {
     try {
-      return (String) m.invoke(target, new Object[0]);
+      return type.getMethod(name, new Class[0]);
     } catch (Exception e) {
-      return UNKNOWN;
+      return null;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -8619,11 +8633,11 @@ Allocation of zero length array
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
 #### Snippet
 ```java
-  private static Method methodInType(Class<?> type, String name) {
+      return UNKNOWN;
     try {
-      return type.getMethod(name, new Class[0]);
+      return (String) m.invoke(target, new Object[0]);
     } catch (Exception e) {
-      return null;
+      return UNKNOWN;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -8725,18 +8739,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
 ```
 
 ### ConstantValue
-Value `deiconified` is always 'false'
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-    }
-    Container desktopIcon = checkNotNull(internalFrame.getDesktopIcon());
-    return Triple.of(deiconified, desktopIcon, iconifyButtonLocation(desktopIcon));
-  }
-
-```
-
-### ConstantValue
 Value `iconified` is always 'false'
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
@@ -8744,6 +8746,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
       return Pair.of(true, null);
     }
     return Pair.of(iconified, findIconifyLocation(internalFrame));
+  }
+
+```
+
+### ConstantValue
+Value `deiconified` is always 'false'
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+    }
+    Container desktopIcon = checkNotNull(internalFrame.getDesktopIcon());
+    return Triple.of(deiconified, desktopIcon, iconifyButtonLocation(desktopIcon));
   }
 
 ```
@@ -8920,39 +8934,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/edt/GuiLazyLoadingDescription.
 ```
 
 ### DataFlowIssue
-Argument `where` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
+Argument `label` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/LabelMatcher.java`
 #### Snippet
 ```java
-  public static boolean isPointInScreenBoundaries(@Nonnull JComponent c, @Nonnull Point p) {
-    Point where = translate(c, p.x, p.y);
-    return isPointInScreenBoundaries(where);
+  public LabelMatcher(@Nullable String label, @Nonnull Class<? extends Component> type, boolean requireShowing) {
+    super(requireShowing);
+    this.label = checkNotNullOrEmpty(label).toString();
+    this.type = checkNotNull(type);
   }
-
-```
-
-### DataFlowIssue
-Argument `center` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
-#### Snippet
-```java
-      return centerOf(c);
-    });
-    return checkNotNull(center);
-  }
-
-```
-
-### DataFlowIssue
-@Nullable method 'translate' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
-#### Snippet
-```java
-   */
-  @RunsInCurrentThread
-  @Nullable public static
-  Point translate(@Nonnull Component c, int x, int y) {
-    Point p = locationOnScreenOf(c);
 ```
 
 ### DataFlowIssue
@@ -8980,15 +8970,39 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/RobotEventGenerator.java`
 ```
 
 ### DataFlowIssue
-Argument `label` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/LabelMatcher.java`
+@Nullable method 'translate' always returns a non-null value
+in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
 #### Snippet
 ```java
-  public LabelMatcher(@Nullable String label, @Nonnull Class<? extends Component> type, boolean requireShowing) {
-    super(requireShowing);
-    this.label = checkNotNullOrEmpty(label).toString();
-    this.type = checkNotNull(type);
+   */
+  @RunsInCurrentThread
+  @Nullable public static
+  Point translate(@Nonnull Component c, int x, int y) {
+    Point p = locationOnScreenOf(c);
+```
+
+### DataFlowIssue
+Argument `where` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
+#### Snippet
+```java
+  public static boolean isPointInScreenBoundaries(@Nonnull JComponent c, @Nonnull Point p) {
+    Point where = translate(c, p.x, p.y);
+    return isPointInScreenBoundaries(where);
   }
+
+```
+
+### DataFlowIssue
+Argument `center` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
+#### Snippet
+```java
+      return centerOf(c);
+    });
+    return checkNotNull(center);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -9041,18 +9055,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInSelectedRow.ja
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
-#### Snippet
-```java
-      return new TableCell(row, column);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellInRowByValue.java`
 #### Snippet
 ```java
@@ -9073,6 +9075,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/RobotFactory.java`
     return new Robot(lowestScreen);
   }
 }
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
+#### Snippet
+```java
+      return new TableCell(row, column);
+    });
+    return checkNotNull(result);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -9112,15 +9126,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/OSIdentifier.java`
 ```
 
 ### DataFlowIssue
-Argument `execute(() -> h.roots())` might be null
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
+#### Snippet
+```java
+  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
+    BufferedImage result = execute(() -> robot.createScreenCapture(r));
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `matching` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 #### Snippet
 ```java
-  @RunsInEDT
-  @Nonnull private static Collection<? extends Component> rootsOf(final @Nonnull ComponentHierarchy h) {
-    return checkNotNull(execute(() -> h.roots()));
+                                                          final @Nonnull GenericTypeMatcher<T> m) {
+    Boolean matching = execute(() -> m.matches(c));
+    return checkNotNull(matching);
   }
-
+}
 ```
 
 ### DataFlowIssue
@@ -9148,99 +9174,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 ```
 
 ### DataFlowIssue
-Argument `matching` might be null
+Argument `execute(() -> h.roots())` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/core/FinderDelegate.java`
 #### Snippet
 ```java
-                                                          final @Nonnull GenericTypeMatcher<T> m) {
-    Boolean matching = execute(() -> m.matches(c));
-    return checkNotNull(matching);
-  }
-}
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/image/ScreenshotTaker.java`
-#### Snippet
-```java
-  @Nonnull private static BufferedImage takeScreenshot(final @Nonnull Robot robot, final @Nonnull Rectangle r) {
-    BufferedImage result = execute(() -> robot.createScreenCapture(r));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `screenLockOwner` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-  private void releaseScreenLock() {
-    ScreenLock screenLock = ScreenLock.instance();
-    if (screenLock.acquiredBy(screenLockOwner)) {
-      screenLock.release(screenLockOwner);
-    }
-```
-
-### DataFlowIssue
-Argument `targetAncestor` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-      return;
-    }
-    activate(checkNotNull(targetAncestor));
-    waitForIdle();
-  }
-```
-
-### DataFlowIssue
-Argument `execute(() -> isReadyForInput(checkNotNull(getWindowAncestor(popup))))` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
   @RunsInEDT
-  private boolean isWindowAncestorReadyForInput(final JPopupMenu popup) {
-    return checkNotNull(execute(() -> isReadyForInput(checkNotNull(getWindowAncestor(popup)))));
+  @Nonnull private static Collection<? extends Component> rootsOf(final @Nonnull ComponentHierarchy h) {
+    return checkNotNull(execute(() -> h.roots()));
   }
 
-```
-
-### DataFlowIssue
-Argument `invokerAndCenterOfInvoker.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-        Component invoker = invokerAndCenterOfInvoker.first;
-        if (invoker instanceof JMenu) {
-          jitter(invoker, invokerAndCenterOfInvoker.second);
-        }
-      }
-```
-
-### DataFlowIssue
-Argument `eventQueue` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-    Component applet = findAppletDescendent(w);
-    EventQueue eventQueue = windowMonitor.eventQueueFor(applet != null ? applet : w);
-    checkNotNull(eventQueue).postEvent(event);
-    waitForIdle();
-  }
 ```
 
 ### DataFlowIssue
@@ -9262,6 +9204,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentVisibleQuery.ja
 ```java
   public static boolean isVisible(final @Nonnull Component component) {
     Boolean result = execute(() -> component.isVisible());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentSizeQuery.java`
+#### Snippet
+```java
+  @Nonnull public static Dimension sizeOf(final @Nonnull Component component) {
+    Dimension result = execute(() -> component.getSize());
     return checkNotNull(result);
   }
 
@@ -9293,18 +9247,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentShowingQuery.ja
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentSizeQuery.java`
-#### Snippet
-```java
-  @Nonnull public static Dimension sizeOf(final @Nonnull Component component) {
-    Dimension result = execute(() -> component.getSize());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentLocationOnScreenQuery.java`
 #### Snippet
 ```java
@@ -9323,18 +9265,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabQue
   static Index selectedTabIndexOf(final @Nonnull JTabbedPane tabbedPane) {
     Integer selectedTab = execute(() -> tabbedPane.getSelectedIndex());
     return atIndex(selectedTab);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
-#### Snippet
-```java
-  @Nonnull private static JMenuItemLocation locationOf(final @Nonnull JMenuItem menuItem) {
-    JMenuItemLocation result = execute(() -> new JMenuItemLocation(menuItem));
-    return checkNotNull(result);
   }
 
 ```
@@ -9364,27 +9294,99 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableMatchingCellQuery
 ```
 
 ### DataFlowIssue
-Argument `toMoveMouseTo.first` might be null
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuItemDriver.java`
+#### Snippet
+```java
+  @Nonnull private static JMenuItemLocation locationOf(final @Nonnull JMenuItem menuItem) {
+    JMenuItemLocation result = execute(() -> new JMenuItemLocation(menuItem));
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `execute(() -> tree.getModel().getChildCount(path.getLastPathComponent()))` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
+    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectedIndexQuery.java`
+#### Snippet
+```java
+  static int selectedIndexOf(final @Nonnull JList<?> list) {
+    Integer result = execute(() -> list.getSelectedIndex());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+@Nullable method 'executeInEDT' always returns a non-null value
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
-                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
-    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
-    setMaximumProperty(internalFrame, action);
+    Triple<Boolean, Container, Point> result = execute(new GuiQuery<Triple<Boolean, Container, Point>>() {
+      @Override
+      @Nullable protected Triple<Boolean, Container, Point> executeInEDT() throws Throwable {
+        checkShowingOrIconified(internalFrame);
+        return deiconifyInfo(internalFrame);
+```
+
+### DataFlowIssue
+Unboxing of `iconifyInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+  public void iconify(@Nonnull JInternalFrame internalFrame) {
+    Pair<Boolean, Point> iconifyInfo = findIconifyInfo(internalFrame);
+    if (iconifyInfo.first) {
+      return; // internal frame is already iconified
+    }
+```
+
+### DataFlowIssue
+Argument `iconifyInfo.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+      return; // internal frame is already iconified
+    }
+    moveMouseIgnoringAnyError(internalFrame, iconifyInfo.second);
+    setIconProperty(internalFrame, ICONIFY);
   }
 ```
 
 ### DataFlowIssue
-Argument `toMoveMouseTo.second` might be null
+@Nullable method 'executeInEDT' always returns a non-null value
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
-                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
-    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
-    setMaximumProperty(internalFrame, action);
+    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
+      @Override
+      @Nullable protected Pair<Boolean, Point> executeInEDT() throws Throwable {
+        checkShowingOrIconified(internalFrame);
+        if (!internalFrame.isIconifiable()) {
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
   }
+
 ```
 
 ### DataFlowIssue
@@ -9436,18 +9438,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
 ```
 
 ### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-    Triple<Boolean, Container, Point> result = execute(new GuiQuery<Triple<Boolean, Container, Point>>() {
-      @Override
-      @Nullable protected Triple<Boolean, Container, Point> executeInEDT() throws Throwable {
-        checkShowingOrIconified(internalFrame);
-        return deiconifyInfo(internalFrame);
-```
-
-### DataFlowIssue
 Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
@@ -9460,207 +9450,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
 ```
 
 ### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
+Argument `toMoveMouseTo.first` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-    Pair<Boolean, Point> result = execute(new GuiQuery<Pair<Boolean, Point>>() {
-      @Override
-      @Nullable protected Pair<Boolean, Point> executeInEDT() throws Throwable {
-        checkShowingOrIconified(internalFrame);
-        if (!internalFrame.isIconifiable()) {
+  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
+                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
+    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
+    setMaximumProperty(internalFrame, action);
+  }
 ```
 
 ### DataFlowIssue
-Unboxing of `iconifyInfo.first` may produce `NullPointerException`
+Argument `toMoveMouseTo.second` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  public void iconify(@Nonnull JInternalFrame internalFrame) {
-    Pair<Boolean, Point> iconifyInfo = findIconifyInfo(internalFrame);
-    if (iconifyInfo.first) {
-      return; // internal frame is already iconified
-    }
-```
-
-### DataFlowIssue
-Argument `iconifyInfo.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-      return; // internal frame is already iconified
-    }
-    moveMouseIgnoringAnyError(internalFrame, iconifyInfo.second);
-    setIconProperty(internalFrame, ICONIFY);
+  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
+                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
+    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
+    setMaximumProperty(internalFrame, action);
   }
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectedIndexQuery.java`
-#### Snippet
-```java
-  static int selectedIndexOf(final @Nonnull JList<?> list) {
-    Integer result = execute(() -> list.getSelectedIndex());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
-#### Snippet
-```java
-                               final @Nonnull JListCellReader cellReader) {
-    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `scrollInfo.first` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  private void scroll(@Nonnull JScrollBar scrollBar, @Nonnull Pair<Point, Integer> scrollInfo) {
-    // For now, do it programmatically, faking the mouse movement and clicking
-    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
-    setValueProperty(scrollBar, scrollInfo.second);
-  }
-```
-
-### DataFlowIssue
-Unboxing of `scrollInfo.second` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-    // For now, do it programmatically, faking the mouse movement and clicking
-    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
-    setValueProperty(scrollBar, scrollInfo.second);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `scrollInfo.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  public void scrollToMinimum(@Nonnull JScrollBar scrollBar) {
-    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMinimumInfo(scrollBar, location);
-    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
-  }
-
-```
-
-### DataFlowIssue
-Argument `scrollInfo.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  public void scrollToMinimum(@Nonnull JScrollBar scrollBar) {
-    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMinimumInfo(scrollBar, location);
-    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `scrollInfo.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  public void scrollToMaximum(@Nonnull JScrollBar scrollBar) {
-    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMaximumInfo(scrollBar, location());
-    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
-  }
-
-```
-
-### DataFlowIssue
-Argument `scrollInfo.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-  public void scrollToMaximum(@Nonnull JScrollBar scrollBar) {
-    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMaximumInfo(scrollBar, location());
-    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
-  }
-
 ```
 
 ### DataFlowIssue
@@ -9676,15 +9486,75 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxContentQuery.j
 ```
 
 ### DataFlowIssue
-Argument `execute(() -> tree.getModel().getChildCount(path.getLastPathComponent()))` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeChildOfPathCountQuery.java`
+Argument `invokerAndCenterOfInvoker.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+        Component invoker = invokerAndCenterOfInvoker.first;
+        if (invoker instanceof JMenu) {
+          jitter(invoker, invokerAndCenterOfInvoker.second);
+        }
+      }
+```
+
+### DataFlowIssue
+Argument `eventQueue` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+    Component applet = findAppletDescendent(w);
+    EventQueue eventQueue = windowMonitor.eventQueueFor(applet != null ? applet : w);
+    checkNotNull(eventQueue).postEvent(event);
+    waitForIdle();
+  }
+```
+
+### DataFlowIssue
+Argument `targetAncestor` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+      return;
+    }
+    activate(checkNotNull(targetAncestor));
+    waitForIdle();
+  }
+```
+
+### DataFlowIssue
+Argument `execute(() -> isReadyForInput(checkNotNull(getWindowAncestor(popup))))` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
   @RunsInEDT
-  static int childCount(final @Nonnull JTree tree, final @Nonnull TreePath path) {
-    return checkNotNull(execute(() -> tree.getModel().getChildCount(path.getLastPathComponent())));
+  private boolean isWindowAncestorReadyForInput(final JPopupMenu popup) {
+    return checkNotNull(execute(() -> isReadyForInput(checkNotNull(getWindowAncestor(popup)))));
   }
 
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `screenLockOwner` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+  private void releaseScreenLock() {
+    ScreenLock screenLock = ScreenLock.instance();
+    if (screenLock.acquiredBy(screenLockOwner)) {
+      screenLock.release(screenLockOwner);
+    }
 ```
 
 ### DataFlowIssue
@@ -9694,6 +9564,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/DialogModalQuery.java`
 ```java
   static boolean isModal(final @Nonnull Dialog dialog) {
     Boolean result = execute(() -> dialog.isModal());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+@Nullable method 'executeInEDT' always returns a non-null value
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+#### Snippet
+```java
+    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
+      @Override
+      @Nullable protected Pair<Boolean, String> executeInEDT() {
+        int selectedIndex = comboBox.getSelectedIndex();
+        if (selectedIndex == -1) {
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+#### Snippet
+```java
+      }
+    });
     return checkNotNull(result);
   }
 
@@ -9737,7 +9631,19 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarValueQuery.
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMaximumQuery.java`
+#### Snippet
+```java
+  static int maximumOf(final @Nonnull JProgressBar progressBar) {
+    Integer result = execute(() -> progressBar.getMaximum());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 #### Snippet
 ```java
       }
@@ -9748,24 +9654,132 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValue
 ```
 
 ### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectionValueQuery.java`
+Unboxing of `scrollInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 #### Snippet
 ```java
-    Pair<Boolean, String> result = execute(new GuiQuery<Pair<Boolean, String>>() {
-      @Override
-      @Nullable protected Pair<Boolean, String> executeInEDT() {
-        int selectedIndex = comboBox.getSelectedIndex();
-        if (selectedIndex == -1) {
+  public void scrollToMaximum(@Nonnull JScrollBar scrollBar) {
+    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMaximumInfo(scrollBar, location());
+    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
+  }
+
+```
+
+### DataFlowIssue
+Argument `scrollInfo.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  public void scrollToMaximum(@Nonnull JScrollBar scrollBar) {
+    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMaximumInfo(scrollBar, location());
+    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
+  }
+
 ```
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMaximumQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 #### Snippet
 ```java
-  static int maximumOf(final @Nonnull JProgressBar progressBar) {
-    Integer result = execute(() -> progressBar.getMaximum());
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `scrollInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  public void scrollToMinimum(@Nonnull JScrollBar scrollBar) {
+    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMinimumInfo(scrollBar, location);
+    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
+  }
+
+```
+
+### DataFlowIssue
+Argument `scrollInfo.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  public void scrollToMinimum(@Nonnull JScrollBar scrollBar) {
+    Pair<Integer, GenericRange<Point>> scrollInfo = findScrollToMinimumInfo(scrollBar, location);
+    scroll(scrollBar, scrollInfo.first, checkNotNull(scrollInfo.second));
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `scrollInfo.first` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+  private void scroll(@Nonnull JScrollBar scrollBar, @Nonnull Pair<Point, Integer> scrollInfo) {
+    // For now, do it programmatically, faking the mouse movement and clicking
+    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
+    setValueProperty(scrollBar, scrollInfo.second);
+  }
+```
+
+### DataFlowIssue
+Unboxing of `scrollInfo.second` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+    // For now, do it programmatically, faking the mouse movement and clicking
+    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
+    setValueProperty(scrollBar, scrollInfo.second);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
+#### Snippet
+```java
+  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
+    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
     return checkNotNull(result);
   }
 
@@ -9797,11 +9811,23 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeMatchingPathQuery.
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarMinimumAndMaximumQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
 #### Snippet
 ```java
-  static @Nonnull Pair<Integer, Integer> minimumAndMaximumOf(final @Nonnull JProgressBar progressBar) {
-    Pair<Integer, Integer> result = execute(() -> Pair.of(progressBar.getMinimum(), progressBar.getMaximum()));
+    Integer result = execute(() -> FINDERS.get(splitPane.getOrientation()).locationToMoveDividerTo(splitPane,
+                                                                                                   desiredLocation));
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+                               final @Nonnull JListCellReader cellReader) {
+    Integer result = execute(() -> matchingItemIndex(list, matcher, cellReader));
     return checkNotNull(result);
   }
 
@@ -9820,78 +9846,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/MenuElementComponentQue
 ```
 
 ### DataFlowIssue
-Argument `execute(() -> isCellEditable(table, cell))` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-                                             boolean editable) {
-    checkNotNull(cell);
-    boolean cellEditable = checkNotNull(execute(() -> isCellEditable(table, cell)));
-    assertThat(cellEditable).as(cellProperty(table, concat(EDITABLE_PROPERTY, " ", cell))).isEqualTo(editable);
-  }
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-      return location.pointAt(table, cell.row, cell.column);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
-    int[] result = execute(() -> table.getSelectedRows());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-      return index;
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
-#### Snippet
-```java
-      return location.pointAt(table, cell.row, cell.column);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
 Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectedIndexQuery.java`
 #### Snippet
@@ -9904,99 +9858,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectedIndexQ
 ```
 
 ### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemCountQuery.java`
-#### Snippet
-```java
-  static int itemCountIn(final @Nonnull JList<?> list) {
-    Integer result = execute(() -> list.getModel().getSize());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneLocationCalculator.java`
-#### Snippet
-```java
-    Integer result = execute(() -> FINDERS.get(splitPane.getOrientation()).locationToMoveDividerTo(splitPane,
-                                                                                                   desiredLocation));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
-#### Snippet
-```java
-  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
-    Object[] result = execute(() -> optionPane.getOptions());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentEditableQuery.java`
-#### Snippet
-```java
-  static boolean isEditable(final @Nonnull JTextComponent textBox) {
-    Boolean result = execute(() -> textBox.isEditable());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
-#### Snippet
-```java
-  @Nonnull private static JScrollBar verticalScrollBar(final @Nonnull JScrollPane scrollPane) {
-    JScrollBar result = execute(() -> scrollPane.getVerticalScrollBar());
-    return checkNotNull(result);
-  }
-}
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
-#### Snippet
-```java
-  @Nonnull private static JScrollBar horizontalScrollBar(final @Nonnull JScrollPane scrollPane) {
-    JScrollBar result = execute(() -> scrollPane.getHorizontalScrollBar());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `info.second` might be null
+Unboxing of `info.second` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
-  @Nonnull public JPopupMenu showPopupMenu(@Nonnull JTree tree, int row) {
-    Pair<Boolean, Point> info = scrollToRow(tree, row, location(), true);
-    Point p = checkNotNull(info.second);
-    return robot.showPopupMenu(tree, p);
-  }
-```
-
-### DataFlowIssue
-Argument `info.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
     robot.waitForIdle();
-    toggleCell(tree, checkNotNull(info.second), info.third);
-  }
-
+    Point where = checkNotNull(info.third);
+    if (info.second != select) {
+      robot.click(tree, where);
+    }
 ```
 
 ### DataFlowIssue
@@ -10007,30 +9877,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
   public void drop(@Nonnull JTree tree, int row) {
     Pair<Boolean, Point> info = scrollToRow(tree, row, location(), true);
     drop(tree, checkNotNull(info.second));
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
   }
 
 ```
@@ -10055,42 +9901,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
       return; // already collapsed
     }
     toggleCell(tree, checkNotNull(info.second), info.third);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `info.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
-    robot.waitForIdle();
-    if (info.first) {
-      return; // already expanded
-    }
-```
-
-### DataFlowIssue
-Argument `info.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-      return; // already expanded
-    }
-    toggleCell(tree, checkNotNull(info.second), info.third);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
   }
 
 ```
@@ -10126,8 +9936,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 ```java
     Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
     robot.waitForIdle();
-    if (!info.first) {
-      return; // already collapsed
+    if (info.first) {
+      return; // already expanded
     }
 ```
 
@@ -10136,9 +9946,33 @@ Argument `info.second` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
-      return; // already collapsed
+      return; // already expanded
     }
     toggleCell(tree, checkNotNull(info.second), info.third);
+  }
+
+```
+
+### DataFlowIssue
+Argument `info.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+  @Nonnull public JPopupMenu showPopupMenu(@Nonnull JTree tree, int row) {
+    Pair<Boolean, Point> info = scrollToRow(tree, row, location(), true);
+    Point p = checkNotNull(info.second);
+    return robot.showPopupMenu(tree, p);
+  }
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
   }
 
 ```
@@ -10151,6 +9985,42 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
       }
     });
     return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `info.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
+    robot.waitForIdle();
+    toggleCell(tree, checkNotNull(info.second), info.third);
   }
 
 ```
@@ -10180,15 +10050,135 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 ```
 
 ### DataFlowIssue
-Unboxing of `info.second` may produce `NullPointerException`
+Unboxing of `info.first` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
+    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
     robot.waitForIdle();
-    Point where = checkNotNull(info.third);
-    if (info.second != select) {
-      robot.click(tree, where);
+    if (!info.first) {
+      return; // already collapsed
     }
+```
+
+### DataFlowIssue
+Argument `info.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
+#### Snippet
+```java
+      return; // already collapsed
+    }
+    toggleCell(tree, checkNotNull(info.second), info.third);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListItemCountQuery.java`
+#### Snippet
+```java
+  static int itemCountIn(final @Nonnull JList<?> list) {
+    Integer result = execute(() -> list.getModel().getSize());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
+#### Snippet
+```java
+  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
+    Object[] result = execute(() -> optionPane.getOptions());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentEditableQuery.java`
+#### Snippet
+```java
+  static boolean isEditable(final @Nonnull JTextComponent textBox) {
+    Boolean result = execute(() -> textBox.isEditable());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+      return location.pointAt(table, cell.row, cell.column);
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+      return location.pointAt(table, cell.row, cell.column);
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+      return index;
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `execute(() -> isCellEditable(table, cell))` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+                                             boolean editable) {
+    checkNotNull(cell);
+    boolean cellEditable = checkNotNull(execute(() -> isCellEditable(table, cell)));
+    assertThat(cellEditable).as(cellProperty(table, concat(EDITABLE_PROPERTY, " ", cell))).isEqualTo(editable);
+  }
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
+    int[] result = execute(() -> table.getSelectedRows());
+    return checkNotNull(result);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -10198,6 +10188,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarIndetermina
 ```java
   static boolean isIndeterminate(final @Nonnull JProgressBar progressBar) {
     Boolean result = execute(() -> progressBar.isIndeterminate());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
+#### Snippet
+```java
+  @Nonnull private static JScrollBar verticalScrollBar(final @Nonnull JScrollPane scrollPane) {
+    JScrollBar result = execute(() -> scrollPane.getVerticalScrollBar());
+    return checkNotNull(result);
+  }
+}
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
+#### Snippet
+```java
+  @Nonnull private static JScrollBar horizontalScrollBar(final @Nonnull JScrollPane scrollPane) {
+    JScrollBar result = execute(() -> scrollPane.getHorizontalScrollBar());
     return checkNotNull(result);
   }
 
@@ -10229,12 +10243,60 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameDriver.java`
 
 ### DataFlowIssue
 Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
+#### Snippet
+```java
+  static int valueOf(final @Nonnull JScrollBar scrollBar) {
+    Integer result = execute(() -> scrollBar.getValue());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
+#### Snippet
+```java
+  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
+    int[] result = execute(() -> list.getSelectedIndices());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonDriver.java`
 #### Snippet
 ```java
       return button.isSelected();
     });
     return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Dereference of `floatInfo.second` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+  public void makeFloat(@Nonnull JToolBar toolBar) {
+    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
+    Point p = floatInfo.second.second; // ancestor location
+    doFloat(toolBar, p.x, p.y, floatInfo);
+  }
+```
+
+### DataFlowIssue
+Dereference of `p` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
+    Point p = floatInfo.second.second; // ancestor location
+    doFloat(toolBar, p.x, p.y, floatInfo);
   }
 
 ```
@@ -10288,18 +10350,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 ```
 
 ### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-  public boolean isFloating(final @Nonnull JToolBar toolBar) {
-    Boolean result = execute(() -> isJToolBarFloating(toolBar));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
 Method invocation `from` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 #### Snippet
@@ -10336,30 +10386,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 ```
 
 ### DataFlowIssue
-Dereference of `floatInfo.second` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-  public void makeFloat(@Nonnull JToolBar toolBar) {
-    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
-    Point p = floatInfo.second.second; // ancestor location
-    doFloat(toolBar, p.x, p.y, floatInfo);
-  }
-```
-
-### DataFlowIssue
-Dereference of `p` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
-    Point p = floatInfo.second.second; // ancestor location
-    doFloat(toolBar, p.x, p.y, floatInfo);
-  }
-
-```
-
-### DataFlowIssue
 Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 #### Snippet
@@ -10373,11 +10399,11 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
 #### Snippet
 ```java
-  static int valueOf(final @Nonnull JScrollBar scrollBar) {
-    Integer result = execute(() -> scrollBar.getValue());
+  public boolean isFloating(final @Nonnull JToolBar toolBar) {
+    Boolean result = execute(() -> isJToolBarFloating(toolBar));
     return checkNotNull(result);
   }
 
@@ -10385,12 +10411,12 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.ja
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionIndicesQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.java`
 #### Snippet
 ```java
-  static @Nonnull int[] selectedIndices(final @Nonnull JList<?> list) {
-    int[] result = execute(() -> list.getSelectedIndices());
-    return checkNotNull(result);
+  static boolean isEditable(final @Nonnull JComboBox<?> comboBox) {
+    Boolean result = execute(() -> comboBox.isEditable());
+    return Preconditions.checkNotNull(result);
   }
 
 ```
@@ -10401,30 +10427,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneTabIndexQuer
 #### Snippet
 ```java
       return -1;
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
-#### Snippet
-```java
-      }
     });
     return checkNotNull(result);
   }
@@ -10445,35 +10447,11 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxItemCountQuery
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.java`
-#### Snippet
-```java
-  static boolean isEditable(final @Nonnull JComboBox<?> comboBox) {
-    Boolean result = execute(() -> comboBox.isEditable());
-    return Preconditions.checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractJTableCellWriter.java`
 #### Snippet
 ```java
       return location.pointAt(table, row, column);
     });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
-#### Snippet
-```java
-  static int rowCountOf(final @Nonnull JTable table) {
-    Integer result = execute(() -> table.getRowCount());
     return checkNotNull(result);
   }
 
@@ -10505,7 +10483,7 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectionValuesQue
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
 #### Snippet
 ```java
       }
@@ -10517,10 +10495,34 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.j
 
 ### DataFlowIssue
 Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSplitPaneDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
+#### Snippet
+```java
+  static int rowCountOf(final @Nonnull JTable table) {
+    Integer result = execute(() -> table.getRowCount());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-      return scrollToItemWithIndex(list, index);
+      }
     });
     return checkNotNull(result);
   }
@@ -10553,14 +10555,26 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.j
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListScrollToItemTask.java`
 #### Snippet
 ```java
-      }
+      return scrollToItemWithIndex(list, index);
     });
     return checkNotNull(result);
   }
-}
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxMatchingItemQuery.java`
+#### Snippet
+```java
+      return -1;
+    });
+    return Preconditions.checkNotNull(result);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -10589,14 +10603,14 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCel
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxMatchingItemQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCellWriter.java`
 #### Snippet
 ```java
-      return -1;
+      }
     });
-    return Preconditions.checkNotNull(result);
+    return checkNotNull(result);
   }
-
+}
 ```
 
 ### DataFlowIssue
@@ -10613,118 +10627,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonArmedQuer
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-      return allTitles.toArray(new String[allTitles.size()]);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `execute(() -> tabbedPane.isEnabledAt(index.value))` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
-    return execute(() -> tabbedPane.isEnabledAt(index.value));
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-      return location.pointAt(tabbedPane, index);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
-    Point result = execute(() -> location.pointAt(tabbedPane, index));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `tabToSelectInfo.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-      } catch (ActionFailedException e) {
-        // On Mac it may be necessary to scroll the tabs to find the one to click.
-        setTabDirectly(tabbedPane, tabToSelectInfo.first);
-      }
-      return;
-```
-
-### DataFlowIssue
-Unboxing of `tabToSelectInfo.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-      return;
-    }
-    setTabDirectly(tabbedPane, tabToSelectInfo.first);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowDriver.java`
 #### Snippet
 ```java
       return closeButtonLocation(w);
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
-#### Snippet
-```java
-      return p;
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
-#### Snippet
-```java
-      return indexAndLocation.second;
     });
     return checkNotNull(result);
   }
@@ -10757,22 +10663,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableTextComponentEdit
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
 #### Snippet
 ```java
-  @Nonnull private static Point scrollToPosition(final @Nonnull JTextComponent textBox, final int index) {
-    Point result = execute(() -> scrollToVisible(textBox, index));
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
-#### Snippet
-```java
-      return actualText.indexOf(text);
+      return indexAndLocation.second;
     });
     return checkNotNull(result);
   }
@@ -10781,10 +10675,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.ja
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderDriver.java`
 #### Snippet
 ```java
-      return scrollToVisible(textBox, index);
+      return p;
     });
     return checkNotNull(result);
   }
@@ -10805,11 +10699,11 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableColumnCountQuery.
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeEditableQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
 #### Snippet
 ```java
-  static boolean isEditable(final @Nonnull JTree tree) {
-    Boolean result = execute(() -> tree.isEditable());
+  @Nonnull private static Point scrollToPosition(final @Nonnull JTextComponent textBox, final int index) {
+    Point result = execute(() -> scrollToVisible(textBox, index));
     return checkNotNull(result);
   }
 
@@ -10817,10 +10711,22 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeEditableQuery.java
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
 #### Snippet
 ```java
-      }
+      return scrollToVisible(textBox, index);
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentDriver.java`
+#### Snippet
+```java
+      return actualText.indexOf(text);
     });
     return checkNotNull(result);
   }
@@ -10864,36 +10770,84 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.
 ```
 
 ### DataFlowIssue
-Unboxing of `minAndMax.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarDriver.java`
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeEditableQuery.java`
 #### Snippet
 ```java
-  private void checkInBetweenMinAndMax(@Nonnull JProgressBar progressBar, int value) {
-    Pair<Integer, Integer> minAndMax = minimumAndMaximumOf(progressBar);
-    assertIsInBetweenMinAndMax(value, minAndMax.first, minAndMax.second);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `minAndMax.second` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarDriver.java`
-#### Snippet
-```java
-  private void checkInBetweenMinAndMax(@Nonnull JProgressBar progressBar, int value) {
-    Pair<Integer, Integer> minAndMax = minimumAndMaximumOf(progressBar);
-    assertIsInBetweenMinAndMax(value, minAndMax.first, minAndMax.second);
+  static boolean isEditable(final @Nonnull JTree tree) {
+    Boolean result = execute(() -> tree.isEditable());
+    return checkNotNull(result);
   }
 
 ```
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypeQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListMatchingItemQuery.java`
 #### Snippet
 ```java
-  static int messageTypeOf(final @Nonnull JOptionPane optionPane) {
-    Integer result = execute(() -> optionPane.getMessageType());
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+      return allTitles.toArray(new String[allTitles.size()]);
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `tabToSelectInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+      } catch (ActionFailedException e) {
+        // On Mac it may be necessary to scroll the tabs to find the one to click.
+        setTabDirectly(tabbedPane, tabToSelectInfo.first);
+      }
+      return;
+```
+
+### DataFlowIssue
+Unboxing of `tabToSelectInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+      return;
+    }
+    setTabDirectly(tabbedPane, tabToSelectInfo.first);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `execute(() -> tabbedPane.isEnabledAt(index.value))` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable private static boolean isEnabledAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.isEnabledAt(index.value));
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+      return location.pointAt(tabbedPane, index);
+    });
     return checkNotNull(result);
   }
 
@@ -10913,12 +10867,60 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListContentQuery.java`
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonSelectedQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
 #### Snippet
 ```java
-  static boolean isSelected(final @Nonnull AbstractButton button) {
-    Boolean result = execute(() -> button.isSelected());
+      }
+    });
     return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+                                           final @Nonnull JTabbedPane tabbedPane, final int index) {
+    Point result = execute(() -> location.pointAt(tabbedPane, index));
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypeQuery.java`
+#### Snippet
+```java
+  static int messageTypeOf(final @Nonnull JOptionPane optionPane) {
+    Integer result = execute(() -> optionPane.getMessageType());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `minAndMax.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarDriver.java`
+#### Snippet
+```java
+  private void checkInBetweenMinAndMax(@Nonnull JProgressBar progressBar, int value) {
+    Pair<Integer, Integer> minAndMax = minimumAndMaximumOf(progressBar);
+    assertIsInBetweenMinAndMax(value, minAndMax.first, minAndMax.second);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `minAndMax.second` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarDriver.java`
+#### Snippet
+```java
+  private void checkInBetweenMinAndMax(@Nonnull JProgressBar progressBar, int value) {
+    Pair<Integer, Integer> minAndMax = minimumAndMaximumOf(progressBar);
+    assertIsInBetweenMinAndMax(value, minAndMax.first, minAndMax.second);
   }
 
 ```
@@ -10984,6 +10986,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
 ```
 
 ### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonSelectedQuery.java`
+#### Snippet
+```java
+  static boolean isSelected(final @Nonnull AbstractButton button) {
+    Boolean result = execute(() -> button.isSelected());
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
 Argument `cast(condition.found())` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate.java`
 #### Snippet
@@ -10991,6 +11005,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/finder/ComponentFinderTemplate
     ComponentFoundCondition condition = new ComponentFoundCondition(searchDescription, robot.finder(), matcher);
     pause(condition, timeout);
     return checkNotNull(cast(condition.found()));
+  }
+
+```
+
+### DataFlowIssue
+Argument `execute(() -> format(c))` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/format/Formatting.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull public static String inEdtFormat(final @Nonnull Component c) {
+    return checkNotNull(execute(() -> format(c)));
+  }
+
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
+#### Snippet
+```java
+  public Color backgroundOf(final @Nonnull Component c) {
+    Color result = execute(() -> c.getBackground());
+    return checkNotNull(result);
   }
 
 ```
@@ -11012,18 +11050,6 @@ Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
-  public Color backgroundOf(final @Nonnull Component c) {
-    Color result = execute(() -> c.getBackground());
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
-#### Snippet
-```java
   public Font fontOf(final @Nonnull Component c) {
     Font result = execute(() -> c.getFont());
     return checkNotNull(result);
@@ -11032,27 +11058,51 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 ```
 
 ### DataFlowIssue
-Argument `execute(() -> format(c))` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/format/Formatting.java`
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-  @RunsInEDT
-  @Nonnull public static String inEdtFormat(final @Nonnull Component c) {
-    return checkNotNull(execute(() -> format(c)));
+    simulateResizeStarted(c, resizeInfo, x, y);
+    Dimension size = resizeInfo.first;
+    setComponentSize(c, size.width + x, size.height + y);
+    robot.waitForIdle();
+  }
+```
+
+### DataFlowIssue
+Argument `result` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+      }
+    });
+    return checkNotNull(result);
   }
 
 ```
 
 ### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
+Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
-      @Override
-      @Nullable protected Triple<Dimension, Insets, Point> executeInEDT() {
-        checkCanMove(c);
-        Point locationOnScreen = null;
+      }
+    });
+    return checkNotNull(result);
+  }
+
+```
+
+### DataFlowIssue
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
+    Dimension size = resizeInfo.first;
+    resizeBy(c, resizeInfo, 0, height - size.height);
+  }
+
 ```
 
 ### DataFlowIssue
@@ -11092,27 +11142,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 ```
 
 ### DataFlowIssue
-Argument `result` might be null
+@Nullable method 'executeInEDT' always returns a non-null value
 in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 #### Snippet
 ```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    simulateResizeStarted(c, resizeInfo, x, y);
-    Dimension size = resizeInfo.first;
-    setComponentSize(c, size.width + x, size.height + y);
-    robot.waitForIdle();
-  }
+    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
+      @Override
+      @Nullable protected Triple<Dimension, Insets, Point> executeInEDT() {
+        checkCanMove(c);
+        Point locationOnScreen = null;
 ```
 
 ### DataFlowIssue
@@ -11141,30 +11179,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
 
 ### DataFlowIssue
 Argument `result` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-      }
-    });
-    return checkNotNull(result);
-  }
-
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
-    Dimension size = resizeInfo.first;
-    resizeBy(c, resizeInfo, 0, height - size.height);
-  }
-
-```
-
-### DataFlowIssue
-Argument `result` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/Containers.java`
 #### Snippet
 ```java
@@ -11176,13 +11190,13 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/Containers.java`
 ```
 
 ### DataFlowIssue
-Argument `font` might be null
+Argument `foreground` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/JTableFixture.java`
 #### Snippet
 ```java
-  public FontFixture fontAt(@Nonnull TableCell cell) {
-    Font font = driver().font(target(), cell);
-    return new FontFixture(checkNotNull(font), cellProperty(cell, FONT_PROPERTY));
+  @Nonnull public ColorFixture foregroundAt(@Nonnull TableCell cell) {
+    Color foreground = driver().foreground(target(), cell);
+    return new ColorFixture(checkNotNull(foreground), cellProperty(cell, FOREGROUND_PROPERTY));
   }
 
 ```
@@ -11200,13 +11214,13 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/JTableFixture.java`
 ```
 
 ### DataFlowIssue
-Argument `foreground` might be null
+Argument `font` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/JTableFixture.java`
 #### Snippet
 ```java
-  @Nonnull public ColorFixture foregroundAt(@Nonnull TableCell cell) {
-    Color foreground = driver().foreground(target(), cell);
-    return new ColorFixture(checkNotNull(foreground), cellProperty(cell, FOREGROUND_PROPERTY));
+  public FontFixture fontAt(@Nonnull TableCell cell) {
+    Font font = driver().font(target(), cell);
+    return new FontFixture(checkNotNull(font), cellProperty(cell, FONT_PROPERTY));
   }
 
 ```
@@ -11248,18 +11262,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/launcher/AppletLauncher.java`
 ```
 
 ### DataFlowIssue
-Argument `dialog` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
-#### Snippet
-```java
-    pause(condition, timeout);
-    Dialog dialog = (Dialog) condition.found();
-    return new DialogFixture(robot(), checkNotNull(dialog));
-  }
-
-```
-
-### DataFlowIssue
 Argument `optionPane` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
 #### Snippet
@@ -11279,6 +11281,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixtu
     pause(condition, timeout);
     JFileChooser fileChooser = (JFileChooser) condition.found();
     return new JFileChooserFixture(robot(), checkNotNull(fileChooser));
+  }
+
+```
+
+### DataFlowIssue
+Argument `dialog` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
+#### Snippet
+```java
+    pause(condition, timeout);
+    Dialog dialog = (Dialog) condition.found();
+    return new DialogFixture(robot(), checkNotNull(dialog));
   }
 
 ```
@@ -11384,12 +11398,24 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/ComponentIsFocusableQuery
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/core/ComponentRequestFocusTask.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static void giveFocusTo(final @Nonnull Component c) {
+    execute(() -> c.requestFocusInWindow());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/core/Settings.java`
 #### Snippet
 ```java
 
-  private static boolean get(Properties p, String suffix, boolean defaultValue) {
-    return getGeneric(p, suffix, t -> Boolean.parseBoolean(t), defaultValue);
+  private static int get(Properties p, String suffix, int defaultValue) {
+    return getGeneric(p, suffix, t -> Integer.parseInt(t), defaultValue);
   }
 
 ```
@@ -11424,20 +11450,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/Settings.java`
 #### Snippet
 ```java
 
-  private static int get(Properties p, String suffix, int defaultValue) {
-    return getGeneric(p, suffix, t -> Integer.parseInt(t), defaultValue);
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/core/ComponentRequestFocusTask.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static void giveFocusTo(final @Nonnull Component c) {
-    execute(() -> c.requestFocusInWindow());
+  private static boolean get(Properties p, String suffix, boolean defaultValue) {
+    return getGeneric(p, suffix, t -> Boolean.parseBoolean(t), defaultValue);
   }
 
 ```
@@ -11540,18 +11554,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentShowingQuery.ja
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/query/AbstractButtonTextQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nullable public static String textOf(final @Nonnull AbstractButton button) {
-    return execute(() -> button.getText());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentLocationOnScreenQuery.java`
 #### Snippet
 ```java
@@ -11560,6 +11562,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/query/ComponentLocationOnScree
     Point result = execute(() -> component.getLocationOnScreen());
     return checkNotNull(result);
   }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/query/AbstractButtonTextQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable public static String textOf(final @Nonnull AbstractButton button) {
+    return execute(() -> button.getText());
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -11604,18 +11618,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
 #### Snippet
 ```java
   @RunsInEDT
-  @Nullable private static URL documentBase(final @Nonnull JApplet applet) {
-    return execute(() -> applet.getDocumentBase());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
   @Nullable private static URL codeBase(final @Nonnull JApplet applet) {
     return execute(() -> applet.getCodeBase());
   }
@@ -11636,6 +11638,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JAppletDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable private static URL documentBase(final @Nonnull JApplet applet) {
+    return execute(() -> applet.getDocumentBase());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery.java`
 #### Snippet
 ```java
@@ -11644,30 +11658,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/AbstractButtonTextQuery
     String result = execute(() -> button.getText());
     return result == null ? "" : result;
   }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-    execute(() -> // it seems that moving to back always works, regardless if the internal frame is invisible and/or
-                  // disabled.
-    internalFrame.moveToBack());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-    execute(() -> // it seems that moving to front always works, regardless if the internal frame is invisible and/or
-                  // disabled.
-    internalFrame.toFront());
-  }
-
 ```
 
 ### Convert2MethodRef
@@ -11684,14 +11674,38 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JListSelectedIndexQuery
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+    execute(() -> // it seems that moving to front always works, regardless if the internal frame is invisible and/or
+                  // disabled.
+    internalFrame.toFront());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+    execute(() -> // it seems that moving to back always works, regardless if the internal frame is invisible and/or
+                  // disabled.
+    internalFrame.moveToBack());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/DialogModalQuery.java`
 #### Snippet
 ```java
   @RunsInEDT
-  private static void clearSelectionOf(final @Nonnull JList<?> list) {
-    execute(() -> list.clearSelection());
+  static boolean isModal(final @Nonnull Dialog dialog) {
+    Boolean result = execute(() -> dialog.isModal());
+    return checkNotNull(result);
   }
-
 ```
 
 ### Convert2MethodRef
@@ -11708,14 +11722,14 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JMenuPopupMenuQuery.jav
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/DialogModalQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameTitleQuery.java`
 #### Snippet
 ```java
   @RunsInEDT
-  static boolean isModal(final @Nonnull Dialog dialog) {
-    Boolean result = execute(() -> dialog.isModal());
-    return checkNotNull(result);
+  static @Nullable String titleOf(final @Nonnull Frame f) {
+    return execute(() -> f.getTitle());
   }
+
 ```
 
 ### Convert2MethodRef
@@ -11738,18 +11752,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentSelectAll
   @RunsInEDT
   static void selectAllText(final @Nonnull JTextComponent textBox) {
     execute(() -> textBox.selectAll());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/FrameTitleQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nullable String titleOf(final @Nonnull Frame f) {
-    return execute(() -> f.getTitle());
   }
 
 ```
@@ -11780,6 +11782,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarStringQuery
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JListDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  private static void clearSelectionOf(final @Nonnull JList<?> list) {
+    execute(() -> list.clearSelection());
+  }
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/driver/MenuElementComponentQuery.java`
 #### Snippet
 ```java
@@ -11792,14 +11806,14 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/MenuElementComponentQue
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
 #### Snippet
 ```java
   @RunsInEDT
-  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
-    int[] result = execute(() -> table.getSelectedRows());
-    return checkNotNull(result);
+  private static void commit(final @Nonnull JSpinner spinner) {
+    execute(() -> spinner.commitEdit());
   }
+
 ```
 
 ### Convert2MethodRef
@@ -11810,18 +11824,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxSelectedIndexQ
   @RunsInEDT
   static int selectedIndexOf(final @Nonnull JComboBox<?> comboBox) {
     Integer result = execute(() -> comboBox.getSelectedIndex());
-    return checkNotNull(result);
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
-    Object[] result = execute(() -> optionPane.getOptions());
     return checkNotNull(result);
   }
 ```
@@ -11840,12 +11842,48 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageQuery
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneOptionsQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static @Nonnull Object[] optionsOf(final @Nonnull JOptionPane optionPane) {
+    Object[] result = execute(() -> optionPane.getOptions());
+    return checkNotNull(result);
+  }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nonnull private static int[] selectedRowsOf(final @Nonnull JTable table) {
+    int[] result = execute(() -> table.getSelectedRows());
+    return checkNotNull(result);
+  }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTextComponentEditableQuery.java`
 #### Snippet
 ```java
   @RunsInEDT
   static boolean isEditable(final @Nonnull JTextComponent textBox) {
     Boolean result = execute(() -> textBox.isEditable());
+    return checkNotNull(result);
+  }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarIndeterminateQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static boolean isIndeterminate(final @Nonnull JProgressBar progressBar) {
+    Boolean result = execute(() -> progressBar.isIndeterminate());
     return checkNotNull(result);
   }
 ```
@@ -11876,24 +11914,12 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollPaneDriver.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSpinnerDriver.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
 #### Snippet
 ```java
   @RunsInEDT
-  private static void commit(final @Nonnull JSpinner spinner) {
-    execute(() -> spinner.commitEdit());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JProgressBarIndeterminateQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static boolean isIndeterminate(final @Nonnull JProgressBar progressBar) {
-    Boolean result = execute(() -> progressBar.isIndeterminate());
+  static int valueOf(final @Nonnull JScrollBar scrollBar) {
+    Integer result = execute(() -> scrollBar.getValue());
     return checkNotNull(result);
   }
 ```
@@ -11908,18 +11934,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableHeaderQuery.java`
     return execute(() -> table.getTableHeader());
   }
 
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarValueQuery.java`
-#### Snippet
-```java
-  @RunsInEDT
-  static int valueOf(final @Nonnull JScrollBar scrollBar) {
-    Integer result = execute(() -> scrollBar.getValue());
-    return checkNotNull(result);
-  }
 ```
 
 ### Convert2MethodRef
@@ -11948,18 +11962,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowMoveToFrontTask.j
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxItemCountQuery.java`
-#### Snippet
-```java
-final class JComboBoxItemCountQuery {
-  static int itemCountIn(final @Nonnull JComboBox<?> comboBox) {
-    Integer result = execute(() -> comboBox.getItemCount());
-    return checkNotNull(result);
-  }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.java`
 #### Snippet
 ```java
@@ -11972,12 +11974,12 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxEditableQuery.
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxItemCountQuery.java`
 #### Snippet
 ```java
-  @RunsInEDT
-  static int rowCountOf(final @Nonnull JTable table) {
-    Integer result = execute(() -> table.getRowCount());
+final class JComboBoxItemCountQuery {
+  static int itemCountIn(final @Nonnull JComboBox<?> comboBox) {
+    Integer result = execute(() -> comboBox.getItemCount());
     return checkNotNull(result);
   }
 ```
@@ -11992,6 +11994,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameCloseTask
     execute(() -> internalFrame.doDefaultCloseAction());
   }
 
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableRowCountQuery.java`
+#### Snippet
+```java
+  @RunsInEDT
+  static int rowCountOf(final @Nonnull JTable table) {
+    Integer result = execute(() -> table.getRowCount());
+    return checkNotNull(result);
+  }
 ```
 
 ### Convert2MethodRef
@@ -12032,18 +12046,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeClearSelectionTask
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  @Nullable private static Component selectedComponent(final JTabbedPane tabbedPane) {
-    return execute(() -> tabbedPane.getSelectedComponent());
-  }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `assertj-swing/src/main/java/org/assertj/swing/driver/WindowDriver.java`
 #### Snippet
 ```java
@@ -12072,8 +12074,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/MultipleSelectionTempla
 #### Snippet
 ```java
   @RunsInEDT
-  final void multiUnselect() {
-    multiSelect(i -> unselectElement(i), false);
+  final void multiSelect() {
+    multiSelect(i -> selectElement(i), true);
   }
 
 ```
@@ -12084,8 +12086,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/MultipleSelectionTempla
 #### Snippet
 ```java
   @RunsInEDT
-  final void multiSelect() {
-    multiSelect(i -> selectElement(i), true);
+  final void multiUnselect() {
+    multiSelect(i -> unselectElement(i), false);
   }
 
 ```
@@ -12112,6 +12114,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeEditableQuery.java
     Boolean result = execute(() -> tree.isEditable());
     return checkNotNull(result);
   }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  @Nullable private static Component selectedComponent(final JTabbedPane tabbedPane) {
+    return execute(() -> tabbedPane.getSelectedComponent());
+  }
+
 ```
 
 ### Convert2MethodRef
@@ -12144,8 +12158,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
   @Nonnull
-  public Color foregroundOf(final @Nonnull Component c) {
-    Color result = execute(() -> c.getForeground());
+  public Color backgroundOf(final @Nonnull Component c) {
+    Color result = execute(() -> c.getBackground());
     return checkNotNull(result);
   }
 ```
@@ -12156,8 +12170,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/ComponentDriver.java`
 #### Snippet
 ```java
   @Nonnull
-  public Color backgroundOf(final @Nonnull Component c) {
-    Color result = execute(() -> c.getBackground());
+  public Color foregroundOf(final @Nonnull Component c) {
+    Color result = execute(() -> c.getForeground());
     return checkNotNull(result);
   }
 ```
@@ -12239,18 +12253,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/awt/AWT.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-        }
-        return (currentTimeMillis() - start) >= settings.idleTimeout();
-      } catch (InterruptedException e) {
-      }
-      return false;
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `assertj-swing/src/main/java/org/assertj/swing/input/DragAwareEventNormalizer.java`
 #### Snippet
 ```java
@@ -12259,6 +12261,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/input/DragAwareEventNormalizer
     } catch (EmptyStackException e) {
     }
     dragAwareEventQueue = null;
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+        }
+        return (currentTimeMillis() - start) >= settings.idleTimeout();
+      } catch (InterruptedException e) {
+      }
+      return false;
 ```
 
 ### CatchMayIgnoreException
@@ -12303,18 +12317,6 @@ Class member declared `protected` in 'final' class
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.java`
 #### Snippet
 ```java
-   * @return the component hierarchy used by this printer.
-   */
-  protected final @Nonnull ComponentHierarchy hierarchy() {
-    return hierarchy;
-  }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.java`
-#### Snippet
-```java
    * @param hierarchy the component hierarchy to use.
    */
   protected BasicComponentPrinter(@Nonnull ComponentHierarchy hierarchy) {
@@ -12324,13 +12326,13 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.jav
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentPrinter.java`
 #### Snippet
 ```java
-   * @param hierarchy the component hierarchy to use.
+   * @return the component hierarchy used by this printer.
    */
-  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy) {
-    this(hierarchy, null);
+  protected final @Nonnull ComponentHierarchy hierarchy() {
+    return hierarchy;
   }
 ```
 
@@ -12356,6 +12358,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java
   protected final boolean requireShowingFromSettingsOr(boolean defaultValue) {
     if (settings == null) {
       return defaultValue;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
+#### Snippet
+```java
+   * @param hierarchy the component hierarchy to use.
+   */
+  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy) {
+    this(hierarchy, null);
+  }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -12457,31 +12471,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
     }
 ```
 
-## RuleId[id=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageEncoder.java`
-#### Snippet
-```java
-      ImageIO.write(image, PNG, out);
-      byte[] encoded = Base64.encodeBase64(out.toByteArray());
-      return new String(encoded, UTF_8);
-    }
-  }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageDecoder.java`
-#### Snippet
-```java
-  BufferedImage decodeBase64(String encoded) throws IOException {
-    ByteArrayInputStream in = null;
-    byte[] toDecode = encoded.getBytes(UTF_8);
-    in = new ByteArrayInputStream(Base64.decodeBase64(toDecode));
-    return ImageIO.read(in);
-```
-
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -12505,6 +12494,31 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/StandardOutput
     return out == System.out || out == System.err;
   }
 
+```
+
+## RuleId[id=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageEncoder.java`
+#### Snippet
+```java
+      ImageIO.write(image, PNG, out);
+      byte[] encoded = Base64.encodeBase64(out.toByteArray());
+      return new String(encoded, UTF_8);
+    }
+  }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageDecoder.java`
+#### Snippet
+```java
+  BufferedImage decodeBase64(String encoded) throws IOException {
+    ByteArrayInputStream in = null;
+    byte[] toDecode = encoded.getBytes(UTF_8);
+    in = new ByteArrayInputStream(Base64.decodeBase64(toDecode));
+    return ImageIO.read(in);
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -12584,6 +12598,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/data/TableCellByColumnId.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.swing.core` is unnecessary and can be removed
+in `assertj-swing/src/main/java/org/assertj/swing/finder/JOptionPaneFinder.java`
+#### Snippet
+```java
+ *
+ * <p>
+ * Where {@code robot} is an instance of {@link org.assertj.swing.core.Robot}.
+ * </p>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.swing.core` is unnecessary and can be removed
 in `assertj-swing/src/main/java/org/assertj/swing/finder/JFileChooserFinder.java`
 #### Snippet
 ```java
@@ -12603,18 +12629,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/finder/JFileChooserFinder.java
  * <pre>
  * JFileChooserFixture fileChooser = JFileChooserFinder.findFileChooser().withTimeout(10, {@link java.util.concurrent.TimeUnit#SECONDS SECONDS}).using(robot);
  * </pre>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.swing.core` is unnecessary and can be removed
-in `assertj-swing/src/main/java/org/assertj/swing/finder/JOptionPaneFinder.java`
-#### Snippet
-```java
- *
- * <p>
- * Where {@code robot} is an instance of {@link org.assertj.swing.core.Robot}.
- * </p>
  *
 ```
 
@@ -12721,9 +12735,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixtu
 ```java
    * @throws org.assertj.swing.exception.ComponentLookupException if a matching component could not be found.
    * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   * @see org.assertj.swing.core.ComponentFinder#findByType(Class)
+   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
    */
-  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
+  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12733,9 +12747,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixtu
 ```java
    * @throws org.assertj.swing.exception.ComponentLookupException if a matching component could not be found.
    * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
+   * @see org.assertj.swing.core.ComponentFinder#findByType(Class)
    */
-  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
@@ -12819,9 +12833,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/GenericTypeMatcher.java`
 ```java
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public GenericTypeMatcher(@Nonnull Class<T> supportedType) {
-    this(supportedType, false);
-  }
+  public GenericTypeMatcher(@Nonnull Class<T> supportedType, boolean requireShowing) {
+    super(requireShowing);
+    this.supportedType = checkNotNull(supportedType);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12831,20 +12845,8 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/GenericTypeMatcher.java`
 ```java
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public GenericTypeMatcher(@Nonnull Class<T> supportedType, boolean requireShowing) {
-    super(requireShowing);
-    this.supportedType = checkNotNull(supportedType);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EdtSafeCondition()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/core/EdtSafeCondition.java`
-#### Snippet
-```java
-   * @param description describes this condition.
-   */
-  public EdtSafeCondition(@Nullable Description description) {
-    super(description);
+  public GenericTypeMatcher(@Nonnull Class<T> supportedType) {
+    this(supportedType, false);
   }
 ```
 
@@ -12856,6 +12858,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/EdtSafeCondition.java`
    * @param description describes this condition.
    */
   public EdtSafeCondition(@Nonnull String description) {
+    super(description);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EdtSafeCondition()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/core/EdtSafeCondition.java`
+#### Snippet
+```java
+   * @param description describes this condition.
+   */
+  public EdtSafeCondition(@Nullable Description description) {
     super(description);
   }
 ```
@@ -12913,11 +12927,11 @@ Constructor `AbstractTwoStateButtonFixture()` of an abstract class should not be
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if {@code target} is {@code null}.
+   *           found. Or if more than one matching {@code AbstractButton} is found.
    */
-  public AbstractTwoStateButtonFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull T target) {
-    super(selfType, robot, target);
-  }
+  public AbstractTwoStateButtonFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String buttonName,
+                                       @Nonnull Class<? extends T> type) {
+    super(selfType, robot, buttonName, type);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12925,11 +12939,11 @@ Constructor `AbstractTwoStateButtonFixture()` of an abstract class should not be
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractTwoStateButtonFixture.java`
 #### Snippet
 ```java
-   *           found. Or if more than one matching {@code AbstractButton} is found.
+   * @throws NullPointerException if {@code target} is {@code null}.
    */
-  public AbstractTwoStateButtonFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String buttonName,
-                                       @Nonnull Class<? extends T> type) {
-    super(selfType, robot, buttonName, type);
+  public AbstractTwoStateButtonFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull T target) {
+    super(selfType, robot, target);
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12993,14 +13007,38 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJPopupMenuInvo
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSwingContainerFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
+Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
 #### Snippet
 ```java
-   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
+   * @throws NullPointerException if {@code target} is {@code null}.
    */
-  public AbstractSwingContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
-                                       @Nonnull Class<? extends C> type) {
+  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull T target) {
+    super(selfType, robot, target);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
+   */
+  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends T> type) {
+    super(selfType, robot, type);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+#### Snippet
+```java
+   *           than one matching component is found.
+   */
+  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+                                   @Nonnull Class<? extends T> type) {
     super(selfType, robot, name, type);
 ```
 
@@ -13029,39 +13067,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainer
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
+Constructor `AbstractSwingContainerFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractSwingContainerFixture.java`
 #### Snippet
 ```java
-   *           than one matching component is found.
+   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
    */
-  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
-                                   @Nonnull Class<? extends T> type) {
+  public AbstractSwingContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+                                       @Nonnull Class<? extends C> type) {
     super(selfType, robot, name, type);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
-#### Snippet
-```java
-   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   */
-  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends T> type) {
-    super(selfType, robot, type);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractJComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractJComponentFixture.java`
-#### Snippet
-```java
-   * @throws NullPointerException if {@code target} is {@code null}.
-   */
-  public AbstractJComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull T target) {
-    super(selfType, robot, target);
-  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13081,11 +13095,11 @@ Constructor `AbstractContainerFixture()` of an abstract class should not be decl
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
 #### Snippet
 ```java
-   * @throws NullPointerException if {@code target} is {@code null}.
+   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
    */
-  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull C target) {
-    super(selfType, robot, target);
-    menuItemFinder = new JMenuItemFinder(robot, target());
+  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+                                  @Nonnull Class<? extends C> type) {
+    super(selfType, robot, name, type);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13105,11 +13119,47 @@ Constructor `AbstractContainerFixture()` of an abstract class should not be decl
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractContainerFixture.java`
 #### Snippet
 ```java
-   * @see org.assertj.swing.core.ComponentFinder#findByName(String, Class)
+   * @throws NullPointerException if {@code target} is {@code null}.
    */
-  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+  public AbstractContainerFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull C target) {
+    super(selfType, robot, target);
+    menuItemFinder = new JMenuItemFinder(robot, target());
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
+   */
+  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
                                   @Nonnull Class<? extends C> type) {
-    super(selfType, robot, name, type);
+    this(selfType, robot, findTarget(robot, name, type));
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
+   */
+  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
+    this(selfType, robot, findTarget(robot, type));
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
+in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
+#### Snippet
+```java
+   * @throws NullPointerException if {@code target} is {@code null}.
+   */
+  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull C target) {
+    myself = checkNotNull(selfType).cast(this);
+    this.robot = checkNotNull(robot);
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13141,10 +13191,10 @@ Constructor `AbstractWindowFixture()` of an abstract class should not be declare
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
 #### Snippet
 ```java
-   * @see org.assertj.swing.core.BasicRobot#robotWithCurrentAwtHierarchy()
+   *           is found.
    */
-  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Class<? extends C> type) {
-    this(selfType, robotWithCurrentAwtHierarchy(), type);
+  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
+    super(selfType, robot, type);
   }
 ```
 
@@ -13153,11 +13203,11 @@ Constructor `AbstractWindowFixture()` of an abstract class should not be declare
 in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.java`
 #### Snippet
 ```java
-   *           is found.
+   * @see org.assertj.swing.core.BasicRobot#robotWithCurrentAwtHierarchy()
    */
-  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
-                               @Nonnull Class<? extends C> type) {
-    super(selfType, robot, name, type);
+  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Class<? extends C> type) {
+    this(selfType, robotWithCurrentAwtHierarchy(), type);
+  }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13179,45 +13229,9 @@ in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractWindowFixture.
 ```java
    *           is found.
    */
-  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
-    super(selfType, robot, type);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   */
-  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull Class<? extends C> type) {
-    this(selfType, robot, findTarget(robot, type));
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws NullPointerException if {@code target} is {@code null}.
-   */
-  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nonnull C target) {
-    myself = checkNotNull(selfType).cast(this);
-    this.robot = checkNotNull(robot);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractComponentFixture()` of an abstract class should not be declared 'public'
-in `assertj-swing/src/main/java/org/assertj/swing/fixture/AbstractComponentFixture.java`
-#### Snippet
-```java
-   * @throws org.assertj.swing.exception.ComponentLookupException if more than one matching component is found.
-   */
-  public AbstractComponentFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
-                                  @Nonnull Class<? extends C> type) {
-    this(selfType, robot, findTarget(robot, name, type));
+  public AbstractWindowFixture(@Nonnull Class<S> selfType, @Nonnull Robot robot, @Nullable String name,
+                               @Nonnull Class<? extends C> type) {
+    super(selfType, robot, name, type);
 ```
 
 ## RuleId[id=Anonymous2MethodRef]
@@ -13236,12 +13250,12 @@ in `assertj-swing/src/main/java/org/assertj/swing/listener/EventDispatchThreaded
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+in `assertj-swing/src/main/java/org/assertj/swing/applet/AppletViewer.java`
 #### Snippet
 ```java
-  @Override
-  public void showWindow(@Nonnull final Window w, @Nullable final Dimension size, final boolean pack) {
-    EventQueue.invokeLater(new Runnable() {
+      return;
+    }
+    invokeLater(new Runnable() {
       @Override
       public void run() {
 ```
@@ -13260,12 +13274,12 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
-in `assertj-swing/src/main/java/org/assertj/swing/applet/AppletViewer.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
-      return;
-    }
-    invokeLater(new Runnable() {
+  @Override
+  public void showWindow(@Nonnull final Window w, @Nullable final Dimension size, final boolean pack) {
+    EventQueue.invokeLater(new Runnable() {
       @Override
       public void run() {
 ```
@@ -13275,7 +13289,7 @@ Anonymous new Callable() can be replaced with lambda
 in `assertj-swing/src/main/java/org/assertj/swing/timing/Pause.java`
 #### Snippet
 ```java
-    }
+    checkNotNull(condition);
     try {
       Callable<Object> task = new Callable<Object>() {
         @Override
@@ -13287,7 +13301,7 @@ Anonymous new Callable() can be replaced with lambda
 in `assertj-swing/src/main/java/org/assertj/swing/timing/Pause.java`
 #### Snippet
 ```java
-    checkNotNull(condition);
+    }
     try {
       Callable<Object> task = new Callable<Object>() {
         @Override
@@ -13322,30 +13336,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      logger.log(SEVERE, "Unable to encode image", e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      logger.log(SEVERE, "Unable to encode image", e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
 #### Snippet
 ```java
@@ -13366,6 +13356,42 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/xml/XmlNode.java`
       return null;
     return new XmlNode((Element) n);
   }
+```
+
+### ReturnNull
+Return of `null`
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      logger.log(SEVERE, "Unable to encode image", e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      logger.log(SEVERE, "Unable to encode image", e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotOnFailureListener.java`
+#### Snippet
+```java
+    } catch (Exception e) {
+      logger.log(SEVERE, e.getMessage(), e);
+      return null;
+    }
+    return imageName;
 ```
 
 ### ReturnNull
@@ -13426,18 +13452,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JComboBoxDriver.java`
         return null;
       }
       return editorComponent(comboBox);
-```
-
-### ReturnNull
-Return of `null`
-in `assertj-swing-testng/src/main/java/org/assertj/swing/testng/listener/ScreenshotOnFailureListener.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      logger.log(SEVERE, e.getMessage(), e);
-      return null;
-    }
-    return imageName;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
