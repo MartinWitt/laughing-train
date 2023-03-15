@@ -1,78 +1,102 @@
 # shiro 
  
 # Bad smells
-I found 1331 bad smells with 166 repairable:
+I found 1425 bad smells with 175 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 696 | false |
-| ReturnNull | 113 | false |
+| UnnecessaryFullyQualifiedName | 709 | false |
+| ReturnNull | 119 | false |
 | UnnecessaryModifier | 68 | true |
-| RedundantFieldInitialization | 51 | false |
-| NonProtectedConstructorInAbstractClass | 44 | true |
-| EmptyMethod | 30 | false |
-| BoundedWildcard | 29 | false |
-| UnusedAssignment | 19 | false |
+| RedundantFieldInitialization | 52 | false |
+| NonProtectedConstructorInAbstractClass | 48 | true |
+| BoundedWildcard | 35 | false |
+| EmptyMethod | 33 | false |
+| MissortedModifiers | 30 | false |
+| UnusedAssignment | 20 | false |
 | DeprecatedIsStillUsed | 19 | false |
-| MissortedModifiers | 18 | false |
-| RedundantSuppression | 17 | false |
-| UNUSED_IMPORT | 16 | false |
-| ConstantValue | 15 | false |
+| RedundantSuppression | 19 | false |
+| ConstantValue | 18 | false |
+| UtilityClassWithoutPrivateConstructor | 18 | true |
+| AssignmentToMethodParameter | 17 | false |
+| UNUSED_IMPORT | 15 | false |
 | SizeReplaceableByIsEmpty | 13 | true |
-| UtilityClassWithoutPrivateConstructor | 13 | true |
-| AssignmentToMethodParameter | 13 | false |
-| DataFlowIssue | 9 | false |
+| DataFlowIssue | 10 | false |
 | ZeroLengthArrayInitialization | 8 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 7 | false |
 | InnerClassMayBeStatic | 7 | true |
 | NonStrictComparisonCanBeEquality | 7 | true |
 | ObsoleteCollection | 6 | false |
 | RedundantArrayCreation | 6 | true |
+| AbstractClassNeverImplemented | 6 | false |
+| ClassNameSameAsAncestorName | 6 | false |
+| UnnecessarySuperQualifier | 6 | false |
 | AssignmentToForLoopParameter | 6 | false |
 | LongLiteralsEndingWithLowercaseL | 5 | false |
-| AbstractClassNeverImplemented | 5 | false |
 | NestedAssignment | 5 | false |
+| UnnecessarySemicolon | 5 | false |
 | MissingDeprecatedAnnotation | 5 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 4 | true |
+| RegExpRedundantEscape | 4 | false |
 | KeySetIterationMayUseEntrySet | 4 | false |
-| UnnecessarySuperQualifier | 4 | false |
+| DynamicRegexReplaceableByCompiledPattern | 4 | false |
 | RedundantClassCall | 3 | false |
 | ReplaceAssignmentWithOperatorAssignment | 3 | false |
 | RedundantImplements | 3 | false |
 | InstanceofCatchParameter | 3 | false |
 | IOResource | 3 | false |
+| Java9CollectionFactory | 3 | false |
 | ConditionCoveredByFurtherCondition | 3 | false |
-| DynamicRegexReplaceableByCompiledPattern | 3 | false |
 | Convert2Lambda | 3 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 2 | false |
 | CStyleArrayDeclaration | 2 | false |
 | CommentedOutCode | 2 | false |
 | StringBufferReplaceableByString | 2 | false |
 | TrivialStringConcatenation | 2 | false |
-| RedundantMethodOverride | 2 | false |
 | DefaultAnnotationParam | 2 | false |
+| RedundantMethodOverride | 2 | false |
+| SimplifyOptionalCallChains | 2 | false |
 | NonFinalFieldOfException | 2 | false |
+| SynchronizeOnThis | 2 | false |
 | RedundantLengthCheck | 2 | false |
 | SimplifyStreamApiCallChains | 2 | false |
 | StringOperationCanBeSimplified | 2 | false |
 | NonSerializableFieldInSerializableClass | 2 | false |
 | ProtectedMemberInFinalClass | 2 | true |
 | UnnecessaryBoxing | 2 | false |
+| ReplaceNullCheck | 2 | false |
 | Java8MapApi | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| RedundantSlf4jDefinition | 2 | false |
 | EmptyStatementBody | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
-| ClassNameSameAsAncestorName | 1 | false |
+| RegExpRedundantNestedCharacterClass | 1 | false |
+| RegExpDuplicateCharacterInClass | 1 | false |
 | SlowListContainsAll | 1 | false |
-| SynchronizeOnThis | 1 | false |
+| StringRepeatCanBeUsed | 1 | false |
+| CastConflictsWithInstanceof | 1 | false |
 | IndexOfReplaceableByContains | 1 | false |
-| UnnecessarySemicolon | 1 | false |
+| Convert2MethodRef | 1 | false |
 | StringEqualsEmptyString | 1 | false |
 | UnnecessaryInitCause | 1 | false |
+| OptionalUsedAsFieldOrParameterType | 1 | false |
 | CharsetObjectCanBeUsed | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | SamePackageImport | 1 | false |
+| SynchronizationOnLocalVariableOrMethodParameter | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
-## RuleId[ruleID=ToArrayCallWithZeroLengthArrayArgument]
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Key\[keysForPath.size()\]'
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+
+            // map the current path to all of its Keys
+            resultConfigMap.put(path, keysForPath.toArray(new Key[keysForPath.size()]));
+        }
+
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[roles.size()\]'
 in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
@@ -109,197 +133,29 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Key\[keysForPath.size()\]'
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-
-            // map the current path to all of its Keys
-            resultConfigMap.put(path, keysForPath.toArray(new Key[keysForPath.size()]));
-        }
-
-```
-
-## RuleId[ruleID=UnnecessaryModifier]
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
-in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
+in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/web/LoginController.java`
 #### Snippet
 ```java
-    public static final String INI_REALM_NAME = "iniRealm";
+public class LoginController {
 
-    private static transient final Logger log = LoggerFactory.getLogger(IniSecurityManagerFactory.class);
+    private static transient final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    private ReflectionBuilder builder;
+    private static String loginView = "login";
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/shiro/authc/LogoutAware.java`
+Modifier `private` is redundant for enum constructors
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/PaddingScheme.java`
 #### Snippet
 ```java
-     * @param principals the identifying principals of the Subject logging out.
-     */
-    public void onLogout(PrincipalCollection principals);
-}
+    private final String transformationName;
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/shiro/authc/Authenticator.java`
-#### Snippet
-```java
-     * @see UnknownAccountException
-     */
-    public AuthenticationInfo authenticate(AuthenticationToken authenticationToken)
-            throws AuthenticationException;
-}
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
-#### Snippet
-```java
-    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
-
-    private static transient final Logger log = LoggerFactory.getLogger(IniFactorySupport.class);
-
-    private Ini ini;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/shiro/authz/permission/RolePermissionResolverAware.java`
-#### Snippet
-```java
-     * @param rpr the <tt>RolePermissionResolver</tt> being set.
-     */
-    public void setRolePermissionResolver(RolePermissionResolver rpr);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolverAware.java`
-#### Snippet
-```java
-     * @param pr the <tt>PermissionResolver</tt> being set.
-     */
-    public void setPermissionResolver(PermissionResolver pr);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `core/src/main/java/org/apache/shiro/realm/text/IniRealm.java`
-#### Snippet
-```java
-    public static final String ROLES_SECTION_NAME = "roles";
-
-    private static transient final Logger log = LoggerFactory.getLogger(IniRealm.class);
-
-    private String resourcePath;
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-
-    //TODO - complete JavaDoc
-    private transient static final Logger log = LoggerFactory.getLogger(SimpleSession.class);
-
-    protected static final long MILLIS_PER_SECOND = 1000;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * @since 1.0
-     */
-    public static class Builder {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * @since 1.0
-     */
-    public static class Builder {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `core/src/main/java/org/apache/shiro/subject/support/DefaultSubjectContext.java`
-#### Snippet
-```java
-    public static final String AUTHENTICATED_SESSION_KEY = DefaultSubjectContext.class.getName() + "_AUTHENTICATED_SESSION_KEY";
-
-    private static final transient Logger log = LoggerFactory.getLogger(DefaultSubjectContext.class);
-
-    public DefaultSubjectContext() {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `support/guice/src/main/java/org/apache/shiro/guice/DestroyableInjectionListener.java`
-#### Snippet
-```java
+    private PaddingScheme(String transformationName) {
+        this.transformationName = transformationName;
     }
-
-    public static interface DestroyableRegistry {
-        void add(Destroyable destroyable);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `samples/quickstart/src/main/java/Quickstart.java`
-#### Snippet
-```java
-public class Quickstart {
-
-    private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
-
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashRequest.java`
-#### Snippet
-```java
-     * @since 1.2
-     */
-    public static class Builder {
-
-        private ByteSource source;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashRequest.java`
-#### Snippet
-```java
-     * @since 1.2
-     */
-    public static class Builder {
-
-        private ByteSource source;
 ```
 
 ### UnnecessaryModifier
@@ -340,38 +196,122 @@ public interface ModularCryptFormat extends HashFormat {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashRequest.java`
 #### Snippet
 ```java
      * @since 1.2
      */
-    public static final class Util {
+    public static class Builder {
 
-        /**
+        private ByteSource source;
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashRequest.java`
 #### Snippet
 ```java
      * @since 1.2
      */
-    public static final class Util {
+    public static class Builder {
 
-        /**
+        private ByteSource source;
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
 #### Snippet
 ```java
-     * @since 1.0
+     * @return a view of all of the values contained in this cache.
      */
-    private static interface ClassLoaderAccessor {
-        Class loadClass(String fqcn);
-        InputStream getResourceStream(String name);
+    public Collection<V> values();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @return a view of all the keys for entries contained in this cache.
+     */
+    public Set<K> keys();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @throws CacheException if there is a problem accessing the underlying cache system
+     */
+    public V get(K key) throws CacheException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/CacheManager.java`
+#### Snippet
+```java
+     * @throws CacheException if there is an error acquiring the Cache instance.
+     */
+    public <K, V> Cache<K, V> getCache(String name) throws CacheException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @throws CacheException if there is a problem accessing the underlying cache system
+     */
+    public V remove(K key) throws CacheException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @throws CacheException if there is a problem accessing the underlying cache system
+     */
+    public V put(K key, V value) throws CacheException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @return the number of entries in the cache.
+     */
+    public int size();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
+#### Snippet
+```java
+     * @throws CacheException if there is a problem accessing the underlying cache system
+     */
+    public void clear() throws CacheException;
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -411,18 +351,6 @@ public class PathMatchingFilterChainResolver implements FilterChainResolver {
 ```
 
 ### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `web/src/main/java/org/apache/shiro/web/config/IniFilterChainResolverFactory.java`
-#### Snippet
-```java
-    public static final String URLS = "urls";
-
-    private static transient final Logger log = LoggerFactory.getLogger(IniFilterChainResolverFactory.class);
-
-    private FilterConfig filterConfig;
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `web/src/main/java/org/apache/shiro/web/filter/authz/IpSource.java`
 #### Snippet
@@ -448,6 +376,18 @@ in `web/src/main/java/org/apache/shiro/web/filter/authz/IpSource.java`
 
 ### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
+in `web/src/main/java/org/apache/shiro/web/config/IniFilterChainResolverFactory.java`
+#### Snippet
+```java
+    public static final String URLS = "urls";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniFilterChainResolverFactory.class);
+
+    private FilterConfig filterConfig;
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
 in `web/src/main/java/org/apache/shiro/web/filter/mgt/DefaultFilterChainManager.java`
 #### Snippet
 ```java
@@ -459,39 +399,39 @@ public class DefaultFilterChainManager implements FilterChainManager {
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+Modifier `public` is redundant for interface members
+in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
 #### Snippet
 ```java
-        private final String action;
-
-        private HttpMethodAction(String action) {
-            this.action = action;
-        }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
-#### Snippet
-```java
-     * used at runtime.
+     * The value of deleted cookie (with the maxAge 0).
      */
-    private static enum HttpMethodAction {
+    public static final String DELETED_COOKIE_VALUE = "deleteMe";
 
-        DELETE(DELETE_ACTION),
+
 ```
 
 ### UnnecessaryModifier
-Modifier `transient` is redundant for a 'static' field
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+Modifier `static` is redundant for interface fields
+in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
 #### Snippet
 ```java
-public abstract class AbstractFilter extends ServletContextSupport implements Filter {
+     * The value of deleted cookie (with the maxAge 0).
+     */
+    public static final String DELETED_COOKIE_VALUE = "deleteMe";
 
-    private static transient final Logger log = LoggerFactory.getLogger(AbstractFilter.class);
 
-    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
+#### Snippet
+```java
+     * The value of deleted cookie (with the maxAge 0).
+     */
+    public static final String DELETED_COOKIE_VALUE = "deleteMe";
+
+
 ```
 
 ### UnnecessaryModifier
@@ -547,11 +487,11 @@ Modifier `public` is redundant for interface members
 in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
 #### Snippet
 ```java
-     * The value of deleted cookie (with the maxAge 0).
+     * Root path to use when the path hasn't been set and request context root is empty or null.
      */
-    public static final String DELETED_COOKIE_VALUE = "deleteMe";
+    public static final String ROOT_PATH = "/";
 
-
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -559,11 +499,11 @@ Modifier `static` is redundant for interface fields
 in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
 #### Snippet
 ```java
-     * The value of deleted cookie (with the maxAge 0).
+     * Root path to use when the path hasn't been set and request context root is empty or null.
      */
-    public static final String DELETED_COOKIE_VALUE = "deleteMe";
+    public static final String ROOT_PATH = "/";
 
-
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -571,47 +511,71 @@ Modifier `final` is redundant for interface fields
 in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
 #### Snippet
 ```java
-     * The value of deleted cookie (with the maxAge 0).
+     * Root path to use when the path hasn't been set and request context root is empty or null.
      */
-    public static final String DELETED_COOKIE_VALUE = "deleteMe";
+    public static final String ROOT_PATH = "/";
 
+    /**
+```
 
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+#### Snippet
+```java
+public abstract class AbstractFilter extends ServletContextSupport implements Filter {
+
+    private static transient final Logger log = LoggerFactory.getLogger(AbstractFilter.class);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+     * used at runtime.
+     */
+    private static enum HttpMethodAction {
+
+        DELETE(DELETE_ACTION),
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+        private final String action;
+
+        private HttpMethodAction(String action) {
+            this.action = action;
+        }
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
+in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
 #### Snippet
 ```java
-     * Root path to use when the path hasn't been set and request context root is empty or null.
+     * is retained for use by internal Shiro components as necessary.
      */
-    public static final String ROOT_PATH = "/";
+    public static class Builder extends Subject.Builder {
 
-    /**
+        /**
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
+Modifier `static` is redundant for inner classes of interfaces
+in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
 #### Snippet
 ```java
-     * Root path to use when the path hasn't been set and request context root is empty or null.
+     * is retained for use by internal Shiro components as necessary.
      */
-    public static final String ROOT_PATH = "/";
+    public static class Builder extends Subject.Builder {
 
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `web/src/main/java/org/apache/shiro/web/servlet/Cookie.java`
-#### Snippet
-```java
-     * Root path to use when the path hasn't been set and request context root is empty or null.
-     */
-    public static final String ROOT_PATH = "/";
-
-    /**
+        /**
 ```
 
 ### UnnecessaryModifier
@@ -627,267 +591,15 @@ in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
-#### Snippet
-```java
-     * is retained for use by internal Shiro components as necessary.
-     */
-    public static class Builder extends Subject.Builder {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
-#### Snippet
-```java
-     * is retained for use by internal Shiro components as necessary.
-     */
-    public static class Builder extends Subject.Builder {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
-
-    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
-
-    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
-
-    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
-
-    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-public interface BankService {
-
-    public long[] searchAccountIdsByOwner(String anOwnerName);
-
-    public long createNewAccount(String anOwnerName);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
-
-    public static class TxLog {
-        private Date _creationDate;
-        private double _amount;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
-
-    public static class TxLog {
-        private Date _creationDate;
-        private double _amount;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public long createNewAccount(String anOwnerName);
-
-    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
-
-    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
-
-    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
-
-    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public long[] searchAccountIdsByOwner(String anOwnerName);
-
-    public long createNewAccount(String anOwnerName);
-
-    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
-
-    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
-
-    public static class TxLog {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
-
-    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
-
-    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
-#### Snippet
-```java
-    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
-
-    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
-
-    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
-```
-
-### UnnecessaryModifier
 Modifier `transient` is redundant for a 'static' field
-in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/web/LoginController.java`
+in `samples/quickstart/src/main/java/Quickstart.java`
 #### Snippet
 ```java
-public class LoginController {
+public class Quickstart {
 
-    private static transient final Logger log = LoggerFactory.getLogger(LoginController.class);
+    private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
 
-    private static String loginView = "login";
-```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/CacheManager.java`
-#### Snippet
-```java
-     * @throws CacheException if there is an error acquiring the Cache instance.
-     */
-    public <K, V> Cache<K, V> getCache(String name) throws CacheException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @return a view of all the keys for entries contained in this cache.
-     */
-    public Set<K> keys();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @throws CacheException if there is a problem accessing the underlying cache system
-     */
-    public void clear() throws CacheException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @return the number of entries in the cache.
-     */
-    public int size();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @return a view of all of the values contained in this cache.
-     */
-    public Collection<V> values();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @throws CacheException if there is a problem accessing the underlying cache system
-     */
-    public V remove(K key) throws CacheException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @throws CacheException if there is a problem accessing the underlying cache system
-     */
-    public V get(K key) throws CacheException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `cache/src/main/java/org/apache/shiro/cache/Cache.java`
-#### Snippet
-```java
-     * @throws CacheException if there is a problem accessing the underlying cache system
-     */
-    public V put(K key, V value) throws CacheException;
-
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -915,14 +627,14 @@ public class Ini implements Map<String, Ini.Section> {
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/PaddingScheme.java`
+Modifier `static` is redundant for inner interfaces
+in `support/guice/src/main/java/org/apache/shiro/guice/DestroyableInjectionListener.java`
 #### Snippet
 ```java
-    private final String transformationName;
+    }
 
-    private PaddingScheme(String transformationName) {
-        this.transformationName = transformationName;
+    public static interface DestroyableRegistry {
+        void add(Destroyable destroyable);
     }
 ```
 
@@ -938,19 +650,307 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     private SecurityManager securityManager;
 ```
 
-## RuleId[ruleID=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
 #### Snippet
 ```java
-                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
-                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
-                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
+    public static final String INI_REALM_NAME = "iniRealm";
 
-                    throw new javax.naming.AuthenticationException("LDAP Simple authentication requires both a "
+    private static transient final Logger log = LoggerFactory.getLogger(IniSecurityManagerFactory.class);
+
+    private ReflectionBuilder builder;
 ```
 
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/shiro/authc/LogoutAware.java`
+#### Snippet
+```java
+     * @param principals the identifying principals of the Subject logging out.
+     */
+    public void onLogout(PrincipalCollection principals);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/shiro/authc/Authenticator.java`
+#### Snippet
+```java
+     * @see UnknownAccountException
+     */
+    public AuthenticationInfo authenticate(AuthenticationToken authenticationToken)
+            throws AuthenticationException;
+}
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
+#### Snippet
+```java
+    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniFactorySupport.class);
+
+    private Ini ini;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolverAware.java`
+#### Snippet
+```java
+     * @param pr the <tt>PermissionResolver</tt> being set.
+     */
+    public void setPermissionResolver(PermissionResolver pr);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/shiro/authz/permission/RolePermissionResolverAware.java`
+#### Snippet
+```java
+     * @param rpr the <tt>RolePermissionResolver</tt> being set.
+     */
+    public void setRolePermissionResolver(RolePermissionResolver rpr);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `core/src/main/java/org/apache/shiro/realm/text/IniRealm.java`
+#### Snippet
+```java
+    public static final String ROLES_SECTION_NAME = "roles";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniRealm.class);
+
+    private String resourcePath;
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+
+    //TODO - complete JavaDoc
+    private transient static final Logger log = LoggerFactory.getLogger(SimpleSession.class);
+
+    protected static final long MILLIS_PER_SECOND = 1000;
+```
+
+### UnnecessaryModifier
+Modifier `transient` is redundant for a 'static' field
+in `core/src/main/java/org/apache/shiro/subject/support/DefaultSubjectContext.java`
+#### Snippet
+```java
+    public static final String AUTHENTICATED_SESSION_KEY = DefaultSubjectContext.class.getName() + "_AUTHENTICATED_SESSION_KEY";
+
+    private static final transient Logger log = LoggerFactory.getLogger(DefaultSubjectContext.class);
+
+    public DefaultSubjectContext() {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * @since 1.0
+     */
+    public static class Builder {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * @since 1.0
+     */
+    public static class Builder {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
+
+    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
+
+    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
+
+    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
+
+    public static class TxLog {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
+
+    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
+
+    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+public interface BankService {
+
+    public long[] searchAccountIdsByOwner(String anOwnerName);
+
+    public long createNewAccount(String anOwnerName);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public long createNewAccount(String anOwnerName);
+
+    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
+
+    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
+
+    public static class TxLog {
+        private Date _creationDate;
+        private double _amount;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public boolean isAccountActive(long anAccountId) throws AccountNotFoundException;
+
+    public static class TxLog {
+        private Date _creationDate;
+        private double _amount;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public String getOwnerOf(long anAccountId) throws AccountNotFoundException;
+
+    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
+
+    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
+
+    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
+
+    public double closeAccount(long anAccountId) throws AccountNotFoundException, InactiveAccountException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public double depositInto(long anAccountId, double anAmount) throws AccountNotFoundException, InactiveAccountException;
+
+    public double withdrawFrom(long anAccountId, double anAmount) throws AccountNotFoundException, NotEnoughFundsException, InactiveAccountException;
+
+    public TxLog[] getTxHistoryFor(long anAccountId) throws AccountNotFoundException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankService.java`
+#### Snippet
+```java
+    public long[] searchAccountIdsByOwner(String anOwnerName);
+
+    public long createNewAccount(String anOwnerName);
+
+    public double getBalanceOf(long anAccountId) throws AccountNotFoundException;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+#### Snippet
+```java
+     * @since 1.2
+     */
+    public static final class Util {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+#### Snippet
+```java
+     * @since 1.2
+     */
+    public static final class Util {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
+#### Snippet
+```java
+     * @since 1.0
+     */
+    private static interface ClassLoaderAccessor {
+        Class loadClass(String fqcn);
+        InputStream getResourceStream(String name);
+```
+
+## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `isInstance()`
 in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
@@ -975,7 +975,19 @@ in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
                     ResourceConfigurable.class.getName() + "interface.  This is required to accept any " +
 ```
 
-## RuleId[ruleID=EmptyStatementBody]
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
+                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
+                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
+
+                    throw new javax.naming.AuthenticationException("LDAP Simple authentication requires both a "
+```
+
+## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
 `else` statement has empty body
 in `web/src/main/java/org/apache/shiro/web/filter/authz/HostFilter.java`
@@ -988,19 +1000,7 @@ in `web/src/main/java/org/apache/shiro/web/filter/authz/HostFilter.java`
             }
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `_SEQUENCE` from instance context
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/AccountTransaction.java`
-#### Snippet
-```java
-
-    private AccountTransaction(TransactionType aType, long anAccountId, double anAmount) {
-        _id = ++_SEQUENCE;
-        _type = aType;
-        _accountId = anAccountId;
-```
-
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `_SEQUENCE` from instance context
 in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/Account.java`
@@ -1013,19 +1013,19 @@ in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/Account.
         _isActive = true;
 ```
 
-## RuleId[ruleID=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `propertyDescriptors`
-in `support/guice/src/main/java/org/apache/shiro/guice/BeanTypeListener.java`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `_SEQUENCE` from instance context
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/AccountTransaction.java`
 #### Snippet
 ```java
 
-    public <I> void hear(TypeLiteral<I> type, final TypeEncounter<I> encounter) {
-        PropertyDescriptor propertyDescriptors[] = beanUtilsBean.getPropertyUtils().getPropertyDescriptors(type.getRawType());
-        final Map<PropertyDescriptor, Key<?>> propertyDependencies = new HashMap<PropertyDescriptor, Key<?>>(propertyDescriptors.length);
-        final Provider<Injector> injectorProvider = encounter.getProvider(Injector.class);
+    private AccountTransaction(TransactionType aType, long anAccountId, double anAmount) {
+        _id = ++_SEQUENCE;
+        _type = aType;
+        _accountId = anAccountId;
 ```
 
+## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `cookies`
 in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
@@ -1038,19 +1038,19 @@ in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
             for (javax.servlet.http.Cookie cookie : cookies) {
 ```
 
-## RuleId[ruleID=CommentedOutCode]
-### CommentedOutCode
-Commented out code (10 lines)
-in `core/src/main/java/org/apache/shiro/util/CollectionUtils.java`
+### CStyleArrayDeclaration
+C-style array declaration of local variable `propertyDescriptors`
+in `support/guice/src/main/java/org/apache/shiro/guice/BeanTypeListener.java`
 #### Snippet
 ```java
-    }
 
-    /*public static <E> Deque<E> asDeque(E... elements) {
-        if (elements == null || elements.length == 0) {
-            return new ArrayDeque<E>();
+    public <I> void hear(TypeLiteral<I> type, final TypeEncounter<I> encounter) {
+        PropertyDescriptor propertyDescriptors[] = beanUtilsBean.getPropertyUtils().getPropertyDescriptors(type.getRawType());
+        final Map<PropertyDescriptor, Key<?>> propertyDependencies = new HashMap<PropertyDescriptor, Key<?>>(propertyDescriptors.length);
+        final Provider<Injector> injectorProvider = encounter.getProvider(Injector.class);
 ```
 
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
 in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/config/ApplicationConfig.java`
@@ -1063,7 +1063,68 @@ in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/config/Appl
 
 ```
 
-## RuleId[ruleID=ObsoleteCollection]
+### CommentedOutCode
+Commented out code (10 lines)
+in `core/src/main/java/org/apache/shiro/util/CollectionUtils.java`
+#### Snippet
+```java
+    }
+
+    /*public static <E> Deque<E> asDeque(E... elements) {
+        if (elements == null || elements.length == 0) {
+            return new ArrayDeque<E>();
+```
+
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\&` in RegExp
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+    private static final Pattern PARTIAL_REQUEST_PATTERN
+            = Pattern.compile(String.format("[\\&]?%s.\\w+=[\\w\\s:%%\\d]*", PARTIAL_VIEW));
+    private static final Pattern INITIAL_AMPERSAND = Pattern.compile("^\\&");
+    private static final String FORM_DATA_CACHE = "org.apache.form-data-cache";
+
+```
+
+## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
 in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
@@ -1117,18 +1178,6 @@ Obsolete collection type `Hashtable` used
 in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
 #### Snippet
 ```java
-     * @throws NamingException if a problem occurs creating the connection
-     */
-    protected LdapContext createLdapContext(Hashtable env) throws NamingException {
-        return new InitialLdapContext(env, null);
-    }
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable` used
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
-#### Snippet
-```java
      * @throws AuthenticationException if a configuration problem is detected
      */
     protected void validateAuthenticationInfo(Hashtable<String, Object> environment)
@@ -1136,7 +1185,19 @@ in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
     {
 ```
 
-## RuleId[ruleID=LongLiteralsEndingWithLowercaseL]
+### ObsoleteCollection
+Obsolete collection type `Hashtable` used
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+     * @throws NamingException if a problem occurs creating the connection
+     */
+    protected LdapContext createLdapContext(Hashtable env) throws NamingException {
+        return new InitialLdapContext(env, null);
+    }
+```
+
+## RuleId[id=LongLiteralsEndingWithLowercaseL]
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `1l` ends with lowercase 'l'
 in `core/src/main/java/org/apache/shiro/authz/permission/DomainPermission.java`
@@ -1166,6 +1227,18 @@ in `core/src/main/java/org/apache/shiro/session/mgt/ExecutorServiceSessionValida
 in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
 #### Snippet
 ```java
+        bitMask = stopTimestamp != null ? bitMask | STOP_TIMESTAMP_BIT_MASK : bitMask;
+        bitMask = lastAccessTime != null ? bitMask | LAST_ACCESS_TIME_BIT_MASK : bitMask;
+        bitMask = timeout != 0l ? bitMask | TIMEOUT_BIT_MASK : bitMask;
+        bitMask = expired ? bitMask | EXPIRED_BIT_MASK : bitMask;
+        bitMask = host != null ? bitMask | HOST_BIT_MASK : bitMask;
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
         long timeout = getTimeout();
 
         if (timeout >= 0l) {
@@ -1185,19 +1258,19 @@ in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
         }
 ```
 
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+## RuleId[id=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `this.appliedPaths.keySet()` may be replaced with 'entrySet()' iteration
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
 #### Snippet
 ```java
-        bitMask = stopTimestamp != null ? bitMask | STOP_TIMESTAMP_BIT_MASK : bitMask;
-        bitMask = lastAccessTime != null ? bitMask | LAST_ACCESS_TIME_BIT_MASK : bitMask;
-        bitMask = timeout != 0l ? bitMask | TIMEOUT_BIT_MASK : bitMask;
-        bitMask = expired ? bitMask | EXPIRED_BIT_MASK : bitMask;
-        bitMask = host != null ? bitMask | HOST_BIT_MASK : bitMask;
+        }
+
+        for (String path : this.appliedPaths.keySet()) {
+            // If the path does match, then pass on to the subclass implementation for specific checks
+            //(first match 'wins'):
 ```
 
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `chains.keySet()` may be replaced with 'entrySet()' iteration
 in `support/guice/src/main/java/org/apache/shiro/guice/web/SimpleFilterChainResolver.java`
@@ -1223,18 +1296,6 @@ in `support/guice/src/main/java/org/apache/shiro/guice/web/FilterChainResolverPr
 ```
 
 ### KeySetIterationMayUseEntrySet
-Iteration over `this.appliedPaths.keySet()` may be replaced with 'entrySet()' iteration
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-        }
-
-        for (String path : this.appliedPaths.keySet()) {
-            // If the path does match, then pass on to the subclass implementation for specific checks
-            //(first match 'wins'):
-```
-
-### KeySetIterationMayUseEntrySet
 Iteration over `filterToPathToConfig.keySet()` may be replaced with 'entrySet()' iteration
 in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
 #### Snippet
@@ -1246,19 +1307,7 @@ in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
                 bindPathMatchingFilter(castToPathMatching(key), filterToPathToConfig.get(key));
 ```
 
-## RuleId[ruleID=RedundantArrayCreation]
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
-#### Snippet
-```java
-        if (log.isDebugEnabled()) {
-            log.debug("Initializing LDAP context using URL [{}] and principal [{}] with pooling {}",
-                    new Object[]{url, principal, (pooling ? "enabled" : "disabled")});
-        }
-
-```
-
+## RuleId[id=RedundantArrayCreation]
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
 in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
@@ -1319,7 +1368,91 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
             beanUtilsBean.setProperty(object, propertyPath, value);
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+        if (log.isDebugEnabled()) {
+            log.debug("Initializing LDAP context using URL [{}] and principal [{}] with pooling {}",
+                    new Object[]{url, principal, (pooling ? "enabled" : "disabled")});
+        }
+
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`permission.length() == 0` can be replaced with 'permission.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/tags/PermissionTag.java`
+#### Snippet
+```java
+        String permission = getName();
+
+        if (permission == null || permission.length() == 0) {
+            String msg = "The 'name' tag attribute must be set.";
+            throw new JspException(msg);
+```
+
+### SizeReplaceableByIsEmpty
+`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BearerHttpAuthenticationFilter.java`
+#### Snippet
+```java
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
+        String authorizationHeader = getAuthzHeader(request);
+        if (authorizationHeader == null || authorizationHeader.length() == 0) {
+            // Create an empty authentication token since there is no
+            // Authorization header.
+```
+
+### SizeReplaceableByIsEmpty
+`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter.java`
+#### Snippet
+```java
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
+        String authorizationHeader = getAuthzHeader(request);
+        if (authorizationHeader == null || authorizationHeader.length() == 0) {
+            // Create an empty authentication token since there is no
+            // Authorization header.
+```
+
+### SizeReplaceableByIsEmpty
+`methods.size() == 0` can be replaced with 'methods.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter.java`
+#### Snippet
+```java
+
+        Set<String> methods = httpMethodsFromOptions((String[])mappedValue);
+        boolean authcRequired = methods.size() == 0;
+        for (String m : methods) {
+            if (httpMethod.toUpperCase(Locale.ENGLISH).equals(m)) { // list of methods is in upper case
+```
+
+### SizeReplaceableByIsEmpty
+`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
+        String authorizationHeader = getAuthzHeader(request);
+        if (authorizationHeader == null || authorizationHeader.length() == 0) {
+            // Create an empty authentication token since there is no
+            // Authorization header.
+```
+
+### SizeReplaceableByIsEmpty
+`keyNames.size() > 0` can be replaced with '!keyNames.isEmpty()'
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+#### Snippet
+```java
+        Set<String> keyNames = getKeyNames();
+        String[] array = new String[keyNames.size()];
+        if (keyNames.size() > 0) {
+            array = keyNames.toArray(array);
+        }
+```
+
 ### SizeReplaceableByIsEmpty
 `saved.length() == 0` can be replaced with 'saved.isEmpty()'
 in `core/src/main/java/org/apache/shiro/authc/credential/DefaultPasswordService.java`
@@ -1381,18 +1514,6 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`token.length() > 0` can be replaced with '!token.isEmpty()'
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-                token = token.trim();
-            }
-            if (!ignoreEmptyTokens || token.length() > 0) {
-                tokens.add(token);
-            }
-```
-
-### SizeReplaceableByIsEmpty
 `str.length() > 0` can be replaced with '!str.isEmpty()'
 in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 #### Snippet
@@ -1405,90 +1526,18 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`permission.length() == 0` can be replaced with 'permission.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/tags/PermissionTag.java`
+`token.length() > 0` can be replaced with '!token.isEmpty()'
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 #### Snippet
 ```java
-        String permission = getName();
-
-        if (permission == null || permission.length() == 0) {
-            String msg = "The 'name' tag attribute must be set.";
-            throw new JspException(msg);
+                token = token.trim();
+            }
+            if (!ignoreEmptyTokens || token.length() > 0) {
+                tokens.add(token);
+            }
 ```
 
-### SizeReplaceableByIsEmpty
-`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String authorizationHeader = getAuthzHeader(request);
-        if (authorizationHeader == null || authorizationHeader.length() == 0) {
-            // Create an empty authentication token since there is no
-            // Authorization header.
-```
-
-### SizeReplaceableByIsEmpty
-`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BearerHttpAuthenticationFilter.java`
-#### Snippet
-```java
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String authorizationHeader = getAuthzHeader(request);
-        if (authorizationHeader == null || authorizationHeader.length() == 0) {
-            // Create an empty authentication token since there is no
-            // Authorization header.
-```
-
-### SizeReplaceableByIsEmpty
-`authorizationHeader.length() == 0` can be replaced with 'authorizationHeader.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter.java`
-#### Snippet
-```java
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
-        String authorizationHeader = getAuthzHeader(request);
-        if (authorizationHeader == null || authorizationHeader.length() == 0) {
-            // Create an empty authentication token since there is no
-            // Authorization header.
-```
-
-### SizeReplaceableByIsEmpty
-`methods.size() == 0` can be replaced with 'methods.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter.java`
-#### Snippet
-```java
-
-        Set<String> methods = httpMethodsFromOptions((String[])mappedValue);
-        boolean authcRequired = methods.size() == 0;
-        for (String m : methods) {
-            if (httpMethod.toUpperCase(Locale.ENGLISH).equals(m)) { // list of methods is in upper case
-```
-
-### SizeReplaceableByIsEmpty
-`keyNames.size() > 0` can be replaced with '!keyNames.isEmpty()'
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
-#### Snippet
-```java
-        Set<String> keyNames = getKeyNames();
-        String[] array = new String[keyNames.size()];
-        if (keyNames.size() > 0) {
-            array = keyNames.toArray(array);
-        }
-```
-
-## RuleId[ruleID=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getName()).append(",id=").append(getId());
-        return sb.toString();
-```
-
+## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
 in `cache/src/main/java/org/apache/shiro/cache/MapCache.java`
@@ -1501,32 +1550,19 @@ in `cache/src/main/java/org/apache/shiro/cache/MapCache.java`
                 .append(map.size())
 ```
 
-## RuleId[ruleID=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/BCryptHash.java`
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
 #### Snippet
 ```java
-        return new StringJoiner("$", "$", "")
-                .add(this.getAlgorithmName())
-                .add("" + this.cost)
-                .add(saltBase64 + dataBase64)
-                .toString();
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getName()).append(",id=").append(getId());
+        return sb.toString();
 ```
 
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `support/guice/src/main/java/org/apache/shiro/guice/web/AbstractInjectionProvider.java`
-#### Snippet
-```java
-            t = constructor.newInstance(params);
-        } catch (Exception e) {
-            throw new ProvisionException("Could not instantiate " + key + "", e);
-        }
-        injector.injectMembers(t);
-```
-
-## RuleId[ruleID=ManualMinMaxCalculation]
+## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
 in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
@@ -1539,7 +1575,250 @@ in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatche
         } else {
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `support/guice/src/main/java/org/apache/shiro/guice/web/AbstractInjectionProvider.java`
+#### Snippet
+```java
+            t = constructor.newInstance(params);
+        } catch (Exception e) {
+            throw new ProvisionException("Could not instantiate " + key + "", e);
+        }
+        injector.injectMembers(t);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/BCryptHash.java`
+#### Snippet
+```java
+        return new StringJoiner("$", "$", "")
+                .add(this.getAlgorithmName())
+                .add("" + this.cost)
+                .add(saltBase64 + dataBase64)
+                .toString();
+```
+
+## RuleId[id=RegExpRedundantNestedCharacterClass]
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `SecurityUtils` has no concrete subclass
+in `core/src/main/java/org/apache/shiro/SecurityUtils.java`
+#### Snippet
+```java
+ * @since 0.2
+ */
+public abstract class SecurityUtils {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AT` has no concrete subclass
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AnnotatedTypeWrapper.java`
+#### Snippet
+```java
+public class AnnotatedTypeWrapper<T> implements AnnotatedType<T> {
+    // the below is so the compiler doesn't complain about unchecked casts
+    private abstract class AT implements AnnotatedType<T> { }
+    private final @Delegate(types = AT.class) AnnotatedType<T> wrapped;
+    private final @Getter Set<Annotation> annotations;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JavaEnvironment` has no concrete subclass
+in `core/src/main/java/org/apache/shiro/util/JavaEnvironment.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public abstract class JavaEnvironment {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ThreadContext` has no concrete subclass
+in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
+#### Snippet
+```java
+ * @since 0.1
+ */
+public abstract class ThreadContext {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `LifecycleUtils` has no concrete subclass
+in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
+#### Snippet
+```java
+ * @since 0.2
+ */
+public abstract class LifecycleUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(LifecycleUtils.class);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Assert` has no concrete subclass
+in `lang/src/main/java/org/apache/shiro/lang/util/Assert.java`
+#### Snippet
+```java
+ * @since 1.3
+ */
+public abstract class Assert {
+
+    /**
+```
+
+## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends Filter`
+in `web/src/main/java/org/apache/shiro/web/servlet/ProxiedFilterChain.java`
+#### Snippet
+```java
+    private int index = 0;
+
+    public ProxiedFilterChain(FilterChain orig, List<Filter> filters) {
+        if (orig == null) {
+            throw new NullPointerException("original FilterChain cannot be null.");
+```
+
+### BoundedWildcard
+Can generalize to `? super SessionManager`
+in `samples/guice/src/main/java/org/apache/shiro/samples/guice/SampleShiroNativeSessionsServletModule.java`
+#### Snippet
+```java
+
+    @Override
+    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
+        bind.to(DefaultWebSessionManager.class);
+        bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(5000L);
+```
+
+### BoundedWildcard
+Can generalize to `? super SessionListener`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+     * @param sm
+     */
+    public void addSessionListeners(Collection<SessionListener> sessionListeners, SecurityManager sm) {
+        sessionListeners.add(new SessionListener() {
+            @Override
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroMatchers.java`
+#### Snippet
+```java
+    };
+
+    public static Matcher<TypeLiteral> typeLiteral(final Matcher<Class> classMatcher) {
+        return new AbstractMatcher<TypeLiteral>() {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super Environment`
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+     * @param bind
+     */
+    protected void bindEnvironment(AnnotatedBindingBuilder<Environment> bind) {
+        bind.to(GuiceEnvironment.class).asEagerSingleton();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super EventBus`
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+     * @since 1.4
+     */
+    protected void bindEventBus(AnnotatedBindingBuilder<EventBus> bind) {
+        bind.to(DefaultEventBus.class).asEagerSingleton();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super SessionManager`
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+     * @param bind
+     */
+    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
+        bind.to(DefaultSessionManager.class).asEagerSingleton();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends javax.cache.Cache.Entry`
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
+#### Snippet
+```java
+        }
+
+        private Stream<javax.cache.Cache.Entry<K, V>> toStream(Iterator<javax.cache.Cache.Entry<K, V>> iterator) {
+            return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `integration-tests/jakarta-ee/src/main/java/org/apache/shiro/testing/jaxrs/WhoamiResource.java`
+#### Snippet
+```java
+    }
+
+    private <T> T check(Supplier<T> happy, Supplier<T> sad, String user, String password) {
+        try {
+            ThreadContext.bind(testApplication.getSecurityManager());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `integration-tests/jakarta-ee/src/main/java/org/apache/shiro/testing/jaxrs/WhoamiResource.java`
+#### Snippet
+```java
+    }
+
+    private <T> T check(Supplier<T> happy, Supplier<T> sad, String user, String password) {
+        try {
+            ThreadContext.bind(testApplication.getSecurityManager());
+```
+
+### BoundedWildcard
+Can generalize to `? super Annotation`
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AnnotatedTypeWrapper.java`
+#### Snippet
+```java
+    }
+
+    private void addToBuilder(Stream.Builder<Annotation> builder, Annotation ann) {
+        checkIfAnnotation(ann);
+        builder.add(ann);
+```
+
 ### BoundedWildcard
 Can generalize to `? super Realm`
 in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
@@ -1562,6 +1841,54 @@ in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java
     protected AuthenticationInfo doMultiRealmAuthentication(Collection<Realm> realms, AuthenticationToken token) {
 
         AuthenticationStrategy strategy = getAuthenticationStrategy();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+    }
+
+    protected void createNewInstance(Map<String, Object> objects, String name, String value) {
+
+        Object currentInstance = objects.get(name);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    public void setAlternateObjectSupplier(Function<String, ?> alternateObjectSupplier) {
+        this.alternateObjectSupplier = alternateObjectSupplier;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super SessionManager`
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
+        bind.to(ServletContainerSessionManager.class).asEagerSingleton();
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Environment`
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+
+    @Override
+    protected final void bindEnvironment(AnnotatedBindingBuilder<Environment> bind) {
+        bind.to(WebEnvironment.class); // SHIRO-435
+    }
 ```
 
 ### BoundedWildcard
@@ -1593,9 +1920,9 @@ Can generalize to `? extends Permission`
 in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
 #### Snippet
 ```java
-     * for <em>all</em> of the specified Permissions, <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
-    public boolean isPermittedAll(PrincipalCollection principals, Collection<Permission> permissions) {
+    public boolean[] isPermitted(PrincipalCollection principals, List<Permission> permissions) {
         assertRealmsConfigured();
         if (permissions != null && !permissions.isEmpty()) {
 ```
@@ -1605,9 +1932,9 @@ Can generalize to `? extends Permission`
 in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
 #### Snippet
 ```java
-     * <code>false</code> otherwise.
+     * for <em>all</em> of the specified Permissions, <code>false</code> otherwise.
      */
-    public boolean[] isPermitted(PrincipalCollection principals, List<Permission> permissions) {
+    public boolean isPermittedAll(PrincipalCollection principals, Collection<Permission> permissions) {
         assertRealmsConfigured();
         if (permissions != null && !permissions.isEmpty()) {
 ```
@@ -1697,90 +2024,6 @@ in `core/src/main/java/org/apache/shiro/subject/support/SubjectCallable.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SessionManager`
-in `samples/guice/src/main/java/org/apache/shiro/samples/guice/SampleShiroNativeSessionsServletModule.java`
-#### Snippet
-```java
-
-    @Override
-    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
-        bind.to(DefaultWebSessionManager.class);
-        bindConstant().annotatedWith(Names.named("shiro.globalSessionTimeout")).to(5000L);
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroMatchers.java`
-#### Snippet
-```java
-    };
-
-    public static Matcher<TypeLiteral> typeLiteral(final Matcher<Class> classMatcher) {
-        return new AbstractMatcher<TypeLiteral>() {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super EventBus`
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-     * @since 1.4
-     */
-    protected void bindEventBus(AnnotatedBindingBuilder<EventBus> bind) {
-        bind.to(DefaultEventBus.class).asEagerSingleton();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super SessionManager`
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-     * @param bind
-     */
-    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
-        bind.to(DefaultSessionManager.class).asEagerSingleton();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Environment`
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-     * @param bind
-     */
-    protected void bindEnvironment(AnnotatedBindingBuilder<Environment> bind) {
-        bind.to(GuiceEnvironment.class).asEagerSingleton();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
-#### Snippet
-```java
-     * @see #SoftHashMap(Map,int)
-     */
-    public SoftHashMap(Map<K, V> source) {
-        this(DEFAULT_RETENTION_SIZE);
-        putAll(source);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
-#### Snippet
-```java
-     * @see #SoftHashMap(Map,int)
-     */
-    public SoftHashMap(Map<K, V> source) {
-        this(DEFAULT_RETENTION_SIZE);
-        putAll(source);
-```
-
-### BoundedWildcard
 Can generalize to `? extends K`
 in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
 #### Snippet
@@ -1805,15 +2048,27 @@ in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Filter`
-in `web/src/main/java/org/apache/shiro/web/servlet/ProxiedFilterChain.java`
+Can generalize to `? extends K`
+in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
 #### Snippet
 ```java
-    private int index = 0;
+     * @see #SoftHashMap(Map,int)
+     */
+    public SoftHashMap(Map<K, V> source) {
+        this(DEFAULT_RETENTION_SIZE);
+        putAll(source);
+```
 
-    public ProxiedFilterChain(FilterChain orig, List<Filter> filters) {
-        if (orig == null) {
-            throw new NullPointerException("original FilterChain cannot be null.");
+### BoundedWildcard
+Can generalize to `? extends V`
+in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
+#### Snippet
+```java
+     * @see #SoftHashMap(Map,int)
+     */
+    public SoftHashMap(Map<K, V> source) {
+        this(DEFAULT_RETENTION_SIZE);
+        putAll(source);
 ```
 
 ### BoundedWildcard
@@ -1823,7 +2078,7 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 ```java
     }
 
-    protected void checkPermissions(Collection<Permission> permissions, AuthorizationInfo info) {
+    protected boolean isPermittedAll(Collection<Permission> permissions, AuthorizationInfo info) {
         if (permissions != null && !permissions.isEmpty()) {
             for (Permission p : permissions) {
 ```
@@ -1847,167 +2102,22 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 ```java
     }
 
-    protected boolean isPermittedAll(Collection<Permission> permissions, AuthorizationInfo info) {
+    protected void checkPermissions(Collection<Permission> permissions, AuthorizationInfo info) {
         if (permissions != null && !permissions.isEmpty()) {
             for (Permission p : permissions) {
 ```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
-#### Snippet
-```java
-    }
-
-    protected void createNewInstance(Map<String, Object> objects, String name, String value) {
-
-        Object currentInstance = objects.get(name);
-```
-
-### BoundedWildcard
-Can generalize to `? super SessionManager`
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected void bindSessionManager(AnnotatedBindingBuilder<SessionManager> bind) {
-        bind.to(ServletContainerSessionManager.class).asEagerSingleton();
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Environment`
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-
-    @Override
-    protected final void bindEnvironment(AnnotatedBindingBuilder<Environment> bind) {
-        bind.to(WebEnvironment.class); // SHIRO-435
-    }
-```
-
-## RuleId[ruleID=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `SecurityUtils` has no concrete subclass
-in `core/src/main/java/org/apache/shiro/SecurityUtils.java`
-#### Snippet
-```java
- * @since 0.2
- */
-public abstract class SecurityUtils {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ThreadContext` has no concrete subclass
-in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
-#### Snippet
-```java
- * @since 0.1
- */
-public abstract class ThreadContext {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaEnvironment` has no concrete subclass
-in `core/src/main/java/org/apache/shiro/util/JavaEnvironment.java`
-#### Snippet
-```java
- */
-@Deprecated
-public abstract class JavaEnvironment {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
-Abstract class `LifecycleUtils` has no concrete subclass
-in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
-#### Snippet
-```java
- * @since 0.2
- */
-public abstract class LifecycleUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(LifecycleUtils.class);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `Assert` has no concrete subclass
-in `lang/src/main/java/org/apache/shiro/lang/util/Assert.java`
-#### Snippet
-```java
- * @since 1.3
- */
-public abstract class Assert {
-
-    /**
-```
-
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `transient final`
-in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
+in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/web/LoginController.java`
 #### Snippet
 ```java
-    public static final String INI_REALM_NAME = "iniRealm";
+public class LoginController {
 
-    private static transient final Logger log = LoggerFactory.getLogger(IniSecurityManagerFactory.class);
+    private static transient final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    private ReflectionBuilder builder;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
-#### Snippet
-```java
-    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
-
-    private static transient final Logger log = LoggerFactory.getLogger(IniFactorySupport.class);
-
-    private Ini ini;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `core/src/main/java/org/apache/shiro/realm/text/IniRealm.java`
-#### Snippet
-```java
-    public static final String ROLES_SECTION_NAME = "roles";
-
-    private static transient final Logger log = LoggerFactory.getLogger(IniRealm.class);
-
-    private String resourcePath;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient static final`
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-
-    //TODO - complete JavaDoc
-    private transient static final Logger log = LoggerFactory.getLogger(SimpleSession.class);
-
-    protected static final long MILLIS_PER_SECOND = 1000;
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
-#### Snippet
-```java
-     * @since 1.0
-     */
-    private static abstract class ExceptionIgnoringAccessor implements ClassLoaderAccessor {
-
-        public Class loadClass(String fqcn) {
+    private static String loginView = "login";
 ```
 
 ### MissortedModifiers
@@ -2072,30 +2182,6 @@ public abstract class AbstractFilter extends ServletContextSupport implements Fi
 
 ### MissortedModifiers
 Missorted modifiers `final private`
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/CommonsInterpolator.java`
-#### Snippet
-```java
-public class CommonsInterpolator implements Interpolator {
-
-    final private ConfigurationInterpolator interpolator;
-
-    public CommonsInterpolator() {
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/web/LoginController.java`
-#### Snippet
-```java
-public class LoginController {
-
-    private static transient final Logger log = LoggerFactory.getLogger(LoginController.class);
-
-    private static String loginView = "login";
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
 in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.java`
 #### Snippet
 ```java
@@ -2119,15 +2205,87 @@ in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final private`
-in `support/spring/src/main/java/org/apache/shiro/spring/ShiroEventBusBeanPostProcessor.java`
+Missorted modifiers `private final @Delegate`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/PassThruAuthenticationFilter.java`
 #### Snippet
 ```java
-public class ShiroEventBusBeanPostProcessor implements BeanPostProcessor {
+@Slf4j
+public class PassThruAuthenticationFilter extends org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter {
+    private final @Delegate AuthenticationFilterDelegate delegate;
 
-    final private EventBus eventBus;
+    private class Methods implements MethodsFromFilter {
+```
 
-    public ShiroEventBusBeanPostProcessor(EventBus eventBus) {
+### MissortedModifiers
+Missorted modifiers `private @Getter @Setter`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/AuthenticationFilterDelegate.java`
+#### Snippet
+```java
+     */
+    private @Getter @Setter int loginFailedWaitTime;
+    private @Getter @Setter FallbackPredicate loginFallbackType = NO_PREDICATE;
+    private @Getter @Setter FallbackPredicate logoutFallbackType = YES_PREDICATE;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Getter @Setter`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/AuthenticationFilterDelegate.java`
+#### Snippet
+```java
+    private @Getter @Setter int loginFailedWaitTime;
+    private @Getter @Setter FallbackPredicate loginFallbackType = NO_PREDICATE;
+    private @Getter @Setter FallbackPredicate logoutFallbackType = YES_PREDICATE;
+
+    public boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Getter @Setter`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/AuthenticationFilterDelegate.java`
+#### Snippet
+```java
+     * true if rememberMe cookie is set and valid
+     */
+    private @Getter @Setter boolean useRemembered;
+    /**
+     * number of seconds to sleep if authentication fails
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Getter @Setter`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/AuthenticationFilterDelegate.java`
+#### Snippet
+```java
+     * number of seconds to sleep if authentication fails
+     */
+    private @Getter @Setter int loginFailedWaitTime;
+    private @Getter @Setter FallbackPredicate loginFallbackType = NO_PREDICATE;
+    private @Getter @Setter FallbackPredicate logoutFallbackType = YES_PREDICATE;
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Delegate`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/LogoutFilter.java`
+#### Snippet
+```java
+    static final FallbackPredicate YES_PREDICATE = createPredicate();
+    static final String LOGOUT_PREDICATE_ATTR_NAME = "org.apache.shiro.ee.logout-predicate";
+    private final @Delegate AuthenticationFilterDelegate delegate;
+
+    private class Methods implements MethodsFromFilter {
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Delegate`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormAuthenticationFilter.java`
+#### Snippet
+```java
+    static final String LOGIN_URL_ATTR_NAME = "org.apache.shiro.ee.login-url";
+    static final FallbackPredicate NO_PREDICATE = (path, request) -> false;
+    private final @Delegate AuthenticationFilterDelegate delegate;
+
+    private class Methods implements MethodsFromFilter {
 ```
 
 ### MissortedModifiers
@@ -2143,6 +2301,30 @@ public class Ini implements Map<String, Ini.Section> {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @Delegate`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/ShiroFilter.java`
+#### Snippet
+```java
+    @RequiredArgsConstructor
+    static class WrappedSecurityManager implements WebSecurityManager {
+        final @Delegate WebSecurityManager wrapped;
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `support/spring/src/main/java/org/apache/shiro/spring/ShiroEventBusBeanPostProcessor.java`
+#### Snippet
+```java
+public class ShiroEventBusBeanPostProcessor implements BeanPostProcessor {
+
+    final private EventBus eventBus;
+
+    public ShiroEventBusBeanPostProcessor(EventBus eventBus) {
+```
+
+### MissortedModifiers
 Missorted modifiers `final private`
 in `support/spring/src/main/java/org/apache/shiro/spring/web/config/DefaultShiroFilterChainDefinition.java`
 #### Snippet
@@ -2152,6 +2334,30 @@ public class DefaultShiroFilterChainDefinition implements ShiroFilterChainDefini
     final private Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
     public void addPathDefinition(String antPath, String definition) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/CommonsInterpolator.java`
+#### Snippet
+```java
+public class CommonsInterpolator implements Interpolator {
+
+    final private ConfigurationInterpolator interpolator;
+
+    public CommonsInterpolator() {
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Getter`
+in `integration-tests/jakarta-ee/src/main/java/org/apache/shiro/testing/jaxrs/TestApplication.java`
+#### Snippet
+```java
+@ApplicationScoped
+public class TestApplication extends Application {
+    private @Getter DefaultSecurityManager securityManager;
+
+    void configureSecurityManager(@Observes @Initialized(ApplicationScoped.class) Object nothing) {
 ```
 
 ### MissortedModifiers
@@ -2166,7 +2372,103 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     private SecurityManager securityManager;
 ```
 
-## RuleId[ruleID=ClassNameSameAsAncestorName]
+### MissortedModifiers
+Missorted modifiers `private final @Getter`
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AopHelper.java`
+#### Snippet
+```java
+    static class SecurityInterceptor {
+        private final AuthorizingAnnotationHandler handler;
+        private final @Getter Annotation annotation;
+
+        /**
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Delegate(types = AT.class)`
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AnnotatedTypeWrapper.java`
+#### Snippet
+```java
+    // the below is so the compiler doesn't complain about unchecked casts
+    private abstract class AT implements AnnotatedType<T> { }
+    private final @Delegate(types = AT.class) AnnotatedType<T> wrapped;
+    private final @Getter Set<Annotation> annotations;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Getter`
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AnnotatedTypeWrapper.java`
+#### Snippet
+```java
+    private abstract class AT implements AnnotatedType<T> { }
+    private final @Delegate(types = AT.class) AnnotatedType<T> wrapped;
+    private final @Getter Set<Annotation> annotations;
+
+
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
+#### Snippet
+```java
+    public static final String INI_REALM_NAME = "iniRealm";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniSecurityManagerFactory.class);
+
+    private ReflectionBuilder builder;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
+#### Snippet
+```java
+    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniFactorySupport.class);
+
+    private Ini ini;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `core/src/main/java/org/apache/shiro/realm/text/IniRealm.java`
+#### Snippet
+```java
+    public static final String ROLES_SECTION_NAME = "roles";
+
+    private static transient final Logger log = LoggerFactory.getLogger(IniRealm.class);
+
+    private String resourcePath;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient static final`
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+
+    //TODO - complete JavaDoc
+    private transient static final Logger log = LoggerFactory.getLogger(SimpleSession.class);
+
+    protected static final long MILLIS_PER_SECOND = 1000;
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
+#### Snippet
+```java
+     * @since 1.0
+     */
+    private static abstract class ExceptionIgnoringAccessor implements ClassLoaderAccessor {
+
+        public Class loadClass(String fqcn) {
+```
+
+## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `Builder` is the same as one of its superclass' names
 in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
@@ -2179,7 +2481,92 @@ in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
         /**
 ```
 
-## RuleId[ruleID=RedundantMethodOverride]
+### ClassNameSameAsAncestorName
+Class name `SslFilter` is the same as one of its superclass' names
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/SslFilter.java`
+#### Snippet
+```java
+ * depending on whether in Faces production mode or not
+ */
+public class SslFilter extends org.apache.shiro.web.filter.authz.SslFilter {
+    @Getter @Setter
+    private boolean enablePortFilter = true;
+```
+
+### ClassNameSameAsAncestorName
+Class name `PassThruAuthenticationFilter` is the same as one of its superclass' names
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/PassThruAuthenticationFilter.java`
+#### Snippet
+```java
+ */
+@Slf4j
+public class PassThruAuthenticationFilter extends org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter {
+    private final @Delegate AuthenticationFilterDelegate delegate;
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `LogoutFilter` is the same as one of its superclass' names
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/LogoutFilter.java`
+#### Snippet
+```java
+ * JSF Ajax support for logout
+ */
+public class LogoutFilter extends org.apache.shiro.web.filter.authc.LogoutFilter {
+    static final FallbackPredicate YES_PREDICATE = createPredicate();
+    static final String LOGOUT_PREDICATE_ATTR_NAME = "org.apache.shiro.ee.logout-predicate";
+```
+
+### ClassNameSameAsAncestorName
+Class name `FormAuthenticationFilter` is the same as one of its superclass' names
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormAuthenticationFilter.java`
+#### Snippet
+```java
+ * Implements form resubmit and auto remember-me functionality
+ */
+public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.FormAuthenticationFilter {
+    static final String LOGIN_PREDICATE_ATTR_NAME = "org.apache.shiro.ee.login-predicate";
+    static final String LOGIN_WAITTIME_ATTR_NAME = "org.apache.shiro.ee.login-wait-time";
+```
+
+### ClassNameSameAsAncestorName
+Class name `ShiroFilter` is the same as one of its superclass' names
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/ShiroFilter.java`
+#### Snippet
+```java
+            DispatcherType.INCLUDE, DispatcherType.REQUEST,
+            DispatcherType.ASYNC }, asyncSupported = true)
+public class ShiroFilter extends org.apache.shiro.web.servlet.ShiroFilter {
+    private static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
+    private static final Pattern HTTP_TO_HTTPS = Pattern.compile("^\\s*http(.*)");
+```
+
+## RuleId[id=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/model/Role.java`
+#### Snippet
+```java
+
+    @Basic(optional=false)
+    @Column(length=255)
+    public String getDescription() {
+        return description;
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/model/User.java`
+#### Snippet
+```java
+     */
+    @Basic(optional=false)
+    @Column(length=255)
+    public String getPassword() {
+        return password;
+```
+
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getDigest()` is identical to its super method
 in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
@@ -2204,32 +2591,57 @@ in `integration-tests/jaxrs/app/src/main/java/org/apache/shiro/testing/jaxrs/app
     }
 ```
 
-## RuleId[ruleID=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/model/User.java`
+## RuleId[id=RegExpDuplicateCharacterInClass]
+### RegExpDuplicateCharacterInClass
+Duplicate character '\|' inside character class
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
 #### Snippet
 ```java
-     */
-    @Basic(optional=false)
-    @Column(length=255)
-    public String getPassword() {
-        return password;
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/model/Role.java`
+## RuleId[id=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/BCryptProvider.java`
 #### Snippet
 ```java
+                    .map(obj -> (String) obj);
 
-    @Basic(optional=false)
-    @Column(length=255)
-    public String getDescription() {
-        return description;
+            if (!optCostStr.isPresent()) {
+                return BCryptHash.DEFAULT_COST;
+            }
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/BCryptProvider.java`
+#### Snippet
+```java
+                    .map(obj -> (String) obj);
+
+            if (!optSaltBase64.isPresent()) {
+                return BCryptHash.createSalt(random);
+            }
+```
+
+## RuleId[id=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/DefaultBlockCipherService.java`
+#### Snippet
+```java
+    @Override
+    protected boolean isGenerateInitializationVectors(boolean streaming) {
+        return streaming || super.isGenerateInitializationVectors() && isModeInitializationVectorCompatible(getModeName());
+    }
+
+```
+
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `web/src/main/java/org/apache/shiro/web/subject/WebSubject.java`
@@ -2256,6 +2668,30 @@ in `support/aspectj/src/main/java/org/apache/shiro/aspectj/AspectjAnnotationsAut
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/listeners/IniEnvironment.java`
+#### Snippet
+```java
+        if (configLocations.length == 2) {
+            otherConfigLocation = configLocations[1];
+            super.setConfigLocations(configLocations[0]);
+        } else {
+            super.setConfigLocations(configLocations);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/ShiroFilter.java`
+#### Snippet
+```java
+        super.init();
+        try {
+            addScopeSessionListeners(super.getSecurityManager());
+        } catch (Throwable e) {
+            log.warn("Unable to add scope session listeners", e);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
 #### Snippet
 ```java
@@ -2266,19 +2702,7 @@ in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/Ao
 }
 ```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/DefaultBlockCipherService.java`
-#### Snippet
-```java
-    @Override
-    protected boolean isGenerateInitializationVectors(boolean streaming) {
-        return streaming || super.isGenerateInitializationVectors() && isModeInitializationVectorCompatible(getModeName());
-    }
-
-```
-
-## RuleId[ruleID=SlowListContainsAll]
+## RuleId[id=SlowListContainsAll]
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
 in `web/src/main/java/org/apache/shiro/web/filter/mgt/SimpleNamedFilterList.java`
@@ -2291,7 +2715,7 @@ in `web/src/main/java/org/apache/shiro/web/filter/mgt/SimpleNamedFilterList.java
 
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import org.apache.shiro.crypto.hash.AbstractHash;`
 in `core/src/main/java/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.java`
@@ -2437,18 +2861,6 @@ import javax.servlet.http.HttpServletResponse;
 ```
 
 ### UNUSED_IMPORT
-Unused import `import javax.ws.rs.ext.Provider;`
-in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/AnnotationAuthorizationFilter.java`
-#### Snippet
-```java
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.ext.Provider;
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-```
-
-### UNUSED_IMPORT
 Unused import `import org.springframework.beans.factory.annotation.Autowired;`
 in `support/spring/src/main/java/org/apache/shiro/spring/config/AbstractShiroBeanConfiguration.java`
 #### Snippet
@@ -2484,7 +2896,7 @@ import org.springframework.context.annotation.DependsOn;
 import java.util.List;
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `word = word << 12` could be simplified to 'word \<\<= 12'
 in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/OpenBSDBase64.java`
@@ -2521,7 +2933,19 @@ in `lang/src/main/java/org/apache/shiro/lang/codec/Hex.java`
             out[i] = (byte) (f & 0xFF);
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        int bytesRead;
+        try {
+            while ((bytesRead = cis.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `core/src/main/java/org/apache/shiro/util/AntPathMatcher.java`
@@ -2570,19 +2994,55 @@ in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
             map.remove(sv.key); // we can access private data!
 ```
 
-### NestedAssignment
-Result of assignment expression used
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `destroyed` is accessed in both synchronized and unsynchronized contexts
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
 #### Snippet
 ```java
-        int bytesRead;
-        try {
-            while ((bytesRead = cis.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
+    private byte[] ciphertext;
+    private byte[] key;
+    private boolean destroyed = false;
+
+    public SimpleByteSourceBroker(JcaCipherService cipherService, byte[] ciphertext, byte[] key) {
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `key` is accessed in both synchronized and unsynchronized contexts
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
+#### Snippet
+```java
+    private JcaCipherService cipherService;
+    private byte[] ciphertext;
+    private byte[] key;
+    private boolean destroyed = false;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `ciphertext` is accessed in both synchronized and unsynchronized contexts
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
+#### Snippet
+```java
+public class SimpleByteSourceBroker implements ByteSourceBroker, Destroyable {
+    private JcaCipherService cipherService;
+    private byte[] ciphertext;
+    private byte[] key;
+    private boolean destroyed = false;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `cipherService` is accessed in both synchronized and unsynchronized contexts
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
+#### Snippet
+```java
+ */
+public class SimpleByteSourceBroker implements ByteSourceBroker, Destroyable {
+    private JcaCipherService cipherService;
+    private byte[] ciphertext;
+    private byte[] key;
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `_bankService` is accessed in both synchronized and unsynchronized contexts
 in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankServerRunner.java`
@@ -2619,55 +3079,7 @@ in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/Account.
     private final List<AccountTransaction> _transactions;
 ```
 
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `ciphertext` is accessed in both synchronized and unsynchronized contexts
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
-#### Snippet
-```java
-public class SimpleByteSourceBroker implements ByteSourceBroker, Destroyable {
-    private JcaCipherService cipherService;
-    private byte[] ciphertext;
-    private byte[] key;
-    private boolean destroyed = false;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `destroyed` is accessed in both synchronized and unsynchronized contexts
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
-#### Snippet
-```java
-    private byte[] ciphertext;
-    private byte[] key;
-    private boolean destroyed = false;
-
-    public SimpleByteSourceBroker(JcaCipherService cipherService, byte[] ciphertext, byte[] key) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `cipherService` is accessed in both synchronized and unsynchronized contexts
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
-#### Snippet
-```java
- */
-public class SimpleByteSourceBroker implements ByteSourceBroker, Destroyable {
-    private JcaCipherService cipherService;
-    private byte[] ciphertext;
-    private byte[] key;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `key` is accessed in both synchronized and unsynchronized contexts
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
-#### Snippet
-```java
-    private JcaCipherService cipherService;
-    private byte[] ciphertext;
-    private byte[] key;
-    private boolean destroyed = false;
-
-```
-
-## RuleId[ruleID=EmptyMethod]
+## RuleId[id=EmptyMethod]
 ### EmptyMethod
 The method is empty
 in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionManager.java`
@@ -2726,6 +3138,42 @@ in `integration-tests/jaxrs/tests/src/main/java/org/apache/shiro/testing/jaxrs/t
     public void logOut() {
     }
 
+```
+
+### EmptyMethod
+The method is empty
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/SecureComponent.java`
+#### Snippet
+```java
+    }
+
+    protected void verifyAttributes() throws IOException {
+    }
+
+```
+
+### EmptyMethod
+Method only calls its super
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormAuthenticationFilter.java`
+#### Snippet
+```java
+
+        @Override
+        public String getLoginUrl() {
+            return FormAuthenticationFilter.super.getLoginUrl();
+        }
+```
+
+### EmptyMethod
+Method only calls its super
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/PassThruAuthenticationFilter.java`
+#### Snippet
+```java
+
+        @Override
+        public String getLoginUrl() {
+            return PassThruAuthenticationFilter.super.getLoginUrl();
+        }
 ```
 
 ### EmptyMethod
@@ -3028,269 +3476,29 @@ in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
 
 ```
 
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/jndi/JndiLocator.java`
+Field initialization to `null` is redundant
+in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/BootstrapDataPopulator.java`
 #### Snippet
 ```java
-    public static final String CONTAINER_PREFIX = "java:comp/env/";
+    private static final Logger log = LoggerFactory.getLogger(BootstrapDataPopulator.class);
 
-    private boolean resourceRef = false;
+    protected DataSource dataSource = null;
 
-    private JndiTemplate jndiTemplate = new JndiTemplate();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/util/RegExPatternMatcher.java`
-#### Snippet
-```java
-    private static final int CASE_INSENSITIVE = DEFAULT | Pattern.CASE_INSENSITIVE;
-
-    private boolean caseInsensitive = false;
-
-    /**
+    public void setDataSource(DataSource dataSource) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/authc/UsernamePasswordToken.java`
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
 #### Snippet
 ```java
-     * default is <code>false</code>
-     */
-    private boolean rememberMe = false;
+    private byte[] ciphertext;
+    private byte[] key;
+    private boolean destroyed = false;
 
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/authz/SimpleRole.java`
-#### Snippet
-```java
-public class SimpleRole implements Serializable {
-
-    protected String name = null;
-    protected Set<Permission> permissions;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
-#### Snippet
-```java
-public class JndiRealmFactory extends JndiLocator implements RealmFactory {
-
-    Collection<String> jndiNames = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-     * Only then, "John.Doe" and also "John.Doe@example.com" can authorize against groups
-     */
-    protected String principalSuffix = null;
-
-    protected String searchBase = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-    protected String searchFilter = "(&(objectClass=*)(userPrincipalName={0}))";
-
-    private LdapContextFactory ldapContextFactory = null;
-
-    /*--------------------------------------------
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-    protected String url = null;
-
-    protected String systemUsername = null;
-
-    protected String systemPassword = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-    protected String principalSuffix = null;
-
-    protected String searchBase = null;
-
-    protected String url = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-    protected String searchBase = null;
-
-    protected String url = null;
-
-    protected String systemUsername = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
-#### Snippet
-```java
-    protected String systemUsername = null;
-
-    protected String systemPassword = null;
-
-    //SHIRO-115 - prevent potential code injection:
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
-#### Snippet
-```java
-    protected String permissionsQuery = DEFAULT_PERMISSIONS_QUERY;
-
-    protected boolean permissionsLookupEnabled = false;
-    
-    protected SaltStyle saltStyle = SaltStyle.NO_SALT;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/session/mgt/ExecutorServiceSessionValidationScheduler.java`
-#### Snippet
-```java
-    private ScheduledExecutorService service;
-    private long sessionValidationInterval = DefaultSessionManager.DEFAULT_SESSION_VALIDATION_INTERVAL;
-    private boolean enabled = false;
-    private String threadNamePrefix = "SessionValidationThread-";
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
-#### Snippet
-```java
-    //cached fields to avoid a server-side method call if out-of-process:
-    private Date startTimestamp = null;
-    private String host = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
-#### Snippet
-```java
-
-    //cached fields to avoid a server-side method call if out-of-process:
-    private Date startTimestamp = null;
-    private String host = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
-#### Snippet
-```java
-
-    protected ExecutorService scheduler = null;
-    protected boolean useXmlFormat = false;
-    protected String resourcePath = DEFAULT_RESOURCE_PATH;
-    protected long fileLastModified;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(PropertiesRealm.class);
-
-    protected ExecutorService scheduler = null;
-    protected boolean useXmlFormat = false;
-    protected String resourcePath = DEFAULT_RESOURCE_PATH;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-
-    //serialization bitmask fields. DO NOT CHANGE THE ORDER THEY ARE DECLARED!
-    static int bitIndexCounter = 0;
-    private static final int ID_BIT_MASK = 1 << bitIndexCounter++;
-    private static final int START_TIMESTAMP_BIT_MASK = 1 << bitIndexCounter++;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `support/guice/src/main/java/org/apache/shiro/guice/web/SimpleFilterChain.java`
-#### Snippet
-```java
-    private final Iterator<? extends Filter> chain;
-
-    private boolean originalCalled = false;
-
-    public SimpleFilterChain(FilterChain originalChain, Iterator<? extends Filter> chain) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
-#### Snippet
-```java
-    private Scheduler scheduler;
-
-    private boolean schedulerImplicitlyCreated = false;
-
-    private boolean enabled = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
-#### Snippet
-```java
-    private boolean schedulerImplicitlyCreated = false;
-
-    private boolean enabled = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
-#### Snippet
-```java
-public class SampleRealm extends AuthorizingRealm {
-
-    protected UserDAO userDAO = null;
-
-    public SampleRealm() {
+    public SimpleByteSourceBroker(JcaCipherService cipherService, byte[] ciphertext, byte[] key) {
 ```
 
 ### RedundantFieldInitialization
@@ -3355,14 +3563,14 @@ in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/tags/RoleTag.java`
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
 #### Snippet
 ```java
-    //TODO - complete JavaDoc
+public class SampleRealm extends AuthorizingRealm {
 
-    private String name = null;
+    protected UserDAO userDAO = null;
 
-    public RoleTag() {
+    public SampleRealm() {
 ```
 
 ### RedundantFieldInitialization
@@ -3375,6 +3583,18 @@ in `web/src/main/java/org/apache/shiro/web/tags/PermissionTag.java`
     private String name = null;
 
     public PermissionTag() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/tags/RoleTag.java`
+#### Snippet
+```java
+    //TODO - complete JavaDoc
+
+    private String name = null;
+
+    public RoleTag() {
 ```
 
 ### RedundantFieldInitialization
@@ -3415,6 +3635,18 @@ in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+    public static final Logger log = LoggerFactory.getLogger(HazelcastCacheManager.class);
+
+    private boolean implicitlyCreated = false;
+    private HazelcastInstance hazelcastInstance;
+    private Config config;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
 #### Snippet
 ```java
@@ -3438,15 +3670,15 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ServletContextSupport.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
+Field initialization to `false` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
 #### Snippet
 ```java
+     * or include request (JSP tags, programmatically, or via a framework).
+     */
+    private boolean filterOncePerRequest = false;
 
-    private class ObjectPrincipal implements java.security.Principal {
-        private Object object = null;
-
-        public ObjectPrincipal(Object object) {
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -3474,51 +3706,15 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * or include request (JSP tags, programmatically, or via a framework).
-     */
-    private boolean filterOncePerRequest = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
-#### Snippet
-```java
-            };
-
-    protected ServletContext servletContext = null;
-    protected HttpServletRequest currentRequest = null;
-    protected Session session = null; //'real' Shiro Session
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
 #### Snippet
 ```java
 
-    protected ServletContext servletContext = null;
-    protected HttpServletRequest currentRequest = null;
-    protected Session session = null; //'real' Shiro Session
+    private class ObjectPrincipal implements java.security.Principal {
+        private Object object = null;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
-#### Snippet
-```java
-    protected ServletContext servletContext = null;
-    protected HttpServletRequest currentRequest = null;
-    protected Session session = null; //'real' Shiro Session
-
-    public ShiroHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
+        public ObjectPrincipal(Object object) {
 ```
 
 ### RedundantFieldInitialization
@@ -3571,6 +3767,42 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+#### Snippet
+```java
+    protected ServletContext servletContext = null;
+    protected HttpServletRequest currentRequest = null;
+    protected Session session = null; //'real' Shiro Session
+
+    public ShiroHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+#### Snippet
+```java
+            };
+
+    protected ServletContext servletContext = null;
+    protected HttpServletRequest currentRequest = null;
+    protected Session session = null; //'real' Shiro Session
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+#### Snippet
+```java
+
+    protected ServletContext servletContext = null;
+    protected HttpServletRequest currentRequest = null;
+    protected Session session = null; //'real' Shiro Session
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.java`
 #### Snippet
 ```java
@@ -3582,15 +3814,15 @@ in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/BootstrapDataPopulator.java`
+Field initialization to `false` is redundant
+in `support/guice/src/main/java/org/apache/shiro/guice/web/SimpleFilterChain.java`
 #### Snippet
 ```java
-    private static final Logger log = LoggerFactory.getLogger(BootstrapDataPopulator.class);
+    private final Iterator<? extends Filter> chain;
 
-    protected DataSource dataSource = null;
+    private boolean originalCalled = false;
 
-    public void setDataSource(DataSource dataSource) {
+    public SimpleFilterChain(FilterChain originalChain, Iterator<? extends Filter> chain) {
 ```
 
 ### RedundantFieldInitialization
@@ -3607,26 +3839,38 @@ in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/Au
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
 #### Snippet
 ```java
-    public static final Logger log = LoggerFactory.getLogger(HazelcastCacheManager.class);
+     * it should be automatically cleaned up as well on shutdown.
+     */
+    private boolean cacheManagerImplicitlyCreated = false;
 
-    private boolean implicitlyCreated = false;
-    private HazelcastInstance hazelcastInstance;
-    private Config config;
+    @Override
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
 #### Snippet
 ```java
-    private byte[] ciphertext;
-    private byte[] key;
-    private boolean destroyed = false;
+    private Scheduler scheduler;
 
-    public SimpleByteSourceBroker(JcaCipherService cipherService, byte[] ciphertext, byte[] key) {
+    private boolean schedulerImplicitlyCreated = false;
+
+    private boolean enabled = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
+#### Snippet
+```java
+    private boolean schedulerImplicitlyCreated = false;
+
+    private boolean enabled = false;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -3641,19 +3885,223 @@ in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.
     /**
 ```
 
-## RuleId[ruleID=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/jndi/JndiLocator.java`
 #### Snippet
 ```java
- * @since 0.1
- */
-public class SimpleAccount implements Account, MergableAuthenticationInfo, SaltedAuthenticationInfo, Serializable {
+    public static final String CONTAINER_PREFIX = "java:comp/env/";
+
+    private boolean resourceRef = false;
+
+    private JndiTemplate jndiTemplate = new JndiTemplate();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/util/RegExPatternMatcher.java`
+#### Snippet
+```java
+    private static final int CASE_INSENSITIVE = DEFAULT | Pattern.CASE_INSENSITIVE;
+
+    private boolean caseInsensitive = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/authc/UsernamePasswordToken.java`
+#### Snippet
+```java
+     * default is <code>false</code>
+     */
+    private boolean rememberMe = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/authz/SimpleRole.java`
+#### Snippet
+```java
+public class SimpleRole implements Serializable {
+
+    protected String name = null;
+    protected Set<Permission> permissions;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+    protected String principalSuffix = null;
+
+    protected String searchBase = null;
+
+    protected String url = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+    protected String url = null;
+
+    protected String systemUsername = null;
+
+    protected String systemPassword = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+    protected String systemUsername = null;
+
+    protected String systemPassword = null;
+
+    //SHIRO-115 - prevent potential code injection:
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+     * Only then, "John.Doe" and also "John.Doe@example.com" can authorize against groups
+     */
+    protected String principalSuffix = null;
+
+    protected String searchBase = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+    protected String searchFilter = "(&(objectClass=*)(userPrincipalName={0}))";
+
+    private LdapContextFactory ldapContextFactory = null;
 
     /*--------------------------------------------
 ```
 
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
+#### Snippet
+```java
+    protected String searchBase = null;
+
+    protected String url = null;
+
+    protected String systemUsername = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+#### Snippet
+```java
+public class JndiRealmFactory extends JndiLocator implements RealmFactory {
+
+    Collection<String> jndiNames = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+    protected String permissionsQuery = DEFAULT_PERMISSIONS_QUERY;
+
+    protected boolean permissionsLookupEnabled = false;
+    
+    protected SaltStyle saltStyle = SaltStyle.NO_SALT;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
+#### Snippet
+```java
+
+    protected ExecutorService scheduler = null;
+    protected boolean useXmlFormat = false;
+    protected String resourcePath = DEFAULT_RESOURCE_PATH;
+    protected long fileLastModified;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(PropertiesRealm.class);
+
+    protected ExecutorService scheduler = null;
+    protected boolean useXmlFormat = false;
+    protected String resourcePath = DEFAULT_RESOURCE_PATH;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
+#### Snippet
+```java
+    //cached fields to avoid a server-side method call if out-of-process:
+    private Date startTimestamp = null;
+    private String host = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
+#### Snippet
+```java
+
+    //cached fields to avoid a server-side method call if out-of-process:
+    private Date startTimestamp = null;
+    private String host = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `core/src/main/java/org/apache/shiro/session/mgt/ExecutorServiceSessionValidationScheduler.java`
+#### Snippet
+```java
+    private ScheduledExecutorService service;
+    private long sessionValidationInterval = DefaultSessionManager.DEFAULT_SESSION_VALIDATION_INTERVAL;
+    private boolean enabled = false;
+    private String threadNamePrefix = "SessionValidationThread-";
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+
+    //serialization bitmask fields. DO NOT CHANGE THE ORDER THEY ARE DECLARED!
+    static int bitIndexCounter = 0;
+    private static final int ID_BIT_MASK = 1 << bitIndexCounter++;
+    private static final int START_TIMESTAMP_BIT_MASK = 1 << bitIndexCounter++;
+```
+
+## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Destroyable`
 in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
@@ -3664,6 +4112,18 @@ in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
 public class IniWebEnvironment extends ResourceBasedWebEnvironment implements Initializable, Destroyable {
 
     public static final String DEFAULT_WEB_INI_RESOURCE_PATH = "/WEB-INF/shiro.ini";
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
+#### Snippet
+```java
+ * @since 0.1
+ */
+public class SimpleAccount implements Account, MergableAuthenticationInfo, SaltedAuthenticationInfo, Serializable {
+
+    /*--------------------------------------------
 ```
 
 ### RedundantImplements
@@ -3678,7 +4138,19 @@ public abstract class AuthorizingRealm extends AuthenticatingRealm
     //TODO - complete JavaDoc
 ```
 
-## RuleId[ruleID=InstanceofCatchParameter]
+## RuleId[id=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+#### Snippet
+```java
+            onFilterConfigSet();
+        } catch (Exception e) {
+            if (e instanceof ServletException) {
+                throw (ServletException) e;
+            } else {
+```
+
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `t`
 in `core/src/main/java/org/apache/shiro/authc/AbstractAuthenticator.java`
@@ -3703,32 +4175,69 @@ in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionMan
                                 (expired ? " (expired)" : " (stopped)");
 ```
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+## RuleId[id=StringRepeatCanBeUsed]
+### StringRepeatCanBeUsed
+Can be replaced with 'String.repeat()'
+in `web/src/main/java/org/apache/shiro/web/mgt/CookieRememberMeManager.java`
 #### Snippet
 ```java
-            onFilterConfigSet();
-        } catch (Exception e) {
-            if (e instanceof ServletException) {
-                throw (ServletException) e;
-            } else {
+        if (length % 4 != 0) {
+            StringBuilder sb = new StringBuilder(base64);
+            for (int i = 0; i < length % 4; ++i) {
+                sb.append('=');
+            }
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
+## RuleId[id=NonFinalFieldOfException]
+### NonFinalFieldOfException
+Non-final field `host` of exception class
+in `core/src/main/java/org/apache/shiro/authz/HostUnauthorizedException.java`
 #### Snippet
 ```java
-    public void destroy() throws Exception {
-        if (!destroyed) {
-            synchronized (this) {
-                destroyed = true;
-                cipherService = null;
+public class HostUnauthorizedException extends UnauthorizedException {
+
+    private String host;
+
+    /**
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+### NonFinalFieldOfException
+Non-final field `permissionString` of exception class
+in `core/src/main/java/org/apache/shiro/authz/permission/InvalidPermissionStringException.java`
+#### Snippet
+```java
+{
+
+    private String permissionString;
+
+    /**
+```
+
+## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/OpenBSDBase64.java`
+#### Snippet
+```java
+            if (lastWordChars == 1) {
+                // We read 1 char followed by "===". But 6 bits is a truncated byte! Fail.
+                return new byte[0];
+            } else if (lastWordChars == 2) {
+                // We read 2 chars followed by "==". Emit 1 byte with 8 of those 12 bits.
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+        if (!filterChains.containsKey("/**")) {
+            // no config, this will add only the global filters
+            this.addFilterChain("/**", new FilterConfig[0]);
+        }
+
+```
+
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
@@ -3767,18 +4276,6 @@ in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `crypto/support/hashes/bcrypt/src/main/java/org/apache/shiro/crypto/support/hashes/bcrypt/OpenBSDBase64.java`
-#### Snippet
-```java
-            if (lastWordChars == 1) {
-                // We read 1 char followed by "===". But 6 bits is a truncated byte! Fail.
-                return new byte[0];
-            } else if (lastWordChars == 2) {
-                // We read 2 chars followed by "==". Emit 1 byte with 8 of those 12 bits.
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `lang/src/main/java/org/apache/shiro/lang/util/SimpleByteSource.java`
 #### Snippet
 ```java
@@ -3813,64 +4310,53 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
         return result;
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+## RuleId[id=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/SimpleByteSourceBroker.java`
 #### Snippet
 ```java
-        if (!filterChains.containsKey("/**")) {
-            // no config, this will add only the global filters
-            this.addFilterChain("/**", new FilterConfig[0]);
-        }
-
+    public void destroy() throws Exception {
+        if (!destroyed) {
+            synchronized (this) {
+                destroyed = true;
+                cipherService = null;
 ```
 
-## RuleId[ruleID=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `host` of exception class
-in `core/src/main/java/org/apache/shiro/authz/HostUnauthorizedException.java`
-#### Snippet
-```java
-public class HostUnauthorizedException extends UnauthorizedException {
-
-    private String host;
-
-    /**
-```
-
-### NonFinalFieldOfException
-Non-final field `permissionString` of exception class
-in `core/src/main/java/org/apache/shiro/authz/permission/InvalidPermissionStringException.java`
-#### Snippet
-```java
-{
-
-    private String permissionString;
-
-    /**
-```
-
-## RuleId[ruleID=UnusedAssignment]
-### UnusedAssignment
-Variable `roleNames` initializer `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
 #### Snippet
 ```java
 
-        Connection conn = null;
-        Set<String> roleNames = null;
-        Set<String> permissions = null;
-        try {
+        if (cache == null) {
+            synchronized (this) {
+                cache = ensureCacheManager().getCache(name);
+                if (cache == null) {
 ```
 
+## RuleId[id=CastConflictsWithInstanceof]
+### CastConflictsWithInstanceof
+Cast to 'DefaultWebSecurityManager' type conflicts with preceding 'instanceof DefaultSecurityManager' check
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/ShiroFilter.java`
+#### Snippet
+```java
+            if (context instanceof WebSubjectContext && wrapped instanceof DefaultSecurityManager) {
+                WebSubjectContext webContext = (WebSubjectContext) context;
+                DefaultWebSecurityManager wsm = (DefaultWebSecurityManager) wrapped;
+                Session session = null;
+                try {
+```
+
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `info` initializer `null` is redundant
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/realm/SaltAwareJdbcRealm.java`
 #### Snippet
 ```java
 
         Connection conn = null;
-        SimpleAuthenticationInfo info = null;
+        AuthenticationInfo info = null;
         try {
             conn = dataSource.getConnection();
 ```
@@ -3900,18 +4386,6 @@ in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/DefaultHashFor
 ```
 
 ### UnusedAssignment
-Variable `object` initializer `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
-#### Snippet
-```java
-
-    private class ObjectPrincipal implements java.security.Principal {
-        private Object object = null;
-
-        public ObjectPrincipal(Object object) {
-```
-
-### UnusedAssignment
 Variable `httpSessions` initializer `true` is redundant
 in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
 #### Snippet
@@ -3936,6 +4410,18 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
 ```
 
 ### UnusedAssignment
+Variable `object` initializer `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
+#### Snippet
+```java
+
+    private class ObjectPrincipal implements java.security.Principal {
+        private Object object = null;
+
+        public ObjectPrincipal(Object object) {
+```
+
+### UnusedAssignment
 Variable `index` initializer `0` is redundant
 in `web/src/main/java/org/apache/shiro/web/servlet/ProxiedFilterChain.java`
 #### Snippet
@@ -3945,6 +4431,30 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ProxiedFilterChain.java`
     private int index = 0;
 
     public ProxiedFilterChain(FilterChain orig, List<Filter> filters) {
+```
+
+### UnusedAssignment
+Variable `httpSession` initializer `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/session/HttpServletSession.java`
+#### Snippet
+```java
+    private static final String TOUCH_OBJECT_SESSION_KEY = HttpServletSession.class.getName() + ".TOUCH_OBJECT_SESSION_KEY";
+
+    private HttpSession httpSession = null;
+
+    public HttpServletSession(HttpSession httpSession, String host) {
+```
+
+### UnusedAssignment
+Variable `session` initializer `null` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
+#### Snippet
+```java
+    protected ServletContext servletContext = null;
+    protected HttpServletRequest currentRequest = null;
+    protected Session session = null; //'real' Shiro Session
+
+    public ShiroHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
 ```
 
 ### UnusedAssignment
@@ -3972,30 +4482,6 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
 ```
 
 ### UnusedAssignment
-Variable `session` initializer `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
-#### Snippet
-```java
-    protected ServletContext servletContext = null;
-    protected HttpServletRequest currentRequest = null;
-    protected Session session = null; //'real' Shiro Session
-
-    public ShiroHttpSession(Session session, HttpServletRequest currentRequest, ServletContext servletContext) {
-```
-
-### UnusedAssignment
-Variable `httpSession` initializer `null` is redundant
-in `web/src/main/java/org/apache/shiro/web/session/HttpServletSession.java`
-#### Snippet
-```java
-    private static final String TOUCH_OBJECT_SESSION_KEY = HttpServletSession.class.getName() + ".TOUCH_OBJECT_SESSION_KEY";
-
-    private HttpSession httpSession = null;
-
-    public HttpServletSession(HttpSession httpSession, String host) {
-```
-
-### UnusedAssignment
 Variable `request` initializer `null` is redundant
 in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java`
 #### Snippet
@@ -4020,18 +4506,6 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java
 ```
 
 ### UnusedAssignment
-Variable `account` initializer `null` is redundant
-in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/SecureBankService.java`
-#### Snippet
-```java
-     */
-    protected Account safelyRetrieveAccountForId(long anAccountId) throws AccountNotFoundException {
-        Account account = null;
-        synchronized (_accounts) {
-            account = _accountsById.get(anAccountId);
-```
-
-### UnusedAssignment
 Variable `object` initializer `null` is redundant
 in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.java`
 #### Snippet
@@ -4044,15 +4518,15 @@ in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.
 ```
 
 ### UnusedAssignment
-Variable `info` initializer `null` is redundant
-in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/realm/SaltAwareJdbcRealm.java`
+Variable `value` initializer `null` is redundant
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/PrincipalTag.java`
 #### Snippet
 ```java
-
-        Connection conn = null;
-        AuthenticationInfo info = null;
-        try {
-            conn = dataSource.getConnection();
+            for (PropertyDescriptor pd : bi.getPropertyDescriptors()) {
+                if (pd.getName().equals(property) && (Modifier.isPublic(pd.getReadMethod().getModifiers()))) {
+                    Object value = null;
+                    try {
+                        pd.getReadMethod().setAccessible(true);
 ```
 
 ### UnusedAssignment
@@ -4079,7 +4553,43 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
                 Map map = (Map)getProperty(object, mapPropertyPath);
 ```
 
-## RuleId[ruleID=IndexOfReplaceableByContains]
+### UnusedAssignment
+Variable `info` initializer `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+
+        Connection conn = null;
+        SimpleAuthenticationInfo info = null;
+        try {
+            conn = dataSource.getConnection();
+```
+
+### UnusedAssignment
+Variable `roleNames` initializer `null` is redundant
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+
+        Connection conn = null;
+        Set<String> roleNames = null;
+        Set<String> permissions = null;
+        try {
+```
+
+### UnusedAssignment
+Variable `account` initializer `null` is redundant
+in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/SecureBankService.java`
+#### Snippet
+```java
+     */
+    protected Account safelyRetrieveAccountForId(long anAccountId) throws AccountNotFoundException {
+        Account account = null;
+        synchronized (_accounts) {
+            account = _accountsById.get(anAccountId);
+```
+
+## RuleId[id=IndexOfReplaceableByContains]
 ### IndexOfReplaceableByContains
 `textToSearch.indexOf(substring) != -1` can be replaced with 'textToSearch.contains(substring)'
 in `lang/src/main/java/org/apache/shiro/lang/util/Assert.java`
@@ -4092,79 +4602,7 @@ in `lang/src/main/java/org/apache/shiro/lang/util/Assert.java`
         }
 ```
 
-## RuleId[ruleID=ConstantValue]
-### ConstantValue
-Condition `realms.isEmpty()` is always `false`
-in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return realms.isEmpty() ? null : realms;
-    }
-}
-```
-
-### ConstantValue
-Value `expired` is always 'true'
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-        }
-        if (expired) {
-            out.writeBoolean(expired);
-        }
-        if (host != null) {
-```
-
-### ConstantValue
-Condition `stack != null` is always `true`
-in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
-#### Snippet
-```java
-            } else {
-                //always get the one behind the current:
-                assert stack != null;
-                previousPrincipals = stack.get(1);
-            }
-```
-
-### ConstantValue
-Condition `methods != null` is always `true`
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-
-            List<Method> methods = ClassUtils.getAnnotatedMethods(typeLiteral.getRawType(), Subscribe.class);
-            if (methods != null && !methods.isEmpty()) {
-                typeEncounter.register( new InjectionListener<I>() {
-                    @Override
-```
-
-### ConstantValue
-Condition `a.equals(b)` is always `false` when reached
-in `event/src/main/java/org/apache/shiro/event/support/EventClassComparator.java`
-#### Snippet
-```java
-        } else if (b == null) {
-            return 1;
-        } else if (a == b || a.equals(b)) {
-            return 0;
-        } else {
-```
-
-### ConstantValue
-Condition `methods == null` is always `false`
-in `event/src/main/java/org/apache/shiro/event/support/AnnotationEventListenerResolver.java`
-#### Snippet
-```java
-
-        List<Method> methods = ClassUtils.getAnnotatedMethods(instance.getClass(), getAnnotationClass());
-        if (methods == null || methods.isEmpty()) {
-            return Collections.emptyList();
-        }
-```
-
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `environment instanceof ResourceConfigurable` is always `true` when reached
 in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
@@ -4175,18 +4613,6 @@ in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
         if (configSpecified && (environment instanceof ResourceConfigurable)) {
             ((ResourceConfigurable) environment).setConfigLocations(configLocations);
         }
-```
-
-### ConstantValue
-Condition `values != null` is always `true`
-in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
-#### Snippet
-```java
-        processQueue();
-        Collection values = values();
-        return values != null && values.contains(value);
-    }
-
 ```
 
 ### ConstantValue
@@ -4250,6 +4676,30 @@ in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
 ```
 
 ### ConstantValue
+Condition `a.equals(b)` is always `false` when reached
+in `event/src/main/java/org/apache/shiro/event/support/EventClassComparator.java`
+#### Snippet
+```java
+        } else if (b == null) {
+            return 1;
+        } else if (a == b || a.equals(b)) {
+            return 0;
+        } else {
+```
+
+### ConstantValue
+Condition `methods == null` is always `false`
+in `event/src/main/java/org/apache/shiro/event/support/AnnotationEventListenerResolver.java`
+#### Snippet
+```java
+
+        List<Method> methods = ClassUtils.getAnnotatedMethods(instance.getClass(), getAnnotationClass());
+        if (methods == null || methods.isEmpty()) {
+            return Collections.emptyList();
+        }
+```
+
+### ConstantValue
 Condition `props != null` is always `true`
 in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
 #### Snippet
@@ -4259,6 +4709,54 @@ in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
             if ( props != null ) {
                 this.props = props;
             } else {
+```
+
+### ConstantValue
+Condition `methods != null` is always `true`
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+
+            List<Method> methods = ClassUtils.getAnnotatedMethods(typeLiteral.getRawType(), Subscribe.class);
+            if (methods != null && !methods.isEmpty()) {
+                typeEncounter.register( new InjectionListener<I>() {
+                    @Override
+```
+
+### ConstantValue
+Value `savedFormData` is always 'null'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+                    var cachedData = Optional.ofNullable((byte[]) cache.get(cacheKey));
+                    savedFormData = cachedData.map(encryptedData ->
+                            decrypt(encryptedData, rememberMeManager)).orElse(savedFormData);
+                } else {
+                    savedFormData = (String) cache.get(cacheKey);
+```
+
+### ConstantValue
+Value `rememberedAjaxResubmit` is always 'true'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+            log.debug("Redirect request: {}, response: {}", redirectRequest, redirectResponse);
+            return processResubmitResponse(redirectResponse, originalRequest, originalResponse,
+                    response.headers(), savedRequest, servletContext, true, rememberedAjaxResubmit);
+        } else {
+            deleteCookie(originalResponse, servletContext, SHIRO_FORM_DATA_KEY);
+```
+
+### ConstantValue
+Value `rememberedAjaxResubmit` is always 'false'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+            return processResubmitResponse(response, originalRequest, originalResponse,
+                    response.headers(), savedRequest, servletContext,
+                    decodedFormData.isPartialAjaxRequest, rememberedAjaxResubmit);
+        }
+    }
 ```
 
 ### ConstantValue
@@ -4273,7 +4771,67 @@ in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/Au
                 m = targetClass.getMethod(m.getName(), m.getParameterTypes());
 ```
 
-## RuleId[ruleID=IOResource]
+### ConstantValue
+Condition `realms.isEmpty()` is always `false`
+in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+#### Snippet
+```java
+            }
+        }
+        return realms.isEmpty() ? null : realms;
+    }
+}
+```
+
+### ConstantValue
+Value `expired` is always 'true'
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+        }
+        if (expired) {
+            out.writeBoolean(expired);
+        }
+        if (host != null) {
+```
+
+### ConstantValue
+Condition `values != null` is always `true`
+in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
+#### Snippet
+```java
+        processQueue();
+        Collection values = values();
+        return values != null && values.contains(value);
+    }
+
+```
+
+### ConstantValue
+Condition `stack != null` is always `true`
+in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
+#### Snippet
+```java
+            } else {
+                //always get the one behind the current:
+                assert stack != null;
+                previousPrincipals = stack.get(1);
+            }
+```
+
+## RuleId[id=IOResource]
+### IOResource
+'CipherInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        javax.crypto.Cipher cipher = initNewCipher(cryptMode, keyBytes, iv, true);
+
+        CipherInputStream cis = new CipherInputStream(in, cipher);
+
+        int bufSize = getStreamingBufferSize();
+```
+
 ### IOResource
 'AnnotationConfigApplicationContext' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `samples/spring/src/main/java/org/apache/shiro/samples/spring/CliApp.java`
@@ -4298,31 +4856,7 @@ in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
                 line = StringUtils.clean(scanner.nextLine());
 ```
 
-### IOResource
-'CipherInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        javax.crypto.Cipher cipher = initNewCipher(cryptMode, keyBytes, iv, true);
-
-        CipherInputStream cis = new CipherInputStream(in, cipher);
-
-        int bufSize = getStreamingBufferSize();
-```
-
-## RuleId[ruleID=RedundantLengthCheck]
-### RedundantLengthCheck
-Redundant array length check
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    public void checkPermissions(PrincipalCollection principals, String... permissions) throws AuthorizationException {
-        assertRealmsConfigured();
-        if (permissions != null && permissions.length > 0) {
-            for (String perm : permissions) {
-                checkPermission(principals, perm);
-```
-
+## RuleId[id=RedundantLengthCheck]
 ### RedundantLengthCheck
 Redundant array length check
 in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
@@ -4335,7 +4869,127 @@ in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
                 if (!isPermitted(principals, perm)) {
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### RedundantLengthCheck
+Redundant array length check
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    public void checkPermissions(PrincipalCollection principals, String... permissions) throws AuthorizationException {
+        assertRealmsConfigured();
+        if (permissions != null && permissions.length > 0) {
+            for (String perm : permissions) {
+                checkPermission(principals, perm);
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `WebUtils` has only 'static' members, and lacks a 'private' constructor
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+ * @since 0.9
+ */
+public class WebUtils {
+
+    //TODO - complete JavaDoc
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Quickstart` has only 'static' members, and lacks a 'private' constructor
+in `samples/quickstart/src/main/java/Quickstart.java`
+#### Snippet
+```java
+ * @since 0.9 RC2
+ */
+public class Quickstart {
+
+    private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `QuickstartGuice` has only 'static' members, and lacks a 'private' constructor
+in `samples/quickstart-guice/src/main/java/QuickstartGuice.java`
+#### Snippet
+```java
+ * @since 0.9 RC2
+ */
+public class QuickstartGuice {
+
+    private static final transient Logger log = LoggerFactory.getLogger(QuickstartGuice.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShiroMatchers` has only 'static' members, and lacks a 'private' constructor
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroMatchers.java`
+#### Snippet
+```java
+import com.google.inject.matcher.Matcher;
+
+class ShiroMatchers {
+    public static Matcher<Class> ANY_PACKAGE = new AbstractMatcher<Class>() {
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HttpMethod` has only 'static' members, and lacks a 'private' constructor
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+    private static final String FORM_DATA_CACHE = "org.apache.form-data-cache";
+
+    static class HttpMethod {
+        static final String GET = "GET";
+        static final String POST = "POST";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HttpResponseCodes` has only 'static' members, and lacks a 'private' constructor
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+    }
+
+    static class HttpResponseCodes {
+        static final int OK = 200;
+        static final int FOUND = 302;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MediaType` has only 'static' members, and lacks a 'private' constructor
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+    }
+
+    static class MediaType {
+        static final String APPLICATION_FORM_URLENCODED = "application/x-www-form-urlencoded";
+        static final String TEXT_XML = "text/xml";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HttpHeaderContstants` has only 'static' members, and lacks a 'private' constructor
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+    }
+
+    static class HttpHeaderContstants {
+        static final String CONTENT_TYPE = "Content-Type";
+        static final String LOCATION = "Location";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ShiroComponentProducer` has only 'static' members, and lacks a 'private' constructor
+in `support/cdi/src/main/java/org/apache/shiro/cdi/ShiroComponentProducer.java`
+#### Snippet
+```java
+@Dependent
+@Slf4j
+public class ShiroComponentProducer {
+    @Produces
+    public static SecurityManager getSecurityManager() {
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
 in `core/src/main/java/org/apache/shiro/util/CollectionUtils.java`
@@ -4373,30 +5027,6 @@ public final class LdapUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ShiroMatchers` has only 'static' members, and lacks a 'private' constructor
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroMatchers.java`
-#### Snippet
-```java
-import com.google.inject.matcher.Matcher;
-
-class ShiroMatchers {
-    public static Matcher<Class> ANY_PACKAGE = new AbstractMatcher<Class>() {
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Quickstart` has only 'static' members, and lacks a 'private' constructor
-in `samples/quickstart/src/main/java/Quickstart.java`
-#### Snippet
-```java
- * @since 0.9 RC2
- */
-public class Quickstart {
-
-    private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Util` has only 'static' members, and lacks a 'private' constructor
 in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
 #### Snippet
@@ -4409,18 +5039,6 @@ in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `H64` has only 'static' members, and lacks a 'private' constructor
-in `lang/src/main/java/org/apache/shiro/lang/codec/H64.java`
-#### Snippet
-```java
- * @since 1.2
- */
-public class H64 {
-
-    private static final char[] itoa64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Base64` has only 'static' members, and lacks a 'private' constructor
 in `lang/src/main/java/org/apache/shiro/lang/codec/Base64.java`
 #### Snippet
@@ -4428,18 +5046,6 @@ in `lang/src/main/java/org/apache/shiro/lang/codec/Base64.java`
  * @since 0.9
  */
 public class Base64 {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Hex` has only 'static' members, and lacks a 'private' constructor
-in `lang/src/main/java/org/apache/shiro/lang/codec/Hex.java`
-#### Snippet
-```java
- * @since 0.9
- */
-public class Hex {
 
     /**
 ```
@@ -4457,6 +5063,30 @@ public class ClassUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `H64` has only 'static' members, and lacks a 'private' constructor
+in `lang/src/main/java/org/apache/shiro/lang/codec/H64.java`
+#### Snippet
+```java
+ * @since 1.2
+ */
+public class H64 {
+
+    private static final char[] itoa64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Hex` has only 'static' members, and lacks a 'private' constructor
+in `lang/src/main/java/org/apache/shiro/lang/codec/Hex.java`
+#### Snippet
+```java
+ * @since 0.9
+ */
+public class Hex {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
 in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 #### Snippet
@@ -4468,52 +5098,77 @@ public class StringUtils {
     //TODO - complete JavaDoc
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `WebUtils` has only 'static' members, and lacks a 'private' constructor
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/PassThruAuthenticationFilter.java`
 #### Snippet
 ```java
- * @since 0.9
- */
-public class WebUtils {
+            return PassThruAuthenticationFilter.super.preHandle(request, response);
+        }
+    };
 
-    //TODO - complete JavaDoc
+    public PassThruAuthenticationFilter() {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `QuickstartGuice` has only 'static' members, and lacks a 'private' constructor
-in `samples/quickstart-guice/src/main/java/QuickstartGuice.java`
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormAuthenticationFilter.java`
 #### Snippet
 ```java
- * @since 0.9 RC2
- */
-public class QuickstartGuice {
+            return FormAuthenticationFilter.super.preHandle(request, response);
+        }
+    };
 
-    private static final transient Logger log = LoggerFactory.getLogger(QuickstartGuice.class);
+    public FormAuthenticationFilter() {
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `support/cdi/src/main/java/org/apache/shiro/cdi/ShiroSecurityExtension.java`
+#### Snippet
+```java
+public class ShiroSecurityExtension implements Extension {
+    @ShiroSecureAnnotation
+    public static class ShiroSecureAnnotated { };
+
+    public <T> void addSecurity(@Observes @WithAnnotations({
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * Cipher to use for encrypting/decrypting serialized byte arrays for added security
+     */
+    private CipherService cipherService = new AesCipherService();;
+
+    /**
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+     *       to get the salt</li></ul>
+     */
+    public enum SaltStyle {NO_SALT, CRYPT, COLUMN, EXTERNAL};
+
+    /*--------------------------------------------
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `permStrings` might be null
-in `core/src/main/java/org/apache/shiro/util/PermissionUtils.java`
+Passing `null` argument to parameter annotated as @NotNull
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
 #### Snippet
 ```java
-    public static Set<Permission> resolveDelimitedPermissions(String s, PermissionResolver permissionResolver) {
-        Set<String> permStrings = toPermissionStrings(s);
-        return resolvePermissions(permStrings, permissionResolver);
+    @Override
+    protected byte[] hash(byte[] bytes) throws UnknownAlgorithmException {
+        return hash(bytes, null, DEFAULT_ITERATIONS);
     }
-
-```
-
-### DataFlowIssue
-Method invocation `openStream` may produce `NullPointerException`
-in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
-#### Snippet
-```java
-            Path outKeyStoreFile = File.createTempFile("test-keystore", "jks").toPath();
-            URL keyStoreResource = Thread.currentThread().getContextClassLoader().getResource("test-keystore.jks");
-            Files.copy(keyStoreResource.openStream(), outKeyStoreFile, StandardCopyOption.REPLACE_EXISTING);
-            File keyStoreFile = outKeyStoreFile.toFile();
 
 ```
 
@@ -4530,39 +5185,15 @@ in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/Abstrac
 ```
 
 ### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+Method invocation `openStream` may produce `NullPointerException`
+in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
 #### Snippet
 ```java
-    @Override
-    protected byte[] hash(byte[] bytes) throws UnknownAlgorithmException {
-        return hash(bytes, null, DEFAULT_ITERATIONS);
-    }
+            Path outKeyStoreFile = File.createTempFile("test-keystore", "jks").toPath();
+            URL keyStoreResource = Thread.currentThread().getContextClassLoader().getResource("test-keystore.jks");
+            Files.copy(keyStoreResource.openStream(), outKeyStoreFile, StandardCopyOption.REPLACE_EXISTING);
+            File keyStoreFile = outKeyStoreFile.toFile();
 
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `lang/src/main/java/org/apache/shiro/lang/io/ResourceUtils.java`
-#### Snippet
-```java
-            exists = true;
-        } catch (IOException e) {
-            stream = null;
-        } finally {
-            if (stream != null) {
-```
-
-### DataFlowIssue
-Method invocation `getSession` may produce `NullPointerException`
-in `web/src/main/java/org/apache/shiro/web/session/mgt/ServletContainerSessionManager.java`
-#### Snippet
-```java
-        Session session = null;
-
-        HttpSession httpSession = request.getSession(false);
-        if (httpSession != null) {
-            session = createSession(httpSession, request.getRemoteHost());
 ```
 
 ### DataFlowIssue
@@ -4575,6 +5206,18 @@ in `web/src/main/java/org/apache/shiro/web/session/mgt/ServletContainerSessionMa
         HttpSession httpSession = request.getSession();
 
         //SHIRO-240: DO NOT use the 'globalSessionTimeout' value here on the acquired session.
+```
+
+### DataFlowIssue
+Method invocation `getSession` may produce `NullPointerException`
+in `web/src/main/java/org/apache/shiro/web/session/mgt/ServletContainerSessionManager.java`
+#### Snippet
+```java
+        Session session = null;
+
+        HttpSession httpSession = request.getSession(false);
+        if (httpSession != null) {
+            session = createSession(httpSession, request.getRemoteHost());
 ```
 
 ### DataFlowIssue
@@ -4601,20 +5244,43 @@ in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
 
 ```
 
-## RuleId[ruleID=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+### DataFlowIssue
+Method invocation `attr` may produce `NullPointerException`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
 #### Snippet
 ```java
-     *       to get the salt</li></ul>
-     */
-    public enum SaltStyle {NO_SALT, CRYPT, COLUMN, EXTERNAL};
+        Elements elts = Jsoup.parse(responseBody).select(String.format("input[name=%s]", FACES_VIEW_STATE));
+        if (!elts.isEmpty()) {
+            String viewState = elts.first().attr("value");
 
-    /*--------------------------------------------
+            var matcher = VIEW_STATE_PATTERN.matcher(savedFormData);
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
+### DataFlowIssue
+Argument `permStrings` might be null
+in `core/src/main/java/org/apache/shiro/util/PermissionUtils.java`
+#### Snippet
+```java
+    public static Set<Permission> resolveDelimitedPermissions(String s, PermissionResolver permissionResolver) {
+        Set<String> permStrings = toPermissionStrings(s);
+        return resolvePermissions(permStrings, permissionResolver);
+    }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `lang/src/main/java/org/apache/shiro/lang/io/ResourceUtils.java`
+#### Snippet
+```java
+            exists = true;
+        } catch (IOException e) {
+            stream = null;
+        } finally {
+            if (stream != null) {
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `web/src/main/java/org/apache/shiro/web/filter/mgt/DefaultFilterChainManager.java`
@@ -4639,19 +5305,7 @@ in `web/src/main/java/org/apache/shiro/web/filter/mgt/DefaultFilterChainManager.
 
 ```
 
-## RuleId[ruleID=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
-#### Snippet
-```java
-
-    protected String getName(String key, String prefix) {
-        return key.substring(prefix.length(), key.length());
-    }
-
-```
-
+## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
@@ -4664,91 +5318,19 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
             if (GLOBAL_PROPERTY_PREFIX.equalsIgnoreCase(name)) {
 ```
 
-## RuleId[ruleID=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'IniFactorySupport' is still used
-in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public abstract class IniFactorySupport<T> extends AbstractFactory<T> {
 
-    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Sha256CredentialsMatcher' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.java`
-#### Snippet
-```java
- *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
- */
-public class Sha256CredentialsMatcher extends HashedCredentialsMatcher {
-
-    public Sha256CredentialsMatcher() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Sha512CredentialsMatcher' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/Sha512CredentialsMatcher.java`
-#### Snippet
-```java
- *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
- */
-public class Sha512CredentialsMatcher extends HashedCredentialsMatcher {
-
-    public Sha512CredentialsMatcher() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'Sha384CredentialsMatcher' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/Sha384CredentialsMatcher.java`
-#### Snippet
-```java
- *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
- */
-public class Sha384CredentialsMatcher extends HashedCredentialsMatcher {
-
-    public Sha384CredentialsMatcher() {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setHashSalted' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void setHashSalted(boolean hashSalted) {
-        this.hashSalted = hashSalted;
+    protected String getName(String key, String prefix) {
+        return key.substring(prefix.length(), key.length());
     }
+
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'isHashSalted' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean isHashSalted() {
-        return hashSalted;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getSalt' is still used
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected Object getSalt(AuthenticationToken token) {
-        return token.getPrincipal();
-    }
-```
-
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'HexFormat' is still used
 in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/HexFormat.java`
@@ -4774,27 +5356,27 @@ public class Base64Format implements HashFormat {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setSessionMode' is still used
-in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSecurityManager.java`
+Deprecated member 'WebIniSecurityManagerFactory' is still used
+in `web/src/main/java/org/apache/shiro/web/config/WebIniSecurityManagerFactory.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class WebIniSecurityManagerFactory extends IniSecurityManagerFactory {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getRequestUri' is still used
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setSessionMode(String sessionMode) {
-        log.warn("The 'sessionMode' property has been deprecated.  Please configure an appropriate WebSessionManager " +
-                "instance instead of using this property.  This property/method will be removed in a later version.");
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'NATIVE_SESSION_MODE' is still used
-in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSecurityManager.java`
-#### Snippet
-```java
-    public static final String HTTP_SESSION_MODE = "http";
-    @Deprecated
-    public static final String NATIVE_SESSION_MODE = "native";
-
-    /**
+    public static String getRequestUri(HttpServletRequest request) {
+        String uri = (String) request.getAttribute(INCLUDE_REQUEST_URI_ATTRIBUTE);
+        if (uri == null) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -4822,27 +5404,27 @@ in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSecurityManager.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getRequestUri' is still used
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+Deprecated member 'setSessionMode' is still used
+in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSecurityManager.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String getRequestUri(HttpServletRequest request) {
-        String uri = (String) request.getAttribute(INCLUDE_REQUEST_URI_ATTRIBUTE);
-        if (uri == null) {
+    public void setSessionMode(String sessionMode) {
+        log.warn("The 'sessionMode' property has been deprecated.  Please configure an appropriate WebSessionManager " +
+                "instance instead of using this property.  This property/method will be removed in a later version.");
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'shouldNotFilter' is still used
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+Deprecated member 'NATIVE_SESSION_MODE' is still used
+in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSecurityManager.java`
 #### Snippet
 ```java
+    public static final String HTTP_SESSION_MODE = "http";
     @Deprecated
-    @SuppressWarnings({"UnusedDeclaration"})
-    protected boolean shouldNotFilter(ServletRequest request) throws ServletException {
-        return false;
-    }
+    public static final String NATIVE_SESSION_MODE = "native";
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -4858,27 +5440,99 @@ public class IniShiroFilter extends AbstractShiroFilter {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'WebIniSecurityManagerFactory' is still used
-in `web/src/main/java/org/apache/shiro/web/config/WebIniSecurityManagerFactory.java`
+Deprecated member 'shouldNotFilter' is still used
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+    @Deprecated
+    @SuppressWarnings({"UnusedDeclaration"})
+    protected boolean shouldNotFilter(ServletRequest request) throws ServletException {
+        return false;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Sha512CredentialsMatcher' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/Sha512CredentialsMatcher.java`
+#### Snippet
+```java
+ *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
+ */
+public class Sha512CredentialsMatcher extends HashedCredentialsMatcher {
+
+    public Sha512CredentialsMatcher() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Sha384CredentialsMatcher' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/Sha384CredentialsMatcher.java`
+#### Snippet
+```java
+ *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
+ */
+public class Sha384CredentialsMatcher extends HashedCredentialsMatcher {
+
+    public Sha384CredentialsMatcher() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSalt' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    protected Object getSalt(AuthenticationToken token) {
+        return token.getPrincipal();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isHashSalted' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public boolean isHashSalted() {
+        return hashSalted;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setHashSalted' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void setHashSalted(boolean hashSalted) {
+        this.hashSalted = hashSalted;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Sha256CredentialsMatcher' is still used
+in `core/src/main/java/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.java`
+#### Snippet
+```java
+ *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
+ */
+public class Sha256CredentialsMatcher extends HashedCredentialsMatcher {
+
+    public Sha256CredentialsMatcher() {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'IniFactorySupport' is still used
+in `core/src/main/java/org/apache/shiro/ini/IniFactorySupport.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class WebIniSecurityManagerFactory extends IniSecurityManagerFactory {
+public abstract class IniFactorySupport<T> extends AbstractFactory<T> {
 
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'addFilterChain' is still used
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-    @SuppressWarnings({"UnusedDeclaration"})
-    @Deprecated
-    protected final void addFilterChain(String pattern, Key<? extends Filter>... keys) {
-
-        // We need to extract the keys and FilterConfigKey and convert to the new format.
+    public static final String DEFAULT_INI_RESOURCE_PATH = "classpath:shiro.ini";
 ```
 
 ### DeprecatedIsStillUsed
@@ -4893,19 +5547,32 @@ in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
         private String configValue;
 ```
 
-## RuleId[ruleID=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'credentials' in a Serializable class
-in `core/src/main/java/org/apache/shiro/authc/SimpleAuthenticationInfo.java`
+### DeprecatedIsStillUsed
+Deprecated member 'addFilterChain' is still used
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
 #### Snippet
 ```java
-     * The credentials verifying the account principals.
-     */
-    protected Object credentials;
+    @SuppressWarnings({"UnusedDeclaration"})
+    @Deprecated
+    protected final void addFilterChain(String pattern, Key<? extends Filter>... keys) {
 
-    /**
+        // We need to extract the keys and FilterConfigKey and convert to the new format.
 ```
 
+## RuleId[id=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AnnotatedTypeWrapper.java`
+#### Snippet
+```java
+    @Override
+    public boolean isAnnotationPresent(Class<? extends Annotation> annotationType) {
+        return annotations.stream().anyMatch(annotation -> annotationType.isInstance(annotation));
+    }
+
+```
+
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'bean' in a Serializable class
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/event/BeanEvent.java`
@@ -4918,7 +5585,19 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/event/BeanEvent.java`
 
 ```
 
-## RuleId[ruleID=ProtectedMemberInFinalClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'credentials' in a Serializable class
+in `core/src/main/java/org/apache/shiro/authc/SimpleAuthenticationInfo.java`
+#### Snippet
+```java
+     * The credentials verifying the account principals.
+     */
+    protected Object credentials;
+
+    /**
+```
+
+## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
 in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
@@ -4943,7 +5622,7 @@ in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryB
             if (webSecurityManager == null) {
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
+## RuleId[id=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `segment`
 in `core/src/main/java/org/apache/shiro/util/AntPathMatcher.java`
@@ -5016,55 +5695,7 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
                     inQuotes = !inQuotes;
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `StoppingAwareProxiedSession` may be 'static'
-in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
-#### Snippet
-```java
-    }
-
-    private class StoppingAwareProxiedSession extends ProxiedSession {
-
-        private final DelegatingSubject owner;
-```
-
-### InnerClassMayBeStatic
-Inner class `SubscribedEventTypeListener` may be 'static'
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-    }
-
-    private class SubscribedEventTypeListener implements TypeListener {
-        @Override
-        public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-```
-
-### InnerClassMayBeStatic
-Inner class `EventBusAwareTypeListener` may be 'static'
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-    }
-
-    private class EventBusAwareTypeListener implements TypeListener {
-        @Override
-        public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
-```
-
-### InnerClassMayBeStatic
-Inner class `Subscription` may be 'static'
-in `event/src/main/java/org/apache/shiro/event/support/DefaultEventBus.java`
-#### Snippet
-```java
-    }
-
-    private class Subscription {
-
-        private final List<EventListener> listeners;
-```
-
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `HSTS` may be 'static'
 in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
@@ -5101,7 +5732,92 @@ in `support/jaxrs/src/main/java/org/apache/shiro/web/jaxrs/ShiroSecurityContext.
 
 ```
 
-## RuleId[ruleID=StringEqualsEmptyString]
+### InnerClassMayBeStatic
+Inner class `Subscription` may be 'static'
+in `event/src/main/java/org/apache/shiro/event/support/DefaultEventBus.java`
+#### Snippet
+```java
+    }
+
+    private class Subscription {
+
+        private final List<EventListener> listeners;
+```
+
+### InnerClassMayBeStatic
+Inner class `EventBusAwareTypeListener` may be 'static'
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+    }
+
+    private class EventBusAwareTypeListener implements TypeListener {
+        @Override
+        public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
+```
+
+### InnerClassMayBeStatic
+Inner class `SubscribedEventTypeListener` may be 'static'
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+    }
+
+    private class SubscribedEventTypeListener implements TypeListener {
+        @Override
+        public <I> void hear(TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
+```
+
+### InnerClassMayBeStatic
+Inner class `StoppingAwareProxiedSession` may be 'static'
+in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
+#### Snippet
+```java
+    }
+
+    private class StoppingAwareProxiedSession extends ProxiedSession {
+
+        private final DelegatingSubject owner;
+```
+
+## RuleId[id=Java9CollectionFactory]
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `web/src/main/java/org/apache/shiro/web/filter/InvalidRequestFilter.java`
+#### Snippet
+```java
+public class InvalidRequestFilter extends AccessControlFilter {
+
+    private static final List<String> SEMICOLON = Collections.unmodifiableList(Arrays.asList(";", "%3b", "%3B"));
+
+    private static final List<String> BACKSLASH = Collections.unmodifiableList(Arrays.asList("\\", "%5c", "%5C"));
+```
+
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `web/src/main/java/org/apache/shiro/web/filter/InvalidRequestFilter.java`
+#### Snippet
+```java
+    private static final List<String> SEMICOLON = Collections.unmodifiableList(Arrays.asList(";", "%3b", "%3B"));
+
+    private static final List<String> BACKSLASH = Collections.unmodifiableList(Arrays.asList("\\", "%5c", "%5C"));
+
+    private boolean blockSemicolon = true;
+```
+
+### Java9CollectionFactory
+Can be replaced with 'List.copyOf()' call
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
+#### Snippet
+```java
+            return Collections.EMPTY_LIST;
+        }
+        return Collections.unmodifiableList(new ArrayList(all));
+    }
+
+```
+
+## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `core/src/main/java/org/apache/shiro/realm/SimpleAccountRealm.java`
@@ -5114,7 +5830,7 @@ in `core/src/main/java/org/apache/shiro/realm/SimpleAccountRealm.java`
         }
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
@@ -5213,6 +5929,18 @@ in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
 
 ### RedundantSuppression
 Redundant suppression
+in `integration-tests/jakarta-ee/src/main/java/org/apache/shiro/testing/jakarta/ee/PropertyRealm.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("MagicNumber")
+    protected void processUserDefinitions(Map<String, String> userDefs) {
+        if (userDefs == null || userDefs.isEmpty()) {
+            return;
+```
+
+### RedundantSuppression
+Redundant suppression
 in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
 #### Snippet
 ```java
@@ -5257,6 +5985,18 @@ in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
     protected final void bindSecurityManager(AnnotatedBindingBuilder<? super SecurityManager> bind) {
         bind.to(WebSecurityManager.class); // SHIRO-435
     }
+```
+
+### RedundantSuppression
+Redundant suppression
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/PrincipalTag.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("MagicNumber")
+    public Object saveState(FacesContext context) {
+        if (values == null) {
+            values = new Object[4];
 ```
 
 ### RedundantSuppression
@@ -5319,7 +6059,7 @@ in `web/src/main/java/org/apache/shiro/web/tags/PrincipalTag.java`
 
 ```
 
-## RuleId[ruleID=UnnecessaryInitCause]
+## RuleId[id=UnnecessaryInitCause]
 ### UnnecessaryInitCause
 Unnecessary `Throwable.initCause()` call
 in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java`
@@ -5332,7 +6072,7 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java
             }
 ```
 
-## RuleId[ruleID=UnnecessaryBoxing]
+## RuleId[id=UnnecessaryBoxing]
 ### UnnecessaryBoxing
 Redundant boxing, `Integer.parseInt()` call can be used instead
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
@@ -5357,31 +6097,20 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
             }
 ```
 
-## RuleId[ruleID=NonStrictComparisonCanBeEquality]
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'propertyPincipal'
+in `integration-tests/jakarta-ee/src/main/java/org/apache/shiro/testing/cdi/ComponentInjectionBean.java`
 #### Snippet
 ```java
-                // http://docs.oracle.com/javase/tutorial/jndi/ldap/faq.html
-                if( credentials == null ||
-                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
-                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
-                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
-#### Snippet
-```java
-                if( credentials == null ||
-                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
-                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
-                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
+    @Inject
+    @Principal
+    Optional<PropertyPrincipal> propertyPincipal;
+}
 
 ```
 
+## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
 in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
@@ -5411,7 +6140,7 @@ Can be replaced with equality
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-
+    protected List<?> toList(String sValue) {
         String[] tokens = StringUtils.split(sValue);
         if (tokens == null || tokens.length <= 0) {
             return null;
@@ -5423,7 +6152,7 @@ Can be replaced with equality
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-    protected List<?> toList(String sValue) {
+
         String[] tokens = StringUtils.split(sValue);
         if (tokens == null || tokens.length <= 0) {
             return null;
@@ -5442,7 +6171,31 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
         }
 ```
 
-## RuleId[ruleID=CharsetObjectCanBeUsed]
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+                // http://docs.oracle.com/javase/tutorial/jndi/ldap/faq.html
+                if( credentials == null ||
+                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
+                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
+                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+                if( credentials == null ||
+                    (credentials instanceof byte[] && ((byte[])credentials).length <= 0) || // empty byte[]
+                    (credentials instanceof char[] && ((char[])credentials).length <= 0) || // empty char[]
+                    (String.class.isInstance(credentials) && !StringUtils.hasText(String.valueOf(credentials)))) {
+
+```
+
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
@@ -5455,19 +6208,7 @@ in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/Abstrac
         return "Basic " + authorizationHeader;
 ```
 
-## RuleId[ruleID=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `core/src/main/java/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.java`
-#### Snippet
-```java
- *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
- */
-public class Sha256CredentialsMatcher extends HashedCredentialsMatcher {
-
-    public Sha256CredentialsMatcher() {
-```
-
+## RuleId[id=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
 in `core/src/main/java/org/apache/shiro/authc/credential/Sha512CredentialsMatcher.java`
@@ -5494,6 +6235,18 @@ public class Sha384CredentialsMatcher extends HashedCredentialsMatcher {
 
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
+in `core/src/main/java/org/apache/shiro/authc/credential/Sha256CredentialsMatcher.java`
+#### Snippet
+```java
+ *             {@link HashedCredentialsMatcher#setHashAlgorithmName(String) hashAlgorithmName} property.
+ */
+public class Sha256CredentialsMatcher extends HashedCredentialsMatcher {
+
+    public Sha256CredentialsMatcher() {
+```
+
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
 in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapRealm.java`
 #### Snippet
 ```java
@@ -5516,19 +6269,7 @@ public class XmlSerializer implements Serializer {
     /**
 ```
 
-## RuleId[ruleID=ConditionCoveredByFurtherCondition]
-### ConditionCoveredByFurtherCondition
-Condition 'token != null' covered by subsequent condition 'token instanceof RememberMeAuthenticationToken'
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     */
-    protected boolean isRememberMe(AuthenticationToken token) {
-        return token != null && (token instanceof RememberMeAuthenticationToken) &&
-                ((RememberMeAuthenticationToken) token).isRememberMe();
-    }
-```
-
+## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'val != null' covered by subsequent condition 'val instanceof Boolean'
 in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
@@ -5539,6 +6280,18 @@ in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
             if (val != null && val instanceof Boolean) {
                 return (Boolean) val;
             }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'token != null' covered by subsequent condition 'token instanceof RememberMeAuthenticationToken'
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     */
+    protected boolean isRememberMe(AuthenticationToken token) {
+        return token != null && (token instanceof RememberMeAuthenticationToken) &&
+                ((RememberMeAuthenticationToken) token).isRememberMe();
+    }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -5553,7 +6306,7 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
         }
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
@@ -5567,30 +6320,3654 @@ in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/Abstrac
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HostFilter.java`
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupportCookies.java`
 #### Snippet
 ```java
-        for (String host : hosts) {
-            //replace any periods with \\. to ensure the regex works:
-            String periodsReplaced = host.replace(".", "\\.");
-            //check for IPv4:
-            String wildcardsReplaced = periodsReplaced.replace("*", IPV4_QUAD_REGEX);
+
+    static Map<String, String> transformCookieHeader(@NonNull List<String> cookies) {
+        return cookies.stream().map(s -> s.split("[=;]"))
+                .collect(Collectors.toMap(k -> k[0], v -> (v.length > 1) ? v[1] : ""));
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HostFilter.java`
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
 #### Snippet
 ```java
-            String periodsReplaced = host.replace(".", "\\.");
-            //check for IPv4:
-            String wildcardsReplaced = periodsReplaced.replace("*", IPV4_QUAD_REGEX);
-
-            if (IPV4_PATTERN.matcher(wildcardsReplaced).matches()) {
+        if (referer != null) {
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+            // do not switch to https if custom port is specified
+            if (!referer.matches("^http:\\/\\/[A-z|.|[0-9]]+:[0-9]+(\\/.*|$)")) {
+                referer = referer.replaceFirst("^http:", "https:");
+            }
+        }
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
+#### Snippet
+```java
+
+    /**
+     * Generates a new {@link java.security.Key Key} suitable for this CipherService's {@link #getAlgorithmName() algorithm}
+     * by calling {@link #generateNewKey(int) generateNewKey(128)} (uses a 128 bit size by default).
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
+#### Snippet
+```java
+     * by calling {@link #generateNewKey(int) generateNewKey(128)} (uses a 128 bit size by default).
+     *
+     * @return a new {@link java.security.Key Key}, 128 bits in length.
+     */
+    public Key generateNewKey() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
+#### Snippet
+```java
+    /**
+     * Generates a new {@link Key Key} of the specified size suitable for this CipherService
+     * (based on the {@link #getAlgorithmName() algorithmName} using the JDK {@link javax.crypto.KeyGenerator KeyGenerator}.
+     *
+     * @param keyBitSize the bit size of the key to create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashService.java`
+#### Snippet
+```java
+     *
+     * If a salt accompanies the return value
+     * (i.e. <code>returnedHash.{@link org.apache.shiro.crypto.hash.Hash#getSalt() getSalt()} != null</code>), this
+     * same exact salt <b><em>MUST</em></b> be presented back to the {@code HashService} if hash
+     * comparison/verification will be performed at a later time (for example, for password hash or file checksum
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/DefaultHashService.java`
+#### Snippet
+```java
+     * This implementation functions as follows:
+     * <ul>
+     * <li>If the request's {@link org.apache.shiro.crypto.hash.HashRequest#getSalt() salt} is null:
+     * <p/>
+     * A salt will be generated and used to compute the hash.  The salt is generated as follows:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    private ByteSource encrypt(byte[] plaintext, byte[] key, byte[] iv, boolean prependIv) throws CryptoException {
+
+        final int MODE = javax.crypto.Cipher.ENCRYPT_MODE;
+
+        byte[] output;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        }
+
+        javax.crypto.Cipher cipher = initNewCipher(cryptMode, keyBytes, iv, true);
+
+        CipherInputStream cis = new CipherInputStream(in, cipher);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    protected static SecureRandom getDefaultSecureRandom() {
+        try {
+            return java.security.SecureRandom.getInstance(RANDOM_NUM_GENERATOR_ALGORITHM_NAME);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        try {
+            return java.security.SecureRandom.getInstance(RANDOM_NUM_GENERATOR_ALGORITHM_NAME);
+        } catch (java.security.NoSuchAlgorithmException e) {
+            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
+                    "platform's default SecureRandom algorithm.", e);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
+                    "platform's default SecureRandom algorithm.", e);
+            return new java.security.SecureRandom();
+        }
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        }
+
+        crypt(in, out, key, iv, javax.crypto.Cipher.ENCRYPT_MODE);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    /**
+     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    /**
+     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+     * Default size is {@code 512} bytes.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+     * Default size is {@code 512} bytes.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     *                         {@link #getTransformationString(boolean) getTransformationString} value.
+     */
+    private javax.crypto.Cipher newCipherInstance(boolean streaming) throws CryptoException {
+        String transformationString = getTransformationString(streaming);
+        try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        String transformationString = getTransformationString(streaming);
+        try {
+            return javax.crypto.Cipher.getInstance(transformationString);
+        } catch (Exception e) {
+            String msg = "Unable to acquire a Java JCA Cipher instance using " +
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            String msg = "Unable to acquire a Java JCA Cipher instance using " +
+                    javax.crypto.Cipher.class.getName() + ".getInstance( \"" + transformationString + "\" ). " +
+                    getAlgorithmName() + " under this configuration is required for the " +
+                    getClass().getName() + " instance to function.";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * <li>Converts the specified key bytes into an {@link #getAlgorithmName() algorithm}-compatible JDK
+     * {@link Key key} instance</li>
+     * <li>{@link #init(javax.crypto.Cipher, int, java.security.Key, AlgorithmParameterSpec, SecureRandom) Initializes}
+     * the JDK cipher instance with the JDK key</li>
+     * <li>Calls the {@link #crypt(javax.crypto.Cipher, byte[]) crypt(cipher,bytes)} method to either encrypt or
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("key argument cannot be null or empty.");
+        }
+        javax.crypto.Cipher cipher = initNewCipher(mode, key, iv, false);
+        return crypt(cipher, bytes);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    /**
+     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    /**
+     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+     * Default size is {@code 512} bytes.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
+     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
+     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
+     * <p/>
+     * Default size is {@code 512} bytes.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+                    (ciphertext != null ? ciphertext.length : 0));
+        }
+        byte[] decrypted = crypt(ciphertext, key, iv, javax.crypto.Cipher.DECRYPT_MODE);
+        return decrypted == null ? null : ByteSource.Util.bytes(decrypted);
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * @throws CryptoException if there is an illegal block size or bad padding
+     */
+    private byte[] crypt(javax.crypto.Cipher cipher, byte[] bytes) throws CryptoException {
+        try {
+            return cipher.doFinal(bytes);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * potential {@link java.security.InvalidKeyException InvalidKeyException} that might arise.
+     *
+     * @param cipher the JDK Cipher to {@link javax.crypto.Cipher#init(int, java.security.Key) init}.
+     * @param mode   the Cipher mode
+     * @param key    the Cipher's Key
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * @throws CryptoException if the key is invalid
+     */
+    private void init(javax.crypto.Cipher cipher, int mode, java.security.Key key,
+                      AlgorithmParameterSpec spec, SecureRandom random) throws CryptoException {
+        try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+     * @throws CryptoException if the key is invalid
+     */
+    private void init(javax.crypto.Cipher cipher, int mode, java.security.Key key,
+                      AlgorithmParameterSpec spec, SecureRandom random) throws CryptoException {
+        try {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+
+    private void decrypt(InputStream in, OutputStream out, byte[] decryptionKey, byte[] iv) throws CryptoException {
+        crypt(in, out, decryptionKey, iv, javax.crypto.Cipher.DECRYPT_MODE);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+    }
+
+    private javax.crypto.Cipher initNewCipher(int jcaCipherMode, byte[] key, byte[] iv, boolean streaming)
+            throws CryptoException {
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+            throws CryptoException {
+
+        javax.crypto.Cipher cipher = newCipherInstance(streaming);
+        java.security.Key jdkKey = new SecretKeySpec(key, getAlgorithmName());
+        AlgorithmParameterSpec ivSpec = null;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+
+        javax.crypto.Cipher cipher = newCipherInstance(streaming);
+        java.security.Key jdkKey = new SecretKeySpec(key, getAlgorithmName());
+        AlgorithmParameterSpec ivSpec = null;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+#### Snippet
+```java
+     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File}, or
+     * {@link java.io.InputStream InputStream}.  If either argument is anything other than these
+     * types a {@link org.apache.shiro.lang.codec.CodecException CodecException} will be thrown.
+     * <p/>
+     * If you want to be able to hash other object types, or use other salt types, you need to override the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * is not, a {@link UnknownAlgorithmException} will be thrown when the hash is performed (not at instantiation).
+     *
+     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
+     *                      performing the hash.
+     * @see UnknownAlgorithmException
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
+     *
+     * @return the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * Returns the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
+     *
+     * @return the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * types.
+     *
+     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
+     *                      performing the hash.
+     * @param source        the source object to be hashed.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * types.
+     *
+     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
+     *                      performing the hash.
+     * @param source        the object to be hashed.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     *                      performing the hash.
+     * @param source        the object to be hashed.
+     * @throws org.apache.shiro.lang.codec.CodecException
+     *                                   if the specified {@code source} cannot be converted into a byte array (byte[]).
+     * @throws UnknownAlgorithmException if the {@code algorithmName} is not available.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * By default, this class only supports Object method arguments of
+     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File},
+     * {@link java.io.InputStream InputStream} or {@link org.apache.shiro.lang.util.ByteSource ByteSource}.  If either
+     * argument is anything other than these types a {@link org.apache.shiro.lang.codec.CodecException CodecException}
+     * will be thrown.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File},
+     * {@link java.io.InputStream InputStream} or {@link org.apache.shiro.lang.util.ByteSource ByteSource}.  If either
+     * argument is anything other than these types a {@link org.apache.shiro.lang.codec.CodecException CodecException}
+     * will be thrown.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * constructor}.
+     *
+     * @param algorithmName  the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
+     *                       performing the hash.
+     * @param source         the source object to be hashed.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
+     */
+    private final String algorithmName;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+
+/**
+ * A {@code Hash} implementation that allows any {@link java.security.MessageDigest MessageDigest} algorithm name to
+ * be used.  This class is a less type-safe variant than the other {@code AbstractHash} subclasses
+ * (e.g. {@link Sha512Hash}, etc.), but it does allow for any algorithm name to be specified in case the other subclass
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
+#### Snippet
+```java
+     * types.
+     *
+     * @param algorithmName  the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
+     *                       performing the hash.
+     * @param source         the source object to be hashed.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoaderListener.java`
+#### Snippet
+```java
+    /**
+     * Destroys any previously created/bound {@code WebEnvironment} instance created by
+     * the {@link #contextInitialized(javax.servlet.ServletContextEvent)} method.
+     *
+     * @param sce the ServletContextEvent triggered upon application shutdown
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
+#### Snippet
+```java
+     * Instantiates a {@link WebEnvironment} based on the specified ServletContext.
+     * <p/>
+     * This implementation {@link #determineWebEnvironmentClass(javax.servlet.ServletContext) determines} a
+     * {@link WebEnvironment} implementation class to use.  That class is instantiated, configured, and returned.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSessionStorageEvaluator.java`
+#### Snippet
+```java
+ * <p/>
+ * This {@code DefaultWebSessionStorageEvaluator} will then inspect this attribute, and if it has been set, will return
+ * {@code false} from {@link #isSessionStorageEnabled(org.apache.shiro.subject.Subject)} method, thereby preventing
+ * Shiro from creating a session for the purpose of storing subject state.
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSubjectFactory.java`
+#### Snippet
+```java
+
+    /**
+     * @deprecated since 1.2 - override {@link #createSubject(org.apache.shiro.subject.SubjectContext)} directly if you
+     *             need to instantiate a custom {@link Subject} class.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.tags` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/tags/UserTag.java`
+#### Snippet
+```java
+ * who they say they are.
+ *
+ * <p>The logically opposite tag of this one is the {@link org.apache.shiro.web.tags.GuestTag}.
+ *
+ * @since 0.9
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.tags` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/tags/NotAuthenticatedTag.java`
+#### Snippet
+```java
+ * attempt <em>during their current session</em>.
+ *
+ * <p>The logically opposite tag of this one is the {@link org.apache.shiro.web.tags.AuthenticatedTag}.
+ *
+ * @since 0.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
+#### Snippet
+```java
+     * Converts the specified file path to an {@link Ini} instance.
+     * <p/>
+     * If the path does not have a resource prefix as defined by {@link org.apache.shiro.lang.io.ResourceUtils#hasResourcePrefix(String)}, the
+     * path is expected to be resolvable by the {@code ServletContext} via
+     * {@link javax.servlet.ServletContext#getResourceAsStream(String)}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
+#### Snippet
+```java
+     * If the path does not have a resource prefix as defined by {@link org.apache.shiro.lang.io.ResourceUtils#hasResourcePrefix(String)}, the
+     * path is expected to be resolvable by the {@code ServletContext} via
+     * {@link javax.servlet.ServletContext#getResourceAsStream(String)}.
+     *
+     * @param path     the path of the INI resource to load into an INI instance.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     *
+     * @param http10Compatible whether to stay compatible with HTTP 1.0 clients.
+     * @see javax.servlet.http.HttpServletResponse#sendRedirect
+     */
+    public void setHttp10Compatible(boolean http10Compatible) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     * @return the encoded output String
+     * @throws UnsupportedEncodingException if thrown by the JDK URLEncoder
+     * @see java.net.URLEncoder#encode(String, String)
+     * @see java.net.URLEncoder#encode(String)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     * @throws UnsupportedEncodingException if thrown by the JDK URLEncoder
+     * @see java.net.URLEncoder#encode(String, String)
+     * @see java.net.URLEncoder#encode(String)
+     */
+    protected String urlEncode(String input, String encodingScheme) throws UnsupportedEncodingException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     *                        as relative to the current ServletContext, i.e. as relative to the
+     *                        web application root.
+     * @see javax.servlet.http.HttpServletRequest#getContextPath
+     */
+    public void setContextRelative(boolean contextRelative) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+ * @see #setContextRelative
+ * @see #setHttp10Compatible
+ * @see javax.servlet.http.HttpServletResponse#sendRedirect
+ * @since 0.2
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     * @param model          Map that contains model attributes
+     * @param encodingScheme the encoding scheme to use
+     * @throws java.io.UnsupportedEncodingException if string encoding failed
+     * @see #urlEncode
+     * @see #queryProperties
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
+#### Snippet
+```java
+     * @param request  the incoming HttpServletRequest
+     * @param response the outgoing HttpServletResponse
+     * @throws java.io.IOException if there is a problem issuing the redirect
+     * @see #appendQueryProperties
+     * @see #sendRedirect
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     * Returns {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
+     * {@code HazelcastInstance}, or {@code false} if one was externally provided via
+     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
+     *
+     * @return {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     * @return {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
+     *         {@code HazelcastInstance}, or {@code false} if one was externally provided via
+     *         {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
+     */
+    protected final boolean isImplicitlyCreated() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+    /**
+     * Sets the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
+     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}.  {@code null} can be set if the
+     * default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
+     * mechanisms</a> will be used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     *
+     * @param config the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
+     *               {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
+     *               default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
+     *               mechanisms</a> will be used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.config` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     * return Hazelcast.newHazelcastInstance(this.config);
+     * </pre>
+     * using any {@link #setConfig(com.hazelcast.config.Config) configured} {@code Config} object.  If no config
+     * object has been specified, {@code this.config} will be {@code null}, thereby using Hazelcast's
+     * <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">default configuration mechanism</a>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.config` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     *
+     * @return a new {@link HazelcastInstance} that will be used to back this implementation
+     * @see Hazelcast#newHazelcastInstance(com.hazelcast.config.Config)
+     * @see Config
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.config` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+ * If you simply instantiate a {@code HazelcastCacheManager} and do nothing further, its backing
+ * {@link HazelcastInstance} instance will be created automatically by calling
+ * {@link Hazelcast#newHazelcastInstance(com.hazelcast.config.Config) Hazelcast.newHazelcastInstance(null)}.
+ * <p/>
+ * The null argument instructs Hazelcast to use whatever default configuration mechanism it has at its disposal,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+ * <h3>An existing {@code HazelcastInstance}</h3>
+ * If you have created a {@code HazelcastInstance} outside of Shiro's knowledge/control, you can simply configure it
+ * to be used by calling {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
+ * <p/>
+ * <h3>A {@link Config} instance</h3>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.config` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+ * Config instance</a>.
+ * <p/>
+ * Once constructed, you can set it via {@link #setConfig(com.hazelcast.config.Config) setConfig(config)}. This config
+ * instance will be used to acquire a new Hazelcast instance by calling
+ * {@link Hazelcast#newHazelcastInstance(Config) Hazelcast.newHazelcastInstance(config)}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+    /**
+     * Returns the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
+     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
+     * default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
+     * mechanisms</a> will be used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     *
+     * @return the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
+     *         {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
+     *         default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
+     *         mechanisms</a> will be used.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.config` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     *         default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
+     *         mechanisms</a> will be used.
+     * @see Hazelcast#newHazelcastInstance(com.hazelcast.config.Config)
+     */
+    public Config getConfig() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.hazelcast.core` is unnecessary and can be removed
+in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
+#### Snippet
+```java
+     * Destroys any {@link #ensureHazelcastInstance() implicitly created} backing {@code HazelcastInstance}.  If the
+     * backing Hazelcast was not implicitly created (i.e. because it was configured externally and supplied via
+     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}), this method does
+     * nothing.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+    /**
+     * Processes requests where the subject was denied access as determined by the
+     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * method.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+    /**
+     * Processes requests where the subject was denied access as determined by the
+     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * method.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * The default implementation simply returns
+     * {@link org.apache.shiro.SecurityUtils#getSubject() SecurityUtils.getSubject()}.
+     *
+     * @param request  the incoming <code>ServletRequest</code>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+    /**
+     * Convenience method merely delegates to
+     * {@link WebUtils#saveRequest(javax.servlet.ServletRequest) WebUtils.saveRequest(request)} to save the request
+     * state for reuse later.  This is mostly used to retain user request state when a redirect is issued to
+     * return the user to their originally requested url/resource.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * If you need to save and then immediately redirect the user to login, consider using
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * saveRequestAndRedirectToLogin(request,response)} directly.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * If you need to save and then immediately redirect the user to login, consider using
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * saveRequestAndRedirectToLogin(request,response)} directly.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+    /**
+     * Processes requests where the subject was denied access as determined by the
+     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * method, retaining the {@code mappedValue} that was used during configuration.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+    /**
+     * Processes requests where the subject was denied access as determined by the
+     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * method, retaining the {@code mappedValue} that was used during configuration.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     *
+     * @return <code>true</code> if
+     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
+     *         otherwise returns the result of
+     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     *
+     * @return <code>true</code> if
+     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
+     *         otherwise returns the result of
+     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
+     *         otherwise returns the result of
+     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
+     * @throws Exception if an error occurs.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
+     *         otherwise returns the result of
+     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
+     * @throws Exception if an error occurs.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+ * Superclass for any filter that controls access to a resource and may redirect the user to the login page
+ * if they are not authenticated.  This superclass provides the method
+ * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+ * which is used by many subclasses as the behavior when a user is unauthenticated.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+ * Superclass for any filter that controls access to a resource and may redirect the user to the login page
+ * if they are not authenticated.  This superclass provides the method
+ * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+ * which is used by many subclasses as the behavior when a user is unauthenticated.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <b>N.B.</b>  If you want to issue a redirect with the intention of allowing the user to then return to their
+     * originally requested URL, don't use this method directly.  Instead you should call
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * saveRequestAndRedirectToLogin(request,response)}, which will save the current request state so that it can
+     * be reconstructed and re-used after a successful login.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <b>N.B.</b>  If you want to issue a redirect with the intention of allowing the user to then return to their
+     * originally requested URL, don't use this method directly.  Instead you should call
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+     * saveRequestAndRedirectToLogin(request,response)}, which will save the current request state so that it can
+     * be reconstructed and re-used after a successful login.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * Convenience method for subclasses to use when a login redirect is required.
+     * <p/>
+     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
+     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
+     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
+     *
+     * @param request  the incoming <code>ServletRequest</code>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
+     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
+     *
+     * @param request  the incoming <code>ServletRequest</code>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
+#### Snippet
+```java
+     * @param chainSpecificFilterConfig the filter-specific configuration that should be applied for only the specified
+     *                                  filter chain.
+     * @throws IllegalArgumentException if there is not a {@link #addFilter(String, javax.servlet.Filter) registered}
+     *                                  filter under the given {@code filterName}
+     * @throws ConfigurationException   if the filter is not capable of accepting {@code chainSpecificFilterConfig}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
+#### Snippet
+```java
+     * @param chainName  the name of the chain where the filter will be appended.
+     * @param filterName the name of the {@link #addFilter registered} filter to add to the chain.
+     * @throws IllegalArgumentException if there is not a {@link #addFilter(String, javax.servlet.Filter) registered}
+     *                                  filter under the given {@code filterName}
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
+#### Snippet
+```java
+     * <p/>
+     * Calling this method is effectively the same as calling
+     * <code>{@link #addFilter(String, javax.servlet.Filter, boolean) addFilter}(name, filter, <b>false</b>);</code>
+     *
+     * @param name   the name to assign to the filter, used to reference the filter in chain definitions
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
+#### Snippet
+```java
+     * <ol>
+     * <li>{@code filterN} is the name of a filter previously
+     * {@link #addFilter(String, javax.servlet.Filter) registered} with the manager, and</li>
+     * <li>{@code [optional_configN]} is an optional bracketed string that has meaning for that particular filter for
+     * <em>this particular chain</em></li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
+#### Snippet
+```java
+    /**
+     * Merely returns
+     * <code>WebUtils.{@link org.apache.shiro.web.util.WebUtils#getPathWithinApplication(javax.servlet.http.HttpServletRequest) getPathWithinApplication(request)}</code>
+     * and can be overridden by subclasses for custom request-to-application-path resolution behavior.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
+#### Snippet
+```java
+ * matching, as determined by a configurable {@link #setPathMatcher(org.apache.shiro.lang.util.PatternMatcher) PathMatcher}.
+ * <p/>
+ * This implementation functions by consulting a {@link org.apache.shiro.web.filter.mgt.FilterChainManager} for all configured filter chains (keyed
+ * by configured path pattern).  If an incoming Request path matches one of the configured path patterns (via
+ * the {@code PathMatcher}, the corresponding configured {@code FilterChain} is returned.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     *         handle the response directly.
+     * @throws Exception if an error occurs
+     * @see #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     */
+    protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     *         handle the response directly.
+     * @throws Exception if an error occurs
+     * @see #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     */
+    protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+    /**
+     * Path-matching version of the parent class's
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method, but additionally allows
+     * for inspection of any path-specific configuration values corresponding to the specified request.  Subclasses
+     * may wish to inspect this additional mapped configuration to determine if the filter is enabled or not.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+    /**
+     * Path-matching version of the parent class's
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method, but additionally allows
+     * for inspection of any path-specific configuration values corresponding to the specified request.  Subclasses
+     * may wish to inspect this additional mapped configuration to determine if the filter is enabled or not.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This method's default implementation ignores the {@code path} and {@code mappedValue} arguments and merely
+     * returns the value from a call to {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}.
+     * It is expected that subclasses override this method if they need to perform enable/disable logic for a specific
+     * request based on any path-specific config for the filter instance.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This method's default implementation ignores the {@code path} and {@code mappedValue} arguments and merely
+     * returns the value from a call to {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}.
+     * It is expected that subclasses override this method if they need to perform enable/disable logic for a specific
+     * request based on any path-specific config for the filter instance.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * Implementation that handles path-matching behavior before a request is evaluated.  If the path matches and
+     * the filter
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
+     * that path/config, the request will be allowed through via the result from
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * Implementation that handles path-matching behavior before a request is evaluated.  If the path matches and
+     * the filter
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
+     * that path/config, the request will be allowed through via the result from
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
+     * that path/config, the request will be allowed through via the result from
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
+     * path does not match or the filter is not enabled for that path, this filter will allow passthrough immediately
+     * to allow the {@code FilterChain} to continue executing.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
+     * that path/config, the request will be allowed through via the result from
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
+     * path does not match or the filter is not enabled for that path, this filter will allow passthrough immediately
+     * to allow the {@code FilterChain} to continue executing.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * In order to retain path-matching functionality, subclasses should not override this method if at all
+     * possible, and instead override
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle} instead.
+     *
+     * @param request  the incoming ServletRequest
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * In order to retain path-matching functionality, subclasses should not override this method if at all
+     * possible, and instead override
+     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle} instead.
+     *
+     * @param request  the incoming ServletRequest
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+     * if that matches:
+     * <p/>
+     * <code>String requestURI = {@link #getPathWithinApplication(javax.servlet.ServletRequest) getPathWithinApplication(request)};<br/>
+     * return {@link #pathsMatch(String, String) pathsMatch(path,requestURI)}</code>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+     * Determines whether the current subject is authenticated.
+     * <p/>
+     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
+     * the currently executing Subject and then returns
+     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+     * Determines whether the current subject is authenticated.
+     * <p/>
+     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
+     * the currently executing Subject and then returns
+     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
+     * the currently executing Subject and then returns
+     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
+     *
+     * @return true if the subject is authenticated; false if the subject is unauthenticated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+    /**
+     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
+     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
+     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+    /**
+     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
+     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
+     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
+#### Snippet
+```java
+    /**
+     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
+     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
+     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+    /**
+     * This default implementation simply calls
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) saveRequestAndRedirectToLogin}
+     * and then immediately returns <code>false</code>, thereby preventing the chain from continuing so the redirect may
+     * execute.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+    /**
+     * This default implementation simply calls
+     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) saveRequestAndRedirectToLogin}
+     * and then immediately returns <code>false</code>, thereby preventing the chain from continuing so the redirect may
+     * execute.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     * Returns <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     * Returns <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     *
+     * @return <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     *
+     * @return <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     * @return <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
+#### Snippet
+```java
+     * @return <code>true</code> if the request is a
+     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
+     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+     * is not <code>null</code>, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param url         the URL to redirect the user to.
+     * @param queryParams a map of parameters that should be set as request parameters for the new request.
+     * @throws java.io.IOException if thrown by response methods.
+     */
+    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param contextRelative  true if the URL is relative to the servlet context path, or false if the URL is absolute.
+     * @param http10Compatible whether to stay compatible with HTTP 1.0 clients.
+     * @throws java.io.IOException if thrown by response methods.
+     */
+    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams, boolean contextRelative, boolean http10Compatible) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param response the servlet response.
+     * @param url      the URL to redirect the user to.
+     * @throws java.io.IOException if thrown by response methods.
+     */
+    public static void issueRedirect(ServletRequest request, ServletResponse response, String url) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param queryParams     a map of parameters that should be set as request parameters for the new request.
+     * @param contextRelative true if the URL is relative to the servlet context path, or false if the URL is absolute.
+     * @throws java.io.IOException if thrown by response methods.
+     */
+    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams, boolean contextRelative) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param sc ServletContext to find the web application context for
+     * @return the root WebApplicationContext for this web app, or <code>null</code> if none
+     * @see org.apache.shiro.web.env.EnvironmentLoader#ENVIRONMENT_ATTRIBUTE_KEY
+     * @since 1.2
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @return the root WebApplicationContext for this web app
+     * @throws IllegalStateException if the root WebApplicationContext could not be found
+     * @see org.apache.shiro.web.env.EnvironmentLoader#ENVIRONMENT_ATTRIBUTE_KEY
+     * @since 1.2
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+
+    /**
+     * {@link org.apache.shiro.session.Session Session} key used to save a request and later restore it, for example when redirecting to a
+     * requested page after login, equal to {@code shiroSavedRequest}.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @return the decoded String
+     * @see #DEFAULT_CHARACTER_ENCODING
+     * @see javax.servlet.ServletRequest#getCharacterEncoding
+     * @see java.net.URLDecoder#decode(String, String)
+     * @see java.net.URLDecoder#decode(String)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @see #DEFAULT_CHARACTER_ENCODING
+     * @see javax.servlet.ServletRequest#getCharacterEncoding
+     * @see java.net.URLDecoder#decode(String, String)
+     * @see java.net.URLDecoder#decode(String)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @see javax.servlet.ServletRequest#getCharacterEncoding
+     * @see java.net.URLDecoder#decode(String, String)
+     * @see java.net.URLDecoder#decode(String)
+     */
+    @SuppressWarnings({"deprecation"})
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+    /**
+     * Redirects the to the request url from a previously
+     * {@link #saveRequest(javax.servlet.ServletRequest) saved} request, or if there is no saved request, redirects the
+     * end user to the specified {@code fallbackUrl}.  If there is no saved request or fallback url, this method
+     * throws an {@link IllegalStateException}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * This method is primarily used to support a common login scenario - if an unauthenticated user accesses a
+     * page that requires authentication, it is expected that request is
+     * {@link #saveRequest(javax.servlet.ServletRequest) saved} first and then redirected to the login page. Then,
+     * after a successful login, this method can be called to redirect them back to their originally requested URL, a
+     * nice usability feature.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * returns <code>null</code>, according to the Servlet spec.
+     *
+     * @see javax.servlet.ServletRequest#getCharacterEncoding
+     */
+    public static final String DEFAULT_CHARACTER_ENCODING = "ISO-8859-1";
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     * @param request current HTTP request
+     * @return the encoding for the request (never <code>null</code>)
+     * @see javax.servlet.ServletRequest#getCharacterEncoding()
+     */
+    protected static String determineEncoding(HttpServletRequest request) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+    /**
+     * Returns the currently executing {@link Subject}.  This implementation merely defaults to calling
+     * {@code SecurityUtils.}{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}, but can be overridden
+     * by subclasses for different retrieval strategies.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+    /**
+     * Issues an HTTP redirect to the specified URL after subject logout.  This implementation simply calls
+     * {@code WebUtils.}{@link WebUtils#issueRedirect(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) issueRedirect(request,response,redirectUrl)}.
+     *
+     * @param request  the incoming Servlet request
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+    /**
+     * Issues an HTTP redirect to the specified URL after subject logout.  This implementation simply calls
+     * {@code WebUtils.}{@link WebUtils#issueRedirect(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) issueRedirect(request,response,redirectUrl)}.
+     *
+     * @param request  the incoming Servlet request
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+/**
+ * Simple Filter that, upon receiving a request, will immediately log-out the currently executing
+ * {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+ * and then redirect them to a configured {@link #getRedirectUrl() redirectUrl}.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+/**
+ * Simple Filter that, upon receiving a request, will immediately log-out the currently executing
+ * {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
+ * and then redirect them to a configured {@link #getRedirectUrl() redirectUrl}.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+
+    /**
+     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
+     * a potentially Subject or request-specific
+     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+
+    /**
+     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
+     * a potentially Subject or request-specific
+     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
+     * a potentially Subject or request-specific
+     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
+     * and redirects the end-user to that redirect url.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
+     * a potentially Subject or request-specific
+     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
+     * and redirects the end-user to that redirect url.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
+#### Snippet
+```java
+     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
+     * a potentially Subject or request-specific
+     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
+     * and redirects the end-user to that redirect url.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+ * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
+ * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
+ * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
+ * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
+ * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+ * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
+ * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
+ * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
+ * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
+ * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+ * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
+ * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
+ * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
+ * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and
+ * is a POST request.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+ * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
+ * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
+ * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
+ * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and
+ * is a POST request.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
+     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
+     * otherwise.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
+     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
+     * otherwise.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
+#### Snippet
+```java
+    /**
+     * Retains the parent method's port-matching behavior but additionally guarantees that the
+     *{@code ServletRequest.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}.  If the port does not match or
+     * the request is not secure, access is denied.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
+#### Snippet
+```java
+     * @param mappedValue the filter-specific config value mapped to this filter in the URL rules mappings - ignored by this implementation.
+     * @return {@code true} if the request is received on an expected SSL port and the
+     * {@code request.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}, {@code false} otherwise.
+     * @throws Exception if the call to {@code super.isAccessAllowed} throws an exception.
+     * @since 1.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
+#### Snippet
+```java
+ * Filter which requires a request to be over SSL.  Access is allowed if the request is received on the configured
+ * server {@link #setPort(int) port} <em>and</em> the
+ * {@code request.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}.  If either condition is {@code false},
+ * the filter chain will not continue.
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+ * <p><code>Authorization: Basic <em>Base64_encoded_username_and_password</em></code></p></li>
+ * </ol>
+ * The {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method will
+ * only be called if the subject making the request is not
+ * {@link org.apache.shiro.subject.Subject#isAuthenticated() authenticated}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+ * <p><code>Authorization: Basic <em>Base64_encoded_username_and_password</em></code></p></li>
+ * </ol>
+ * The {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method will
+ * only be called if the subject making the request is not
+ * {@link org.apache.shiro.subject.Subject#isAuthenticated() authenticated}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+     * This implementation:
+     * <ol><li>acquires the username and password based on the request's
+     * {@link #getAuthzHeader(javax.servlet.ServletRequest) authorization header} via the
+     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
+     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+     * <ol><li>acquires the username and password based on the request's
+     * {@link #getAuthzHeader(javax.servlet.ServletRequest) authorization header} via the
+     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
+     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
+     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
+     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
+     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
+     * <li>The created <code>AuthenticationToken</code> is returned.</li>
+     * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
+     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
+     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
+     * <li>The created <code>AuthenticationToken</code> is returned.</li>
+     * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
+#### Snippet
+```java
+     *
+     * @param scheme  the {@link #getAuthcScheme() authcScheme} found in the request
+     *                {@link #getAuthzHeader(javax.servlet.ServletRequest) authzHeader}.  It is ignored by this implementation,
+     *                but available to overriding implementations should they find it useful.
+     * @param encoded the Base64-encoded username:password value found after the scheme in the header
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+     * <li>If the {@code Subject} is unknown<sup><a href="#known">[1]</a></sup>:
+     * <ol><li>The incoming request will be saved and they will be redirected to the login page for authentication
+     * (via the {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * method).</li>
+     * <li>Once successfully authenticated, they will be redirected back to the originally attempted page.</li></ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+     * <li>If the {@code Subject} is unknown<sup><a href="#known">[1]</a></sup>:
+     * <ol><li>The incoming request will be saved and they will be redirected to the login page for authentication
+     * (via the {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * method).</li>
+     * <li>Once successfully authenticated, they will be redirected back to the originally attempted page.</li></ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+     * </ul>
+     * <code><a name="known">[1]</a></code>: A {@code Subject} is 'known' when
+     * <code>subject.{@link org.apache.shiro.subject.Subject#getPrincipal() getPrincipal()}</code> is not {@code null},
+     * which implicitly means that the subject is either currently authenticated or they have been remembered via
+     * 'remember me' services.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+/**
+ * Superclass for authorization-related filters.  If an request is unauthorized, response handling is delegated to the
+ * {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied} method, which
+ * provides reasonable handling for most applications.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+/**
+ * Superclass for authorization-related filters.  If an request is unauthorized, response handling is delegated to the
+ * {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied} method, which
+ * provides reasonable handling for most applications.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+ * provides reasonable handling for most applications.
+ *
+ * @see #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+ * @since 0.9
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
+#### Snippet
+```java
+ * provides reasonable handling for most applications.
+ *
+ * @see #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+ * @since 0.9
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
+#### Snippet
+```java
+
+    /**
+     * Configures this instance based on the existing {@link org.apache.shiro.web.env.WebEnvironment} instance
+     * available to the currently accessible {@link #getServletContext() servletContext}.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
+#### Snippet
+```java
+ * <p/>
+ * As of Shiro 1.2, this is Shiro's preferred filter for {@code web.xml} configuration.  It expects the presence of a
+ * Shiro {@link org.apache.shiro.web.env.WebEnvironment WebEnvironment} in the {@code ServletContext}, also
+ * configured via {@code web.xml}.
+ * <h2>Usage</h2>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
+#### Snippet
+```java
+ * configured via {@code web.xml}.
+ * <h2>Usage</h2>
+ * As this Filter expects an available {@link org.apache.shiro.web.env.WebEnvironment WebEnvironment} instance to
+ * be configured, it must be defined in {@code web.xml} with the companion
+ * {@link org.apache.shiro.web.env.EnvironmentLoaderListener EnvironmentLoaderListener}, which performs the necessary
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+#### Snippet
+```java
+    /**
+     * Returns the servlet container specified {@code FilterConfig} instance provided at
+     * {@link #init(javax.servlet.FilterConfig) startup}.
+     *
+     * @return the servlet container specified {@code FilterConfig} instance provided at start-up.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
+#### Snippet
+```java
+     *
+     * @param filterConfig the servlet container supplied FilterConfig instance.
+     * @throws javax.servlet.ServletException if {@link #onFilterConfigSet() onFilterConfigSet()} throws an Exception.
+     */
+    public final void init(FilterConfig filterConfig) throws ServletException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
+#### Snippet
+```java
+     * servlet container at start-up:
+     * <pre>
+     * this.name = {@link #getFilterConfig() getFilterConfig()}.{@link javax.servlet.FilterConfig#getFilterName() getName()};</pre>
+     *
+     * @param name the name of the filter.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
+#### Snippet
+```java
+ * {@link #getName()}/{@link #setName(String)} methods.  If no name is specified, the name of the filter will
+ * default to the name given to it in {@code web.xml} (the {@code FilterConfig}'s
+ * {@link javax.servlet.FilterConfig#getFilterName() filterName}).
+ *
+ * @since 1.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
+#### Snippet
+```java
+     * filter name as specified by the servlet container at start-up:
+     * <pre>
+     * this.name = {@link #getFilterConfig() getFilterConfig()}.{@link javax.servlet.FilterConfig#getFilterName() getName()};</pre>
+     *
+     * @return the filter name, or {@code null} if none available
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
+#### Snippet
+```java
+     * @return the filter name, or {@code null} if none available
+     * @see javax.servlet.GenericServlet#getServletName()
+     * @see javax.servlet.FilterConfig#getFilterName()
+     */
+    protected String getName() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+     * per {@link org.apache.shiro.authz.permission.WildcardPermission WildcardPermission} conventions.  Subclasses
+     * are of course free to override this method or the
+     * {@link #buildPermissions(javax.servlet.http.HttpServletRequest, String[], String) buildPermissions} request
+     * variant for custom building logic or with different permission formats.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation expects the incoming request to be an {@link HttpServletRequest} and returns a mapped
+     * action based on the HTTP request {@link javax.servlet.http.HttpServletRequest#getMethod() method}.
+     *
+     * @param request to pull the method from.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+     * action to each configured permission (the {@code mappedValue} argument is a {@code String[]} array), and
+     * delegates the permission check for the newly constructed permission(s) to the superclass
+     * {@link PermissionsAuthorizationFilter#isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * implementation to perform the actual permission check.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
+#### Snippet
+```java
+     * action to each configured permission (the {@code mappedValue} argument is a {@code String[]} array), and
+     * delegates the permission check for the newly constructed permission(s) to the superclass
+     * {@link PermissionsAuthorizationFilter#isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
+     * implementation to perform the actual permission check.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * @return whether the given request should <i>not</i> be filtered
+     * @throws ServletException in case of errors
+     * @deprecated in favor of overriding {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * for custom behavior.  This method will be removed in Shiro 2.0.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * @return whether the given request should <i>not</i> be filtered
+     * @throws ServletException in case of errors
+     * @deprecated in favor of overriding {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     * for custom behavior.  This method will be removed in Shiro 2.0.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+ * is based on the configured name of the concrete filter instance.
+ * <h3>Controlling filter execution</h3>
+ * 1.2 introduced the {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method and
+ * {@link #isEnabled()} property to allow explicit control over whether the filter executes (or allows passthrough)
+ * for any given request.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+ * is based on the configured name of the concrete filter instance.
+ * <h3>Controlling filter execution</h3>
+ * 1.2 introduced the {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method and
+ * {@link #isEnabled()} property to allow explicit control over whether the filter executes (or allows passthrough)
+ * for any given request.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * <b>Helpful Hint:</b> if your subclass extends {@link org.apache.shiro.web.filter.PathMatchingFilter PathMatchingFilter},
+     * you may wish to instead override the
+     * {@link org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     * PathMatchingFilter.isEnabled(request,response,path,pathSpecificConfig)}
+     * method if you want to make your enable/disable decision based on any path-specific configuration.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * <b>Helpful Hint:</b> if your subclass extends {@link org.apache.shiro.web.filter.PathMatchingFilter PathMatchingFilter},
+     * you may wish to instead override the
+     * {@link org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     * PathMatchingFilter.isEnabled(request,response,path,pathSpecificConfig)}
+     * method if you want to make your enable/disable decision based on any path-specific configuration.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * @throws IOException in the case of any IO error
+     * @throws ServletException in the case of any error
+     * @see org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     * @since 1.2
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * @throws IOException in the case of any IO error
+     * @throws ServletException in the case of any error
+     * @see org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
+     * @since 1.2
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * <b>*</b> This configuration property is for general configuration for any request that comes through
+     * the filter.  The
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isEnabled(request,response)}
+     * method actually determines whether or not if the filter is enabled based on the current request.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+     * <b>*</b> This configuration property is for general configuration for any request that comes through
+     * the filter.  The
+     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isEnabled(request,response)}
+     * method actually determines whether or not if the filter is enabled based on the current request.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+    /**
+     * Same contract as for
+     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
+     * but guaranteed to be invoked only once per request.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+    /**
+     * Same contract as for
+     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
+     * but guaranteed to be invoked only once per request.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
+#### Snippet
+```java
+    /**
+     * Same contract as for
+     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
+     * but guaranteed to be invoked only once per request.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.security` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
+#### Snippet
+```java
+    }
+
+    private class ObjectPrincipal implements java.security.Principal {
+        private Object object = null;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+    /**
+     * Actually implements the chain execution logic, utilizing
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+    /**
+     * Actually implements the chain execution logic, utilizing
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * Actually implements the chain execution logic, utilizing
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+     * advice hooks.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * Actually implements the chain execution logic, utilizing
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+     * advice hooks.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+     * advice hooks.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
+     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
+     * advice hooks.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * is, if {@link #executeChain executeChain} throws an exception, this method will never be called.  Be aware of
+     * this when implementing logic.  Most resource 'cleanup' behavior is often done in the
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion(request,response,exception)}
+     * implementation, which is guaranteed to be called for every request, even when the chain processing throws
+     * an Exception.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * is, if {@link #executeChain executeChain} throws an exception, this method will never be called.  Be aware of
+     * this when implementing logic.  Most resource 'cleanup' behavior is often done in the
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion(request,response,exception)}
+     * implementation, which is guaranteed to be called for every request, even when the chain processing throws
+     * an Exception.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+    /**
+     * Executes cleanup logic in the {@code finally} code block in the
+     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
+     * implementation.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+    /**
+     * Executes cleanup logic in the {@code finally} code block in the
+     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
+     * implementation.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+    /**
+     * Executes cleanup logic in the {@code finally} code block in the
+     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
+     * implementation.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation specifically calls
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+     * as well as handles any exceptions properly.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation specifically calls
+     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+     * as well as handles any exceptions properly.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+/**
+ * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+/**
+ * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+ * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+ * hooks.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+ * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+ * hooks.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+ * hooks.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
+#### Snippet
+```java
+ * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
+ * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
+ * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
+ * hooks.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * session ({@code subject.getSession(false) == null}), this method does nothing.
+     * <p/>This method implementation merely calls
+     * <code>Session.{@link org.apache.shiro.session.Session#touch() touch}()</code> on the session.
+     *
+     * @param request  incoming request - ignored, but available to subclasses that might wish to override this method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * processing.
+     * <p/>
+     * This implementation delegates to {@link #wrapServletRequest(javax.servlet.http.HttpServletRequest)}
+     * only if Shiro-based sessions are enabled (that is, !{@link #isHttpSessions()}) and the request instance is a
+     * {@link ShiroHttpServletRequest}.  This ensures that any URL rewriting that occurs is handled correctly using the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * If the {@code ServletRequest} is an instance of {@link HttpServletRequest}, the value returned from this method
+     * is obtained by calling {@link #wrapServletRequest(javax.servlet.http.HttpServletRequest)} to allow Shiro-specific
+     * HTTP behavior, otherwise the original {@code ServletRequest} argument is returned.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation first delegates to
+     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
+     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
+     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation first delegates to
+     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
+     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
+     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation first delegates to
+     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
+     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
+     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <li>{@link #prepareServletResponse(ServletRequest, ServletResponse, FilterChain) Prepares}
+     * the outgoing {@code ServletResponse} for use during Shiro's processing</li>
+     * <li> {@link #createSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) Creates} a
+     * {@link Subject} instance based on the specified request/response pair.</li>
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <li>{@link #prepareServletResponse(ServletRequest, ServletResponse, FilterChain) Prepares}
+     * the outgoing {@code ServletResponse} for use during Shiro's processing</li>
+     * <li> {@link #createSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) Creates} a
+     * {@link Subject} instance based on the specified request/response pair.</li>
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * {@link Subject} instance based on the specified request/response pair.</li>
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
+     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+     * methods</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * {@link Subject} instance based on the specified request/response pair.</li>
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
+     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+     * methods</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
+     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+     * methods</li>
+     * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
+     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+     * methods</li>
+     * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * <li>Finally {@link Subject#execute(Runnable) executes} the
+     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
+     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
+     * methods</li>
+     * </ol>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+     * @param chain           the container-provided {@code FilterChain} to execute
+     * @throws IOException                    if an IO error occurs
+     * @throws javax.servlet.ServletException if an Throwable other than an IOException
+     */
+    protected void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, final FilterChain chain)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+    /**
+     * Wraps the original HttpServletRequest in a {@link ShiroHttpServletRequest}, which is required for supporting
+     * Servlet Specification behavior backed by a {@link org.apache.shiro.subject.Subject Subject} instance.
+     *
+     * @param orig the original Servlet Container-provided incoming {@code HttpServletRequest} instance.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+ * {@link #init()} method implementation.  That implementation should make available any constructed
+ * {@code SecurityManager} and {@code FilterChainResolver} by calling
+ * {@link #setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)} and
+ * {@link #setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)} methods respectively.
+ * <h3>Static SecurityManager</h3>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+ * {@code SecurityManager} and {@code FilterChainResolver} by calling
+ * {@link #setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)} and
+ * {@link #setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)} methods respectively.
+ * <h3>Static SecurityManager</h3>
+ * By default the {@code SecurityManager} instance enabled by this filter <em>will not</em> be enabled in static
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet.http` is unnecessary and can be removed
+in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
+#### Snippet
+```java
+    /**
+     * Returns the Cookie's calculated path setting.  If the {@link javax.servlet.http.Cookie#getPath() path} is {@code null}, then the
+     * {@code request}'s {@link javax.servlet.http.HttpServletRequest#getContextPath() context path}
+     * will be returned. If getContextPath() is the empty string or null then the ROOT_PATH constant is returned.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
+#### Snippet
+```java
+ * <li>Perhaps most important for Shiro end-users, tt can more easily be used as a source of cryptographic seed data,
+ * and the data returned is already in a more convenient {@link ByteSource ByteSource} format in case that data needs
+ * to be {@link org.apache.shiro.lang.util.ByteSource#toHex() hex} or
+ * {@link org.apache.shiro.lang.util.ByteSource#toBase64() base64}-encoded.</li>
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
+#### Snippet
+```java
+ * and the data returned is already in a more convenient {@link ByteSource ByteSource} format in case that data needs
+ * to be {@link org.apache.shiro.lang.util.ByteSource#toHex() hex} or
+ * {@link org.apache.shiro.lang.util.ByteSource#toBase64() base64}-encoded.</li>
+ * </ul>
+ * For example, consider the following example generating password salts for new user accounts:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto` is unnecessary and can be removed
+in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
+#### Snippet
+```java
+ * For example, consider the following example generating password salts for new user accounts:
+ * <pre>
+ * RandomNumberGenerator saltGenerator = new {@link org.apache.shiro.crypto.SecureRandomNumberGenerator SecureRandomNumberGenerator}();
+ * User user = new User();
+ * user.setPasswordSalt(saltGenerator.nextBytes().toBase64());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
+in `crypto/support/hashes/argon2/src/main/java/org/apache/shiro/crypto/support/hashes/argon2/Argon2HashProvider.java`
+#### Snippet
+```java
+     * <p>This class contains public constants only. The constants starting with {@code PARAMETER_} are
+     * the parameter names recognized by the
+     * {@link org.apache.shiro.crypto.hash.HashSpi.HashFactory#generate(HashRequest)} method.</p>
+     *
+     * <p>The constants starting with {@code DEFAULT_} are their respective default values.</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.event` is unnecessary and can be removed
+in `event/src/main/java/org/apache/shiro/event/EventBus.java`
+#### Snippet
+```java
+ *     <li>For each type of event you wish to consume, create a public method that accepts a single event argument.
+ *     The method argument type indicates the type of event to receive.</li>
+ *     <li>Annotate each of these public methods with the {@link org.apache.shiro.event.Subscribe Subscribe} annotation.</li>
+ *     <li>Register the component with the event bus:
+ *     <pre>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.ee.faces.tags` is unnecessary and can be removed
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/SecureComponent.java`
+#### Snippet
+```java
+ *
+ * <p>OBS: Your subclass is responsible for saving the state of the component.
+ * See {@link org.apache.shiro.ee.faces.tags.PrincipalTag}'s
+ * StateHolder Methods for an example.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.faces.view` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroScopeContext.java`
+#### Snippet
+```java
+        this.scopeType = scopeType;
+        this.webScopeType = webScopeType;
+        isViewScoped = webScopeType == javax.faces.view.ViewScoped.class
+                || webScopeType == org.omnifaces.cdi.ViewScoped.class;
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.omnifaces.cdi` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroScopeContext.java`
+#### Snippet
+```java
+        this.webScopeType = webScopeType;
+        isViewScoped = webScopeType == javax.faces.view.ViewScoped.class
+                || webScopeType == org.omnifaces.cdi.ViewScoped.class;
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.ee.filters` is unnecessary and can be removed
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/PassThruAuthenticationFilter.java`
+#### Snippet
+```java
+    @Override
+    protected String getPathWithinApplication(ServletRequest request) {
+        return org.apache.shiro.ee.filters.FormAuthenticationFilter
+                .getPathWithinApplication(request, () -> super.getPathWithinApplication(request));
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.omnifaces.cdi` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+    }
+
+    <T> void addOmniViewScoped(@Observes @WithAnnotations(org.omnifaces.cdi.ViewScoped.class) ProcessAnnotatedType<T> pat) {
+        pat.setAnnotatedType(new AnnotatedTypeWrapper<>(pat.getAnnotatedType(), true,
+                Set.of(ShiroOmniViewScopedAnnotated.class.getDeclaredAnnotations()[0],
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.faces.view` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+    @SuppressWarnings("serial")
+    private static class SessionScopedAnnotated implements Serializable { }
+    @javax.faces.view.ViewScoped
+    @SuppressWarnings("serial")
+    private static class FacesViewScopedAnnotated implements Serializable { }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.faces.view` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+    private static final List<ShiroScopeContext> contexts = Stream.of(
+            new ShiroScopeContext(ShiroSessionScoped.class, SessionScoped.class),
+            new ShiroScopeContext(ShiroFacesViewScoped.class, javax.faces.view.ViewScoped.class),
+            new ShiroScopeContext(ShiroOmniViewScoped.class, org.omnifaces.cdi.ViewScoped.class))
+            .collect(Collectors.toList());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.omnifaces.cdi` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+            new ShiroScopeContext(ShiroSessionScoped.class, SessionScoped.class),
+            new ShiroScopeContext(ShiroFacesViewScoped.class, javax.faces.view.ViewScoped.class),
+            new ShiroScopeContext(ShiroOmniViewScoped.class, org.omnifaces.cdi.ViewScoped.class))
+            .collect(Collectors.toList());
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.faces.view` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+    }
+
+    <T> void addFacesViewScoped(@Observes @WithAnnotations(javax.faces.view.ViewScoped.class) ProcessAnnotatedType<T> pat) {
+        pat.setAnnotatedType(new AnnotatedTypeWrapper<>(pat.getAnnotatedType(), true,
+                Set.of(ShiroFacesViewScopedAnnotated.class.getDeclaredAnnotations()[0],
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.omnifaces.cdi` is unnecessary, and can be replaced with an import
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroSessionScopeExtension.java`
+#### Snippet
+```java
+    @SuppressWarnings("serial")
+    private static class FacesViewScopedAnnotated implements Serializable { }
+    @org.omnifaces.cdi.ViewScoped
+    @SuppressWarnings("serial")
+    private static class OmniViewScopedAnnotated implements Serializable { }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/InitializableInjectionListener.java`
+#### Snippet
+```java
+
+/**
+ * Injection listener that honors the {@link org.apache.shiro.lang.util.Initializable} interface.
+ *
+ * @param <I>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/DestroyableInjectionListener.java`
+#### Snippet
+```java
+
+/**
+ * Injection listener that assists with honoring the {@link org.apache.shiro.lang.util.Destroyable} interface.
+ *
+ * @param <I>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/aop/AopAllianceMethodInvocationAdapter.java`
+#### Snippet
+```java
+/**
+ * Adapts a Shiro {@link org.apache.shiro.aop.MethodInvocation MethodInvocation} to an AOPAlliance
+ * {@link org.aopalliance.intercept.MethodInvocation}.
+ */
+class AopAllianceMethodInvocationAdapter implements org.apache.shiro.aop.MethodInvocation {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/aop/AopAllianceMethodInterceptorAdapter.java`
+#### Snippet
+```java
+/**
+ * Adapts a Shiro {@link org.apache.shiro.aop.MethodInterceptor MethodInterceptor} to an AOPAlliance
+ * {@link org.aopalliance.intercept.MethodInterceptor}.
+ */
+class AopAllianceMethodInterceptorAdapter implements MethodInterceptor {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/aop/ShiroAopModule.java`
+#### Snippet
+```java
+/**
+ * Install this module to enable Shiro AOP functionality in Guice.  You may extend it to add your own Shiro
+ * interceptors, override the default ones, or provide a specific {@link org.apache.shiro.aop.AnnotationResolver}.
+ */
+public class ShiroAopModule extends AbstractModule {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
+#### Snippet
+```java
+
+    /**
+     * Calls the <tt>init()</tt> methods on the bean if it implements {@link org.apache.shiro.lang.util.Initializable}
+     *
+     * @param object the object being initialized.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
+#### Snippet
+```java
+
+    /**
+     * Calls the <tt>destroy()</tt> methods on the bean if it implements {@link org.apache.shiro.lang.util.Destroyable}
+     *
+     * @param object the object being initialized.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
+#### Snippet
+```java
+/**
+ * <p>Bean post processor for Spring that automatically calls the <tt>init()</tt> and/or
+ * <tt>destroy()</tt> methods on Shiro objects that implement the {@link org.apache.shiro.lang.util.Initializable}
+ * or {@link org.apache.shiro.lang.util.Destroyable} interfaces, respectfully.  This post processor makes it easier
+ * to configure Shiro beans in Spring, since the user never has to worry about whether or not if they
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
+#### Snippet
+```java
+ * <p>Bean post processor for Spring that automatically calls the <tt>init()</tt> and/or
+ * <tt>destroy()</tt> methods on Shiro objects that implement the {@link org.apache.shiro.lang.util.Initializable}
+ * or {@link org.apache.shiro.lang.util.Destroyable} interfaces, respectfully.  This post processor makes it easier
+ * to configure Shiro beans in Spring, since the user never has to worry about whether or not if they
+ * have to specify init-method and destroy-method bean attributes.</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+     * Binds the security manager.  Override this method in order to provide your own security manager binding.
+     * <p/>
+     * By default, a {@link org.apache.shiro.mgt.DefaultSecurityManager} is bound as an eager singleton.
+     *
+     * @param bind
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+
+    /**
+     * Destroys all beans created within this module that implement {@link org.apache.shiro.lang.util.Destroyable}.  Should be called when this
+     * module will no longer be used.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+/**
+ * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
+ * {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by using
+ * {@link #bindRealm() bindRealm}.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
+#### Snippet
+```java
+     * Binds the session manager.  Override this method in order to provide your own session manager binding.
+     * <p/>
+     * By default, a {@link org.apache.shiro.session.mgt.DefaultSessionManager} is bound as an eager singleton.
+     *
+     * @param bind
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.aop` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+    /**
+     * Creates a Shiro {@link MethodInvocation MethodInvocation} instance and then immediately calls
+     * {@link org.apache.shiro.authz.aop.AuthorizingMethodInterceptor#invoke super.invoke}.
+     *
+     * @param methodInvocation the AOP Alliance-specific <code>methodInvocation</code> instance.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+    /**
+     * Simply casts the method argument to an
+     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} and then
+     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+     * Simply casts the method argument to an
+     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} and then
+     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
+     *
+     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
+     *
+     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
+     * @return the {@link org.aopalliance.intercept.MethodInvocation#proceed() org.aopalliance.intercept.MethodInvocation.proceed()} method call result.
+     * @throws Throwable if the underlying AOP Alliance <code>proceed()</code> call throws a <code>Throwable</code>.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+     *
+     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
+     * @return the {@link org.aopalliance.intercept.MethodInvocation#proceed() org.aopalliance.intercept.MethodInvocation.proceed()} method call result.
+     * @throws Throwable if the underlying AOP Alliance <code>proceed()</code> call throws a <code>Throwable</code>.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+    /**
+     * Creates a {@link MethodInvocation MethodInvocation} that wraps an
+     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} instance,
+     * enabling Shiro Annotations in <a href="http://aopalliance.sourceforge.net/">AOP Alliance</a> environments
+     * (Spring, etc.).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
+#### Snippet
+```java
+     * (Spring, etc.).
+     *
+     * @param implSpecificMethodInvocation AOP Alliance {@link org.aopalliance.intercept.MethodInvocation MethodInvocation}
+     * @return a Shiro {@link MethodInvocation MethodInvocation} instance that wraps the AOP Alliance instance.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * The annotations inspected are:
+     * <ul>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
+     * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
+     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
+     * </ul>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
+#### Snippet
+```java
+     * @param targetClass the class potentially declaring Shiro annotations
+     * @return <tt>true</tt> if the method has a Shiro annotation, false otherwise.
+     * @see org.springframework.aop.MethodMatcher#matches(java.lang.reflect.Method, Class)
+     */
+    public boolean matches(Method method, Class targetClass) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
+#### Snippet
+```java
+     * this case.
+     *
+     * @throws org.apache.shiro.cache.CacheException
+     *          if there are any CacheExceptions thrown by JCache.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.servlet` is unnecessary, and can be replaced with an import
+in `integration-tests/jaxrs/app/src/main/java/org/apache/shiro/testing/jaxrs/app/config/ShiroServletFilter.java`
+#### Snippet
+```java
+        dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR, DispatcherType.ASYNC}
+)
+public class ShiroServletFilter extends org.apache.shiro.web.servlet.ShiroFilter {
+}
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationJob.java`
+#### Snippet
+```java
+
+/**
+ * A quartz job that basically just calls the {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()}
+ * method on a configured session manager.  The session manager will automatically be injected by the
+ * superclass if it is in the job data map or the scheduler map.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
+#### Snippet
+```java
+
+/**
+ * An implementation of the {@link org.apache.shiro.session.mgt.SessionValidationScheduler SessionValidationScheduler} that uses Quartz to schedule a
+ * job to call {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()} on
+ * a regular basis.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
+#### Snippet
+```java
+/**
+ * An implementation of the {@link org.apache.shiro.session.mgt.SessionValidationScheduler SessionValidationScheduler} that uses Quartz to schedule a
+ * job to call {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()} on
+ * a regular basis.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
+#### Snippet
+```java
+    /**
+     * Specifies how frequently (in milliseconds) this Scheduler will call the
+     * {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions() ValidatingSessionManager#validateSessions()} method.
+     *
+     * <p>Unless this method is called, the default value is {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.servlet` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * Returns <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+     *
+     * @return <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.servlet` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * Returns <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+     *
+     * @return <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+     */
+    public Class getObjectType() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * and initialization behavior.  Because this {@code FactoryBean} implementation manually builds the
+     * {@link AbstractShiroFilter}'s
+     * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager) securityManager} and
+     * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver) filterChainResolver}
+     * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * {@link AbstractShiroFilter}'s
+     * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager) securityManager} and
+     * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver) filterChainResolver}
+     * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
+     * concrete subclass in the constructor.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * property has been set</li>
+     * <li>{@link #createFilterChainManager() Creates} a {@link FilterChainManager} instance that reflects the
+     * configured {@link #setFilters(java.util.Map) filters} and
+     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
+     * <li>Wraps the FilterChainManager with a suitable
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * <li>{@link #createFilterChainManager() Creates} a {@link FilterChainManager} instance that reflects the
+     * configured {@link #setFilters(java.util.Map) filters} and
+     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
+     * <li>Wraps the FilterChainManager with a suitable
+     * {@link org.apache.shiro.web.filter.mgt.FilterChainResolver FilterChainResolver} since the Shiro Filter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
+     * <li>Wraps the FilterChainManager with a suitable
+     * {@link org.apache.shiro.web.filter.mgt.FilterChainResolver FilterChainResolver} since the Shiro Filter
+     * implementations do not know of {@code FilterChainManager}s</li>
+     * <li>Sets both the {@code SecurityManager} and {@code FilterChainResolver} instances on a new Shiro Filter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+    /**
+     * Sets the filterName-to-Filter map of filters available for reference when creating
+     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}.
+     * <p/>
+     * <b>Note:</b> This property is optional:  this {@code FactoryBean} implementation will discover all beans in the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+
+/**
+ * {@link org.springframework.beans.factory.FactoryBean FactoryBean} to be used in Spring-based web applications for
+ * defining the master Shiro Filter.
+ * <h4>Usage</h4>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+ * </pre>
+ * <h4>Filter Auto-Discovery</h4>
+ * While there is a {@link #setFilters(java.util.Map) filters} property that allows you to assign a filter beans
+ * to the 'pool' of filters available when defining {@link #setFilterChainDefinitions(String) filter chains}, it is
+ * optional.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.servlet` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+ * <p/>
+ * This implementation is also a {@link BeanPostProcessor} and will acquire
+ * any {@link javax.servlet.Filter Filter} beans defined independently in your Spring application context.  Upon
+ * discovery, they will be automatically added to the {@link #setFilters(java.util.Map) map} keyed by the bean ID.
+ * That ID can then be used in the filter chain definitions, for example:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+ * This implementation is also a {@link BeanPostProcessor} and will acquire
+ * any {@link javax.servlet.Filter Filter} beans defined independently in your Spring application context.  Upon
+ * discovery, they will be automatically added to the {@link #setFilters(java.util.Map) map} keyed by the bean ID.
+ * That ID can then be used in the filter chain definitions, for example:
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+    /**
+     * Inspects a bean, and if it implements the {@link Filter} interface, automatically adds that filter
+     * instance to the internal {@link #setFilters(java.util.Map) filters map} that will be referenced
+     * later during filter chain construction.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
+#### Snippet
+```java
+
+    /**
+     * A convenience method that sets the {@link #setFilterChainDefinitionMap(java.util.Map) filterChainDefinitionMap}
+     * property by accepting a {@link java.util.Properties Properties}-compatible string (multi-line key/value pairs).
+     * Each key/value pair must conform to the format defined by the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.aop` is unnecessary and can be removed
+in `support/cdi/src/main/java/org/apache/shiro/cdi/AopHelper.java`
+#### Snippet
+```java
+
+    /**
+     * Create {@link org.apache.shiro.authz.aop.AuthorizingAnnotationHandler}
+     * for annotation.
+     *
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/aop/MethodInterceptorSupport.java`
@@ -5616,15 +9993,99 @@ in `core/src/main/java/org/apache/shiro/aop/MethodInterceptorSupport.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/aop/AnnotationMethodInterceptor.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/env/DefaultEnvironment.java`
 #### Snippet
 ```java
-     * The default implementation acquires the annotation using an annotation
-     * {@link #getResolver resolver} using the internal annotation {@link #getHandler handler}'s
-     * {@link org.apache.shiro.aop.AnnotationHandler#getAnnotationClass() annotationClass}.
+/**
+ * Simple/default {@code Environment} implementation that stores Shiro objects as key-value pairs in a
+ * {@link java.util.Map Map} instance.  The key is the object name, the value is the object itself.
+ *
+ * @since 1.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
+#### Snippet
+```java
+     * this case.
      *
-     * @param mi the MethodInvocation wrapping the Method from which the Annotation will be acquired.
+     * @throws org.apache.shiro.cache.CacheException
+     *          if there are any CacheExceptions thrown by EhCache.
+     * @see net.sf.ehcache.CacheManager#create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
+#### Snippet
+```java
+     * Returns the resource location of the config file used to initialize a new
+     * EhCache CacheManager instance.  The string can be any resource path supported by the
+     * {@link org.apache.shiro.lang.io.ResourceUtils#getInputStreamForPath(String)} call.
+     * <p/>
+     * This property is ignored if the CacheManager instance is injected directly - that is, it is only used to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
+#### Snippet
+```java
+     * Sets the resource location of the config file used to initialize the wrapped
+     * EhCache CacheManager instance.  The string can be any resource path supported by the
+     * {@link org.apache.shiro.lang.io.ResourceUtils#getInputStreamForPath(String)} call.
+     * <p/>
+     * This property is ignored if the CacheManager instance is injected directly - that is, it is only used to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
+#### Snippet
+```java
+
+        try {
+            net.sf.ehcache.Ehcache cache = ensureCacheManager().getEhcache(name);
+            if (cache == null) {
+                if (log.isInfoEnabled()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+#### Snippet
+```java
+
+/**
+ * Shiro {@link org.apache.shiro.cache.Cache} implementation that wraps an {@link net.sf.ehcache.Ehcache} instance.
+ *
+ * @since 0.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+#### Snippet
+```java
+     * @param cache - delegate EhCache instance this Shiro cache instance will wrap.
+     */
+    public EhCache(net.sf.ehcache.Ehcache cache) {
+        if (cache == null) {
+            throw new IllegalArgumentException("Cache argument cannot be null.");
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+#### Snippet
+```java
+     * The wrapped Ehcache instance.
+     */
+    private net.sf.ehcache.Ehcache cache;
+
+    /**
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5661,6 +10122,42 @@ in `core/src/main/java/org/apache/shiro/aop/AnnotationHandler.java`
      * @return the {@link org.apache.shiro.subject.Subject Subject} associated with the currently-executing code.
      */
     protected Subject getSubject() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/aop/DefaultAnnotationResolver.java`
+#### Snippet
+```java
+
+    /**
+     * Returns {@code methodInvocation.}{@link org.apache.shiro.aop.MethodInvocation#getMethod() getMethod()}.{@link Method#getAnnotation(Class) getAnnotation(clazz)}.
+     *
+     * @param mi    the intercepted method to be invoked.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/SecurityManager.java`
+#### Snippet
+```java
+     * Note that most application developers should not call this method unless they have a good reason for doing
+     * so.  The preferred way to logout a Subject is to call
+     * <code>{@link org.apache.shiro.subject.Subject#logout Subject.logout()}</code>, not the
+     * {@code SecurityManager} directly.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/SecurityManager.java`
+#### Snippet
+```java
+     * Note that most application developers should probably not call this method directly unless they have a good
+     * reason for doing so.  The preferred way to log in a Subject is to call
+     * <code>subject.{@link org.apache.shiro.subject.Subject#login login(authenticationToken)}</code> (usually after
+     * acquiring the Subject by calling {@link org.apache.shiro.SecurityUtils#getSubject() SecurityUtils.getSubject()}).
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5700,27 +10197,15 @@ in `core/src/main/java/org/apache/shiro/mgt/SecurityManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/SecurityManager.java`
+Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/aop/AnnotationMethodInterceptor.java`
 #### Snippet
 ```java
-     * Note that most application developers should probably not call this method directly unless they have a good
-     * reason for doing so.  The preferred way to log in a Subject is to call
-     * <code>subject.{@link org.apache.shiro.subject.Subject#login login(authenticationToken)}</code> (usually after
-     * acquiring the Subject by calling {@link org.apache.shiro.SecurityUtils#getSubject() SecurityUtils.getSubject()}).
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/SecurityManager.java`
-#### Snippet
-```java
-     * Note that most application developers should not call this method unless they have a good reason for doing
-     * so.  The preferred way to logout a Subject is to call
-     * <code>{@link org.apache.shiro.subject.Subject#logout Subject.logout()}</code>, not the
-     * {@code SecurityManager} directly.
-     * <p/>
+     * The default implementation acquires the annotation using an annotation
+     * {@link #getResolver resolver} using the internal annotation {@link #getHandler handler}'s
+     * {@link org.apache.shiro.aop.AnnotationHandler#getAnnotationClass() annotationClass}.
+     *
+     * @param mi the MethodInvocation wrapping the Method from which the Annotation will be acquired.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5748,78 +10233,6 @@ in `core/src/main/java/org/apache/shiro/mgt/SessionStorageEvaluator.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSessionStorageEvaluator.java`
-#### Snippet
-```java
-/**
- * A Default {@code SessionStorageEvaluator} that provides reasonable control over if and how Sessions may be used for
- * storing Subject state.  See the {@link #isSessionStorageEnabled(org.apache.shiro.subject.Subject)}
- * method for exact behavior.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject.support` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectFactory.java`
-#### Snippet
-```java
-
-/**
- * Default {@link SubjectFactory SubjectFactory} implementation that creates {@link org.apache.shiro.subject.support.DelegatingSubject DelegatingSubject}
- * instances.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectFactory.java`
-#### Snippet
-```java
-
-    /**
-     * @deprecated since 1.2 - override {@link #createSubject(org.apache.shiro.subject.SubjectContext)} directly if you
-     *             need to instantiate a custom {@link Subject} class.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/CachingSecurityManager.java`
-#### Snippet
-```java
-    /**
-     * Template callback to notify subclasses that a
-     * {@link org.apache.shiro.cache.CacheManager CacheManager} has been set and is available for use via the
-     * {@link #getCacheManager getCacheManager()} method.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.mgt` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
-#### Snippet
-```java
-
-    /**
-     * Calls {@link org.apache.shiro.mgt.AuthorizingSecurityManager#afterCacheManagerSet() super.afterCacheManagerSet()} and then immediately calls
-     * {@link #applyCacheManagerToSessionManager() applyCacheManagerToSessionManager()} to ensure the
-     * <code>CacheManager</code> is applied to the SessionManager as necessary.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
-#### Snippet
-```java
-     *
-     * @return this security manager's internal delegate {@link SessionManager SessionManager}.
-     * @see #setSessionManager(org.apache.shiro.session.mgt.SessionManager) setSessionManager
-     */
-    public SessionManager getSessionManager() {
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.session` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
 #### Snippet
@@ -5844,87 +10257,123 @@ in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/aop/DefaultAnnotationResolver.java`
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
+#### Snippet
+```java
+     *
+     * @return this security manager's internal delegate {@link SessionManager SessionManager}.
+     * @see #setSessionManager(org.apache.shiro.session.mgt.SessionManager) setSessionManager
+     */
+    public SessionManager getSessionManager() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.mgt` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
 #### Snippet
 ```java
 
     /**
-     * Returns {@code methodInvocation.}{@link org.apache.shiro.aop.MethodInvocation#getMethod() getMethod()}.{@link Method#getAnnotation(Class) getAnnotation(clazz)}.
-     *
-     * @param mi    the intercepted method to be invoked.
+     * Calls {@link org.apache.shiro.mgt.AuthorizingSecurityManager#afterCacheManagerSet() super.afterCacheManagerSet()} and then immediately calls
+     * {@link #applyCacheManagerToSessionManager() applyCacheManagerToSessionManager()} to ensure the
+     * <code>CacheManager</code> is applied to the SessionManager as necessary.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/env/DefaultEnvironment.java`
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSessionStorageEvaluator.java`
 #### Snippet
 ```java
 /**
- * Simple/default {@code Environment} implementation that stores Shiro objects as key-value pairs in a
- * {@link java.util.Map Map} instance.  The key is the object name, the value is the object itself.
+ * A Default {@code SessionStorageEvaluator} that provides reasonable control over if and how Sessions may be used for
+ * storing Subject state.  See the {@link #isSessionStorageEnabled(org.apache.shiro.subject.Subject)}
+ * method for exact behavior.
  *
- * @since 1.2
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.event` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectFactory.java`
 #### Snippet
 ```java
-     * <p/>
-     * This method is called after setting an eventBus on this securityManager via the
-     * {@link #setEventBus(org.apache.shiro.event.EventBus) setEventBus} method to allow it to be propagated
-     * down to all the internal Realms that would need to use it.
-     * <p/>
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
-#### Snippet
-```java
     /**
-     * Simply calls {@link #applyCacheManagerToRealms() applyCacheManagerToRealms()} to allow the
-     * newly set {@link org.apache.shiro.cache.CacheManager CacheManager} to be propagated to the internal collection of <code>Realm</code>
-     * that would need to use it.
+     * @deprecated since 1.2 - override {@link #createSubject(org.apache.shiro.subject.SubjectContext)} directly if you
+     *             need to instantiate a custom {@link Subject} class.
      */
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject.support` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectFactory.java`
+#### Snippet
+```java
+
+/**
+ * Default {@link SubjectFactory SubjectFactory} implementation that creates {@link org.apache.shiro.subject.support.DelegatingSubject DelegatingSubject}
+ * instances.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
+in `core/src/main/java/org/apache/shiro/mgt/CachingSecurityManager.java`
 #### Snippet
 ```java
     /**
-     * Sets the internal {@link #getCacheManager CacheManager} on any internal configured
-     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.cache.CacheManagerAware CacheManagerAware} interface.
-     * <p/>
-     * This method is called after setting a cacheManager on this securityManager via the
+     * Template callback to notify subclasses that a
+     * {@link org.apache.shiro.cache.CacheManager CacheManager} has been set and is available for use via the
+     * {@link #getCacheManager getCacheManager()} method.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
 #### Snippet
 ```java
-     * <p/>
-     * This method is called after setting a cacheManager on this securityManager via the
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) setCacheManager} method to allow it to be propagated
-     * down to all the internal Realms that would need to use it.
-     * <p/>
+
+    /**
+     * Saves the subject's state to the subject's {@link org.apache.shiro.subject.Subject#getSession() session} only
+     * if {@link #isSessionStorageEnabled(Subject) sessionStorageEnabled(subject)}.  If session storage is not enabled
+     * for the specific {@code Subject}, this method does nothing.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
 #### Snippet
 ```java
-/**
- * Shiro support of a {@link SecurityManager} class hierarchy based around a collection of
- * {@link org.apache.shiro.realm.Realm}s.  All actual {@code SecurityManager} method implementations are left to
- * subclasses.
+
+    /**
+     * Merges the Subject's current {@link org.apache.shiro.subject.Subject#getPrincipals()} with whatever may be in
+     * any available session.  Only updates the Subject's session if the session does not match the current principals
+     * state.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
+#### Snippet
+```java
+ * Subject state by default.
  *
+ * @see #isSessionStorageEnabled(org.apache.shiro.subject.Subject)
+ * @see SessionStorageEvaluator
+ * @see DefaultSessionStorageEvaluator
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
+#### Snippet
+```java
+    /**
+     * Saves the subject's state (it's principals and authentication state) to its
+     * {@link org.apache.shiro.subject.Subject#getSession() session}.  The session can be retrieved at a later time
+     * (typically from a {@link org.apache.shiro.session.mgt.SessionManager SessionManager} to be used to recreate
+     * the {@code Subject} instance.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5952,6 +10401,18 @@ in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
+#### Snippet
+```java
+     * Sets the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
+     * authentication operations.  Unless overridden by this method, the default instance is a
+     * {@link org.apache.shiro.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
+     *
+     * @param authenticator the delegate <code>Authenticator</code> instance that this SecurityManager will use to
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
 #### Snippet
@@ -5976,63 +10437,63 @@ in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
+Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
 #### Snippet
 ```java
-     * Sets the delegate <code>Authenticator</code> instance that this SecurityManager uses to perform all
-     * authentication operations.  Unless overridden by this method, the default instance is a
-     * {@link org.apache.shiro.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
-     *
-     * @param authenticator the delegate <code>Authenticator</code> instance that this SecurityManager will use to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
-#### Snippet
-```java
- * Subject state by default.
+/**
+ * Shiro support of a {@link SecurityManager} class hierarchy based around a collection of
+ * {@link org.apache.shiro.realm.Realm}s.  All actual {@code SecurityManager} method implementations are left to
+ * subclasses.
  *
- * @see #isSessionStorageEnabled(org.apache.shiro.subject.Subject)
- * @see SessionStorageEvaluator
- * @see DefaultSessionStorageEvaluator
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
 #### Snippet
 ```java
-
     /**
-     * Merges the Subject's current {@link org.apache.shiro.subject.Subject#getPrincipals()} with whatever may be in
-     * any available session.  Only updates the Subject's session if the session does not match the current principals
-     * state.
+     * Sets the internal {@link #getCacheManager CacheManager} on any internal configured
+     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.cache.CacheManagerAware CacheManagerAware} interface.
+     * <p/>
+     * This method is called after setting a cacheManager on this securityManager via the
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
 #### Snippet
 ```java
-
-    /**
-     * Saves the subject's state to the subject's {@link org.apache.shiro.subject.Subject#getSession() session} only
-     * if {@link #isSessionStorageEnabled(Subject) sessionStorageEnabled(subject)}.  If session storage is not enabled
-     * for the specific {@code Subject}, this method does nothing.
+     * <p/>
+     * This method is called after setting a cacheManager on this securityManager via the
+     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) setCacheManager} method to allow it to be propagated
+     * down to all the internal Realms that would need to use it.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSubjectDAO.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
 #### Snippet
 ```java
     /**
-     * Saves the subject's state (it's principals and authentication state) to its
-     * {@link org.apache.shiro.subject.Subject#getSession() session}.  The session can be retrieved at a later time
-     * (typically from a {@link org.apache.shiro.session.mgt.SessionManager SessionManager} to be used to recreate
-     * the {@code Subject} instance.
+     * Simply calls {@link #applyCacheManagerToRealms() applyCacheManagerToRealms()} to allow the
+     * newly set {@link org.apache.shiro.cache.CacheManager CacheManager} to be propagated to the internal collection of <code>Realm</code>
+     * that would need to use it.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.event` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
+#### Snippet
+```java
+     * <p/>
+     * This method is called after setting an eventBus on this securityManager via the
+     * {@link #setEventBus(org.apache.shiro.event.EventBus) setEventBus} method to allow it to be propagated
+     * down to all the internal Realms that would need to use it.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6048,195 +10509,15 @@ in `core/src/main/java/org/apache/shiro/jndi/JndiLocator.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * Reacts to the successful login attempt by first always {@link #forgetIdentity(Subject) forgetting} any previously
-     * stored identity.  Then if the {@code token}
-     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
-     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
-     * for later retrieval during a new user session.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * stored identity.  Then if the {@code token}
-     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
-     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
-     * for later retrieval during a new user session.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * stored identity.  Then if the {@code token}
-     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
-     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
-     * for later retrieval during a new user session.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * stored identity.  Then if the {@code token}
-     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
-     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
-     * for later retrieval during a new user session.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-
-    /**
-     * Reacts to a failed login by immediately {@link #forgetIdentity(org.apache.shiro.subject.Subject) forgetting} any
-     * previously remembered identity.  This is an additional security feature to prevent any remnant identity data
-     * from being retained in case the authentication attempt is not being executed by the expected user.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-
-    /**
-     * Returns {@code info}.{@link org.apache.shiro.authc.AuthenticationInfo#getPrincipals() getPrincipals()} and
-     * ignores the {@link Subject} argument.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-    /**
-     * Reacts to a subject logging out of the application and immediately
-     * {@link #forgetIdentity(org.apache.shiro.subject.Subject) forgets} any previously stored identity and returns.
-     *
-     * @param subject the subject logging out.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-    /**
-     * Remembers the specified account principals by first
-     * {@link #convertPrincipalsToBytes(org.apache.shiro.subject.PrincipalCollection) converting} them to a byte
-     * array and then {@link #rememberSerializedIdentity(org.apache.shiro.subject.Subject, byte[]) remembers} that
-     * byte array.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * Remembers the specified account principals by first
-     * {@link #convertPrincipalsToBytes(org.apache.shiro.subject.PrincipalCollection) converting} them to a byte
-     * array and then {@link #rememberSerializedIdentity(org.apache.shiro.subject.Subject, byte[]) remembers} that
-     * byte array.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * {@link #getIdentityToRemember resolves} the exact
-     * {@link PrincipalCollection principals} to remember.  It then remembers the principals by calling
-     * {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.subject.PrincipalCollection)}.
-     * <p/>
-     * This implementation ignores the {@link AuthenticationToken} argument, but it is available to subclasses if
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * {@link #getIdentityToRemember resolves} the exact
-     * {@link PrincipalCollection principals} to remember.  It then remembers the principals by calling
-     * {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.subject.PrincipalCollection)}.
-     * <p/>
-     * This implementation ignores the {@link AuthenticationToken} argument, but it is available to subclasses if
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * Converts the given principal collection the byte array that will be persisted to be 'remembered' later.
-     * <p/>
-     * This implementation first {@link #serialize(org.apache.shiro.subject.PrincipalCollection) serializes} the
-     * principals to a byte array and then {@link #encrypt(byte[]) encrypts} that byte array.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * <li>The token is not {@code null} and</li>
-     * <li>The token is an {@code instanceof} {@link RememberMeAuthenticationToken} and</li>
-     * <li>{@code token}.{@link org.apache.shiro.authc.RememberMeAuthenticationToken#isRememberMe() isRememberMe()} is
-     * {@code true}</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
-#### Snippet
-```java
-     * <p/>
-     * Unless overridden by the {@link #setSerializer} method, the default instance is a
-     * {@link org.apache.shiro.lang.io.DefaultSerializer}.
-     *
-     * @return the {@code Serializer} used to serialize and deserialize {@link PrincipalCollection} instances for
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
-#### Snippet
-```java
- * current thread based on key/value pairs.
- * <p/>
- * <p>An internal {@link java.util.HashMap} is used to maintain the key/value pairs
- * for each thread.</p>
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
 #### Snippet
 ```java
-/**
- * The Shiro framework's default concrete implementation of the {@link SecurityManager} interface,
- * based around a collection of {@link org.apache.shiro.realm.Realm}s.  This implementation delegates its
- * authentication, authorization, and session operations to wrapped {@link Authenticator}, {@link Authorizer}, and
- * {@link org.apache.shiro.session.mgt.SessionManager SessionManager} instances respectively via superclass
+     * Unbinds or removes the Subject's state from the application, typically called during {@link #logout}.
+     * <p/>
+     * This has been deprecated in Shiro 1.2 in favor of the {@link #delete(org.apache.shiro.subject.Subject) delete}
+     * method.  The implementation has been updated to invoke that method.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6244,9 +10525,33 @@ Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
 #### Snippet
 ```java
-     * @return a {@code Subject} instance reflecting the data in the specified {@code SubjectContext} data map.
-     * @see #getSubjectFactory()
-     * @see SubjectFactory#createSubject(org.apache.shiro.subject.SubjectContext)
+     *
+     * @param subject the subject to unbind from the application as it will no longer be used.
+     * @deprecated in Shiro 1.2 in favor of {@link #delete(org.apache.shiro.subject.Subject)}
+     */
+    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+     * <p/>
+     * This implementation merely delegates to the internal {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
+     * {@link SubjectDAO#save(org.apache.shiro.subject.Subject) subjectDAO.save(subject)}.
+     *
+     * @param subject the subject for which state will potentially be persisted
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+     *
+     * @param subject the subject for which state will potentially be persisted
+     * @see SubjectDAO#save(org.apache.shiro.subject.Subject)
      * @since 1.2
      */
 ```
@@ -6340,11 +10645,11 @@ Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
 #### Snippet
 ```java
-     * Unbinds or removes the Subject's state from the application, typically called during {@link #logout}.
      * <p/>
-     * This has been deprecated in Shiro 1.2 in favor of the {@link #delete(org.apache.shiro.subject.Subject) delete}
-     * method.  The implementation has been updated to invoke that method.
+     * This implementation merely delegates to the internal {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
+     * {@link SubjectDAO#delete(org.apache.shiro.subject.Subject) delete(subject)}.
      *
+     * @param subject the subject for which state will be removed
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6353,10 +10658,34 @@ in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
 #### Snippet
 ```java
      *
-     * @param subject the subject to unbind from the application as it will no longer be used.
-     * @deprecated in Shiro 1.2 in favor of {@link #delete(org.apache.shiro.subject.Subject)}
+     * @param subject the subject for which state will be removed
+     * @see SubjectDAO#delete(org.apache.shiro.subject.Subject)
+     * @since 1.2
      */
-    @Deprecated
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+/**
+ * The Shiro framework's default concrete implementation of the {@link SecurityManager} interface,
+ * based around a collection of {@link org.apache.shiro.realm.Realm}s.  This implementation delegates its
+ * authentication, authorization, and session operations to wrapped {@link Authenticator}, {@link Authorizer}, and
+ * {@link org.apache.shiro.session.mgt.SessionManager SessionManager} instances respectively via superclass
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+     * @return a {@code Subject} instance reflecting the data in the specified {@code SubjectContext} data map.
+     * @see #getSubjectFactory()
+     * @see SubjectFactory#createSubject(org.apache.shiro.subject.SubjectContext)
+     * @since 1.2
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6397,50 +10726,170 @@ in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+    /**
+     * Reacts to a subject logging out of the application and immediately
+     * {@link #forgetIdentity(org.apache.shiro.subject.Subject) forgets} any previously stored identity and returns.
+     *
+     * @param subject the subject logging out.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * {@link #getIdentityToRemember resolves} the exact
+     * {@link PrincipalCollection principals} to remember.  It then remembers the principals by calling
+     * {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.subject.PrincipalCollection)}.
+     * <p/>
+     * This implementation ignores the {@link AuthenticationToken} argument, but it is available to subclasses if
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * {@link #getIdentityToRemember resolves} the exact
+     * {@link PrincipalCollection principals} to remember.  It then remembers the principals by calling
+     * {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.subject.PrincipalCollection)}.
+     * <p/>
+     * This implementation ignores the {@link AuthenticationToken} argument, but it is available to subclasses if
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
 #### Snippet
 ```java
      * <p/>
-     * This implementation merely delegates to the internal {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
-     * {@link SubjectDAO#save(org.apache.shiro.subject.Subject) subjectDAO.save(subject)}.
+     * Unless overridden by the {@link #setSerializer} method, the default instance is a
+     * {@link org.apache.shiro.lang.io.DefaultSerializer}.
      *
-     * @param subject the subject for which state will potentially be persisted
+     * @return the {@code Serializer} used to serialize and deserialize {@link PrincipalCollection} instances for
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
 #### Snippet
 ```java
-     *
-     * @param subject the subject for which state will potentially be persisted
-     * @see SubjectDAO#save(org.apache.shiro.subject.Subject)
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
-#### Snippet
-```java
+     * Converts the given principal collection the byte array that will be persisted to be 'remembered' later.
      * <p/>
-     * This implementation merely delegates to the internal {@link #setSubjectDAO(SubjectDAO) subjectDAO} and calls
-     * {@link SubjectDAO#delete(org.apache.shiro.subject.Subject) delete(subject)}.
+     * This implementation first {@link #serialize(org.apache.shiro.subject.PrincipalCollection) serializes} the
+     * principals to a byte array and then {@link #encrypt(byte[]) encrypts} that byte array.
      *
-     * @param subject the subject for which state will be removed
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * <li>The token is not {@code null} and</li>
+     * <li>The token is an {@code instanceof} {@link RememberMeAuthenticationToken} and</li>
+     * <li>{@code token}.{@link org.apache.shiro.authc.RememberMeAuthenticationToken#isRememberMe() isRememberMe()} is
+     * {@code true}</li>
+     * </ol>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
 #### Snippet
 ```java
+
+    /**
+     * Reacts to a failed login by immediately {@link #forgetIdentity(org.apache.shiro.subject.Subject) forgetting} any
+     * previously remembered identity.  This is an additional security feature to prevent any remnant identity data
+     * from being retained in case the authentication attempt is not being executed by the expected user.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+    /**
+     * Remembers the specified account principals by first
+     * {@link #convertPrincipalsToBytes(org.apache.shiro.subject.PrincipalCollection) converting} them to a byte
+     * array and then {@link #rememberSerializedIdentity(org.apache.shiro.subject.Subject, byte[]) remembers} that
+     * byte array.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * Remembers the specified account principals by first
+     * {@link #convertPrincipalsToBytes(org.apache.shiro.subject.PrincipalCollection) converting} them to a byte
+     * array and then {@link #rememberSerializedIdentity(org.apache.shiro.subject.Subject, byte[]) remembers} that
+     * byte array.
      *
-     * @param subject the subject for which state will be removed
-     * @see SubjectDAO#delete(org.apache.shiro.subject.Subject)
-     * @since 1.2
-     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+
+    /**
+     * Returns {@code info}.{@link org.apache.shiro.authc.AuthenticationInfo#getPrincipals() getPrincipals()} and
+     * ignores the {@link Subject} argument.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * Reacts to the successful login attempt by first always {@link #forgetIdentity(Subject) forgetting} any previously
+     * stored identity.  Then if the {@code token}
+     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
+     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
+     * for later retrieval during a new user session.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * stored identity.  Then if the {@code token}
+     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
+     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
+     * for later retrieval during a new user session.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * stored identity.  Then if the {@code token}
+     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
+     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
+     * for later retrieval during a new user session.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
+     * stored identity.  Then if the {@code token}
+     * {@link #isRememberMe(org.apache.shiro.authc.AuthenticationToken) is a RememberMe} token, the associated identity
+     * will be {@link #rememberIdentity(org.apache.shiro.subject.Subject, org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) remembered}
+     * for later retrieval during a new user session.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6468,6 +10917,18 @@ in `core/src/main/java/org/apache/shiro/mgt/AuthorizingSecurityManager.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
+#### Snippet
+```java
+ * current thread based on key/value pairs.
+ * <p/>
+ * <p>An internal {@link java.util.HashMap} is used to maintain the key/value pairs
+ * for each thread.</p>
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authc/AbstractAuthenticator.java`
 #### Snippet
@@ -6492,30 +10953,6 @@ in `core/src/main/java/org/apache/shiro/authc/AbstractAuthenticator.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/AllSuccessfulStrategy.java`
-#### Snippet
-```java
-    /**
-     * Because all realms in this strategy must complete successfully, this implementation ensures that the given
-     * <code>Realm</code> {@link org.apache.shiro.realm.Realm#supports(org.apache.shiro.authc.AuthenticationToken) supports} the given
-     * <code>token</code> argument.  If it does not, this method throws an
-     * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/AllSuccessfulStrategy.java`
-#### Snippet
-```java
-    /**
-     * Because all realms in this strategy must complete successfully, this implementation ensures that the given
-     * <code>Realm</code> {@link org.apache.shiro.realm.Realm#supports(org.apache.shiro.authc.AuthenticationToken) supports} the given
-     * <code>token</code> argument.  If it does not, this method throws an
-     * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authc/BearerToken.java`
 #### Snippet
@@ -6525,78 +10962,6 @@ in `core/src/main/java/org/apache/shiro/authc/BearerToken.java`
  * class also implements the {@link org.apache.shiro.authc.HostAuthenticationToken HostAuthenticationToken} interface to retain the host name
  * or IP address location from where the authentication attempt is occurring.
  *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/AtLeastOneSuccessfulStrategy.java`
-#### Snippet
-```java
-    /**
-     * Ensures that the <code>aggregate</code> method argument is not <code>null</code> and
-     * <code>aggregate.{@link org.apache.shiro.authc.AuthenticationInfo#getPrincipals() getPrincipals()}</code>
-     * is not <code>null</code>, and if either is <code>null</code>, throws an AuthenticationException to indicate
-     * that none of the realms authenticated successfully.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
-#### Snippet
-```java
-/**
- * Exception thrown during the authentication process using
- * {@link org.apache.shiro.authc.pam.FirstSuccessfulStrategy}, with 
- * <code>stopAfterFirstSuccess</code> set.  
- * This is a signal to short circuit the authentication from proceeding 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
-#### Snippet
-```java
- * after a first successful authentication.
- *
- * @see org.apache.shiro.authc.pam.AuthenticationStrategy
- * @see org.apache.shiro.authc.pam.FirstSuccessfulStrategy
- * @since 1.4.1
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
-#### Snippet
-```java
- *
- * @see org.apache.shiro.authc.pam.AuthenticationStrategy
- * @see org.apache.shiro.authc.pam.FirstSuccessfulStrategy
- * @since 1.4.1
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/UnsupportedTokenException.java`
-#### Snippet
-```java
- * supported by one or more configured {@link org.apache.shiro.realm.Realm Realm}s.
- *
- * @see org.apache.shiro.authc.pam.AuthenticationStrategy
- * @since 0.2
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/AuthenticationStrategy.java`
-#### Snippet
-```java
-     * @return the AuthenticationInfo object that will be presented to further realms in the authentication process - returning
-     *         the {@code aggregate} method argument is the normal case if no special action needs to be taken.
-     * @throws org.apache.shiro.authc.AuthenticationException
-     *          an exception thrown by the Strategy implementation if it wishes the login
-     *          process for the associated subject (user) to stop immediately.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6636,15 +11001,99 @@ in `core/src/main/java/org/apache/shiro/authc/UsernamePasswordToken.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/AbstractAuthenticationStrategy.java`
+Qualifier `org.apache.shiro.realm` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/AllSuccessfulStrategy.java`
 #### Snippet
 ```java
-
     /**
-     * Simply returns <code>new {@link org.apache.shiro.authc.SimpleAuthenticationInfo SimpleAuthenticationInfo}();</code>, which supports
-     * aggregating account data across realms.
-     */
+     * Because all realms in this strategy must complete successfully, this implementation ensures that the given
+     * <code>Realm</code> {@link org.apache.shiro.realm.Realm#supports(org.apache.shiro.authc.AuthenticationToken) supports} the given
+     * <code>token</code> argument.  If it does not, this method throws an
+     * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/AllSuccessfulStrategy.java`
+#### Snippet
+```java
+    /**
+     * Because all realms in this strategy must complete successfully, this implementation ensures that the given
+     * <code>Realm</code> {@link org.apache.shiro.realm.Realm#supports(org.apache.shiro.authc.AuthenticationToken) supports} the given
+     * <code>token</code> argument.  If it does not, this method throws an
+     * {@link UnsupportedTokenException UnsupportedTokenException} to end the authentication
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
+#### Snippet
+```java
+/**
+ * Exception thrown during the authentication process using
+ * {@link org.apache.shiro.authc.pam.FirstSuccessfulStrategy}, with 
+ * <code>stopAfterFirstSuccess</code> set.  
+ * This is a signal to short circuit the authentication from proceeding 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
+#### Snippet
+```java
+ * after a first successful authentication.
+ *
+ * @see org.apache.shiro.authc.pam.AuthenticationStrategy
+ * @see org.apache.shiro.authc.pam.FirstSuccessfulStrategy
+ * @since 1.4.1
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ShortCircuitIterationException.java`
+#### Snippet
+```java
+ *
+ * @see org.apache.shiro.authc.pam.AuthenticationStrategy
+ * @see org.apache.shiro.authc.pam.FirstSuccessfulStrategy
+ * @since 1.4.1
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/AtLeastOneSuccessfulStrategy.java`
+#### Snippet
+```java
+    /**
+     * Ensures that the <code>aggregate</code> method argument is not <code>null</code> and
+     * <code>aggregate.{@link org.apache.shiro.authc.AuthenticationInfo#getPrincipals() getPrincipals()}</code>
+     * is not <code>null</code>, and if either is <code>null</code>, throws an AuthenticationException to indicate
+     * that none of the realms authenticated successfully.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/UnsupportedTokenException.java`
+#### Snippet
+```java
+ * supported by one or more configured {@link org.apache.shiro.realm.Realm Realm}s.
+ *
+ * @see org.apache.shiro.authc.pam.AuthenticationStrategy
+ * @since 0.2
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/AuthenticationStrategy.java`
+#### Snippet
+```java
+     * @return the AuthenticationInfo object that will be presented to further realms in the authentication process - returning
+     *         the {@code aggregate} method argument is the normal case if no special action needs to be taken.
+     * @throws org.apache.shiro.authc.AuthenticationException
+     *          an exception thrown by the Strategy implementation if it wishes the login
+     *          process for the associated subject (user) to stop immediately.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6669,6 +11118,18 @@ in `core/src/main/java/org/apache/shiro/authc/pam/AbstractAuthenticationStrategy
      * {@link org.apache.shiro.authc.MergableAuthenticationInfo MergableAuthenticationInfo} is not desired for some reason.
      */
     protected AuthenticationInfo merge(AuthenticationInfo info, AuthenticationInfo aggregate) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/AbstractAuthenticationStrategy.java`
+#### Snippet
+```java
+
+    /**
+     * Simply returns <code>new {@link org.apache.shiro.authc.SimpleAuthenticationInfo SimpleAuthenticationInfo}();</code>, which supports
+     * aggregating account data across realms.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6724,30 +11185,6 @@ Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
 #### Snippet
 ```java
-     * Sets whether or not to salt a submitted {@code AuthenticationToken}'s credentials when hashing.
-     * <p/>
-     * If enabled, the salt used will be obtained via the {@link #getSalt(org.apache.shiro.authc.AuthenticationToken) getCredentialsSalt} method.
-     * </p>
-     * The default value is {@code false}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
-     *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
-     *             {@link org.apache.shiro.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
-     *             This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
-     *             {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
      * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
      *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
      *             {@link org.apache.shiro.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
@@ -6777,6 +11214,78 @@ in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatche
      * {@link SimpleCredentialsMatcher#getCredentials(org.apache.shiro.authc.AuthenticationInfo) getCredentials(AuthenticationInfo)} implementation.
      *
      * @return a new, <em>uninitialized</em> instance, without its byte array set.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the {@code Hash} {@link org.apache.shiro.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
+     * when performing hashes for credentials matching.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     * when performing hashes for credentials matching.
+     *
+     * @return the {@code Hash} {@link org.apache.shiro.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
+     *         when performing hashes for credentials matching.
+     * @since 1.1
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     * This implementation first hashes the {@code token}'s credentials, potentially using a
+     * {@code salt} if the {@code info} argument is a
+     * {@link org.apache.shiro.authc.SaltedAuthenticationInfo SaltedAuthenticationInfo}.  It then compares the hash
+     * against the {@code AuthenticationInfo}'s
+     * {@link #getCredentials(org.apache.shiro.authc.AuthenticationInfo) already-hashed credentials}.  This method
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     * {@link org.apache.shiro.authc.SaltedAuthenticationInfo SaltedAuthenticationInfo}.  It then compares the hash
+     * against the {@code AuthenticationInfo}'s
+     * {@link #getCredentials(org.apache.shiro.authc.AuthenticationInfo) already-hashed credentials}.  This method
+     * returns {@code true} if those two values are {@link #equals(Object, Object) equal}, {@code false} otherwise.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     * @deprecated since Shiro 1.1.  Hash salting is now expected to be based on if the {@link AuthenticationInfo}
+     *             returned from the {@code Realm} is a {@link SaltedAuthenticationInfo} instance and its
+     *             {@link org.apache.shiro.authc.SaltedAuthenticationInfo#getCredentialsSalt() getCredentialsSalt()} method returns a non-null value.
+     *             This method and the 1.0 behavior still exists for backwards compatibility if the {@code Realm} does not return
+     *             {@code SaltedAuthenticationInfo} instances, but <b>it is highly recommended that {@code Realm} implementations
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
+#### Snippet
+```java
+     * Sets whether or not to salt a submitted {@code AuthenticationToken}'s credentials when hashing.
+     * <p/>
+     * If enabled, the salt used will be obtained via the {@link #getSalt(org.apache.shiro.authc.AuthenticationToken) getCredentialsSalt} method.
+     * </p>
+     * The default value is {@code false}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6816,54 +11325,6 @@ in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatche
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     * This implementation first hashes the {@code token}'s credentials, potentially using a
-     * {@code salt} if the {@code info} argument is a
-     * {@link org.apache.shiro.authc.SaltedAuthenticationInfo SaltedAuthenticationInfo}.  It then compares the hash
-     * against the {@code AuthenticationInfo}'s
-     * {@link #getCredentials(org.apache.shiro.authc.AuthenticationInfo) already-hashed credentials}.  This method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     * {@link org.apache.shiro.authc.SaltedAuthenticationInfo SaltedAuthenticationInfo}.  It then compares the hash
-     * against the {@code AuthenticationInfo}'s
-     * {@link #getCredentials(org.apache.shiro.authc.AuthenticationInfo) already-hashed credentials}.  This method
-     * returns {@code true} if those two values are {@link #equals(Object, Object) equal}, {@code false} otherwise.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-
-    /**
-     * Returns the {@code Hash} {@link org.apache.shiro.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
-     * when performing hashes for credentials matching.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
-#### Snippet
-```java
-     * when performing hashes for credentials matching.
-     *
-     * @return the {@code Hash} {@link org.apache.shiro.crypto.hash.Hash#getAlgorithmName() algorithmName} to use
-     *         when performing hashes for credentials matching.
-     * @since 1.1
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatcher.java`
 #### Snippet
@@ -6885,6 +11346,162 @@ in `core/src/main/java/org/apache/shiro/authc/credential/HashedCredentialsMatche
      * @param hashAlgorithmName the {@code Hash} {@link org.apache.shiro.crypto.hash.Hash#getAlgorithmName() algorithmName}
      *                          to use when performing hashes for credentials matching.
      * @since 1.1
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+    /**
+     * Attempts to authenticate the given token by iterating over the internal collection of
+     * {@link Realm}s.  For each realm, first the {@link Realm#supports(org.apache.shiro.authc.AuthenticationToken)}
+     * method will be called to determine if the realm supports the {@code authenticationToken} method argument.
+     * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+     * <p/>
+     * If a realm does support
+     * the token, its {@link Realm#getAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)}
+     * method will be called.  If the realm returns a non-null account, the token will be
+     * considered authenticated for that realm and the account data recorded.  If the realm returns {@code null},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+     * Unless overridden by
+     * the {@link #setAuthenticationStrategy(AuthenticationStrategy)} method, the default implementation
+     * is the {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy}.
+     *
+     * @return the {@code AuthenticationStrategy} utilized by this modular authenticator during a log-in attempt.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+ * If only one realm is configured (this is often the case for most applications), authentication success is naturally
+ * only dependent upon invoking this one Realm's
+ * {@link Realm#getAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method.
+ * <p/>
+ * But if two or more realms are configured, PAM behavior is implemented by iterating over the collection of realms
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+     * Default no-argument constructor which
+     * {@link #setAuthenticationStrategy(AuthenticationStrategy) enables}  an
+     * {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy} by default.
+     */
+    public ModularRealmAuthenticator() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+#### Snippet
+```java
+    /**
+     * The authentication strategy to use during authentication attempts, defaults to a
+     * {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy} instance.
+     */
+    private AuthenticationStrategy authenticationStrategy;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+ * <p/>
+ * Recognizes {@link Factory} implementations and will call
+ * {@link org.apache.shiro.lang.util.Factory#getInstance() getInstance} to satisfy any reference to this bean.
+ *
+ * @since 0.9
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+     * Binds the security manager.  Override this method in order to provide your own security manager binding.
+     * <p/>
+     * By default, a {@link org.apache.shiro.web.mgt.DefaultWebSecurityManager} is bound as an eager singleton.
+     *
+     * @param bind
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+     * Adds a filter chain to the shiro configuration.
+     * <p/>
+     * NOTE: If the provided key is for a subclass of {@link org.apache.shiro.web.filter.PathMatchingFilter}, it will be registered with a proper
+     * provider.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+/**
+ * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
+ * {@link org.apache.shiro.web.mgt.WebSecurityManager}, {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by
+ * using {@link #bindRealm() bindRealm}.
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+/**
+ * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
+ * {@link org.apache.shiro.web.mgt.WebSecurityManager}, {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by
+ * using {@link #bindRealm() bindRealm}.
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+ * using {@link #bindRealm() bindRealm}.
+ * <p/>
+ * Also provides for the configuring of filter chains and binds a {@link org.apache.shiro.web.filter.mgt.FilterChainResolver} with that information.
+ */
+public abstract class ShiroWebModule extends ShiroModule {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/AuthorizationInfo.java`
+#### Snippet
+```java
+ * <p/>
+ * Roles are represented as a <code>Collection</code> of Strings
+ * ({@link java.util.Collection Collection}<{@link String String}>), typically each element being the Role name.
+ * <p/>
+ * {@link Permission Permission}s are provided in two ways:
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6912,15 +11529,51 @@ in `core/src/main/java/org/apache/shiro/authz/Authorizer.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/AuthorizationInfo.java`
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
 #### Snippet
 ```java
- * <p/>
- * Roles are represented as a <code>Collection</code> of Strings
- * ({@link java.util.Collection Collection}<{@link String String}>), typically each element being the Role name.
- * <p/>
- * {@link Permission Permission}s are provided in two ways:
+     *
+     * @param a the RequiresPermission annotation being inspected to check for one or more permissions
+     * @throws org.apache.shiro.authz.AuthorizationException
+     *          if the calling <code>Subject</code> does not have the permission(s) necessary to
+     *          continue access or execution.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
+#### Snippet
+```java
+
+/**
+ * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions} annotation is
+ * declared, and if so, performs a permission check to see if the calling <code>Subject</code> is allowed continued
+ * access.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
+#### Snippet
+```java
+    /**
+     * Default no-argument constructor that ensures this handler looks for
+     * {@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions} annotations.
+     */
+    public PermissionAnnotationHandler() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/UserAnnotationHandler.java`
+#### Snippet
+```java
+     * Default no-argument constructor that ensures this handler looks for
+     *
+     * {@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser} annotations.
+     */
+    public UserAnnotationHandler() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -6940,18 +11593,6 @@ Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authz/aop/UserAnnotationHandler.java`
 #### Snippet
 ```java
-     * Default no-argument constructor that ensures this handler looks for
-     *
-     * {@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser} annotations.
-     */
-    public UserAnnotationHandler() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/UserAnnotationHandler.java`
-#### Snippet
-```java
 
 /**
  * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser} annotation
@@ -6960,39 +11601,15 @@ in `core/src/main/java/org/apache/shiro/authz/aop/UserAnnotationHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
-#### Snippet
-```java
-    /**
-     * Default no-argument constructor that ensures this handler looks for
-     * {@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions} annotations.
-     */
-    public PermissionAnnotationHandler() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
-#### Snippet
-```java
-
-/**
- * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions} annotation is
- * declared, and if so, performs a permission check to see if the calling <code>Subject</code> is allowed continued
- * access.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/PermissionAnnotationHandler.java`
+in `core/src/main/java/org/apache/shiro/authz/aop/GuestAnnotationHandler.java`
 #### Snippet
 ```java
      *
-     * @param a the RequiresPermission annotation being inspected to check for one or more permissions
+     * @param a the annotation to check for one or more roles
      * @throws org.apache.shiro.authz.AuthorizationException
-     *          if the calling <code>Subject</code> does not have the permission(s) necessary to
-     *          continue access or execution.
+     *          if the calling <code>Subject</code> is not a &quot;guest&quot;.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7017,18 +11634,6 @@ in `core/src/main/java/org/apache/shiro/authz/aop/GuestAnnotationHandler.java`
  * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest} annotation
  * is declared, and if so, ensures the calling <code>Subject</code> does <em>not</em>
  * have an {@link org.apache.shiro.subject.Subject#getPrincipal() identity} before invoking the method.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/GuestAnnotationHandler.java`
-#### Snippet
-```java
-     *
-     * @param a the annotation to check for one or more roles
-     * @throws org.apache.shiro.authz.AuthorizationException
-     *          if the calling <code>Subject</code> is not a &quot;guest&quot;.
-     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7068,6 +11673,18 @@ in `core/src/main/java/org/apache/shiro/authz/aop/AuthenticatedAnnotationHandler
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/RolesAllowedAnnotationHandler.java`
+#### Snippet
+```java
+     *
+     * @param a the RolesAllowed annotation to use to check for one or more roles
+     * @throws org.apache.shiro.authz.AuthorizationException
+     *          if the calling <code>Subject</code> does not have the role necessary to
+     *          proceed.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authz/aop/AnnotationsAuthorizingMethodInterceptor.java`
 #### Snippet
@@ -7104,27 +11721,15 @@ in `core/src/main/java/org/apache/shiro/authz/aop/AnnotationsAuthorizingMethodIn
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/RoleAnnotationHandler.java`
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/AuthorizingAnnotationHandler.java`
 #### Snippet
 ```java
-
-/**
- * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles} annotation is declared, and if so, performs
- * a role check to see if the calling <code>Subject</code> is allowed to proceed.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
-#### Snippet
-```java
-     * Unless overridden by
-     * the {@link #setAuthenticationStrategy(AuthenticationStrategy)} method, the default implementation
-     * is the {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy}.
      *
-     * @return the {@code AuthenticationStrategy} utilized by this modular authenticator during a log-in attempt.
+     * @param a the <code>Annotation</code> to check for performing an authorization check.
+     * @throws org.apache.shiro.authz.AuthorizationException if the class/instance/method is not allowed to proceed/execute.
+     */
+    public abstract void assertAuthorized(Annotation a) throws AuthorizationException;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7140,42 +11745,6 @@ in `core/src/main/java/org/apache/shiro/authz/aop/RoleAnnotationHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
-#### Snippet
-```java
-    /**
-     * The authentication strategy to use during authentication attempts, defaults to a
-     * {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy} instance.
-     */
-    private AuthenticationStrategy authenticationStrategy;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.pam` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
-#### Snippet
-```java
-     * Default no-argument constructor which
-     * {@link #setAuthenticationStrategy(AuthenticationStrategy) enables}  an
-     * {@link org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy} by default.
-     */
-    public ModularRealmAuthenticator() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
-#### Snippet
-```java
- * If only one realm is configured (this is often the case for most applications), authentication success is naturally
- * only dependent upon invoking this one Realm's
- * {@link Realm#getAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method.
- * <p/>
- * But if two or more realms are configured, PAM behavior is implemented by iterating over the collection of realms
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/authz/aop/RoleAnnotationHandler.java`
 #### Snippet
@@ -7188,39 +11757,15 @@ in `core/src/main/java/org/apache/shiro/authz/aop/RoleAnnotationHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
+Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/aop/RoleAnnotationHandler.java`
 #### Snippet
 ```java
-    /**
-     * Attempts to authenticate the given token by iterating over the internal collection of
-     * {@link Realm}s.  For each realm, first the {@link Realm#supports(org.apache.shiro.authc.AuthenticationToken)}
-     * method will be called to determine if the realm supports the {@code authenticationToken} method argument.
-     * <p/>
-```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/pam/ModularRealmAuthenticator.java`
-#### Snippet
-```java
-     * <p/>
-     * If a realm does support
-     * the token, its {@link Realm#getAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)}
-     * method will be called.  If the realm returns a non-null account, the token will be
-     * considered authenticated for that realm and the account data recorded.  If the realm returns {@code null},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/aop/AuthorizingAnnotationHandler.java`
-#### Snippet
-```java
-     *
-     * @param a the <code>Annotation</code> to check for performing an authorization check.
-     * @throws org.apache.shiro.authz.AuthorizationException if the class/instance/method is not allowed to proceed/execute.
-     */
-    public abstract void assertAuthorized(Annotation a) throws AuthorizationException;
+/**
+ * Checks to see if a @{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles} annotation is declared, and if so, performs
+ * a role check to see if the calling <code>Subject</code> is allowed to proceed.
+ *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7245,30 +11790,6 @@ in `core/src/main/java/org/apache/shiro/authz/aop/AuthorizingMethodInterceptor.j
      * calling {@link #assertAuthorized(org.apache.shiro.aop.MethodInvocation) assertAuthorized}.
      */
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolver.java`
-#### Snippet
-```java
-/**
- * A {@code PermissionResolver} resolves a String value and converts it into a
- * {@link org.apache.shiro.authz.Permission Permission} instance.
- * <p/>
- * The default {@link WildcardPermissionResolver} should be
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolver.java`
-#### Snippet
-```java
- * suitable for most purposes, which constructs {@link WildcardPermission} objects.
- * However, any resolver may be configured if an application wishes to use different
- * {@link org.apache.shiro.authz.Permission} implementations.
- * <p/>
- * A {@code PermissionResolver} is used by many Shiro components such as annotations, property file
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7305,6 +11826,66 @@ in `core/src/main/java/org/apache/shiro/authz/aop/AuthorizingAnnotationMethodInt
      * @throws org.apache.shiro.authz.AuthorizationException if the <code>MethodInvocation</code> is not allowed to proceed.
      * @throws Throwable if any other error occurs.
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolver.java`
+#### Snippet
+```java
+/**
+ * A {@code PermissionResolver} resolves a String value and converts it into a
+ * {@link org.apache.shiro.authz.Permission Permission} instance.
+ * <p/>
+ * The default {@link WildcardPermissionResolver} should be
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/permission/PermissionResolver.java`
+#### Snippet
+```java
+ * suitable for most purposes, which constructs {@link WildcardPermission} objects.
+ * However, any resolver may be configured if an application wishes to use different
+ * {@link org.apache.shiro.authz.Permission} implementations.
+ * <p/>
+ * A {@code PermissionResolver} is used by many Shiro components such as annotations, property file
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/permission/RolePermissionResolver.java`
+#### Snippet
+```java
+/**
+ * A RolePermissionResolver resolves a String value and converts it into a Collection of
+ * {@link org.apache.shiro.authz.Permission} instances.
+ * <p/>
+ * In some cases a {@link org.apache.shiro.realm.Realm} my only be able to return a list of roles.  This
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/Realm.java`
+#### Snippet
+```java
+    /**
+     * Returns <tt>true</tt> if this realm wishes to authenticate the Subject represented by the given
+     * {@link org.apache.shiro.authc.AuthenticationToken AuthenticationToken} instance, <tt>false</tt> otherwise.
+     *
+     * <p>If this method returns <tt>false</tt>, it will not be called to authenticate the Subject represented by
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/Realm.java`
+#### Snippet
+```java
+     * @return the authentication information for the account associated with the specified <tt>token</tt>,
+     *         or <tt>null</tt> if no account could be found.
+     * @throws org.apache.shiro.authc.AuthenticationException
+     *          if there is an error obtaining or constructing an AuthenticationInfo object based on the
+     *          specified <tt>token</tt> or implementation-specific login behavior fails.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7380,114 +11961,6 @@ in `core/src/main/java/org/apache/shiro/realm/Realm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/Realm.java`
-#### Snippet
-```java
-    /**
-     * Returns <tt>true</tt> if this realm wishes to authenticate the Subject represented by the given
-     * {@link org.apache.shiro.authc.AuthenticationToken AuthenticationToken} instance, <tt>false</tt> otherwise.
-     *
-     * <p>If this method returns <tt>false</tt>, it will not be called to authenticate the Subject represented by
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/Realm.java`
-#### Snippet
-```java
-     * @return the authentication information for the account associated with the specified <tt>token</tt>,
-     *         or <tt>null</tt> if no account could be found.
-     * @throws org.apache.shiro.authc.AuthenticationException
-     *          if there is an error obtaining or constructing an AuthenticationInfo object based on the
-     *          specified <tt>token</tt> or implementation-specific login behavior fails.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/permission/RolePermissionResolver.java`
-#### Snippet
-```java
-/**
- * A RolePermissionResolver resolves a String value and converts it into a Collection of
- * {@link org.apache.shiro.authz.Permission} instances.
- * <p/>
- * In some cases a {@link org.apache.shiro.realm.Realm} my only be able to return a list of roles.  This
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-     * Subclasses are free to override for additional behavior, but be sure to call {@code super.onLogout} first.
-     * <p/>
-     * This default implementation merely calls {@link #clearCache(org.apache.shiro.subject.PrincipalCollection)}.
-     *
-     * @param principals the application-specific Subject/user identifier that is logging out.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-     *
-     * @param principals the application-specific Subject/user identifier that is logging out.
-     * @see #clearCache(org.apache.shiro.subject.PrincipalCollection)
-     * @see #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)
-     * @since 1.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-     * @param principals the application-specific Subject/user identifier that is logging out.
-     * @see #clearCache(org.apache.shiro.subject.PrincipalCollection)
-     * @see #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-    /**
-     * Sets whether or not caching should be used if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}.
-     *
-     * @param cachingEnabled whether or not to globally enable caching for this realm.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-     * call.</li>
-     * <li>If the previous call does not result in any principals, attempt to get the overall 'primary' principal
-     * from the PrincipalCollection via {@link org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()}.</li>
-     * <li>If there are no principals from that call (or the PrincipalCollection argument was null to begin with),
-     * return {@code null}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation will return quietly if the principals argument is null or empty.  Otherwise it delegates
-     * to {@link #doClearCache(org.apache.shiro.subject.PrincipalCollection)}.
-     *
-     * @param principals the principals of the account for which to clear any cached data.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 #### Snippet
@@ -7548,6 +12021,54 @@ in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
+#### Snippet
+```java
+     * call.</li>
+     * <li>If the previous call does not result in any principals, attempt to get the overall 'primary' principal
+     * from the PrincipalCollection via {@link org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()}.</li>
+     * <li>If there are no principals from that call (or the PrincipalCollection argument was null to begin with),
+     * return {@code null}</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
+#### Snippet
+```java
+     * Subclasses are free to override for additional behavior, but be sure to call {@code super.onLogout} first.
+     * <p/>
+     * This default implementation merely calls {@link #clearCache(org.apache.shiro.subject.PrincipalCollection)}.
+     *
+     * @param principals the application-specific Subject/user identifier that is logging out.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
+#### Snippet
+```java
+     *
+     * @param principals the application-specific Subject/user identifier that is logging out.
+     * @see #clearCache(org.apache.shiro.subject.PrincipalCollection)
+     * @see #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)
+     * @since 1.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
+#### Snippet
+```java
+     * @param principals the application-specific Subject/user identifier that is logging out.
+     * @see #clearCache(org.apache.shiro.subject.PrincipalCollection)
+     * @see #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)
+     * @since 1.2
+     */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 #### Snippet
@@ -7560,27 +12081,27 @@ in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 #### Snippet
 ```java
+    /**
+     * Sets whether or not caching should be used if a {@link CacheManager} has been
+     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}.
      *
-     * <p>The returned Collection is in the same order as the specified
-     * {@link #setJndiNames(java.util.Collection) jndiNames}
-     *
-     * @return an ordered collection of the {@link #setJndiNames(java.util.Collection) specified Realms} found in JNDI.
+     * @param cachingEnabled whether or not to globally enable caching for this realm.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/CachingRealm.java`
 #### Snippet
 ```java
-     * {@link #setJndiNames(java.util.Collection) jndiNames}
+     * <p/>
+     * This implementation will return quietly if the principals argument is null or empty.  Otherwise it delegates
+     * to {@link #doClearCache(org.apache.shiro.subject.PrincipalCollection)}.
      *
-     * @return an ordered collection of the {@link #setJndiNames(java.util.Collection) specified Realms} found in JNDI.
-     * @throws IllegalStateException if any of the JNDI names fails to successfully look up a Realm instance.
-     */
+     * @param principals the principals of the account for which to clear any cached data.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7644,6 +12165,30 @@ in `core/src/main/java/org/apache/shiro/realm/ldap/AbstractLdapRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+#### Snippet
+```java
+     *
+     * <p>The returned Collection is in the same order as the specified
+     * {@link #setJndiNames(java.util.Collection) jndiNames}
+     *
+     * @return an ordered collection of the {@link #setJndiNames(java.util.Collection) specified Realms} found in JNDI.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+#### Snippet
+```java
+     * {@link #setJndiNames(java.util.Collection) jndiNames}
+     *
+     * @return an ordered collection of the {@link #setJndiNames(java.util.Collection) specified Realms} found in JNDI.
+     * @throws IllegalStateException if any of the JNDI names fails to successfully look up a Realm instance.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `javax.naming` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/ldap/LdapUtils.java`
 #### Snippet
@@ -7653,282 +12198,6 @@ in `core/src/main/java/org/apache/shiro/realm/ldap/LdapUtils.java`
      * @throws javax.naming.NamingException if there is an LDAP error while reading the values.
      */
     public static Collection<String> getAllAttributeValues(Attribute attr) throws NamingException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission)} call returns <code>true</code>
-     * for <em>all</em> of the specified Permissions, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Sets the specified {@link RolePermissionResolver RolePermissionResolver} on <em>all</em> of the wrapped realms that
-     * implement the {@link org.apache.shiro.authz.permission.RolePermissionResolverAware PermissionResolverAware} interface.
-     * <p/>
-     * Only call this method if you want the permission resolver to be passed to all realms that implement the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-     *
-     * @param rolePermissionResolver the rolePermissionResolver to set on all of the wrapped realms that implement the
-     *                               {@link org.apache.shiro.authz.permission.RolePermissionResolverAware RolePermissionResolverAware} interface.
-     */
-    public void setRolePermissionResolver(RolePermissionResolver rolePermissionResolver) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * Calls {@link #checkRole(org.apache.shiro.subject.PrincipalCollection, String) checkRole} for each role specified.
-     */
-    public void checkRoles(PrincipalCollection principals, String... roles) throws AuthorizationException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> iff any of the configured realms'
-     * {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code> for
-     * <em>all</em> roles specified, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code>
-     * for <em>all</em> of the specified string permissions, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String)} returns <code>true</code>,
-     * <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code>,
-     * <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * Calls {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} for each role name in the specified
-     * collection and places the return value from each call at the respective location in the returned array.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermittedAll(org.apache.shiro.subject.PrincipalCollection, String...)} call returns
-     * <code>true</code>, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Sets the internal {@link #getRolePermissionResolver} on any internal configured
-     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.authz.permission.RolePermissionResolverAware RolePermissionResolverAware} interface.
-     * <p/>
-     * This method is called after setting a rolePermissionResolver on this ModularRealmAuthorizer via the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-     * <p/>
-     * This method is called after setting a rolePermissionResolver on this ModularRealmAuthorizer via the
-     * {@link #setRolePermissionResolver(org.apache.shiro.authz.permission.RolePermissionResolver) setRolePermissionResolver} method.
-     * <p/>
-     * It is also called after setting one or more realms via the {@link #setRealms setRealms} method to allow these
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * If !{@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String) hasRole(role)}, throws
-     * an <code>UnauthorizedException</code> otherwise returns quietly.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission) isPermitted(permission)}, throws
-     * an <code>UnauthorizedException</code> otherwise returns quietly.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String...) isPermitted(permission)},
-     * throws an <code>UnauthorizedException</code> otherwise returns quietly.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, List)} call returns <code>true</code>,
-     * <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Sets the specified {@link PermissionResolver PermissionResolver} on <em>all</em> of the wrapped realms that
-     * implement the {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
-     * <p/>
-     * Only call this method if you want the permission resolver to be passed to all realms that implement the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-     *
-     * @param permissionResolver the permissionResolver to set on all of the wrapped realms that implement the
-     *                           {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
-     */
-    public void setPermissionResolver(PermissionResolver permissionResolver) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Sets the internal {@link #getPermissionResolver} on any internal configured
-     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
-     * <p/>
-     * This method is called after setting a permissionResolver on this ModularRealmAuthorizer via the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-     * <p/>
-     * This method is called after setting a permissionResolver on this ModularRealmAuthorizer via the
-     * {@link #setPermissionResolver(org.apache.shiro.authz.permission.PermissionResolver) setPermissionResolver} method.
-     * <p/>
-     * It is also called after setting one or more realms via the {@link #setRealms setRealms} method to allow these
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission) isPermitted(permission)} for
-     * <em>all</em> the given Permissions, throws
-     * an <code>UnauthorizedException</code> otherwise returns quietly.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-
-    /**
-     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String) isPermitted(permission)}, throws
-     * an <code>UnauthorizedException</code> otherwise returns quietly.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if any of the configured realms'
-     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission)} call returns <code>true</code>,
-     * <code>false</code> otherwise.
-     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -7992,30 +12261,6 @@ in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
-#### Snippet
-```java
-     * implementation, this query must take the user's username as a single parameter and return a single result
-     * with the user's password as the first column.  If you require a solution that does not match this query
-     * structure, you can override {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} or
-     * just {@link #getPasswordForUser(java.sql.Connection,String)}
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
-#### Snippet
-```java
-     * with the user's password as the first column.  If you require a solution that does not match this query
-     * structure, you can override {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} or
-     * just {@link #getPasswordForUser(java.sql.Connection,String)}
-     *
-     * @param authenticationQuery the query to use for authentication.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
 #### Snippet
@@ -8052,15 +12297,27 @@ in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
 #### Snippet
 ```java
-     * this realm's {@link #getName() name}
+     * implementation, this query must take the user's username as a single parameter and return a single result
+     * with the user's password as the first column.  If you require a solution that does not match this query
+     * structure, you can override {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} or
+     * just {@link #getPasswordForUser(java.sql.Connection,String)}
      *
-     * @see #getAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
-     */
-    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+     * with the user's password as the first column.  If you require a solution that does not match this query
+     * structure, you can override {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} or
+     * just {@link #getPasswordForUser(java.sql.Connection,String)}
+     *
+     * @param authenticationQuery the query to use for authentication.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8073,6 +12330,402 @@ in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
      * {@link #getRoleNamesForUser(java.sql.Connection,String)}
      *
      * @param userRolesQuery the query to use for retrieving a user's roles.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/jdbc/JdbcRealm.java`
+#### Snippet
+```java
+     * this realm's {@link #getName() name}
+     *
+     * @see #getAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * Calls {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} for each role name in the specified
+     * collection and places the return value from each call at the respective location in the returned array.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Sets the specified {@link PermissionResolver PermissionResolver} on <em>all</em> of the wrapped realms that
+     * implement the {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
+     * <p/>
+     * Only call this method if you want the permission resolver to be passed to all realms that implement the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+     *
+     * @param permissionResolver the permissionResolver to set on all of the wrapped realms that implement the
+     *                           {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
+     */
+    public void setPermissionResolver(PermissionResolver permissionResolver) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String) isPermitted(permission)}, throws
+     * an <code>UnauthorizedException</code> otherwise returns quietly.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, List)} call returns <code>true</code>,
+     * <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * Calls {@link #checkRole(org.apache.shiro.subject.PrincipalCollection, String) checkRole} for each role specified.
+     */
+    public void checkRoles(PrincipalCollection principals, String... roles) throws AuthorizationException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermittedAll(org.apache.shiro.subject.PrincipalCollection, String...)} call returns
+     * <code>true</code>, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission)} call returns <code>true</code>
+     * for <em>all</em> of the specified Permissions, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Sets the internal {@link #getRolePermissionResolver} on any internal configured
+     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.authz.permission.RolePermissionResolverAware RolePermissionResolverAware} interface.
+     * <p/>
+     * This method is called after setting a rolePermissionResolver on this ModularRealmAuthorizer via the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+     * <p/>
+     * This method is called after setting a rolePermissionResolver on this ModularRealmAuthorizer via the
+     * {@link #setRolePermissionResolver(org.apache.shiro.authz.permission.RolePermissionResolver) setRolePermissionResolver} method.
+     * <p/>
+     * It is also called after setting one or more realms via the {@link #setRealms setRealms} method to allow these
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission)} call returns <code>true</code>,
+     * <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code>,
+     * <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code>
+     * for <em>all</em> of the specified string permissions, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission) isPermitted(permission)}, throws
+     * an <code>UnauthorizedException</code> otherwise returns quietly.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * If !{@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String) hasRole(role)}, throws
+     * an <code>UnauthorizedException</code> otherwise returns quietly.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Sets the internal {@link #getPermissionResolver} on any internal configured
+     * {@link #getRealms Realms} that implement the {@link org.apache.shiro.authz.permission.PermissionResolverAware PermissionResolverAware} interface.
+     * <p/>
+     * This method is called after setting a permissionResolver on this ModularRealmAuthorizer via the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+     * <p/>
+     * This method is called after setting a permissionResolver on this ModularRealmAuthorizer via the
+     * {@link #setPermissionResolver(org.apache.shiro.authz.permission.PermissionResolver) setPermissionResolver} method.
+     * <p/>
+     * It is also called after setting one or more realms via the {@link #setRealms setRealms} method to allow these
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> iff any of the configured realms'
+     * {@link #hasRole(org.apache.shiro.subject.PrincipalCollection, String)} call returns <code>true</code> for
+     * <em>all</em> roles specified, <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Sets the specified {@link RolePermissionResolver RolePermissionResolver} on <em>all</em> of the wrapped realms that
+     * implement the {@link org.apache.shiro.authz.permission.RolePermissionResolverAware PermissionResolverAware} interface.
+     * <p/>
+     * Only call this method if you want the permission resolver to be passed to all realms that implement the
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz.permission` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+     *
+     * @param rolePermissionResolver the rolePermissionResolver to set on all of the wrapped realms that implement the
+     *                               {@link org.apache.shiro.authz.permission.RolePermissionResolverAware RolePermissionResolverAware} interface.
+     */
+    public void setRolePermissionResolver(RolePermissionResolver rolePermissionResolver) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String...) isPermitted(permission)},
+     * throws an <code>UnauthorizedException</code> otherwise returns quietly.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+    /**
+     * Returns <code>true</code> if any of the configured realms'
+     * {@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, String)} returns <code>true</code>,
+     * <code>false</code> otherwise.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authz/ModularRealmAuthorizer.java`
+#### Snippet
+```java
+
+    /**
+     * If !{@link #isPermitted(org.apache.shiro.subject.PrincipalCollection, Permission) isPermitted(permission)} for
+     * <em>all</em> the given Permissions, throws
+     * an <code>UnauthorizedException</code> otherwise returns quietly.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+    /**
+     * This implementation opens an LDAP connection using the token's
+     * {@link #getLdapPrincipal(org.apache.shiro.authc.AuthenticationToken) discovered principal} and provided
+     * {@link AuthenticationToken#getCredentials() credentials}.  If the connection opens successfully, the
+     * authentication attempt is immediately considered successful and a new
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+     * authentication attempt is immediately considered successful and a new
+     * {@link AuthenticationInfo} instance is
+     * {@link #createAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, Object, Object, javax.naming.ldap.LdapContext) created}
+     * and returned.  If the connection cannot be opened, either because LDAP authentication failed or some other
+     * JNDI problem, an {@link NamingException} will be thrown.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming.ldap` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+     * authentication attempt is immediately considered successful and a new
+     * {@link AuthenticationInfo} instance is
+     * {@link #createAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, Object, Object, javax.naming.ldap.LdapContext) created}
+     * and returned.  If the connection cannot be opened, either because LDAP authentication failed or some other
+     * JNDI problem, an {@link NamingException} will be thrown.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+
+    /**
+     * Delegates to {@link #queryForAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, LdapContextFactory)},
+     * wrapping any {@link NamingException}s in a Shiro {@link AuthenticationException} to satisfy the parent method
+     * signature.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming.ldap` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+    /**
+     * Returns the LDAP User Distinguished Name (DN) to use when acquiring an
+     * {@link javax.naming.ldap.LdapContext LdapContext} from the {@link LdapContextFactory}.
+     * <p/>
+     * If the the {@link #getUserDnTemplate() userDnTemplate} property has been set, this implementation will construct
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming.ldap` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+     *
+     * @param principal the principal to substitute into the configured {@link #getUserDnTemplate() userDnTemplate}.
+     * @return the constructed User DN to use at runtime when acquiring an {@link javax.naming.ldap.LdapContext}.
+     * @throws IllegalArgumentException if the method argument is null or empty
+     * @throws IllegalStateException    if the {@link #getUserDnTemplate userDnTemplate} has not been set.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+ * <h2>Authentication</h2>
+ * During an authentication attempt, if the submitted {@code AuthenticationToken}'s
+ * {@link org.apache.shiro.authc.AuthenticationToken#getPrincipal() principal} is a simple username, but the
+ * LDAP directory expects a complete User Distinguished Name (User DN) to establish a connection, the
+ * {@link #setUserDnTemplate(String) userDnTemplate} property must be configured.  If not configured,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+ * <h2>Authorization</h2>
+ * By default, authorization is effectively disabled due to the default
+ * {@link #doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)} implementation returning {@code null}.
+ * If you wish to perform authorization based on an LDAP schema, you must subclass this one
+ * and override that method to reflect your organization's data model.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming.ldap` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+    ============================================*/
+    /**
+     * The LdapContextFactory instance used to acquire {@link javax.naming.ldap.LdapContext LdapContext}'s at runtime
+     * to acquire connections to the LDAP directory to perform authentication attempts and authorization queries.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8124,18 +12777,6 @@ in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming.ldap` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
-#### Snippet
-```java
-
-    /**
-     * Creates and returns a new {@link javax.naming.ldap.InitialLdapContext} instance.  This method exists primarily
-     * to support testing where a mock LdapContext can be returned instead of actually creating a connection, but
-     * subclasses are free to provide a different implementation if necessary.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `javax.naming` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
 #### Snippet
@@ -8148,15 +12789,51 @@ in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `javax.naming.ldap` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/ldap/JndiLdapContextFactory.java`
+#### Snippet
+```java
+
+    /**
+     * Creates and returns a new {@link javax.naming.ldap.InitialLdapContext} instance.  This method exists primarily
+     * to support testing where a mock LdapContext can be returned instead of actually creating a connection, but
+     * subclasses are free to provide a different implementation if necessary.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * @return a {@link Cache} instance to use for authentication caching, or {@code null} if no cache has been
+     *         set.
+     * @see #setAuthenticationCache(org.apache.shiro.cache.Cache)
+     * @see #isAuthenticationCachingEnabled()
+     * @since 1.2
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
 ```java
+     * Returns the authenticationToken class supported by this realm.
      * <p/>
-     * <p>Unless overridden by this method, the default value is
-     * {@link org.apache.shiro.authc.UsernamePasswordToken UsernamePasswordToken.class} to support the majority of applications.
-     *
-     * @param authenticationTokenClass the class of authentication token instances supported by this realm.
+     * <p>The default value is <tt>{@link org.apache.shiro.authc.UsernamePasswordToken UsernamePasswordToken.class}</tt>, since
+     * about 90% of realms use username/password authentication, regardless of their protocol (e.g. over jdbc, ldap,
+     * kerberos, http, etc.).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+    /**
+     * Sets whether or not authentication caching should be utilized if a {@link CacheManager} has been
+     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
+     * <p/>
+     * The default value is {@code false} to retain backwards compatibility with Shiro 1.1 and earlier.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8164,11 +12841,35 @@ Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
 ```java
-     * @param token the submitted authentication token
-     * @param info  the {@code AuthenticationInfo} acquired from data source lookup via
-     *              {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)}
-     * @return {@code true} if authentication caching should be utilized based on the specified
-     *         {@link AuthenticationToken} and/or {@link AuthenticationInfo}, {@code false} otherwise.
+     * alleviating the need to perform any lookups with a data source.</li>
+     * <li>If there is no cached {@link AuthenticationInfo} found, delegate to the
+     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
+     * lookup.  If authentication caching is enabled and possible, any returned info object will be
+     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
+     * lookup.  If authentication caching is enabled and possible, any returned info object will be
+     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
+     * to be used in future authentication attempts.</li>
+     * <li>If an AuthenticationInfo instance is not found in the cache or by lookup, {@code null} is returned to
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
+     * lookup.  If authentication caching is enabled and possible, any returned info object will be
+     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
+     * to be used in future authentication attempts.</li>
+     * <li>If an AuthenticationInfo instance is not found in the cache or by lookup, {@code null} is returned to
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8176,11 +12877,11 @@ Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
 ```java
-     * Returns any available {@link Cache} instance to use for authentication caching.  This functions as follows:
-     * <ol>
-     * <li>If an {@link #setAuthenticationCache(org.apache.shiro.cache.Cache) authenticationCache} has been explicitly
-     * configured (it is not null), it is returned.</li>
-     * <li>If there is no {@link #getAuthenticationCache() authenticationCache} configured:
+    /**
+     * Sets the name of a {@link Cache} to lookup from any available {@link #getCacheManager() cacheManager} if
+     * a cache is not explicitly configured via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
+     * <p/>
+     * This name will only be used to look up a cache if authentication caching is
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8188,11 +12889,35 @@ Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
 ```java
-     * {@code cache}, and this cache which will be used as specified in #1.</li>
-     * <li>If neither the {@link #setAuthenticationCache (org.apache.shiro.cache.Cache) authenticationCache}
-     * or {@link #setCacheManager(org.apache.shiro.cache.CacheManager) cacheManager}
-     * properties are set, caching will not be utilized and authentication look-ups will be delegated to
-     * subclass implementations for each authentication attempt.</li>
+     * @param authenticationCacheName the name of a {@link Cache} to lookup from any available
+     *                                {@link #getCacheManager() cacheManager} if a cache is not explicitly configured
+     *                                via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
+     * @see #isAuthenticationCachingEnabled()
+     * @since 1.2
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * Returns the key under which {@link AuthenticationInfo} instances are cached if authentication caching is enabled.
+     * This implementation delegates to
+     * {@link #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)}, which returns the primary principal
+     * associated with this particular Realm.
+     * <h3>Cache Invalidation on Logout</h3>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
+     * must ensure that this method returns the same value as the
+     * {@link #getAuthenticationCacheKey(org.apache.shiro.authc.AuthenticationToken)} method!
+     *
+     * @param principals the principals of the account for which to set or remove cached {@code AuthenticationInfo}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8212,11 +12937,47 @@ Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
 ```java
-     * @return a {@link Cache} instance to use for authentication caching, or {@code null} if no cache has been
-     *         set.
-     * @see #setAuthenticationCache(org.apache.shiro.cache.Cache)
-     * @see #isAuthenticationCachingEnabled()
-     * @since 1.2
+     * Returns any available {@link Cache} instance to use for authentication caching.  This functions as follows:
+     * <ol>
+     * <li>If an {@link #setAuthenticationCache(org.apache.shiro.cache.Cache) authenticationCache} has been explicitly
+     * configured (it is not null), it is returned.</li>
+     * <li>If there is no {@link #getAuthenticationCache() authenticationCache} configured:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * <p/>
+     * <p>Unless overridden by this method, the default value is
+     * {@link org.apache.shiro.authc.UsernamePasswordToken UsernamePasswordToken.class} to support the majority of applications.
+     *
+     * @param authenticationTokenClass the class of authentication token instances supported by this realm.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc.credential` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * <p/>
+     * <p>Unless overridden by this method, the default value is a
+     * {@link org.apache.shiro.authc.credential.SimpleCredentialsMatcher} instance.
+     *
+     * @param credentialsMatcher the matcher to use.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+    /**
+     * The class that this realm supports for authentication tokens.  This is used by the
+     * default implementation of the {@link Realm#supports(org.apache.shiro.authc.AuthenticationToken)} method to
+     * determine whether or not the given authentication token is supported by this realm.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8253,6 +13014,66 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
      * @see #clearCache(org.apache.shiro.subject.PrincipalCollection)
      * @since 1.2
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * Returns the key under which {@link AuthenticationInfo} instances are cached if authentication caching is enabled.
+     * This implementation defaults to returning the token's
+     * {@link org.apache.shiro.authc.AuthenticationToken#getPrincipal() principal}, which is usually a username in
+     * most applications.
+     * <h3>Cache Invalidation on Logout</h3>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * <h3>Cache Invalidation on Logout</h3>
+     * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
+     * must ensure the {@link #getAuthenticationCacheKey(org.apache.shiro.subject.PrincipalCollection)} method returns
+     * the same value as this method.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * @param token the submitted authentication token
+     * @param info  the {@code AuthenticationInfo} acquired from data source lookup via
+     *              {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)}
+     * @return {@code true} if authentication caching should be utilized based on the specified
+     *         {@link AuthenticationToken} and/or {@link AuthenticationInfo}, {@code false} otherwise.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     * {@code cache}, and this cache which will be used as specified in #1.</li>
+     * <li>If neither the {@link #setAuthenticationCache (org.apache.shiro.cache.Cache) authenticationCache}
+     * or {@link #setCacheManager(org.apache.shiro.cache.CacheManager) cacheManager}
+     * properties are set, caching will not be utilized and authentication look-ups will be delegated to
+     * subclass implementations for each authentication attempt.</li>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+    /**
+     * This implementation clears out any cached authentication data by calling
+     * {@link #clearCachedAuthenticationInfo(org.apache.shiro.subject.PrincipalCollection)}.
+     * If overriding in a subclass, be sure to call {@code super.doClearCache} to ensure this behavior is maintained.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8304,54 +13125,6 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * alleviating the need to perform any lookups with a data source.</li>
-     * <li>If there is no cached {@link AuthenticationInfo} found, delegate to the
-     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
-     * lookup.  If authentication caching is enabled and possible, any returned info object will be
-     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
-     * lookup.  If authentication caching is enabled and possible, any returned info object will be
-     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
-     * to be used in future authentication attempts.</li>
-     * <li>If an AuthenticationInfo instance is not found in the cache or by lookup, {@code null} is returned to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * {@link #doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken)} method to perform the actual
-     * lookup.  If authentication caching is enabled and possible, any returned info object will be
-     * {@link #cacheAuthenticationInfoIfPossible(org.apache.shiro.authc.AuthenticationToken, org.apache.shiro.authc.AuthenticationInfo) cached}
-     * to be used in future authentication attempts.</li>
-     * <li>If an AuthenticationInfo instance is not found in the cache or by lookup, {@code null} is returned to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * Returns the authenticationToken class supported by this realm.
-     * <p/>
-     * <p>The default value is <tt>{@link org.apache.shiro.authc.UsernamePasswordToken UsernamePasswordToken.class}</tt>, since
-     * about 90% of realms use username/password authentication, regardless of their protocol (e.g. over jdbc, ldap,
-     * kerberos, http, etc.).
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 #### Snippet
@@ -8361,78 +13134,6 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
      * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
      * <p/>
      * The default value is {@code true}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-    /**
-     * Sets the name of a {@link Cache} to lookup from any available {@link #getCacheManager() cacheManager} if
-     * a cache is not explicitly configured via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * <p/>
-     * This name will only be used to look up a cache if authentication caching is
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * @param authenticationCacheName the name of a {@link Cache} to lookup from any available
-     *                                {@link #getCacheManager() cacheManager} if a cache is not explicitly configured
-     *                                via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * @see #isAuthenticationCachingEnabled()
-     * @since 1.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc.credential` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * <p/>
-     * <p>Unless overridden by this method, the default value is a
-     * {@link org.apache.shiro.authc.credential.SimpleCredentialsMatcher} instance.
-     *
-     * @param credentialsMatcher the matcher to use.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * Returns the key under which {@link AuthenticationInfo} instances are cached if authentication caching is enabled.
-     * This implementation defaults to returning the token's
-     * {@link org.apache.shiro.authc.AuthenticationToken#getPrincipal() principal}, which is usually a username in
-     * most applications.
-     * <h3>Cache Invalidation on Logout</h3>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * <h3>Cache Invalidation on Logout</h3>
-     * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
-     * must ensure the {@link #getAuthenticationCacheKey(org.apache.shiro.subject.PrincipalCollection)} method returns
-     * the same value as this method.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-    /**
-     * This implementation clears out any cached authentication data by calling
-     * {@link #clearCachedAuthenticationInfo(org.apache.shiro.subject.PrincipalCollection)}.
-     * If overriding in a subclass, be sure to call {@code super.doClearCache} to ensure this behavior is maintained.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8592,159 +13293,51 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * Returns the key under which {@link AuthenticationInfo} instances are cached if authentication caching is enabled.
-     * This implementation delegates to
-     * {@link #getAvailablePrincipal(org.apache.shiro.subject.PrincipalCollection)}, which returns the primary principal
-     * associated with this particular Realm.
-     * <h3>Cache Invalidation on Logout</h3>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     * <b>NOTE:</b> If you want to be able to invalidate an account's cached {@code AuthenticationInfo} on logout, you
-     * must ensure that this method returns the same value as the
-     * {@link #getAuthenticationCacheKey(org.apache.shiro.authc.AuthenticationToken)} method!
-     *
-     * @param principals the principals of the account for which to set or remove cached {@code AuthenticationInfo}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-    /**
-     * Sets whether or not authentication caching should be utilized if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code false} to retain backwards compatibility with Shiro 1.1 and earlier.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-    /**
-     * The class that this realm supports for authentication tokens.  This is used by the
-     * default implementation of the {@link Realm#supports(org.apache.shiro.authc.AuthenticationToken)} method to
-     * determine whether or not the given authentication token is supported by this realm.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-
-    /**
-     * Delegates to {@link #queryForAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, LdapContextFactory)},
-     * wrapping any {@link NamingException}s in a Shiro {@link AuthenticationException} to satisfy the parent method
-     * signature.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
- * <h2>Authentication</h2>
- * During an authentication attempt, if the submitted {@code AuthenticationToken}'s
- * {@link org.apache.shiro.authc.AuthenticationToken#getPrincipal() principal} is a simple username, but the
- * LDAP directory expects a complete User Distinguished Name (User DN) to establish a connection, the
- * {@link #setUserDnTemplate(String) userDnTemplate} property must be configured.  If not configured,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
- * <h2>Authorization</h2>
- * By default, authorization is effectively disabled due to the default
- * {@link #doGetAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)} implementation returning {@code null}.
- * If you wish to perform authorization based on an LDAP schema, you must subclass this one
- * and override that method to reflect your organization's data model.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming.ldap` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-    ============================================*/
-    /**
-     * The LdapContextFactory instance used to acquire {@link javax.naming.ldap.LdapContext LdapContext}'s at runtime
-     * to acquire connections to the LDAP directory to perform authentication attempts and authorization queries.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-    /**
-     * This implementation opens an LDAP connection using the token's
-     * {@link #getLdapPrincipal(org.apache.shiro.authc.AuthenticationToken) discovered principal} and provided
-     * {@link AuthenticationToken#getCredentials() credentials}.  If the connection opens successfully, the
-     * authentication attempt is immediately considered successful and a new
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-     * authentication attempt is immediately considered successful and a new
-     * {@link AuthenticationInfo} instance is
-     * {@link #createAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, Object, Object, javax.naming.ldap.LdapContext) created}
-     * and returned.  If the connection cannot be opened, either because LDAP authentication failed or some other
-     * JNDI problem, an {@link NamingException} will be thrown.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming.ldap` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-     * authentication attempt is immediately considered successful and a new
-     * {@link AuthenticationInfo} instance is
-     * {@link #createAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken, Object, Object, javax.naming.ldap.LdapContext) created}
-     * and returned.  If the connection cannot be opened, either because LDAP authentication failed or some other
-     * JNDI problem, an {@link NamingException} will be thrown.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming.ldap` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-    /**
-     * Returns the LDAP User Distinguished Name (DN) to use when acquiring an
-     * {@link javax.naming.ldap.LdapContext LdapContext} from the {@link LdapContextFactory}.
-     * <p/>
-     * If the the {@link #getUserDnTemplate() userDnTemplate} property has been set, this implementation will construct
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.naming.ldap` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
 #### Snippet
 ```java
      *
-     * @param principal the principal to substitute into the configured {@link #getUserDnTemplate() userDnTemplate}.
-     * @return the constructed User DN to use at runtime when acquiring an {@link javax.naming.ldap.LdapContext}.
-     * @throws IllegalArgumentException if the method argument is null or empty
-     * @throws IllegalStateException    if the {@link #getUserDnTemplate userDnTemplate} has not been set.
+     * @param permissions all String-based permissions assigned to this Account.
+     * @see org.apache.shiro.authc.Account#getStringPermissions()
+     */
+    public void setStringPermissions(Set<String> permissions) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
+#### Snippet
+```java
+     *
+     * @param credentials the credentials associated with this Account that verify one or more of the Account principals.
+     * @see org.apache.shiro.authc.Account#getCredentials()
+     */
+    public void setCredentials(Object credentials) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
+#### Snippet
+```java
+
+/**
+ * Simple implementation of the {@link org.apache.shiro.authc.Account} interface that
+ * contains principal and credential and authorization information (roles and permissions) as instance variables and
+ * exposes them via getters and setters using standard JavaBean notation.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/SessionListener.java`
+#### Snippet
+```java
+     * <p/>
+     * If you need to perform time-based logic when a session expires, it is best to write it based on the
+     * session's {@link org.apache.shiro.session.Session#getLastAccessTime() lastAccessTime} and <em>not</em> the time
+     * when this method is called.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8772,14 +13365,38 @@ in `core/src/main/java/org/apache/shiro/session/Session.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/SessionListener.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
 #### Snippet
 ```java
-     * <p/>
-     * If you need to perform time-based logic when a session expires, it is best to write it based on the
-     * session's {@link org.apache.shiro.session.Session#getLastAccessTime() lastAccessTime} and <em>not</em> the time
-     * when this method is called.
+    /**
+     * Determines whether or not the properties XML format should be used.  For more information, see
+     * {@link Properties#loadFromXML(java.io.InputStream)}
+     *
+     * @param useXmlFormat true to use XML or false to use the normal format.  Defaults to false.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
+#### Snippet
+```java
+/**
+ * A {@link TextConfigurationRealm} that defers all logic to the parent class, but just enables
+ * {@link java.util.Properties Properties} based configuration in addition to the parent class's String configuration.
+ * <p/>
+ * This class allows processing of a single .properties file for user, role, and
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/SessionManager.java`
+#### Snippet
+```java
+     * This method is mainly used in framework development, as the implementation will often relay the argument
+     * to an underlying {@link SessionFactory} which could use the context to construct the internal Session
+     * instance in a specific manner.  This allows pluggable {@link org.apache.shiro.session.Session Session} creation
+     * logic by simply injecting a {@code SessionFactory} into the {@code SessionManager} instance.
      *
 ```
 
@@ -8793,18 +13410,6 @@ in `core/src/main/java/org/apache/shiro/session/mgt/SessionManager.java`
  * {@link org.apache.shiro.session.Session Session}s.
  *
  * @since 0.1
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/SessionManager.java`
-#### Snippet
-```java
-     * This method is mainly used in framework development, as the implementation will often relay the argument
-     * to an underlying {@link SessionFactory} which could use the context to construct the internal Session
-     * instance in a specific manner.  This allows pluggable {@link org.apache.shiro.session.Session Session} creation
-     * logic by simply injecting a {@code SessionFactory} into the {@code SessionManager} instance.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8832,15 +13437,51 @@ in `core/src/main/java/org/apache/shiro/session/mgt/SessionContext.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
+#### Snippet
+```java
+     *
+     * @param session the session that has just started that will be delivered to any
+     *                {@link #setSessionListeners(java.util.Collection) registered} session listeners.
+     * @see SessionListener#onStart(org.apache.shiro.session.Session)
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
+#### Snippet
+```java
+     * @param session the session that has just started that will be delivered to any
+     *                {@link #setSessionListeners(java.util.Collection) registered} session listeners.
+     * @see SessionListener#onStart(org.apache.shiro.session.Session)
+     */
+    protected void notifyStart(Session session) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
+#### Snippet
+```java
+/**
+ * A DelegatingSession is a client-tier representation of a server side
+ * {@link org.apache.shiro.session.Session Session}.
+ * This implementation is basically a proxy to a server-side {@link NativeSessionManager NativeSessionManager},
+ * which will return the proper results for each method call.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.session` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.shiro.session.Session#touch()
+     * @see org.apache.shiro.session.Session#getAttribute(Object key)
      */
-    public void touch() throws InvalidSessionException {
+    public Object getAttribute(Object attributeKey) throws InvalidSessionException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -8874,6 +13515,30 @@ in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
 ```java
 
     /**
+     * @see org.apache.shiro.session.Session#getStartTimestamp()
+     */
+    public Date getStartTimestamp() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.shiro.session.Session#touch()
+     */
+    public void touch() throws InvalidSessionException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
+#### Snippet
+```java
+
+    /**
      * @see org.apache.shiro.session.Session#getAttributeKeys
      */
     public Collection<Object> getAttributeKeys() throws InvalidSessionException {
@@ -8889,126 +13554,6 @@ in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
      * @see org.apache.shiro.session.Session#getLastAccessTime()
      */
     public Date getLastAccessTime() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.shiro.session.Session#getAttribute(Object key)
-     */
-    public Object getAttribute(Object attributeKey) throws InvalidSessionException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
-#### Snippet
-```java
-/**
- * A DelegatingSession is a client-tier representation of a server side
- * {@link org.apache.shiro.session.Session Session}.
- * This implementation is basically a proxy to a server-side {@link NativeSessionManager NativeSessionManager},
- * which will return the proper results for each method call.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DelegatingSession.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.shiro.session.Session#getStartTimestamp()
-     */
-    public Date getStartTimestamp() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
-#### Snippet
-```java
-    /**
-     * Determines whether or not the properties XML format should be used.  For more information, see
-     * {@link Properties#loadFromXML(java.io.InputStream)}
-     *
-     * @param useXmlFormat true to use XML or false to use the normal format.  Defaults to false.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/text/PropertiesRealm.java`
-#### Snippet
-```java
-/**
- * A {@link TextConfigurationRealm} that defers all logic to the parent class, but just enables
- * {@link java.util.Properties Properties} based configuration in addition to the parent class's String configuration.
- * <p/>
- * This class allows processing of a single .properties file for user, role, and
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
-#### Snippet
-```java
-     * Persists the given session instance to an underlying EIS (Enterprise Information System).  This implementation
-     * delegates and calls
-     * <code>this.{@link SessionDAO sessionDAO}.{@link SessionDAO#create(org.apache.shiro.session.Session) create}(session);<code>
-     *
-     * @param session the Session instance to persist to the underlying EIS.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
-#### Snippet
-```java
-    /**
-     * Sets the internal {@code CacheManager} on the {@code SessionDAO} if it implements the
-     * {@link org.apache.shiro.cache.CacheManagerAware CacheManagerAware} interface.
-     * <p/>
-     * This method is called after setting a cacheManager via the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
-#### Snippet
-```java
-     * <p/>
-     * This method is called after setting a cacheManager via the
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) setCacheManager} method <em>em</em> when
-     * setting a {@code SessionDAO} via the {@link #setSessionDAO} method to allow it to be propagated
-     * in either case.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
-#### Snippet
-```java
-     *
-     * @param session the session that has just started that will be delivered to any
-     *                {@link #setSessionListeners(java.util.Collection) registered} session listeners.
-     * @see SessionListener#onStart(org.apache.shiro.session.Session)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
-#### Snippet
-```java
-     * @param session the session that has just started that will be delivered to any
-     *                {@link #setSessionListeners(java.util.Collection) registered} session listeners.
-     * @see SessionListener#onStart(org.apache.shiro.session.Session)
-     */
-    protected void notifyStart(Session session) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9040,32 +13585,8 @@ Qualifier `org.apache.shiro.session` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
 #### Snippet
 ```java
-     *
-     * @param key the session key to use to look up the target session.
-     * @throws org.apache.shiro.session.InvalidSessionException
-     *          if the session has been stopped or expired prior to calling this method.
-     * @see org.apache.shiro.session.Session#touch
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
-#### Snippet
-```java
      * @param key                 the session key to use to look up the target session.
      * @param maxIdleTimeInMillis the time in milliseconds that the associated session may remain idle before expiring.
-     * @throws org.apache.shiro.session.InvalidSessionException
-     *          if the session has been stopped or expired prior to calling this method.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
-#### Snippet
-```java
-     * @param key the session key to use to look up the target session.
-     * @return the time in milliseconds that the associated session may remain idle before expiring.
      * @throws org.apache.shiro.session.InvalidSessionException
      *          if the session has been stopped or expired prior to calling this method.
      */
@@ -9097,26 +13618,38 @@ in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionManager.java`
+in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
 #### Snippet
 ```java
-    /**
-     * Subclass template hook in case per-session timeout is not based on
-     * {@link org.apache.shiro.session.Session#getTimeout()}.
-     * <p/>
-     * <p>This implementation merely returns {@link org.apache.shiro.session.Session#getTimeout()}</p>
+     *
+     * @param key the session key to use to look up the target session.
+     * @throws org.apache.shiro.session.InvalidSessionException
+     *          if the session has been stopped or expired prior to calling this method.
+     * @see org.apache.shiro.session.Session#touch
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionManager.java`
+in `core/src/main/java/org/apache/shiro/session/mgt/NativeSessionManager.java`
 #### Snippet
 ```java
-     * {@link org.apache.shiro.session.Session#getTimeout()}.
-     * <p/>
-     * <p>This implementation merely returns {@link org.apache.shiro.session.Session#getTimeout()}</p>
+     * @param key the session key to use to look up the target session.
+     * @return the time in milliseconds that the associated session may remain idle before expiring.
+     * @throws org.apache.shiro.session.InvalidSessionException
+     *          if the session has been stopped or expired prior to calling this method.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionDAO.java`
+#### Snippet
+```java
      *
-     * @param session the session for which to determine session timeout.
+     * @param session the Session to update
+     * @throws org.apache.shiro.session.UnknownSessionException
+     *          if no existing EIS session record exists with the
+     *          identifier of {@link Session#getId() session.getSessionId()}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9192,18 +13725,6 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionDAO.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionDAO.java`
-#### Snippet
-```java
-     *
-     * @param session the Session to update
-     * @throws org.apache.shiro.session.UnknownSessionException
-     *          if no existing EIS session record exists with the
-     *          identifier of {@link Session#getId() session.getSessionId()}
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/activedirectory/ActiveDirectoryRealm.java`
 #### Snippet
@@ -9216,27 +13737,39 @@ in `core/src/main/java/org/apache/shiro/realm/activedirectory/ActiveDirectoryRea
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt.eis` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionIdGenerator.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
 #### Snippet
 ```java
- * store, you can implement this interface and typically inject it into an {@link AbstractSessionDAO} instance.
- *
- * @see org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
- * @see org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator RandomSessionIdGenerator
- * @since 1.0
+    /**
+     * Sets the internal {@code CacheManager} on the {@code SessionDAO} if it implements the
+     * {@link org.apache.shiro.cache.CacheManagerAware CacheManagerAware} interface.
+     * <p/>
+     * This method is called after setting a cacheManager via the
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt.eis` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionIdGenerator.java`
+Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
 #### Snippet
 ```java
- *
- * @see org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
- * @see org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator RandomSessionIdGenerator
- * @since 1.0
- */
+     * <p/>
+     * This method is called after setting a cacheManager via the
+     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) setCacheManager} method <em>em</em> when
+     * setting a {@code SessionDAO} via the {@link #setSessionDAO} method to allow it to be propagated
+     * in either case.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
+#### Snippet
+```java
+     * Persists the given session instance to an underlying EIS (Enterprise Information System).  This implementation
+     * delegates and calls
+     * <code>this.{@link SessionDAO sessionDAO}.{@link SessionDAO#create(org.apache.shiro.session.Session) create}(session);<code>
+     *
+     * @param session the Session instance to persist to the underlying EIS.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9276,42 +13809,6 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/RandomSessionIdGenerator
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
-#### Snippet
-```java
-     *
-     * @param credentials the credentials associated with this Account that verify one or more of the Account principals.
-     * @see org.apache.shiro.authc.Account#getCredentials()
-     */
-    public void setCredentials(Object credentials) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
-#### Snippet
-```java
-     *
-     * @param permissions all String-based permissions assigned to this Account.
-     * @see org.apache.shiro.authc.Account#getStringPermissions()
-     */
-    public void setStringPermissions(Set<String> permissions) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/authc/SimpleAccount.java`
-#### Snippet
-```java
-
-/**
- * Simple implementation of the {@link org.apache.shiro.authc.Account} interface that
- * contains principal and credential and authorization information (roles and permissions) as instance variables and
- * exposes them via getters and setters using standard JavaBean notation.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/session/mgt/eis/EnterpriseCacheSessionDAO.java`
 #### Snippet
@@ -9324,15 +13821,27 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/EnterpriseCacheSessionDA
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/JavaUuidSessionIdGenerator.java`
+Qualifier `org.apache.shiro.session.mgt.eis` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionIdGenerator.java`
 #### Snippet
 ```java
-    /**
-     * Ignores the method argument and simply returns
-     * {@code UUID}.{@link java.util.UUID#randomUUID() randomUUID()}.{@code toString()}.
-     *
-     * @param session the {@link Session} instance to which the ID will be applied.
+ * store, you can implement this interface and typically inject it into an {@link AbstractSessionDAO} instance.
+ *
+ * @see org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
+ * @see org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator RandomSessionIdGenerator
+ * @since 1.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session.mgt.eis` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/SessionIdGenerator.java`
+#### Snippet
+```java
+ *
+ * @see org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator JavaUuidSessionIdGenerator
+ * @see org.apache.shiro.session.mgt.eis.RandomSessionIdGenerator RandomSessionIdGenerator
+ * @since 1.0
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9348,15 +13857,39 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/JavaUuidSessionIdGenerat
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/JavaUuidSessionIdGenerator.java`
 #### Snippet
 ```java
     /**
-     * Optional SessionIdGenerator instance available to subclasses via the
-     * {@link #generateSessionId(org.apache.shiro.session.Session)} method.
-     */
-    private SessionIdGenerator sessionIdGenerator;
+     * Ignores the method argument and simply returns
+     * {@code UUID}.{@link java.util.UUID#randomUUID() randomUUID()}.{@code toString()}.
+     *
+     * @param session the {@link Session} instance to which the ID will be applied.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionManager.java`
+#### Snippet
+```java
+    /**
+     * Subclass template hook in case per-session timeout is not based on
+     * {@link org.apache.shiro.session.Session#getTimeout()}.
+     * <p/>
+     * <p>This implementation merely returns {@link org.apache.shiro.session.Session#getTimeout()}</p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/AbstractValidatingSessionManager.java`
+#### Snippet
+```java
+     * {@link org.apache.shiro.session.Session#getTimeout()}.
+     * <p/>
+     * <p>This implementation merely returns {@link org.apache.shiro.session.Session#getTimeout()}</p>
+     *
+     * @param session the session for which to determine session timeout.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9376,59 +13909,11 @@ Qualifier `org.apache.shiro.session` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
 #### Snippet
 ```java
- * optional, as the default generator is probably sufficient for most cases.  Subclass implementations that do use a
- * generator (default or custom) will want to call the
- * {@link #generateSessionId(org.apache.shiro.session.Session)} method from within their {@link #doCreate}
- * implementations.
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
-#### Snippet
-```java
      * @param session the Session instance to persist to the EIS.
      * @return the id of the session created in the EIS (i.e. this is almost always a primary key and should be the
      *         value returned from {@link org.apache.shiro.session.Session#getId() Session.getId()}.
      */
     protected abstract Serializable doCreate(Session session);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
-#### Snippet
-```java
-
-    /**
-     * Sets the {@code SessionIdGenerator} used by the {@link #generateSessionId(org.apache.shiro.session.Session)}
-     * method.  Unless overridden by this method, the default instance ss a {@link JavaUuidSessionIdGenerator}.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
-#### Snippet
-```java
-     *
-     * @param sessionIdGenerator the {@code SessionIdGenerator} to use in the
-     *                           {@link #generateSessionId(org.apache.shiro.session.Session)} method.
-     */
-    public void setSessionIdGenerator(SessionIdGenerator sessionIdGenerator) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
-#### Snippet
-```java
-    /**
-     * Retrieves the Session object from the underlying EIS identified by <tt>sessionId</tt> by delegating to
-     * the {@link #doReadSession(java.io.Serializable)} method.  If {@code null} is returned from that method, an
-     * {@link UnknownSessionException} will be thrown.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9456,6 +13941,66 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+#### Snippet
+```java
+
+    /**
+     * Sets the {@code SessionIdGenerator} used by the {@link #generateSessionId(org.apache.shiro.session.Session)}
+     * method.  Unless overridden by this method, the default instance ss a {@link JavaUuidSessionIdGenerator}.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+#### Snippet
+```java
+     *
+     * @param sessionIdGenerator the {@code SessionIdGenerator} to use in the
+     *                           {@link #generateSessionId(org.apache.shiro.session.Session)} method.
+     */
+    public void setSessionIdGenerator(SessionIdGenerator sessionIdGenerator) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+#### Snippet
+```java
+    /**
+     * Optional SessionIdGenerator instance available to subclasses via the
+     * {@link #generateSessionId(org.apache.shiro.session.Session)} method.
+     */
+    private SessionIdGenerator sessionIdGenerator;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+#### Snippet
+```java
+    /**
+     * Retrieves the Session object from the underlying EIS identified by <tt>sessionId</tt> by delegating to
+     * the {@link #doReadSession(java.io.Serializable)} method.  If {@code null} is returned from that method, an
+     * {@link UnknownSessionException} will be thrown.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/AbstractSessionDAO.java`
+#### Snippet
+```java
+ * optional, as the default generator is probably sufficient for most cases.  Subclass implementations that do use a
+ * generator (default or custom) will want to call the
+ * {@link #generateSessionId(org.apache.shiro.session.Session)} method from within their {@link #doCreate}
+ * implementations.
+ * <p/>
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/SubjectContext.java`
 #### Snippet
@@ -9468,6 +14013,18 @@ in `core/src/main/java/org/apache/shiro/subject/SubjectContext.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.session` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/CachingSessionDAO.java`
+#### Snippet
+```java
+    /**
+     * Updates the state of the given session to the EIS by first delegating to
+     * {@link #doUpdate(org.apache.shiro.session.Session)}.  If the session is a {@link ValidatingSession}, it will
+     * be added to the cache only if it is {@link ValidatingSession#isValid()} and if invalid, will be removed from the
+     * cache.  If it is not a {@code ValidatingSession} instance, it will be added to the cache in any event.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
 #### Snippet
@@ -9477,6 +14034,18 @@ in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
      * <code>{@link #iterator() iterator()}.{@link java.util.Iterator#next() next()}.</code>
      *
      * @inheritDoc
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * Returns {@code true} if this Subject implies all of the specified permission strings, {@code false} otherwise.
+     * <p/>
+     * This is an overloaded method for the corresponding type-safe {@link org.apache.shiro.authz.Permission Permission}
+     * variant.  Please see the class-level JavaDoc for more information on these String-based permission methods.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9516,90 +14085,6 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-    /**
-     * Ensures this Subject
-     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) implies} all of the
-     * specified permission strings.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-    /**
-     * Ensures this Subject
-     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) implies} all of the
-     * specified permission strings.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * <p/>
-     * If this subject's existing associated permissions do not
-     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
-     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * <p/>
-     * If this subject's existing associated permissions do not
-     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
-     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * If this subject's existing associated permissions do not
-     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
-     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
-     * <p/>
-     * This is an overloaded method for the corresponding type-safe {@link Permission Permission} variant.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-    /**
-     * Asserts this Subject has all of the specified roles by returning quietly if they do or throwing an
-     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
-     *
-     * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     *
-     * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
-     * @throws org.apache.shiro.authz.AuthorizationException
-     *          if this Subject does not have all of the specified roles.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
@@ -9612,15 +14097,15 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
-        /**
-         * Constructs a new {@link Subject.Builder} instance, using the {@code SecurityManager} instance available
-         * to the calling code as determined by a call to {@link org.apache.shiro.SecurityUtils#getSecurityManager()}
-         * to build the {@code Subject} instance.
-         */
+     * doesn't require a collection as a an argument.
+     * Asserts this Subject has all of the specified roles by returning quietly if they do or throwing an
+     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
+     *
+     * @param roleIdentifiers roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9648,15 +14133,63 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
      * <p/>
-     * If this subject's existing associated permissions do not {@link Permission#implies(Permission)} imply}
-     * the given permission, an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
-     * <p/>
-     * This is an overloaded method for the corresponding type-safe {@link Permission Permission} variant.
+     * Most implementations will simply return
+     * <code>{@link #getPrincipals()}.{@link org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal() getPrimaryPrincipal()}</code>
+     *
+     * @return this Subject's application-specific unique identity.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     *
+     * @return this Subject's application-specific unique identity.
+     * @see org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()
+     */
+    Object getPrincipal();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * @return all of this Subject's principals (identifying attributes).
+     * @see #getPrincipal()
+     * @see org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()
+     */
+    PrincipalCollection getPrincipals();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.concurrent` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * *Note that if you need a return value to be returned as a result of the runnable's execution or if you need to
+     * react to any Exceptions, it is highly recommended to use the
+     * {@link #associateWith(java.util.concurrent.Callable) createCallable} method instead of this one.
+     *
+     * @param runnable the runnable to execute as this {@code Subject}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+    /**
+     * Asserts this Subject has all of the specified roles by returning quietly if they do or throwing an
+     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
+     *
+     * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9665,10 +14198,118 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
      *
-     * @param permission the String representation of the Permission to check.
+     * @param roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
      * @throws org.apache.shiro.authz.AuthorizationException
-     *          if the user does not have the permission.
-     * @since 0.9
+     *          if this Subject does not have all of the specified roles.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+    /**
+     * Asserts this Subject has the specified role by returning quietly if they do or throwing an
+     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
+     *
+     * @param roleIdentifier the application-specific role identifier (usually a role id or role name ).
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     *
+     * @param roleIdentifier the application-specific role identifier (usually a role id or role name ).
+     * @throws org.apache.shiro.authz.AuthorizationException
+     *          if this Subject does not have the role.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * <p/>
+     * If this subject's existing associated permissions do not {@link Permission#implies(Permission) imply}
+     * the given permission, an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
+     *
+     * @param permission the Permission to check.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     *
+     * @param permission the Permission to check.
+     * @throws org.apache.shiro.authz.AuthorizationException
+     *          if this Subject does not have the permission.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+        /**
+         * Constructs a new {@link Subject.Builder} instance, using the {@code SecurityManager} instance available
+         * to the calling code as determined by a call to {@link org.apache.shiro.SecurityUtils#getSecurityManager()}
+         * to build the {@code Subject} instance.
+         */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
+     * for further use.  That is,
+     * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
+     * will not automatically return the same instance as what is returned by the builder.  It is up to the framework
+     * developer to bind the built {@code Subject} for continued use if desired.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+     * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
+     * for further use.  That is,
+     * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
+     * will not automatically return the same instance as what is returned by the builder.  It is up to the framework
+     * developer to bind the built {@code Subject} for continued use if desired.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+         * <b>Note</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application
+         * (thread) for further use.  That is,
+         * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
+         * will not automatically return the same instance as what is returned by the builder.  It is up to the
+         * framework developer to bind the returned {@code Subject} for continued use if desired.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.shiro` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+#### Snippet
+```java
+         * <b>Note</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application
+         * (thread) for further use.  That is,
+         * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
+         * will not automatically return the same instance as what is returned by the builder.  It is up to the
+         * framework developer to bind the returned {@code Subject} for continued use if desired.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9737,10 +14378,10 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
      * <p/>
-     * If this subject's existing associated permissions do not {@link Permission#implies(Permission) imply}
+     * If this subject's existing associated permissions do not {@link Permission#implies(Permission)} imply}
      * the given permission, an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
-     *
-     * @param permission the Permission to check.
+     * <p/>
+     * This is an overloaded method for the corresponding type-safe {@link Permission Permission} variant.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9749,70 +14390,10 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
      *
-     * @param permission the Permission to check.
+     * @param permission the String representation of the Permission to check.
      * @throws org.apache.shiro.authz.AuthorizationException
-     *          if this Subject does not have the permission.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-         * <b>Note</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application
-         * (thread) for further use.  That is,
-         * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
-         * will not automatically return the same instance as what is returned by the builder.  It is up to the
-         * framework developer to bind the returned {@code Subject} for continued use if desired.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-         * <b>Note</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application
-         * (thread) for further use.  That is,
-         * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
-         * will not automatically return the same instance as what is returned by the builder.  It is up to the
-         * framework developer to bind the returned {@code Subject} for continued use if desired.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
-     * for further use.  That is,
-     * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
-     * will not automatically return the same instance as what is returned by the builder.  It is up to the framework
-     * developer to bind the built {@code Subject} for continued use if desired.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * <b>Note*</b> that the returned {@code Subject} instance is <b>not</b> automatically bound to the application (thread)
-     * for further use.  That is,
-     * {@link org.apache.shiro.SecurityUtils SecurityUtils}.{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}
-     * will not automatically return the same instance as what is returned by the builder.  It is up to the framework
-     * developer to bind the built {@code Subject} for continued use if desired.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
-#### Snippet
-```java
-     * @return all of this Subject's principals (identifying attributes).
-     * @see #getPrincipal()
-     * @see org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()
-     */
-    PrincipalCollection getPrincipals();
+     *          if the user does not have the permission.
+     * @since 0.9
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9821,10 +14402,10 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
     /**
-     * Asserts this Subject has the specified role by returning quietly if they do or throwing an
-     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
-     *
-     * @param roleIdentifier the application-specific role identifier (usually a role id or role name ).
+     * Ensures this Subject
+     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) implies} all of the
+     * specified permission strings.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9832,47 +14413,47 @@ Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
-     *
-     * @param roleIdentifier the application-specific role identifier (usually a role id or role name ).
-     * @throws org.apache.shiro.authz.AuthorizationException
-     *          if this Subject does not have the role.
-     */
+    /**
+     * Ensures this Subject
+     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) implies} all of the
+     * specified permission strings.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
      * <p/>
-     * Most implementations will simply return
-     * <code>{@link #getPrincipals()}.{@link org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal() getPrimaryPrincipal()}</code>
-     *
-     * @return this Subject's application-specific unique identity.
+     * If this subject's existing associated permissions do not
+     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
+     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
-     *
-     * @return this Subject's application-specific unique identity.
-     * @see org.apache.shiro.subject.PrincipalCollection#getPrimaryPrincipal()
-     */
-    Object getPrincipal();
+     * <p/>
+     * If this subject's existing associated permissions do not
+     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
+     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 #### Snippet
 ```java
-     * *Note that if you need a return value to be returned as a result of the runnable's execution or if you need to
-     * react to any Exceptions, it is highly recommended to use the
-     * {@link #associateWith(java.util.concurrent.Callable) createCallable} method instead of this one.
-     *
-     * @param runnable the runnable to execute as this {@code Subject}
+     * If this subject's existing associated permissions do not
+     * {@link org.apache.shiro.authz.Permission#implies(org.apache.shiro.authz.Permission) imply} all of the given permissions,
+     * an {@link org.apache.shiro.authz.AuthorizationException} will be thrown.
+     * <p/>
+     * This is an overloaded method for the corresponding type-safe {@link Permission Permission} variant.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9888,39 +14469,27 @@ in `core/src/main/java/org/apache/shiro/subject/Subject.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `lang/src/main/java/org/apache/shiro/lang/ShiroException.java`
 #### Snippet
 ```java
-     * doesn't require a collection as a an argument.
-     * Asserts this Subject has all of the specified roles by returning quietly if they do or throwing an
-     * {@link org.apache.shiro.authz.AuthorizationException} if they do not.
-     *
-     * @param roleIdentifiers roleIdentifiers the application-specific role identifiers to check (usually role ids or role names).
+/**
+ * Root exception for all Shiro runtime exceptions.  This class is used as the root instead
+ * of {@link java.lang.SecurityException} to remove the potential for conflicts;  many other
+ * frameworks and products (such as J2EE containers) perform special operations when
+ * encountering {@link java.lang.SecurityException}.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/subject/Subject.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `lang/src/main/java/org/apache/shiro/lang/ShiroException.java`
 #### Snippet
 ```java
-     * Returns {@code true} if this Subject implies all of the specified permission strings, {@code false} otherwise.
-     * <p/>
-     * This is an overloaded method for the corresponding type-safe {@link org.apache.shiro.authz.Permission Permission}
-     * variant.  Please see the class-level JavaDoc for more information on these String-based permission methods.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/CachingSessionDAO.java`
-#### Snippet
-```java
-    /**
-     * Updates the state of the given session to the EIS by first delegating to
-     * {@link #doUpdate(org.apache.shiro.session.Session)}.  If the session is a {@link ValidatingSession}, it will
-     * be added to the cache only if it is {@link ValidatingSession#isValid()} and if invalid, will be removed from the
-     * cache.  If it is not a {@code ValidatingSession} instance, it will be added to the cache in any event.
+ * of {@link java.lang.SecurityException} to remove the potential for conflicts;  many other
+ * frameworks and products (such as J2EE containers) perform special operations when
+ * encountering {@link java.lang.SecurityException}.
+ *
+ * @since 0.1
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9949,410 +14518,26 @@ in `core/src/main/java/org/apache/shiro/subject/support/SubjectCallable.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/InitializableInjectionListener.java`
+in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
 #### Snippet
 ```java
 
 /**
- * Injection listener that honors the {@link org.apache.shiro.lang.util.Initializable} interface.
- *
- * @param <I>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/DestroyableInjectionListener.java`
-#### Snippet
-```java
-
-/**
- * Injection listener that assists with honoring the {@link org.apache.shiro.lang.util.Destroyable} interface.
- *
- * @param <I>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/aop/AopAllianceMethodInvocationAdapter.java`
-#### Snippet
-```java
-/**
- * Adapts a Shiro {@link org.apache.shiro.aop.MethodInvocation MethodInvocation} to an AOPAlliance
- * {@link org.aopalliance.intercept.MethodInvocation}.
- */
-class AopAllianceMethodInvocationAdapter implements org.apache.shiro.aop.MethodInvocation {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.aop` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/aop/ShiroAopModule.java`
-#### Snippet
-```java
-/**
- * Install this module to enable Shiro AOP functionality in Guice.  You may extend it to add your own Shiro
- * interceptors, override the default ones, or provide a specific {@link org.apache.shiro.aop.AnnotationResolver}.
- */
-public class ShiroAopModule extends AbstractModule {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/aop/AopAllianceMethodInterceptorAdapter.java`
-#### Snippet
-```java
-/**
- * Adapts a Shiro {@link org.apache.shiro.aop.MethodInterceptor MethodInterceptor} to an AOPAlliance
- * {@link org.aopalliance.intercept.MethodInterceptor}.
- */
-class AopAllianceMethodInterceptorAdapter implements MethodInterceptor {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
-#### Snippet
-```java
- * <li>Perhaps most important for Shiro end-users, tt can more easily be used as a source of cryptographic seed data,
- * and the data returned is already in a more convenient {@link ByteSource ByteSource} format in case that data needs
- * to be {@link org.apache.shiro.lang.util.ByteSource#toHex() hex} or
- * {@link org.apache.shiro.lang.util.ByteSource#toBase64() base64}-encoded.</li>
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
-#### Snippet
-```java
- * and the data returned is already in a more convenient {@link ByteSource ByteSource} format in case that data needs
- * to be {@link org.apache.shiro.lang.util.ByteSource#toHex() hex} or
- * {@link org.apache.shiro.lang.util.ByteSource#toBase64() base64}-encoded.</li>
- * </ul>
- * For example, consider the following example generating password salts for new user accounts:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto` is unnecessary and can be removed
-in `crypto/core/src/main/java/org/apache/shiro/crypto/RandomNumberGenerator.java`
-#### Snippet
-```java
- * For example, consider the following example generating password salts for new user accounts:
- * <pre>
- * RandomNumberGenerator saltGenerator = new {@link org.apache.shiro.crypto.SecureRandomNumberGenerator SecureRandomNumberGenerator}();
- * User user = new User();
- * user.setPasswordSalt(saltGenerator.nextBytes().toBase64());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-/**
- * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
- * {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by using
- * {@link #bindRealm() bindRealm}.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-     * Binds the session manager.  Override this method in order to provide your own session manager binding.
-     * <p/>
-     * By default, a {@link org.apache.shiro.session.mgt.DefaultSessionManager} is bound as an eager singleton.
-     *
-     * @param bind
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-     * Binds the security manager.  Override this method in order to provide your own security manager binding.
-     * <p/>
-     * By default, a {@link org.apache.shiro.mgt.DefaultSecurityManager} is bound as an eager singleton.
-     *
-     * @param bind
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/ShiroModule.java`
-#### Snippet
-```java
-
-    /**
-     * Destroys all beans created within this module that implement {@link org.apache.shiro.lang.util.Destroyable}.  Should be called when this
-     * module will no longer be used.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.event` is unnecessary and can be removed
-in `event/src/main/java/org/apache/shiro/event/EventBus.java`
-#### Snippet
-```java
- *     <li>For each type of event you wish to consume, create a public method that accepts a single event argument.
- *     The method argument type indicates the type of event to receive.</li>
- *     <li>Annotate each of these public methods with the {@link org.apache.shiro.event.Subscribe Subscribe} annotation.</li>
- *     <li>Register the component with the event bus:
- *     <pre>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationJob.java`
-#### Snippet
-```java
-
-/**
- * A quartz job that basically just calls the {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()}
- * method on a configured session manager.  The session manager will automatically be injected by the
- * superclass if it is in the job data map or the scheduler map.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
-#### Snippet
-```java
-
-/**
- * An implementation of the {@link org.apache.shiro.session.mgt.SessionValidationScheduler SessionValidationScheduler} that uses Quartz to schedule a
- * job to call {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()} on
- * a regular basis.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
-#### Snippet
-```java
-/**
- * An implementation of the {@link org.apache.shiro.session.mgt.SessionValidationScheduler SessionValidationScheduler} that uses Quartz to schedule a
- * job to call {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions()} on
- * a regular basis.
+ * Utility class to help call {@link org.apache.shiro.lang.util.Initializable#init() Initializable.init()} and
+ * {@link org.apache.shiro.lang.util.Destroyable#destroy() Destroyable.destroy()} methods cleanly on any object.
  *
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/quartz/src/main/java/org/apache/shiro/session/mgt/quartz/QuartzSessionValidationScheduler.java`
-#### Snippet
-```java
-    /**
-     * Specifies how frequently (in milliseconds) this Scheduler will call the
-     * {@link org.apache.shiro.session.mgt.ValidatingSessionManager#validateSessions() ValidatingSessionManager#validateSessions()} method.
-     *
-     * <p>Unless this method is called, the default value is {@link #DEFAULT_SESSION_VALIDATION_INTERVAL}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/HashService.java`
-#### Snippet
-```java
-     *
-     * If a salt accompanies the return value
-     * (i.e. <code>returnedHash.{@link org.apache.shiro.crypto.hash.Hash#getSalt() getSalt()} != null</code>), this
-     * same exact salt <b><em>MUST</em></b> be presented back to the {@code HashService} if hash
-     * comparison/verification will be performed at a later time (for example, for password hash or file checksum
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/DefaultHashService.java`
-#### Snippet
-```java
-     * This implementation functions as follows:
-     * <ul>
-     * <li>If the request's {@link org.apache.shiro.crypto.hash.HashRequest#getSalt() salt} is null:
-     * <p/>
-     * A salt will be generated and used to compute the hash.  The salt is generated as follows:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
-#### Snippet
-```java
-     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File}, or
-     * {@link java.io.InputStream InputStream}.  If either argument is anything other than these
-     * types a {@link org.apache.shiro.lang.codec.CodecException CodecException} will be thrown.
-     * <p/>
-     * If you want to be able to hash other object types, or use other salt types, you need to override the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-
-/**
- * A {@code Hash} implementation that allows any {@link java.security.MessageDigest MessageDigest} algorithm name to
- * be used.  This class is a less type-safe variant than the other {@code AbstractHash} subclasses
- * (e.g. {@link Sha512Hash}, etc.), but it does allow for any algorithm name to be specified in case the other subclass
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * types.
-     *
-     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
-     *                      performing the hash.
-     * @param source        the object to be hashed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     *                      performing the hash.
-     * @param source        the object to be hashed.
-     * @throws org.apache.shiro.lang.codec.CodecException
-     *                                   if the specified {@code source} cannot be converted into a byte array (byte[]).
-     * @throws UnknownAlgorithmException if the {@code algorithmName} is not available.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-
-    /**
-     * Returns the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
-     *
-     * @return the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * Returns the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
-     *
-     * @return the {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-
-    /**
-     * The {@link java.security.MessageDigest MessageDigest} algorithm name to use when performing the hash.
-     */
-    private final String algorithmName;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * By default, this class only supports Object method arguments of
-     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File},
-     * {@link java.io.InputStream InputStream} or {@link org.apache.shiro.lang.util.ByteSource ByteSource}.  If either
-     * argument is anything other than these types a {@link org.apache.shiro.lang.codec.CodecException CodecException}
-     * will be thrown.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.codec` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * type {@code byte[]}, {@code char[]}, {@link String}, {@link java.io.File File},
-     * {@link java.io.InputStream InputStream} or {@link org.apache.shiro.lang.util.ByteSource ByteSource}.  If either
-     * argument is anything other than these types a {@link org.apache.shiro.lang.codec.CodecException CodecException}
-     * will be thrown.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * constructor}.
-     *
-     * @param algorithmName  the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
-     *                       performing the hash.
-     * @param source         the source object to be hashed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * types.
-     *
-     * @param algorithmName  the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
-     *                       performing the hash.
-     * @param source         the source object to be hashed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * types.
-     *
-     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
-     *                      performing the hash.
-     * @param source        the source object to be hashed.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/SimpleHash.java`
-#### Snippet
-```java
-     * is not, a {@link UnknownAlgorithmException} will be thrown when the hash is performed (not at instantiation).
-     *
-     * @param algorithmName the {@link java.security.MessageDigest MessageDigest} algorithm name to use when
-     *                      performing the hash.
-     * @see UnknownAlgorithmException
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `lang/src/main/java/org/apache/shiro/lang/ShiroException.java`
+in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
 #### Snippet
 ```java
 /**
- * Root exception for all Shiro runtime exceptions.  This class is used as the root instead
- * of {@link java.lang.SecurityException} to remove the potential for conflicts;  many other
- * frameworks and products (such as J2EE containers) perform special operations when
- * encountering {@link java.lang.SecurityException}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `lang/src/main/java/org/apache/shiro/lang/ShiroException.java`
-#### Snippet
-```java
- * of {@link java.lang.SecurityException} to remove the potential for conflicts;  many other
- * frameworks and products (such as J2EE containers) perform special operations when
- * encountering {@link java.lang.SecurityException}.
+ * Utility class to help call {@link org.apache.shiro.lang.util.Initializable#init() Initializable.init()} and
+ * {@link org.apache.shiro.lang.util.Destroyable#destroy() Destroyable.destroy()} methods cleanly on any object.
  *
- * @since 0.1
+ * @since 0.2
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10440,51 +14625,15 @@ in `lang/src/main/java/org/apache/shiro/lang/io/XmlSerializer.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
-#### Snippet
-```java
-
-/**
- * Utility class to help call {@link org.apache.shiro.lang.util.Initializable#init() Initializable.init()} and
- * {@link org.apache.shiro.lang.util.Destroyable#destroy() Destroyable.destroy()} methods cleanly on any object.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `lang/src/main/java/org/apache/shiro/lang/util/LifecycleUtils.java`
-#### Snippet
-```java
-/**
- * Utility class to help call {@link org.apache.shiro.lang.util.Initializable#init() Initializable.init()} and
- * {@link org.apache.shiro.lang.util.Destroyable#destroy() Destroyable.destroy()} methods cleanly on any object.
- *
- * @since 0.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoaderListener.java`
-#### Snippet
-```java
-    /**
-     * Destroys any previously created/bound {@code WebEnvironment} instance created by
-     * the {@link #contextInitialized(javax.servlet.ServletContextEvent)} method.
-     *
-     * @param sce the ServletContextEvent triggered upon application shutdown
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 #### Snippet
 ```java
-     * @param prefix the prefix to look for
-     * @return <code>true</code> starts with the specified prefix (ignoring case), <code>false</code> if it does not.
-     * @see java.lang.String#startsWith
+     * @return <code>true</code> if the String is not <code>null</code>, its length is
+     *         greater than 0, and it does not contain whitespace only
+     * @see java.lang.Character#isWhitespace
      */
-    public static boolean startsWithIgnoreCase(String str, String prefix) {
+    public static boolean hasText(String str) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10512,6 +14661,18 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+     * @param prefix the prefix to look for
+     * @return <code>true</code> starts with the specified prefix (ignoring case), <code>false</code> if it does not.
+     * @see java.lang.String#startsWith
+     */
+    public static boolean startsWithIgnoreCase(String str, String prefix) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 #### Snippet
@@ -10536,2187 +14697,15 @@ in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-     * @return <code>true</code> if the String is not <code>null</code>, its length is
-     *         greater than 0, and it does not contain whitespace only
-     * @see java.lang.Character#isWhitespace
-     */
-    public static boolean hasText(String str) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/env/EnvironmentLoader.java`
-#### Snippet
-```java
-     * Instantiates a {@link WebEnvironment} based on the specified ServletContext.
-     * <p/>
-     * This implementation {@link #determineWebEnvironmentClass(javax.servlet.ServletContext) determines} a
-     * {@link WebEnvironment} implementation class to use.  That class is instantiated, configured, and returned.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSubjectFactory.java`
-#### Snippet
-```java
-
-    /**
-     * @deprecated since 1.2 - override {@link #createSubject(org.apache.shiro.subject.SubjectContext)} directly if you
-     *             need to instantiate a custom {@link Subject} class.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/mgt/DefaultWebSessionStorageEvaluator.java`
-#### Snippet
-```java
- * <p/>
- * This {@code DefaultWebSessionStorageEvaluator} will then inspect this attribute, and if it has been set, will return
- * {@code false} from {@link #isSessionStorageEnabled(org.apache.shiro.subject.Subject)} method, thereby preventing
- * Shiro from creating a session for the purpose of storing subject state.
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.tags` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/tags/UserTag.java`
-#### Snippet
-```java
- * who they say they are.
- *
- * <p>The logically opposite tag of this one is the {@link org.apache.shiro.web.tags.GuestTag}.
- *
- * @since 0.9
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.tags` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/tags/NotAuthenticatedTag.java`
-#### Snippet
-```java
- * attempt <em>during their current session</em>.
- *
- * <p>The logically opposite tag of this one is the {@link org.apache.shiro.web.tags.AuthenticatedTag}.
- *
- * @since 0.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
-#### Snippet
-```java
-     * Converts the specified file path to an {@link Ini} instance.
-     * <p/>
-     * If the path does not have a resource prefix as defined by {@link org.apache.shiro.lang.io.ResourceUtils#hasResourcePrefix(String)}, the
-     * path is expected to be resolvable by the {@code ServletContext} via
-     * {@link javax.servlet.ServletContext#getResourceAsStream(String)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
-#### Snippet
-```java
-     * If the path does not have a resource prefix as defined by {@link org.apache.shiro.lang.io.ResourceUtils#hasResourcePrefix(String)}, the
-     * path is expected to be resolvable by the {@code ServletContext} via
-     * {@link javax.servlet.ServletContext#getResourceAsStream(String)}.
-     *
-     * @param path     the path of the INI resource to load into an INI instance.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     * @return the encoded output String
-     * @throws UnsupportedEncodingException if thrown by the JDK URLEncoder
-     * @see java.net.URLEncoder#encode(String, String)
-     * @see java.net.URLEncoder#encode(String)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     * @throws UnsupportedEncodingException if thrown by the JDK URLEncoder
-     * @see java.net.URLEncoder#encode(String, String)
-     * @see java.net.URLEncoder#encode(String)
-     */
-    protected String urlEncode(String input, String encodingScheme) throws UnsupportedEncodingException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     *
-     * @param http10Compatible whether to stay compatible with HTTP 1.0 clients.
-     * @see javax.servlet.http.HttpServletResponse#sendRedirect
-     */
-    public void setHttp10Compatible(boolean http10Compatible) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     * @param request  the incoming HttpServletRequest
-     * @param response the outgoing HttpServletResponse
-     * @throws java.io.IOException if there is a problem issuing the redirect
-     * @see #appendQueryProperties
-     * @see #sendRedirect
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
- * @see #setContextRelative
- * @see #setHttp10Compatible
- * @see javax.servlet.http.HttpServletResponse#sendRedirect
- * @since 0.2
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     * @param model          Map that contains model attributes
-     * @param encodingScheme the encoding scheme to use
-     * @throws java.io.UnsupportedEncodingException if string encoding failed
-     * @see #urlEncode
-     * @see #queryProperties
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/RedirectView.java`
-#### Snippet
-```java
-     *                        as relative to the current ServletContext, i.e. as relative to the
-     *                        web application root.
-     * @see javax.servlet.http.HttpServletRequest#getContextPath
-     */
-    public void setContextRelative(boolean contextRelative) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * Convenience method for subclasses to use when a login redirect is required.
-     * <p/>
-     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
-     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
-     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
-     *
-     * @param request  the incoming <code>ServletRequest</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation simply calls {@link #saveRequest(javax.servlet.ServletRequest) saveRequest(request)}
-     * and then {@link #redirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) redirectToLogin(request,response)}.
-     *
-     * @param request  the incoming <code>ServletRequest</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
- * Superclass for any filter that controls access to a resource and may redirect the user to the login page
- * if they are not authenticated.  This superclass provides the method
- * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
- * which is used by many subclasses as the behavior when a user is unauthenticated.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
- * Superclass for any filter that controls access to a resource and may redirect the user to the login page
- * if they are not authenticated.  This superclass provides the method
- * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
- * which is used by many subclasses as the behavior when a user is unauthenticated.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-    /**
-     * Processes requests where the subject was denied access as determined by the
-     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * method, retaining the {@code mappedValue} that was used during configuration.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-    /**
-     * Processes requests where the subject was denied access as determined by the
-     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * method, retaining the {@code mappedValue} that was used during configuration.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-    /**
-     * Convenience method merely delegates to
-     * {@link WebUtils#saveRequest(javax.servlet.ServletRequest) WebUtils.saveRequest(request)} to save the request
-     * state for reuse later.  This is mostly used to retain user request state when a redirect is issued to
-     * return the user to their originally requested url/resource.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * If you need to save and then immediately redirect the user to login, consider using
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     * saveRequestAndRedirectToLogin(request,response)} directly.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * If you need to save and then immediately redirect the user to login, consider using
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     * saveRequestAndRedirectToLogin(request,response)} directly.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-    /**
-     * Processes requests where the subject was denied access as determined by the
-     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * method.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-    /**
-     * Processes requests where the subject was denied access as determined by the
-     * {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * method.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * The default implementation simply returns
-     * {@link org.apache.shiro.SecurityUtils#getSubject() SecurityUtils.getSubject()}.
-     *
-     * @param request  the incoming <code>ServletRequest</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <b>N.B.</b>  If you want to issue a redirect with the intention of allowing the user to then return to their
-     * originally requested URL, don't use this method directly.  Instead you should call
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     * saveRequestAndRedirectToLogin(request,response)}, which will save the current request state so that it can
-     * be reconstructed and re-used after a successful login.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     * <b>N.B.</b>  If you want to issue a redirect with the intention of allowing the user to then return to their
-     * originally requested URL, don't use this method directly.  Instead you should call
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
-     * saveRequestAndRedirectToLogin(request,response)}, which will save the current request state so that it can
-     * be reconstructed and re-used after a successful login.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     *
-     * @return <code>true</code> if
-     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
-     *         otherwise returns the result of
-     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     *
-     * @return <code>true</code> if
-     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
-     *         otherwise returns the result of
-     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
-     *         otherwise returns the result of
-     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
-     * @throws Exception if an error occurs.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/AccessControlFilter.java`
-#### Snippet
-```java
-     *         {@link #isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed},
-     *         otherwise returns the result of
-     *         {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied}.
-     * @throws Exception if an error occurs.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
-#### Snippet
-```java
-     * <p/>
-     * Calling this method is effectively the same as calling
-     * <code>{@link #addFilter(String, javax.servlet.Filter, boolean) addFilter}(name, filter, <b>false</b>);</code>
-     *
-     * @param name   the name to assign to the filter, used to reference the filter in chain definitions
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
-#### Snippet
-```java
-     * @param chainName  the name of the chain where the filter will be appended.
-     * @param filterName the name of the {@link #addFilter registered} filter to add to the chain.
-     * @throws IllegalArgumentException if there is not a {@link #addFilter(String, javax.servlet.Filter) registered}
-     *                                  filter under the given {@code filterName}
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
-#### Snippet
-```java
-     * @param chainSpecificFilterConfig the filter-specific configuration that should be applied for only the specified
-     *                                  filter chain.
-     * @throws IllegalArgumentException if there is not a {@link #addFilter(String, javax.servlet.Filter) registered}
-     *                                  filter under the given {@code filterName}
-     * @throws ConfigurationException   if the filter is not capable of accepting {@code chainSpecificFilterConfig}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/FilterChainManager.java`
-#### Snippet
-```java
-     * <ol>
-     * <li>{@code filterN} is the name of a filter previously
-     * {@link #addFilter(String, javax.servlet.Filter) registered} with the manager, and</li>
-     * <li>{@code [optional_configN]} is an optional bracketed string that has meaning for that particular filter for
-     * <em>this particular chain</em></li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-    /**
-     * Redirects the to the request url from a previously
-     * {@link #saveRequest(javax.servlet.ServletRequest) saved} request, or if there is no saved request, redirects the
-     * end user to the specified {@code fallbackUrl}.  If there is no saved request or fallback url, this method
-     * throws an {@link IllegalStateException}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * This method is primarily used to support a common login scenario - if an unauthenticated user accesses a
-     * page that requires authentication, it is expected that request is
-     * {@link #saveRequest(javax.servlet.ServletRequest) saved} first and then redirected to the login page. Then,
-     * after a successful login, this method can be called to redirect them back to their originally requested URL, a
-     * nice usability feature.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param sc ServletContext to find the web application context for
-     * @return the root WebApplicationContext for this web app, or <code>null</code> if none
-     * @see org.apache.shiro.web.env.EnvironmentLoader#ENVIRONMENT_ATTRIBUTE_KEY
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param url         the URL to redirect the user to.
-     * @param queryParams a map of parameters that should be set as request parameters for the new request.
-     * @throws java.io.IOException if thrown by response methods.
-     */
-    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param response the servlet response.
-     * @param url      the URL to redirect the user to.
-     * @throws java.io.IOException if thrown by response methods.
-     */
-    public static void issueRedirect(ServletRequest request, ServletResponse response, String url) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * returns <code>null</code>, according to the Servlet spec.
-     *
-     * @see javax.servlet.ServletRequest#getCharacterEncoding
-     */
-    public static final String DEFAULT_CHARACTER_ENCODING = "ISO-8859-1";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param contextRelative  true if the URL is relative to the servlet context path, or false if the URL is absolute.
-     * @param http10Compatible whether to stay compatible with HTTP 1.0 clients.
-     * @throws java.io.IOException if thrown by response methods.
-     */
-    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams, boolean contextRelative, boolean http10Compatible) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param request current HTTP request
-     * @return the encoding for the request (never <code>null</code>)
-     * @see javax.servlet.ServletRequest#getCharacterEncoding()
-     */
-    protected static String determineEncoding(HttpServletRequest request) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-
-    /**
-     * {@link org.apache.shiro.session.Session Session} key used to save a request and later restore it, for example when redirecting to a
-     * requested page after login, equal to {@code shiroSavedRequest}.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @param queryParams     a map of parameters that should be set as request parameters for the new request.
-     * @param contextRelative true if the URL is relative to the servlet context path, or false if the URL is absolute.
-     * @throws java.io.IOException if thrown by response methods.
-     */
-    public static void issueRedirect(ServletRequest request, ServletResponse response, String url, Map queryParams, boolean contextRelative) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @return the root WebApplicationContext for this web app
-     * @throws IllegalStateException if the root WebApplicationContext could not be found
-     * @see org.apache.shiro.web.env.EnvironmentLoader#ENVIRONMENT_ATTRIBUTE_KEY
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @return the decoded String
-     * @see #DEFAULT_CHARACTER_ENCODING
-     * @see javax.servlet.ServletRequest#getCharacterEncoding
-     * @see java.net.URLDecoder#decode(String, String)
-     * @see java.net.URLDecoder#decode(String)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @see #DEFAULT_CHARACTER_ENCODING
-     * @see javax.servlet.ServletRequest#getCharacterEncoding
-     * @see java.net.URLDecoder#decode(String, String)
-     * @see java.net.URLDecoder#decode(String)
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     * @see javax.servlet.ServletRequest#getCharacterEncoding
-     * @see java.net.URLDecoder#decode(String, String)
-     * @see java.net.URLDecoder#decode(String)
-     */
-    @SuppressWarnings({"deprecation"})
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     *         handle the response directly.
-     * @throws Exception if an error occurs
-     * @see #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     */
-    protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     *         handle the response directly.
-     * @throws Exception if an error occurs
-     * @see #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     */
-    protected boolean onPreHandle(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * Implementation that handles path-matching behavior before a request is evaluated.  If the path matches and
-     * the filter
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
-     * that path/config, the request will be allowed through via the result from
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * Implementation that handles path-matching behavior before a request is evaluated.  If the path matches and
-     * the filter
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
-     * that path/config, the request will be allowed through via the result from
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
-     * that path/config, the request will be allowed through via the result from
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
-     * path does not match or the filter is not enabled for that path, this filter will allow passthrough immediately
-     * to allow the {@code FilterChain} to continue executing.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object) isEnabled} for
-     * that path/config, the request will be allowed through via the result from
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle}.  If the
-     * path does not match or the filter is not enabled for that path, this filter will allow passthrough immediately
-     * to allow the {@code FilterChain} to continue executing.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * In order to retain path-matching functionality, subclasses should not override this method if at all
-     * possible, and instead override
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle} instead.
-     *
-     * @param request  the incoming ServletRequest
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * In order to retain path-matching functionality, subclasses should not override this method if at all
-     * possible, and instead override
-     * {@link #onPreHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) onPreHandle} instead.
-     *
-     * @param request  the incoming ServletRequest
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * if that matches:
-     * <p/>
-     * <code>String requestURI = {@link #getPathWithinApplication(javax.servlet.ServletRequest) getPathWithinApplication(request)};<br/>
-     * return {@link #pathsMatch(String, String) pathsMatch(path,requestURI)}</code>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-    /**
-     * Path-matching version of the parent class's
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method, but additionally allows
-     * for inspection of any path-specific configuration values corresponding to the specified request.  Subclasses
-     * may wish to inspect this additional mapped configuration to determine if the filter is enabled or not.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-    /**
-     * Path-matching version of the parent class's
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method, but additionally allows
-     * for inspection of any path-specific configuration values corresponding to the specified request.  Subclasses
-     * may wish to inspect this additional mapped configuration to determine if the filter is enabled or not.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This method's default implementation ignores the {@code path} and {@code mappedValue} arguments and merely
-     * returns the value from a call to {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}.
-     * It is expected that subclasses override this method if they need to perform enable/disable logic for a specific
-     * request based on any path-specific config for the filter instance.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This method's default implementation ignores the {@code path} and {@code mappedValue} arguments and merely
-     * returns the value from a call to {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}.
-     * It is expected that subclasses override this method if they need to perform enable/disable logic for a specific
-     * request based on any path-specific config for the filter instance.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
-#### Snippet
-```java
-    /**
-     * Merely returns
-     * <code>WebUtils.{@link org.apache.shiro.web.util.WebUtils#getPathWithinApplication(javax.servlet.http.HttpServletRequest) getPathWithinApplication(request)}</code>
-     * and can be overridden by subclasses for custom request-to-application-path resolution behavior.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
-#### Snippet
-```java
- * matching, as determined by a configurable {@link #setPathMatcher(org.apache.shiro.lang.util.PatternMatcher) PathMatcher}.
- * <p/>
- * This implementation functions by consulting a {@link org.apache.shiro.web.filter.mgt.FilterChainManager} for all configured filter chains (keyed
- * by configured path pattern).  If an incoming Request path matches one of the configured path patterns (via
- * the {@code PathMatcher}, the corresponding configured {@code FilterChain} is returned.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-     * Determines whether the current subject is authenticated.
-     * <p/>
-     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
-     * the currently executing Subject and then returns
-     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-     * Determines whether the current subject is authenticated.
-     * <p/>
-     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
-     * the currently executing Subject and then returns
-     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-     * The default implementation {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) acquires}
-     * the currently executing Subject and then returns
-     * {@link org.apache.shiro.subject.Subject#isAuthenticated() subject.isAuthenticated()};
-     *
-     * @return true if the subject is authenticated; false if the subject is unauthenticated
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-    /**
-     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
-     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
-     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-    /**
-     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
-     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
-     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticationFilter.java`
-#### Snippet
-```java
-    /**
-     * Redirects to user to the previously attempted URL after a successful login.  This implementation simply calls
-     * <code>{@link org.apache.shiro.web.util.WebUtils WebUtils}.{@link WebUtils#redirectToSavedRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) redirectToSavedRequest}</code>
-     * using the {@link #getSuccessUrl() successUrl} as the {@code fallbackUrl} argument to that call.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-
-    /**
-     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
-     * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-
-    /**
-     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
-     * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
-     * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
-     * and redirects the end-user to that redirect url.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
-     * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
-     * and redirects the end-user to that redirect url.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-     * Acquires the currently executing {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject},
-     * a potentially Subject or request-specific
-     * {@link #getRedirectUrl(javax.servlet.ServletRequest, javax.servlet.ServletResponse, org.apache.shiro.subject.Subject) redirectUrl},
-     * and redirects the end-user to that redirect url.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-    /**
-     * Returns the currently executing {@link Subject}.  This implementation merely defaults to calling
-     * {@code SecurityUtils.}{@link org.apache.shiro.SecurityUtils#getSubject() getSubject()}, but can be overridden
-     * by subclasses for different retrieval strategies.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-/**
- * Simple Filter that, upon receiving a request, will immediately log-out the currently executing
- * {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
- * and then redirect them to a configured {@link #getRedirectUrl() redirectUrl}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-/**
- * Simple Filter that, upon receiving a request, will immediately log-out the currently executing
- * {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
- * and then redirect them to a configured {@link #getRedirectUrl() redirectUrl}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-    /**
-     * Issues an HTTP redirect to the specified URL after subject logout.  This implementation simply calls
-     * {@code WebUtils.}{@link WebUtils#issueRedirect(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) issueRedirect(request,response,redirectUrl)}.
-     *
-     * @param request  the incoming Servlet request
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/LogoutFilter.java`
-#### Snippet
-```java
-    /**
-     * Issues an HTTP redirect to the specified URL after subject logout.  This implementation simply calls
-     * {@code WebUtils.}{@link WebUtils#issueRedirect(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String) issueRedirect(request,response,redirectUrl)}.
-     *
-     * @param request  the incoming Servlet request
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-    /**
-     * This default implementation simply calls
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) saveRequestAndRedirectToLogin}
-     * and then immediately returns <code>false</code>, thereby preventing the chain from continuing so the redirect may
-     * execute.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-    /**
-     * This default implementation simply calls
-     * {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse) saveRequestAndRedirectToLogin}
-     * and then immediately returns <code>false</code>, thereby preventing the chain from continuing so the redirect may
-     * execute.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-    /**
-     * Returns <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     * Returns <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     * Returns <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     *
-     * @return <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     *
-     * @return <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     * @return <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/UserFilter.java`
-#### Snippet
-```java
-     * @return <code>true</code> if the request is a
-     * {@link #isLoginRequest(javax.servlet.ServletRequest, javax.servlet.ServletResponse) loginRequest} or
-     * if the current {@link #getSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) subject}
-     * is not <code>null</code>, <code>false</code> otherwise.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
- * <p><code>Authorization: Basic <em>Base64_encoded_username_and_password</em></code></p></li>
- * </ol>
- * The {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method will
- * only be called if the subject making the request is not
- * {@link org.apache.shiro.subject.Subject#isAuthenticated() authenticated}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
- * <p><code>Authorization: Basic <em>Base64_encoded_username_and_password</em></code></p></li>
- * </ol>
- * The {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method will
- * only be called if the subject making the request is not
- * {@link org.apache.shiro.subject.Subject#isAuthenticated() authenticated}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-     * This implementation:
-     * <ol><li>acquires the username and password based on the request's
-     * {@link #getAuthzHeader(javax.servlet.ServletRequest) authorization header} via the
-     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
-     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-     * <ol><li>acquires the username and password based on the request's
-     * {@link #getAuthzHeader(javax.servlet.ServletRequest) authorization header} via the
-     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
-     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
-     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
-     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
-     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
-     * <li>The created <code>AuthenticationToken</code> is returned.</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-     * {@link #getPrincipalsAndCredentials(String, javax.servlet.ServletRequest) getPrincipalsAndCredentials} method</li>
-     * <li>The return value of that method is converted to an <code>AuthenticationToken</code> via the
-     * {@link #createToken(String, String, javax.servlet.ServletRequest, javax.servlet.ServletResponse) createToken} method</li>
-     * <li>The created <code>AuthenticationToken</code> is returned.</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/BasicHttpAuthenticationFilter.java`
-#### Snippet
-```java
-     *
-     * @param scheme  the {@link #getAuthcScheme() authcScheme} found in the request
-     *                {@link #getAuthzHeader(javax.servlet.ServletRequest) authzHeader}.  It is ignored by this implementation,
-     *                but available to overriding implementations should they find it useful.
-     * @param encoded the Base64-encoded username:password value found after the scheme in the header
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.util` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
-     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
-     * otherwise.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
-     * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
-     * otherwise.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
- * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
- * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
- * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
- * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
- * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authc` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
- * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
- * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
- * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
- * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
- * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
- * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
- * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
- * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
- * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and
- * is a POST request.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authc/FormAuthenticationFilter.java`
-#### Snippet
-```java
- * {@link org.apache.shiro.subject.Subject#login(org.apache.shiro.authc.AuthenticationToken) Subject.login(usernamePasswordToken)},
- * effectively automatically performing a login attempt.  Note that the login attempt will only occur when the
- * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
- * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and
- * is a POST request.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
-#### Snippet
-```java
-    /**
-     * Retains the parent method's port-matching behavior but additionally guarantees that the
-     *{@code ServletRequest.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}.  If the port does not match or
-     * the request is not secure, access is denied.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
-#### Snippet
-```java
-     * @param mappedValue the filter-specific config value mapped to this filter in the URL rules mappings - ignored by this implementation.
-     * @return {@code true} if the request is received on an expected SSL port and the
-     * {@code request.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}, {@code false} otherwise.
-     * @throws Exception if the call to {@code super.isAccessAllowed} throws an exception.
-     * @since 1.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/SslFilter.java`
-#### Snippet
-```java
- * Filter which requires a request to be over SSL.  Access is allowed if the request is received on the configured
- * server {@link #setPort(int) port} <em>and</em> the
- * {@code request.}{@link javax.servlet.ServletRequest#isSecure() isSecure()}.  If either condition is {@code false},
- * the filter chain will not continue.
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
-/**
- * Superclass for authorization-related filters.  If an request is unauthorized, response handling is delegated to the
- * {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied} method, which
- * provides reasonable handling for most applications.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
-/**
- * Superclass for authorization-related filters.  If an request is unauthorized, response handling is delegated to the
- * {@link #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse) onAccessDenied} method, which
- * provides reasonable handling for most applications.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
- * provides reasonable handling for most applications.
- *
- * @see #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
- * @since 0.9
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
- * provides reasonable handling for most applications.
- *
- * @see #onAccessDenied(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
- * @since 0.9
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
-     * <li>If the {@code Subject} is unknown<sup><a href="#known">[1]</a></sup>:
-     * <ol><li>The incoming request will be saved and they will be redirected to the login page for authentication
-     * (via the {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     * method).</li>
-     * <li>Once successfully authenticated, they will be redirected back to the originally attempted page.</li></ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
-     * <li>If the {@code Subject} is unknown<sup><a href="#known">[1]</a></sup>:
-     * <ol><li>The incoming request will be saved and they will be redirected to the login page for authentication
-     * (via the {@link #saveRequestAndRedirectToLogin(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     * method).</li>
-     * <li>Once successfully authenticated, they will be redirected back to the originally attempted page.</li></ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/AuthorizationFilter.java`
-#### Snippet
-```java
-     * </ul>
-     * <code><a name="known">[1]</a></code>: A {@code Subject} is 'known' when
-     * <code>subject.{@link org.apache.shiro.subject.Subject#getPrincipal() getPrincipal()}</code> is not {@code null},
-     * which implicitly means that the subject is either currently authenticated or they have been remembered via
-     * 'remember me' services.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
-#### Snippet
-```java
-     * action to each configured permission (the {@code mappedValue} argument is a {@code String[]} array), and
-     * delegates the permission check for the newly constructed permission(s) to the superclass
-     * {@link PermissionsAuthorizationFilter#isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * implementation to perform the actual permission check.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
-#### Snippet
-```java
-     * action to each configured permission (the {@code mappedValue} argument is a {@code String[]} array), and
-     * delegates the permission check for the newly constructed permission(s) to the superclass
-     * {@link PermissionsAuthorizationFilter#isAccessAllowed(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Object) isAccessAllowed}
-     * implementation to perform the actual permission check.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
-#### Snippet
-```java
-     * per {@link org.apache.shiro.authz.permission.WildcardPermission WildcardPermission} conventions.  Subclasses
-     * are of course free to override this method or the
-     * {@link #buildPermissions(javax.servlet.http.HttpServletRequest, String[], String) buildPermissions} request
-     * variant for custom building logic or with different permission formats.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/filter/authz/HttpMethodPermissionFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation expects the incoming request to be an {@link HttpServletRequest} and returns a mapped
-     * action based on the HTTP request {@link javax.servlet.http.HttpServletRequest#getMethod() method}.
-     *
-     * @param request to pull the method from.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
-#### Snippet
-```java
-    /**
-     * Returns the servlet container specified {@code FilterConfig} instance provided at
-     * {@link #init(javax.servlet.FilterConfig) startup}.
-     *
-     * @return the servlet container specified {@code FilterConfig} instance provided at start-up.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractFilter.java`
-#### Snippet
-```java
-     *
-     * @param filterConfig the servlet container supplied FilterConfig instance.
-     * @throws javax.servlet.ServletException if {@link #onFilterConfigSet() onFilterConfigSet()} throws an Exception.
-     */
-    public final void init(FilterConfig filterConfig) throws ServletException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
-#### Snippet
-```java
- * <p/>
- * As of Shiro 1.2, this is Shiro's preferred filter for {@code web.xml} configuration.  It expects the presence of a
- * Shiro {@link org.apache.shiro.web.env.WebEnvironment WebEnvironment} in the {@code ServletContext}, also
- * configured via {@code web.xml}.
- * <h2>Usage</h2>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
-#### Snippet
-```java
- * configured via {@code web.xml}.
- * <h2>Usage</h2>
- * As this Filter expects an available {@link org.apache.shiro.web.env.WebEnvironment WebEnvironment} instance to
- * be configured, it must be defined in {@code web.xml} with the companion
- * {@link org.apache.shiro.web.env.EnvironmentLoaderListener EnvironmentLoaderListener}, which performs the necessary
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.env` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroFilter.java`
-#### Snippet
-```java
-
-    /**
-     * Configures this instance based on the existing {@link org.apache.shiro.web.env.WebEnvironment} instance
-     * available to the currently accessible {@link #getServletContext() servletContext}.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
-#### Snippet
-```java
-     * filter name as specified by the servlet container at start-up:
-     * <pre>
-     * this.name = {@link #getFilterConfig() getFilterConfig()}.{@link javax.servlet.FilterConfig#getFilterName() getName()};</pre>
-     *
-     * @return the filter name, or {@code null} if none available
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
-#### Snippet
-```java
-     * @return the filter name, or {@code null} if none available
-     * @see javax.servlet.GenericServlet#getServletName()
-     * @see javax.servlet.FilterConfig#getFilterName()
-     */
-    protected String getName() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
-#### Snippet
-```java
-     * servlet container at start-up:
-     * <pre>
-     * this.name = {@link #getFilterConfig() getFilterConfig()}.{@link javax.servlet.FilterConfig#getFilterName() getName()};</pre>
-     *
-     * @param name the name of the filter.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/NameableFilter.java`
-#### Snippet
-```java
- * {@link #getName()}/{@link #setName(String)} methods.  If no name is specified, the name of the filter will
- * default to the name given to it in {@code web.xml} (the {@code FilterConfig}'s
- * {@link javax.servlet.FilterConfig#getFilterName() filterName}).
- *
- * @since 1.0
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletRequest.java`
-#### Snippet
-```java
-    }
-
-    private class ObjectPrincipal implements java.security.Principal {
-        private Object object = null;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-    /**
-     * Same contract as for
-     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
-     * but guaranteed to be invoked only once per request.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-    /**
-     * Same contract as for
-     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
-     * but guaranteed to be invoked only once per request.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-    /**
-     * Same contract as for
-     * {@link #doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)},
-     * but guaranteed to be invoked only once per request.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * <b>Helpful Hint:</b> if your subclass extends {@link org.apache.shiro.web.filter.PathMatchingFilter PathMatchingFilter},
-     * you may wish to instead override the
-     * {@link org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     * PathMatchingFilter.isEnabled(request,response,path,pathSpecificConfig)}
-     * method if you want to make your enable/disable decision based on any path-specific configuration.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * <b>Helpful Hint:</b> if your subclass extends {@link org.apache.shiro.web.filter.PathMatchingFilter PathMatchingFilter},
-     * you may wish to instead override the
-     * {@link org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     * PathMatchingFilter.isEnabled(request,response,path,pathSpecificConfig)}
-     * method if you want to make your enable/disable decision based on any path-specific configuration.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * @throws IOException in the case of any IO error
-     * @throws ServletException in the case of any error
-     * @see org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * @throws IOException in the case of any IO error
-     * @throws ServletException in the case of any error
-     * @see org.apache.shiro.web.filter.PathMatchingFilter#isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse, String, Object)
-     * @since 1.2
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
- * is based on the configured name of the concrete filter instance.
- * <h3>Controlling filter execution</h3>
- * 1.2 introduced the {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method and
- * {@link #isEnabled()} property to allow explicit control over whether the filter executes (or allows passthrough)
- * for any given request.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
- * is based on the configured name of the concrete filter instance.
- * <h3>Controlling filter execution</h3>
- * 1.2 introduced the {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} method and
- * {@link #isEnabled()} property to allow explicit control over whether the filter executes (or allows passthrough)
- * for any given request.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * <b>*</b> This configuration property is for general configuration for any request that comes through
-     * the filter.  The
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isEnabled(request,response)}
-     * method actually determines whether or not if the filter is enabled based on the current request.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * <b>*</b> This configuration property is for general configuration for any request that comes through
-     * the filter.  The
-     * {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isEnabled(request,response)}
-     * method actually determines whether or not if the filter is enabled based on the current request.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * @return whether the given request should <i>not</i> be filtered
-     * @throws ServletException in case of errors
-     * @deprecated in favor of overriding {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     * for custom behavior.  This method will be removed in Shiro 2.0.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/OncePerRequestFilter.java`
-#### Snippet
-```java
-     * @return whether the given request should <i>not</i> be filtered
-     * @throws ServletException in case of errors
-     * @deprecated in favor of overriding {@link #isEnabled(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     * for custom behavior.  This method will be removed in Shiro 2.0.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-    /**
-     * Actually implements the chain execution logic, utilizing
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-    /**
-     * Actually implements the chain execution logic, utilizing
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * Actually implements the chain execution logic, utilizing
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-     * advice hooks.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * Actually implements the chain execution logic, utilizing
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-     * advice hooks.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-     * advice hooks.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) pre},
-     * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) post}, and
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) after}
-     * advice hooks.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * is, if {@link #executeChain executeChain} throws an exception, this method will never be called.  Be aware of
-     * this when implementing logic.  Most resource 'cleanup' behavior is often done in the
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion(request,response,exception)}
-     * implementation, which is guaranteed to be called for every request, even when the chain processing throws
-     * an Exception.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * is, if {@link #executeChain executeChain} throws an exception, this method will never be called.  Be aware of
-     * this when implementing logic.  Most resource 'cleanup' behavior is often done in the
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion(request,response,exception)}
-     * implementation, which is guaranteed to be called for every request, even when the chain processing throws
-     * an Exception.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-    /**
-     * Executes cleanup logic in the {@code finally} code block in the
-     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
-     * implementation.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-    /**
-     * Executes cleanup logic in the {@code finally} code block in the
-     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
-     * implementation.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-    /**
-     * Executes cleanup logic in the {@code finally} code block in the
-     * {@link #doFilterInternal(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) doFilterInternal}
-     * implementation.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation specifically calls
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
-     * as well as handles any exceptions properly.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation specifically calls
-     * {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
-     * as well as handles any exceptions properly.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-/**
- * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
-/**
- * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
- * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
- * hooks.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
- * A Servlet Filter that enables AOP-style &quot;around&quot; advice for a ServletRequest via
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
- * hooks.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
- * hooks.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AdviceFilter.java`
-#### Snippet
-```java
- * {@link #preHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) preHandle},
- * {@link #postHandle(javax.servlet.ServletRequest, javax.servlet.ServletResponse) postHandle},
- * and {@link #afterCompletion(javax.servlet.ServletRequest, javax.servlet.ServletResponse, Exception) afterCompletion}
- * hooks.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <li>{@link #prepareServletResponse(ServletRequest, ServletResponse, FilterChain) Prepares}
-     * the outgoing {@code ServletResponse} for use during Shiro's processing</li>
-     * <li> {@link #createSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) Creates} a
-     * {@link Subject} instance based on the specified request/response pair.</li>
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <li>{@link #prepareServletResponse(ServletRequest, ServletResponse, FilterChain) Prepares}
-     * the outgoing {@code ServletResponse} for use during Shiro's processing</li>
-     * <li> {@link #createSubject(javax.servlet.ServletRequest, javax.servlet.ServletResponse) Creates} a
-     * {@link Subject} instance based on the specified request/response pair.</li>
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * {@link Subject} instance based on the specified request/response pair.</li>
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
-     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
-     * methods</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * {@link Subject} instance based on the specified request/response pair.</li>
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
-     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
-     * methods</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
-     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
-     * methods</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
-     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
-     * methods</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <li>Finally {@link Subject#execute(Runnable) executes} the
-     * {@link #updateSessionLastAccessTime(javax.servlet.ServletRequest, javax.servlet.ServletResponse)} and
-     * {@link #executeChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)}
-     * methods</li>
-     * </ol>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * @param chain           the container-provided {@code FilterChain} to execute
-     * @throws IOException                    if an IO error occurs
-     * @throws javax.servlet.ServletException if an Throwable other than an IOException
-     */
-    protected void doFilterInternal(ServletRequest servletRequest, ServletResponse servletResponse, final FilterChain chain)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * If the {@code ServletRequest} is an instance of {@link HttpServletRequest}, the value returned from this method
-     * is obtained by calling {@link #wrapServletRequest(javax.servlet.http.HttpServletRequest)} to allow Shiro-specific
-     * HTTP behavior, otherwise the original {@code ServletRequest} argument is returned.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation first delegates to
-     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
-     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
-     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation first delegates to
-     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
-     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
-     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * <p/>
-     * This implementation first delegates to
-     * <code>{@link #getExecutionChain(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain) getExecutionChain}</code>
-     * to allow the application's Shiro configuration to determine exactly how the chain should execute.  The resulting
-     * value from that call is then executed directly by calling the returned {@code FilterChain}'s
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * processing.
-     * <p/>
-     * This implementation delegates to {@link #wrapServletRequest(javax.servlet.http.HttpServletRequest)}
-     * only if Shiro-based sessions are enabled (that is, !{@link #isHttpSessions()}) and the request instance is a
-     * {@link ShiroHttpServletRequest}.  This ensures that any URL rewriting that occurs is handled correctly using the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
- * {@link #init()} method implementation.  That implementation should make available any constructed
- * {@code SecurityManager} and {@code FilterChainResolver} by calling
- * {@link #setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)} and
- * {@link #setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)} methods respectively.
- * <h3>Static SecurityManager</h3>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
- * {@code SecurityManager} and {@code FilterChainResolver} by calling
- * {@link #setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager)} and
- * {@link #setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver)} methods respectively.
- * <h3>Static SecurityManager</h3>
- * By default the {@code SecurityManager} instance enabled by this filter <em>will not</em> be enabled in static
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-     * session ({@code subject.getSession(false) == null}), this method does nothing.
-     * <p/>This method implementation merely calls
-     * <code>Session.{@link org.apache.shiro.session.Session#touch() touch}()</code> on the session.
-     *
-     * @param request  incoming request - ignored, but available to subclasses that might wish to override this method
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-    /**
-     * Wraps the original HttpServletRequest in a {@link ShiroHttpServletRequest}, which is required for supporting
-     * Servlet Specification behavior backed by a {@link org.apache.shiro.subject.Subject Subject} instance.
-     *
-     * @param orig the original Servlet Container-provided incoming {@code HttpServletRequest} instance.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet.http` is unnecessary and can be removed
-in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
-#### Snippet
-```java
-    /**
-     * Returns the Cookie's calculated path setting.  If the {@link javax.servlet.http.Cookie#getPath() path} is {@code null}, then the
-     * {@code request}'s {@link javax.servlet.http.HttpServletRequest#getContextPath() context path}
-     * will be returned. If getContextPath() is the empty string or null then the ROOT_PATH constant is returned.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-     * Retrieves the AuthorizationInfo for the given principals from the underlying data store.  When returning
-     * an instance from this method, you might want to consider using an instance of
-     * {@link org.apache.shiro.authz.SimpleAuthorizationInfo SimpleAuthorizationInfo}, as it is suitable in most cases.
-     *
-     * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
-#### Snippet
-```java
-     * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
-     * @return the AuthorizationInfo associated with this principals.
-     * @see org.apache.shiro.authz.SimpleAuthorizationInfo
-     */
-    protected abstract AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals);
+     * <p/>
+     * After this method is called, the next authorization check for that same account will result in a call to
+     * {@link #getAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection) getAuthorizationInfo}, and the
+     * resulting return value will be cached before being returned so it can be reused for later authorization checks.
+     * <p/>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12724,11 +14713,11 @@ Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-    /**
-     * Calls {@code super.doClearCache} to ensure any cached authentication data is removed and then calls
-     * {@link #clearCachedAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)} to remove any cached
-     * authorization data.
      * <p/>
+     * If you wish to clear out all associated cached data (and not just authorization data), use the
+     * {@link #clearCache(org.apache.shiro.subject.PrincipalCollection)} method instead (which will in turn call this
+     * method by default).
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12773,7 +14762,7 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
     /**
-     * Sets whether or not authorization caching should be utilized if a {@link CacheManager} has been
+     * Returns {@code true} if authorization caching should be utilized if a {@link CacheManager} has been
      * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
      * <p/>
      * The default value is {@code true}.
@@ -12784,23 +14773,11 @@ Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
 in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
+    /**
+     * Calls {@code super.doClearCache} to ensure any cached authentication data is removed and then calls
+     * {@link #clearCachedAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)} to remove any cached
+     * authorization data.
      * <p/>
-     * After this method is called, the next authorization check for that same account will result in a call to
-     * {@link #getAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection) getAuthorizationInfo}, and the
-     * resulting return value will be cached before being returned so it can be reused for later authorization checks.
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.subject` is unnecessary and can be removed
-in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
-#### Snippet
-```java
-     * <p/>
-     * If you wish to clear out all associated cached data (and not just authorization data), use the
-     * {@link #clearCache(org.apache.shiro.subject.PrincipalCollection)} method instead (which will in turn call this
-     * method by default).
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12857,1093 +14834,37 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
     /**
-     * Returns {@code true} if authorization caching should be utilized if a {@link CacheManager} has been
+     * Sets whether or not authorization caching should be utilized if a {@link CacheManager} has been
      * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
      * <p/>
      * The default value is {@code true}.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.crypto.hash` is unnecessary and can be removed
-in `crypto/support/hashes/argon2/src/main/java/org/apache/shiro/crypto/support/hashes/argon2/Argon2HashProvider.java`
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-     * <p>This class contains public constants only. The constants starting with {@code PARAMETER_} are
-     * the parameter names recognized by the
-     * {@link org.apache.shiro.crypto.hash.HashSpi.HashFactory#generate(HashRequest)} method.</p>
+     * Retrieves the AuthorizationInfo for the given principals from the underlying data store.  When returning
+     * an instance from this method, you might want to consider using an instance of
+     * {@link org.apache.shiro.authz.SimpleAuthorizationInfo SimpleAuthorizationInfo}, as it is suitable in most cases.
      *
-     * <p>The constants starting with {@code DEFAULT_} are their respective default values.</p>
+     * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.servlet` is unnecessary, and can be replaced with an import
-in `integration-tests/jaxrs/app/src/main/java/org/apache/shiro/testing/jaxrs/app/config/ShiroServletFilter.java`
+Qualifier `org.apache.shiro.authz` is unnecessary and can be removed
+in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-        dispatcherTypes = {DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR, DispatcherType.ASYNC}
-)
-public class ShiroServletFilter extends org.apache.shiro.web.servlet.ShiroFilter {
-}
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
-#### Snippet
-```java
-
-    /**
-     * Calls the <tt>init()</tt> methods on the bean if it implements {@link org.apache.shiro.lang.util.Initializable}
-     *
-     * @param object the object being initialized.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
-#### Snippet
-```java
-/**
- * <p>Bean post processor for Spring that automatically calls the <tt>init()</tt> and/or
- * <tt>destroy()</tt> methods on Shiro objects that implement the {@link org.apache.shiro.lang.util.Initializable}
- * or {@link org.apache.shiro.lang.util.Destroyable} interfaces, respectfully.  This post processor makes it easier
- * to configure Shiro beans in Spring, since the user never has to worry about whether or not if they
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
-#### Snippet
-```java
- * <p>Bean post processor for Spring that automatically calls the <tt>init()</tt> and/or
- * <tt>destroy()</tt> methods on Shiro objects that implement the {@link org.apache.shiro.lang.util.Initializable}
- * or {@link org.apache.shiro.lang.util.Destroyable} interfaces, respectfully.  This post processor makes it easier
- * to configure Shiro beans in Spring, since the user never has to worry about whether or not if they
- * have to specify init-method and destroy-method bean attributes.</p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/LifecycleBeanPostProcessor.java`
-#### Snippet
-```java
-
-    /**
-     * Calls the <tt>destroy()</tt> methods on the bean if it implements {@link org.apache.shiro.lang.util.Destroyable}
-     *
-     * @param object the object being initialized.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * The annotations inspected are:
-     * <ul>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresAuthentication RequiresAuthentication}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresUser RequiresUser}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
-     * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.annotation` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresGuest RequiresGuest}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresRoles RequiresRoles}</li>
-     * <li>{@link org.apache.shiro.authz.annotation.RequiresPermissions RequiresPermissions}</li>
-     * </ul>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AuthorizationAttributeSourceAdvisor.java`
-#### Snippet
-```java
-     * @param targetClass the class potentially declaring Shiro annotations
-     * @return <tt>true</tt> if the method has a Shiro annotation, false otherwise.
-     * @see org.springframework.aop.MethodMatcher#matches(java.lang.reflect.Method, Class)
+     * @param principals the primary identifying principals of the AuthorizationInfo that should be retrieved.
+     * @return the AuthorizationInfo associated with this principals.
+     * @see org.apache.shiro.authz.SimpleAuthorizationInfo
      */
-    public boolean matches(Method method, Class targetClass) {
+    protected abstract AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-    /**
-     * Returns the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
-     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
-     * default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
-     * mechanisms</a> will be used.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     *
-     * @return the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
-     *         {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
-     *         default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
-     *         mechanisms</a> will be used.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.config` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     *         default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
-     *         mechanisms</a> will be used.
-     * @see Hazelcast#newHazelcastInstance(com.hazelcast.config.Config)
-     */
-    public Config getConfig() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     * Returns {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
-     * {@code HazelcastInstance}, or {@code false} if one was externally provided via
-     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
-     *
-     * @return {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     * @return {@code true} if this {@code HazelcastCacheManager} instance implicitly created the backing
-     *         {@code HazelcastInstance}, or {@code false} if one was externally provided via
-     *         {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
-     */
-    protected final boolean isImplicitlyCreated() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.config` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
- * If you simply instantiate a {@code HazelcastCacheManager} and do nothing further, its backing
- * {@link HazelcastInstance} instance will be created automatically by calling
- * {@link Hazelcast#newHazelcastInstance(com.hazelcast.config.Config) Hazelcast.newHazelcastInstance(null)}.
- * <p/>
- * The null argument instructs Hazelcast to use whatever default configuration mechanism it has at its disposal,
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
- * <h3>An existing {@code HazelcastInstance}</h3>
- * If you have created a {@code HazelcastInstance} outside of Shiro's knowledge/control, you can simply configure it
- * to be used by calling {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}.
- * <p/>
- * <h3>A {@link Config} instance</h3>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.config` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
- * Config instance</a>.
- * <p/>
- * Once constructed, you can set it via {@link #setConfig(com.hazelcast.config.Config) setConfig(config)}. This config
- * instance will be used to acquire a new Hazelcast instance by calling
- * {@link Hazelcast#newHazelcastInstance(Config) Hazelcast.newHazelcastInstance(config)}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-    /**
-     * Sets the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
-     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}.  {@code null} can be set if the
-     * default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
-     * mechanisms</a> will be used.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     *
-     * @param config the Hazelcast {@code Config} object to use to create a backing {@code HazelcastInstance} if one is not
-     *               {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) supplied}, or {@code null} if the
-     *               default <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">Hazelcast configuration
-     *               mechanisms</a> will be used.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.core` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     * Destroys any {@link #ensureHazelcastInstance() implicitly created} backing {@code HazelcastInstance}.  If the
-     * backing Hazelcast was not implicitly created (i.e. because it was configured externally and supplied via
-     * {@link #setHazelcastInstance(com.hazelcast.core.HazelcastInstance) setHazelcastInstance}), this method does
-     * nothing.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.config` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     * return Hazelcast.newHazelcastInstance(this.config);
-     * </pre>
-     * using any {@link #setConfig(com.hazelcast.config.Config) configured} {@code Config} object.  If no config
-     * object has been specified, {@code this.config} will be {@code null}, thereby using Hazelcast's
-     * <a href="http://www.hazelcast.com/docs/2.5/manual/multi_html/ch12.html">default configuration mechanism</a>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.hazelcast.config` is unnecessary and can be removed
-in `support/hazelcast/src/main/java/org/apache/shiro/hazelcast/cache/HazelcastCacheManager.java`
-#### Snippet
-```java
-     *
-     * @return a new {@link HazelcastInstance} that will be used to back this implementation
-     * @see Hazelcast#newHazelcastInstance(com.hazelcast.config.Config)
-     * @see Config
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.util` is unnecessary and can be removed
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
-#### Snippet
-```java
- * <p/>
- * Recognizes {@link Factory} implementations and will call
- * {@link org.apache.shiro.lang.util.Factory#getInstance() getInstance} to satisfy any reference to this bean.
- *
- * @since 0.9
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.authz.aop` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-    /**
-     * Creates a Shiro {@link MethodInvocation MethodInvocation} instance and then immediately calls
-     * {@link org.apache.shiro.authz.aop.AuthorizingMethodInterceptor#invoke super.invoke}.
-     *
-     * @param methodInvocation the AOP Alliance-specific <code>methodInvocation</code> instance.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-    /**
-     * Creates a {@link MethodInvocation MethodInvocation} that wraps an
-     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} instance,
-     * enabling Shiro Annotations in <a href="http://aopalliance.sourceforge.net/">AOP Alliance</a> environments
-     * (Spring, etc.).
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-     * (Spring, etc.).
-     *
-     * @param implSpecificMethodInvocation AOP Alliance {@link org.aopalliance.intercept.MethodInvocation MethodInvocation}
-     * @return a Shiro {@link MethodInvocation MethodInvocation} instance that wraps the AOP Alliance instance.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-    /**
-     * Simply casts the method argument to an
-     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} and then
-     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-     * Simply casts the method argument to an
-     * {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation} and then
-     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
-     *
-     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-     * calls <code>methodInvocation.{@link org.aopalliance.intercept.MethodInvocation#proceed proceed}()</code>
-     *
-     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
-     * @return the {@link org.aopalliance.intercept.MethodInvocation#proceed() org.aopalliance.intercept.MethodInvocation.proceed()} method call result.
-     * @throws Throwable if the underlying AOP Alliance <code>proceed()</code> call throws a <code>Throwable</code>.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.aopalliance.intercept` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/security/interceptor/AopAllianceAnnotationsAuthorizingMethodInterceptor.java`
-#### Snippet
-```java
-     *
-     * @param aopAllianceMethodInvocation the {@link org.aopalliance.intercept.MethodInvocation org.aopalliance.intercept.MethodInvocation}
-     * @return the {@link org.aopalliance.intercept.MethodInvocation#proceed() org.aopalliance.intercept.MethodInvocation.proceed()} method call result.
-     * @throws Throwable if the underlying AOP Alliance <code>proceed()</code> call throws a <code>Throwable</code>.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
-#### Snippet
-```java
-    /**
-     * Generates a new {@link Key Key} of the specified size suitable for this CipherService
-     * (based on the {@link #getAlgorithmName() algorithmName} using the JDK {@link javax.crypto.KeyGenerator KeyGenerator}.
-     *
-     * @param keyBitSize the bit size of the key to create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
-#### Snippet
-```java
-
-    /**
-     * Generates a new {@link java.security.Key Key} suitable for this CipherService's {@link #getAlgorithmName() algorithm}
-     * by calling {@link #generateNewKey(int) generateNewKey(128)} (uses a 128 bit size by default).
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/AbstractSymmetricCipherService.java`
-#### Snippet
-```java
-     * by calling {@link #generateNewKey(int) generateNewKey(128)} (uses a 128 bit size by default).
-     *
-     * @return a new {@link java.security.Key Key}, 128 bits in length.
-     */
-    public Key generateNewKey() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * property has been set</li>
-     * <li>{@link #createFilterChainManager() Creates} a {@link FilterChainManager} instance that reflects the
-     * configured {@link #setFilters(java.util.Map) filters} and
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
-     * <li>Wraps the FilterChainManager with a suitable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * <li>{@link #createFilterChainManager() Creates} a {@link FilterChainManager} instance that reflects the
-     * configured {@link #setFilters(java.util.Map) filters} and
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
-     * <li>Wraps the FilterChainManager with a suitable
-     * {@link org.apache.shiro.web.filter.mgt.FilterChainResolver FilterChainResolver} since the Shiro Filter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
-     * <li>Wraps the FilterChainManager with a suitable
-     * {@link org.apache.shiro.web.filter.mgt.FilterChainResolver FilterChainResolver} since the Shiro Filter
-     * implementations do not know of {@code FilterChainManager}s</li>
-     * <li>Sets both the {@code SecurityManager} and {@code FilterChainResolver} instances on a new Shiro Filter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.servlet` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * Returns <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
-     *
-     * @return <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.servlet` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * Returns <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
-     *
-     * @return <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
-     */
-    public Class getObjectType() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-    /**
-     * Sets the filterName-to-Filter map of filters available for reference when creating
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}.
-     * <p/>
-     * <b>Note:</b> This property is optional:  this {@code FactoryBean} implementation will discover all beans in the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * and initialization behavior.  Because this {@code FactoryBean} implementation manually builds the
-     * {@link AbstractShiroFilter}'s
-     * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager) securityManager} and
-     * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver) filterChainResolver}
-     * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-     * {@link AbstractShiroFilter}'s
-     * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager) securityManager} and
-     * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver) filterChainResolver}
-     * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
-     * concrete subclass in the constructor.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-
-    /**
-     * A convenience method that sets the {@link #setFilterChainDefinitionMap(java.util.Map) filterChainDefinitionMap}
-     * property by accepting a {@link java.util.Properties Properties}-compatible string (multi-line key/value pairs).
-     * Each key/value pair must conform to the format defined by the
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-    /**
-     * Inspects a bean, and if it implements the {@link Filter} interface, automatically adds that filter
-     * instance to the internal {@link #setFilters(java.util.Map) filters map} that will be referenced
-     * later during filter chain construction.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.beans.factory` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
-
-/**
- * {@link org.springframework.beans.factory.FactoryBean FactoryBean} to be used in Spring-based web applications for
- * defining the master Shiro Filter.
- * <h4>Usage</h4>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
- * </pre>
- * <h4>Filter Auto-Discovery</h4>
- * While there is a {@link #setFilters(java.util.Map) filters} property that allows you to assign a filter beans
- * to the 'pool' of filters available when defining {@link #setFilterChainDefinitions(String) filter chains}, it is
- * optional.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
- * <p/>
- * This implementation is also a {@link BeanPostProcessor} and will acquire
- * any {@link javax.servlet.Filter Filter} beans defined independently in your Spring application context.  Upon
- * discovery, they will be automatically added to the {@link #setFilters(java.util.Map) map} keyed by the bean ID.
- * That ID can then be used in the filter chain definitions, for example:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `support/spring/src/main/java/org/apache/shiro/spring/web/ShiroFilterFactoryBean.java`
-#### Snippet
-```java
- * This implementation is also a {@link BeanPostProcessor} and will acquire
- * any {@link javax.servlet.Filter Filter} beans defined independently in your Spring application context.  Upon
- * discovery, they will be automatically added to the {@link #setFilters(java.util.Map) map} keyed by the bean ID.
- * That ID can then be used in the filter chain definitions, for example:
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    private ByteSource encrypt(byte[] plaintext, byte[] key, byte[] iv, boolean prependIv) throws CryptoException {
-
-        final int MODE = javax.crypto.Cipher.ENCRYPT_MODE;
-
-        byte[] output;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-                    (ciphertext != null ? ciphertext.length : 0));
-        }
-        byte[] decrypted = crypt(ciphertext, key, iv, javax.crypto.Cipher.DECRYPT_MODE);
-        return decrypted == null ? null : ByteSource.Util.bytes(decrypted);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    /**
-     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    /**
-     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-     * Default size is {@code 512} bytes.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * Returns the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-     * Default size is {@code 512} bytes.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    }
-
-    private javax.crypto.Cipher initNewCipher(int jcaCipherMode, byte[] key, byte[] iv, boolean streaming)
-            throws CryptoException {
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-            throws CryptoException {
-
-        javax.crypto.Cipher cipher = newCipherInstance(streaming);
-        java.security.Key jdkKey = new SecretKeySpec(key, getAlgorithmName());
-        AlgorithmParameterSpec ivSpec = null;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-
-        javax.crypto.Cipher cipher = newCipherInstance(streaming);
-        java.security.Key jdkKey = new SecretKeySpec(key, getAlgorithmName());
-        AlgorithmParameterSpec ivSpec = null;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * <li>Converts the specified key bytes into an {@link #getAlgorithmName() algorithm}-compatible JDK
-     * {@link Key key} instance</li>
-     * <li>{@link #init(javax.crypto.Cipher, int, java.security.Key, AlgorithmParameterSpec, SecureRandom) Initializes}
-     * the JDK cipher instance with the JDK key</li>
-     * <li>Calls the {@link #crypt(javax.crypto.Cipher, byte[]) crypt(cipher,bytes)} method to either encrypt or
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("key argument cannot be null or empty.");
-        }
-        javax.crypto.Cipher cipher = initNewCipher(mode, key, iv, false);
-        return crypt(cipher, bytes);
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        }
-
-        javax.crypto.Cipher cipher = initNewCipher(cryptMode, keyBytes, iv, true);
-
-        CipherInputStream cis = new CipherInputStream(in, cipher);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        }
-
-        crypt(in, out, key, iv, javax.crypto.Cipher.ENCRYPT_MODE);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * @throws CryptoException if there is an illegal block size or bad padding
-     */
-    private byte[] crypt(javax.crypto.Cipher cipher, byte[] bytes) throws CryptoException {
-        try {
-            return cipher.doFinal(bytes);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     *                         {@link #getTransformationString(boolean) getTransformationString} value.
-     */
-    private javax.crypto.Cipher newCipherInstance(boolean streaming) throws CryptoException {
-        String transformationString = getTransformationString(streaming);
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        String transformationString = getTransformationString(streaming);
-        try {
-            return javax.crypto.Cipher.getInstance(transformationString);
-        } catch (Exception e) {
-            String msg = "Unable to acquire a Java JCA Cipher instance using " +
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            String msg = "Unable to acquire a Java JCA Cipher instance using " +
-                    javax.crypto.Cipher.class.getName() + ".getInstance( \"" + transformationString + "\" ). " +
-                    getAlgorithmName() + " under this configuration is required for the " +
-                    getClass().getName() + " instance to function.";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    protected static SecureRandom getDefaultSecureRandom() {
-        try {
-            return java.security.SecureRandom.getInstance(RANDOM_NUM_GENERATOR_ALGORITHM_NAME);
-        } catch (java.security.NoSuchAlgorithmException e) {
-            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-        try {
-            return java.security.SecureRandom.getInstance(RANDOM_NUM_GENERATOR_ALGORITHM_NAME);
-        } catch (java.security.NoSuchAlgorithmException e) {
-            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
-                    "platform's default SecureRandom algorithm.", e);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-            log.debug("The SecureRandom SHA1PRNG algorithm is not available on the current platform.  Using the " +
-                    "platform's default SecureRandom algorithm.", e);
-            return new java.security.SecureRandom();
-        }
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    /**
-     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-    /**
-     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-     * Default size is {@code 512} bytes.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * Sets the size in bytes of the internal buffer used to transfer data from one stream to another during stream
-     * operations ({@link #encrypt(java.io.InputStream, java.io.OutputStream, byte[])} and
-     * {@link #decrypt(java.io.InputStream, java.io.OutputStream, byte[])}).
-     * <p/>
-     * Default size is {@code 512} bytes.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * potential {@link java.security.InvalidKeyException InvalidKeyException} that might arise.
-     *
-     * @param cipher the JDK Cipher to {@link javax.crypto.Cipher#init(int, java.security.Key) init}.
-     * @param mode   the Cipher mode
-     * @param key    the Cipher's Key
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * @throws CryptoException if the key is invalid
-     */
-    private void init(javax.crypto.Cipher cipher, int mode, java.security.Key key,
-                      AlgorithmParameterSpec spec, SecureRandom random) throws CryptoException {
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.security` is unnecessary and can be removed
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-     * @throws CryptoException if the key is invalid
-     */
-    private void init(javax.crypto.Cipher cipher, int mode, java.security.Key key,
-                      AlgorithmParameterSpec spec, SecureRandom random) throws CryptoException {
-        try {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.crypto` is unnecessary, and can be replaced with an import
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
-#### Snippet
-```java
-
-    private void decrypt(InputStream in, OutputStream out, byte[] decryptionKey, byte[] iv) throws CryptoException {
-        crypt(in, out, decryptionKey, iv, javax.crypto.Cipher.DECRYPT_MODE);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
-#### Snippet
-```java
-     * Returns the resource location of the config file used to initialize a new
-     * EhCache CacheManager instance.  The string can be any resource path supported by the
-     * {@link org.apache.shiro.lang.io.ResourceUtils#getInputStreamForPath(String)} call.
-     * <p/>
-     * This property is ignored if the CacheManager instance is injected directly - that is, it is only used to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
-#### Snippet
-```java
-     * this case.
-     *
-     * @throws org.apache.shiro.cache.CacheException
-     *          if there are any CacheExceptions thrown by EhCache.
-     * @see net.sf.ehcache.CacheManager#create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.lang.io` is unnecessary and can be removed
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
-#### Snippet
-```java
-     * Sets the resource location of the config file used to initialize the wrapped
-     * EhCache CacheManager instance.  The string can be any resource path supported by the
-     * {@link org.apache.shiro.lang.io.ResourceUtils#getInputStreamForPath(String)} call.
-     * <p/>
-     * This property is ignored if the CacheManager instance is injected directly - that is, it is only used to
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCacheManager.java`
-#### Snippet
-```java
-
-        try {
-            net.sf.ehcache.Ehcache cache = ensureCacheManager().getEhcache(name);
-            if (cache == null) {
-                if (log.isInfoEnabled()) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
-#### Snippet
-```java
-     * @param cache - delegate EhCache instance this Shiro cache instance will wrap.
-     */
-    public EhCache(net.sf.ehcache.Ehcache cache) {
-        if (cache == null) {
-            throw new IllegalArgumentException("Cache argument cannot be null.");
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.cache` is unnecessary and can be removed
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
-#### Snippet
-```java
-
-/**
- * Shiro {@link org.apache.shiro.cache.Cache} implementation that wraps an {@link net.sf.ehcache.Ehcache} instance.
- *
- * @since 0.2
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `net.sf.ehcache` is unnecessary, and can be replaced with an import
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
-#### Snippet
-```java
-     * The wrapped Ehcache instance.
-     */
-    private net.sf.ehcache.Ehcache cache;
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-     * Adds a filter chain to the shiro configuration.
-     * <p/>
-     * NOTE: If the provided key is for a subclass of {@link org.apache.shiro.web.filter.PathMatchingFilter}, it will be registered with a proper
-     * provider.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-     * Binds the security manager.  Override this method in order to provide your own security manager binding.
-     * <p/>
-     * By default, a {@link org.apache.shiro.web.mgt.DefaultWebSecurityManager} is bound as an eager singleton.
-     *
-     * @param bind
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-/**
- * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
- * {@link org.apache.shiro.web.mgt.WebSecurityManager}, {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by
- * using {@link #bindRealm() bindRealm}.
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.session.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-/**
- * Sets up Shiro lifecycles within Guice, enables the injecting of Shiro objects, and binds a default
- * {@link org.apache.shiro.web.mgt.WebSecurityManager}, {@link org.apache.shiro.mgt.SecurityManager} and {@link org.apache.shiro.session.mgt.SessionManager}.  At least one realm must be added by
- * using {@link #bindRealm() bindRealm}.
- * <p/>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shiro.web.filter.mgt` is unnecessary and can be removed
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
- * using {@link #bindRealm() bindRealm}.
- * <p/>
- * Also provides for the configuring of filter chains and binds a {@link org.apache.shiro.web.filter.mgt.FilterChainResolver} with that information.
- */
-public abstract class ShiroWebModule extends ShiroModule {
-```
-
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankServerRunner.java`
@@ -13956,7 +14877,7 @@ in `samples/aspectj/src/main/java/org/apache/shiro/samples/aspectj/bank/BankServ
 
 ```
 
-## RuleId[ruleID=SamePackageImport]
+## RuleId[id=SamePackageImport]
 ### SamePackageImport
 Unnecessary import from the same package `import org.apache.shiro.lang.util.ByteSource;`
 in `lang/src/main/java/org/apache/shiro/lang/util/ByteSourceWrapper.java`
@@ -13969,17 +14890,198 @@ import org.apache.shiro.lang.util.ByteSource;
 import java.io.Closeable;
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `DataAccessException()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/dao/DataAccessException.java`
+## RuleId[id=ReplaceNullCheck]
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
+in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
 #### Snippet
 ```java
-     * @param message the message explaining the cause of the exception
+                props = new LinkedHashMap<String,String>();
+            }
+            if ( props != null ) {
+                this.props = props;
+            } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
+in `core/src/main/java/org/apache/shiro/authc/AbstractAuthenticator.java`
+#### Snippet
+```java
+    @SuppressWarnings({"UnusedDeclaration"})
+    public void setAuthenticationListeners(Collection<AuthenticationListener> listeners) {
+        if (listeners == null) {
+            this.listeners = new ArrayList<AuthenticationListener>();
+        } else {
+```
+
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractCryptHash()` of an abstract class should not be declared 'public'
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractCryptHash.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException if the salt is not the same size as {@link #getSaltLength()}.
      */
-    public DataAccessException(String message) {
-        super(message);
+    public AbstractCryptHash(final String algorithmName, final byte[] hashedData, final ByteSource salt) {
+        this.algorithmName = algorithmName;
+        this.hashedData = Arrays.copyOf(hashedData, hashedData.length);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractHash()` of an abstract class should not be declared 'public'
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+#### Snippet
+```java
+     * @throws CodecException if either Object constructor argument cannot be converted into a byte array.
+     */
+    public AbstractHash(Object source, Object salt, int hashIterations) throws CodecException {
+        byte[] sourceBytes = toBytes(source);
+        byte[] saltBytes = null;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractHash()` of an abstract class should not be declared 'public'
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+#### Snippet
+```java
+     * @throws CodecException if the specified {@code source} cannot be converted into a byte array (byte[]).
+     */
+    public AbstractHash(Object source) throws CodecException {
+        this(source, null, 1);
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractHash()` of an abstract class should not be declared 'public'
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+#### Snippet
+```java
+     * fully-initialized instance.
+     */
+    public AbstractHash() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractHash()` of an abstract class should not be declared 'public'
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+#### Snippet
+```java
+     * @throws CodecException if either constructor argument cannot be converted into a byte array.
+     */
+    public AbstractHash(Object source, Object salt) throws CodecException {
+        this(source, salt, 1);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractCacheManager()` of an abstract class should not be declared 'public'
+in `cache/src/main/java/org/apache/shiro/cache/AbstractCacheManager.java`
+#### Snippet
+```java
+     * Default no-arg constructor that instantiates an internal name-to-cache {@code ConcurrentMap}.
+     */
+    public AbstractCacheManager() {
+        this.caches = new ConcurrentHashMap<String, Cache>();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `PermissionTag()` of an abstract class should not be declared 'public'
+in `web/src/main/java/org/apache/shiro/web/tags/PermissionTag.java`
+#### Snippet
+```java
+    private String name = null;
+
+    public PermissionTag() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RoleTag()` of an abstract class should not be declared 'public'
+in `web/src/main/java/org/apache/shiro/web/tags/RoleTag.java`
+#### Snippet
+```java
+    private String name = null;
+
+    public RoleTag() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SecureTag()` of an abstract class should not be declared 'public'
+in `web/src/main/java/org/apache/shiro/web/tags/SecureTag.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(SecureTag.class);
+
+    public SecureTag() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Event()` of an abstract class should not be declared 'public'
+in `event/src/main/java/org/apache/shiro/event/Event.java`
+#### Snippet
+```java
+    private final long timestamp; //millis since Epoch (UTC time zone).
+
+    public Event(Object source) {
+        super(source);
+        this.timestamp = System.currentTimeMillis();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SecureTagHandler()` of an abstract class should not be declared 'public'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/SecureTagHandler.java`
+#### Snippet
+```java
+ */
+public abstract class SecureTagHandler extends TagHandler {
+    public SecureTagHandler(TagConfig config) {
+        super(config);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `PermissionTagHandler()` of an abstract class should not be declared 'public'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/PermissionTagHandler.java`
+#### Snippet
+```java
+    private final TagAttribute name;
+
+    public PermissionTagHandler(TagConfig config) {
+        super(config);
+        this.name = this.getRequiredAttribute("name");
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AuthenticationTagHandler()` of an abstract class should not be declared 'public'
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/faces/tags/AuthenticationTagHandler.java`
+#### Snippet
+```java
+@Slf4j
+public abstract class AuthenticationTagHandler extends SecureTagHandler {
+    public AuthenticationTagHandler(TagConfig config) {
+        super(config);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `BeanEvent()` of an abstract class should not be declared 'public'
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/event/BeanEvent.java`
+#### Snippet
+```java
+    private final Map<String, Object> beanContext;
+
+    public BeanEvent(final String beanName, final Object bean, final Map<String, Object> beanContext) {
+        super(bean);
+        this.beanName = beanName;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -13995,6 +15097,18 @@ in `core/src/main/java/org/apache/shiro/dao/DataAccessException.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `DataAccessException()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/dao/DataAccessException.java`
+#### Snippet
+```java
+     * @param message the message explaining the cause of the exception
+     */
+    public DataAccessException(String message) {
+        super(message);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `MethodInterceptorSupport()` of an abstract class should not be declared 'public'
 in `core/src/main/java/org/apache/shiro/aop/MethodInterceptorSupport.java`
 #### Snippet
@@ -14004,6 +15118,18 @@ in `core/src/main/java/org/apache/shiro/aop/MethodInterceptorSupport.java`
     public MethodInterceptorSupport() {
     }
 
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AnnotationHandler()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/aop/AnnotationHandler.java`
+#### Snippet
+```java
+     * @param annotationClass the type of annotation this handler will process.
+     */
+    public AnnotationHandler(Class<? extends Annotation> annotationClass) {
+        setAnnotationClass(annotationClass);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14031,15 +15157,15 @@ in `core/src/main/java/org/apache/shiro/aop/AnnotationMethodInterceptor.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AnnotationHandler()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/aop/AnnotationHandler.java`
+Constructor `SessionsSecurityManager()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
 #### Snippet
 ```java
-     * @param annotationClass the type of annotation this handler will process.
+     * instance.
      */
-    public AnnotationHandler(Class<? extends Annotation> annotationClass) {
-        setAnnotationClass(annotationClass);
-    }
+    public SessionsSecurityManager() {
+        super();
+        this.sessionManager = new DefaultSessionManager();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14055,15 +15181,15 @@ in `core/src/main/java/org/apache/shiro/mgt/CachingSecurityManager.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SessionsSecurityManager()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/mgt/SessionsSecurityManager.java`
+Constructor `AuthenticatingSecurityManager()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
 #### Snippet
 ```java
-     * instance.
+     * {@link org.apache.shiro.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
      */
-    public SessionsSecurityManager() {
+    public AuthenticatingSecurityManager() {
         super();
-        this.sessionManager = new DefaultSessionManager();
+        this.authenticator = new ModularRealmAuthenticator();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14076,18 +15202,6 @@ in `core/src/main/java/org/apache/shiro/mgt/RealmSecurityManager.java`
     public RealmSecurityManager() {
         super();
     }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthenticatingSecurityManager()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/mgt/AuthenticatingSecurityManager.java`
-#### Snippet
-```java
-     * {@link org.apache.shiro.authc.pam.ModularRealmAuthenticator ModularRealmAuthenticator}.
-     */
-    public AuthenticatingSecurityManager() {
-        super();
-        this.authenticator = new ModularRealmAuthenticator();
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14107,11 +15221,23 @@ Constructor `AbstractRememberMeManager()` of an abstract class should not be dec
 in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
 #### Snippet
 ```java
+     * @since 2.0
+     */
+    public AbstractRememberMeManager(Supplier<byte[]> keySupplier) {
+        this();
+        setCipherKey(keySupplier.get());
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractRememberMeManager()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/mgt/AbstractRememberMeManager.java`
+#### Snippet
+```java
      * an {@link AesCipherService} as the {@link #getCipherService() cipherService}.
      */
     public AbstractRememberMeManager() {
-        this.serializer = new DefaultSerializer<PrincipalCollection>();
-        AesCipherService cipherService = new AesCipherService();
+        setCipherKey(((AesCipherService) cipherService).generateNewKey().getEncoded());
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14135,6 +15261,18 @@ in `core/src/main/java/org/apache/shiro/authc/AbstractAuthenticator.java`
      */
     public AbstractAuthenticator() {
         listeners = new ArrayList<AuthenticationListener>();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ShiroWebModule()` of an abstract class should not be declared 'public'
+in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
+#### Snippet
+```java
+    private final ServletContext servletContext;
+
+    public ShiroWebModule(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 ```
 
@@ -14205,6 +15343,18 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
 ```java
     }
 
+    public AuthenticatingRealm(CacheManager cacheManager) {
+        this(cacheManager, new SimpleCredentialsMatcher());
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AuthenticatingRealm()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+    }
+
     public AuthenticatingRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
         authenticationTokenClass = UsernamePasswordToken.class;
 
@@ -14219,18 +15369,6 @@ in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
     ============================================*/
     public AuthenticatingRealm() {
         this(null, new SimpleCredentialsMatcher());
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthenticatingRealm()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-    }
-
-    public AuthenticatingRealm(CacheManager cacheManager) {
-        this(cacheManager, new SimpleCredentialsMatcher());
     }
 ```
 
@@ -14307,123 +15445,27 @@ in `core/src/main/java/org/apache/shiro/session/mgt/eis/CachingSessionDAO.java`
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `Event()` of an abstract class should not be declared 'public'
-in `event/src/main/java/org/apache/shiro/event/Event.java`
+Constructor `AuthorizingRealm()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-    private final long timestamp; //millis since Epoch (UTC time zone).
+    ============================================*/
 
-    public Event(Object source) {
-        super(source);
-        this.timestamp = System.currentTimeMillis();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractCryptHash()` of an abstract class should not be declared 'public'
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractCryptHash.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException if the salt is not the same size as {@link #getSaltLength()}.
-     */
-    public AbstractCryptHash(final String algorithmName, final byte[] hashedData, final ByteSource salt) {
-        this.algorithmName = algorithmName;
-        this.hashedData = Arrays.copyOf(hashedData, hashedData.length);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHash()` of an abstract class should not be declared 'public'
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
-#### Snippet
-```java
-     * @throws CodecException if the specified {@code source} cannot be converted into a byte array (byte[]).
-     */
-    public AbstractHash(Object source) throws CodecException {
-        this(source, null, 1);
+    public AuthorizingRealm() {
+        this(null, null);
     }
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHash()` of an abstract class should not be declared 'public'
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
+Constructor `AuthorizingRealm()` of an abstract class should not be declared 'public'
+in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-     * @throws CodecException if either constructor argument cannot be converted into a byte array.
-     */
-    public AbstractHash(Object source, Object salt) throws CodecException {
-        this(source, salt, 1);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHash()` of an abstract class should not be declared 'public'
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
-#### Snippet
-```java
-     * @throws CodecException if either Object constructor argument cannot be converted into a byte array.
-     */
-    public AbstractHash(Object source, Object salt, int hashIterations) throws CodecException {
-        byte[] sourceBytes = toBytes(source);
-        byte[] saltBytes = null;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractHash()` of an abstract class should not be declared 'public'
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/AbstractHash.java`
-#### Snippet
-```java
-     * fully-initialized instance.
-     */
-    public AbstractHash() {
     }
 
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RoleTag()` of an abstract class should not be declared 'public'
-in `web/src/main/java/org/apache/shiro/web/tags/RoleTag.java`
-#### Snippet
-```java
-    private String name = null;
-
-    public RoleTag() {
+    public AuthorizingRealm(CacheManager cacheManager) {
+        this(cacheManager, null);
     }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `PermissionTag()` of an abstract class should not be declared 'public'
-in `web/src/main/java/org/apache/shiro/web/tags/PermissionTag.java`
-#### Snippet
-```java
-    private String name = null;
-
-    public PermissionTag() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SecureTag()` of an abstract class should not be declared 'public'
-in `web/src/main/java/org/apache/shiro/web/tags/SecureTag.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(SecureTag.class);
-
-    public SecureTag() {
-    }
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `BeanEvent()` of an abstract class should not be declared 'public'
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/event/BeanEvent.java`
-#### Snippet
-```java
-    private final Map<String, Object> beanContext;
-
-    public BeanEvent(final String beanName, final Object bean, final Map<String, Object> beanContext) {
-        super(bean);
-        this.beanName = beanName;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -14443,18 +15485,6 @@ Constructor `AuthorizingRealm()` of an abstract class should not be declared 'pu
 in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
 #### Snippet
 ```java
-    ============================================*/
-
-    public AuthorizingRealm() {
-        this(null, null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthorizingRealm()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
-#### Snippet
-```java
     }
 
     public AuthorizingRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
@@ -14462,43 +15492,7 @@ in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
         if (cacheManager != null) setCacheManager(cacheManager);
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AuthorizingRealm()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
-#### Snippet
-```java
-    }
-
-    public AuthorizingRealm(CacheManager cacheManager) {
-        this(cacheManager, null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractCacheManager()` of an abstract class should not be declared 'public'
-in `cache/src/main/java/org/apache/shiro/cache/AbstractCacheManager.java`
-#### Snippet
-```java
-     * Default no-arg constructor that instantiates an internal name-to-cache {@code ConcurrentMap}.
-     */
-    public AbstractCacheManager() {
-        this.caches = new ConcurrentHashMap<String, Cache>();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ShiroWebModule()` of an abstract class should not be declared 'public'
-in `support/guice/src/main/java/org/apache/shiro/guice/web/ShiroWebModule.java`
-#### Snippet
-```java
-    private final ServletContext servletContext;
-
-    public ShiroWebModule(ServletContext servletContext) {
-        this.servletContext = servletContext;
-    }
-```
-
-## RuleId[ruleID=Java8MapApi]
+## RuleId[id=Java8MapApi]
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
 in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
@@ -14523,7 +15517,7 @@ in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
             this.realmPrincipals.put(realmName, principals);
 ```
 
-## RuleId[ruleID=Convert2Lambda]
+## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new FilenameFilter() can be replaced with lambda
 in `integration-tests/support/src/main/java/org/apache/shiro/testing/web/AbstractContainerIT.java`
@@ -14560,7 +15554,151 @@ in `support/spring/src/main/java/org/apache/shiro/spring/remoting/SecureRemoteIn
                     return SecureRemoteInvocationExecutor.super.invoke(invocation, targetObject);
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
+#### Snippet
+```java
+        InputStream is = null;
+
+        path = WebUtils.normalize(path);
+        ServletContext sc = getServletContext();
+        if (sc != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `base64`
+in `web/src/main/java/org/apache/shiro/web/mgt/CookieRememberMeManager.java`
+#### Snippet
+```java
+                sb.append('=');
+            }
+            base64 = sb.toString();
+        }
+        return base64;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
+#### Snippet
+```java
+            if (path != null && !DEFAULT_PATH_SEPARATOR.equals(path)
+                && path.endsWith(DEFAULT_PATH_SEPARATOR)) {
+                path = path.substring(0, path.length() - 1);
+            }
+            log.trace("Attempting to match pattern '{}' with current requestURI '{}'...", path, Encode.forHtml(requestURI));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uri`
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+     */
+    private static String decodeAndCleanUriString(HttpServletRequest request, String uri) {
+        uri = decodeRequestString(request, uri);
+        return removeSemicolon(uri);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `existing`
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticatingFilter.java`
+#### Snippet
+```java
+            try {
+                onAccessDenied(request, response);
+                existing = null;
+            } catch (Exception e) {
+                existing = e;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `existing`
+in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticatingFilter.java`
+#### Snippet
+```java
+                existing = null;
+            } catch (Exception e) {
+                existing = e;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ipAddress`
+in `web/src/main/java/org/apache/shiro/web/filter/authz/IpAddressMatcher.java`
+#### Snippet
+```java
+        if (i > 0) {
+            nMaskBits = Integer.parseInt(ipAddress.substring(i + 1));
+            ipAddress = ipAddress.substring(0, i);
+        } else {
+            nMaskBits = -1;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `url`
+in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java`
+#### Snippet
+```java
+            // W3c spec clearly said
+            if (url.equalsIgnoreCase("")) {
+                url = absolute;
+            }
+            return toEncoded(url, request.getSession().getId());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `mappedValue`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/SslFilter.java`
+#### Snippet
+```java
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+        if (!enablePortFilter) {
+            mappedValue = new String[] { Integer.toString(request.getServerPort()) };
+        }
+        return super.isAccessAllowed(request, response, mappedValue);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `savedFormData`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+        HttpResponse<String> htmlResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        if (htmlResponse.statusCode() == OK) {
+            savedFormData = extractJSFNewViewState(htmlResponse.body(), savedFormData);
+        }
+        return savedFormData;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `savedFormData`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+            String decodedFormData = URLDecoder.decode(savedFormData, StandardCharsets.UTF_8);
+            if (isJSFStatefulForm(decodedFormData)) {
+                savedFormData = getJSFNewViewState(savedRequest, client, decodedFormData);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `savedFormData`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+            var matcher = VIEW_STATE_PATTERN.matcher(savedFormData);
+            if (matcher.matches()) {
+                savedFormData = matcher.replaceFirst(String.format("$1%s%s$3",
+                        FACES_VIEW_STATE_EQUALS, viewState));
+                log.debug("Encoded w/Replaced ViewState: {}", savedFormData);
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `jndiName`
 in `core/src/main/java/org/apache/shiro/jndi/JndiLocator.java`
@@ -14621,643 +15759,20 @@ in `lang/src/main/java/org/apache/shiro/lang/codec/H64.java`
     }
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `base64`
-in `web/src/main/java/org/apache/shiro/web/mgt/CookieRememberMeManager.java`
+## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `contextual`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/cdi/ShiroScopeContext.java`
 #### Snippet
 ```java
-                sb.append('=');
-            }
-            base64 = sb.toString();
-        }
-        return base64;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
-#### Snippet
-```java
-        InputStream is = null;
-
-        path = WebUtils.normalize(path);
-        ServletContext sc = getServletContext();
-        if (sc != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uri`
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-     */
-    private static String decodeAndCleanUriString(HttpServletRequest request, String uri) {
-        uri = decodeRequestString(request, uri);
-        return removeSemicolon(uri);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `web/src/main/java/org/apache/shiro/web/filter/PathMatchingFilter.java`
-#### Snippet
-```java
-            if (path != null && !DEFAULT_PATH_SEPARATOR.equals(path)
-                && path.endsWith(DEFAULT_PATH_SEPARATOR)) {
-                path = path.substring(0, path.length() - 1);
-            }
-            log.trace("Attempting to match pattern '{}' with current requestURI '{}'...", path, Encode.forHtml(requestURI));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `existing`
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticatingFilter.java`
-#### Snippet
-```java
-            try {
-                onAccessDenied(request, response);
-                existing = null;
-            } catch (Exception e) {
-                existing = e;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `existing`
-in `web/src/main/java/org/apache/shiro/web/filter/authc/AuthenticatingFilter.java`
-#### Snippet
-```java
-                existing = null;
-            } catch (Exception e) {
-                existing = e;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ipAddress`
-in `web/src/main/java/org/apache/shiro/web/filter/authz/IpAddressMatcher.java`
-#### Snippet
-```java
-        if (i > 0) {
-            nMaskBits = Integer.parseInt(ipAddress.substring(i + 1));
-            ipAddress = ipAddress.substring(0, i);
+            return ctx.get(contextual, creationalContext);
         } else {
-            nMaskBits = -1;
+            synchronized (contextual) {
+                if (isViewScoped) {
+                    return Beans.getReference(ViewScopeManager.class).createBean(contextual, creationalContext);
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `url`
-in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpServletResponse.java`
-#### Snippet
-```java
-            // W3c spec clearly said
-            if (url.equalsIgnoreCase("")) {
-                url = absolute;
-            }
-            return toEncoded(url, request.getSession().getId());
-```
-
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/env/DefaultEnvironment.java`
-#### Snippet
-```java
-        Object o = this.objects.get(name);
-        if (o == null) {
-            return null;
-        }
-        if (!requiredType.isInstance(o)) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
-#### Snippet
-```java
-            public Object doInContext(Context ctx) throws NamingException {
-                ctx.rebind(name, object);
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
-#### Snippet
-```java
-            public Object doInContext(Context ctx) throws NamingException {
-                ctx.unbind(name);
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
-#### Snippet
-```java
-            public Object doInContext(Context ctx) throws NamingException {
-                ctx.bind(name, object);
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
-#### Snippet
-```java
-
-    public Map<String, ?> getBeans() {
-        return this.builder != null ? Collections.unmodifiableMap(builder.getObjects()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/util/PermissionUtils.java`
-#### Snippet
-```java
-            return new LinkedHashSet<String>(Arrays.asList(tokens));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
-#### Snippet
-```java
-    private static Object getValue(Object key) {
-        Map<Object, Object> perThreadResources = resources.get();
-        return perThreadResources != null ? perThreadResources.get(key) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
-#### Snippet
-```java
-                return (Map<Object, Object>) ((HashMap<Object, Object>) parentValue).clone();
-            } else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
-#### Snippet
-```java
-            return getSession(key);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
-#### Snippet
-```java
-            return new DefaultSessionKey(sessionId);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/authc/pam/FirstSuccessfulStrategy.java`
-#### Snippet
-```java
-     */
-    public AuthenticationInfo beforeAllAttempts(Collection<? extends Realm> realms, AuthenticationToken token) throws AuthenticationException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/authc/credential/PasswordMatcher.java`
-#### Snippet
-```java
-
-    protected Object getSubmittedPassword(AuthenticationToken token) {
-        return token != null ? token.getCredentials() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/authc/credential/DefaultPasswordService.java`
-#### Snippet
-```java
-        ByteSource plaintextBytes = createByteSource(plaintext);
-        if (plaintextBytes == null || plaintextBytes.isEmpty()) {
-            return null;
-        }
-        HashRequest request = createHashRequest(plaintextBytes);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return realms.isEmpty() ? null : realms;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/SimpleAccountRealm.java`
-#### Snippet
-```java
-    protected static Set<String> toSet(String delimited, String delimiter) {
-        if (delimited == null || delimited.trim().equals("")) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
-#### Snippet
-```java
-     */
-    protected Object getAuthenticationCacheKey(AuthenticationToken token) {
-        return token != null ? token.getPrincipal() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
-#### Snippet
-```java
-    protected AuthorizationInfo queryForAuthorizationInfo(PrincipalCollection principals,
-                                                          LdapContextFactory ldapContextFactory) throws NamingException {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/text/TextConfigurationRealm.java`
-#### Snippet
-```java
-    protected static Map<String, String> toMap(Collection<String> keyValuePairs) throws ParseException {
-        if (keyValuePairs == null || keyValuePairs.isEmpty()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
-#### Snippet
-```java
-            log.debug("Unable to resolve session ID from SessionKey [{}].  Returning null to indicate a " +
-                    "session could not be found.", sessionKey);
-            return null;
-        }
-        Session s = retrieveSessionFromDataSource(sessionId);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
-#### Snippet
-```java
-    public Session getSession(SessionKey key) throws SessionException {
-        Session session = lookupSession(key);
-        return session != null ? createExposedSession(session, key) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/session/mgt/eis/EnterpriseCacheSessionDAO.java`
-#### Snippet
-```java
-
-    protected Session doReadSession(Serializable sessionId) {
-        return null; //should never execute because this implementation relies on parent class to access cache, which
-        //is where all sessions reside - it is the cache implementation that determines if the
-        //cache is memory only or disk-persistent, etc.
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-        Map<Object, Object> attributes = getAttributes();
-        if (attributes == null) {
-            return null;
-        }
-        return attributes.get(key);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
-#### Snippet
-```java
-        Map<Object, Object> attributes = getAttributes();
-        if (attributes == null) {
-            return null;
-        } else {
-            return attributes.remove(key);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
-#### Snippet
-```java
-    public Object getPrimaryPrincipal() {
-        if (isEmpty()) {
-            return null;
-        }
-        return iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
-#### Snippet
-```java
-    public <T> T oneByType(Class<T> type) {
-        if (realmPrincipals == null || realmPrincipals.isEmpty()) {
-            return null;
-        }
-        Collection<Set> values = realmPrincipals.values();
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
-#### Snippet
-```java
-    public Set<String> getRealmNames() {
-        if (realmPrincipals == null) {
-            return null;
-        } else {
-            return realmPrincipals.keySet();
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-        }
-        if (this.realmPrincipals == null) {
-            return null;
-        }
-        Map<String,Object> principals = this.realmPrincipals.get(realmName);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-            return principals.remove(principalName);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-
-    public Object remove(Object o) {
-        return this.combinedPrincipals != null ? this.combinedPrincipals.remove(o) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-                return this.realmPrincipals.put(realmName, new HashMap<String,Object>(principals));
-            } else {
-                return null;
-            }
-        } else {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-    public Map<String, Object> getRealmPrincipals(String name) {
-        if (this.realmPrincipals == null) {
-            return null;
-        }
-        Map<String,Object> principals = this.realmPrincipals.get(name);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-        Map<String,Object> principals = this.realmPrincipals.get(name);
-        if (principals == null) {
-            return null;
-        }
-        return Collections.unmodifiableMap(principals);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-    public <T> T oneByType(Class<T> type) {
-        if (CollectionUtils.isEmpty(this.combinedPrincipals)) {
-            return null;
-        }
-        for( Object value : this.combinedPrincipals.values()) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-        return !CollectionUtils.isEmpty(this.combinedPrincipals) ?
-                this.combinedPrincipals.values().iterator().next() :
-                null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-        }
-        if (this.realmPrincipals == null) {
-            return null;
-        }
-        Map<String,Object> principals = this.realmPrincipals.get(realmName);
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
-#### Snippet
-```java
-            return principals.get(principalName);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `support/guice/src/main/java/org/apache/shiro/guice/web/SimpleFilterChainResolver.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
-#### Snippet
-```java
-            return principals.getPrimaryPrincipal();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/service/DefaultUserService.java`
-#### Snippet
-```java
-            return getUser(currentUserId);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
-#### Snippet
-```java
-            return info;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
-#### Snippet
-```java
-            return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), getName());
-        } else {
-            return null;
-        }
-    }
-```
-
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/DefaultHashService.java`
@@ -15267,6 +15782,18 @@ in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/DefaultHashService.ja
         if (request == null || request.getSource() == null || request.getSource().isEmpty()) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+#### Snippet
+```java
+        }
+        byte[] decrypted = crypt(ciphertext, key, iv, javax.crypto.Cipher.DECRYPT_MODE);
+        return decrypted == null ? null : ByteSource.Util.bytes(decrypted);
+    }
 
 ```
 
@@ -15323,18 +15850,6 @@ Return of `null`
 in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/DefaultHashFormatFactory.java`
 #### Snippet
 ```java
-    public HashFormat getInstance(String in) {
-        if (in == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/DefaultHashFormatFactory.java`
-#### Snippet
-```java
 
         if (clazz == null) {
             return null; //ran out of options
@@ -15356,110 +15871,62 @@ in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/DefaultHashFor
 
 ### ReturnNull
 Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+in `crypto/hash/src/main/java/org/apache/shiro/crypto/hash/format/DefaultHashFormatFactory.java`
 #### Snippet
 ```java
-        public static ByteSource bytes(Object source) throws IllegalArgumentException {
-            if (source == null) {
-                return null;
-            }
-            if (!isCompatible(source)) {
+    public HashFormat getInstance(String in) {
+        if (in == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/codec/H64.java`
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/service/DefaultUserService.java`
+#### Snippet
+```java
+            return getUser(currentUserId);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
+#### Snippet
+```java
+            return new SimpleAuthenticationInfo(user.getId(), user.getPassword(), getName());
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `samples/spring-hibernate/src/main/java/org/apache/shiro/samples/sprhib/security/SampleRealm.java`
+#### Snippet
+```java
+            return info;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
 #### Snippet
 ```java
      */
-    public static String encodeToString(byte[] bytes) {
-        if (bytes == null || bytes.length == 0) return null;
+    protected Ini getFrameworkIni() {
+        return null;
+    }
 
-        StringBuilder buf = new StringBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-        // handle null, zero and one elements before building a buffer
-        if (iterator == null) {
-            return null;
-        }
-        if (!iterator.hasNext()) {
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-    public static Set<String> splitToSet(String delimited, String separator) {
-        if (delimited == null || separator == null) {
-            return null;
-        }
-        String[] split = split(delimited, separator.charAt(0));
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-        String line = clean(aLine);
-        if (line == null) {
-            return null;
-        }
-        String[] split = line.split(" ", 2);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-        String line = clean(aLine);
-        if (line == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-
-        if (str == null) {
-            return null;
-        }
-        StringTokenizer st = new StringTokenizer(str, delimiters);
-```
-
-### ReturnNull
-Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
-#### Snippet
-```java
-    public static String[] toStringArray(Collection collection) {
-        if (collection == null) {
-            return null;
-        }
-        return (String[]) collection.toArray(new String[collection.size()]);
 ```
 
 ### ReturnNull
@@ -15524,11 +15991,23 @@ in `web/src/main/java/org/apache/shiro/web/mgt/CookieRememberMeManager.java`
 
 ### ReturnNull
 Return of `null`
-in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
 #### Snippet
 ```java
-     */
-    protected Ini getFrameworkIni() {
+        FilterChainManager filterChainManager = getFilterChainManager();
+        if (!filterChainManager.hasChains()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -15536,12 +16015,12 @@ in `web/src/main/java/org/apache/shiro/web/env/IniWebEnvironment.java`
 
 ### ReturnNull
 Return of `null`
-in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
 #### Snippet
 ```java
-        processQueue(); // throw out garbage collected values first
-        SoftValue<V, K> raw = map.remove(key);
-        return raw != null ? raw.get() : null;
+            return ((RequestPairSource) requestPairSource).getServletRequest();
+        }
+        return null;
     }
 
 ```
@@ -15563,7 +16042,7 @@ Return of `null`
 in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
 #### Snippet
 ```java
-            return ((RequestPairSource) requestPairSource).getServletRequest();
+            return (HttpServletResponse) response;
         }
         return null;
     }
@@ -15576,6 +16055,18 @@ in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
 #### Snippet
 ```java
             return (HttpServletRequest) request;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
+#### Snippet
+```java
+            return ((RequestPairSource) requestPairSource).getServletResponse();
         }
         return null;
     }
@@ -15608,66 +16099,6 @@ in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-            return (HttpServletResponse) response;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/util/WebUtils.java`
-#### Snippet
-```java
-            return ((RequestPairSource) requestPairSource).getServletResponse();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
-#### Snippet
-```java
-        FilterChainManager filterChainManager = getFilterChainManager();
-        if (!filterChainManager.hasChains()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/config/IniFilterChainResolverFactory.java`
-#### Snippet
-```java
-    private Map<String, Filter> extractFilters(Map<String, ?> objects) {
-        if (CollectionUtils.isEmpty(objects)) {
-            return null;
-        }
-        Map<String, Filter> filterMap = new LinkedHashMap<String, Filter>();
-```
-
-### ReturnNull
-Return of `null`
 in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter.java`
 #### Snippet
 ```java
@@ -15688,6 +16119,18 @@ in `web/src/main/java/org/apache/shiro/web/filter/authc/HttpAuthenticationFilter
             return null;
         }
         return getPrincipalsAndCredentials(authTokens[0], authTokens[1]);
+```
+
+### ReturnNull
+Return of `null`
+in `web/src/main/java/org/apache/shiro/web/config/IniFilterChainResolverFactory.java`
+#### Snippet
+```java
+    private Map<String, Filter> extractFilters(Map<String, ?> objects) {
+        if (CollectionUtils.isEmpty(objects)) {
+            return null;
+        }
+        Map<String, Filter> filterMap = new LinkedHashMap<String, Filter>();
 ```
 
 ### ReturnNull
@@ -15716,6 +16159,18 @@ in `web/src/main/java/org/apache/shiro/web/servlet/IniShiroFilter.java`
 
 ### ReturnNull
 Return of `null`
+in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
+#### Snippet
+```java
+                    updateSessionLastAccessTime(request, response);
+                    executeChain(request, response, chain);
+                    return null;
+                }
+            });
+```
+
+### ReturnNull
+Return of `null`
 in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
 #### Snippet
 ```java
@@ -15736,30 +16191,6 @@ in `web/src/main/java/org/apache/shiro/web/servlet/ShiroHttpSession.java`
                     return null;
                 }
 
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/servlet/AbstractShiroFilter.java`
-#### Snippet
-```java
-                    updateSessionLastAccessTime(request, response);
-                    executeChain(request, response, chain);
-                    return null;
-                }
-            });
-```
-
-### ReturnNull
-Return of `null`
-in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -15836,14 +16267,14 @@ in `web/src/main/java/org/apache/shiro/web/session/mgt/DefaultWebSessionManager.
 
 ### ReturnNull
 Return of `null`
-in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
+in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
 #### Snippet
 ```java
-
-        if (principals == null) {
-            return null;
+            }
         }
-
+        return null;
+    }
+}
 ```
 
 ### ReturnNull
@@ -15854,18 +16285,6 @@ in `support/aspectj/src/main/java/org/apache/shiro/aspectj/BeforeAdviceMethodInv
     public Object proceed() throws Throwable {
         // Do nothing since this adapts a before advice
         return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
-#### Snippet
-```java
-    public String getSectionProperty(String sectionName, String propertyName) {
-        Section section = getSection(sectionName);
-        return section != null ? section.get(propertyName) : null;
     }
 
 ```
@@ -15887,11 +16306,59 @@ Return of `null`
 in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
 #### Snippet
 ```java
+    public String getSectionProperty(String sectionName, String propertyName) {
+        Section section = getSection(sectionName);
+        return section != null ? section.get(propertyName) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `config/core/src/main/java/org/apache/shiro/config/Ini.java`
+#### Snippet
+```java
             return cleanName(s.substring(1, s.length() - 1));
         }
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/ShiroFilter.java`
+#### Snippet
+```java
+        public Principal getUserPrincipal() {
+            if (isServletNoPrincipal(servletContext)) {
+                return null;
+            } else {
+                return super.getUserPrincipal();
+```
+
+### ReturnNull
+Return of `null`
+in `support/guice/src/main/java/org/apache/shiro/guice/web/SimpleFilterChainResolver.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `support/jakarta-ee/src/main/java/org/apache/shiro/ee/filters/FormResubmitSupport.java`
+#### Snippet
+```java
+                    Faces.responseComplete();
+                }
+                return null;
+            default:
+                return savedRequest;
 ```
 
 ### ReturnNull
@@ -15908,14 +16375,230 @@ in `support/spring/src/main/java/org/apache/shiro/spring/config/AbstractShiroCon
 
 ### ReturnNull
 Return of `null`
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
 #### Snippet
 ```java
-    protected byte[] toBytes(String sValue) {
-        if (sValue == null) {
+                log.trace("Getting object from cache [{}] for key [{}]", cache.getName(), key);
+                if (key == null) {
+                    return null;
+                } else {
+                    V element = cache.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `support/jcache/src/main/java/org/apache/shiro/cache/jcache/JCacheManager.java`
+#### Snippet
+```java
+                    if (element == null) {
+                        log.trace("Element for [{}] is null.", key);
+                        return null;
+                    } else {
+                        return element;
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/env/DefaultEnvironment.java`
+#### Snippet
+```java
+        Object o = this.objects.get(name);
+        if (o == null) {
             return null;
         }
-        byte[] bytes;
+        if (!requiredType.isInstance(o)) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/env/BasicIniEnvironment.java`
+#### Snippet
+```java
+public class BasicIniEnvironment extends DefaultEnvironment {
+    public BasicIniEnvironment(Ini ini) {
+        this(ini, (name) -> null);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+#### Snippet
+```java
+            }
+            if (key == null) {
+                return null;
+            } else {
+                Element element = cache.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+#### Snippet
+```java
+                        log.trace("Element for [" + key + "] is null.");
+                    }
+                    return null;
+                } else {
+                    //noinspection unchecked
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/ini/IniSecurityManagerFactory.java`
+#### Snippet
+```java
+
+    public Map<String, ?> getBeans() {
+        return this.builder != null ? Collections.unmodifiableMap(builder.getObjects()) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
+#### Snippet
+```java
+            public Object doInContext(Context ctx) throws NamingException {
+                ctx.rebind(name, object);
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
+#### Snippet
+```java
+            public Object doInContext(Context ctx) throws NamingException {
+                ctx.bind(name, object);
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/jndi/JndiTemplate.java`
+#### Snippet
+```java
+            public Object doInContext(Context ctx) throws NamingException {
+                ctx.unbind(name);
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+            return getSession(key);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+            return new DefaultSessionKey(sessionId);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/mgt/DefaultSecurityManager.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/util/PermissionUtils.java`
+#### Snippet
+```java
+            return new LinkedHashSet<String>(Arrays.asList(tokens));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
+#### Snippet
+```java
+                return (Map<Object, Object>) ((HashMap<Object, Object>) parentValue).clone();
+            } else {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/util/ThreadContext.java`
+#### Snippet
+```java
+    private static Object getValue(Object key) {
+        Map<Object, Object> perThreadResources = resources.get();
+        return perThreadResources != null ? perThreadResources.get(key) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/authc/pam/FirstSuccessfulStrategy.java`
+#### Snippet
+```java
+     */
+    public AuthenticationInfo beforeAllAttempts(Collection<? extends Realm> realms, AuthenticationToken token) throws AuthenticationException {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/authc/credential/PasswordMatcher.java`
+#### Snippet
+```java
+
+    protected Object getSubmittedPassword(AuthenticationToken token) {
+        return token != null ? token.getCredentials() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/authc/credential/DefaultPasswordService.java`
+#### Snippet
+```java
+        ByteSource plaintextBytes = createByteSource(plaintext);
+        if (plaintextBytes == null || plaintextBytes.isEmpty()) {
+            return null;
+        }
+        HashRequest request = createHashRequest(plaintextBytes);
 ```
 
 ### ReturnNull
@@ -15923,11 +16606,11 @@ Return of `null`
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-                StringUtils.DEFAULT_QUOTE_CHAR, StringUtils.DEFAULT_QUOTE_CHAR, true, true);
-        if (tokens == null || tokens.length <= 0) {
+        Object bean = getBean(id);
+        if (bean == null) {
             return null;
         }
-
+        Assert.state(requiredType.isAssignableFrom(bean.getClass()),
 ```
 
 ### ReturnNull
@@ -15935,10 +16618,10 @@ Return of `null`
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-        String[] tokens = StringUtils.split(sValue);
-        if (tokens == null || tokens.length <= 0) {
-            return null;
+            return lhs.substring(0, index);
         }
+        return null;
+    }
 
 ```
 
@@ -15959,35 +16642,11 @@ Return of `null`
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-            Object bean = objects.get(this.rootBeanName);
-            setBean(bean);
-            return null;
-        }
+    }
 
-```
+    private Function<String, ?> alternateObjectSupplier = name -> null;
 
-### ReturnNull
-Return of `null`
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
-#### Snippet
-```java
-        String[] tokens = StringUtils.split(sValue);
-        if (tokens == null || tokens.length <= 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
-#### Snippet
-```java
-        Object bean = getBean(id);
-        if (bean == null) {
-            return null;
-        }
-        Assert.state(requiredType.isAssignableFrom(bean.getClass()),
+    public ReflectionBuilder() {
 ```
 
 ### ReturnNull
@@ -16019,10 +16678,22 @@ Return of `null`
 in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
-            return lhs.substring(0, index);
+                StringUtils.DEFAULT_QUOTE_CHAR, StringUtils.DEFAULT_QUOTE_CHAR, true, true);
+        if (tokens == null || tokens.length <= 0) {
+            return null;
         }
-        return null;
-    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+            Object bean = objects.get(this.rootBeanName);
+            setBean(bean);
+            return null;
+        }
 
 ```
 
@@ -16040,53 +16711,497 @@ in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.jav
 
 ### ReturnNull
 Return of `null`
-in `crypto/cipher/src/main/java/org/apache/shiro/crypto/cipher/JcaCipherService.java`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
 #### Snippet
 ```java
+        String[] tokens = StringUtils.split(sValue);
+        if (tokens == null || tokens.length <= 0) {
+            return null;
         }
-        byte[] decrypted = crypt(ciphertext, key, iv, javax.crypto.Cipher.DECRYPT_MODE);
-        return decrypted == null ? null : ByteSource.Util.bytes(decrypted);
+
+```
+
+### ReturnNull
+Return of `null`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+        String[] tokens = StringUtils.split(sValue);
+        if (tokens == null || tokens.length <= 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `config/ogdl/src/main/java/org/apache/shiro/config/ogdl/ReflectionBuilder.java`
+#### Snippet
+```java
+    protected byte[] toBytes(String sValue) {
+        if (sValue == null) {
+            return null;
+        }
+        byte[] bytes;
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/realm/SimpleAccountRealm.java`
+#### Snippet
+```java
+    protected static Set<String> toSet(String delimited, String delimiter) {
+        if (delimited == null || delimited.trim().equals("")) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/realm/jndi/JndiRealmFactory.java`
+#### Snippet
+```java
+            }
+        }
+        return realms.isEmpty() ? null : realms;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/realm/ldap/DefaultLdapRealm.java`
+#### Snippet
+```java
+    protected AuthorizationInfo queryForAuthorizationInfo(PrincipalCollection principals,
+                                                          LdapContextFactory ldapContextFactory) throws NamingException {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/realm/AuthenticatingRealm.java`
+#### Snippet
+```java
+     */
+    protected Object getAuthenticationCacheKey(AuthenticationToken token) {
+        return token != null ? token.getPrincipal() : null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+in `core/src/main/java/org/apache/shiro/realm/text/TextConfigurationRealm.java`
 #### Snippet
 ```java
-            }
-            if (key == null) {
-                return null;
-            } else {
-                Element element = cache.get(key);
+    protected static Map<String, String> toMap(Collection<String> keyValuePairs) throws ParseException {
+        if (keyValuePairs == null || keyValuePairs.isEmpty()) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `support/ehcache/src/main/java/org/apache/shiro/cache/ehcache/EhCache.java`
+in `core/src/main/java/org/apache/shiro/session/mgt/AbstractNativeSessionManager.java`
 #### Snippet
 ```java
-                        log.trace("Element for [" + key + "] is null.");
-                    }
-                    return null;
-                } else {
-                    //noinspection unchecked
+    public Session getSession(SessionKey key) throws SessionException {
+        Session session = lookupSession(key);
+        return session != null ? createExposedSession(session, key) : null;
+    }
+
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `value` is redundant
-in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/session/mgt/DefaultSessionManager.java`
 #### Snippet
 ```java
-    public void removeFrom(HttpServletRequest request, HttpServletResponse response) {
-        String name = getName();
-        String value = DELETED_COOKIE_VALUE;
-        String comment = null; //don't need to add extra size to the response - comments are irrelevant for deletions
-        String domain = getDomain();
+            log.debug("Unable to resolve session ID from SessionKey [{}].  Returning null to indicate a " +
+                    "session could not be found.", sessionKey);
+            return null;
+        }
+        Session s = retrieveSessionFromDataSource(sessionId);
 ```
 
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/session/mgt/eis/EnterpriseCacheSessionDAO.java`
+#### Snippet
+```java
+
+    protected Session doReadSession(Serializable sessionId) {
+        return null; //should never execute because this implementation relies on parent class to access cache, which
+        //is where all sessions reside - it is the cache implementation that determines if the
+        //cache is memory only or disk-persistent, etc.
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+        Map<Object, Object> attributes = getAttributes();
+        if (attributes == null) {
+            return null;
+        }
+        return attributes.get(key);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/session/mgt/SimpleSession.java`
+#### Snippet
+```java
+        Map<Object, Object> attributes = getAttributes();
+        if (attributes == null) {
+            return null;
+        } else {
+            return attributes.remove(key);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
+#### Snippet
+```java
+    public Object getPrimaryPrincipal() {
+        if (isEmpty()) {
+            return null;
+        }
+        return iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
+#### Snippet
+```java
+    public Set<String> getRealmNames() {
+        if (realmPrincipals == null) {
+            return null;
+        } else {
+            return realmPrincipals.keySet();
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
+#### Snippet
+```java
+    public <T> T oneByType(Class<T> type) {
+        if (realmPrincipals == null || realmPrincipals.isEmpty()) {
+            return null;
+        }
+        Collection<Set> values = realmPrincipals.values();
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalCollection.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+        }
+        if (this.realmPrincipals == null) {
+            return null;
+        }
+        Map<String,Object> principals = this.realmPrincipals.get(realmName);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+            return principals.remove(principalName);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+    public <T> T oneByType(Class<T> type) {
+        if (CollectionUtils.isEmpty(this.combinedPrincipals)) {
+            return null;
+        }
+        for( Object value : this.combinedPrincipals.values()) {
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+        }
+        if (this.realmPrincipals == null) {
+            return null;
+        }
+        Map<String,Object> principals = this.realmPrincipals.get(realmName);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+            return principals.get(principalName);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+    public Map<String, Object> getRealmPrincipals(String name) {
+        if (this.realmPrincipals == null) {
+            return null;
+        }
+        Map<String,Object> principals = this.realmPrincipals.get(name);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+        Map<String,Object> principals = this.realmPrincipals.get(name);
+        if (principals == null) {
+            return null;
+        }
+        return Collections.unmodifiableMap(principals);
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+
+    public Object remove(Object o) {
+        return this.combinedPrincipals != null ? this.combinedPrincipals.remove(o) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+        return !CollectionUtils.isEmpty(this.combinedPrincipals) ?
+                this.combinedPrincipals.values().iterator().next() :
+                null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/SimplePrincipalMap.java`
+#### Snippet
+```java
+                return this.realmPrincipals.put(realmName, new HashMap<String,Object>(principals));
+            } else {
+                return null;
+            }
+        } else {
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/ByteSource.java`
+#### Snippet
+```java
+        public static ByteSource bytes(Object source) throws IllegalArgumentException {
+            if (source == null) {
+                return null;
+            }
+            if (!isCompatible(source)) {
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/ClassUtils.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/codec/H64.java`
+#### Snippet
+```java
+     */
+    public static String encodeToString(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) return null;
+
+        StringBuilder buf = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+        String line = clean(aLine);
+        if (line == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+    public static Set<String> splitToSet(String delimited, String separator) {
+        if (delimited == null || separator == null) {
+            return null;
+        }
+        String[] split = split(delimited, separator.charAt(0));
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+        String line = clean(aLine);
+        if (line == null) {
+            return null;
+        }
+        String[] split = line.split(" ", 2);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+    public static String[] toStringArray(Collection collection) {
+        if (collection == null) {
+            return null;
+        }
+        return (String[]) collection.toArray(new String[collection.size()]);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+
+        if (str == null) {
+            return null;
+        }
+        StringTokenizer st = new StringTokenizer(str, delimiters);
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/StringUtils.java`
+#### Snippet
+```java
+        // handle null, zero and one elements before building a buffer
+        if (iterator == null) {
+            return null;
+        }
+        if (!iterator.hasNext()) {
+```
+
+### ReturnNull
+Return of `null`
+in `lang/src/main/java/org/apache/shiro/lang/util/SoftHashMap.java`
+#### Snippet
+```java
+        processQueue(); // throw out garbage collected values first
+        SoftValue<V, K> raw = map.remove(key);
+        return raw != null ? raw.get() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/subject/support/DelegatingSubject.java`
+#### Snippet
+```java
+            return principals.getPrimaryPrincipal();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `core/src/main/java/org/apache/shiro/realm/AuthorizingRealm.java`
+#### Snippet
+```java
+
+        if (principals == null) {
+            return null;
+        }
+
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `ehCacheManager` is redundant
 in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/config/ApplicationConfig.java`
@@ -16099,7 +17214,19 @@ in `samples/spring-mvc/src/main/java/org/apache/shiro/samples/spring/config/Appl
         // Set a net.sf.ehcache.CacheManager instance here if you already have one.
 ```
 
-## RuleId[ruleID=RegExpUnnecessaryNonCapturingGroup]
+### UnnecessaryLocalVariable
+Local variable `value` is redundant
+in `web/src/main/java/org/apache/shiro/web/servlet/SimpleCookie.java`
+#### Snippet
+```java
+    public void removeFrom(HttpServletRequest request, HttpServletResponse response) {
+        String name = getName();
+        String value = DELETED_COOKIE_VALUE;
+        String comment = null; //don't need to add extra size to the response - comments are irrelevant for deletions
+        String domain = getDomain();
+```
+
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))`
 in `web/src/main/java/org/apache/shiro/web/filter/authz/HostFilter.java`
@@ -16110,5 +17237,30 @@ public class HostFilter extends AuthorizationFilter {
     public static final String IPV4_QUAD_REGEX = "(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))";
 
     public static final String IPV4_REGEX = "(?:" + IPV4_QUAD_REGEX + "\\.){3}" + IPV4_QUAD_REGEX + "$";
+```
+
+## RuleId[id=RedundantSlf4jDefinition]
+### RedundantSlf4jDefinition
+Slf4j Logger is defined explicitly. Use Lombok @Slf4j annotation instead.
+in `samples/quickstart/src/main/java/Quickstart.java`
+#### Snippet
+```java
+public class Quickstart {
+
+    private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
+
+
+```
+
+### RedundantSlf4jDefinition
+Slf4j Logger is defined explicitly. Use Lombok @Slf4j annotation instead.
+in `samples/quickstart-guice/src/main/java/QuickstartGuice.java`
+#### Snippet
+```java
+public class QuickstartGuice {
+
+    private static final transient Logger log = LoggerFactory.getLogger(QuickstartGuice.class);
+
+
 ```
 
