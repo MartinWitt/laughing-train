@@ -155,9 +155,33 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java
 #### Snippet
 ```java
     }
+    Map<String, BadBinaryInfo> v = new HashMap<>();
+    for (String key : t.keySet()) {
+      v.put(key, badBinaryInfo(t.get(key)));
+    }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+    }
     Map<String, IndexedValueType> v = new HashMap<>();
     for (String key : t.keySet()) {
       v.put(key, indexedValueType(t.get(key)));
+    }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+    }
+    Map<String, ByteBuffer> v = new HashMap<>();
+    for (String key : t.keySet()) {
+      v.put(key, ByteBuffer.wrap(payload(t.get(key))));
     }
 ```
 
@@ -187,42 +211,6 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java
 
 ### KeySetIterationMayUseEntrySet
 Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-    }
-    Map<String, BadBinaryInfo> v = new HashMap<>();
-    for (String key : t.keySet()) {
-      v.put(key, badBinaryInfo(t.get(key)));
-    }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-    }
-    Map<String, ByteBuffer> v = new HashMap<>();
-    for (String key : t.keySet()) {
-      v.put(key, ByteBuffer.wrap(payload(t.get(key))));
-    }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
-#### Snippet
-```java
-    }
-    Map<String, BadBinaryInfo> v = new HashMap<>();
-    for (String key : t.keySet()) {
-      v.put(key, badBinaryInfo(t.get(key)));
-    }
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
 #### Snippet
 ```java
@@ -242,6 +230,18 @@ in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
     Map<String, Payload> v = new HashMap<>();
     for (String key : t.keySet()) {
       v.put(key, payload(t.get(key).array()));
+    }
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `t.keySet()` may be replaced with 'entrySet()' iteration
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+    }
+    Map<String, BadBinaryInfo> v = new HashMap<>();
+    for (String key : t.keySet()) {
+      v.put(key, badBinaryInfo(t.get(key)));
     }
 ```
 
@@ -429,18 +429,6 @@ in `src/main/java/com/uber/cadence/worker/ShadowingOptions.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`message.length() > 0` can be replaced with '!message.isEmpty()'
-in `src/main/java/com/uber/cadence/converter/DataConverterException.java`
-#### Snippet
-```java
-    }
-    StringBuilder result = new StringBuilder();
-    if (message != null && message.length() > 0) {
-      result.append(message);
-      result.append(" ");
-```
-
-### SizeReplaceableByIsEmpty
 `events.size() > 0` can be replaced with '!events.isEmpty()'
 in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 #### Snippet
@@ -450,6 +438,18 @@ in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
     if (events.size() > 0 && historyEventFilterType == HistoryEventFilterType.CLOSE_EVENT) {
       events = events.subList(events.size() - 1, events.size());
     }
+```
+
+### SizeReplaceableByIsEmpty
+`message.length() > 0` can be replaced with '!message.isEmpty()'
+in `src/main/java/com/uber/cadence/converter/DataConverterException.java`
+#### Snippet
+```java
+    }
+    StringBuilder result = new StringBuilder();
+    if (message != null && message.length() > 0) {
+      result.append(message);
+      result.append(" ");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -553,15 +553,15 @@ in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadContext.java`
+Can generalize to `? extends ContextPropagator`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
 #### Snippet
 ```java
-   * @param function to evaluate. Consumes reason for yielding parameter.
-   */
-  public void evaluateInCoroutineContext(Consumer<String> function) {
-    lock.lock();
-    try {
+
+  private Map<String, byte[]> extractContextsAndConvertToBytes(
+      List<ContextPropagator> contextPropagators) {
+    if (contextPropagators == null || contextPropagators.isEmpty()) {
+      return null;
 ```
 
 ### BoundedWildcard
@@ -577,15 +577,15 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ContextPropagator`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+Can generalize to `? super String`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadContext.java`
 #### Snippet
 ```java
-
-  private Map<String, byte[]> extractContextsAndConvertToBytes(
-      List<ContextPropagator> contextPropagators) {
-    if (contextPropagators == null || contextPropagators.isEmpty()) {
-      return null;
+   * @param function to evaluate. Consumes reason for yielding parameter.
+   */
+  public void evaluateInCoroutineContext(Consumer<String> function) {
+    lock.lock();
+    try {
 ```
 
 ### BoundedWildcard
@@ -673,90 +673,6 @@ in `src/main/java/com/uber/cadence/internal/sync/AllOfFuture.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ContextPropagator`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-
-  private Map<String, byte[]> extractContextsAndConvertToBytes(
-      List<ContextPropagator> contextPropagators) {
-    if (contextPropagators == null) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  @Override
-  public <R> R mutableSideEffect(
-      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
-    AtomicReference<R> unserializedResult = new AtomicReference<>();
-    // As lambda below never returns Optional.empty() if there is a stored value
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  @Override
-  public <R> R mutableSideEffect(
-      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
-    AtomicReference<R> unserializedResult = new AtomicReference<>();
-    // As lambda below never returns Optional.empty() if there is a stored value
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  @Override
-  public <R> R mutableSideEffect(
-      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
-    AtomicReference<R> unserializedResult = new AtomicReference<>();
-    // As lambda below never returns Optional.empty() if there is a stored value
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  @Override
-  public <R> R mutableSideEffect(
-      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
-    AtomicReference<R> unserializedResult = new AtomicReference<>();
-    // As lambda below never returns Optional.empty() if there is a stored value
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <R> R sideEffect(Class<R> resultClass, Type resultType, Func<R> func) {
-    DataConverter dataConverter = getDataConverter();
-    byte[] result =
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-
-  @Override
-  public <R> R sideEffect(Class<R> resultClass, Type resultType, Func<R> func) {
-    DataConverter dataConverter = getDataConverter();
-    byte[] result =
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 #### Snippet
@@ -766,6 +682,42 @@ in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
       String name, ActivityOptions options, Object[] args, Class<T> returnClass, Type returnType) {
     byte[] input = converter.toData(args);
     Promise<byte[]> binaryResult = executeActivityOnce(name, options, input);
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <R> R sideEffect(Class<R> resultClass, Type resultType, Func<R> func) {
+    DataConverter dataConverter = getDataConverter();
+    byte[] result =
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+
+  @Override
+  public <R> R sideEffect(Class<R> resultClass, Type resultType, Func<R> func) {
+    DataConverter dataConverter = getDataConverter();
+    byte[] result =
+```
+
+### BoundedWildcard
+Can generalize to `? extends ContextPropagator`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+
+  private Map<String, byte[]> extractContextsAndConvertToBytes(
+      List<ContextPropagator> contextPropagators) {
+    if (contextPropagators == null) {
+      return null;
 ```
 
 ### BoundedWildcard
@@ -781,6 +733,54 @@ in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  @Override
+  public <R> R mutableSideEffect(
+      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
+    AtomicReference<R> unserializedResult = new AtomicReference<>();
+    // As lambda below never returns Optional.empty() if there is a stored value
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  @Override
+  public <R> R mutableSideEffect(
+      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
+    AtomicReference<R> unserializedResult = new AtomicReference<>();
+    // As lambda below never returns Optional.empty() if there is a stored value
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  @Override
+  public <R> R mutableSideEffect(
+      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
+    AtomicReference<R> unserializedResult = new AtomicReference<>();
+    // As lambda below never returns Optional.empty() if there is a stored value
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  @Override
+  public <R> R mutableSideEffect(
+      String id, Class<R> resultClass, Type resultType, BiPredicate<R, R> updated, Func<R> func) {
+    AtomicReference<R> unserializedResult = new AtomicReference<>();
+    // As lambda below never returns Optional.empty() if there is a stored value
+```
+
+### BoundedWildcard
 Can generalize to `? extends G`
 in `src/main/java/com/uber/cadence/internal/common/OptionsUtils.java`
 #### Snippet
@@ -793,62 +793,14 @@ in `src/main/java/com/uber/cadence/internal/common/OptionsUtils.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Data`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
-#### Snippet
-```java
-
-    private DynamicTransitionDestination(
-        State[] expectedStates, DynamicCallback<Data, R> callback) {
-      this.expectedStates = expectedStates;
-      this.callback = callback;
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
-#### Snippet
-```java
-
-    private DynamicTransitionDestination(
-        State[] expectedStates, DynamicCallback<Data, R> callback) {
-      this.expectedStates = expectedStates;
-      this.callback = callback;
-```
-
-### BoundedWildcard
-Can generalize to `? super Data`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
-#### Snippet
-```java
-    final Callback<Data, R> callback;
-
-    private FixedTransitionDestination(State state, Callback<Data, R> callback) {
-      this.state = state;
-      this.callback = callback;
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
-#### Snippet
-```java
-    final Callback<Data, R> callback;
-
-    private FixedTransitionDestination(State state, Callback<Data, R> callback) {
-      this.state = state;
-      this.callback = callback;
-```
-
-### BoundedWildcard
 Can generalize to `? extends R`
 in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
 #### Snippet
 ```java
-   * @return promise that contains function result or failure
    */
-  public static <A1, R> Promise<R> function(Functions.Func1<A1, R> function, A1 arg1) {
-    return execute(isAsync(function), () -> function.apply(arg1));
+  public static <A1, A2, R> Promise<R> function(
+      Functions.Func2<A1, A2, R> function, A1 arg1, A2 arg2) {
+    return execute(isAsync(function), () -> function.apply(arg1, arg2));
   }
 ```
 
@@ -882,18 +834,6 @@ in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
 #### Snippet
 ```java
    */
-  public static <A1, A2, A3, A4, A5, R> Promise<R> function(
-      Functions.Func5<A1, A2, A3, A4, A5, R> function,
-      A1 arg1,
-      A2 arg2,
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
-#### Snippet
-```java
-   */
   public static <A1, A2, A3, R> Promise<R> function(
       Functions.Func3<A1, A2, A3, R> function, A1 arg1, A2 arg2, A3 arg3) {
     return execute(isAsync(function), () -> function.apply(arg1, arg2, arg3));
@@ -918,6 +858,18 @@ in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
 #### Snippet
 ```java
    */
+  public static <A1, A2, A3, A4, A5, R> Promise<R> function(
+      Functions.Func5<A1, A2, A3, A4, A5, R> function,
+      A1 arg1,
+      A2 arg2,
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
+#### Snippet
+```java
+   */
   public static <A1, A2, A3, A4, R> Promise<R> function(
       Functions.Func4<A1, A2, A3, A4, R> function, A1 arg1, A2 arg2, A3 arg3, A4 arg4) {
     return execute(isAsync(function), () -> function.apply(arg1, arg2, arg3, arg4));
@@ -929,11 +881,59 @@ Can generalize to `? extends R`
 in `src/main/java/com/uber/cadence/internal/sync/AsyncInternal.java`
 #### Snippet
 ```java
+   * @return promise that contains function result or failure
    */
-  public static <A1, A2, R> Promise<R> function(
-      Functions.Func2<A1, A2, R> function, A1 arg1, A2 arg2) {
-    return execute(isAsync(function), () -> function.apply(arg1, arg2));
+  public static <A1, R> Promise<R> function(Functions.Func1<A1, R> function, A1 arg1) {
+    return execute(isAsync(function), () -> function.apply(arg1));
   }
+```
+
+### BoundedWildcard
+Can generalize to `? super Data`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
+#### Snippet
+```java
+    final Callback<Data, R> callback;
+
+    private FixedTransitionDestination(State state, Callback<Data, R> callback) {
+      this.state = state;
+      this.callback = callback;
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
+#### Snippet
+```java
+    final Callback<Data, R> callback;
+
+    private FixedTransitionDestination(State state, Callback<Data, R> callback) {
+      this.state = state;
+      this.callback = callback;
+```
+
+### BoundedWildcard
+Can generalize to `? super Data`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
+#### Snippet
+```java
+
+    private DynamicTransitionDestination(
+        State[] expectedStates, DynamicCallback<Data, R> callback) {
+      this.expectedStates = expectedStates;
+      this.callback = callback;
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachine.java`
+#### Snippet
+```java
+
+    private DynamicTransitionDestination(
+        State[] expectedStates, DynamicCallback<Data, R> callback) {
+      this.expectedStates = expectedStates;
+      this.callback = callback;
 ```
 
 ### BoundedWildcard
@@ -1009,18 +1009,6 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowQueueImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super RuntimeException`
-in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public <U> Promise<U> handle(Functions.Func2<? super V, RuntimeException, ? extends U> fn) {
-    return then(
-        (result) -> {
-```
-
-### BoundedWildcard
 Can generalize to `? extends V`
 in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
 #### Snippet
@@ -1030,6 +1018,30 @@ in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
   public boolean completeFrom(Promise<V> source) {
     if (completed) {
       return false;
+```
+
+### BoundedWildcard
+Can generalize to `? super Throwable`
+in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public Promise<V> exceptionally(Functions.Func1<Throwable, ? extends V> fn) {
+    return then(
+        (result) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super RuntimeException`
+in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
+#### Snippet
+```java
+
+  @Override
+  public <U> Promise<U> handle(Functions.Func2<? super V, RuntimeException, ? extends U> fn) {
+    return then(
+        (result) -> {
 ```
 
 ### BoundedWildcard
@@ -1054,30 +1066,6 @@ in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
   private <U> Promise<U> then(Functions.Proc1<CompletablePromise<U>> proc) {
     CompletablePromise<U> resultPromise = new CompletablePromiseImpl<>();
     if (completed) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Promise<V> exceptionally(Functions.Func1<Throwable, ? extends V> fn) {
-    return then(
-        (result) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Promise`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowRetryerInternal.java`
-#### Snippet
-```java
-      String retryId,
-      RetryOptions options,
-      Functions.Func<Promise<R>> func,
-      long startTime,
-      long attempt) {
 ```
 
 ### BoundedWildcard
@@ -1117,6 +1105,18 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowRetryerInternal.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Promise`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowRetryerInternal.java`
+#### Snippet
+```java
+      String retryId,
+      RetryOptions options,
+      Functions.Func<Promise<R>> func,
+      long startTime,
+      long attempt) {
+```
+
+### BoundedWildcard
 Can generalize to `? super GsonBuilder`
 in `src/main/java/com/uber/cadence/converter/JsonDataConverter.java`
 #### Snippet
@@ -1146,22 +1146,10 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
 #### Snippet
 ```java
 
-  public static <A1, A2, A3, R> CompletableFuture<R> execute(
-      Functions.Func3<A1, A2, A3, R> workflow, A1 arg1, A2 arg2, A3 arg3) {
-    return execute(() -> workflow.apply(arg1, arg2, arg3));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
-#### Snippet
-```java
-
-  public static <A1, A2, A3, A4, R> CompletableFuture<R> execute(
-      Functions.Func4<A1, A2, A3, A4, R> workflow, A1 arg1, A2 arg2, A3 arg3, A4 arg4) {
-    return execute(() -> workflow.apply(arg1, arg2, arg3, arg4));
-  }
+  public static <A1, A2, A3, A4, A5, A6, R> CompletableFuture<R> execute(
+      Functions.Func6<A1, A2, A3, A4, A5, A6, R> workflow,
+      A1 arg1,
+      A2 arg2,
 ```
 
 ### BoundedWildcard
@@ -1182,10 +1170,10 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
 #### Snippet
 ```java
 
-  public static <A1, A2, A3, A4, A5, A6, R> CompletableFuture<R> execute(
-      Functions.Func6<A1, A2, A3, A4, A5, A6, R> workflow,
-      A1 arg1,
-      A2 arg2,
+  public static <A1, A2, A3, R> CompletableFuture<R> execute(
+      Functions.Func3<A1, A2, A3, R> workflow, A1 arg1, A2 arg2, A3 arg3) {
+    return execute(() -> workflow.apply(arg1, arg2, arg3));
+  }
 ```
 
 ### BoundedWildcard
@@ -1197,6 +1185,18 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
 
   public static <A1, R> CompletableFuture<R> execute(Functions.Func1<A1, R> workflow, A1 arg1) {
     return execute(() -> workflow.apply(arg1));
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
+#### Snippet
+```java
+
+  public static <A1, A2, A3, A4, R> CompletableFuture<R> execute(
+      Functions.Func4<A1, A2, A3, A4, R> workflow, A1 arg1, A2 arg2, A3 arg3, A4 arg4) {
+    return execute(() -> workflow.apply(arg1, arg2, arg3, arg4));
   }
 ```
 
@@ -1278,18 +1278,6 @@ in `src/main/java/com/uber/cadence/internal/worker/autoscaler/PollerAutoScaler.j
 ## RuleId[id=OptionalAssignedToNull]
 ### OptionalAssignedToNull
 Optional value is compared with null
-in `src/main/java/com/uber/cadence/internal/sync/ActivityExecutionContextImpl.java`
-#### Snippet
-```java
-    lock.lock();
-    try {
-      if (lastDetails != null) {
-        @SuppressWarnings("unchecked")
-        Optional<V> result = (Optional<V>) this.lastDetails;
-```
-
-### OptionalAssignedToNull
-Optional value is compared with null
 in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
 #### Snippet
 ```java
@@ -1298,6 +1286,18 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableState
             if (parent != null) {
               ctx.lockTimer(); // unlocked by the parent
             }
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `src/main/java/com/uber/cadence/internal/sync/ActivityExecutionContextImpl.java`
+#### Snippet
+```java
+    lock.lock();
+    try {
+      if (lastDetails != null) {
+        @SuppressWarnings("unchecked")
+        Optional<V> result = (Optional<V>) this.lastDetails;
 ```
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
@@ -1432,10 +1432,10 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 #### Snippet
 ```java
-    Map<String, ByteBuffer> mapOfByteBuffer = new HashMap<>();
-    memo.forEach(
-        (key, value) -> {
-          mapOfByteBuffer.put(key, ByteBuffer.wrap(converter.toData(value)));
+    return awaitTermination(
+        timeoutMillis,
+        () -> {
+          s.awaitTermination(timeoutMillis, TimeUnit.MILLISECONDS);
         });
 ```
 
@@ -1444,10 +1444,10 @@ Statement lambda can be replaced with expression lambda
 in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 #### Snippet
 ```java
-    return awaitTermination(
-        timeoutMillis,
-        () -> {
-          s.awaitTermination(timeoutMillis, TimeUnit.MILLISECONDS);
+    Map<String, ByteBuffer> mapOfByteBuffer = new HashMap<>();
+    memo.forEach(
+        (key, value) -> {
+          mapOfByteBuffer.put(key, ByteBuffer.wrap(converter.toData(value)));
         });
 ```
 
@@ -1465,18 +1465,6 @@ in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `noopCounter` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
-#### Snippet
-```java
-public final class NoopScope implements Scope {
-  private static Scope noopScope;
-  private static Counter noopCounter;
-  private static Gauge noopGauge;
-  private static Timer noopTimer;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `noopTimer` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
 #### Snippet
@@ -1489,15 +1477,15 @@ in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `noopHistogram` is accessed in both synchronized and unsynchronized contexts
+Field `noopCounter` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
 #### Snippet
 ```java
+public final class NoopScope implements Scope {
+  private static Scope noopScope;
+  private static Counter noopCounter;
   private static Gauge noopGauge;
   private static Timer noopTimer;
-  private static Histogram noopHistogram;
-
-  @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1513,15 +1501,15 @@ in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `stickyPoller` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/com/uber/cadence/worker/WorkerFactory.java`
+Field `noopHistogram` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
 #### Snippet
 ```java
-  private final WorkerFactoryOptions factoryOptions;
+  private static Gauge noopGauge;
+  private static Timer noopTimer;
+  private static Histogram noopHistogram;
 
-  private Poller<PollForDecisionTaskResponse> stickyPoller;
-  private PollDecisionTaskDispatcher dispatcher;
-  private DeciderCache cache;
+  @Override
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1534,6 +1522,18 @@ in `src/main/java/com/uber/cadence/worker/WorkerFactory.java`
   private DeciderCache cache;
 
   private State state = State.Initial;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `stickyPoller` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/com/uber/cadence/worker/WorkerFactory.java`
+#### Snippet
+```java
+  private final WorkerFactoryOptions factoryOptions;
+
+  private Poller<PollForDecisionTaskResponse> stickyPoller;
+  private PollDecisionTaskDispatcher dispatcher;
+  private DeciderCache cache;
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -1868,18 +1868,6 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `src/main/java/com/uber/cadence/internal/sync/SyncWorkflow.java`
-#### Snippet
-```java
-  public byte[] query(WorkflowQuery query) {
-    if (WorkflowClient.QUERY_TYPE_REPLAY_ONLY.equals(query.getQueryType())) {
-      return new byte[] {};
-    }
-    if (WorkflowClient.QUERY_TYPE_STACK_TRACE.equals(query.getQueryType())) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
 in `src/main/java/com/uber/cadence/converter/CustomThrowableTypeAdapter.java`
 #### Snippet
 ```java
@@ -1914,19 +1902,19 @@ in `src/main/java/com/uber/cadence/converter/CustomThrowableTypeAdapter.java`
   }
 ```
 
-## RuleId[id=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `signaledExecution` of exception class
-in `src/main/java/com/uber/cadence/workflow/CancelExternalWorkflowException.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/com/uber/cadence/internal/sync/SyncWorkflow.java`
 #### Snippet
 ```java
-  private SignalExternalWorkflowExecutionFailedCause failureCause;
-
-  private WorkflowExecution signaledExecution;
-
-  public CancelExternalWorkflowException(
+  public byte[] query(WorkflowQuery query) {
+    if (WorkflowClient.QUERY_TYPE_REPLAY_ONLY.equals(query.getQueryType())) {
+      return new byte[] {};
+    }
+    if (WorkflowClient.QUERY_TYPE_STACK_TRACE.equals(query.getQueryType())) {
 ```
 
+## RuleId[id=NonFinalFieldOfException]
 ### NonFinalFieldOfException
 Non-final field `failureCause` of exception class
 in `src/main/java/com/uber/cadence/workflow/CancelExternalWorkflowException.java`
@@ -1937,6 +1925,18 @@ public final class CancelExternalWorkflowException extends WorkflowOperationExce
   private SignalExternalWorkflowExecutionFailedCause failureCause;
 
   private WorkflowExecution signaledExecution;
+```
+
+### NonFinalFieldOfException
+Non-final field `signaledExecution` of exception class
+in `src/main/java/com/uber/cadence/workflow/CancelExternalWorkflowException.java`
+#### Snippet
+```java
+  private SignalExternalWorkflowExecutionFailedCause failureCause;
+
+  private WorkflowExecution signaledExecution;
+
+  public CancelExternalWorkflowException(
 ```
 
 ### NonFinalFieldOfException
@@ -1976,18 +1976,6 @@ in `src/main/java/com/uber/cadence/workflow/SignalExternalWorkflowException.java
 ```
 
 ### NonFinalFieldOfException
-Non-final field `backoff` of exception class
-in `src/main/java/com/uber/cadence/workflow/ActivityFailureException.java`
-#### Snippet
-```java
-public final class ActivityFailureException extends ActivityException {
-  private int attempt;
-  private Duration backoff;
-
-  public ActivityFailureException(
-```
-
-### NonFinalFieldOfException
 Non-final field `attempt` of exception class
 in `src/main/java/com/uber/cadence/workflow/ActivityFailureException.java`
 #### Snippet
@@ -1997,6 +1985,18 @@ public final class ActivityFailureException extends ActivityException {
   private int attempt;
   private Duration backoff;
 
+```
+
+### NonFinalFieldOfException
+Non-final field `backoff` of exception class
+in `src/main/java/com/uber/cadence/workflow/ActivityFailureException.java`
+#### Snippet
+```java
+public final class ActivityFailureException extends ActivityException {
+  private int attempt;
+  private Duration backoff;
+
+  public ActivityFailureException(
 ```
 
 ### NonFinalFieldOfException
@@ -2050,18 +2050,6 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java
 ```
 
 ### UnusedAssignment
-Variable `executionDetail` initializer `null` is redundant
-in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
-#### Snippet
-```java
-    describeRequest.setDomain(domain);
-    describeRequest.setExecution(workflowExecution);
-    DescribeWorkflowExecutionResponse executionDetail = null;
-    try {
-      executionDetail = service.DescribeWorkflowExecution(describeRequest);
-```
-
-### UnusedAssignment
 Variable `retryState` initializer `Optional.empty()` is redundant
 in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
 #### Snippet
@@ -2074,6 +2062,18 @@ in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
 ```
 
 ### UnusedAssignment
+Variable `executionDetail` initializer `null` is redundant
+in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
+#### Snippet
+```java
+    describeRequest.setDomain(domain);
+    describeRequest.setExecution(workflowExecution);
+    DescribeWorkflowExecutionResponse executionDetail = null;
+    try {
+      executionDetail = service.DescribeWorkflowExecution(describeRequest);
+```
+
+### UnusedAssignment
 Variable `response` initializer `null` is redundant
 in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
 #### Snippet
@@ -2083,127 +2083,6 @@ in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
     ThriftResponse<T> response = null;
     try {
       TFuture<ThriftResponse<T>> future = subChannel.send(request);
-```
-
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-      WorkflowExecution execution =
-          new WorkflowExecution().setWorkflowId(p.getWorkflowId()).setRunId(e.getRunId());
-      throw new DuplicateWorkflowException(execution, workflowType.get(), e.getMessage());
-    } catch (Exception e) {
-      throw new WorkflowServiceException(execution.get(), workflowType, e);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-      throw new DuplicateWorkflowException(
-          execution.get(),
-          workflowType.get(),
-          "Cannot reuse a stub instance to start more than one workflow execution. The stub "
-              + "points to already started execution.");
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-    }
-    p.setInput(dataConverter.toData(args));
-    p.setWorkflowType(new WorkflowType().setName(workflowType.get()));
-    p.setMemo(convertMemoFromObjectToBytes(o.getMemo()));
-    p.setSearchAttributes(convertSearchAttributesFromObjectToBytes(o.getSearchAttributes()));
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-      ChildWorkflowExecutionStartedEventAttributes a =
-          new ChildWorkflowExecutionStartedEventAttributes()
-              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
-              .setWorkflowExecution(getExecutionId().getExecution())
-              .setDomain(getExecutionId().getDomain())
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-    ExecutionTime executionTime = ExecutionTime.forCron(cron);
-    Optional<Duration> backoff = executionTime.timeToNextExecution(now);
-    int backoffIntervalSeconds = (int) backoff.get().getSeconds();
-
-    if (backoffIntervalSeconds == 0) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-    if (backoffIntervalSeconds == 0) {
-      backoff = executionTime.timeToNextExecution(now.plusSeconds(1));
-      backoffIntervalSeconds = (int) backoff.get().getSeconds() + 1;
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-      ChildWorkflowExecutionCompletedEventAttributes a =
-          new ChildWorkflowExecutionCompletedEventAttributes()
-              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
-              .setResult(d.getResult())
-              .setDomain(ctx.getDomain())
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-      ChildWorkflowExecutionCanceledEventAttributes a =
-          new ChildWorkflowExecutionCanceledEventAttributes()
-              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
-              .setDetails(d.getDetails())
-              .setDomain(ctx.getDomain())
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-      ChildWorkflowExecutionTimedOutEventAttributes a =
-          new ChildWorkflowExecutionTimedOutEventAttributes()
-              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
-              .setTimeoutType(TimeoutType.START_TO_CLOSE)
-              .setWorkflowType(startRequest.getWorkflowType())
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-      ChildWorkflowExecutionFailedEventAttributes a =
-          new ChildWorkflowExecutionFailedEventAttributes()
-              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
-              .setDetails(d.getDetails())
-              .setReason(d.getReason())
 ```
 
 ## RuleId[id=ConstantValue]
@@ -2241,6 +2120,54 @@ in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
     } else if (!MUTABLE_SIDE_EFFECT_MARKER_NAME.equals(name) && !VERSION_MARKER_NAME.equals(name)) {
       if (log.isWarnEnabled()) {
         log.warn("Unexpected marker: " + event);
+```
+
+### ConstantValue
+Condition `unwrapped instanceof QueryFailedError` is always `false`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+        throw new WorkflowNotFoundException(execution.get(), workflowType, e.getMessage());
+      }
+      if (unwrapped instanceof QueryFailedError) {
+        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
+      }
+```
+
+### ConstantValue
+Value `unwrapped` is always 'null'
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+        throw new WorkflowNotFoundException(execution.get(), workflowType, e.getMessage());
+      }
+      if (unwrapped instanceof QueryFailedError) {
+        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
+      }
+```
+
+### ConstantValue
+Condition `unwrapped instanceof InternalServiceError` is always `false`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
+      }
+      if (unwrapped instanceof InternalServiceError) {
+        throw new WorkflowServiceException(execution.get(), workflowType, unwrapped);
+      }
+```
+
+### ConstantValue
+Value `unwrapped` is always 'null'
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
+      }
+      if (unwrapped instanceof InternalServiceError) {
+        throw new WorkflowServiceException(execution.get(), workflowType, unwrapped);
+      }
 ```
 
 ### ConstantValue
@@ -2328,54 +2255,6 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
 ```
 
 ### ConstantValue
-Condition `unwrapped instanceof QueryFailedError` is always `false`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-        throw new WorkflowNotFoundException(execution.get(), workflowType, e.getMessage());
-      }
-      if (unwrapped instanceof QueryFailedError) {
-        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
-      }
-```
-
-### ConstantValue
-Value `unwrapped` is always 'null'
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-        throw new WorkflowNotFoundException(execution.get(), workflowType, e.getMessage());
-      }
-      if (unwrapped instanceof QueryFailedError) {
-        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
-      }
-```
-
-### ConstantValue
-Condition `unwrapped instanceof InternalServiceError` is always `false`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
-      }
-      if (unwrapped instanceof InternalServiceError) {
-        throw new WorkflowServiceException(execution.get(), workflowType, unwrapped);
-      }
-```
-
-### ConstantValue
-Value `unwrapped` is always 'null'
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-        throw new WorkflowQueryException(execution.get(), unwrapped.getMessage());
-      }
-      if (unwrapped instanceof InternalServiceError) {
-        throw new WorkflowServiceException(execution.get(), workflowType, unwrapped);
-      }
-```
-
-### ConstantValue
 Condition `next != null && count < MAXIMUM_DECISIONS_PER_COMPLETION` is always `false`
 in `src/main/java/com/uber/cadence/internal/replay/DecisionsHelper.java`
 #### Snippet
@@ -2421,6 +2300,42 @@ in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
         if (history == null || history.getEvents() == null || history.getEvents().size() == 0) {
           return null;
         }
+```
+
+### ConstantValue
+Condition `request instanceof RespondActivityTaskCanceledByIDRequest` is always `false`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+    if (request instanceof RespondActivityTaskCanceledRequest) {
+      details = ((RespondActivityTaskCanceledRequest) request).getDetails();
+    } else if (request instanceof RespondActivityTaskCanceledByIDRequest) {
+      details = ((RespondActivityTaskCanceledByIDRequest) request).getDetails();
+    }
+```
+
+### ConstantValue
+Condition `request instanceof RespondActivityTaskFailedByIDRequest` is always `false`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+    if (request instanceof RespondActivityTaskFailedRequest) {
+      return failActivityTaskByTaskToken(ctx, data, (RespondActivityTaskFailedRequest) request);
+    } else if (request instanceof RespondActivityTaskFailedByIDRequest) {
+      return failActivityTaskById(ctx, data, (RespondActivityTaskFailedByIDRequest) request);
+    } else {
+```
+
+### ConstantValue
+Condition `request instanceof RespondActivityTaskCompletedByIDRequest` is always `false`
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+    if (request instanceof RespondActivityTaskCompletedRequest) {
+      completeActivityTaskByTaskToken(ctx, data, (RespondActivityTaskCompletedRequest) request);
+    } else if (request instanceof RespondActivityTaskCompletedByIDRequest) {
+      completeActivityTaskById(ctx, data, (RespondActivityTaskCompletedByIDRequest) request);
+    } else {
 ```
 
 ### ConstantValue
@@ -2472,42 +2387,6 @@ in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
 ```
 
 ### ConstantValue
-Condition `request instanceof RespondActivityTaskFailedByIDRequest` is always `false`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-    if (request instanceof RespondActivityTaskFailedRequest) {
-      return failActivityTaskByTaskToken(ctx, data, (RespondActivityTaskFailedRequest) request);
-    } else if (request instanceof RespondActivityTaskFailedByIDRequest) {
-      return failActivityTaskById(ctx, data, (RespondActivityTaskFailedByIDRequest) request);
-    } else {
-```
-
-### ConstantValue
-Condition `request instanceof RespondActivityTaskCanceledByIDRequest` is always `false`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-    if (request instanceof RespondActivityTaskCanceledRequest) {
-      details = ((RespondActivityTaskCanceledRequest) request).getDetails();
-    } else if (request instanceof RespondActivityTaskCanceledByIDRequest) {
-      details = ((RespondActivityTaskCanceledByIDRequest) request).getDetails();
-    }
-```
-
-### ConstantValue
-Condition `request instanceof RespondActivityTaskCompletedByIDRequest` is always `false`
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-    if (request instanceof RespondActivityTaskCompletedRequest) {
-      completeActivityTaskByTaskToken(ctx, data, (RespondActivityTaskCompletedRequest) request);
-    } else if (request instanceof RespondActivityTaskCompletedByIDRequest) {
-      completeActivityTaskById(ctx, data, (RespondActivityTaskCompletedByIDRequest) request);
-    } else {
-```
-
-### ConstantValue
 Condition `replicationConfiguration != null` is always `true`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
@@ -2529,6 +2408,127 @@ in `src/main/java/com/uber/cadence/converter/JsonDataConverter.java`
             "Content doesn't match expected arguments", content, valueTypes);
       }
       if (valueTypes.length == 1) {
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+      throw new DuplicateWorkflowException(
+          execution.get(),
+          workflowType.get(),
+          "Cannot reuse a stub instance to start more than one workflow execution. The stub "
+              + "points to already started execution.");
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+    }
+    p.setInput(dataConverter.toData(args));
+    p.setWorkflowType(new WorkflowType().setName(workflowType.get()));
+    p.setMemo(convertMemoFromObjectToBytes(o.getMemo()));
+    p.setSearchAttributes(convertSearchAttributesFromObjectToBytes(o.getSearchAttributes()));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+      WorkflowExecution execution =
+          new WorkflowExecution().setWorkflowId(p.getWorkflowId()).setRunId(e.getRunId());
+      throw new DuplicateWorkflowException(execution, workflowType.get(), e.getMessage());
+    } catch (Exception e) {
+      throw new WorkflowServiceException(execution.get(), workflowType, e);
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+      ChildWorkflowExecutionTimedOutEventAttributes a =
+          new ChildWorkflowExecutionTimedOutEventAttributes()
+              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
+              .setTimeoutType(TimeoutType.START_TO_CLOSE)
+              .setWorkflowType(startRequest.getWorkflowType())
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+      ChildWorkflowExecutionStartedEventAttributes a =
+          new ChildWorkflowExecutionStartedEventAttributes()
+              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
+              .setWorkflowExecution(getExecutionId().getExecution())
+              .setDomain(getExecutionId().getDomain())
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+      ChildWorkflowExecutionCanceledEventAttributes a =
+          new ChildWorkflowExecutionCanceledEventAttributes()
+              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
+              .setDetails(d.getDetails())
+              .setDomain(ctx.getDomain())
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+      ChildWorkflowExecutionFailedEventAttributes a =
+          new ChildWorkflowExecutionFailedEventAttributes()
+              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
+              .setDetails(d.getDetails())
+              .setReason(d.getReason())
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+      ChildWorkflowExecutionCompletedEventAttributes a =
+          new ChildWorkflowExecutionCompletedEventAttributes()
+              .setInitiatedEventId(parentChildInitiatedEventId.getAsLong())
+              .setResult(d.getResult())
+              .setDomain(ctx.getDomain())
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+    ExecutionTime executionTime = ExecutionTime.forCron(cron);
+    Optional<Duration> backoff = executionTime.timeToNextExecution(now);
+    int backoffIntervalSeconds = (int) backoff.get().getSeconds();
+
+    if (backoffIntervalSeconds == 0) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+    if (backoffIntervalSeconds == 0) {
+      backoff = executionTime.timeToNextExecution(now.plusSeconds(1));
+      backoffIntervalSeconds = (int) backoff.get().getSeconds() + 1;
+    }
+
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -2714,18 +2714,6 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
 ```
 
 ### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `src/main/java/com/uber/cadence/internal/testservice/ActivityId.java`
-#### Snippet
-```java
-  static ActivityId fromBytes(byte[] serialized) throws InternalServiceError {
-    ByteArrayInputStream bin = new ByteArrayInputStream(serialized);
-    DataInputStream in = new DataInputStream(bin);
-    try {
-      String domain = in.readUTF();
-```
-
-### IOResource
 'DataOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `src/main/java/com/uber/cadence/internal/testservice/ActivityId.java`
 #### Snippet
@@ -2735,6 +2723,18 @@ in `src/main/java/com/uber/cadence/internal/testservice/ActivityId.java`
     DataOutputStream out = new DataOutputStream(bout);
     try {
       out.writeUTF(executionId.getDomain());
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `src/main/java/com/uber/cadence/internal/testservice/ActivityId.java`
+#### Snippet
+```java
+  static ActivityId fromBytes(byte[] serialized) throws InternalServiceError {
+    ByteArrayInputStream bin = new ByteArrayInputStream(serialized);
+    DataInputStream in = new DataInputStream(bin);
+    try {
+      String domain = in.readUTF();
 ```
 
 ### IOResource
@@ -2764,6 +2764,18 @@ in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+          ctx -> {
+            workflow.action(StateMachines.Action.START, ctx, startRequest, 0);
+            if (signalWithStartSignal.isPresent()) {
+              addExecutionSignaledEvent(ctx, signalWithStartSignal.get());
+            }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
 in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
 #### Snippet
 ```java
@@ -2788,23 +2800,11 @@ in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
 
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-          ctx -> {
-            workflow.action(StateMachines.Action.START, ctx, startRequest, 0);
-            if (signalWithStartSignal.isPresent()) {
-              addExecutionSignaledEvent(ctx, signalWithStartSignal.get());
-            }
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
 #### Snippet
 ```java
-    WorkflowExecution execution = new WorkflowExecution();
-    execution.setWorkflowId(workflowId);
+      String workflowId, Optional<String> runId, Optional<String> workflowType) {
+    WorkflowExecution execution = new WorkflowExecution().setWorkflowId(workflowId);
     if (runId.isPresent()) {
       execution.setRunId(runId.get());
     }
@@ -2815,8 +2815,8 @@ Can be replaced with single expression in functional style
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowClientInternal.java`
 #### Snippet
 ```java
-      String workflowId, Optional<String> runId, Optional<String> workflowType) {
-    WorkflowExecution execution = new WorkflowExecution().setWorkflowId(workflowId);
+    WorkflowExecution execution = new WorkflowExecution();
+    execution.setWorkflowId(workflowId);
     if (runId.isPresent()) {
       execution.setRunId(runId.get());
     }
@@ -2993,18 +2993,6 @@ public class Version {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `WorkflowExecutionUtils` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
-#### Snippet
-```java
- * @author fateev
- */
-public class WorkflowExecutionUtils {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StateMachines` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
 #### Snippet
@@ -3014,6 +3002,18 @@ import org.slf4j.LoggerFactory;
 class StateMachines {
 
   private static final Logger log = LoggerFactory.getLogger(StateMachines.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WorkflowExecutionUtils` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
+#### Snippet
+```java
+ * @author fateev
+ */
+public class WorkflowExecutionUtils {
+
+  /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3029,18 +3029,6 @@ class EnumMapper {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ErrorMapper` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ErrorMapper.java`
-#### Snippet
-```java
-import org.apache.thrift.TException;
-
-public class ErrorMapper {
-
-  public static TException Error(StatusRuntimeException ex) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `WorkerShutDownHandler` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/uber/cadence/internal/worker/WorkerShutDownHandler.java`
 #### Snippet
@@ -3053,15 +3041,15 @@ public class WorkerShutDownHandler {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Helpers` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/Helpers.java`
+Class `ErrorMapper` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ErrorMapper.java`
 #### Snippet
 ```java
-import java.util.Map;
+import org.apache.thrift.TException;
 
-class Helpers {
+public class ErrorMapper {
 
-  static DoubleValue fromDoubleValue(double v) {
+  public static TException Error(StatusRuntimeException ex) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3074,6 +3062,18 @@ import com.uber.cadence.api.v1.WorkflowQuery;
 public class ResponseMapper {
 
   public static StartWorkflowExecutionResponse startWorkflowExecutionResponse(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Helpers` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/Helpers.java`
+#### Snippet
+```java
+import java.util.Map;
+
+class Helpers {
+
+  static DoubleValue fromDoubleValue(double v) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -3199,18 +3199,6 @@ in `src/main/java/com/uber/cadence/common/RetryOptions.java`
 ```
 
 ### DataFlowIssue
-Condition `failure instanceof EntityNotExistsError` is redundant and can be replaced with a null check
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-      throw new WorkflowFailureException(
-          execution.get(), workflowType, executionFailed.getDecisionTaskCompletedEventId(), cause);
-    } else if (failure instanceof EntityNotExistsError) {
-      throw new WorkflowNotFoundException(execution.get(), workflowType, failure.getMessage());
-    } else if (failure instanceof WorkflowExecutionAlreadyCompletedError) {
-```
-
-### DataFlowIssue
 Condition `unwrapped instanceof EntityNotExistsError` is redundant and can be replaced with a null check
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
 #### Snippet
@@ -3220,6 +3208,18 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
       if (unwrapped instanceof EntityNotExistsError) {
         throw new WorkflowNotFoundException(execution.get(), workflowType, e.getMessage());
       }
+```
+
+### DataFlowIssue
+Condition `failure instanceof EntityNotExistsError` is redundant and can be replaced with a null check
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+      throw new WorkflowFailureException(
+          execution.get(), workflowType, executionFailed.getDecisionTaskCompletedEventId(), cause);
+    } else if (failure instanceof EntityNotExistsError) {
+      throw new WorkflowNotFoundException(execution.get(), workflowType, failure.getMessage());
+    } else if (failure instanceof WorkflowExecutionAlreadyCompletedError) {
 ```
 
 ### DataFlowIssue
@@ -3307,18 +3307,6 @@ in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
 ```
 
 ### DataFlowIssue
-Method invocation `addCallback` may produce `NullPointerException`
-in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
-#### Snippet
-```java
-      result.completeExceptionally(new TException(tChannelError));
-    }
-    future.addCallback(
-        response -> {
-          if (response.isError()) {
-```
-
-### DataFlowIssue
 Method invocation `getErrorType` may produce `NullPointerException`
 in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
 #### Snippet
@@ -3328,6 +3316,18 @@ in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
       if (response.getError().getErrorType() == ErrorType.Timeout) {
         throw new TTransportException(
             TTransportException.TIMED_OUT, response.getError().getMessage());
+```
+
+### DataFlowIssue
+Method invocation `addCallback` may produce `NullPointerException`
+in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
+#### Snippet
+```java
+      result.completeExceptionally(new TException(tChannelError));
+    }
+    future.addCallback(
+        response -> {
+          if (response.isError()) {
 ```
 
 ## RuleId[id=OptionalContainsCollection]
@@ -3408,11 +3408,11 @@ in `src/main/java/com/uber/cadence/internal/sync/DeterministicRunnerImpl.java`
 in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
 #### Snippet
 ```java
-    }
+    private boolean isNewlyStored;
 
-    public Optional<byte[]> getStoredData() {
-      return storedData;
-    }
+    HandleResult(final Optional<byte[]> storedData, final boolean isNewlyStored) {
+      this.storedData = storedData;
+      this.isNewlyStored = isNewlyStored;
 ```
 
 ### OptionalContainsCollection
@@ -3425,6 +3425,30 @@ in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
     private Optional<byte[]> storedData;
     private boolean isNewlyStored;
 
+```
+
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
+#### Snippet
+```java
+    }
+
+    public Optional<byte[]> getStoredData() {
+      return storedData;
+    }
+```
+
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
+#### Snippet
+```java
+  }
+
+  private Optional<byte[]> getMarkerDataFromHistory(
+      long eventId, String markerId, int expectedAcccessCount, DataConverter converter) {
+    Optional<HistoryEvent> event = decisions.getOptionalDecisionEvent(eventId);
 ```
 
 ### OptionalContainsCollection
@@ -3485,30 +3509,6 @@ in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
     Optional<byte[]> toStore = func.apply(stored);
     if (toStore.isPresent()) {
       byte[] data = toStore.get();
-```
-
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
-#### Snippet
-```java
-    private boolean isNewlyStored;
-
-    HandleResult(final Optional<byte[]> storedData, final boolean isNewlyStored) {
-      this.storedData = storedData;
-      this.isNewlyStored = isNewlyStored;
-```
-
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
-#### Snippet
-```java
-  }
-
-  private Optional<byte[]> getMarkerDataFromHistory(
-      long eventId, String markerId, int expectedAcccessCount, DataConverter converter) {
-    Optional<HistoryEvent> event = decisions.getOptionalDecisionEvent(eventId);
 ```
 
 ### OptionalContainsCollection
@@ -3764,9 +3764,9 @@ in `src/main/java/com/uber/cadence/internal/shadowing/ScanWorkflowActivityImpl.j
 ```java
   }
 
-  protected ListWorkflowExecutionsResponse scanWorkflows(ListWorkflowExecutionsRequest request)
-      throws Throwable {
-    try {
+  protected List<WorkflowExecution> samplingWorkflows(
+      List<WorkflowExecutionInfo> executionInfoList, double samplingRate) {
+    int capacity = (int) (executionInfoList.size() * samplingRate);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -3776,9 +3776,9 @@ in `src/main/java/com/uber/cadence/internal/shadowing/ScanWorkflowActivityImpl.j
 ```java
   }
 
-  protected List<WorkflowExecution> samplingWorkflows(
-      List<WorkflowExecutionInfo> executionInfoList, double samplingRate) {
-    int capacity = (int) (executionInfoList.size() * samplingRate);
+  protected ListWorkflowExecutionsResponse scanWorkflows(ListWorkflowExecutionsRequest request)
+      throws Throwable {
+    try {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -3994,6 +3994,42 @@ in `src/main/java/com/uber/cadence/client/WorkflowTerminatedException.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+      WorkflowClientOptions clientOptions,
+      GenericWorkflowClientExternal genericClient,
+      Optional<String> workflowType,
+      WorkflowExecution execution) {
+    this.clientOptions = clientOptions;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'options'
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+  private final Optional<String> workflowType;
+  private AtomicReference<WorkflowExecution> execution = new AtomicReference<>();
+  private final Optional<WorkflowOptions> options;
+  private final WorkflowClientOptions clientOptions;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'workflowType'
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+  private final GenericWorkflowClientExternal genericClient;
+  private final DataConverter dataConverter;
+  private final Optional<String> workflowType;
+  private AtomicReference<WorkflowExecution> execution = new AtomicReference<>();
+  private final Optional<WorkflowOptions> options;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowInternal.java`
 #### Snippet
 ```java
@@ -4041,42 +4077,6 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowInternal.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'workflowType'
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-  private final GenericWorkflowClientExternal genericClient;
-  private final DataConverter dataConverter;
-  private final Optional<String> workflowType;
-  private AtomicReference<WorkflowExecution> execution = new AtomicReference<>();
-  private final Optional<WorkflowOptions> options;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'options'
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-  private final Optional<String> workflowType;
-  private AtomicReference<WorkflowExecution> execution = new AtomicReference<>();
-  private final Optional<WorkflowOptions> options;
-  private final WorkflowClientOptions clientOptions;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-      WorkflowClientOptions clientOptions,
-      GenericWorkflowClientExternal genericClient,
-      Optional<String> workflowType,
-      WorkflowExecution execution) {
-    this.clientOptions = clientOptions;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'changeIdEquals'
 in `src/main/java/com/uber/cadence/internal/replay/DecisionsHelper.java`
 #### Snippet
@@ -4118,18 +4118,6 @@ in `src/main/java/com/uber/cadence/client/WorkflowException.java`
 #### Snippet
 ```java
 
-  protected WorkflowException(
-      String message, WorkflowExecution execution, Optional<String> workflowType, Throwable cause) {
-    super(getMessage(message, execution, workflowType), cause);
-    this.execution = execution;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/client/WorkflowException.java`
-#### Snippet
-```java
-
   private static String getMessage(
       String message, WorkflowExecution execution, Optional<String> workflowType) {
     StringBuilder result = new StringBuilder();
@@ -4149,15 +4137,15 @@ in `src/main/java/com/uber/cadence/client/WorkflowException.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'storedData'
-in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/client/WorkflowException.java`
 #### Snippet
 ```java
 
-  static final class HandleResult {
-    private Optional<byte[]> storedData;
-    private boolean isNewlyStored;
-
+  protected WorkflowException(
+      String message, WorkflowExecution execution, Optional<String> workflowType, Throwable cause) {
+    super(getMessage(message, execution, workflowType), cause);
+    this.execution = execution;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4173,6 +4161,18 @@ in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'storedData'
+in `src/main/java/com/uber/cadence/internal/replay/MarkerHandler.java`
+#### Snippet
+```java
+
+  static final class HandleResult {
+    private Optional<byte[]> storedData;
+    private boolean isNewlyStored;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'signalWithStartSignal'
 in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableState.java`
 #### Snippet
@@ -4182,6 +4182,66 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableState
       boolean continuedAsNew, Optional<SignalWorkflowExecutionRequest> signalWithStartSignal)
       throws InternalServiceError, BadRequestError;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'continuedExecutionRunId'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
+#### Snippet
+```java
+  private StartWorkflowExecutionResponse startWorkflowExecutionNoRunningCheckLocked(
+      StartWorkflowExecutionRequest startRequest,
+      Optional<String> continuedExecutionRunId,
+      Optional<RetryState> retryState,
+      int backoffStartIntervalInSeconds,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'retryState'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
+#### Snippet
+```java
+      StartWorkflowExecutionRequest startRequest,
+      Optional<String> continuedExecutionRunId,
+      Optional<RetryState> retryState,
+      int backoffStartIntervalInSeconds,
+      byte[] lastCompletionResult,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parent'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
+#### Snippet
+```java
+      int backoffStartIntervalInSeconds,
+      byte[] lastCompletionResult,
+      Optional<TestWorkflowMutableState> parent,
+      OptionalLong parentChildInitiatedEventId,
+      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'parentChildInitiatedEventId'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
+#### Snippet
+```java
+      byte[] lastCompletionResult,
+      Optional<TestWorkflowMutableState> parent,
+      OptionalLong parentChildInitiatedEventId,
+      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
+      WorkflowId workflowId)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'signalWithStartSignal'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
+#### Snippet
+```java
+      Optional<TestWorkflowMutableState> parent,
+      OptionalLong parentChildInitiatedEventId,
+      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
+      WorkflowId workflowId)
+      throws InternalServiceError, BadRequestError {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4257,210 +4317,6 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'continuedExecutionRunId'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
-#### Snippet
-```java
-  private StartWorkflowExecutionResponse startWorkflowExecutionNoRunningCheckLocked(
-      StartWorkflowExecutionRequest startRequest,
-      Optional<String> continuedExecutionRunId,
-      Optional<RetryState> retryState,
-      int backoffStartIntervalInSeconds,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryState'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
-#### Snippet
-```java
-      StartWorkflowExecutionRequest startRequest,
-      Optional<String> continuedExecutionRunId,
-      Optional<RetryState> retryState,
-      int backoffStartIntervalInSeconds,
-      byte[] lastCompletionResult,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parent'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
-#### Snippet
-```java
-      int backoffStartIntervalInSeconds,
-      byte[] lastCompletionResult,
-      Optional<TestWorkflowMutableState> parent,
-      OptionalLong parentChildInitiatedEventId,
-      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'parentChildInitiatedEventId'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
-#### Snippet
-```java
-      byte[] lastCompletionResult,
-      Optional<TestWorkflowMutableState> parent,
-      OptionalLong parentChildInitiatedEventId,
-      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
-      WorkflowId workflowId)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'signalWithStartSignal'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowService.java`
-#### Snippet
-```java
-      Optional<TestWorkflowMutableState> parent,
-      OptionalLong parentChildInitiatedEventId,
-      Optional<SignalWorkflowExecutionRequest> signalWithStartSignal,
-      WorkflowId workflowId)
-      throws InternalServiceError, BadRequestError {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowId'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowStore.java`
-#### Snippet
-```java
-  void getDiagnostics(StringBuilder result);
-
-  List<WorkflowExecutionInfo> listWorkflows(WorkflowState state, Optional<String> workflowId);
-
-  void close();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
-#### Snippet
-```java
-
-  private static byte[] getResultFromCloseEvent(
-      WorkflowExecution workflowExecution, Optional<String> workflowType, HistoryEvent closeEvent) {
-    if (closeEvent == null) {
-      throw new IllegalStateException("Workflow is still running");
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
-#### Snippet
-```java
-      String domain,
-      WorkflowExecution workflowExecution,
-      Optional<String> workflowType,
-      long timeout,
-      TimeUnit unit) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
-#### Snippet
-```java
-      String domain,
-      WorkflowExecution workflowExecution,
-      Optional<String> workflowType,
-      long timeout,
-      TimeUnit unit)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'continuedExecutionRunId'
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-    byte[] lastCompletionResult;
-    String originalExecutionRunId;
-    Optional<String> continuedExecutionRunId;
-
-    WorkflowData(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'retryState'
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-
-  static final class WorkflowData {
-    Optional<RetryState> retryState = Optional.empty();
-    int backoffStartIntervalInSeconds;
-    String cronSchedule;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryState'
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-
-    WorkflowData(
-        Optional<RetryState> retryState,
-        int backoffStartIntervalInSeconds,
-        String cronSchedule,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'continuedExecutionRunId'
-in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
-#### Snippet
-```java
-        byte[] lastCompletionResult,
-        String originalExecutionRunId,
-        Optional<String> continuedExecutionRunId) {
-      this.retryState = retryState;
-      this.backoffStartIntervalInSeconds = backoffStartIntervalInSeconds;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/client/WorkflowClientInterceptor.java`
-#### Snippet
-```java
-
-  WorkflowStub newUntypedWorkflowStub(
-      WorkflowExecution execution, Optional<String> workflowType, WorkflowStub next);
-
-  ActivityCompletionClient newActivityCompletionClient(ActivityCompletionClient next);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'lastDetails'
-in `src/main/java/com/uber/cadence/internal/sync/ActivityExecutionContextImpl.java`
-#### Snippet
-```java
-  private boolean doNotCompleteOnReturn;
-  private final long heartbeatIntervalMillis;
-  private Optional<Object> lastDetails;
-  private boolean hasOutstandingHeartbeat;
-  private final ScheduledExecutorService heartbeatExecutor;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/workflow/WorkflowInterceptor.java`
-#### Snippet
-```java
-
-  void continueAsNew(
-      Optional<String> workflowType, Optional<ContinueAsNewOptions> options, Object[] args);
-
-  void registerQuery(String queryType, Type[] argTypes, Functions.Func1<Object[], Object> callback);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'options'
-in `src/main/java/com/uber/cadence/workflow/WorkflowInterceptor.java`
-#### Snippet
-```java
-
-  void continueAsNew(
-      Optional<String> workflowType, Optional<ContinueAsNewOptions> options, Object[] args);
-
-  void registerQuery(String queryType, Type[] argTypes, Functions.Func1<Object[], Object> callback);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'continuedExecutionRunId'
 in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
 #### Snippet
@@ -4470,18 +4326,6 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableState
   private final Optional<String> continuedExecutionRunId;
   public StickyExecutionAttributes stickyExecutionAttributes;
 
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'parent'
-in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
-#### Snippet
-```java
-  private final LongSupplier clock;
-  private final ExecutionId executionId;
-  private final Optional<TestWorkflowMutableState> parent;
-  private final OptionalLong parentChildInitiatedEventId;
-  private final TestWorkflowStore store;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4545,6 +4389,162 @@ in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableState
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'parent'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
+#### Snippet
+```java
+  private final LongSupplier clock;
+  private final ExecutionId executionId;
+  private final Optional<TestWorkflowMutableState> parent;
+  private final OptionalLong parentChildInitiatedEventId;
+  private final TestWorkflowStore store;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowId'
+in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowStore.java`
+#### Snippet
+```java
+  void getDiagnostics(StringBuilder result);
+
+  List<WorkflowExecutionInfo> listWorkflows(WorkflowState state, Optional<String> workflowId);
+
+  void close();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'retryState'
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+
+    WorkflowData(
+        Optional<RetryState> retryState,
+        int backoffStartIntervalInSeconds,
+        String cronSchedule,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'continuedExecutionRunId'
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+        byte[] lastCompletionResult,
+        String originalExecutionRunId,
+        Optional<String> continuedExecutionRunId) {
+      this.retryState = retryState;
+      this.backoffStartIntervalInSeconds = backoffStartIntervalInSeconds;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'retryState'
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+
+  static final class WorkflowData {
+    Optional<RetryState> retryState = Optional.empty();
+    int backoffStartIntervalInSeconds;
+    String cronSchedule;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'continuedExecutionRunId'
+in `src/main/java/com/uber/cadence/internal/testservice/StateMachines.java`
+#### Snippet
+```java
+    byte[] lastCompletionResult;
+    String originalExecutionRunId;
+    Optional<String> continuedExecutionRunId;
+
+    WorkflowData(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
+#### Snippet
+```java
+
+  private static byte[] getResultFromCloseEvent(
+      WorkflowExecution workflowExecution, Optional<String> workflowType, HistoryEvent closeEvent) {
+    if (closeEvent == null) {
+      throw new IllegalStateException("Workflow is still running");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
+#### Snippet
+```java
+      String domain,
+      WorkflowExecution workflowExecution,
+      Optional<String> workflowType,
+      long timeout,
+      TimeUnit unit)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
+#### Snippet
+```java
+      String domain,
+      WorkflowExecution workflowExecution,
+      Optional<String> workflowType,
+      long timeout,
+      TimeUnit unit) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/client/WorkflowClientInterceptor.java`
+#### Snippet
+```java
+
+  WorkflowStub newUntypedWorkflowStub(
+      WorkflowExecution execution, Optional<String> workflowType, WorkflowStub next);
+
+  ActivityCompletionClient newActivityCompletionClient(ActivityCompletionClient next);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'lastDetails'
+in `src/main/java/com/uber/cadence/internal/sync/ActivityExecutionContextImpl.java`
+#### Snippet
+```java
+  private boolean doNotCompleteOnReturn;
+  private final long heartbeatIntervalMillis;
+  private Optional<Object> lastDetails;
+  private boolean hasOutstandingHeartbeat;
+  private final ScheduledExecutorService heartbeatExecutor;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/workflow/WorkflowInterceptor.java`
+#### Snippet
+```java
+
+  void continueAsNew(
+      Optional<String> workflowType, Optional<ContinueAsNewOptions> options, Object[] args);
+
+  void registerQuery(String queryType, Type[] argTypes, Functions.Func1<Object[], Object> callback);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'options'
+in `src/main/java/com/uber/cadence/workflow/WorkflowInterceptor.java`
+#### Snippet
+```java
+
+  void continueAsNew(
+      Optional<String> workflowType, Optional<ContinueAsNewOptions> options, Object[] args);
+
+  void registerQuery(String queryType, Type[] argTypes, Functions.Func1<Object[], Object> callback);
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'workflowType'
 in `src/main/java/com/uber/cadence/client/WorkflowAlreadyCompletedException.java`
 #### Snippet
@@ -4558,14 +4558,14 @@ in `src/main/java/com/uber/cadence/client/WorkflowAlreadyCompletedException.java
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/client/WorkflowFailureException.java`
+in `src/main/java/com/uber/cadence/client/WorkflowServiceException.java`
 #### Snippet
 ```java
-  public WorkflowFailureException(
-      WorkflowExecution execution,
-      Optional<String> workflowType,
-      long decisionTaskCompletedEventId,
-      Throwable failure) {
+
+  public WorkflowServiceException(
+      WorkflowExecution execution, Optional<String> workflowType, Throwable failure) {
+    super(null, execution, workflowType, CheckedExceptionWrapper.unwrap(failure));
+  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4582,14 +4582,14 @@ in `src/main/java/com/uber/cadence/client/WorkflowFailureException.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/client/WorkflowServiceException.java`
+in `src/main/java/com/uber/cadence/client/WorkflowFailureException.java`
 #### Snippet
 ```java
-
-  public WorkflowServiceException(
-      WorkflowExecution execution, Optional<String> workflowType, Throwable failure) {
-    super(null, execution, workflowType, CheckedExceptionWrapper.unwrap(failure));
-  }
+  public WorkflowFailureException(
+      WorkflowExecution execution,
+      Optional<String> workflowType,
+      long decisionTaskCompletedEventId,
+      Throwable failure) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -4641,6 +4641,18 @@ in `src/main/java/com/uber/cadence/client/WorkflowClient.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'workflowType'
+in `src/main/java/com/uber/cadence/client/WorkflowClient.java`
+#### Snippet
+```java
+   * @return Stub that can be used to start workflow and later to signal or query it.
+   */
+  WorkflowStub newUntypedWorkflowStub(WorkflowExecution execution, Optional<String> workflowType);
+
+  /**
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'runId'
 in `src/main/java/com/uber/cadence/client/WorkflowClient.java`
 #### Snippet
@@ -4660,18 +4672,6 @@ in `src/main/java/com/uber/cadence/client/WorkflowClient.java`
    */
   WorkflowStub newUntypedWorkflowStub(
       String workflowId, Optional<String> runId, Optional<String> workflowType);
-
-  /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'workflowType'
-in `src/main/java/com/uber/cadence/client/WorkflowClient.java`
-#### Snippet
-```java
-   * @return Stub that can be used to start workflow and later to signal or query it.
-   */
-  WorkflowStub newUntypedWorkflowStub(WorkflowExecution execution, Optional<String> workflowType);
 
   /**
 ```
@@ -4768,11 +4768,11 @@ in `src/main/java/com/uber/cadence/converter/CustomThrowableTypeAdapter.java`
 in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
 #### Snippet
 ```java
-          // Thus indenting the pretty printed JSON through regexp :(.
-          String replacement = "\n" + indentation + INDENTATION;
-          details = details.replaceAll("\\n|\\\\n", replacement);
-          result.append(details);
-          continue;
+        String value = entry.getValue().getAsString();
+        String replacement = "\n" + stackIndentation;
+        String fixed = value.replaceAll("\\n", replacement);
+        entry.setValue(new JsonPrimitive(fixed));
+        continue;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -4780,11 +4780,11 @@ in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
 in `src/main/java/com/uber/cadence/internal/common/WorkflowExecutionUtils.java`
 #### Snippet
 ```java
-        String value = entry.getValue().getAsString();
-        String replacement = "\n" + stackIndentation;
-        String fixed = value.replaceAll("\\n", replacement);
-        entry.setValue(new JsonPrimitive(fixed));
-        continue;
+          // Thus indenting the pretty printed JSON through regexp :(.
+          String replacement = "\n" + indentation + INDENTATION;
+          details = details.replaceAll("\\n|\\\\n", replacement);
+          result.append(details);
+          continue;
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -4798,6 +4798,18 @@ in `src/main/java/com/uber/cadence/internal/metrics/NoopScope.java`
   public Histogram histogram(String name, com.uber.m3.tally.Buckets buckets) {
     return noopHistogram;
   }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.uber.cadence.common` is unnecessary and can be removed
+in `src/main/java/com/uber/cadence/common/MethodRetry.java`
+#### Snippet
+```java
+ * activity or workflow interface methods. For workflows currently used only for child workflow
+ * retries. Not required. When not used either retries don't happen or they are configured through
+ * correspondent options. If {@link com.uber.cadence.common.RetryOptions} are present on {@link
+ * ActivityOptions} or {@link com.uber.cadence.workflow.ChildWorkflowOptions} the fields that are
+ * not default take precedence over parameters of this annotation.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4822,18 +4834,6 @@ in `src/main/java/com/uber/cadence/common/MethodRetry.java`
    * com.uber.cadence.common.RetryOptions.Builder#setExpiration(Duration)}.
    */
   long expirationSeconds() default 0;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.uber.cadence.common` is unnecessary and can be removed
-in `src/main/java/com/uber/cadence/common/MethodRetry.java`
-#### Snippet
-```java
- * activity or workflow interface methods. For workflows currently used only for child workflow
- * retries. Not required. When not used either retries don't happen or they are configured through
- * correspondent options. If {@link com.uber.cadence.common.RetryOptions} are present on {@link
- * ActivityOptions} or {@link com.uber.cadence.workflow.ChildWorkflowOptions} the fields that are
- * not default take precedence over parameters of this annotation.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4868,8 +4868,8 @@ in `src/main/java/com/uber/cadence/reporter/CadenceClientStatsReporter.java`
       String name,
       Map<String, String> tags,
       com.uber.m3.tally.Buckets buckets,
-      Duration bucketLowerBound,
-      Duration bucketUpperBound,
+      double bucketLowerBound,
+      double bucketUpperBound,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4880,8 +4880,8 @@ in `src/main/java/com/uber/cadence/reporter/CadenceClientStatsReporter.java`
       String name,
       Map<String, String> tags,
       com.uber.m3.tally.Buckets buckets,
-      double bucketLowerBound,
-      double bucketUpperBound,
+      Duration bucketLowerBound,
+      Duration bucketUpperBound,
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4973,11 +4973,11 @@ Qualifier `org.apache.thrift` is unnecessary and can be removed
 in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 #### Snippet
 ```java
-    try {
-      blob.setData(serializer.serialize(history));
-    } catch (org.apache.thrift.TException err) {
-      throw new RuntimeException("Serialize history to blob data failed", err);
-    }
+          return null;
+        }
+      } catch (org.apache.thrift.TException err) {
+        throw new TException("Deserialize blob data to history failed with unknown error");
+      }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -4985,11 +4985,11 @@ Qualifier `org.apache.thrift` is unnecessary and can be removed
 in `src/main/java/com/uber/cadence/internal/common/InternalUtils.java`
 #### Snippet
 ```java
-          return null;
-        }
-      } catch (org.apache.thrift.TException err) {
-        throw new TException("Deserialize blob data to history failed with unknown error");
-      }
+    try {
+      blob.setData(serializer.serialize(history));
+    } catch (org.apache.thrift.TException err) {
+      throw new RuntimeException("Serialize history to blob data failed", err);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5077,18 +5077,6 @@ in `src/main/java/com/uber/cadence/internal/replay/DecisionContext.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.thrift` is unnecessary and can be removed
-in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
-#### Snippet
-```java
-  public void GetTaskListsByDomain(
-      GetTaskListsByDomainRequest request, AsyncMethodCallback resultHandler)
-      throws org.apache.thrift.TException {
-    throw new UnsupportedOperationException("not implemented");
-  }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `com.uber.cadence.workflow` is unnecessary and can be removed
 in `src/main/java/com/uber/cadence/workflow/Workflow.java`
 #### Snippet
@@ -5110,6 +5098,18 @@ in `src/main/java/com/uber/cadence/workflow/Workflow.java`
    *     failed with {@link java.util.concurrent.CancellationException} if enclosing scope is
    *     cancelled.
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.thrift` is unnecessary and can be removed
+in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
+#### Snippet
+```java
+  public void GetTaskListsByDomain(
+      GetTaskListsByDomainRequest request, AsyncMethodCallback resultHandler)
+      throws org.apache.thrift.TException {
+    throw new UnsupportedOperationException("not implemented");
+  }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5229,9 +5229,9 @@ Caught exception `e` is immediately rethrown
 in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
 #### Snippet
 ```java
+    } catch (InternalServiceError
         | EntityNotExistsError
-        | WorkflowExecutionAlreadyCompletedError
-        | BadRequestError e) {
+        | WorkflowExecutionAlreadyCompletedError e) {
       throw e;
     } catch (Exception e) {
 ```
@@ -5241,9 +5241,9 @@ Caught exception `e` is immediately rethrown
 in `src/main/java/com/uber/cadence/internal/testservice/TestWorkflowMutableStateImpl.java`
 #### Snippet
 ```java
-    } catch (InternalServiceError
         | EntityNotExistsError
-        | WorkflowExecutionAlreadyCompletedError e) {
+        | WorkflowExecutionAlreadyCompletedError
+        | BadRequestError e) {
       throw e;
     } catch (Exception e) {
 ```
@@ -5262,18 +5262,6 @@ in `src/main/java/com/uber/cadence/internal/metrics/ClientVersionEmitter.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `o`
-in `src/main/java/com/uber/cadence/common/RetryOptions.java`
-#### Snippet
-```java
-    }
-    if (o == null) {
-      o = new RetryOptions.Builder().build();
-    }
-    Duration initial = merge(r.initialIntervalSeconds(), o.getInitialInterval());
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `e`
 in `src/main/java/com/uber/cadence/common/RetryOptions.java`
 #### Snippet
@@ -5286,6 +5274,18 @@ in `src/main/java/com/uber/cadence/common/RetryOptions.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `o`
+in `src/main/java/com/uber/cadence/common/RetryOptions.java`
+#### Snippet
+```java
+    }
+    if (o == null) {
+      o = new RetryOptions.Builder().build();
+    }
+    Duration initial = merge(r.initialIntervalSeconds(), o.getInitialInterval());
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `maxWaitAllowed`
 in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
 #### Snippet
@@ -5295,6 +5295,18 @@ in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
       maxWaitAllowed = maxWaitAllowed.minus(Duration.ofMillis(currTime - startTime));
       boolean applied =
           laTaskPoller.apply(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `failure`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+  private <R> R mapToWorkflowFailureException(
+      Exception failure, @SuppressWarnings("unused") Class<R> returnType) {
+    failure = CheckedExceptionWrapper.unwrap(failure);
+    Class<Throwable> detailsClass;
+    if (failure instanceof WorkflowExecutionFailedException) {
 ```
 
 ### AssignmentToMethodParameter
@@ -5319,18 +5331,6 @@ in `src/main/java/com/uber/cadence/worker/Worker.java`
     options = MoreObjects.firstNonNull(options, WorkerOptions.defaultInstance());
     this.options = options;
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `failure`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-  private <R> R mapToWorkflowFailureException(
-      Exception failure, @SuppressWarnings("unused") Class<R> returnType) {
-    failure = CheckedExceptionWrapper.unwrap(failure);
-    Class<Throwable> detailsClass;
-    if (failure instanceof WorkflowExecutionFailedException) {
 ```
 
 ### AssignmentToMethodParameter
@@ -5506,30 +5506,6 @@ Assignment to method parameter `timeoutInMillis`
 in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
 #### Snippet
 ```java
-
-    startRequest.setRequestId(UUID.randomUUID().toString());
-    timeoutInMillis = validateAndUpdateTimeout(timeoutInMillis, options.getRpcTimeoutMillis());
-    ThriftRequest<WorkflowService.StartWorkflowExecution_args> request =
-        buildThriftRequest(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `timeoutInMillis`
-in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
-#### Snippet
-```java
-      Long timeoutInMillis) {
-
-    timeoutInMillis = validateAndUpdateTimeout(timeoutInMillis, options.getRpcTimeoutMillis());
-    ThriftRequest<WorkflowService.SignalWorkflowExecution_args> request =
-        buildThriftRequest(
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `timeoutInMillis`
-in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
-#### Snippet
-```java
   private Long validateAndUpdateTimeout(Long timeoutInMillis, Long defaultTimeoutInMillis) {
     if (timeoutInMillis == null || timeoutInMillis <= 0 || timeoutInMillis == Long.MAX_VALUE) {
       timeoutInMillis = defaultTimeoutInMillis;
@@ -5547,6 +5523,30 @@ in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
       timeoutInMillis = Math.min(timeoutInMillis, defaultTimeoutInMillis);
     }
     return timeoutInMillis;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeoutInMillis`
+in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
+#### Snippet
+```java
+
+    startRequest.setRequestId(UUID.randomUUID().toString());
+    timeoutInMillis = validateAndUpdateTimeout(timeoutInMillis, options.getRpcTimeoutMillis());
+    ThriftRequest<WorkflowService.StartWorkflowExecution_args> request =
+        buildThriftRequest(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `timeoutInMillis`
+in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
+#### Snippet
+```java
+      Long timeoutInMillis) {
+
+    timeoutInMillis = validateAndUpdateTimeout(timeoutInMillis, options.getRpcTimeoutMillis());
+    ThriftRequest<WorkflowService.SignalWorkflowExecution_args> request =
+        buildThriftRequest(
 ```
 
 ### AssignmentToMethodParameter
@@ -5612,14 +5612,26 @@ in `src/main/java/com/uber/cadence/internal/replay/ChildWorkflowDecisionStateMac
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/replay/ActivityDecisionContext.java`
+in `src/main/java/com/uber/cadence/common/RetryOptions.java`
 #### Snippet
 ```java
-  private Header toHeaderThrift(Map<String, byte[]> headers) {
-    if (headers == null || headers.isEmpty()) {
-      return null;
+      return o;
     }
-    Map<String, ByteBuffer> fields = new HashMap<>();
+    return aSeconds == 0 ? null : Duration.ofSeconds(aSeconds);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/common/RetryOptions.java`
+#### Snippet
+```java
+      return o.toArray(result);
+    }
+    return a.length == 0 ? null : a;
+  }
+
 ```
 
 ### ReturnNull
@@ -5648,30 +5660,6 @@ in `src/main/java/com/uber/cadence/common/RetryOptions.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/common/RetryOptions.java`
-#### Snippet
-```java
-      return o;
-    }
-    return aSeconds == 0 ? null : Duration.ofSeconds(aSeconds);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/common/RetryOptions.java`
-#### Snippet
-```java
-      return o.toArray(result);
-    }
-    return a.length == 0 ? null : a;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/cadence/internal/replay/ActivityDecisionStateMachine.java`
 #### Snippet
 ```java
@@ -5684,14 +5672,14 @@ in `src/main/java/com/uber/cadence/internal/replay/ActivityDecisionStateMachine.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
+in `src/main/java/com/uber/cadence/internal/replay/ActivityDecisionContext.java`
 #### Snippet
 ```java
-    if (delaySeconds == 0) {
-      callback.accept(null);
+  private Header toHeaderThrift(Map<String, byte[]> headers) {
+    if (headers == null || headers.isEmpty()) {
       return null;
     }
-    long firingTime = currentTimeMillis() + TimeUnit.SECONDS.toMillis(delaySeconds);
+    Map<String, ByteBuffer> fields = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -5708,62 +5696,14 @@ in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowInternal.java`
+in `src/main/java/com/uber/cadence/internal/replay/ClockDecisionContext.java`
 #### Snippet
 ```java
-    if (AsyncInternal.isAsync()) {
-      AsyncInternal.setAsyncResult(result);
-      return null; // ignored
-    }
-    return result.get();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/Helpers.java`
-#### Snippet
-```java
-  static byte[] byteStringToArray(ByteString t) {
-    if (t == null || t.size() == 0) {
+    if (delaySeconds == 0) {
+      callback.accept(null);
       return null;
     }
-    return t.toByteArray();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/workflow/WorkflowLocal.java`
-#### Snippet
-```java
-
-  public WorkflowLocal() {
-    this.supplier = () -> null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-      Map<String, Object> map, DataConverter dataConverter) {
-    if (map == null) {
-      return null;
-    }
-    Map<String, byte[]> result = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
-#### Snippet
-```java
-              }
-              if (r == null) {
-                return null;
-              }
-              return dataConverter.fromData(r, resultClass, resultType);
+    long firingTime = currentTimeMillis() + TimeUnit.SECONDS.toMillis(delaySeconds);
 ```
 
 ### ReturnNull
@@ -5792,11 +5732,59 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/workflow/WorkflowThreadLocal.java`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+              }
+              if (r == null) {
+                return null;
+              }
+              return dataConverter.fromData(r, resultClass, resultType);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowStubImpl.java`
+#### Snippet
+```java
+      Map<String, Object> map, DataConverter dataConverter) {
+    if (map == null) {
+      return null;
+    }
+    Map<String, byte[]> result = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/Helpers.java`
+#### Snippet
+```java
+  static byte[] byteStringToArray(ByteString t) {
+    if (t == null || t.size() == 0) {
+      return null;
+    }
+    return t.toByteArray();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowInternal.java`
+#### Snippet
+```java
+    if (AsyncInternal.isAsync()) {
+      AsyncInternal.setAsyncResult(result);
+      return null; // ignored
+    }
+    return result.get();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/workflow/WorkflowLocal.java`
 #### Snippet
 ```java
 
-  public WorkflowThreadLocal() {
+  public WorkflowLocal() {
     this.supplier = () -> null;
   }
 
@@ -5812,6 +5800,18 @@ in `src/main/java/com/uber/cadence/internal/replay/SignalDecisionStateMachine.ja
         return null;
     }
   }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/workflow/WorkflowThreadLocal.java`
+#### Snippet
+```java
+
+  public WorkflowThreadLocal() {
+    this.supplier = () -> null;
+  }
+
 ```
 
 ### ReturnNull
@@ -5843,11 +5843,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static Memo memo(com.uber.cadence.api.v1.Memo t) {
-    if (t == null || t == com.uber.cadence.api.v1.Memo.getDefaultInstance()) {
+  static String workflowId(com.uber.cadence.api.v1.WorkflowExecution t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
       return null;
     }
-    Memo res = new Memo();
+    return t.getWorkflowId();
 ```
 
 ### ReturnNull
@@ -5855,11 +5855,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static BadBinaries badBinaries(com.uber.cadence.api.v1.BadBinaries t) {
-    if (t == null || t == com.uber.cadence.api.v1.BadBinaries.getDefaultInstance()) {
+        || t.getAllFields().size() == 0
+        || t == com.uber.cadence.api.v1.SearchAttributes.getDefaultInstance()) {
       return null;
     }
-    BadBinaries badBinaries = new BadBinaries();
+    SearchAttributes res = new SearchAttributes();
 ```
 
 ### ReturnNull
@@ -5867,11 +5867,35 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static DataBlob dataBlob(com.uber.cadence.api.v1.DataBlob t) {
-    if (t == null || t == com.uber.cadence.api.v1.DataBlob.getDefaultInstance()) {
+  static QueryRejected queryRejected(com.uber.cadence.api.v1.QueryRejected t) {
+    if (t == null || t == com.uber.cadence.api.v1.QueryRejected.getDefaultInstance()) {
       return null;
     }
-    DataBlob dataBlob = new DataBlob();
+    QueryRejected res = new QueryRejected();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static List<DataBlob> dataBlobArray(List<com.uber.cadence.api.v1.DataBlob> t) {
+    if (t == null || t.size() == 0) {
+      return null;
+    }
+    List<DataBlob> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static DescribeDomainResponse describeDomainResponseDomain(com.uber.cadence.api.v1.Domain t) {
+    if (t == null || t == com.uber.cadence.api.v1.Domain.getDefaultInstance()) {
+      return null;
+    }
+    DescribeDomainResponse res = new DescribeDomainResponse();
 ```
 
 ### ReturnNull
@@ -5891,11 +5915,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static String parentDomainName(com.uber.cadence.api.v1.ParentExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
+    if (t == null
+        || t == com.uber.cadence.api.v1.ClusterReplicationConfiguration.getDefaultInstance()) {
       return null;
     }
-    return t.getDomainName();
+    ClusterReplicationConfiguration res = new ClusterReplicationConfiguration();
 ```
 
 ### ReturnNull
@@ -5903,23 +5927,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static byte[] payload(com.uber.cadence.api.v1.Payload t) {
-    if (t == null || t == com.uber.cadence.api.v1.Payload.getDefaultInstance()) {
-      return null;
-    }
-    if (t.getData() == null || t.getData().size() == 0) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      List<com.uber.cadence.api.v1.Domain> t) {
+  static Map<String, ByteBuffer> payloadMap(Map<String, com.uber.cadence.api.v1.Payload> t) {
     if (t == null) {
       return null;
     }
-    List<DescribeDomainResponse> v = new ArrayList<>();
+    Map<String, ByteBuffer> v = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -5927,11 +5939,35 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static String parentDomainId(com.uber.cadence.api.v1.ParentExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
+      com.uber.cadence.api.v1.PendingChildExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.PendingChildExecutionInfo.getDefaultInstance()) {
       return null;
     }
-    return t.getDomainId();
+    PendingChildExecutionInfo res = new PendingChildExecutionInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static TaskList taskList(com.uber.cadence.api.v1.TaskList t) {
+    if (t == null || t == com.uber.cadence.api.v1.TaskList.getDefaultInstance()) {
+      return null;
+    }
+    TaskList taskList = new TaskList();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static BadBinaries badBinaries(com.uber.cadence.api.v1.BadBinaries t) {
+    if (t == null || t == com.uber.cadence.api.v1.BadBinaries.getDefaultInstance()) {
+      return null;
+    }
+    BadBinaries badBinaries = new BadBinaries();
 ```
 
 ### ReturnNull
@@ -5951,11 +5987,107 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-      Map<String, com.uber.cadence.api.v1.WorkflowQuery> t) {
+  static WorkflowQuery workflowQuery(com.uber.cadence.api.v1.WorkflowQuery t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowQuery.getDefaultInstance()) {
+      return null;
+    }
+    WorkflowQuery res = new WorkflowQuery();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static WorkflowExecution workflowExecution(com.uber.cadence.api.v1.WorkflowExecution t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecution we = new WorkflowExecution();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static List<ResetPointInfo> resetPointInfoArray(List<com.uber.cadence.api.v1.ResetPointInfo> t) {
     if (t == null) {
       return null;
     }
-    Map<String, WorkflowQuery> v = new HashMap<>();
+    List<ResetPointInfo> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      List<com.uber.cadence.api.v1.Domain> t) {
+    if (t == null) {
+      return null;
+    }
+    List<DescribeDomainResponse> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static RetryPolicy retryPolicy(com.uber.cadence.api.v1.RetryPolicy t) {
+    if (t == null || t == com.uber.cadence.api.v1.RetryPolicy.getDefaultInstance()) {
+      return null;
+    }
+    RetryPolicy res = new RetryPolicy();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static String parentDomainId(com.uber.cadence.api.v1.ParentExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
+      return null;
+    }
+    return t.getDomainId();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.SupportedClientVersions t) {
+    if (t == null || t == com.uber.cadence.api.v1.SupportedClientVersions.getDefaultInstance()) {
+      return null;
+    }
+    SupportedClientVersions res = new SupportedClientVersions();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static String runId(com.uber.cadence.api.v1.WorkflowExecution t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
+      return null;
+    }
+    return t.getRunId();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static String parentDomainName(com.uber.cadence.api.v1.ParentExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
+      return null;
+    }
+    return t.getDomainName();
 ```
 
 ### ReturnNull
@@ -5975,11 +6107,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static ResetPointInfo resetPointInfo(com.uber.cadence.api.v1.ResetPointInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ResetPointInfo.getDefaultInstance()) {
+  static TaskListStatus taskListStatus(com.uber.cadence.api.v1.TaskListStatus t) {
+    if (t == null || t == com.uber.cadence.api.v1.TaskListStatus.getDefaultInstance()) {
       return null;
     }
-    ResetPointInfo res = new ResetPointInfo();
+    TaskListStatus res = new TaskListStatus();
 ```
 
 ### ReturnNull
@@ -5987,11 +6119,23 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-      Map<String, com.uber.cadence.api.v1.IndexedValueType> t) {
+      com.uber.cadence.api.v1.ActivityLocalDispatchInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ActivityLocalDispatchInfo.getDefaultInstance()) {
+      return null;
+    }
+    ActivityLocalDispatchInfo res = new ActivityLocalDispatchInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      Map<String, com.uber.cadence.api.v1.BadBinaryInfo> t) {
     if (t == null) {
       return null;
     }
-    Map<String, IndexedValueType> v = new HashMap<>();
+    Map<String, BadBinaryInfo> v = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -5999,35 +6143,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static PendingDecisionInfo pendingDecisionInfo(com.uber.cadence.api.v1.PendingDecisionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.PendingDecisionInfo.getDefaultInstance()) {
+  static TaskIDBlock taskIdBlock(com.uber.cadence.api.v1.TaskIDBlock t) {
+    if (t == null || t == com.uber.cadence.api.v1.TaskIDBlock.getDefaultInstance()) {
       return null;
     }
-    PendingDecisionInfo res = new PendingDecisionInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static PollerInfo pollerInfo(com.uber.cadence.api.v1.PollerInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.PollerInfo.getDefaultInstance()) {
-      return null;
-    }
-    PollerInfo res = new PollerInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static ActivityType activityType(com.uber.cadence.api.v1.ActivityType t) {
-    if (t == null || t == com.uber.cadence.api.v1.ActivityType.getDefaultInstance()) {
-      return null;
-    }
-    ActivityType activityType = new ActivityType();
+    TaskIDBlock res = new TaskIDBlock();
 ```
 
 ### ReturnNull
@@ -6059,35 +6179,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static WorkflowExecution parentWorkflowExecution(com.uber.cadence.api.v1.ParentExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
-      return null;
-    }
-    return workflowExecution(t.getWorkflowExecution());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-        || t.getAllFields().size() == 0
-        || t == com.uber.cadence.api.v1.SearchAttributes.getDefaultInstance()) {
-      return null;
-    }
-    SearchAttributes res = new SearchAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      List<com.uber.cadence.api.v1.PendingChildExecutionInfo> t) {
+      Map<String, com.uber.cadence.api.v1.WorkflowQuery> t) {
     if (t == null) {
       return null;
     }
-    List<PendingChildExecutionInfo> v = new ArrayList<>();
+    Map<String, WorkflowQuery> v = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -6095,11 +6191,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.ActivityLocalDispatchInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ActivityLocalDispatchInfo.getDefaultInstance()) {
+  static PollerInfo pollerInfo(com.uber.cadence.api.v1.PollerInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.PollerInfo.getDefaultInstance()) {
       return null;
     }
-    ActivityLocalDispatchInfo res = new ActivityLocalDispatchInfo();
+    PollerInfo res = new PollerInfo();
 ```
 
 ### ReturnNull
@@ -6107,311 +6203,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static TaskIDBlock taskIdBlock(com.uber.cadence.api.v1.TaskIDBlock t) {
-    if (t == null || t == com.uber.cadence.api.v1.TaskIDBlock.getDefaultInstance()) {
+  static Memo memo(com.uber.cadence.api.v1.Memo t) {
+    if (t == null || t == com.uber.cadence.api.v1.Memo.getDefaultInstance()) {
       return null;
     }
-    TaskIDBlock res = new TaskIDBlock();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      Map<String, com.uber.cadence.api.v1.ActivityLocalDispatchInfo> t) {
-    if (t == null) {
-      return null;
-    }
-    Map<String, ActivityLocalDispatchInfo> v = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static WorkflowExecution workflowExecution(com.uber.cadence.api.v1.WorkflowExecution t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecution we = new WorkflowExecution();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static byte[] failureDetails(com.uber.cadence.api.v1.Failure t) {
-    if (t == null || t == com.uber.cadence.api.v1.Failure.getDefaultInstance()) {
-      return null;
-    }
-    return byteStringToArray(t.getDetails());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ExternalExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.ExternalExecutionInfo.getDefaultInstance()) {
-      return null;
-    }
-    return workflowExecution(t.getWorkflowExecution());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static List<ResetPointInfo> resetPointInfoArray(List<com.uber.cadence.api.v1.ResetPointInfo> t) {
-    if (t == null) {
-      return null;
-    }
-    List<ResetPointInfo> v = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      List<com.uber.cadence.api.v1.TaskListPartitionMetadata> t) {
-    if (t == null) {
-      return null;
-    }
-    List<TaskListPartitionMetadata> v = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static WorkflowQuery workflowQuery(com.uber.cadence.api.v1.WorkflowQuery t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowQuery.getDefaultInstance()) {
-      return null;
-    }
-    WorkflowQuery res = new WorkflowQuery();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.SupportedClientVersions t) {
-    if (t == null || t == com.uber.cadence.api.v1.SupportedClientVersions.getDefaultInstance()) {
-      return null;
-    }
-    SupportedClientVersions res = new SupportedClientVersions();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      Map<String, com.uber.cadence.api.v1.BadBinaryInfo> t) {
-    if (t == null) {
-      return null;
-    }
-    Map<String, BadBinaryInfo> v = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static TaskList taskList(com.uber.cadence.api.v1.TaskList t) {
-    if (t == null || t == com.uber.cadence.api.v1.TaskList.getDefaultInstance()) {
-      return null;
-    }
-    TaskList taskList = new TaskList();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static RetryPolicy retryPolicy(com.uber.cadence.api.v1.RetryPolicy t) {
-    if (t == null || t == com.uber.cadence.api.v1.RetryPolicy.getDefaultInstance()) {
-      return null;
-    }
-    RetryPolicy res = new RetryPolicy();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static QueryRejected queryRejected(com.uber.cadence.api.v1.QueryRejected t) {
-    if (t == null || t == com.uber.cadence.api.v1.QueryRejected.getDefaultInstance()) {
-      return null;
-    }
-    QueryRejected res = new QueryRejected();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static DescribeDomainResponse describeDomainResponseDomain(com.uber.cadence.api.v1.Domain t) {
-    if (t == null || t == com.uber.cadence.api.v1.Domain.getDefaultInstance()) {
-      return null;
-    }
-    DescribeDomainResponse res = new DescribeDomainResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      List<com.uber.cadence.api.v1.ClusterReplicationConfiguration> t) {
-    if (t == null) {
-      return null;
-    }
-    List<ClusterReplicationConfiguration> v = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static BadBinaryInfo badBinaryInfo(com.uber.cadence.api.v1.BadBinaryInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.BadBinaryInfo.getDefaultInstance()) {
-      return null;
-    }
-    BadBinaryInfo res = new BadBinaryInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static Header header(com.uber.cadence.api.v1.Header t) {
-    if (t == null || t == com.uber.cadence.api.v1.Header.getDefaultInstance()) {
-      return null;
-    }
-    Header res = new Header();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.ClusterReplicationConfiguration.getDefaultInstance()) {
-      return null;
-    }
-    ClusterReplicationConfiguration res = new ClusterReplicationConfiguration();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static TaskListStatus taskListStatus(com.uber.cadence.api.v1.TaskListStatus t) {
-    if (t == null || t == com.uber.cadence.api.v1.TaskListStatus.getDefaultInstance()) {
-      return null;
-    }
-    TaskListStatus res = new TaskListStatus();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.WorkflowExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecutionInfo.getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionInfo res = new WorkflowExecutionInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static List<DataBlob> dataBlobArray(List<com.uber.cadence.api.v1.DataBlob> t) {
-    if (t == null || t.size() == 0) {
-      return null;
-    }
-    List<DataBlob> v = new ArrayList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.PendingChildExecutionInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.PendingChildExecutionInfo.getDefaultInstance()) {
-      return null;
-    }
-    PendingChildExecutionInfo res = new PendingChildExecutionInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static ResetPoints resetPoints(com.uber.cadence.api.v1.ResetPoints t) {
-    if (t == null || t == com.uber.cadence.api.v1.ResetPoints.getDefaultInstance()) {
-      return null;
-    }
-    ResetPoints res = new ResetPoints();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static WorkflowType workflowType(com.uber.cadence.api.v1.WorkflowType t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowType.getDefaultInstance()) {
-      return null;
-    }
-    WorkflowType wt = new WorkflowType();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static String runId(com.uber.cadence.api.v1.WorkflowExecution t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
-      return null;
-    }
-    return t.getRunId();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
-#### Snippet
-```java
-  static PendingActivityInfo pendingActivityInfo(com.uber.cadence.api.v1.PendingActivityInfo t) {
-    if (t == null || t == com.uber.cadence.api.v1.PendingActivityInfo.getDefaultInstance()) {
-      return null;
-    }
-    PendingActivityInfo res = new PendingActivityInfo();
+    Memo res = new Memo();
 ```
 
 ### ReturnNull
@@ -6431,11 +6227,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static String workflowId(com.uber.cadence.api.v1.WorkflowExecution t) {
-    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecution.getDefaultInstance()) {
+  static ResetPoints resetPoints(com.uber.cadence.api.v1.ResetPoints t) {
+    if (t == null || t == com.uber.cadence.api.v1.ResetPoints.getDefaultInstance()) {
       return null;
     }
-    return t.getWorkflowId();
+    ResetPoints res = new ResetPoints();
 ```
 
 ### ReturnNull
@@ -6443,11 +6239,263 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
 #### Snippet
 ```java
-  static Map<String, ByteBuffer> payloadMap(Map<String, com.uber.cadence.api.v1.Payload> t) {
+  static byte[] payload(com.uber.cadence.api.v1.Payload t) {
+    if (t == null || t == com.uber.cadence.api.v1.Payload.getDefaultInstance()) {
+      return null;
+    }
+    if (t.getData() == null || t.getData().size() == 0) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      Map<String, com.uber.cadence.api.v1.IndexedValueType> t) {
     if (t == null) {
       return null;
     }
-    Map<String, ByteBuffer> v = new HashMap<>();
+    Map<String, IndexedValueType> v = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static ActivityType activityType(com.uber.cadence.api.v1.ActivityType t) {
+    if (t == null || t == com.uber.cadence.api.v1.ActivityType.getDefaultInstance()) {
+      return null;
+    }
+    ActivityType activityType = new ActivityType();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static BadBinaryInfo badBinaryInfo(com.uber.cadence.api.v1.BadBinaryInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.BadBinaryInfo.getDefaultInstance()) {
+      return null;
+    }
+    BadBinaryInfo res = new BadBinaryInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      Map<String, com.uber.cadence.api.v1.ActivityLocalDispatchInfo> t) {
+    if (t == null) {
+      return null;
+    }
+    Map<String, ActivityLocalDispatchInfo> v = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.WorkflowExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowExecutionInfo.getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionInfo res = new WorkflowExecutionInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      List<com.uber.cadence.api.v1.TaskListPartitionMetadata> t) {
+    if (t == null) {
+      return null;
+    }
+    List<TaskListPartitionMetadata> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static PendingActivityInfo pendingActivityInfo(com.uber.cadence.api.v1.PendingActivityInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.PendingActivityInfo.getDefaultInstance()) {
+      return null;
+    }
+    PendingActivityInfo res = new PendingActivityInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      List<com.uber.cadence.api.v1.ClusterReplicationConfiguration> t) {
+    if (t == null) {
+      return null;
+    }
+    List<ClusterReplicationConfiguration> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static PendingDecisionInfo pendingDecisionInfo(com.uber.cadence.api.v1.PendingDecisionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.PendingDecisionInfo.getDefaultInstance()) {
+      return null;
+    }
+    PendingDecisionInfo res = new PendingDecisionInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.ExternalExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ExternalExecutionInfo.getDefaultInstance()) {
+      return null;
+    }
+    return workflowExecution(t.getWorkflowExecution());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+      List<com.uber.cadence.api.v1.PendingChildExecutionInfo> t) {
+    if (t == null) {
+      return null;
+    }
+    List<PendingChildExecutionInfo> v = new ArrayList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static Header header(com.uber.cadence.api.v1.Header t) {
+    if (t == null || t == com.uber.cadence.api.v1.Header.getDefaultInstance()) {
+      return null;
+    }
+    Header res = new Header();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static WorkflowExecution parentWorkflowExecution(com.uber.cadence.api.v1.ParentExecutionInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ParentExecutionInfo.getDefaultInstance()) {
+      return null;
+    }
+    return workflowExecution(t.getWorkflowExecution());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static DataBlob dataBlob(com.uber.cadence.api.v1.DataBlob t) {
+    if (t == null || t == com.uber.cadence.api.v1.DataBlob.getDefaultInstance()) {
+      return null;
+    }
+    DataBlob dataBlob = new DataBlob();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static WorkflowType workflowType(com.uber.cadence.api.v1.WorkflowType t) {
+    if (t == null || t == com.uber.cadence.api.v1.WorkflowType.getDefaultInstance()) {
+      return null;
+    }
+    WorkflowType wt = new WorkflowType();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static byte[] failureDetails(com.uber.cadence.api.v1.Failure t) {
+    if (t == null || t == com.uber.cadence.api.v1.Failure.getDefaultInstance()) {
+      return null;
+    }
+    return byteStringToArray(t.getDetails());
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/TypeMapper.java`
+#### Snippet
+```java
+  static ResetPointInfo resetPointInfo(com.uber.cadence.api.v1.ResetPointInfo t) {
+    if (t == null || t == com.uber.cadence.api.v1.ResetPointInfo.getDefaultInstance()) {
+      return null;
+    }
+    ResetPointInfo res = new ResetPointInfo();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/AllOfFuture.java`
+#### Snippet
+```java
+            }
+            if (impl.isCompleted()) {
+              return null;
+            }
+            if (e != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/AllOfFuture.java`
+#### Snippet
+```java
+              impl.complete(Arrays.asList(result));
+            }
+            return null;
+          });
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.StartChildWorkflowExecutionFailedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    StartChildWorkflowExecutionFailedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.ExternalWorkflowExecutionSignaledEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    ExternalWorkflowExecutionSignaledEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6468,6 +6516,18 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
+        || t == com.uber.cadence.api.v1.ActivityTaskCompletedEventAttributes.getDefaultInstance()) {
+      return null;
+    }
+    ActivityTaskCompletedEventAttributes res = new ActivityTaskCompletedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+    if (t == null
         || t == com.uber.cadence.api.v1.TimerCanceledEventAttributes.getDefaultInstance()) {
       return null;
     }
@@ -6479,11 +6539,35 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.StartChildWorkflowExecutionFailedEventAttributes
+  static HistoryEvent historyEvent(com.uber.cadence.api.v1.HistoryEvent e) {
+    if (e == null || e == com.uber.cadence.api.v1.HistoryEvent.getDefaultInstance()) {
+      return null;
+    }
+    HistoryEvent event = new HistoryEvent();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.SignalExternalWorkflowExecutionFailedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    StartChildWorkflowExecutionFailedEventAttributes res =
+    SignalExternalWorkflowExecutionFailedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionTimedOutEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    ChildWorkflowExecutionTimedOutEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6492,10 +6576,10 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
-        || t == com.uber.cadence.api.v1.DecisionTaskFailedEventAttributes.getDefaultInstance()) {
+        || t == com.uber.cadence.api.v1.ActivityTaskTimedOutEventAttributes.getDefaultInstance()) {
       return null;
     }
-    DecisionTaskFailedEventAttributes res = new DecisionTaskFailedEventAttributes();
+    ActivityTaskTimedOutEventAttributes res = new ActivityTaskTimedOutEventAttributes();
 ```
 
 ### ReturnNull
@@ -6503,11 +6587,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.WorkflowExecutionFailedEventAttributes
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionTerminatedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    WorkflowExecutionFailedEventAttributes res = new WorkflowExecutionFailedEventAttributes();
+    ChildWorkflowExecutionTerminatedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6528,10 +6612,22 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskTimedOutEventAttributes.getDefaultInstance()) {
+        || t == com.uber.cadence.api.v1.ActivityTaskStartedEventAttributes.getDefaultInstance()) {
       return null;
     }
-    ActivityTaskTimedOutEventAttributes res = new ActivityTaskTimedOutEventAttributes();
+    ActivityTaskStartedEventAttributes res = new ActivityTaskStartedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.StartChildWorkflowExecutionInitiatedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    StartChildWorkflowExecutionInitiatedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6540,10 +6636,10 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
-        || t == com.uber.cadence.api.v1.DecisionTaskStartedEventAttributes.getDefaultInstance()) {
+        || t == com.uber.cadence.api.v1.DecisionTaskFailedEventAttributes.getDefaultInstance()) {
       return null;
     }
-    DecisionTaskStartedEventAttributes res = new DecisionTaskStartedEventAttributes();
+    DecisionTaskFailedEventAttributes res = new DecisionTaskFailedEventAttributes();
 ```
 
 ### ReturnNull
@@ -6551,23 +6647,71 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-  static History history(com.uber.cadence.api.v1.History t) {
-    if (t == null || t == com.uber.cadence.api.v1.History.getDefaultInstance()) {
-      return null;
-    }
-    History history = new History();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionTerminatedEventAttributes
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionFailedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    WorkflowExecutionTerminatedEventAttributes res =
+    ChildWorkflowExecutionFailedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionFailedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionFailedEventAttributes res = new WorkflowExecutionFailedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionCanceledEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    ChildWorkflowExecutionCanceledEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.ActivityTaskCancelRequestedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    ActivityTaskCancelRequestedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+    if (t == null
+        || t == com.uber.cadence.api.v1.TimerStartedEventAttributes.getDefaultInstance()) {
+      return null;
+    }
+    TimerStartedEventAttributes res = new TimerStartedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+    if (t == null
+        || t == com.uber.cadence.api.v1.ActivityTaskScheduledEventAttributes.getDefaultInstance()) {
+      return null;
+    }
+    ActivityTaskScheduledEventAttributes res = new ActivityTaskScheduledEventAttributes();
 ```
 
 ### ReturnNull
@@ -6599,251 +6743,23 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
+    if (t == null
+        || t == com.uber.cadence.api.v1.DecisionTaskScheduledEventAttributes.getDefaultInstance()) {
+      return null;
+    }
+    DecisionTaskScheduledEventAttributes res = new DecisionTaskScheduledEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
             == com.uber.cadence.api.v1.WorkflowExecutionStartedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
     WorkflowExecutionStartedEventAttributes res = new WorkflowExecutionStartedEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.TimerStartedEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    TimerStartedEventAttributes res = new TimerStartedEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.DecisionTaskTimedOutEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    DecisionTaskTimedOutEventAttributes res = new DecisionTaskTimedOutEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionCanceledEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    ChildWorkflowExecutionCanceledEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.SignalExternalWorkflowExecutionFailedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    SignalExternalWorkflowExecutionFailedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ActivityTaskCancelRequestedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    ActivityTaskCancelRequestedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ExternalWorkflowExecutionCancelRequestedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    ExternalWorkflowExecutionCancelRequestedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskCompletedEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    ActivityTaskCompletedEventAttributes res = new ActivityTaskCompletedEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-                .RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    RequestCancelExternalWorkflowExecutionInitiatedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.RequestCancelActivityTaskFailedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    RequestCancelActivityTaskFailedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionStartedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    ChildWorkflowExecutionStartedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.TimerFiredEventAttributes t) {
-    if (t == null || t == com.uber.cadence.api.v1.TimerFiredEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    TimerFiredEventAttributes res = new TimerFiredEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionCanceledEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionCanceledEventAttributes res = new WorkflowExecutionCanceledEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskStartedEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    ActivityTaskStartedEventAttributes res = new ActivityTaskStartedEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionSignaledEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionSignaledEventAttributes res = new WorkflowExecutionSignaledEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionCancelRequestedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionCancelRequestedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionContinuedAsNewEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionContinuedAsNewEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ExternalWorkflowExecutionSignaledEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    ExternalWorkflowExecutionSignaledEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.StartChildWorkflowExecutionInitiatedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    StartChildWorkflowExecutionInitiatedEventAttributes res =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskScheduledEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    ActivityTaskScheduledEventAttributes res = new ActivityTaskScheduledEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.WorkflowExecutionCompletedEventAttributes
-                .getDefaultInstance()) {
-      return null;
-    }
-    WorkflowExecutionCompletedEventAttributes res = new WorkflowExecutionCompletedEventAttributes();
 ```
 
 ### ReturnNull
@@ -6864,10 +6780,10 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
-        || t == com.uber.cadence.api.v1.DecisionTaskScheduledEventAttributes.getDefaultInstance()) {
+        || t == com.uber.cadence.api.v1.ActivityTaskCanceledEventAttributes.getDefaultInstance()) {
       return null;
     }
-    DecisionTaskScheduledEventAttributes res = new DecisionTaskScheduledEventAttributes();
+    ActivityTaskCanceledEventAttributes res = new ActivityTaskCanceledEventAttributes();
 ```
 
 ### ReturnNull
@@ -6875,11 +6791,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionTimedOutEventAttributes
+            == com.uber.cadence.api.v1.ExternalWorkflowExecutionCancelRequestedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    ChildWorkflowExecutionTimedOutEventAttributes res =
+    ExternalWorkflowExecutionCancelRequestedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6887,35 +6803,35 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-    if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskFailedEventAttributes.getDefaultInstance()) {
-      return null;
-    }
-    ActivityTaskFailedEventAttributes res = new ActivityTaskFailedEventAttributes();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-  static HistoryEvent historyEvent(com.uber.cadence.api.v1.HistoryEvent e) {
-    if (e == null || e == com.uber.cadence.api.v1.HistoryEvent.getDefaultInstance()) {
-      return null;
-    }
-    HistoryEvent event = new HistoryEvent();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
-#### Snippet
-```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionFailedEventAttributes
+            == com.uber.cadence.api.v1.WorkflowExecutionCompletedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    ChildWorkflowExecutionFailedEventAttributes res =
+    WorkflowExecutionCompletedEventAttributes res = new WorkflowExecutionCompletedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.RequestCancelActivityTaskFailedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    RequestCancelActivityTaskFailedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionTerminatedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionTerminatedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6935,11 +6851,71 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.RequestCancelExternalWorkflowExecutionFailedEventAttributes
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionCompletedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    RequestCancelExternalWorkflowExecutionFailedEventAttributes res =
+    ChildWorkflowExecutionCompletedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+    if (t == null
+        || t == com.uber.cadence.api.v1.ActivityTaskFailedEventAttributes.getDefaultInstance()) {
+      return null;
+    }
+    ActivityTaskFailedEventAttributes res = new ActivityTaskFailedEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+                .RequestCancelExternalWorkflowExecutionInitiatedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    RequestCancelExternalWorkflowExecutionInitiatedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionSignaledEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionSignaledEventAttributes res = new WorkflowExecutionSignaledEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+  static History history(com.uber.cadence.api.v1.History t) {
+    if (t == null || t == com.uber.cadence.api.v1.History.getDefaultInstance()) {
+      return null;
+    }
+    History history = new History();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionCancelRequestedEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionCancelRequestedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6959,11 +6935,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionCompletedEventAttributes
-                .getDefaultInstance()) {
+      com.uber.cadence.api.v1.TimerFiredEventAttributes t) {
+    if (t == null || t == com.uber.cadence.api.v1.TimerFiredEventAttributes.getDefaultInstance()) {
       return null;
     }
-    ChildWorkflowExecutionCompletedEventAttributes res =
+    TimerFiredEventAttributes res = new TimerFiredEventAttributes();
 ```
 
 ### ReturnNull
@@ -6971,11 +6947,35 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            == com.uber.cadence.api.v1.ChildWorkflowExecutionTerminatedEventAttributes
+            == com.uber.cadence.api.v1.RequestCancelExternalWorkflowExecutionFailedEventAttributes
                 .getDefaultInstance()) {
       return null;
     }
-    ChildWorkflowExecutionTerminatedEventAttributes res =
+    RequestCancelExternalWorkflowExecutionFailedEventAttributes res =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionCanceledEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionCanceledEventAttributes res = new WorkflowExecutionCanceledEventAttributes();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
+#### Snippet
+```java
+            == com.uber.cadence.api.v1.WorkflowExecutionContinuedAsNewEventAttributes
+                .getDefaultInstance()) {
+      return null;
+    }
+    WorkflowExecutionContinuedAsNewEventAttributes res =
 ```
 
 ### ReturnNull
@@ -6984,94 +6984,34 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.j
 #### Snippet
 ```java
     if (t == null
-        || t == com.uber.cadence.api.v1.ActivityTaskCanceledEventAttributes.getDefaultInstance()) {
+        || t == com.uber.cadence.api.v1.DecisionTaskTimedOutEventAttributes.getDefaultInstance()) {
       return null;
     }
-    ActivityTaskCanceledEventAttributes res = new ActivityTaskCanceledEventAttributes();
+    DecisionTaskTimedOutEventAttributes res = new DecisionTaskTimedOutEventAttributes();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/AllOfFuture.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-            }
-            if (impl.isCompleted()) {
-              return null;
-            }
-            if (e != null) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/AllOfFuture.java`
-#### Snippet
-```java
-              impl.complete(Arrays.asList(result));
-            }
-            return null;
-          });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
-#### Snippet
-```java
-  static BadBinaryInfo badBinaryInfo(com.uber.cadence.BadBinaryInfo t) {
-    if (t == null) {
+    if (t == null
+        || t == com.uber.cadence.api.v1.DecisionTaskStartedEventAttributes.getDefaultInstance()) {
       return null;
     }
-    return BadBinaryInfo.newBuilder()
+    DecisionTaskStartedEventAttributes res = new DecisionTaskStartedEventAttributes();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/HistoryMapper.java`
 #### Snippet
 ```java
-  static StatusFilter statusFilter(com.uber.cadence.WorkflowExecutionCloseStatus t) {
-    if (t == null) {
+            == com.uber.cadence.api.v1.ChildWorkflowExecutionStartedEventAttributes
+                .getDefaultInstance()) {
       return null;
     }
-    return StatusFilter.newBuilder().setStatus(workflowExecutionCloseStatus(t)).build();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
-#### Snippet
-```java
-  static WorkflowQuery workflowQuery(com.uber.cadence.WorkflowQuery t) {
-    if (t == null) {
-      return null;
-    }
-    return WorkflowQuery.newBuilder()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
-#### Snippet
-```java
-  static RetryPolicy retryPolicy(com.uber.cadence.RetryPolicy t) {
-    if (t == null) {
-      return null;
-    }
-    RetryPolicy.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
-#### Snippet
-```java
-  static StartTimeFilter startTimeFilter(com.uber.cadence.StartTimeFilter t) {
-    if (t == null) {
-      return null;
-    }
-    return StartTimeFilter.newBuilder()
+    ChildWorkflowExecutionStartedEventAttributes res =
 ```
 
 ### ReturnNull
@@ -7103,11 +7043,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExternalImpl.java`
 #### Snippet
 ```java
-  private Memo toMemoThrift(Map<String, byte[]> memo) {
-    if (memo == null || memo.isEmpty()) {
+  private Header toHeaderThrift(Map<String, byte[]> headers) {
+    if (headers == null || headers.isEmpty()) {
       return null;
     }
-
+    Map<String, ByteBuffer> fields = new HashMap<>();
 ```
 
 ### ReturnNull
@@ -7127,47 +7067,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExternalImpl.java`
 #### Snippet
 ```java
-  private Header toHeaderThrift(Map<String, byte[]> headers) {
-    if (headers == null || headers.isEmpty()) {
-      return null;
-    }
-    Map<String, ByteBuffer> fields = new HashMap<>();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-            (reason) -> {
-              cancellationCallback.accept(new CancellationException(reason));
-              return null;
-            });
-    return callback.result;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  public <R> R getLastCompletionResult(Class<R> resultClass, Type resultType) {
-    if (lastCompletionResult == null || lastCompletionResult.length == 0) {
+  private Memo toMemoThrift(Map<String, byte[]> memo) {
+    if (memo == null || memo.isEmpty()) {
       return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-            (reason) -> {
-              cancellationCallback.accept(new CancellationException(reason));
-              return null;
-            });
-    return callback.result;
 ```
 
 ### ReturnNull
@@ -7187,7 +7091,31 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 #### Snippet
 ```java
-  private RuntimeException mapChildWorkflowException(Exception failure) {
+  public <R> R getLastCompletionResult(Class<R> resultClass, Type resultType) {
+    if (lastCompletionResult == null || lastCompletionResult.length == 0) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+    Promise<byte[]> binaryResult = executeActivityOnce(name, options, input);
+    if (returnClass == Void.TYPE) {
+      return binaryResult.thenApply((r) -> null);
+    }
+    return binaryResult.thenApply((r) -> converter.fromData(r, returnClass, returnType));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  private RuntimeException mapSignalWorkflowException(Exception failure) {
     if (failure == null) {
       return null;
     }
@@ -7211,6 +7139,18 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 #### Snippet
 ```java
+  private RuntimeException mapActivityException(Exception failure) {
+    if (failure == null) {
+      return null;
+    }
+    if (failure instanceof CancellationException) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
               timers.removeTimer(fireTime, timer);
               timer.completeExceptionally(new CancellationException(reason));
               return null;
@@ -7227,31 +7167,7 @@ in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
               cancellationCallback.accept(new CancellationException(reason));
               return null;
             });
-    return result;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-  private RuntimeException mapSignalWorkflowException(Exception failure) {
-    if (failure == null) {
-      return null;
-    }
-    if (failure instanceof CancellationException) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
-#### Snippet
-```java
-    Promise<byte[]> binaryResult = executeActivityOnce(name, options, input);
-    if (returnClass == Void.TYPE) {
-      return binaryResult.thenApply((r) -> null);
-    }
-    return binaryResult.thenApply((r) -> converter.fromData(r, returnClass, returnType));
+    return callback.result;
 ```
 
 ### ReturnNull
@@ -7271,11 +7187,95 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
 #### Snippet
 ```java
-  private RuntimeException mapActivityException(Exception failure) {
+            (reason) -> {
+              cancellationCallback.accept(new CancellationException(reason));
+              return null;
+            });
+    return result;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+            (reason) -> {
+              cancellationCallback.accept(new CancellationException(reason));
+              return null;
+            });
+    return callback.result;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/SyncDecisionContext.java`
+#### Snippet
+```java
+  private RuntimeException mapChildWorkflowException(Exception failure) {
     if (failure == null) {
       return null;
     }
     if (failure instanceof CancellationException) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+  static WorkflowQuery workflowQuery(com.uber.cadence.WorkflowQuery t) {
+    if (t == null) {
+      return null;
+    }
+    return WorkflowQuery.newBuilder()
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+  static RetryPolicy retryPolicy(com.uber.cadence.RetryPolicy t) {
+    if (t == null) {
+      return null;
+    }
+    RetryPolicy.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+  static BadBinaryInfo badBinaryInfo(com.uber.cadence.BadBinaryInfo t) {
+    if (t == null) {
+      return null;
+    }
+    return BadBinaryInfo.newBuilder()
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+  static StatusFilter statusFilter(com.uber.cadence.WorkflowExecutionCloseStatus t) {
+    if (t == null) {
+      return null;
+    }
+    return StatusFilter.newBuilder().setStatus(workflowExecutionCloseStatus(t)).build();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/TypeMapper.java`
+#### Snippet
+```java
+  static StartTimeFilter startTimeFilter(com.uber.cadence.StartTimeFilter t) {
+    if (t == null) {
+      return null;
+    }
+    return StartTimeFilter.newBuilder()
 ```
 
 ### ReturnNull
@@ -7295,11 +7295,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowInfoImpl.java`
 #### Snippet
 ```java
-  public String getParentRunId() {
+  public String getParentWorkflowId() {
     WorkflowExecution parentWorkflowExecution = context.getParentWorkflowExecution();
-    return parentWorkflowExecution == null ? null : parentWorkflowExecution.getRunId();
+    return parentWorkflowExecution == null ? null : parentWorkflowExecution.getWorkflowId();
   }
-}
+
 ```
 
 ### ReturnNull
@@ -7307,11 +7307,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowInfoImpl.java`
 #### Snippet
 ```java
-  public String getParentWorkflowId() {
+  public String getParentRunId() {
     WorkflowExecution parentWorkflowExecution = context.getParentWorkflowExecution();
-    return parentWorkflowExecution == null ? null : parentWorkflowExecution.getWorkflowId();
+    return parentWorkflowExecution == null ? null : parentWorkflowExecution.getRunId();
   }
-
+}
 ```
 
 ### ReturnNull
@@ -7328,18 +7328,6 @@ in `src/main/java/com/uber/cadence/internal/common/RpcRetryer.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/replay/ExternalWorkflowCancellationDecisionStateMachine.java`
-#### Snippet
-```java
-        return createRequestCancelExternalWorkflowExecutionDecision();
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/cadence/internal/replay/MarkerDecisionStateMachine.java`
 #### Snippet
 ```java
@@ -7348,6 +7336,18 @@ in `src/main/java/com/uber/cadence/internal/replay/MarkerDecisionStateMachine.ja
     return null;
   }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/replay/ExternalWorkflowCancellationDecisionStateMachine.java`
+#### Snippet
+```java
+        return createRequestCancelExternalWorkflowExecutionDecision();
+      default:
+        return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -7400,18 +7400,6 @@ in `src/main/java/com/uber/cadence/internal/common/LambdaUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/replay/ReplayDecider.java`
-#### Snippet
-```java
-  private Map<String, WorkflowQueryResult> getQueryResults(Map<String, WorkflowQuery> queries) {
-    if (queries == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/cadence/internal/common/OptionsUtils.java`
 #### Snippet
 ```java
@@ -7431,6 +7419,18 @@ in `src/main/java/com/uber/cadence/internal/common/OptionsUtils.java`
     }
     return aSeconds == 0 ? null : Duration.ofSeconds(aSeconds);
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/replay/ReplayDecider.java`
+#### Snippet
+```java
+  private Map<String, WorkflowQueryResult> getQueryResults(Map<String, WorkflowQuery> queries) {
+    if (queries == null) {
+      return null;
+    }
 
 ```
 
@@ -7548,118 +7548,22 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java
 #### Snippet
 ```java
     switch (t) {
+      case PENDING_DECISION_STATE_INVALID:
+        return null;
+      case PENDING_DECISION_STATE_SCHEDULED:
+        return PendingDecisionState.SCHEDULED;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
       case SIGNAL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID:
         return null;
       case SIGNAL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION:
         return SignalExternalWorkflowExecutionFailedCause.UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case CANCEL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID:
-        return null;
-      case CANCEL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION:
-        return CancelExternalWorkflowExecutionFailedCause.UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case WORKFLOW_EXECUTION_CLOSE_STATUS_INVALID:
-        return null;
-      case WORKFLOW_EXECUTION_CLOSE_STATUS_COMPLETED:
-        return WorkflowExecutionCloseStatus.COMPLETED;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case TIMEOUT_TYPE_INVALID:
-        return null;
-      case TIMEOUT_TYPE_START_TO_CLOSE:
-        return TimeoutType.START_TO_CLOSE;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case DOMAIN_STATUS_INVALID:
-        return null;
-      case DOMAIN_STATUS_REGISTERED:
-        return DomainStatus.REGISTERED;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case WORKFLOW_ID_REUSE_POLICY_INVALID:
-        return null;
-      case WORKFLOW_ID_REUSE_POLICY_ALLOW_DUPLICATE_FAILED_ONLY:
-        return WorkflowIdReusePolicy.AllowDuplicateFailedOnly;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case TASK_LIST_KIND_INVALID:
-        return null;
-      case TASK_LIST_KIND_NORMAL:
-        return TaskListKind.NORMAL;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case PENDING_ACTIVITY_STATE_INVALID:
-        return null;
-      case PENDING_ACTIVITY_STATE_SCHEDULED:
-        return PendingActivityState.SCHEDULED;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.QueryRejectCondition t) {
-    if (t == QUERY_REJECT_CONDITION_INVALID) {
-      return null;
-    }
-    switch (t) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
-#### Snippet
-```java
-    switch (t) {
-      case DECISION_TASK_FAILED_CAUSE_INVALID:
-        return null;
-      case DECISION_TASK_FAILED_CAUSE_UNHANDLED_DECISION:
-        return DecisionTaskFailedCause.UNHANDLED_DECISION;
 ```
 
 ### ReturnNull
@@ -7680,10 +7584,10 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java
 #### Snippet
 ```java
     switch (t) {
-      case CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID:
+      case CANCEL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID:
         return null;
-      case CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_WORKFLOW_ALREADY_RUNNING:
-        return ChildWorkflowExecutionFailedCause.WORKFLOW_ALREADY_RUNNING;
+      case CANCEL_EXTERNAL_WORKFLOW_EXECUTION_FAILED_CAUSE_UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION:
+        return CancelExternalWorkflowExecutionFailedCause.UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION;
 ```
 
 ### ReturnNull
@@ -7692,10 +7596,34 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java
 #### Snippet
 ```java
     switch (t) {
-      case PENDING_DECISION_STATE_INVALID:
+      case ARCHIVAL_STATUS_INVALID:
         return null;
-      case PENDING_DECISION_STATE_SCHEDULED:
-        return PendingDecisionState.SCHEDULED;
+      case ARCHIVAL_STATUS_DISABLED:
+        return ArchivalStatus.DISABLED;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case DECISION_TASK_FAILED_CAUSE_INVALID:
+        return null;
+      case DECISION_TASK_FAILED_CAUSE_UNHANDLED_DECISION:
+        return DecisionTaskFailedCause.UNHANDLED_DECISION;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case TASK_LIST_KIND_INVALID:
+        return null;
+      case TASK_LIST_KIND_NORMAL:
+        return TaskListKind.NORMAL;
 ```
 
 ### ReturnNull
@@ -7728,10 +7656,10 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java
 #### Snippet
 ```java
     switch (t) {
-      case PARENT_CLOSE_POLICY_INVALID:
+      case WORKFLOW_ID_REUSE_POLICY_INVALID:
         return null;
-      case PARENT_CLOSE_POLICY_ABANDON:
-        return ParentClosePolicy.ABANDON;
+      case WORKFLOW_ID_REUSE_POLICY_ALLOW_DUPLICATE_FAILED_ONLY:
+        return WorkflowIdReusePolicy.AllowDuplicateFailedOnly;
 ```
 
 ### ReturnNull
@@ -7740,10 +7668,82 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java
 #### Snippet
 ```java
     switch (t) {
-      case ARCHIVAL_STATUS_INVALID:
+      case DOMAIN_STATUS_INVALID:
         return null;
-      case ARCHIVAL_STATUS_DISABLED:
-        return ArchivalStatus.DISABLED;
+      case DOMAIN_STATUS_REGISTERED:
+        return DomainStatus.REGISTERED;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case TIMEOUT_TYPE_INVALID:
+        return null;
+      case TIMEOUT_TYPE_START_TO_CLOSE:
+        return TimeoutType.START_TO_CLOSE;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case WORKFLOW_EXECUTION_CLOSE_STATUS_INVALID:
+        return null;
+      case WORKFLOW_EXECUTION_CLOSE_STATUS_COMPLETED:
+        return WorkflowExecutionCloseStatus.COMPLETED;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.QueryRejectCondition t) {
+    if (t == QUERY_REJECT_CONDITION_INVALID) {
+      return null;
+    }
+    switch (t) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_INVALID:
+        return null;
+      case CHILD_WORKFLOW_EXECUTION_FAILED_CAUSE_WORKFLOW_ALREADY_RUNNING:
+        return ChildWorkflowExecutionFailedCause.WORKFLOW_ALREADY_RUNNING;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case PENDING_ACTIVITY_STATE_INVALID:
+        return null;
+      case PENDING_ACTIVITY_STATE_SCHEDULED:
+        return PendingActivityState.SCHEDULED;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/EnumMapper.java`
+#### Snippet
+```java
+    switch (t) {
+      case PARENT_CLOSE_POLICY_INVALID:
+        return null;
+      case PARENT_CLOSE_POLICY_ABANDON:
+        return ParentClosePolicy.ABANDON;
 ```
 
 ### ReturnNull
@@ -7760,14 +7760,38 @@ in `src/main/java/com/uber/cadence/internal/worker/ActivityPollTask.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/Helpers.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-  static ByteString arrayToByteString(byte[] t) {
+      com.uber.cadence.api.v1.RecordActivityTaskHeartbeatResponse t) {
     if (t == null) {
       return null;
     }
-    return ByteString.copyFrom(t);
+    RecordActivityTaskHeartbeatResponse res = new RecordActivityTaskHeartbeatResponse();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.GetWorkflowExecutionHistoryResponse t) {
+    if (t == null) {
+      return null;
+    }
+    GetWorkflowExecutionHistoryResponse getWorkflowExecutionHistoryResponse =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.ScanWorkflowExecutionsResponse t) {
+    if (t == null) {
+      return null;
+    }
+    ListWorkflowExecutionsResponse res = new ListWorkflowExecutionsResponse();
 ```
 
 ### ReturnNull
@@ -7780,90 +7804,6 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.
       return null;
     }
     StartWorkflowExecutionResponse startWorkflowExecutionResponse =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ResetWorkflowExecutionResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ResetWorkflowExecutionResponse res = new ResetWorkflowExecutionResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.RespondDecisionTaskCompletedResponse t) {
-    if (t == null) {
-      return null;
-    }
-    RespondDecisionTaskCompletedResponse res = new RespondDecisionTaskCompletedResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ListTaskListPartitionsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ListTaskListPartitionsResponse res = new ListTaskListPartitionsResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.QueryWorkflowResponse t) {
-    if (t == null) {
-      return null;
-    }
-    QueryWorkflowResponse res = new QueryWorkflowResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ListClosedWorkflowExecutionsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ListClosedWorkflowExecutionsResponse res = new ListClosedWorkflowExecutionsResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ListWorkflowExecutionsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ListWorkflowExecutionsResponse res = new ListWorkflowExecutionsResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ListDomainsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ListDomainsResponse res = new ListDomainsResponse();
 ```
 
 ### ReturnNull
@@ -7895,71 +7835,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.ScanWorkflowExecutionsResponse t) {
+      com.uber.cadence.api.v1.PollForActivityTaskResponse t) {
     if (t == null) {
       return null;
     }
-    ListWorkflowExecutionsResponse res = new ListWorkflowExecutionsResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.StartWorkflowExecutionResponse t) {
-    if (t == null) {
-      return null;
-    }
-    StartWorkflowExecutionResponse startWorkflowExecutionResponse =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.CountWorkflowExecutionsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    CountWorkflowExecutionsResponse res = new CountWorkflowExecutionsResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.GetWorkflowExecutionHistoryResponse t) {
-    if (t == null) {
-      return null;
-    }
-    GetWorkflowExecutionHistoryResponse getWorkflowExecutionHistoryResponse =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.GetSearchAttributesResponse t) {
-    if (t == null) {
-      return null;
-    }
-    GetSearchAttributesResponse getSearchAttributesResponse = new GetSearchAttributesResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.ListOpenWorkflowExecutionsResponse t) {
-    if (t == null) {
-      return null;
-    }
-    ListOpenWorkflowExecutionsResponse res = new ListOpenWorkflowExecutionsResponse();
+    PollForActivityTaskResponse res = new PollForActivityTaskResponse();
 ```
 
 ### ReturnNull
@@ -7979,11 +7859,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.RecordActivityTaskHeartbeatByIDResponse t) {
+      com.uber.cadence.api.v1.GetSearchAttributesResponse t) {
     if (t == null) {
       return null;
     }
-    RecordActivityTaskHeartbeatResponse res = new RecordActivityTaskHeartbeatResponse();
+    GetSearchAttributesResponse getSearchAttributesResponse = new GetSearchAttributesResponse();
 ```
 
 ### ReturnNull
@@ -7991,11 +7871,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.PollForActivityTaskResponse t) {
+      com.uber.cadence.api.v1.ResetWorkflowExecutionResponse t) {
     if (t == null) {
       return null;
     }
-    PollForActivityTaskResponse res = new PollForActivityTaskResponse();
+    ResetWorkflowExecutionResponse res = new ResetWorkflowExecutionResponse();
 ```
 
 ### ReturnNull
@@ -8003,11 +7883,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.PollForDecisionTaskResponse t) {
+      com.uber.cadence.api.v1.ListOpenWorkflowExecutionsResponse t) {
     if (t == null) {
       return null;
     }
-    PollForDecisionTaskResponse res = new PollForDecisionTaskResponse();
+    ListOpenWorkflowExecutionsResponse res = new ListOpenWorkflowExecutionsResponse();
 ```
 
 ### ReturnNull
@@ -8015,23 +7895,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.api.v1.UpdateDomainResponse t) {
+      com.uber.cadence.api.v1.ListClosedWorkflowExecutionsResponse t) {
     if (t == null) {
       return null;
     }
-    UpdateDomainResponse updateDomainResponse = new UpdateDomainResponse();
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.api.v1.RecordActivityTaskHeartbeatResponse t) {
-    if (t == null) {
-      return null;
-    }
-    RecordActivityTaskHeartbeatResponse res = new RecordActivityTaskHeartbeatResponse();
+    ListClosedWorkflowExecutionsResponse res = new ListClosedWorkflowExecutionsResponse();
 ```
 
 ### ReturnNull
@@ -8051,6 +7919,66 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
+      com.uber.cadence.api.v1.StartWorkflowExecutionResponse t) {
+    if (t == null) {
+      return null;
+    }
+    StartWorkflowExecutionResponse startWorkflowExecutionResponse =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.RecordActivityTaskHeartbeatByIDResponse t) {
+    if (t == null) {
+      return null;
+    }
+    RecordActivityTaskHeartbeatResponse res = new RecordActivityTaskHeartbeatResponse();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.UpdateDomainResponse t) {
+    if (t == null) {
+      return null;
+    }
+    UpdateDomainResponse updateDomainResponse = new UpdateDomainResponse();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.ListDomainsResponse t) {
+    if (t == null) {
+      return null;
+    }
+    ListDomainsResponse res = new ListDomainsResponse();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.api.v1.ListTaskListPartitionsResponse t) {
+    if (t == null) {
+      return null;
+    }
+    ListTaskListPartitionsResponse res = new ListTaskListPartitionsResponse();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
+#### Snippet
+```java
       com.uber.cadence.api.v1.DescribeTaskListResponse t) {
     if (t == null) {
       return null;
@@ -8060,290 +7988,74 @@ in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.RecordActivityTaskHeartbeatRequest t) {
+      com.uber.cadence.api.v1.QueryWorkflowResponse t) {
     if (t == null) {
       return null;
     }
-    RecordActivityTaskHeartbeatRequest.Builder builder =
+    QueryWorkflowResponse res = new QueryWorkflowResponse();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.RecordActivityTaskHeartbeatByIDRequest t) {
+      com.uber.cadence.api.v1.RespondDecisionTaskCompletedResponse t) {
     if (t == null) {
       return null;
     }
-    RecordActivityTaskHeartbeatByIDRequest.Builder builder =
+    RespondDecisionTaskCompletedResponse res = new RespondDecisionTaskCompletedResponse();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.ListArchivedWorkflowExecutionsRequest t) {
+      com.uber.cadence.api.v1.CountWorkflowExecutionsResponse t) {
     if (t == null) {
       return null;
     }
-    ListArchivedWorkflowExecutionsRequest.Builder request =
+    CountWorkflowExecutionsResponse res = new CountWorkflowExecutionsResponse();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.RespondActivityTaskCompletedByIDRequest t) {
+      com.uber.cadence.api.v1.ListWorkflowExecutionsResponse t) {
     if (t == null) {
       return null;
     }
-    RespondActivityTaskCompletedByIDRequest.Builder builder =
+    ListWorkflowExecutionsResponse res = new ListWorkflowExecutionsResponse();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/thrift/ResponseMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.DeprecateDomainRequest t) {
+      com.uber.cadence.api.v1.PollForDecisionTaskResponse t) {
     if (t == null) {
       return null;
     }
-    return DeprecateDomainRequest.newBuilder()
+    PollForDecisionTaskResponse res = new PollForDecisionTaskResponse();
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/Helpers.java`
 #### Snippet
 ```java
-  public static QueryWorkflowRequest queryWorkflowRequest(com.uber.cadence.QueryWorkflowRequest t) {
+  static ByteString arrayToByteString(byte[] t) {
     if (t == null) {
       return null;
     }
-    return QueryWorkflowRequest.newBuilder()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.StartWorkflowExecutionRequest t) {
-    if (t == null) {
-      return null;
-    }
-    StartWorkflowExecutionRequest.Builder request =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondActivityTaskFailedRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondActivityTaskFailedRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondActivityTaskCanceledRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondActivityTaskCanceledRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.TerminateWorkflowExecutionRequest t) {
-    if (t == null) {
-      return null;
-    }
-    TerminateWorkflowExecutionRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RequestCancelWorkflowExecutionRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RequestCancelWorkflowExecutionRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.DescribeTaskListRequest t) {
-    if (t == null) {
-      return null;
-    }
-    return DescribeTaskListRequest.newBuilder()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondActivityTaskCanceledByIDRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondActivityTaskCanceledByIDRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.SignalWorkflowExecutionRequest t) {
-    if (t == null) {
-      return null;
-    }
-    SignalWorkflowExecutionRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondActivityTaskFailedByIDRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondActivityTaskFailedByIDRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondActivityTaskCompletedRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondActivityTaskCompletedRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.SignalWithStartWorkflowExecutionRequest t) {
-    if (t == null) {
-      return null;
-    }
-    StartWorkflowExecutionRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.GetWorkflowExecutionHistoryRequest t) {
-    if (t == null) {
-      return null;
-    }
-    GetWorkflowExecutionHistoryRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondDecisionTaskCompletedRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RespondDecisionTaskCompletedRequest.Builder builder =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.ListOpenWorkflowExecutionsRequest t) {
-    if (t == null) {
-      return null;
-    }
-    ListOpenWorkflowExecutionsRequest.Builder request =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.ListWorkflowExecutionsRequest t) {
-    if (t == null) {
-      return null;
-    }
-    ScanWorkflowExecutionsRequest.Builder request =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.ResetStickyTaskListRequest t) {
-    if (t == null) {
-      return null;
-    }
-    return ResetStickyTaskListRequest.newBuilder()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-  public static ListDomainsRequest listDomainsRequest(com.uber.cadence.ListDomainsRequest t) {
-    if (t == null) {
-      return null;
-    }
-    ListDomainsRequest.Builder request = ListDomainsRequest.newBuilder().setPageSize(t.pageSize);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RespondQueryTaskCompletedRequest t) {
-    if (t == null) {
-      return null;
-    }
-    WorkflowQueryResult.Builder wqBuilder =
+    return ByteString.copyFrom(t);
 ```
 
 ### ReturnNull
@@ -8363,11 +8075,23 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.PollForDecisionTaskRequest t) {
+  public static QueryWorkflowRequest queryWorkflowRequest(com.uber.cadence.QueryWorkflowRequest t) {
     if (t == null) {
       return null;
     }
-    PollForDecisionTaskRequest.Builder builder =
+    return QueryWorkflowRequest.newBuilder()
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.SignalWithStartWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    StartWorkflowExecutionRequest.Builder builder =
 ```
 
 ### ReturnNull
@@ -8387,11 +8111,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.ResetWorkflowExecutionRequest t) {
+      com.uber.cadence.DescribeTaskListRequest t) {
     if (t == null) {
       return null;
     }
-    return ResetWorkflowExecutionRequest.newBuilder()
+    return DescribeTaskListRequest.newBuilder()
 ```
 
 ### ReturnNull
@@ -8399,35 +8123,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.ListTaskListPartitionsRequest t) {
+      com.uber.cadence.GetWorkflowExecutionHistoryRequest t) {
     if (t == null) {
       return null;
     }
-    return ListTaskListPartitionsRequest.newBuilder()
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.RegisterDomainRequest t) {
-    if (t == null) {
-      return null;
-    }
-    RegisterDomainRequest request =
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
-#### Snippet
-```java
-      com.uber.cadence.PollForActivityTaskRequest t) {
-    if (t == null) {
-      return null;
-    }
-    PollForActivityTaskRequest.Builder builder =
+    GetWorkflowExecutionHistoryRequest.Builder builder =
 ```
 
 ### ReturnNull
@@ -8447,11 +8147,11 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.CountWorkflowExecutionsRequest t) {
+      com.uber.cadence.ListTaskListPartitionsRequest t) {
     if (t == null) {
       return null;
     }
-    CountWorkflowExecutionsRequest.Builder request =
+    return ListTaskListPartitionsRequest.newBuilder()
 ```
 
 ### ReturnNull
@@ -8459,11 +8159,167 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.ListWorkflowExecutionsRequest t) {
+      com.uber.cadence.DeprecateDomainRequest t) {
     if (t == null) {
       return null;
     }
-    ListWorkflowExecutionsRequest.Builder request =
+    return DeprecateDomainRequest.newBuilder()
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.StartWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    StartWorkflowExecutionRequest.Builder request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.SignalWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    SignalWorkflowExecutionRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskCanceledRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskCanceledRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskCanceledByIDRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskCanceledByIDRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+  public static ListDomainsRequest listDomainsRequest(com.uber.cadence.ListDomainsRequest t) {
+    if (t == null) {
+      return null;
+    }
+    ListDomainsRequest.Builder request = ListDomainsRequest.newBuilder().setPageSize(t.pageSize);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskFailedRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskFailedRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondDecisionTaskCompletedRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondDecisionTaskCompletedRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondQueryTaskCompletedRequest t) {
+    if (t == null) {
+      return null;
+    }
+    WorkflowQueryResult.Builder wqBuilder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.DescribeDomainRequest t) {
+    if (t == null) {
+      return null;
+    }
+    if (t.uuid != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ResetWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    return ResetWorkflowExecutionRequest.newBuilder()
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RegisterDomainRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RegisterDomainRequest request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskCompletedByIDRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskCompletedByIDRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ResetStickyTaskListRequest t) {
+    if (t == null) {
+      return null;
+    }
+    return ResetStickyTaskListRequest.newBuilder()
 ```
 
 ### ReturnNull
@@ -8483,23 +8339,155 @@ Return of `null`
 in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-      com.uber.cadence.DescribeDomainRequest t) {
+      com.uber.cadence.CountWorkflowExecutionsRequest t) {
     if (t == null) {
       return null;
     }
-    if (t.uuid != null) {
+    CountWorkflowExecutionsRequest.Builder request =
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowQueueImpl.java`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
 #### Snippet
 ```java
-    WorkflowThread.await(unit.toMillis(timeout), "WorkflowQueue.poll", () -> !queue.isEmpty());
-    if (queue.isEmpty()) {
+      com.uber.cadence.RecordActivityTaskHeartbeatRequest t) {
+    if (t == null) {
       return null;
     }
-    return queue.remove();
+    RecordActivityTaskHeartbeatRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ListWorkflowExecutionsRequest t) {
+    if (t == null) {
+      return null;
+    }
+    ListWorkflowExecutionsRequest.Builder request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RecordActivityTaskHeartbeatByIDRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RecordActivityTaskHeartbeatByIDRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.PollForDecisionTaskRequest t) {
+    if (t == null) {
+      return null;
+    }
+    PollForDecisionTaskRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RequestCancelWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RequestCancelWorkflowExecutionRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskCompletedRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskCompletedRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ListWorkflowExecutionsRequest t) {
+    if (t == null) {
+      return null;
+    }
+    ScanWorkflowExecutionsRequest.Builder request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.RespondActivityTaskFailedByIDRequest t) {
+    if (t == null) {
+      return null;
+    }
+    RespondActivityTaskFailedByIDRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ListArchivedWorkflowExecutionsRequest t) {
+    if (t == null) {
+      return null;
+    }
+    ListArchivedWorkflowExecutionsRequest.Builder request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.ListOpenWorkflowExecutionsRequest t) {
+    if (t == null) {
+      return null;
+    }
+    ListOpenWorkflowExecutionsRequest.Builder request =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.TerminateWorkflowExecutionRequest t) {
+    if (t == null) {
+      return null;
+    }
+    TerminateWorkflowExecutionRequest.Builder builder =
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/compatibility/proto/RequestMapper.java`
+#### Snippet
+```java
+      com.uber.cadence.PollForActivityTaskRequest t) {
+    if (t == null) {
+      return null;
+    }
+    PollForActivityTaskRequest.Builder builder =
 ```
 
 ### ReturnNull
@@ -8512,6 +8500,18 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowQueueImpl.java`
           return null;
         }
         return mapper.apply(element);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowQueueImpl.java`
+#### Snippet
+```java
+    WorkflowThread.await(unit.toMillis(timeout), "WorkflowQueue.poll", () -> !queue.isEmpty());
+    if (queue.isEmpty()) {
+      return null;
+    }
+    return queue.remove();
 ```
 
 ### ReturnNull
@@ -8540,18 +8540,6 @@ in `src/main/java/com/uber/cadence/internal/sync/CompletablePromiseImpl.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/worker/WorkerFactory.java`
-#### Snippet
-```java
-  String getStickyTaskListName() {
-    return this.factoryOptions.isDisableStickyExecution()
-        ? null
-        : String.format("%s:%s:%s", STICKY_TASK_LIST_PREFIX, getHostName(), stickyTasklistRandomId);
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/cadence/activity/ActivityOptions.java`
 #### Snippet
 ```java
@@ -8572,6 +8560,18 @@ in `src/main/java/com/uber/cadence/workflow/WorkflowUtils.java`
       return null;
     }
     return jsonConverter.fromData(getValueBytes(searchAttributes, key), classType, classType);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/worker/WorkerFactory.java`
+#### Snippet
+```java
+  String getStickyTaskListName() {
+    return this.factoryOptions.isDisableStickyExecution()
+        ? null
+        : String.format("%s:%s:%s", STICKY_TASK_LIST_PREFIX, getHostName(), stickyTasklistRandomId);
+  }
 ```
 
 ### ReturnNull
@@ -8600,6 +8600,18 @@ in `src/main/java/com/uber/cadence/internal/compatibility/proto/DecisionMapper.j
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowRetryerInternal.java`
+#### Snippet
+```java
+        () -> {
+          proc.apply();
+          return null;
+        });
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/com/uber/cadence/internal/replay/DeciderCache.java`
 #### Snippet
 ```java
@@ -8624,18 +8636,6 @@ in `src/main/java/com/uber/cadence/internal/replay/DeciderCache.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowRetryerInternal.java`
-#### Snippet
-```java
-        () -> {
-          proc.apply();
-          return null;
-        });
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/com/uber/cadence/internal/replay/WorkflowDecisionContext.java`
 #### Snippet
 ```java
@@ -8644,6 +8644,18 @@ in `src/main/java/com/uber/cadence/internal/replay/WorkflowDecisionContext.java`
       return null;
     }
     Map<String, ByteBuffer> fields = new HashMap<>();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/uber/cadence/converter/JsonDataConverter.java`
+#### Snippet
+```java
+      throws DataConverterException {
+    if (content == null) {
+      return null;
+    }
+    try {
 ```
 
 ### ReturnNull
@@ -8672,14 +8684,14 @@ in `src/main/java/com/uber/cadence/converter/JsonDataConverter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/uber/cadence/converter/JsonDataConverter.java`
+in `src/main/java/com/uber/cadence/workflow/Workflow.java`
 #### Snippet
 ```java
-      throws DataConverterException {
-    if (content == null) {
-      return null;
-    }
-    try {
+        () -> {
+          proc.apply();
+          return null;
+        });
+  }
 ```
 
 ### ReturnNull
@@ -8687,10 +8699,10 @@ Return of `null`
 in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
 #### Snippet
 ```java
-            (e) -> {
-              log.error("Unexpected error in GetWorkflowExecutionHistory", e);
-              return null;
-            });
+        () -> {
+          proc.apply();
+          return null;
+        });
   }
 ```
 
@@ -8723,22 +8735,10 @@ Return of `null`
 in `src/main/java/com/uber/cadence/serviceclient/WorkflowServiceTChannel.java`
 #### Snippet
 ```java
-        () -> {
-          proc.apply();
-          return null;
-        });
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/uber/cadence/workflow/Workflow.java`
-#### Snippet
-```java
-        () -> {
-          proc.apply();
-          return null;
-        });
+            (e) -> {
+              log.error("Unexpected error in GetWorkflowExecutionHistory", e);
+              return null;
+            });
   }
 ```
 
@@ -8769,18 +8769,6 @@ in `src/main/java/com/uber/cadence/internal/replay/HistoryHelper.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `workflowId` is redundant
-in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExternalImpl.java`
-#### Snippet
-```java
-  @Override
-  public String generateUniqueId() {
-    String workflowId = UUID.randomUUID().toString();
-    return workflowId;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `response` is redundant
 in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExternalImpl.java`
 #### Snippet
@@ -8790,6 +8778,18 @@ in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExtern
       QueryWorkflowResponse response =
           RpcRetryer.retryWithResult(
               RpcRetryer.DEFAULT_RPC_RETRY_OPTIONS, () -> service.QueryWorkflow(request));
+```
+
+### UnnecessaryLocalVariable
+Local variable `workflowId` is redundant
+in `src/main/java/com/uber/cadence/internal/external/GenericWorkflowClientExternalImpl.java`
+#### Snippet
+```java
+  @Override
+  public String generateUniqueId() {
+    String workflowId = UUID.randomUUID().toString();
+    return workflowId;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -8939,42 +8939,6 @@ in `src/main/java/com/uber/cadence/testing/WorkflowShadower.java`
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
-#### Snippet
-```java
-
-class WorkflowThreadImpl implements WorkflowThread {
-  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
-
-  /**
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
-#### Snippet
-```java
-
-class WorkflowThreadImpl implements WorkflowThread {
-  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
-
-  /**
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
-#### Snippet
-```java
-
-class WorkflowThreadImpl implements WorkflowThread {
-  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
-
-  /**
-```
-
-### UnstableApiUsage
 'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
 #### Snippet
@@ -8988,6 +8952,54 @@ in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
 
 ### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
+#### Snippet
+```java
+
+class WorkflowThreadImpl implements WorkflowThread {
+  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
+
+  /**
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
+#### Snippet
+```java
+
+class WorkflowThreadImpl implements WorkflowThread {
+  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
+
+  /**
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `src/main/java/com/uber/cadence/internal/sync/WorkflowThreadImpl.java`
+#### Snippet
+```java
+
+class WorkflowThreadImpl implements WorkflowThread {
+  private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
+
+  /**
+```
+
+### UnstableApiUsage
+'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `src/main/java/com/uber/cadence/internal/sync/POJOActivityTaskHandler.java`
+#### Snippet
+```java
+          isLocalActivity);
+    }
+    if (metricsRateLimiter.tryAcquire(1)) {
+      if (isLocalActivity) {
+        metricsScope
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `src/main/java/com/uber/cadence/internal/sync/POJOActivityTaskHandler.java`
 #### Snippet
 ```java
@@ -9020,17 +9032,5 @@ class POJOActivityTaskHandler implements ActivityTaskHandler {
   private static final RateLimiter metricsRateLimiter = RateLimiter.create(1);
 
   private final DataConverter dataConverter;
-```
-
-### UnstableApiUsage
-'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `src/main/java/com/uber/cadence/internal/sync/POJOActivityTaskHandler.java`
-#### Snippet
-```java
-          isLocalActivity);
-    }
-    if (metricsRateLimiter.tryAcquire(1)) {
-      if (isLocalActivity) {
-        metricsScope
 ```
 
