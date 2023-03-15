@@ -189,6 +189,18 @@ Qualifier `com.palantir.docker.compose.execution` is unnecessary, and can be rep
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerComposeManager.java`
 #### Snippet
 ```java
+        emitEventsFor().build(dockerCompose()::build);
+
+        com.palantir.docker.compose.execution.DockerCompose upDockerCompose = dockerCompose();
+        if (removeConflictingContainersOnStartup()) {
+            upDockerCompose = new ConflictingContainerRemovingDockerCompose(upDockerCompose, docker());
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.palantir.docker.compose.execution` is unnecessary, and can be replaced with an import
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerComposeManager.java`
+#### Snippet
+```java
 
     @Value.Default
     public com.palantir.docker.compose.execution.DockerCompose dockerCompose() {
@@ -206,18 +218,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerCom
         com.palantir.docker.compose.execution.DockerCompose dockerCompose =
                 new DefaultDockerCompose(dockerComposeExecutable(), machine());
         return new RetryingDockerCompose(retryAttempts(), dockerCompose);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.palantir.docker.compose.execution` is unnecessary, and can be replaced with an import
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerComposeManager.java`
-#### Snippet
-```java
-        emitEventsFor().build(dockerCompose()::build);
-
-        com.palantir.docker.compose.execution.DockerCompose upDockerCompose = dockerCompose();
-        if (removeConflictingContainersOnStartup()) {
-            upDockerCompose = new ConflictingContainerRemovingDockerCompose(upDockerCompose, docker());
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -251,11 +251,11 @@ Single character alternation in RegExp
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerNames.java`
 #### Snippet
 ```java
+
 public final class ContainerNames {
     private static final Pattern HEAD_PATTERN = Pattern.compile("-+(\r|\n)+");
     private static final Pattern BODY_PATTERN = Pattern.compile("(\r|\n)+");
 
-    private ContainerNames() {}
 ```
 
 ### RegExpSingleCharAlternation
@@ -263,11 +263,11 @@ Single character alternation in RegExp
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerNames.java`
 #### Snippet
 ```java
-
 public final class ContainerNames {
     private static final Pattern HEAD_PATTERN = Pattern.compile("-+(\r|\n)+");
     private static final Pattern BODY_PATTERN = Pattern.compile("(\r|\n)+");
 
+    private ContainerNames() {}
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -293,6 +293,19 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
                             + unhealthyContainers.stream().collect(joining(", ")));
                 }
                 return SuccessOrFailure.success();
+```
+
+## RuleId[id=OptionalContainsCollection]
+### OptionalContainsCollection
+'Optional' contains collection `Set`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/RecordingClusterWait.java`
+#### Snippet
+```java
+    // Optional exists solely as a check again logic errors - in the case when events are generated before the
+    // cluster wait has begun.
+    private Optional<Set<String>> recordedServiceNames = Optional.empty();
+
+    RecordingClusterWait(ClusterWait clusterWait, ClusterWaitType clusterWaitType) {
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -330,19 +343,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
     public DockerPort portMappedInternallyTo(int internalPort) {
         return port(internalPort);
     }
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `Set`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/RecordingClusterWait.java`
-#### Snippet
-```java
-    // Optional exists solely as a check again logic errors - in the case when events are generated before the
-    // cluster wait has begun.
-    private Optional<Set<String>> recordedServiceNames = Optional.empty();
-
-    RecordingClusterWait(ClusterWait clusterWait, ClusterWaitType clusterWaitType) {
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -411,18 +411,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configura
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super Optional`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/ClusterWait.java`
-#### Snippet
-```java
-
-    private Callable<Boolean> weHaveSuccess(
-            Cluster cluster, AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
-        return () -> {
-            SuccessOrFailure successOrFailure = clusterHealthCheck.isClusterHealthy(cluster);
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/SuccessOrFailure.java`
 #### Snippet
@@ -447,6 +435,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Optional`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/ClusterWait.java`
+#### Snippet
+```java
+
+    private Callable<Boolean> weHaveSuccess(
+            Cluster cluster, AtomicReference<Optional<SuccessOrFailure>> lastSuccessOrFailure) {
+        return () -> {
+            SuccessOrFailure successOrFailure = clusterHealthCheck.isClusterHealthy(cluster);
+```
+
+### BoundedWildcard
 Can generalize to `? extends ContainerName`
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/AggressiveShutdownStrategy.java`
 #### Snippet
@@ -456,6 +456,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
     private static void removeContainers(Docker docker, List<ContainerName> running)
             throws IOException, InterruptedException {
         List<String> rawContainerNames =
+```
+
+### BoundedWildcard
+Can generalize to `? super DockerPort`
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerPort.java`
+#### Snippet
+```java
+    @SuppressWarnings("ReadReturnValueIgnored")
+    public SuccessOrFailure isHttpRespondingSuccessfully(
+            Function<DockerPort, String> urlFunction, boolean andCheckStatus) {
+        URL url;
+        try {
 ```
 
 ### BoundedWildcard
@@ -504,18 +516,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
     static <T> ClusterHealthCheck transformingHealthCheck(Function<Cluster, T> transform, HealthCheck<T> healthCheck) {
         return cluster -> {
             T target = transform.apply(cluster);
-```
-
-### BoundedWildcard
-Can generalize to `? super DockerPort`
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/DockerPort.java`
-#### Snippet
-```java
-    @SuppressWarnings("ReadReturnValueIgnored")
-    public SuccessOrFailure isHttpRespondingSuccessfully(
-            Function<DockerPort, String> urlFunction, boolean andCheckStatus) {
-        URL url;
-        try {
 ```
 
 ### BoundedWildcard
