@@ -67,18 +67,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 ```
 
 ### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getFullName() {
-            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
-        }
-
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -180,18 +168,6 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 #### Snippet
 ```java
         @Override
-        public String getNewVersionNote() {
-            return StringUtil.notNullize(params.get("new-version-note"),
-                    "We've updated the " + getShortName() + " agreement. " +
-                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
         public String toString() {
             return "Agreement " + StringUtil.notNullize(params.get("short-name"), "Terms of Service") + " (id = " + id + ")";
         }
@@ -204,22 +180,10 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
 #### Snippet
 ```java
         @Override
-        public String getShortName() {
-            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
-        }
-
-```
-
-### StaticCallOnSubclass
-Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-        @Override
-        public String getNewUserNote() {
-            return StringUtil.notNullize(params.get("new-user-note"),
-                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
-                    "Review the terms and click \"I agree\" when you're ready to proceed.");
+        public String getNewVersionNote() {
+            return StringUtil.notNullize(params.get("new-version-note"),
+                    "We've updated the " + getShortName() + " agreement. " +
+                    "Review the terms and click \"I agree\" when you're ready to continue using TeamCity.");
 ```
 
 ### StaticCallOnSubclass
@@ -246,19 +210,43 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
                 continue;
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `myGuestNotice` might be null
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
 ```java
-        }
+        @Override
+        public String getNewUserNote() {
+            return StringUtil.notNullize(params.get("new-user-note"),
+                    "You have to accept the " + getShortName() + " agreement before you can continue to use TeamCity. " +
+                    "Review the terms and click \"I agree\" when you're ready to proceed.");
+```
 
-        return Optional.of(myGuestNotice);
-    }
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getShortName() {
+            return StringUtil.notNullize(params.get("short-name"), "Terms of Service");
+        }
 
 ```
 
+### StaticCallOnSubclass
+Static method `notNullize()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        @Override
+        public String getFullName() {
+            return StringUtil.notNullize(params.get("full-name"), "Terms of Service");
+        }
+
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Variable is already assigned to this value
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
@@ -269,6 +257,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
                     parsedEnforcementDate = null;
                 }
             }
+```
+
+### DataFlowIssue
+Argument `myGuestNotice` might be null
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        }
+
+        return Optional.of(myGuestNotice);
+    }
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -322,18 +322,6 @@ import javax.servlet.http.HttpServletRequest;
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `GuestNoticeSettings` may be 'static'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-    }
-
-    class GuestNoticeSettings implements GuestNotice {
-        private final String title;
-        private final String note;
-```
-
-### InnerClassMayBeStatic
 Inner class `ExternalAgreementLinkSettings` may be 'static'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -343,6 +331,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
     class ExternalAgreementLinkSettings implements TermsOfServiceManager.ExternalAgreementLink {
         private final String text;
         private final String url;
+```
+
+### InnerClassMayBeStatic
+Inner class `GuestNoticeSettings` may be 'static'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    class GuestNoticeSettings implements GuestNotice {
+        private final String title;
+        private final String note;
 ```
 
 ## RuleId[id=BoundedWildcard]
