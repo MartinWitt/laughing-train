@@ -41,7 +41,7 @@ in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/s
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-18-57-32.941.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-00-51-57.988.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -117,6 +117,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Sensor`
+in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
+#### Snippet
+```java
+	}
+
+	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
+		return group
+				.reduce(new Accumulator(0, 0),
+```
+
+### BoundedWildcard
 Can generalize to `? extends ManagedChannelBuilderCustomizer`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
@@ -138,18 +150,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
 		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
 		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sensor`
-in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.binder.dapr.sample/SensorAverageProcessorApplication.java`
-#### Snippet
-```java
-	}
-
-	private Mono<Average> calculateAverage(GroupedFlux<Integer, Sensor> group) {
-		return group
-				.reduce(new Accumulator(0, 0),
 ```
 
 ## RuleId[id=CodeBlock2Expr]
