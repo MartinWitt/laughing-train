@@ -165,7 +165,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
 #### Snippet
 ```java
-    private static String getProjectModelEncoding(MavenProject project) {
+    private static String getProjectName(MavenProject project) {
         if (project == null) {
             return null;
         }
@@ -177,7 +177,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
 #### Snippet
 ```java
-    private static String getProjectName(MavenProject project) {
+    private static String getProjectModelEncoding(MavenProject project) {
         if (project == null) {
             return null;
         }
@@ -277,69 +277,9 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
-    public String getHour() {
-        synchronized (this) {
-            return HOUR.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getMillisecond() {
-        synchronized (this) {
-            return MILLI_SECOND.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getDateTime() {
-        synchronized (this) {
-            return DATE_TIME.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getTime() {
-        synchronized (this) {
-            return TIME.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
     public String getYear() {
         synchronized (this) {
             return YEAR.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
-    public String getDate() {
-        synchronized (this) {
-            return DATE.format(date);
         }
 ```
 
@@ -373,9 +313,69 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
+    public String getTime() {
+        synchronized (this) {
+            return TIME.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
+    public String getHour() {
+        synchronized (this) {
+            return HOUR.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
+    public String getDateTime() {
+        synchronized (this) {
+            return DATE_TIME.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
     public String getMonth() {
         synchronized (this) {
             return MONTH.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
+    public String getDate() {
+        synchronized (this) {
+            return DATE.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
+    public String getMillisecond() {
+        synchronized (this) {
+            return MILLI_SECOND.format(date);
         }
 ```
 
@@ -389,6 +389,42 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
     protected void prepareTempSiteDirectory(final File tmpSiteDir) {
         tmpSiteDir.mkdirs();
     }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+            outDir = new File(new File(getGeneratedSiteDirectoryTmp(), locale.getLanguage()), "xdoc");
+        }
+        outDir.mkdirs();
+
+        File generatedReport = new File(outDir, report.getOutputName() + ".xml");
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+            if (requireCopy) {
+                FileUtils.copyFile(generatedPdfSource, generatedPdfDest);
+                generatedPdfSource.delete();
+            }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
+            }
 
 ```
 
@@ -414,42 +450,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
                 file.delete();
             }
         }
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            if (requireCopy) {
-                FileUtils.copyFile(generatedPdfSource, generatedPdfDest);
-                generatedPdfSource.delete();
-            }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-            outDir = new File(new File(getGeneratedSiteDirectoryTmp(), locale.getLanguage()), "xdoc");
-        }
-        outDir.mkdirs();
-
-        File generatedReport = new File(outDir, report.getOutputName() + ".xml");
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-
-            if (!outputDir.exists()) {
-                outputDir.mkdirs();
-            }
-
 ```
 
 ### IgnoreResultOfCall
