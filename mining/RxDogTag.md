@@ -36,18 +36,6 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super T`
-in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
-#### Snippet
-```java
-  private final Observer<T> delegate;
-
-  DogTagObserver(RxDogTag.Configuration config, Observer<T> delegate) {
-    this.config = config;
-    this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
 in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
 #### Snippet
 ```java
@@ -66,6 +54,18 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
   private final Subscriber<T> delegate;
 
   DogTagSubscriber(RxDogTag.Configuration config, Subscriber<T> delegate) {
+    this.config = config;
+    this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
+#### Snippet
+```java
+  private final Observer<T> delegate;
+
+  DogTagObserver(RxDogTag.Configuration config, Observer<T> delegate) {
     this.config = config;
     this.delegate = delegate;
 ```
