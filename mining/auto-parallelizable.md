@@ -49,18 +49,6 @@ in `integ-test/src/main/java/integtest/DoIt.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static void action(Params params, @Inject ProviderFactory providerFactory) {
-        System.out.println("provider: "
-                + providerFactory
-                        .gradleProperty("autoparallelizable-inject-test")
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoIt.java`
 #### Snippet
 ```java
@@ -81,6 +69,18 @@ in `integ-test/src/main/java/integtest/DoIt.java`
         System.out.println("files: "
                 + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
+    static void action(Params params, @Inject ProviderFactory providerFactory) {
+        System.out.println("provider: "
+                + providerFactory
+                        .gradleProperty("autoparallelizable-inject-test")
 ```
 
 ### SystemOutErr
@@ -181,19 +181,6 @@ public final class DoItInjectedParameter {
             setDescription("lol");
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-        }
-
-        roundEnv.getElementsAnnotatedWith(AutoParallelizable.class).forEach(element -> {
-            paralleliseTask((TypeElement) element);
-        });
-```
-
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `DoItTask()` of an abstract class should not be declared 'public'
@@ -217,6 +204,19 @@ public final class DoItInjectedParameter {
         public DoItInjectedParameterTask() {
             setDescription("lol");
         }
+```
+
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
+#### Snippet
+```java
+        }
+
+        roundEnv.getElementsAnnotatedWith(AutoParallelizable.class).forEach(element -> {
+            paralleliseTask((TypeElement) element);
+        });
 ```
 
 ## RuleId[id=UnstableApiUsage]
