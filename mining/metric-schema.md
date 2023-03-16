@@ -25,18 +25,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
-            MetricDefinition definition,
-            MetricNamespace metricNamespace) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            String metricName,
-            Optional<String> libraryName,
             MetricNamespace metricNamespace,
             MetricDefinition definition,
 ```
@@ -51,6 +39,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             Optional<String> libraryName,
             MetricDefinition definition,
             MetricNamespace metricNamespace,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            String metricName,
+            Optional<String> libraryName,
+            MetricDefinition definition,
+            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -178,19 +178,44 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMe
     @InputFile
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `CompileMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
 #### Snippet
 ```java
-    }
 
-    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
-        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
-    }
+@CacheableTask
+public abstract class CompileMetricSchemaTask extends DefaultTask {
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `JavaGeneratorArgs` has no concrete subclass
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+#### Snippet
+```java
+        jdkOnly = true,
+        get = {"get*", "is*"})
+public abstract class JavaGeneratorArgs {
+
+    private static final Predicate<String> LIBRARY_NAME =
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenerateMetricSchemaTask` has no concrete subclass
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+
+@CacheableTask
+public abstract class GenerateMetricSchemaTask extends DefaultTask {
+    private final Property<String> libraryName =
+            getProject().getObjects().property(String.class).value(defaultLibraryName());
+```
+
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends RegularFile`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/ProviderUtils.java`
@@ -201,6 +226,18 @@ public final class ProviderUtils {
     public static Provider<RegularFile> filterNonExistentFile(Project project, Provider<RegularFile> provider) {
         return provider.flatMap(file -> file.getAsFile().exists()
                 ? project.provider(() -> file)
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+#### Snippet
+```java
+    }
+
+    private static boolean isEmpty(Map<String, List<MetricSchema>> schemas) {
+        return schemas.isEmpty() || schemas.values().stream().allMatch(List::isEmpty);
+    }
 ```
 
 ### BoundedWildcard
@@ -263,43 +300,6 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `GenerateMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class GenerateMetricSchemaTask extends DefaultTask {
-    private final Property<String> libraryName =
-            getProject().getObjects().property(String.class).value(defaultLibraryName());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CompileMetricSchemaTask` has no concrete subclass
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CompileMetricSchemaTask.java`
-#### Snippet
-```java
-
-@CacheableTask
-public abstract class CompileMetricSchemaTask extends DefaultTask {
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-```
-
-### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
-#### Snippet
-```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
-
-    private static final Predicate<String> LIBRARY_NAME =
-```
-
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -321,9 +321,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ### OptionalContainsCollection
@@ -333,9 +333,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ## RuleId[id=UnstableApiUsage]
