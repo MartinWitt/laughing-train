@@ -50,18 +50,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-    private final JdkDownloaders jdkDownloaders;
-
-    JdkManager(Provider<Directory> storageLocation, JdkDistributions jdkDistributions, JdkDownloaders jdkDownloaders) {
-        this.storageLocation = storageLocation;
-        this.jdkDistributions = jdkDistributions;
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/SynchronizedInterface.java`
 #### Snippet
@@ -71,6 +59,18 @@ final class SynchronizedInterface {
     public static <T> T synchronizeAllInterfaceMethods(Class<T> returnInterface, T original) {
         Object sync = new Object();
         return returnInterface.cast(Proxy.newProxyInstance(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+    private final JdkDownloaders jdkDownloaders;
+
+    JdkManager(Provider<Directory> storageLocation, JdkDistributions jdkDistributions, JdkDownloaders jdkDownloaders) {
+        this.storageLocation = storageLocation;
+        this.jdkDistributions = jdkDistributions;
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -87,15 +87,15 @@ public abstract class PalantirCaExtension {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `JdksExtension` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
+Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
 #### Snippet
 ```java
-import org.gradle.jvm.toolchain.JavaLanguageVersion;
 
-public abstract class JdksExtension {
-    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
-    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
+@Value.Immutable
+abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
+    protected abstract Provider<Directory> installationPathProvider();
+
 ```
 
 ### AbstractClassNeverImplemented
@@ -123,67 +123,18 @@ public abstract class JdkDistributionExtension {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
+Abstract class `JdksExtension` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 #### Snippet
 ```java
+import org.gradle.jvm.toolchain.JavaLanguageVersion;
 
-@Value.Immutable
-abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
-    protected abstract Provider<Directory> installationPathProvider();
-
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
-#### Snippet
-```java
-    }
-
-    private Optional<byte[]> systemCertificates() {
-        Os currentOs = Os.current();
-
-```
-
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
-#### Snippet
-```java
-    }
-
-    private Optional<byte[]> linuxSystemCertificates() {
-        List<Path> possibleCaCertificatePaths = List.of(
-                // Ubuntu/debian
+public abstract class JdksExtension {
+    private final LazilyConfiguredMapping<JdkDistributionName, JdkDistributionExtension, Void> jdkDistributions;
+    private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
 ```
 
 ## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
-#### Snippet
-```java
-            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
-            ivy.metadataSources(MetadataSources::artifact);
-            ivy.content(repositoryContentDescriptor -> {
-                repositoryContentDescriptor.includeGroup(jdkGroup);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-            throw new RuntimeException("Locking failed", e);
-        } finally {
-            project.delete(delete -> {
-                delete.delete(temporaryJdkPath.toFile());
-            });
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
@@ -194,6 +145,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/CaCerts.java`
         caCerts().forEach((alias, caCert) -> {
             stringBuilder.append(alias).append(": ").append(caCert).append('\n');
         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkDownloader.java`
+#### Snippet
+```java
+            ivy.patternLayout(patternLayout -> patternLayout.artifact("[module].[ext]"));
+            ivy.metadataSources(MetadataSources::artifact);
+            ivy.content(repositoryContentDescriptor -> {
+                repositoryContentDescriptor.includeGroup(jdkGroup);
+            });
 ```
 
 ### CodeBlock2Expr
@@ -218,6 +181,43 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksPlugin.java`
             jdksExtension.jdkDistribution(jdkDistributionName, jdkDistributionExtension -> {
                 jdkDistributionExtension
                         .getBaseUrl()
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+            throw new RuntimeException("Locking failed", e);
+        } finally {
+            project.delete(delete -> {
+                delete.delete(temporaryJdkPath.toFile());
+            });
+```
+
+## RuleId[id=OptionalContainsCollection]
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
+#### Snippet
+```java
+    }
+
+    private Optional<byte[]> linuxSystemCertificates() {
+        List<Path> possibleCaCertificatePaths = List.of(
+                // Ubuntu/debian
+```
+
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
+#### Snippet
+```java
+    }
+
+    private Optional<byte[]> systemCertificates() {
+        Os currentOs = Os.current();
+
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -292,6 +292,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         private final Closer closer;
 
         PathLock(Path path) throws IOException {
+```
+
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            closer.close();
+        }
+    }
 ```
 
 ### UnstableApiUsage
@@ -376,17 +388,5 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
                 closer.close();
                 throw t;
             }
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            closer.close();
-        }
-    }
 ```
 
