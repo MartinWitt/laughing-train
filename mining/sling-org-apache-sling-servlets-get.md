@@ -1,7 +1,7 @@
 # sling-org-apache-sling-servlets-get 
  
 # Bad smells
-I found 39 bad smells with 4 repairable:
+I found 40 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 8 | false |
@@ -18,13 +18,14 @@ I found 39 bad smells with 4 repairable:
 | CStyleArrayDeclaration | 1 | false |
 | Java8MapApi | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | InnerClassMayBeStatic | 1 | true |
 | BoundedWildcard | 1 | false |
-| MissortedModifiers | 1 | false |
 | UnusedAssignment | 1 | false |
+| MissortedModifiers | 1 | false |
 ## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
@@ -65,6 +66,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
 ```
 
 ### DataFlowIssue
+Method invocation `getWorkspace` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
+#### Snippet
+```java
+        
+        try {
+        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
+            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
 Method invocation `getJSONObject` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 #### Snippet
@@ -89,18 +102,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getWorkspace` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
-#### Snippet
-```java
-        
-        try {
-        	VersionManager vm = req.getResourceResolver().adaptTo(Session.class).getWorkspace().getVersionManager();
-            resp.getWriter().write(renderer.prettyPrint(getJsonObject(req.getResource(), vm), opt));
-        } catch (Exception e) {
-```
-
-### DataFlowIssue
 Method invocation `include` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
@@ -110,18 +111,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 					dispatcher.include(request, response);
 				} catch (ServletException e) {
 					throw new IOException(e);
-```
-
-### DataFlowIssue
-Argument `resourceInputStream` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
-
-            try (InputStream istream = new BufferedInputStream(resourceInputStream,
-                    IO_BUFFER_SIZE)) {
-                Range currentRange = ranges.next();
 ```
 
 ### DataFlowIssue
@@ -146,6 +135,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
             resource = request.getResourceResolver().getResource(actualResourcePath);
             if (resource == null) {
                 log.warn("Path {} does not exist",actualResourcePath);
+```
+
+### DataFlowIssue
+Argument `resourceInputStream` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
+
+            try (InputStream istream = new BufferedInputStream(resourceInputStream,
+                    IO_BUFFER_SIZE)) {
+                Range currentRange = ranges.next();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -373,19 +374,20 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`childrenArray.size() > 0` can be replaced with '!childrenArray.isEmpty()'
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-00-59-53.012.html`
 #### Snippet
 ```java
-        /** Render children if any were skipped (in "children in arrays" mode) */
-        JsonArray childrenArray = children.build();
-        if(childrenArray.size() > 0) {
-            if (sb.length() > 1) {
-                sb.append(",\n");
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `string.length() == 0` can be replaced with 'string.isEmpty()'
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
@@ -396,6 +398,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
         if (string == null || string.length() == 0) {
             return "\"\"";
         }
+```
+
+### SizeReplaceableByIsEmpty
+`childrenArray.size() > 0` can be replaced with '!childrenArray.isEmpty()'
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
+#### Snippet
+```java
+        /** Render children if any were skipped (in "children in arrays" mode) */
+        JsonArray childrenArray = children.build();
+        if(childrenArray.size() > 0) {
+            if (sb.length() > 1) {
+                sb.append(",\n");
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -463,19 +477,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
         String contentType = resource.getResourceMetadata().getContentType();
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `static public`
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
-#### Snippet
-```java
-{
-    /** Rendering options */
-    static public class Options {
-        int indent;
-        private boolean indentIsPositive;
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `maxRecursionLevels` initializer `0` is redundant
@@ -489,19 +490,20 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
             maxRecursionLevels = getMaxRecursionLevel(req);
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `selectors != null` is always `true`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
+## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `static public`
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 #### Snippet
 ```java
-        int maxRecursionLevels = 0;
-        final String[] selectors = req.getRequestPathInfo().getSelectors();
-        if (selectors != null && selectors.length > 0) {
-            final String level = selectors[selectors.length - 1];
-            if(!TIDY.equals(level) && !HARRAY.equals(level)) {
+{
+    /** Rendering options */
+    static public class Options {
+        int indent;
+        private boolean indentIsPositive;
 ```
 
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `targetPath` is always 'null'
 in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
@@ -512,5 +514,17 @@ in `src/main/java/org/apache/sling/servlets/get/impl/RedirectServlet.java`
             "Cannot redirect to target resource " + targetPath);
     }
 
+```
+
+### ConstantValue
+Condition `selectors != null` is always `true`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
+#### Snippet
+```java
+        int maxRecursionLevels = 0;
+        final String[] selectors = req.getRequestPathInfo().getSelectors();
+        if (selectors != null && selectors.length > 0) {
+            final String level = selectors[selectors.length - 1];
+            if(!TIDY.equals(level) && !HARRAY.equals(level)) {
 ```
 
