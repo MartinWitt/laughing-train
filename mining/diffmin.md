@@ -1,13 +1,12 @@
 # diffmin 
  
 # Bad smells
-I found 17 bad smells with 1 repairable:
+I found 16 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
 | SystemOutErr | 2 | false |
 | AssignmentToMethodParameter | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -47,19 +46,6 @@ in `src/main/java/com/diffmin/Main.java`
         System.out.println(SpoonUtil.prettyPrintModelWithSingleCompilationUnit(patchedCtModel));
         System.exit(0);
     }
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-01-06-06.392.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -118,59 +104,35 @@ Can generalize to `? extends CtElement`
 in `src/main/java/com/diffmin/patch/PatchApplication.java`
 #### Snippet
 ```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    private static void performInsertion(
+            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
+        int where = insertPatch.left;
+        CtElement toBeInserted = insertPatch.middle;
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
 
     private static void performMovement(
             Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>> movePatch) {
         CtElement toBeDeleted = movePatch.getFirst();
         ImmutableTriple<Integer, CtElement, CtElement> toBeInserted = movePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    private static void performInsertion(
-            ImmutableTriple<Integer, CtElement, CtElement> insertPatch) {
-        int where = insertPatch.left;
-        CtElement toBeInserted = insertPatch.middle;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CtElement`
-in `src/main/java/com/diffmin/patch/PatchApplication.java`
-#### Snippet
-```java
-
-    /** Apply the update patch. */
-    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
-        CtElement prevNode = updatePatch.getFirst();
-        CtElement newNode = updatePatch.getSecond();
 ```
 
 ### BoundedWildcard
@@ -207,6 +169,30 @@ in `src/main/java/com/diffmin/patch/PatchApplication.java`
             List<Pair<CtElement, ImmutableTriple<Integer, CtElement, CtElement>>> movePatches) {
         deletePatches.forEach(PatchApplication::performDeletion);
         updatePatches.forEach(PatchApplication::performUpdating);
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
+```
+
+### BoundedWildcard
+Can generalize to `? extends CtElement`
+in `src/main/java/com/diffmin/patch/PatchApplication.java`
+#### Snippet
+```java
+
+    /** Apply the update patch. */
+    private static void performUpdating(Pair<CtElement, CtElement> updatePatch) {
+        CtElement prevNode = updatePatch.getFirst();
+        CtElement newNode = updatePatch.getSecond();
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
