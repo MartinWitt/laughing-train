@@ -1,7 +1,7 @@
 # microprofile-lra 
  
 # Bad smells
-I found 42 bad smells with 4 repairable:
+I found 43 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 16 | false |
@@ -16,6 +16,7 @@ I found 42 bad smells with 4 repairable:
 | CodeBlock2Expr | 1 | true |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
 | RedundantFieldInitialization | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ReturnNull | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | NonFinalFieldOfException | 1 | false |
@@ -202,7 +203,7 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
 ```java
 
     /**
-     * See {@link LraCancelOnResource#cancelOnFamily3xx(java.net.URI)}
+     * See {@link LraCancelOnResource#cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)}
      */
     @Test
 ```
@@ -215,6 +216,30 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
 
     /**
      * See {@link LraCancelOnResource#notCancelOnFamily5xx(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelOn301(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelOnFamily3xx(java.net.URI)}
      */
     @Test
 ```
@@ -239,30 +264,6 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
 
     /**
      * See {@link LraCancelOnResource#cancelOnFamilyDefault5xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOn301(java.net.URI)}
      */
     @Test
 ```
@@ -306,18 +307,6 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
 
 ## RuleId[id=JUnitMalformedDeclaration]
 ### JUnitMalformedDeclaration
-Method `testCancelWhenParticipantIsUnavailable` annotated with '@Test' should not declare parameter 'deploymentURL'
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
-#### Snippet
-```java
-     */
-    @Test
-    public void testCancelWhenParticipantIsUnavailable(@ArquillianResource URL deploymentURL) {
-        clientServiceSetup(deploymentURL);
-
-```
-
-### JUnitMalformedDeclaration
 Method `testCancelWhenParticipantIsRestarted` annotated with '@Test' should not declare parameter 'deploymentURL'
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 #### Snippet
@@ -325,6 +314,18 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
      */
     @Test
     public void testCancelWhenParticipantIsRestarted(@ArquillianResource URL deploymentURL) {
+        clientServiceSetup(deploymentURL);
+
+```
+
+### JUnitMalformedDeclaration
+Method `testCancelWhenParticipantIsUnavailable` annotated with '@Test' should not declare parameter 'deploymentURL'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
+#### Snippet
+```java
+     */
+    @Test
+    public void testCancelWhenParticipantIsUnavailable(@ArquillianResource URL deploymentURL) {
         clientServiceSetup(deploymentURL);
 
 ```
@@ -443,6 +444,18 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `lraId`
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResource.java`
+#### Snippet
+```java
+            URI lra = new LRAClientOps(target).startLRA(null, "subActivity", 0L, ChronoUnit.SECONDS);
+
+            lraId = lra;
+
+            storeActivity(lraId, null);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `how`
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
 #### Snippet
@@ -454,16 +467,17 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
 
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `lraId`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResource.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-19-34-50.428.html`
 #### Snippet
 ```java
-            URI lra = new LRAClientOps(target).startLRA(null, "subActivity", 0L, ChronoUnit.SECONDS);
-
-            lraId = lra;
-
-            storeActivity(lraId, null);
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
