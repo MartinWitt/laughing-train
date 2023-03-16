@@ -5,28 +5,15 @@ I found 11 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | AbstractClassNeverImplemented | 2 | false |
-| MismatchedJavadocCode | 1 | false |
 | ReturnNull | 1 | false |
+| MismatchedJavadocCode | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | AssignmentToForLoopParameter | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
 | CodeBlock2Expr | 1 | true |
+| NonProtectedConstructorInAbstractClass | 1 | true |
 | ConstantValue | 1 | false |
 | IndexOfReplaceableByContains | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return map but the return type is list
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
-#### Snippet
-```java
-     *
-     * @param text a text with or without the pattern <code>{text, url}</code>
-     * @return a map of text/href
-     */
-    private static List<String> applyPattern(String text) {
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -38,6 +25,19 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
             return null;
         }
 
+```
+
+## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return map but the return type is list
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
+#### Snippet
+```java
+     *
+     * @param text a text with or without the pattern <code>{text, url}</code>
+     * @return a map of text/href
+     */
+    private static List<String> applyPattern(String text) {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -68,18 +68,6 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `AbstractMavenReport` has no concrete subclass
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
-#### Snippet
-```java
- * @see #executeReport(Locale) <code>abstract executeReport( Locale )</code>
- */
-public abstract class AbstractMavenReport extends AbstractMojo implements MavenMultiPageReport {
-    /**
-     * The output directory for the report. Note that this parameter is only evaluated if the goal is run directly from
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractMavenReportRenderer` has no concrete subclass
 in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
 #### Snippet
@@ -91,17 +79,16 @@ public abstract class AbstractMavenReportRenderer implements MavenReportRenderer
     protected Sink sink;
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMavenReportRenderer()` of an abstract class should not be declared 'public'
-in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
+### AbstractClassNeverImplemented
+Abstract class `AbstractMavenReport` has no concrete subclass
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
 #### Snippet
 ```java
-     * @param sink the sink to use.
-     */
-    public AbstractMavenReportRenderer(Sink sink) {
-        this.sink = sink;
-    }
+ * @see #executeReport(Locale) <code>abstract executeReport( Locale )</code>
+ */
+public abstract class AbstractMavenReport extends AbstractMojo implements MavenMultiPageReport {
+    /**
+     * The output directory for the report. Note that this parameter is only evaluated if the goal is run directly from
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -115,6 +102,19 @@ in `src/main/java/org/apache/maven/reporting/AbstractMavenReport.java`
         MavenArchiver.parseBuildOutputTimestamp(outputTimestamp).ifPresent(v -> {
             context.setPublishDate(Date.from(v));
         });
+```
+
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractMavenReportRenderer()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/maven/reporting/AbstractMavenReportRenderer.java`
+#### Snippet
+```java
+     * @param sink the sink to use.
+     */
+    public AbstractMavenReportRenderer(Sink sink) {
+        this.sink = sink;
+    }
 ```
 
 ## RuleId[id=ConstantValue]
