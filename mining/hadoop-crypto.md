@@ -30,7 +30,68 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/StandaloneEncryptedF
 
 ```
 
+## RuleId[id=IOResource]
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+#### Snippet
+```java
+    @Override
+    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
+        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
+
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+    @Override
+    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
+        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
+
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
+#### Snippet
+```java
+    private static int version(byte[] wrappedKeyMaterial) {
+        try {
+            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+            return stream.read();
+        } catch (IOException e) {
+```
+
+### IOResource
+'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymmetricKeySerializer.java`
+#### Snippet
+```java
+    @Override
+    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, SecretKey key) {
+        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
+
+        try {
+```
+
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'privateKey'
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
+#### Snippet
+```java
+    private final FileSystem fs;
+    private final PublicKey publicKey;
+    private final Optional<PrivateKey> privateKey;
+
+    public FileKeyStorageStrategy(FileSystem fs, KeyPair keyPair) {
+```
+
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'first'
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
@@ -55,80 +116,7 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
             return first;
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'privateKey'
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
-#### Snippet
-```java
-    private final FileSystem fs;
-    private final PublicKey publicKey;
-    private final Optional<PrivateKey> privateKey;
-
-    public FileKeyStorageStrategy(FileSystem fs, KeyPair keyPair) {
-```
-
-## RuleId[id=IOResource]
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-    @Override
-    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
-        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
-
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/CipherSymmetricKeySerializer.java`
-#### Snippet
-```java
-    @Override
-    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, SecretKey key) {
-        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-
-        try {
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeyMaterials.java`
-#### Snippet
-```java
-    private static int version(byte[] wrappedKeyMaterial) {
-        try {
-            DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-            return stream.read();
-        } catch (IOException e) {
-```
-
-### IOResource
-'DataInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
-#### Snippet
-```java
-    @Override
-    public KeyMaterial unwrap(byte[] wrappedKeyMaterial, PrivateKey key) {
-        DataInputStream stream = new DataInputStream(new ByteArrayInputStream(wrappedKeyMaterial));
-        Cipher keyUnwrappingCipher = KeySerializers.getCipher(Cipher.UNWRAP_MODE, key);
-
-```
-
 ## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `initialize()` only delegates to its super method
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
-
-    @Override
-    public void initialize(URI name, Configuration conf) throws IOException {
-        super.initialize(name, conf);
-    }
-```
-
 ### RedundantMethodOverride
 Method `read()` only delegates to its super method
 in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
@@ -138,6 +126,18 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
     @Override
     public int read(byte[] bytes, int off, int len) throws IOException {
         return super.read(bytes, off, len);
+    }
+```
+
+### RedundantMethodOverride
+Method `seek()` only delegates to its super method
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void seek(long offset) throws IOException {
+        super.seek(offset);
     }
 ```
 
@@ -154,14 +154,14 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ```
 
 ### RedundantMethodOverride
-Method `seek()` only delegates to its super method
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+Method `initialize()` only delegates to its super method
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
 ```java
 
     @Override
-    public void seek(long offset) throws IOException {
-        super.seek(offset);
+    public void initialize(URI name, Configuration conf) throws IOException {
+        super.initialize(name, conf);
     }
 ```
 
@@ -180,18 +180,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.hadoop.conf` is unnecessary and can be removed
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
-#### Snippet
-```java
- * A {@link FileSystem} wrapper that encrypts and decrypts the streams from the underlying {@link FileSystem}. The
- * encryption algorithm may be configured by setting {@link #CIPHER_ALGORITHM_KEY} in the {@link
- * org.apache.hadoop.conf.Configuration} to the desired {@link SeekableCipher} algorithm. If no algorithm is set then
- * {@link #DEFAULT_CIPHER_ALGORITHM} will be used. The symmetric key used to encrypt each file is stored and retrieved
- * using the provided {@link KeyStorageStrategy}.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `javax.crypto` is unnecessary and can be removed
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricKeySerializer.java`
 #### Snippet
@@ -203,7 +191,31 @@ public interface SymmetricKeySerializer {
      */
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.hadoop.conf` is unnecessary and can be removed
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
+#### Snippet
+```java
+ * A {@link FileSystem} wrapper that encrypts and decrypts the streams from the underlying {@link FileSystem}. The
+ * encryption algorithm may be configured by setting {@link #CIPHER_ALGORITHM_KEY} in the {@link
+ * org.apache.hadoop.conf.Configuration} to the desired {@link SeekableCipher} algorithm. If no algorithm is set then
+ * {@link #DEFAULT_CIPHER_ALGORITHM} will be used. The symmetric key used to encrypt each file is stored and retrieved
+ * using the provided {@link KeyStorageStrategy}.
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
+    INSTANCE;
+
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'FsCipherOutputStream' is still used
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutputStream.java`
@@ -214,18 +226,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 public final class FsCipherOutputStream extends FilterOutputStream {
 
     public FsCipherOutputStream(FSDataOutputStream delegate, SeekableCipher cipher) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getCipher' is still used
-in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static SeekableCipher getCipher(String cipherAlgorithm) {
-        switch (cipherAlgorithm) {
-            case AesCtrCipher.ALGORITHM:
 ```
 
 ### DeprecatedIsStillUsed
@@ -253,15 +253,15 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+Deprecated member 'getCipher' is still used
+in `crypto-core/src/main/java/com/palantir/crypto2/cipher/SeekableCipherFactory.java`
 #### Snippet
 ```java
- */
-@Deprecated
-enum KeySerializerV1 implements KeySerializer {
-    INSTANCE;
-
+     */
+    @Deprecated
+    public static SeekableCipher getCipher(String cipherAlgorithm) {
+        switch (cipherAlgorithm) {
+            case AesCtrCipher.ALGORITHM:
 ```
 
 ## RuleId[id=Convert2Lambda]
@@ -293,18 +293,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekabl
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
-#### Snippet
-```java
-
-    public ChainedAsyncKeyStorageStrategy(Executor executor, List<AsyncKeyStorageStrategy> strategies) {
-        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
-        this.executor = executor;
-        this.strategies = ImmutableList.copyOf(strategies);
-```
-
-### SizeReplaceableByIsEmpty
-`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrategy.java`
 #### Snippet
 ```java
@@ -315,20 +303,31 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedKeyStorageStrateg
     }
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `KeyMaterial` has no concrete subclass
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
+### SizeReplaceableByIsEmpty
+`strategies.size() > 0` can be replaced with '!strategies.isEmpty()'
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
 #### Snippet
 ```java
-@Value.Immutable
-@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
-public abstract class KeyMaterial {
 
-    @Value.Parameter
+    public ChainedAsyncKeyStorageStrategy(Executor executor, List<AsyncKeyStorageStrategy> strategies) {
+        Preconditions.checkArgument(strategies.size() > 0, "Must specify at least one storage strategy");
+        this.executor = executor;
+        this.strategies = ImmutableList.copyOf(strategies);
 ```
 
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? super AsyncKeyStorageStrategy`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
+#### Snippet
+```java
+    }
+
+    private CompletableFuture<Void> applyToStrategies(Function<AsyncKeyStorageStrategy, CompletableFuture<?>> mapper) {
+        CompletableFuture<?>[] futures = strategies.stream().map(mapper).toArray(CompletableFuture[]::new);
+        return CompletableFuture.allOf(futures);
+```
+
 ### BoundedWildcard
 Can generalize to `? super Path`
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/PathConvertingFileSystem.java`
@@ -389,16 +388,17 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/PathConvertingFileSy
         this.delegate = delegate;
 ```
 
-### BoundedWildcard
-Can generalize to `? super AsyncKeyStorageStrategy`
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/ChainedAsyncKeyStorageStrategy.java`
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `KeyMaterial` has no concrete subclass
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyMaterial.java`
 #### Snippet
 ```java
-    }
+@Value.Immutable
+@Value.Style(visibility = Value.Style.ImplementationVisibility.PACKAGE, jdkOnly = true)
+public abstract class KeyMaterial {
 
-    private CompletableFuture<Void> applyToStrategies(Function<AsyncKeyStorageStrategy, CompletableFuture<?>> mapper) {
-        CompletableFuture<?>[] futures = strategies.stream().map(mapper).toArray(CompletableFuture[]::new);
-        return CompletableFuture.allOf(futures);
+    @Value.Parameter
 ```
 
 ## RuleId[id=UnstableApiUsage]
