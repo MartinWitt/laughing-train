@@ -243,18 +243,6 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutablePerProjectAcceptedBreaks.class)
-abstract class PerProjectAcceptedBreaks {
-    @JsonValue
-    @Value.NaturalOrder
-```
-
-### AbstractClassNeverImplemented
 Abstract class `RevapiConfig` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
 #### Snippet
@@ -264,6 +252,18 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
 abstract class RevapiConfig {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutablePerProjectAcceptedBreaks.class)
+abstract class PerProjectAcceptedBreaks {
+    @JsonValue
+    @Value.NaturalOrder
 ```
 
 ### AbstractClassNeverImplemented
