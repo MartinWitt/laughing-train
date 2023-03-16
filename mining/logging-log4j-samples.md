@@ -1,7 +1,7 @@
 # logging-log4j-samples 
  
 # Bad smells
-I found 73 bad smells with 7 repairable:
+I found 74 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | SystemOutErr | 12 | false |
@@ -19,98 +19,15 @@ I found 73 bad smells with 7 repairable:
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | InfiniteLoopStatement | 1 | false |
-| Convert2MethodRef | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
+| Convert2MethodRef | 1 | false |
 | RedundantFieldInitialization | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | SuspiciousInvocationHandlerImplementation | 1 | false |
-| NonExceptionNameEndsWithException | 1 | false |
 | UnusedAssignment | 1 | false |
+| NonExceptionNameEndsWithException | 1 | false |
 | AnonymousHasLambdaAlternative | 1 | false |
 ## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
-#### Snippet
-```java
-                numThreads = Integers.parseInt(threadCount);
-            } catch (final Exception ex) {
-                System.out.println("Invalid threadCount specified: " + threadCount);
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
-#### Snippet
-```java
-                timeBase = Integer.parseInt(interval);
-            } catch (final Exception ex) {
-                System.out.println("Invalid interval specified: " + interval);
-            }
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
-#### Snippet
-```java
-            }
-        }
-        System.out.println("STARTING - Using " + numThreads + " threads at interval: " + timeBase);
-
-        if (events == null) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-        @Override
-        public void run() {
-            System.out.println("STARTING..................");
-
-            while (!shutdown) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-        final LoggingApp app = new LoggingApp(member);
-        app.runApp(member);
-        System.out.println("Job ended");
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-                //
-            }
-            System.out.println("SHUTDOWN.......................");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
-#### Snippet
-```java
-
-        try {
-            System.out.println(getException());
-        } catch (IllegalArgumentException e) {
-            logger.error("An error occurred.", e);
-```
-
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
@@ -171,6 +88,90 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ut
 
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
+#### Snippet
+```java
+
+        try {
+            System.out.println(getException());
+        } catch (IllegalArgumentException e) {
+            logger.error("An error occurred.", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
+#### Snippet
+```java
+                numThreads = Integers.parseInt(threadCount);
+            } catch (final Exception ex) {
+                System.out.println("Invalid threadCount specified: " + threadCount);
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
+#### Snippet
+```java
+                timeBase = Integer.parseInt(interval);
+            } catch (final Exception ex) {
+                System.out.println("Invalid interval specified: " + interval);
+            }
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
+#### Snippet
+```java
+            }
+        }
+        System.out.println("STARTING - Using " + numThreads + " threads at interval: " + timeBase);
+
+        if (events == null) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
+#### Snippet
+```java
+                //
+            }
+            System.out.println("SHUTDOWN.......................");
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
+#### Snippet
+```java
+        final LoggingApp app = new LoggingApp(member);
+        app.runApp(member);
+        System.out.println("Job ended");
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
+#### Snippet
+```java
+        @Override
+        public void run() {
+            System.out.println("STARTING..................");
+
+            while (!shutdown) {
+```
+
 ## RuleId[id=WhileLoopSpinsOnField]
 ### WhileLoopSpinsOnField
 `while` loop spins on field
@@ -199,6 +200,18 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `NamingUtils` has only 'static' members, and lacks a 'private' constructor
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
+#### Snippet
+```java
+import org.apache.logging.log4j.util.Strings;
+
+public class NamingUtils {
+
+    public static String getPackageName(final String className) {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ConfigServiceApplication` has only 'static' members, and lacks a 'private' constructor
 in `log4j-spring-cloud-config-sample-server/src/main/java/org/apache/logging/log4j/spring/cloud/config/service/ConfigServiceApplication.java`
 #### Snippet
@@ -208,30 +221,6 @@ in `log4j-spring-cloud-config-sample-server/src/main/java/org/apache/logging/log
 public class ConfigServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(ConfigServiceApplication.class, args);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MockEventsSupplier` has only 'static' members, and lacks a 'private' constructor
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/MockEventsSupplier.java`
-#### Snippet
-```java
-import org.apache.logging.log4j.samples.events.Transfer;
-
-public class MockEventsSupplier {
-
-    /* This provides random generation */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Log4J2AsyncLoggerException` has only 'static' members, and lacks a 'private' constructor
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
-#### Snippet
-```java
-import org.apache.logging.log4j.Logger;
-
-public class Log4J2AsyncLoggerException {
-
-    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -247,28 +236,40 @@ public class LogEventFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NamingUtils` has only 'static' members, and lacks a 'private' constructor
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
+Class `Log4J2AsyncLoggerException` has only 'static' members, and lacks a 'private' constructor
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
 #### Snippet
 ```java
-import org.apache.logging.log4j.util.Strings;
+import org.apache.logging.log4j.Logger;
 
-public class NamingUtils {
+public class Log4J2AsyncLoggerException {
 
-    public static String getPackageName(final String className) {
+    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MockEventsSupplier` has only 'static' members, and lacks a 'private' constructor
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/MockEventsSupplier.java`
+#### Snippet
+```java
+import org.apache.logging.log4j.samples.events.Transfer;
+
+public class MockEventsSupplier {
+
+    /* This provides random generation */
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
 #### Snippet
 ```java
-        t.printStackTrace(ps);
-        String stackTrace = os.toString();
-        stackTrace = stackTrace.replaceAll("\n", "<br>");
 
-        //LOGGER.info("Hello, World");
+    public static String getClassName(final String className) {
+        return upperFirst(className.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY));
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -289,22 +290,22 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ut
 #### Snippet
 ```java
 
-    public static String getClassName(final String className) {
-        return upperFirst(className.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY));
+    public static String getFieldName(final String fieldName) {
+        return fieldName.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY);
     }
 
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
+in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
 #### Snippet
 ```java
+        t.printStackTrace(ps);
+        String stackTrace = os.toString();
+        stackTrace = stackTrace.replaceAll("\n", "<br>");
 
-    public static String getFieldName(final String fieldName) {
-        return fieldName.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY);
-    }
-
+        //LOGGER.info("Hello, World");
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -318,19 +319,6 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
 public class SampleResponseErrorHandler implements org.springframework.web.client.ResponseErrorHandler {
     @Override
     public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
-```
-
-## RuleId[id=InfiniteLoopStatement]
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLogger.java`
-#### Snippet
-```java
-
-        // In Java 8, No need to check the log level, we can do this
-        while (true) //for test rolling file
-            logger.debug("Hello print {}", () -> getValue());
-    }
 ```
 
 ## RuleId[id=RegExpSingleCharAlternation]
@@ -358,17 +346,17 @@ in `log4j-samples-flume-remote/src/main/xml/web-common_4_0.xsd`
   </xsd:simpleType>
 ```
 
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
+## RuleId[id=InfiniteLoopStatement]
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
 in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLogger.java`
 #### Snippet
 ```java
+
         // In Java 8, No need to check the log level, we can do this
         while (true) //for test rolling file
             logger.debug("Hello print {}", () -> getValue());
     }
-
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -382,6 +370,19 @@ in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup
     private static ConcurrentMap<String, Map<String, String>> loggerProperties = new ConcurrentHashMap<>();
 
     /**
+```
+
+## RuleId[id=Convert2MethodRef]
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLogger.java`
+#### Snippet
+```java
+        // In Java 8, No need to check the log level, we can do this
+        while (true) //for test rolling file
+            logger.debug("Hello print {}", () -> getValue());
+    }
+
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -507,6 +508,92 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
         String msg = "";
 ```
 
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LogEventFactory.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/K8SController.java`
+#### Snippet
+```java
+            LOGGER.debug("Unable to locate pod with name {}.", hostName);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/MapMessageLookup.java`
+#### Snippet
+```java
+    public String lookup(final LogEvent event, final String key) {
+        if (event == null) {
+            return null;
+        }
+        final Message msg = event.getMessage();
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/MapMessageLookup.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
+#### Snippet
+```java
+    public String lookup(final LogEvent event, final String key) {
+        if (event == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
+#### Snippet
+```java
+        } catch (final Exception ex) {
+            LOGGER.warn(LOOKUP, "Error while getting property [{}].", key, ex);
+            return null;
+        }
+    }
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-13-37-49.493.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[:]` can be simplified to ':'
@@ -626,79 +713,6 @@ in `log4j-samples-flume-remote/src/main/xml/web-common_4_0.xsd`
       <xsd:pattern value="[^\s]+"/>
     </xsd:restriction>
   </xsd:simpleType>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/MapMessageLookup.java`
-#### Snippet
-```java
-    public String lookup(final LogEvent event, final String key) {
-        if (event == null) {
-            return null;
-        }
-        final Message msg = event.getMessage();
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/MapMessageLookup.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
-#### Snippet
-```java
-    public String lookup(final LogEvent event, final String key) {
-        if (event == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
-#### Snippet
-```java
-        } catch (final Exception ex) {
-            LOGGER.warn(LOOKUP, "Error while getting property [{}].", key, ex);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/K8SController.java`
-#### Snippet
-```java
-            LOGGER.debug("Unable to locate pod with name {}.", hostName);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LogEventFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -885,19 +899,6 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
 
 ```
 
-## RuleId[id=NonExceptionNameEndsWithException]
-### NonExceptionNameEndsWithException
-Non-exception class name `Log4J2AsyncLoggerException` ends with 'Exception'
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
-#### Snippet
-```java
-import org.apache.logging.log4j.Logger;
-
-public class Log4J2AsyncLoggerException {
-
-    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `msg` initializer `""` is redundant
@@ -909,6 +910,19 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
         String msg = "";
         if (threads == 1) {
             Timer timer = new Timer("sample");
+```
+
+## RuleId[id=NonExceptionNameEndsWithException]
+### NonExceptionNameEndsWithException
+Non-exception class name `Log4J2AsyncLoggerException` ends with 'Exception'
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
+#### Snippet
+```java
+import org.apache.logging.log4j.Logger;
+
+public class Log4J2AsyncLoggerException {
+
+    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
