@@ -45,9 +45,33 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
 #### Snippet
 ```java
+	 * @param docComment
+	 */
+	public void setDocComment(String docComment);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
+#### Snippet
+```java
 	 * @param visibility
 	 */
 	public void setVisibility(Visibility visibility);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
+#### Snippet
+```java
+	 * @return the type declaring this member
+	 */
+	public MutableTypeDeclaration getDeclaringType();
 	
 	/**
 ```
@@ -66,30 +90,6 @@ public interface MutableParameterDeclaration extends MutableDeclaration, Paramet
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
-#### Snippet
-```java
-	 * @return the type declaring this member
-	 */
-	public MutableTypeDeclaration getDeclaringType();
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
-#### Snippet
-```java
-	 * @param docComment
-	 */
-	public void setDocComment(String docComment);
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableAnnotationTypeDeclaration.java`
 #### Snippet
 ```java
@@ -97,6 +97,54 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 	 */
 	public MutableAnnotationTypeElementDeclaration addAnnotationTypeElement(String name,
 			Procedures.Procedure1<MutableAnnotationTypeElementDeclaration> initializer);
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
+#### Snippet
+```java
+@Beta
+public interface MutableTypeParameterDeclaration extends MutableDeclaration, TypeParameterDeclaration {
+	public MutableTypeParameterDeclarator getTypeParameterDeclarator();
+
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
+#### Snippet
+```java
+	 * @exception IllegalArgumentException if <code>upperBounds</code> is <code>null</code> or contains <code>null</code>
+	 */
+	public void setUpperBounds(Iterable<? extends TypeReference> upperBounds);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
+#### Snippet
+```java
+	 * @exception UnsupportedOperationException always 
+	 */
+	public AnnotationReference addAnnotation(AnnotationReference annotationReference);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
+#### Snippet
+```java
+	 * @exception UnsupportedOperationException always 
+	 */
+	public boolean removeAnnotation(AnnotationReference annotationReference);
+
 }
 ```
 
@@ -126,54 +174,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
-#### Snippet
-```java
-	 * @exception UnsupportedOperationException always 
-	 */
-	public boolean removeAnnotation(AnnotationReference annotationReference);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
-#### Snippet
-```java
-	 * @exception UnsupportedOperationException always 
-	 */
-	public AnnotationReference addAnnotation(AnnotationReference annotationReference);
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
-#### Snippet
-```java
-@Beta
-public interface MutableTypeParameterDeclaration extends MutableDeclaration, TypeParameterDeclaration {
-	public MutableTypeParameterDeclarator getTypeParameterDeclarator();
-
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
-#### Snippet
-```java
-	 * @exception IllegalArgumentException if <code>upperBounds</code> is <code>null</code> or contains <code>null</code>
-	 */
-	public void setUpperBounds(Iterable<? extends TypeReference> upperBounds);
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableElement.java`
 #### Snippet
 ```java
@@ -189,11 +189,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
 #### Snippet
 ```java
-	 * @exception IllegalArgumentException if <code>superinterfaces</code> is <code>null</code> or contains <code>null</code>
+	 * @param superclass the type reference to the super type. <code>null</code> resets the extended class to java.lang.Object (the default).
 	 */
-	public void setImplementedInterfaces(Iterable<? extends TypeReference> superinterfaces);
+	public void setExtendedClass(TypeReference superclass);
 	
-}
+	/**
 ```
 
 ### UnnecessaryModifier
@@ -201,11 +201,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
 #### Snippet
 ```java
-	 * @param superclass the type reference to the super type. <code>null</code> resets the extended class to java.lang.Object (the default).
+	 * @exception IllegalArgumentException if <code>superinterfaces</code> is <code>null</code> or contains <code>null</code>
 	 */
-	public void setExtendedClass(TypeReference superclass);
+	public void setImplementedInterfaces(Iterable<? extends TypeReference> superinterfaces);
 	
-	/**
+}
 ```
 
 ### UnnecessaryModifier
@@ -273,11 +273,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeDeclaration.java`
 #### Snippet
 ```java
-	 * @throws UnsupportedOperationException always
+	 * @exception UnsupportedOperationException always
 	 */
-	public void remove();
+	public void setSimpleName(String simpleName);
 	
-}
+	/**
 ```
 
 ### UnnecessaryModifier
@@ -285,11 +285,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeDeclaration.java`
 #### Snippet
 ```java
-	 * @exception UnsupportedOperationException always
+	 * @throws UnsupportedOperationException always
 	 */
-	public void setSimpleName(String simpleName);
+	public void remove();
 	
-	/**
+}
 ```
 
 ### UnnecessaryModifier
@@ -379,18 +379,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ListExtensions.j
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ArrayExtensions` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
- */
-@GwtCompatible
-public class ArrayExtensions {
-
-	/**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Exceptions` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Exceptions.java`
 #### Snippet
@@ -403,14 +391,14 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Exceptions.java`
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `LongExtensions` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/LongExtensions.java`
+Class `ArrayExtensions` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
 #### Snippet
 ```java
- * @since 2.3
  */
-@GwtCompatible public class LongExtensions {
-	
+@GwtCompatible
+public class ArrayExtensions {
+
 	/**
 ```
 
@@ -427,14 +415,14 @@ public class ArrayLiterals {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `BooleanExtensions` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/BooleanExtensions.java`
+Class `LongExtensions` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/LongExtensions.java`
 #### Snippet
 ```java
- * @author Sven Efftinge - Initial contribution and API
+ * @since 2.3
  */
-@GwtCompatible public class BooleanExtensions {
-
+@GwtCompatible public class LongExtensions {
+	
 	/**
 ```
 
@@ -446,6 +434,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ComparableExtens
  * @author Sven Efftinge - Initial contribution and API
  */
 @GwtCompatible public class ComparableExtensions {
+
+	/**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BooleanExtensions` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/BooleanExtensions.java`
+#### Snippet
+```java
+ * @author Sven Efftinge - Initial contribution and API
+ */
+@GwtCompatible public class BooleanExtensions {
 
 	/**
 ```
@@ -523,6 +523,18 @@ class WhitespaceMatcher {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `CollectionExtensions` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CollectionExtensions.java`
+#### Snippet
+```java
+ * @author Sebastian Zarnekow
+ */
+@GwtCompatible public class CollectionExtensions {
+
+	/**
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ProcedureExtensions` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ProcedureExtensions.java`
 #### Snippet
@@ -542,18 +554,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ObjectExtensions
  * This is an extension library for all {@link Object objects}.
  */
 @GwtCompatible public class ObjectExtensions {
-
-	/**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CollectionExtensions` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CollectionExtensions.java`
-#### Snippet
-```java
- * @author Sebastian Zarnekow
- */
-@GwtCompatible public class CollectionExtensions {
 
 	/**
 ```
@@ -595,18 +595,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ByteExtensions.j
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MapExtensions` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
-#### Snippet
-```java
- * @author Stephane Galland - Add operators on map structures.
- */
-@GwtCompatible public class MapExtensions {
-
-	/**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FloatExtensions` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/FloatExtensions.java`
 #### Snippet
@@ -615,6 +603,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/FloatExtensions.
  */
 @GwtCompatible public class FloatExtensions {
 	// BEGIN generated code
+	/**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MapExtensions` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
+#### Snippet
+```java
+ * @author Stephane Galland - Add operators on map structures.
+ */
+@GwtCompatible public class MapExtensions {
+
 	/**
 ```
 
@@ -747,11 +747,11 @@ Pseudo functional style code
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-	@Inline(value="$3.$4filter($1, $2)", imported=Iterables.class)
-	public static <T> Iterable<T> filter(Iterable<?> unfiltered, Class<T> type) {
-		return Iterables.filter(unfiltered, type);
+	@Pure
+	public static <T> Iterable<T> filterNull(Iterable<T> unfiltered) {
+		return Iterables.filter(unfiltered, Predicates.notNull());
 	}
-	
+
 ```
 
 ### StaticPseudoFunctionalStyleMethod
@@ -759,11 +759,11 @@ Pseudo functional style code
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-	@Pure
-	public static <T> Iterable<T> filterNull(Iterable<T> unfiltered) {
-		return Iterables.filter(unfiltered, Predicates.notNull());
+	@Inline(value="$3.$4filter($1, $2)", imported=Iterables.class)
+	public static <T> Iterable<T> filter(Iterable<?> unfiltered, Class<T> type) {
+		return Iterables.filter(unfiltered, type);
 	}
-
+	
 ```
 
 ## RuleId[id=ProtectedMemberInFinalClass]
@@ -786,7 +786,31 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
+		protected WrappedFloatArray(float[] array) {
+			this.array = array;
+		}
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		 *            object to fail with a {@link NullPointerException}.
+		 */
 		protected WrappedShortArray(short[] array) {
+			this.array = array;
+		}
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		 *            object to fail with a {@link NullPointerException}.
+		 */
+		protected WrappedIntegerArray(int[] array) {
 			this.array = array;
 		}
 ```
@@ -822,6 +846,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
+		protected WrappedDoubleArray(double[] array) {
+			this.array = array;
+		}
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		 *            object to fail with a {@link NullPointerException}.
+		 */
 		protected WrappedLongArray(long[] array) {
 			this.array = array;
 		}
@@ -835,42 +871,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
 		protected WrappedArray(T[] array) {
-			this.array = array;
-		}
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		 *            object to fail with a {@link NullPointerException}.
-		 */
-		protected WrappedIntegerArray(int[] array) {
-			this.array = array;
-		}
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		 *            object to fail with a {@link NullPointerException}.
-		 */
-		protected WrappedFloatArray(float[] array) {
-			this.array = array;
-		}
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		 *            object to fail with a {@link NullPointerException}.
-		 */
-		protected WrappedDoubleArray(double[] array) {
 			this.array = array;
 		}
 ```
@@ -918,10 +918,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/StringExtensions
 #### Snippet
 ```java
 	@Pure
-	public static String toFirstLower(String s) {
+	public static String toFirstUpper(String s) {
 		if (s == null || s.length() == 0)
 			return s;
-		if (Character.isLowerCase(s.charAt(0)))
+		if (Character.isUpperCase(s.charAt(0)))
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -930,10 +930,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/StringExtensions
 #### Snippet
 ```java
 	@Pure
-	public static String toFirstUpper(String s) {
+	public static String toFirstLower(String s) {
 		if (s == null || s.length() == 0)
 			return s;
-		if (Character.isUpperCase(s.charAt(0)))
+		if (Character.isLowerCase(s.charAt(0)))
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -949,18 +949,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/StringExtensions
 ```
 
 ### SizeReplaceableByIsEmpty
-`indentation.length() == 0` can be replaced with 'indentation.isEmpty()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtend2/lib/StringConcatenation.java`
-#### Snippet
-```java
-	 */
-	protected void append(Object object, String indentation, int index) {
-		if (indentation.length() == 0) {
-			append(object, index);
-			return;
-```
-
-### SizeReplaceableByIsEmpty
 `lineDelimiter.length() == 0` can be replaced with 'lineDelimiter.isEmpty()'
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtend2/lib/StringConcatenation.java`
 #### Snippet
@@ -970,6 +958,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtend2/lib/StringConcatenation.j
 		if (lineDelimiter == null || lineDelimiter.length() == 0)
 			throw new IllegalArgumentException("lineDelimiter must not be null or empty");
 		this.lineDelimiter = lineDelimiter;
+```
+
+### SizeReplaceableByIsEmpty
+`indentation.length() == 0` can be replaced with 'indentation.isEmpty()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtend2/lib/StringConcatenation.java`
+#### Snippet
+```java
+	 */
+	protected void append(Object object, String indentation, int index) {
+		if (indentation.length() == 0) {
+			append(object, index);
+			return;
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -1015,10 +1015,10 @@ Can generalize to `? extends K`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
-	@Inline(value = "$3.union($1, $4.singletonMap($2.getKey(), $2.getValue()))",
-			imported = { MapExtensions.class, Collections.class })
-	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
-		return union(left, Collections.singletonMap(right.getKey(), right.getValue()));
+	@Pure
+	@Inline(value = "$3.union($1, $2)", imported = MapExtensions.class)
+	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, Map<? extends K, ? extends V> right) {
+		return union(left, right);
 	}
 ```
 
@@ -1027,10 +1027,10 @@ Can generalize to `? extends V`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
-	@Inline(value = "$3.union($1, $4.singletonMap($2.getKey(), $2.getValue()))",
-			imported = { MapExtensions.class, Collections.class })
-	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
-		return union(left, Collections.singletonMap(right.getKey(), right.getValue()));
+	@Pure
+	@Inline(value = "$3.union($1, $2)", imported = MapExtensions.class)
+	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, Map<? extends K, ? extends V> right) {
+		return union(left, right);
 	}
 ```
 
@@ -1039,10 +1039,10 @@ Can generalize to `? extends K`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
-	@Pure
-	@Inline(value = "$3.union($1, $2)", imported = MapExtensions.class)
-	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, Map<? extends K, ? extends V> right) {
-		return union(left, right);
+	@Inline(value = "$3.union($1, $4.singletonMap($2.getKey(), $2.getValue()))",
+			imported = { MapExtensions.class, Collections.class })
+	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
+		return union(left, Collections.singletonMap(right.getKey(), right.getValue()));
 	}
 ```
 
@@ -1051,10 +1051,10 @@ Can generalize to `? extends V`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
-	@Pure
-	@Inline(value = "$3.union($1, $2)", imported = MapExtensions.class)
-	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, Map<? extends K, ? extends V> right) {
-		return union(left, right);
+	@Inline(value = "$3.union($1, $4.singletonMap($2.getKey(), $2.getValue()))",
+			imported = { MapExtensions.class, Collections.class })
+	public static <K, V> Map<K, V> operator_plus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
+		return union(left, Collections.singletonMap(right.getKey(), right.getValue()));
 	}
 ```
 
@@ -1077,21 +1077,9 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensio
 ```java
 	 *         iterator to that value
 	 */
-	public static <T, K, V> Map<K, V> toMap(Iterator<? extends T> inputs, Function1<? super T, K> computeKeys, Function1<? super T, V> computeValues) {
-        if (computeKeys == null)
-            throw new NullPointerException("computeKeys");
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
-#### Snippet
-```java
-	 *         iterator to that value
-	 */
-	public static <T, K, V> Map<K, V> toMap(Iterator<? extends T> inputs, Function1<? super T, K> computeKeys, Function1<? super T, V> computeValues) {
-        if (computeKeys == null)
-            throw new NullPointerException("computeKeys");
+	public static <K, V> Map<K, V> toMap(Iterator<? extends V> values, Function1<? super V, K> computeKeys) {
+		if (computeKeys == null)
+			throw new NullPointerException("computeKeys");
 ```
 
 ### BoundedWildcard
@@ -1113,9 +1101,21 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensio
 ```java
 	 *         iterator to that value
 	 */
-	public static <K, V> Map<K, V> toMap(Iterator<? extends V> values, Function1<? super V, K> computeKeys) {
-		if (computeKeys == null)
-			throw new NullPointerException("computeKeys");
+	public static <T, K, V> Map<K, V> toMap(Iterator<? extends T> inputs, Function1<? super T, K> computeKeys, Function1<? super T, V> computeValues) {
+        if (computeKeys == null)
+            throw new NullPointerException("computeKeys");
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
+#### Snippet
+```java
+	 *         iterator to that value
+	 */
+	public static <T, K, V> Map<K, V> toMap(Iterator<? extends T> inputs, Function1<? super T, K> computeKeys, Function1<? super T, V> computeValues) {
+        if (computeKeys == null)
+            throw new NullPointerException("computeKeys");
 ```
 
 ### BoundedWildcard
@@ -1128,30 +1128,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensio
 	public static <T> List<T> sortWith(Iterable<T> iterable, Comparator<? super T> comparator) {
 		return ListExtensions.sortInplace(Lists.newArrayList(iterable), comparator);
 	}
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-	 * @see ListExtensions#sortInplace(List)
-	 */
-	public static <T extends Comparable<? super T>> List<T> sort(Iterable<T> iterable) {
-		List<T> asList = Lists.newArrayList(iterable);
-		if (iterable instanceof SortedSet<?>) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-	 */
-	@Beta
-	public static <T> List<T> toList(Iterable<T> iterable) {
-		if (iterable instanceof List<?>) {
-			List<T> result = (List<T>) iterable;
 ```
 
 ### BoundedWildcard
@@ -1176,6 +1152,30 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensio
 	public static <T> Set<T> toSet(Iterable<T> iterable) {
 		if (iterable instanceof Set<?>) {
 			Set<T> result = (Set<T>) iterable;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 */
+	@Beta
+	public static <T> List<T> toList(Iterable<T> iterable) {
+		if (iterable instanceof List<?>) {
+			List<T> result = (List<T>) iterable;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 * @see ListExtensions#sortInplace(List)
+	 */
+	public static <T extends Comparable<? super T>> List<T> sort(Iterable<T> iterable) {
+		List<T> asList = Lists.newArrayList(iterable);
+		if (iterable instanceof SortedSet<?>) {
 ```
 
 ## RuleId[id=AbstractClassNeverImplemented]
@@ -1257,11 +1257,11 @@ Missorted modifiers `final static`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringContext.java`
 #### Snippet
 ```java
-class ToStringContext {
-
 	public final static ToStringContext INSTANCE = new ToStringContext();
 
 	private final static ThreadLocal<IdentityHashMap<Object, Boolean>> currentlyProcessed = new ThreadLocal<IdentityHashMap<Object, Boolean>>() {
+		@Override
+		public IdentityHashMap<Object, Boolean> initialValue() {
 ```
 
 ### MissortedModifiers
@@ -1269,11 +1269,11 @@ Missorted modifiers `final static`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringContext.java`
 #### Snippet
 ```java
+class ToStringContext {
+
 	public final static ToStringContext INSTANCE = new ToStringContext();
 
 	private final static ThreadLocal<IdentityHashMap<Object, Boolean>> currentlyProcessed = new ThreadLocal<IdentityHashMap<Object, Boolean>>() {
-		@Override
-		public IdentityHashMap<Object, Boolean> initialValue() {
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
@@ -1307,9 +1307,21 @@ Unnecessary boxing
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
 #### Snippet
 ```java
+			short old = array[index];
+			array[index] = element.shortValue();
+			return Short.valueOf(old);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
 		@Override
-		public Float get(int index) {
-			return Float.valueOf(array[index]);
+		public Double get(int index) {
+			return Double.valueOf(array[index]);
 		}
 
 ```
@@ -1331,45 +1343,9 @@ Unnecessary boxing
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
 #### Snippet
 ```java
-		@Override
-		public Short get(int index) {
-			return Short.valueOf(array[index]);
-		}
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			byte old = array[index];
-			array[index] = element.byteValue();
-			return Byte.valueOf(old);
-		}
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			short old = array[index];
-			array[index] = element.shortValue();
-			return Short.valueOf(old);
-		}
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		@Override
-		public Boolean get(int index) {
-			return Boolean.valueOf(array[index]);
+			int old = array[index];
+			array[index] = element.intValue();
+			return Integer.valueOf(old);
 		}
 
 ```
@@ -1392,32 +1368,8 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 		@Override
-		public Character get(int index) {
-			return Character.valueOf(array[index]);
-		}
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		@Override
 		public Integer get(int index) {
 			return Integer.valueOf(array[index]);
-		}
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			boolean old = array[index];
-			array[index] = element.booleanValue();
-			return Boolean.valueOf(old);
 		}
 
 ```
@@ -1440,8 +1392,56 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 		@Override
-		public Double get(int index) {
-			return Double.valueOf(array[index]);
+		public Byte get(int index) {
+			return Byte.valueOf(array[index]);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			boolean old = array[index];
+			array[index] = element.booleanValue();
+			return Boolean.valueOf(old);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		@Override
+		public Boolean get(int index) {
+			return Boolean.valueOf(array[index]);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		@Override
+		public Short get(int index) {
+			return Short.valueOf(array[index]);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		@Override
+		public Float get(int index) {
+			return Float.valueOf(array[index]);
 		}
 
 ```
@@ -1463,9 +1463,21 @@ Unnecessary boxing
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
 #### Snippet
 ```java
-			int old = array[index];
-			array[index] = element.intValue();
-			return Integer.valueOf(old);
+			byte old = array[index];
+			array[index] = element.byteValue();
+			return Byte.valueOf(old);
+		}
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		@Override
+		public Character get(int index) {
+			return Character.valueOf(array[index]);
 		}
 
 ```
@@ -1482,18 +1494,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		@Override
-		public Byte get(int index) {
-			return Byte.valueOf(array[index]);
-		}
-
-```
-
 ## RuleId[id=ComparisonOfShortAndChar]
 ### ComparisonOfShortAndChar
 Equality comparison `a == b` of short and char values
@@ -1503,6 +1503,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CharacterExtensi
 	@Inline(value="($1 == $2)", constantExpression=true)
 	public static boolean operator_equals(char a, short b) {
 		return a == b;
+	}
+	
+```
+
+### ComparisonOfShortAndChar
+Equality comparison `a != b` of short and char values
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CharacterExtensions.java`
+#### Snippet
+```java
+	@Inline(value="($1 != $2)", constantExpression=true)
+	public static boolean operator_tripleNotEquals(char a, short b) {
+		return a != b;
 	}
 	
 ```
@@ -1525,18 +1537,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CharacterExtensi
 #### Snippet
 ```java
 	@Inline(value="($1 != $2)", constantExpression=true)
-	public static boolean operator_tripleNotEquals(char a, short b) {
-		return a != b;
-	}
-	
-```
-
-### ComparisonOfShortAndChar
-Equality comparison `a != b` of short and char values
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CharacterExtensions.java`
-#### Snippet
-```java
-	@Inline(value="($1 != $2)", constantExpression=true)
 	public static boolean operator_notEquals(char a, short b) {
 		return a != b;
 	}
@@ -1544,13 +1544,13 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/CharacterExtensi
 ```
 
 ### ComparisonOfShortAndChar
-Equality comparison `a == b` of short and char values
+Equality comparison `a != b` of short and char values
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ShortExtensions.java`
 #### Snippet
 ```java
-	@Inline(value="($1 == $2)", constantExpression=true)
-	public static boolean operator_equals(short a, char b) {
-		return a == b;
+	@Inline(value="($1 != $2)", constantExpression=true)
+	public static boolean operator_tripleNotEquals(short a, char b) {
+		return a != b;
 	}
 	
 ```
@@ -1573,20 +1573,20 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ShortExtensions.
 #### Snippet
 ```java
 	@Inline(value="($1 != $2)", constantExpression=true)
-	public static boolean operator_tripleNotEquals(short a, char b) {
+	public static boolean operator_notEquals(short a, char b) {
 		return a != b;
 	}
 	
 ```
 
 ### ComparisonOfShortAndChar
-Equality comparison `a != b` of short and char values
+Equality comparison `a == b` of short and char values
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ShortExtensions.java`
 #### Snippet
 ```java
-	@Inline(value="($1 != $2)", constantExpression=true)
-	public static boolean operator_notEquals(short a, char b) {
-		return a != b;
+	@Inline(value="($1 == $2)", constantExpression=true)
+	public static boolean operator_equals(short a, char b) {
+		return a == b;
 	}
 	
 ```
@@ -1598,10 +1598,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/InputOutput.java
 #### Snippet
 ```java
 	 */
-	public static <T> T print(T o) {
-		System.out.print(o);
-		return o;
+	public static void println() {
+		System.out.println();
 	}
+	/**
 ```
 
 ### SystemOutErr
@@ -1610,10 +1610,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/InputOutput.java
 #### Snippet
 ```java
 	 */
-	public static void println() {
-		System.out.println();
+	public static <T> T print(T o) {
+		System.out.print(o);
+		return o;
 	}
-	/**
 ```
 
 ### SystemOutErr
@@ -1646,11 +1646,23 @@ Unnecessary unboxing
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
 #### Snippet
 ```java
-			modCount++;
-			byte old = array[index];
-			array[index] = element.byteValue();
-			return Byte.valueOf(old);
-		}
+			}
+			if (o instanceof Float) {
+				return Floats.indexOf(array, ((Float) o).floatValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Integer) {
+				return Ints.lastIndexOf(array, ((Integer) o).intValue());
+			}
+			return -1;
 ```
 
 ### UnnecessaryUnboxing
@@ -1660,7 +1672,79 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 			}
 			if (o instanceof Short) {
-				return Shorts.lastIndexOf(array, ((Short) o).shortValue());
+				return Shorts.contains(array, ((Short) o).shortValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Character) {
+				return Chars.contains(array, ((Character) o).charValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Integer) {
+				return Ints.contains(array, ((Integer) o).intValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Character) {
+				return Chars.indexOf(array, ((Character) o).charValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			modCount++;
+			boolean old = array[index];
+			array[index] = element.booleanValue();
+			return Boolean.valueOf(old);
+		}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Float) {
+				return Floats.contains(array, ((Float) o).floatValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Double) {
+				return Doubles.indexOf(array, ((Double) o).doubleValue());
 			}
 			return -1;
 ```
@@ -1682,45 +1766,9 @@ Unnecessary unboxing
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
 #### Snippet
 ```java
-			modCount++;
-			short old = array[index];
-			array[index] = element.shortValue();
-			return Short.valueOf(old);
-		}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			modCount++;
-			boolean old = array[index];
-			array[index] = element.booleanValue();
-			return Boolean.valueOf(old);
-		}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			modCount++;
-			double old = array[index];
-			array[index] = element.doubleValue();
-			return Double.valueOf(old);
-		}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
 			}
-			if (o instanceof Double) {
-				return Doubles.indexOf(array, ((Double) o).doubleValue());
+			if (o instanceof Byte) {
+				return Bytes.lastIndexOf(array, ((Byte) o).byteValue());
 			}
 			return -1;
 ```
@@ -1744,102 +1792,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 			}
 			if (o instanceof Long) {
-				return Longs.contains(array, ((Long) o).longValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Float) {
-				return Floats.contains(array, ((Float) o).floatValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Integer) {
-				return Ints.contains(array, ((Integer) o).intValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Short) {
-				return Shorts.contains(array, ((Short) o).shortValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Double) {
-				return Doubles.lastIndexOf(array, ((Double) o).doubleValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Float) {
-				return Floats.indexOf(array, ((Float) o).floatValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Integer) {
-				return Ints.indexOf(array, ((Integer) o).intValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Integer) {
-				return Ints.lastIndexOf(array, ((Integer) o).intValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Long) {
 				return Longs.lastIndexOf(array, ((Long) o).longValue());
 			}
 			return -1;
@@ -1851,20 +1803,8 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			}
-			if (o instanceof Character) {
-				return Chars.contains(array, ((Character) o).charValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Byte) {
-				return Bytes.lastIndexOf(array, ((Byte) o).byteValue());
+			if (o instanceof Boolean) {
+				return Booleans.lastIndexOf(array, ((Boolean) o).booleanValue());
 			}
 			return -1;
 ```
@@ -1887,6 +1827,66 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			modCount++;
+			short old = array[index];
+			array[index] = element.shortValue();
+			return Short.valueOf(old);
+		}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Byte) {
+				return Bytes.contains(array, ((Byte) o).byteValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			modCount++;
+			int old = array[index];
+			array[index] = element.intValue();
+			return Integer.valueOf(old);
+		}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Short) {
+				return Shorts.lastIndexOf(array, ((Short) o).shortValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Float) {
+				return Floats.lastIndexOf(array, ((Float) o).floatValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			modCount++;
 			float old = array[index];
 			array[index] = element.floatValue();
 			return Float.valueOf(old);
@@ -1899,58 +1899,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			}
-			if (o instanceof Character) {
-				return Chars.indexOf(array, ((Character) o).charValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
 			if (o instanceof Double) {
 				return Doubles.contains(array, ((Double) o).doubleValue());
 			}
 			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			modCount++;
-			long old = array[index];
-			array[index] = element.longValue();
-			return Long.valueOf(old);
-		}
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Boolean) {
-				return Booleans.lastIndexOf(array, ((Boolean) o).booleanValue());
-			}
-			return -1;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
-			if (o instanceof Byte) {
-				return Bytes.indexOf(array, ((Byte) o).byteValue());
-			}
-			return -1;
 ```
 
 ### UnnecessaryUnboxing
@@ -1971,9 +1923,69 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			modCount++;
-			int old = array[index];
-			array[index] = element.intValue();
-			return Integer.valueOf(old);
+			double old = array[index];
+			array[index] = element.doubleValue();
+			return Double.valueOf(old);
+		}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Integer) {
+				return Ints.indexOf(array, ((Integer) o).intValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Long) {
+				return Longs.contains(array, ((Long) o).longValue());
+			}
+			return false;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			}
+			if (o instanceof Byte) {
+				return Bytes.indexOf(array, ((Byte) o).byteValue());
+			}
+			return -1;
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			modCount++;
+			long old = array[index];
+			array[index] = element.longValue();
+			return Long.valueOf(old);
+		}
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+			modCount++;
+			byte old = array[index];
+			array[index] = element.byteValue();
+			return Byte.valueOf(old);
 		}
 ```
 
@@ -1995,18 +2007,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			}
-			if (o instanceof Byte) {
-				return Bytes.contains(array, ((Byte) o).byteValue());
-			}
-			return false;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-			}
 			if (o instanceof Character) {
 				return Chars.lastIndexOf(array, ((Character) o).charValue());
 			}
@@ -2019,8 +2019,8 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 #### Snippet
 ```java
 			}
-			if (o instanceof Float) {
-				return Floats.lastIndexOf(array, ((Float) o).floatValue());
+			if (o instanceof Double) {
+				return Doubles.lastIndexOf(array, ((Double) o).doubleValue());
 			}
 			return -1;
 ```
@@ -2058,9 +2058,9 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtension
 ```java
 	 */
 	@Pure
-	@Inline(value="new $3($1, $2, false)", imported=ExclusiveRange.class, statementExpression=false)
-	public static ExclusiveRange operator_greaterThanDoubleDot(final int a, final int b) {
-		return new ExclusiveRange(a, b, false);
+	@Inline(value="new $3($1, $2, true)", imported=ExclusiveRange.class, statementExpression=false)
+	public static ExclusiveRange operator_doubleDotLessThan(final int a, final int b) {
+		return new ExclusiveRange(a, b, true);
 ```
 
 ### DefaultAnnotationParam
@@ -2070,9 +2070,9 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtension
 ```java
 	 */
 	@Pure
-	@Inline(value="new $3($1, $2, true)", imported=ExclusiveRange.class, statementExpression=false)
-	public static ExclusiveRange operator_doubleDotLessThan(final int a, final int b) {
-		return new ExclusiveRange(a, b, true);
+	@Inline(value="new $3($1, $2, false)", imported=ExclusiveRange.class, statementExpression=false)
+	public static ExclusiveRange operator_greaterThanDoubleDot(final int a, final int b) {
+		return new ExclusiveRange(a, b, false);
 ```
 
 ### DefaultAnnotationParam
@@ -2141,18 +2141,6 @@ Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
 #### Snippet
 ```java
-	 *            the iterator. May not be <code>null</code>.
-	 * @return the string representation of the iterator's elements. Never <code>null</code>.
-	 * @see #join(Iterator, CharSequence, org.eclipse.xtext.xbase.lib.Functions.Function1)
-	 */
-	public static String join(Iterator<?> iterator) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
-#### Snippet
-```java
 	 * <p>
 	 * One of the function parameters is an element of the iterator, and the other is the result of previous application
 	 * of the function. The seed of the operation is explicitly passed to {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2)
@@ -2182,6 +2170,66 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensio
 	 * {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2) fold} is similar to {@link #reduce(Iterator, org.eclipse.xtext.xbase.lib.Functions.Function2) reduce} but
 	 * allows a {@code seed} value and the combinator {@code function} may be asymmetric. It takes {@code T and R} and
 	 * returns {@code R}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
+#### Snippet
+```java
+	 *            the iterator. May not be <code>null</code>.
+	 * @return the string representation of the iterator's elements. Never <code>null</code>.
+	 * @see #join(Iterator, CharSequence, org.eclipse.xtext.xbase.lib.Functions.Function1)
+	 */
+	public static String join(Iterator<?> iterator) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 * @see Collections#sort(List, Comparator)
+	 * @see #sort(Iterable)
+	 * @see #sortBy(Iterable, org.eclipse.xtext.xbase.lib.Functions.Function1)
+	 * @see ListExtensions#sortInplace(List, Comparator)
+	 * @since 2.7
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 * @see #sort(Iterable)
+	 * @see #sort(Iterable, Comparator)
+	 * @see ListExtensions#sortInplaceBy(List, org.eclipse.xtext.xbase.lib.Functions.Function1)
+	 */
+	public static <T, C extends Comparable<? super C>> List<T> sortBy(Iterable<T> iterable,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 * @see Collections#sort(List)
+	 * @see #sort(Iterable, Comparator)
+	 * @see #sortBy(Iterable, org.eclipse.xtext.xbase.lib.Functions.Function1)
+	 * @see ListExtensions#sortInplace(List)
+	 */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
+#### Snippet
+```java
+	 *            the iterable. May not be <code>null</code>.
+	 * @return the string representation of the iterable's elements. Never <code>null</code>.
+	 * @see #join(Iterable, CharSequence, org.eclipse.xtext.xbase.lib.Functions.Function1)
+	 */
+	public static String join(Iterable<?> iterable) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2225,59 +2273,11 @@ Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-	 *            the iterable. May not be <code>null</code>.
-	 * @return the string representation of the iterable's elements. Never <code>null</code>.
-	 * @see #join(Iterable, CharSequence, org.eclipse.xtext.xbase.lib.Functions.Function1)
-	 */
-	public static String join(Iterable<?> iterable) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-	 * @see Collections#sort(List, Comparator)
-	 * @see #sort(Iterable)
-	 * @see #sortBy(Iterable, org.eclipse.xtext.xbase.lib.Functions.Function1)
-	 * @see ListExtensions#sortInplace(List, Comparator)
-	 * @since 2.7
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-	 * @see Collections#sort(List)
-	 * @see #sort(Iterable, Comparator)
-	 * @see #sortBy(Iterable, org.eclipse.xtext.xbase.lib.Functions.Function1)
-	 * @see ListExtensions#sortInplace(List)
-	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
 	 *            the separator. May not be <code>null</code>.
 	 * @return the string representation of the iterable's elements. Never <code>null</code>.
 	 * @see #join(Iterable, CharSequence, org.eclipse.xtext.xbase.lib.Functions.Function1)
 	 */
 	public static String join(Iterable<?> iterable, CharSequence separator) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.xtext.xbase.lib` is unnecessary and can be removed
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-	 * @see #sort(Iterable)
-	 * @see #sort(Iterable, Comparator)
-	 * @see ListExtensions#sortInplaceBy(List, org.eclipse.xtext.xbase.lib.Functions.Function1)
-	 */
-	public static <T, C extends Comparable<? super C>> List<T> sortBy(Iterable<T> iterable,
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -2417,24 +2417,12 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.ja
 ```
 
 ### Convert2Lambda
-Anonymous new Predicate() can be replaced with lambda
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
-#### Snippet
-```java
-	@Pure
-	public static <K, V> Map<K, V> operator_minus(Map<K, V> map, final K key) {
-		return Maps.filterKeys(map, new Predicate<K>() {
-			@Override
-			public boolean apply(K input) {
-```
-
-### Convert2Lambda
 Anonymous new Predicate\>() can be replaced with lambda
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
 	@Pure
-	public static <K, V> Map<K, V> operator_minus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
+	public static <K, V> Map<K, V> operator_minus(Map<K, V> left, final Map<? extends K, ? extends V> right) {
 		return Maps.filterEntries(left, new Predicate<Entry<K, V>>() {
 			@Override
 			public boolean apply(Entry<K, V> input) {
@@ -2453,12 +2441,24 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.ja
 ```
 
 ### Convert2Lambda
+Anonymous new Predicate() can be replaced with lambda
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
+#### Snippet
+```java
+	@Pure
+	public static <K, V> Map<K, V> operator_minus(Map<K, V> map, final K key) {
+		return Maps.filterKeys(map, new Predicate<K>() {
+			@Override
+			public boolean apply(K input) {
+```
+
+### Convert2Lambda
 Anonymous new Predicate\>() can be replaced with lambda
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/MapExtensions.java`
 #### Snippet
 ```java
 	@Pure
-	public static <K, V> Map<K, V> operator_minus(Map<K, V> left, final Map<? extends K, ? extends V> right) {
+	public static <K, V> Map<K, V> operator_minus(Map<K, V> left, final Pair<? extends K, ? extends V> right) {
 		return Maps.filterEntries(left, new Predicate<Entry<K, V>>() {
 			@Override
 			public boolean apply(Entry<K, V> input) {
@@ -3135,18 +3135,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ExclusiveRange.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBuilder.java`
-#### Snippet
-```java
-		private final String newLineString = "\n";
-
-		private int indentation = 0;
-
-		public IndentationAwareStringBuilder increaseIndent() {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBuilder.java`
 #### Snippet
@@ -3156,6 +3144,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBui
 	private boolean skipNulls = false;
 
 	private boolean showFieldNames = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBuilder.java`
+#### Snippet
+```java
+		private final String newLineString = "\n";
+
+		private int indentation = 0;
+
+		public IndentationAwareStringBuilder increaseIndent() {
 ```
 
 ### RedundantFieldInitialization
@@ -3393,6 +3393,18 @@ Return of `null`
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
 #### Snippet
 ```java
+			return result;
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
+#### Snippet
+```java
 				return t;
 		}
 		return null;
@@ -3402,14 +3414,14 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensio
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-			return result;
-		} else {
+					return t;
+			}
 			return null;
-		}
-	}
+		} else {
+			return IteratorExtensions.findLast(iterable.iterator(), predicate);
 ```
 
 ### ReturnNull
@@ -3434,18 +3446,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensio
 				return null;
 			return sortedSet.last();
 		} else {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
-#### Snippet
-```java
-					return t;
-			}
-			return null;
-		} else {
-			return IteratorExtensions.findLast(iterable.iterator(), predicate);
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -3478,9 +3478,9 @@ Local variable `result` is redundant
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-	public static <T> List<T> toList(Iterable<T> iterable) {
-		if (iterable instanceof List<?>) {
-			List<T> result = (List<T>) iterable;
+	public static <T> Set<T> toSet(Iterable<T> iterable) {
+		if (iterable instanceof Set<?>) {
+			Set<T> result = (Set<T>) iterable;
 			return result;
 		}
 ```
@@ -3490,9 +3490,9 @@ Local variable `result` is redundant
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
 ```java
-	public static <T> Set<T> toSet(Iterable<T> iterable) {
-		if (iterable instanceof Set<?>) {
-			Set<T> result = (Set<T>) iterable;
+	public static <T> List<T> toList(Iterable<T> iterable) {
+		if (iterable instanceof List<?>) {
+			List<T> result = (List<T>) iterable;
 			return result;
 		}
 ```
@@ -3516,7 +3516,19 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(Object[] array) {
+	public static int hashCode(short[] array) {
+		return array.hashCode();
+	}
+	
+```
+
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
+#### Snippet
+```java
+	@Inline("$1.hashCode()")
+	public static int hashCode(byte[] array) {
 		return array.hashCode();
 	}
 	
@@ -3529,6 +3541,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 ```java
 	@Inline("$1.hashCode()")
 	public static int hashCode(boolean[] array) {
+		return array.hashCode();
+	}
+	
+```
+
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
+#### Snippet
+```java
+	@Inline("$1.hashCode()")
+	public static int hashCode(Object[] array) {
 		return array.hashCode();
 	}
 	
@@ -3564,18 +3588,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(int[] array) {
-		return array.hashCode();
-	}
-	
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
-	@Inline("$1.hashCode()")
 	public static int hashCode(long[] array) {
 		return array.hashCode();
 	}
@@ -3588,25 +3600,25 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(short[] array) {
-		return array.hashCode();
-	}
-	
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
-	@Inline("$1.hashCode()")
-	public static int hashCode(byte[] array) {
+	public static int hashCode(int[] array) {
 		return array.hashCode();
 	}
 	
 ```
 
 ## RuleId[id=UnstableTypeUsedInSignature]
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeReference'
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedMethod.java`
+#### Snippet
+```java
+	 * @return the {@link ResolvedExecutable resolved} return type
+	 */
+	TypeReference getResolvedReturnType();
+
+	/**
+```
+
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.MethodDeclaration'
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedMethod.java`
@@ -3621,12 +3633,12 @@ public interface ResolvedMethod extends ResolvedExecutable {
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeReference'
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedMethod.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedExecutable.java`
 #### Snippet
 ```java
-	 * @return the {@link ResolvedExecutable resolved} return type
+	 * @return the {@link ResolvedExecutable resolved} exceptions
 	 */
-	TypeReference getResolvedReturnType();
+	Iterable<? extends TypeReference> getResolvedExceptionTypes();
 
 	/**
 ```
@@ -3639,18 +3651,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Reso
 	 * @return the executable that is {@link ResolvedExecutable resolved}
 	 */
 	ExecutableDeclaration getDeclaration();
-
-	/**
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeReference'
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedExecutable.java`
-#### Snippet
-```java
-	 * @return the {@link ResolvedExecutable resolved} exceptions
-	 */
-	Iterable<? extends TypeReference> getResolvedExceptionTypes();
 
 	/**
 ```
@@ -3740,6 +3740,17 @@ public interface ResolvedConstructor extends ResolvedExecutable {
 ```
 
 ### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeReference'
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedTypeParameter.java`
+#### Snippet
+```java
+	 * @return the {@link ResolvedTypeParameter resolved} upper bounds
+	 */
+	Iterable<? extends TypeReference> getResolvedUpperBounds();
+}
+```
+
+### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeParameterDeclaration'
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedTypeParameter.java`
 #### Snippet
@@ -3751,18 +3762,19 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Reso
 	/**
 ```
 
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'org.eclipse.xtend.lib.macro.declaration.TypeReference'
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ResolvedTypeParameter.java`
+## RuleId[id=TypeParameterExtendsObject]
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
 #### Snippet
 ```java
-	 * @return the {@link ResolvedTypeParameter resolved} upper bounds
-	 */
-	Iterable<? extends TypeReference> getResolvedUpperBounds();
-}
+		Preconditions.checkNotNull(receiver,"receiver");
+		Preconditions.checkNotNull(fieldName,"fieldName");
+		Class<? extends Object> clazz = receiver.getClass();
+		Field f = getDeclaredField(clazz, fieldName);
+		if (!f.canAccess(receiver))
 ```
 
-## RuleId[id=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
@@ -3782,18 +3794,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExte
 ```java
 		Preconditions.checkNotNull(fieldName,"fieldName");
 		
-		Class<? extends Object> clazz = receiver.getClass();
-		Field f = getDeclaredField(clazz, fieldName);
-		if (!f.canAccess(receiver))
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
-#### Snippet
-```java
-		Preconditions.checkNotNull(receiver,"receiver");
-		Preconditions.checkNotNull(fieldName,"fieldName");
 		Class<? extends Object> clazz = receiver.getClass();
 		Field f = getDeclaredField(clazz, fieldName);
 		if (!f.canAccess(receiver))
