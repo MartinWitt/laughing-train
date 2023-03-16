@@ -1,7 +1,7 @@
 # cxf-xjc-utils 
  
 # Bad smells
-I found 113 bad smells with 4 repairable:
+I found 112 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 27 | false |
@@ -27,23 +27,10 @@ I found 113 bad smells with 4 repairable:
 | RedundantSuppression | 1 | false |
 | UnnecessaryBoxing | 1 | false |
 | Convert2Lambda | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
-| IndexOfReplaceableByContains | 1 | false |
 | UseBulkOperation | 1 | false |
+| IndexOfReplaceableByContains | 1 | false |
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `javadoc` may produce `NullPointerException`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-        String getterMethod = getGetterMethod();
-        JMethod getter = MethodHelper.findMethod(classOutline, getterMethod);
-        JDocComment javadoc = getter.javadoc();
-        if (javadoc.size() != 0) {
-            documentation = "\n<p>\n" + documentation;
-```
-
 ### DataFlowIssue
 Method invocation `fullName` may produce `NullPointerException`
 in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
@@ -69,15 +56,15 @@ in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
 ```
 
 ### DataFlowIssue
-Method invocation `toExternalForm` may produce `NullPointerException`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+Method invocation `javadoc` may produce `NullPointerException`
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
 #### Snippet
 ```java
-                        if (resolved.startsWith("classpath:")) {
-                            url = loader.getResource(resolved.substring("classpath:".length()));
-                            iSource.setSystemId(url.toExternalForm());
-                        } else {
-                            url = new URL(resolved);
+        String getterMethod = getGetterMethod();
+        JMethod getter = MethodHelper.findMethod(classOutline, getterMethod);
+        JDocComment javadoc = getter.javadoc();
+        if (javadoc.size() != 0) {
+            documentation = "\n<p>\n" + documentation;
 ```
 
 ### DataFlowIssue
@@ -102,6 +89,18 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
             for (File file : files) {
                 deleteDir(file);
             }
+```
+
+### DataFlowIssue
+Method invocation `toExternalForm` may produce `NullPointerException`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+#### Snippet
+```java
+                        if (resolved.startsWith("classpath:")) {
+                            url = loader.getResource(resolved.substring("classpath:".length()));
+                            iSource.setSystemId(url.toExternalForm());
+                        } else {
+                            url = new URL(resolved);
 ```
 
 ## RuleId[id=WhileCanBeForeach]
@@ -265,31 +264,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
             msg.append('\n');
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                            if (bangIdx > 0) {
-                                ref = lsi.substring(0, bangIdx + 1)
-                                        + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef)).toString();
-                            } else {
-                                ref = relativeRef;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-                URI uri = mapLocation(cp);
-                if (uri != null) {
-                    b.append(uri.toString()).append(' ');
-                }
-            }
-```
-
 ## RuleId[id=AssignmentToForLoopParameter]
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `x`
@@ -303,6 +277,31 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.jav
         }
 ```
 
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
+#### Snippet
+```java
+                URI uri = mapLocation(cp);
+                if (uri != null) {
+                    b.append(uri.toString()).append(' ');
+                }
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+#### Snippet
+```java
+                            if (bangIdx > 0) {
+                                ref = lsi.substring(0, bangIdx + 1)
+                                        + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef)).toString();
+                            } else {
+                                ref = relativeRef;
+```
+
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends JMethod`
@@ -314,31 +313,6 @@ in `boolean/src/main/java/org/apache/cxf/xjc/bgi/BooleanGetAndIsPlugin.java`
     private boolean requiresGetter(Collection<JMethod> methods, JMethod method) {
         String newName = "get" + method.name().substring(2);
         // Check if already exists.
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/JavadocInserter.java`
-#### Snippet
-```java
-        XSComponent schemaComponent = enumOutline.target.getSchemaComponent();
-        String documentation = XSComponentHelper.getDocumentation(schemaComponent);
-        if (documentation == null || "".equals(documentation)) {
-            return;
-        }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-
-        String documentation = XSComponentHelper.getDocumentation(component);
-        if (documentation == null || "".equals(documentation.trim())) {
-            return;
-        }
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
@@ -388,6 +362,31 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.jav
         return modelLoaderClass;
     }
     
+```
+
+## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+#### Snippet
+```java
+
+        String documentation = XSComponentHelper.getDocumentation(component);
+        if (documentation == null || "".equals(documentation.trim())) {
+            return;
+        }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/JavadocInserter.java`
+#### Snippet
+```java
+        XSComponent schemaComponent = enumOutline.target.getSchemaComponent();
+        String documentation = XSComponentHelper.getDocumentation(schemaComponent);
+        if (documentation == null || "".equals(documentation)) {
+            return;
+        }
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -484,8 +483,20 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.jav
 #### Snippet
 ```java
     }
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-        System.out.println("WARNING: " + file.getAbsolutePath());
+    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
+        System.out.println("MSG: " + file.getAbsolutePath());
+        System.out.println("Severity: " + severity);
+        System.out.println("Line: " + line);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
+        System.out.println("MSG: " + file.getAbsolutePath());
+        System.out.println("Severity: " + severity);
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
 ```
@@ -495,8 +506,8 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
 #### Snippet
 ```java
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-        System.out.println("WARNING: " + file.getAbsolutePath());
+        System.out.println("MSG: " + file.getAbsolutePath());
+        System.out.println("Severity: " + severity);
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
         System.out.println(message);
@@ -507,7 +518,7 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
 #### Snippet
 ```java
-        System.out.println("WARNING: " + file.getAbsolutePath());
+        System.out.println("Severity: " + severity);
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
         System.out.println(message);
@@ -559,7 +570,7 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.jav
         System.out.println();
         System.out.println("DONE");
     }
-
+    public void removeMessages(File file) {
 ```
 
 ### SystemOutErr
@@ -652,20 +663,8 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.jav
 #### Snippet
 ```java
     }
-    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
-        System.out.println("Line: " + line);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
+    public void addWarning(File file, int line, int column, String message, Throwable cause) {
+        System.out.println("WARNING: " + file.getAbsolutePath());
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
 ```
@@ -675,8 +674,8 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
 #### Snippet
 ```java
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
+    public void addWarning(File file, int line, int column, String message, Throwable cause) {
+        System.out.println("WARNING: " + file.getAbsolutePath());
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
         System.out.println(message);
@@ -687,7 +686,7 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
 #### Snippet
 ```java
-        System.out.println("Severity: " + severity);
+        System.out.println("WARNING: " + file.getAbsolutePath());
         System.out.println("Line: " + line);
         System.out.println("Col: " + column);
         System.out.println(message);
@@ -739,7 +738,7 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.jav
         System.out.println();
         System.out.println("DONE");
     }
-    public void removeMessages(File file) {
+
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -768,18 +767,6 @@ in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
-#### Snippet
-```java
-                        } catch (Throwable t) {
-                            //ignore
-                            t.printStackTrace();
-                        }
-                    }
-```
-
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
@@ -814,6 +801,18 @@ in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
             t.printStackTrace();
         }
         return null;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
+#### Snippet
+```java
+                        } catch (Throwable t) {
+                            //ignore
+                            t.printStackTrace();
+                        }
+                    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -868,18 +867,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-        if (s != null && s.startsWith("file:")) {
-            if (s.contains("#")) {
-                s = s.substring(0, s.indexOf('#'));
-            }
-            try {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `object`
 in `runtime/src/main/java/org/apache/cxf/xjc/runtime/JAXBToStringBuilder.java`
 #### Snippet
@@ -889,6 +876,18 @@ in `runtime/src/main/java/org/apache/cxf/xjc/runtime/JAXBToStringBuilder.java`
             object = ((Collection<?>) object).toArray();
         }
         return ToStringBuilder.reflectionToString(object, style);        
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `s`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
+#### Snippet
+```java
+        if (s != null && s.startsWith("file:")) {
+            if (s.contains("#")) {
+                s = s.substring(0, s.indexOf('#'));
+            }
+            try {
 ```
 
 ### AssignmentToMethodParameter
@@ -915,30 +914,65 @@ in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
             if ("base64Binary".equals(xsType.getName())) {
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-13-06-04-49.227.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/MethodHelper.java`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
 #### Snippet
 ```java
-            }
-        }
+
+    public OutputStream newFileOutputStream(File file) throws IOException {
         return null;
     }
+    public Scanner newScanner(File basedir) {
+```
 
+### ReturnNull
+Return of `null`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+    }
+    public Scanner newDeleteScanner(File basedir) {
+        return null;
+    }
+    public Scanner newScanner(File basedir, boolean ignoreDelta) {
+```
+
+### ReturnNull
+Return of `null`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+    }
+    public Scanner newScanner(File basedir, boolean ignoreDelta) {
+        return null;
+    }
+    public boolean isIncremental() {
+```
+
+### ReturnNull
+Return of `null`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+    }
+    public Scanner newScanner(File basedir) {
+        return null;
+    }
+    public Scanner newDeleteScanner(File basedir) {
+```
+
+### ReturnNull
+Return of `null`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+    }
+    public Object getValue(String key) {
+        return null;
+    }
+    public void addWarning(File file, int line, int column, String message, Throwable cause) {
 ```
 
 ### ReturnNull
@@ -958,23 +992,11 @@ Return of `null`
 in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
 #### Snippet
 ```java
-    public static String printTime(Date dt) {
-        if (dt == null) {
-            return null;
-        }
-        Calendar c = Calendar.getInstance();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static Date parseDate(String s) {
+    public static Date parseDateTime(String s) {
         if (s == null) {
             return null;
         }
-        return DatatypeConverter.parseDate(s).getTime();
+        return DatatypeConverter.parseDateTime(s).getTime();
 ```
 
 ### ReturnNull
@@ -1006,18 +1028,6 @@ Return of `null`
 in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
 #### Snippet
 ```java
-    public static Date parseDateTime(String s) {
-        if (s == null) {
-            return null;
-        }
-        return DatatypeConverter.parseDateTime(s).getTime();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
     public static String printDate(Date dt) {
         if (dt == null) {
             return null;
@@ -1027,14 +1037,38 @@ in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
 
 ### ReturnNull
 Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
 #### Snippet
 ```java
-            return ((XSAttributeUse)schemaComponent).getDecl();
-        } else {
+    public static Date parseDate(String s) {
+        if (s == null) {
             return null;
         }
+        return DatatypeConverter.parseDate(s).getTime();
+```
+
+### ReturnNull
+Return of `null`
+in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
+#### Snippet
+```java
+    public static String printTime(Date dt) {
+        if (dt == null) {
+            return null;
+        }
+        Calendar c = Calendar.getInstance();
+```
+
+### ReturnNull
+Return of `null`
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/MethodHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
     }
+
 ```
 
 ### ReturnNull
@@ -1075,14 +1109,14 @@ in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/XSComponentHelper.java`
 
 ### ReturnNull
 Return of `null`
-in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
+in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
 #### Snippet
 ```java
-            //ignore
+            t.printStackTrace();
         }
         return null;
     }
-
+    
 ```
 
 ### ReturnNull
@@ -1111,74 +1145,50 @@ in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
 
 ### ReturnNull
 Return of `null`
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
+in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
 #### Snippet
 ```java
-            t.printStackTrace();
+            //ignore
         }
         return null;
     }
-    
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
 #### Snippet
 ```java
+            return ((XSAttributeUse)schemaComponent).getDecl();
+        } else {
+            return null;
+        }
     }
-    public Scanner newScanner(File basedir) {
-        return null;
-    }
-    public Scanner newDeleteScanner(File basedir) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
 #### Snippet
 ```java
-    }
-    public Scanner newDeleteScanner(File basedir) {
-        return null;
-    }
-    public Scanner newScanner(File basedir, boolean ignoreDelta) {
+        String defaultValue = xmlDefaultValue == null ? null : xmlDefaultValue.value;
+        if (defaultValue == null) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
 #### Snippet
 ```java
+                l.debug("Could not find a file for " + s);
+            }
+            return null;
+        }
     }
-    public Object getValue(String key) {
-        return null;
-    }
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-
-    public OutputStream newFileOutputStream(File file) throws IOException {
-        return null;
-    }
-    public Scanner newScanner(File basedir) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public Scanner newScanner(File basedir, boolean ignoreDelta) {
-        return null;
-    }
-    public boolean isIncremental() {
 ```
 
 ### ReturnNull
@@ -1210,18 +1220,6 @@ Return of `null`
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
 #### Snippet
 ```java
-                l.debug("Could not find a file for " + s);
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
                     return atts.getValue("schemaLocation");
                 }
                 return null;
@@ -1241,18 +1239,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.jav
     
 ```
 
-### ReturnNull
-Return of `null`
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        String defaultValue = xmlDefaultValue == null ? null : xmlDefaultValue.value;
-        if (defaultValue == null) {
-            return null;
-        }
-
-```
-
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer msg` may be declared as 'StringBuilder'
@@ -1267,18 +1253,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-        }
-
-        try (URLClassLoader loader = new URLClassLoader(urls.toArray(new URL[0]),
-                                                      this.getClass().getClassLoader())) {
-            final CatalogManager cm = new CatalogManager();
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
@@ -1363,42 +1337,16 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
     }
 ```
 
-## RuleId[id=IndexOfReplaceableByContains]
-### IndexOfReplaceableByContains
-`args[index].indexOf(":optional") != -1` can be replaced with 'args\[index\].contains(":optional")'
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
 #### Snippet
 ```java
-        if (args[index].startsWith("-Xdv")) {
-            ret = 1;                    
-            if (args[index].indexOf(":optional") != -1) {
-                complexTypes = true;
-            }
-```
+        }
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `file != null` is always `true`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-        final String sysId = exception.getSystemId();
-        File file = mapFile(sysId);
-        if (file != null && !errorfiles.contains(file)) {
-            buildContext.removeMessages(file);
-            errorfiles.add(file);
-```
-
-### ConstantValue
-Condition `file != null` is always `true`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-    public void warning(SAXParseException exception) {
-        File file = mapFile(exception.getSystemId());
-        if (file != null && !errorfiles.contains(file)) {
-            buildContext.removeMessages(file);
-            errorfiles.add(file);
+        try (URLClassLoader loader = new URLClassLoader(urls.toArray(new URL[0]),
+                                                      this.getClass().getClassLoader())) {
+            final CatalogManager cm = new CatalogManager();
 ```
 
 ## RuleId[id=UseBulkOperation]
@@ -1412,5 +1360,43 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.jav
                 opt.classpaths.add(url);
             }
             if (checkXmlElementRef()) {
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `file != null` is always `true`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
+#### Snippet
+```java
+    public void warning(SAXParseException exception) {
+        File file = mapFile(exception.getSystemId());
+        if (file != null && !errorfiles.contains(file)) {
+            buildContext.removeMessages(file);
+            errorfiles.add(file);
+```
+
+### ConstantValue
+Condition `file != null` is always `true`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
+#### Snippet
+```java
+        final String sysId = exception.getSystemId();
+        File file = mapFile(sysId);
+        if (file != null && !errorfiles.contains(file)) {
+            buildContext.removeMessages(file);
+            errorfiles.add(file);
+```
+
+## RuleId[id=IndexOfReplaceableByContains]
+### IndexOfReplaceableByContains
+`args[index].indexOf(":optional") != -1` can be replaced with 'args\[index\].contains(":optional")'
+in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+#### Snippet
+```java
+        if (args[index].startsWith("-Xdv")) {
+            ret = 1;                    
+            if (args[index].indexOf(":optional") != -1) {
+                complexTypes = true;
+            }
 ```
 
