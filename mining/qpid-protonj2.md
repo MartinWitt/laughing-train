@@ -1,15 +1,15 @@
 # qpid-protonj2 
  
 # Bad smells
-I found 1717 bad smells with 465 repairable:
+I found 1734 bad smells with 465 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryModifier | 311 | true |
 | ReturnNull | 258 | false |
-| AssignmentToMethodParameter | 124 | false |
+| AssignmentToMethodParameter | 128 | false |
 | LongLiteralsEndingWithLowercaseL | 95 | false |
+| BoundedWildcard | 64 | false |
 | NestedAssignment | 58 | false |
-| BoundedWildcard | 56 | false |
 | CodeBlock2Expr | 49 | true |
 | ThrowableNotThrown | 43 | false |
 | RedundantFieldInitialization | 39 | false |
@@ -42,11 +42,11 @@ I found 1717 bad smells with 465 repairable:
 | AbstractClassNeverImplemented | 8 | false |
 | EmptyMethod | 8 | false |
 | FieldMayBeStatic | 8 | false |
+| UnnecessarySemicolon | 7 | false |
 | AssignmentToForLoopParameter | 7 | false |
 | Convert2Lambda | 7 | false |
 | FinalStaticMethod | 6 | false |
 | CharsetObjectCanBeUsed | 6 | false |
-| UnnecessarySemicolon | 5 | false |
 | NonSerializableFieldInSerializableClass | 5 | false |
 | InnerClassMayBeStatic | 5 | true |
 | Java9CollectionFactory | 5 | false |
@@ -62,6 +62,7 @@ I found 1717 bad smells with 465 repairable:
 | CastCanBeRemovedNarrowingVariableType | 4 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 3 | false |
 | ConditionCoveredByFurtherCondition | 3 | false |
+| Anonymous2MethodRef | 3 | false |
 | RedundantFileCreation | 3 | false |
 | PointlessBooleanExpression | 3 | true |
 | ObjectNotify | 2 | false |
@@ -92,6 +93,30 @@ I found 1717 bad smells with 465 repairable:
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTransactionContext.java`
+#### Snippet
+```java
+interface ClientTransactionContext {
+
+    public interface Sendable {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/DeliveryState.java`
+#### Snippet
+```java
+public interface DeliveryState {
+
+    public enum Type {
+        ACCEPTED,
+        REJECTED,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/Codec.java`
 #### Snippet
 ```java
@@ -119,11 +144,47 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte FLOAT                    = (byte) 0x72;
+
     public static final byte DOUBLE                   = (byte) 0x82;
 
     public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
 ```
 
 ### UnnecessaryModifier
@@ -131,11 +192,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte FLOAT                    = (byte) 0x72;
+
     public static final byte DOUBLE                   = (byte) 0x82;
 
     public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
 ```
 
 ### UnnecessaryModifier
@@ -143,11 +204,11 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte FLOAT                    = (byte) 0x72;
+
     public static final byte DOUBLE                   = (byte) 0x82;
 
     public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
 ```
 
 ### UnnecessaryModifier
@@ -155,155 +216,11 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
 ```
 
 ### UnnecessaryModifier
@@ -311,11 +228,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
 ```
 
 ### UnnecessaryModifier
@@ -323,118 +240,10 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
 
 ```
 
@@ -479,11 +288,83 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
 ```
 
 ### UnnecessaryModifier
@@ -491,11 +372,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
 ```
 
 ### UnnecessaryModifier
@@ -503,11 +384,11 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte NULL                     = (byte) 0x40;
 
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
 ```
 
 ### UnnecessaryModifier
@@ -515,119 +396,11 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte FLOAT                    = (byte) 0x72;
 
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
+    public static final byte LONG                     = (byte) 0x81;
     public static final byte SMALLLONG                = (byte) 0x55;
 
     public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
 ```
 
 ### UnnecessaryModifier
@@ -635,11 +408,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+
+    public static final byte LONG                     = (byte) 0x81;
     public static final byte SMALLLONG                = (byte) 0x55;
 
     public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
 ```
 
 ### UnnecessaryModifier
@@ -647,11 +420,47 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+
+    public static final byte LONG                     = (byte) 0x81;
     public static final byte SMALLLONG                = (byte) 0x55;
 
     public static final byte FLOAT                    = (byte) 0x72;
+```
 
-    public static final byte DOUBLE                   = (byte) 0x82;
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
 ```
 
 ### UnnecessaryModifier
@@ -695,11 +504,11 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte DECIMAL32                = (byte) 0x74;
+    public static final byte MAP32                    = (byte) 0xd1;
 
-    public static final byte DECIMAL64                = (byte) 0x84;
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
 
-    public static final byte DECIMAL128               = (byte) 0x94;
 ```
 
 ### UnnecessaryModifier
@@ -707,11 +516,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte DECIMAL32                = (byte) 0x74;
+    public static final byte MAP32                    = (byte) 0xd1;
 
-    public static final byte DECIMAL64                = (byte) 0x84;
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
 
-    public static final byte DECIMAL128               = (byte) 0x94;
 ```
 
 ### UnnecessaryModifier
@@ -719,11 +528,119 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
     public static final byte DECIMAL32                = (byte) 0x74;
 
     public static final byte DECIMAL64                = (byte) 0x84;
+```
 
-    public static final byte DECIMAL128               = (byte) 0x94;
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
 ```
 
 ### UnnecessaryModifier
@@ -768,10 +685,10 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 #### Snippet
 ```java
 
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte STR8                     = (byte) 0xa1;
 ```
 
 ### UnnecessaryModifier
@@ -780,10 +697,10 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 #### Snippet
 ```java
 
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte STR8                     = (byte) 0xa1;
 ```
 
 ### UnnecessaryModifier
@@ -792,10 +709,370 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 #### Snippet
 ```java
 
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
+
+    static String toString(byte encoding) {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
+
+    static String toString(byte encoding) {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+    public static final byte ARRAY32                  = (byte) 0xf0;
+
+    static String toString(byte encoding) {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
 ```
 
 ### UnnecessaryModifier
@@ -832,6 +1109,150 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
     public static final byte TIMESTAMP                = (byte) 0x83;
 
     public static final byte UUID                     = (byte) 0x98;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
 ```
 
 ### UnnecessaryModifier
@@ -911,11 +1332,47 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
     public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
 ```
 
 ### UnnecessaryModifier
@@ -923,11 +1380,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
     public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
 ```
 
 ### UnnecessaryModifier
@@ -935,299 +1392,11 @@ Modifier `final` is redundant for interface fields
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
     public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-    static String toString(byte encoding) {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-    static String toString(byte encoding) {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-    public static final byte ARRAY32                  = (byte) 0xf0;
-
-    static String toString(byte encoding) {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
 ```
 
 ### UnnecessaryModifier
@@ -1264,6 +1433,78 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
     public static final byte LIST8                    = (byte) 0xc0;
     public static final byte LIST32                   = (byte) 0xd0;
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
 ```
 
 ### UnnecessaryModifier
@@ -1307,114 +1548,6 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
     public static final byte LIST32                   = (byte) 0xd0;
 
     public static final byte MAP8                     = (byte) 0xc1;
@@ -1444,114 +1577,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
     public static final byte MAP8                     = (byte) 0xc1;
     public static final byte MAP32                    = (byte) 0xd1;
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
 ```
 
 ### UnnecessaryModifier
@@ -1595,18 +1620,6 @@ Modifier `public` is redundant for interface members
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/DescribedType.java`
 #### Snippet
 ```java
-     * @return the descriptor that identifies this instance.
-     */
-    public Object getDescriptor();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/DescribedType.java`
-#### Snippet
-```java
      * @return the value carried inside this described instance.
      */
     public Object getDescribed();
@@ -1616,26 +1629,14 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTransactionContext.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/DescribedType.java`
 #### Snippet
 ```java
-interface ClientTransactionContext {
+     * @return the descriptor that identifies this instance.
+     */
+    public Object getDescriptor();
 
-    public interface Sendable {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/DeliveryState.java`
-#### Snippet
-```java
-public interface DeliveryState {
-
-    public enum Type {
-        ACCEPTED,
-        REJECTED,
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -1643,695 +1644,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SMALLLONG                = (byte) 0x55;
-
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-    public static final byte UBYTE                    = (byte) 0x50;
-
-    public static final byte USHORT                   = (byte) 0x60;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte FLOAT                    = (byte) 0x72;
-
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-    public static final byte ARRAY8                   = (byte) 0xe0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte VBIN32                   = (byte) 0xb0;
-
-    public static final byte STR8                     = (byte) 0xa1;
-    public static final byte STR32                    = (byte) 0xb1;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte INT                      = (byte) 0x71;
-    public static final byte SMALLINT                 = (byte) 0x54;
-
-    public static final byte LONG                     = (byte) 0x81;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
-    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL64                = (byte) 0x84;
-
-    public static final byte DECIMAL128               = (byte) 0x94;
-
-    public static final byte CHAR                     = (byte) 0x73;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-
-    public static final byte VBIN8                    = (byte) 0xa0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte SYM32                    = (byte) 0xb3;
-
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DECIMAL128               = (byte) 0x94;
-
     public static final byte CHAR                     = (byte) 0x73;
 
     public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
 ```
 
 ### UnnecessaryModifier
@@ -2339,11 +1656,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte DECIMAL128               = (byte) 0x94;
-
     public static final byte CHAR                     = (byte) 0x73;
 
     public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
 ```
 
 ### UnnecessaryModifier
@@ -2351,119 +1668,11 @@ Modifier `final` is redundant for interface fields
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte DECIMAL128               = (byte) 0x94;
-
     public static final byte CHAR                     = (byte) 0x73;
 
     public static final byte TIMESTAMP                = (byte) 0x83;
-```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST0                    = (byte) 0x45;
-    public static final byte LIST8                    = (byte) 0xc0;
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-
-    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte UUID                     = (byte) 0x98;
 ```
 
 ### UnnecessaryModifier
@@ -2508,10 +1717,10 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
 
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte FLOAT                    = (byte) 0x72;
 ```
 
 ### UnnecessaryModifier
@@ -2520,10 +1729,10 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
 
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte FLOAT                    = (byte) 0x72;
 ```
 
 ### UnnecessaryModifier
@@ -2532,10 +1741,10 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
 
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
 
-    public static final byte FLOAT                    = (byte) 0x72;
 ```
 
 ### UnnecessaryModifier
@@ -2543,11 +1752,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte SMALLINT                 = (byte) 0x54;
+    public static final byte FLOAT                    = (byte) 0x72;
 
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
+    public static final byte DOUBLE                   = (byte) 0x82;
 
+    public static final byte DECIMAL32                = (byte) 0x74;
 ```
 
 ### UnnecessaryModifier
@@ -2555,11 +1764,11 @@ Modifier `static` is redundant for interface fields
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte SMALLINT                 = (byte) 0x54;
+    public static final byte FLOAT                    = (byte) 0x72;
 
-    public static final byte LONG                     = (byte) 0x81;
-    public static final byte SMALLLONG                = (byte) 0x55;
+    public static final byte DOUBLE                   = (byte) 0x82;
 
+    public static final byte DECIMAL32                = (byte) 0x74;
 ```
 
 ### UnnecessaryModifier
@@ -2567,11 +1776,47 @@ Modifier `final` is redundant for interface fields
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
-    public static final byte SMALLINT                 = (byte) 0x54;
+    public static final byte FLOAT                    = (byte) 0x72;
 
-    public static final byte LONG                     = (byte) 0x81;
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
     public static final byte SMALLLONG                = (byte) 0x55;
 
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+
+    public static final byte DOUBLE                   = (byte) 0x82;
 ```
 
 ### UnnecessaryModifier
@@ -2608,366 +1853,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
     public static final byte USHORT                   = (byte) 0x60;
 
     public static final byte UINT                     = (byte) 0x70;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte DOUBLE                   = (byte) 0x82;
-
-    public static final byte DECIMAL32                = (byte) 0x74;
-
-    public static final byte DECIMAL64                = (byte) 0x84;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte USHORT                   = (byte) 0x60;
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-
-    public static final byte INT                      = (byte) 0x71;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte LIST32                   = (byte) 0xd0;
-
-    public static final byte MAP8                     = (byte) 0xc1;
-    public static final byte MAP32                    = (byte) 0xd1;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte ULONG0                   = (byte) 0x44;
-
-    public static final byte BYTE                     = (byte) 0x51;
-
-    public static final byte SHORT                    = (byte) 0x61;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte STR32                    = (byte) 0xb1;
-
-    public static final byte SYM8                     = (byte) 0xa3;
-    public static final byte SYM32                    = (byte) 0xb3;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte CHAR                     = (byte) 0x73;
-
-    public static final byte TIMESTAMP                = (byte) 0x83;
-
-    public static final byte UUID                     = (byte) 0x98;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-    public static final byte UINT0                    = (byte) 0x43;
-
-    public static final byte ULONG                    = (byte) 0x80;
-    public static final byte SMALLULONG               = (byte) 0x53;
-    public static final byte ULONG0                   = (byte) 0x44;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-public interface EncodingCodes {
-
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-public interface EncodingCodes {
-
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-public interface EncodingCodes {
-
-    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
-
-    public static final byte NULL                     = (byte) 0x40;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
-#### Snippet
-```java
-
-    public static final byte UINT                     = (byte) 0x70;
-    public static final byte SMALLUINT                = (byte) 0x52;
-    public static final byte UINT0                    = (byte) 0x43;
-
 ```
 
 ### UnnecessaryModifier
@@ -3011,6 +1896,618 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+    public static final byte BOOLEAN_TRUE             = (byte) 0x41;
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte USHORT                   = (byte) 0x60;
+
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+    public static final byte SYM32                    = (byte) 0xb3;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DOUBLE                   = (byte) 0x82;
+
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+    public static final byte ARRAY8                   = (byte) 0xe0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BYTE                     = (byte) 0x51;
+
+    public static final byte SHORT                    = (byte) 0x61;
+
+    public static final byte INT                      = (byte) 0x71;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte SYM32                    = (byte) 0xb3;
+
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL32                = (byte) 0x74;
+
+    public static final byte DECIMAL64                = (byte) 0x84;
+
+    public static final byte DECIMAL128               = (byte) 0x94;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
     public static final byte MAP32                    = (byte) 0xd1;
 
     public static final byte ARRAY8                   = (byte) 0xe0;
@@ -3047,6 +2544,150 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
 #### Snippet
 ```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DECIMAL128               = (byte) 0x94;
+
+    public static final byte CHAR                     = (byte) 0x73;
+
+    public static final byte TIMESTAMP                = (byte) 0x83;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+    public static final byte VBIN32                   = (byte) 0xb0;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte STR8                     = (byte) 0xa1;
+    public static final byte STR32                    = (byte) 0xb1;
+
+    public static final byte SYM8                     = (byte) 0xa3;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
     public static final byte BOOLEAN                  = (byte) 0x56;
     public static final byte BOOLEAN_TRUE             = (byte) 0x41;
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
@@ -3076,6 +2717,366 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
     public static final byte BOOLEAN_FALSE            = (byte) 0x42;
 
     public static final byte UBYTE                    = (byte) 0x50;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte TIMESTAMP                = (byte) 0x83;
+
+    public static final byte UUID                     = (byte) 0x98;
+
+    public static final byte VBIN8                    = (byte) 0xa0;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST0                    = (byte) 0x45;
+    public static final byte LIST8                    = (byte) 0xc0;
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+
+    public static final byte BOOLEAN                  = (byte) 0x56;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte LIST32                   = (byte) 0xd0;
+
+    public static final byte MAP8                     = (byte) 0xc1;
+    public static final byte MAP32                    = (byte) 0xd1;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte LONG                     = (byte) 0x81;
+    public static final byte SMALLLONG                = (byte) 0x55;
+
+    public static final byte FLOAT                    = (byte) 0x72;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte BOOLEAN_FALSE            = (byte) 0x42;
+
+    public static final byte UBYTE                    = (byte) 0x50;
+
+    public static final byte USHORT                   = (byte) 0x60;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+public interface EncodingCodes {
+
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+public interface EncodingCodes {
+
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+public interface EncodingCodes {
+
+    public static final byte DESCRIBED_TYPE_INDICATOR = (byte) 0x00;
+
+    public static final byte NULL                     = (byte) 0x40;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte ULONG                    = (byte) 0x80;
+    public static final byte SMALLULONG               = (byte) 0x53;
+    public static final byte ULONG0                   = (byte) 0x44;
+
+    public static final byte BYTE                     = (byte) 0x51;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+
+    public static final byte INT                      = (byte) 0x71;
+    public static final byte SMALLINT                 = (byte) 0x54;
+
+    public static final byte LONG                     = (byte) 0x81;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/EncodingCodes.java`
+#### Snippet
+```java
+    public static final byte UINT                     = (byte) 0x70;
+    public static final byte SMALLUINT                = (byte) 0x52;
+    public static final byte UINT0                    = (byte) 0x43;
+
+    public static final byte ULONG                    = (byte) 0x80;
 ```
 
 ### UnnecessaryModifier
@@ -3107,11 +3108,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/DescribedType.java`
 #### Snippet
 ```java
-     * @return the value carried inside this described instance.
+     * @return the descriptor that identifies this instance.
      */
-    public Object getDescribed();
+    public Object getDescriptor();
 
-}
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -3119,11 +3120,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/DescribedType.java`
 #### Snippet
 ```java
-     * @return the descriptor that identifies this instance.
+     * @return the value carried inside this described instance.
      */
-    public Object getDescriptor();
+    public Object getDescribed();
 
-    /**
+}
 ```
 
 ### UnnecessaryModifier
@@ -3167,6 +3168,30 @@ Modifier `final` is redundant for interface fields
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
 #### Snippet
 ```java
+public interface TransactionErrors {
+
+    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+
+    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+#### Snippet
+```java
+public interface TransactionErrors {
+
+    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+
+    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+#### Snippet
+```java
     final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
 
     final static Symbol TRANSACTION_TIMEOUT = Symbol.valueOf("amqp:transaction:timeout");
@@ -3212,26 +3237,98 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/Transacti
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
 #### Snippet
 ```java
-public interface TransactionErrors {
+    final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
 
-    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
 
-    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
 #### Snippet
 ```java
-public interface TransactionErrors {
+    final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
 
-    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
 
-    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+
+    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+
+    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
+
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
+
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+
+    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+
+    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
+
+}
 ```
 
 ### UnnecessaryModifier
@@ -3259,99 +3356,15 @@ public interface TxnCapability {
 ```
 
 ### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferComponent.java`
 #### Snippet
 ```java
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+     * @return a new buffer iterator that iterates over the readable bytes.
+     */
+    public ProtonBufferIterator bufferIterator();
 
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
-
-    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
-
-    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
-
-    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
-
-    final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
-
-    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
-
-    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -3364,18 +3377,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferIterator.
     public interface ByteConsumer {
 
         /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferComponent.java`
-#### Snippet
-```java
-     * @return a new buffer iterator that iterates over the readable bytes.
-     */
-    public ProtonBufferIterator bufferIterator();
-
-}
 ```
 
 ### UnnecessaryModifier
@@ -3515,71 +3516,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-    public void info(String message, Object value1, Object value2);
+    public void debug(String message, Object value);
 
-    public void info(String message, Object... arguments);
+    public void debug(String message, Object value1, Object value2);
 
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void info(String message, Object value);
-
-    public void info(String message, Object value1, Object value2);
-
-    public void info(String message, Object... arguments);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void trace(String message, Object value);
-
-    public void trace(String message, Object value1, Object value2);
-
-    public void trace(String message, Object... arguments);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-     * @return the name that was given to this logger on creation.
-     */
-    public String getName();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public boolean isInfoEnabled();
-
-    public void info(String message);
-
-    public void info(String message, Object value);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-     * @return if the error log level is enabled for this {@link ProtonLogger}.
-     */
-    public boolean isErrorEnabled();
-
-    public void error(String message);
+    public void debug(String message, Object... arguments);
 ```
 
 ### UnnecessaryModifier
@@ -3599,21 +3540,9 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-    public void debug(String message, Object value);
+    public void warn(String message, Object value1, Object value2);
 
-    public void debug(String message, Object value1, Object value2);
-
-    public void debug(String message, Object... arguments);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void trace(String message, Object value1, Object value2);
-
-    public void trace(String message, Object... arguments);
+    public void warn(String message, Object... arguments);
 
     /**
 ```
@@ -3623,11 +3552,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-     * @return if the info log level is enabled for this {@link ProtonLogger}.
+     * @return if the warn log level is enabled for this {@link ProtonLogger}.
      */
-    public boolean isInfoEnabled();
+    public boolean isWarnEnabled();
 
-    public void info(String message);
+    public void warn(String message);
 ```
 
 ### UnnecessaryModifier
@@ -3647,6 +3576,78 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
+    public boolean isInfoEnabled();
+
+    public void info(String message);
+
+    public void info(String message, Object value);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+     * @return if the info log level is enabled for this {@link ProtonLogger}.
+     */
+    public boolean isInfoEnabled();
+
+    public void info(String message);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public void info(String message, Object value1, Object value2);
+
+    public void info(String message, Object... arguments);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+     * @return the name that was given to this logger on creation.
+     */
+    public String getName();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+     * @return if the error log level is enabled for this {@link ProtonLogger}.
+     */
+    public boolean isErrorEnabled();
+
+    public void error(String message);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public boolean isDebugEnabled();
+
+    public void debug(String message);
+
+    public void debug(String message, Object value);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
     public void debug(String message);
 
     public void debug(String message, Object value);
@@ -3659,11 +3660,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
+    public void warn(String message);
+
     public void warn(String message, Object value);
 
     public void warn(String message, Object value1, Object value2);
-
-    public void warn(String message, Object... arguments);
 ```
 
 ### UnnecessaryModifier
@@ -3671,95 +3672,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-    public void error(String message, Object value);
-
-    public void error(String message, Object value1, Object value2);
-
-    public void error(String message, Object... arguments);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void trace(String message);
-
-    public void trace(String message, Object value);
-
     public void trace(String message, Object value1, Object value2);
-```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-     * @return if the trace log level is enabled for this {@link ProtonLogger}.
-     */
-    public boolean isTraceEnabled();
+    public void trace(String message, Object... arguments);
 
-    public void trace(String message);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void warn(String message);
-
-    public void warn(String message, Object value);
-
-    public void warn(String message, Object value1, Object value2);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public void error(String message);
-
-    public void error(String message, Object value);
-
-    public void error(String message, Object value1, Object value2);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public boolean isErrorEnabled();
-
-    public void error(String message);
-
-    public void error(String message, Object value);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public boolean isTraceEnabled();
-
-    public void trace(String message);
-
-    public void trace(String message, Object value);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
-#### Snippet
-```java
-    public boolean isWarnEnabled();
-
-    public void warn(String message);
-
-    public void warn(String message, Object value);
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -3779,11 +3696,47 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-    public void warn(String message, Object value1, Object value2);
+    public void trace(String message);
 
-    public void warn(String message, Object... arguments);
+    public void trace(String message, Object value);
 
-    /**
+    public void trace(String message, Object value1, Object value2);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public void error(String message);
+
+    public void error(String message, Object value);
+
+    public void error(String message, Object value1, Object value2);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public void info(String message, Object value);
+
+    public void info(String message, Object value1, Object value2);
+
+    public void info(String message, Object... arguments);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public void error(String message, Object value);
+
+    public void error(String message, Object value1, Object value2);
+
+    public void error(String message, Object... arguments);
 ```
 
 ### UnnecessaryModifier
@@ -3803,11 +3756,11 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-    public boolean isDebugEnabled();
+    public boolean isWarnEnabled();
 
-    public void debug(String message);
+    public void warn(String message);
 
-    public void debug(String message, Object value);
+    public void warn(String message, Object value);
 ```
 
 ### UnnecessaryModifier
@@ -3815,11 +3768,59 @@ Modifier `public` is redundant for interface members
 in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
 #### Snippet
 ```java
-     * @return if the warn log level is enabled for this {@link ProtonLogger}.
-     */
-    public boolean isWarnEnabled();
+    public void warn(String message, Object value);
 
-    public void warn(String message);
+    public void warn(String message, Object value1, Object value2);
+
+    public void warn(String message, Object... arguments);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public void trace(String message, Object value);
+
+    public void trace(String message, Object value1, Object value2);
+
+    public void trace(String message, Object... arguments);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public boolean isErrorEnabled();
+
+    public void error(String message);
+
+    public void error(String message, Object value);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+     * @return if the trace log level is enabled for this {@link ProtonLogger}.
+     */
+    public boolean isTraceEnabled();
+
+    public void trace(String message);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLogger.java`
+#### Snippet
+```java
+    public boolean isTraceEnabled();
+
+    public void trace(String message);
+
+    public void trace(String message, Object value);
 ```
 
 ## RuleId[id=LoopStatementsThatDontLoop]
@@ -3838,73 +3839,13 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `cast()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                if (o instanceof Map.Entry) {
-                    Map.Entry<?,?> entry = (Map.Entry<?,?>) o;
-                    Number key = Number.class.cast(entry.getKey());
-
-                    if (!isInRange(key.intValue())) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    @Override
-    public E get(Object key) {
-        return get(Number.class.cast(key).intValue());
-    }
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    @Override
-    public E remove(Object key) {
-        return remove(Number.class.cast(key).intValue());
-    }
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                if (o instanceof Map.Entry) {
-                    Map.Entry<?,?> entry = (Map.Entry<?,?>) o;
-                    Number key = Number.class.cast(entry.getKey());
-
-                    if (!isInRange(key.intValue())) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    @Override
-    public E getOrDefault(Object key, E defaultValue) {
-        return getOrDefault(Number.class.cast(key).intValue(), defaultValue);
-    }
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-        @Override
-        public boolean remove(Object target) {
-            return UnsettledMap.this.remove(Number.class.cast(target).intValue()) != null;
-        }
+    @Override
+    public boolean containsKey(Object key) {
+        return containsKey(Number.class.cast(key).intValue());
+    }
 
 ```
 
@@ -3937,9 +3878,69 @@ Redundant call to `cast()`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
+        @Override
+        public boolean remove(Object target) {
+            return UnsettledMap.this.remove(Number.class.cast(target).intValue()) != null;
+        }
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
     @Override
-    public boolean containsKey(Object key) {
-        return containsKey(Number.class.cast(key).intValue());
+    public E getOrDefault(Object key, E defaultValue) {
+        return getOrDefault(Number.class.cast(key).intValue(), defaultValue);
+    }
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                if (o instanceof Map.Entry) {
+                    Map.Entry<?,?> entry = (Map.Entry<?,?>) o;
+                    Number key = Number.class.cast(entry.getKey());
+
+                    if (!isInRange(key.intValue())) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                if (o instanceof Map.Entry) {
+                    Map.Entry<?,?> entry = (Map.Entry<?,?>) o;
+                    Number key = Number.class.cast(entry.getKey());
+
+                    if (!isInRange(key.intValue())) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    @Override
+    public E remove(Object key) {
+        return remove(Number.class.cast(key).intValue());
+    }
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    @Override
+    public E get(Object key) {
+        return get(Number.class.cast(key).intValue());
     }
 
 ```
@@ -4020,6 +4021,30 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ```
 
 ## RuleId[id=LongLiteralsEndingWithLowercaseL]
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return properties().getCreationTime();
+        } else {
+            return 0l;
+        }
+    }
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return properties().getAbsoluteExpiryTime();
+        } else {
+            return 0l;
+        }
+    }
+```
+
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `128l` ends with lowercase 'l'
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/LongElement.java`
@@ -4178,30 +4203,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getCreationTime();
-        } else {
-            return 0l;
-        }
-    }
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getAbsoluteExpiryTime();
-        } else {
-            return 0l;
-        }
-    }
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/HeaderTypeDecoder.java`
 #### Snippet
 ```java
@@ -4246,6 +4247,42 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/Hea
                     header.setDeliveryCount(state.getDecoder().readUnsignedInteger(stream, state, 0l));
                     break;
             }
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0xffl` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return UnsignedLong.ZERO;
+            case EncodingCodes.SMALLULONG:
+                return UnsignedLong.valueOf(ProtonStreamUtils.readByte(stream) & 0xffl);
+            case EncodingCodes.ULONG:
+                return UnsignedLong.valueOf(ProtonStreamUtils.readLong(stream));
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0xffl` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+        switch (encodingCode) {
+            case EncodingCodes.SMALLULONG:
+                descriptor = UnsignedLong.valueOf(ProtonStreamUtils.readByte(stream) & 0xffl);
+                break;
+            case EncodingCodes.ULONG:
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0xffl` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+        switch (encodingCode) {
+            case EncodingCodes.SMALLLONG:
+                return ProtonStreamUtils.readByte(stream) & 0xffl;
+            case EncodingCodes.LONG:
+                return ProtonStreamUtils.readLong(stream);
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -4309,39 +4346,27 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamD
 ```
 
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `0xffl` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
         switch (encodingCode) {
+            case EncodingCodes.ULONG0:
+                return 0l;
             case EncodingCodes.SMALLULONG:
-                descriptor = UnsignedLong.valueOf(ProtonStreamUtils.readByte(stream) & 0xffl);
-                break;
-            case EncodingCodes.ULONG:
+                return (buffer.readByte() & 0xff);
 ```
 
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `0xffl` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+'long' literal `0xffffffffl` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-        switch (encodingCode) {
-            case EncodingCodes.SMALLLONG:
-                return ProtonStreamUtils.readByte(stream) & 0xffl;
-            case EncodingCodes.LONG:
-                return ProtonStreamUtils.readLong(stream);
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0xffl` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return UnsignedLong.ZERO;
-            case EncodingCodes.SMALLULONG:
-                return UnsignedLong.valueOf(ProtonStreamUtils.readByte(stream) & 0xffl);
-            case EncodingCodes.ULONG:
-                return UnsignedLong.valueOf(ProtonStreamUtils.readLong(stream));
+                return buffer.readByte() & 0xff;
+            case EncodingCodes.UINT:
+                return buffer.readInt() & 0xffffffffl;
+            case EncodingCodes.NULL:
+                return defaultValue;
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -4418,26 +4443,50 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/Pro
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DetachTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
 #### Snippet
 ```java
-            switch (index) {
-                case 0:
-                    detach.setHandle(decoder.readUnsignedInteger(buffer, state, 0l));
                     break;
                 case 1:
+                    disposition.setFirst(decoder.readUnsignedInteger(stream, state, 0l));
+                    break;
+                case 2:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DetachTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
 #### Snippet
 ```java
-            switch (index) {
-                case 0:
-                    detach.setHandle(decoder.readUnsignedInteger(stream, state, 0l));
+                    break;
+                case 2:
+                    disposition.setLast(decoder.readUnsignedInteger(stream, state, 0l));
+                    break;
+                case 3:
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
+#### Snippet
+```java
                     break;
                 case 1:
+                    disposition.setFirst(decoder.readUnsignedInteger(buffer, state, 0l));
+                    break;
+                case 2:
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
+#### Snippet
+```java
+                    break;
+                case 2:
+                    disposition.setLast(decoder.readUnsignedInteger(buffer, state, 0l));
+                    break;
+                case 3:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -4538,54 +4587,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/Beg
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 1:
-                    disposition.setFirst(decoder.readUnsignedInteger(stream, state, 0l));
-                    break;
-                case 2:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 2:
-                    disposition.setLast(decoder.readUnsignedInteger(stream, state, 0l));
-                    break;
-                case 3:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 1:
-                    disposition.setFirst(decoder.readUnsignedInteger(buffer, state, 0l));
-                    break;
-                case 2:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DispositionTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 2:
-                    disposition.setLast(decoder.readUnsignedInteger(buffer, state, 0l));
-                    break;
-                case 3:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/AttachTypeDecoder.java`
 #### Snippet
 ```java
@@ -4634,26 +4635,26 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/Att
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DetachTypeDecoder.java`
 #### Snippet
 ```java
+            switch (index) {
+                case 0:
+                    detach.setHandle(decoder.readUnsignedInteger(buffer, state, 0l));
                     break;
-                case 2:
-                    open.setMaxFrameSize(decoder.readUnsignedInteger(stream, state, 0l));
-                    break;
-                case 3:
+                case 1:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/DetachTypeDecoder.java`
 #### Snippet
 ```java
+            switch (index) {
+                case 0:
+                    detach.setHandle(decoder.readUnsignedInteger(stream, state, 0l));
                     break;
-                case 4:
-                    open.setIdleTimeout(decoder.readUnsignedInteger(stream, state, 0l));
-                    break;
-                case 5:
+                case 1:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -4766,18 +4767,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/Flo
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 2:
-                    open.setMaxFrameSize(decoder.readUnsignedInteger(buffer, state, 0l));
-                    break;
-                case 3:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/FlowTypeDecoder.java`
 #### Snippet
 ```java
@@ -4798,18 +4787,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/Flo
                     flow.setNextOutgoingId(decoder.readUnsignedInteger(buffer, state, 0l));
                     break;
                 case 3:
-```
-
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
-#### Snippet
-```java
-                    break;
-                case 4:
-                    open.setIdleTimeout(decoder.readUnsignedInteger(buffer, state, 0l));
-                    break;
-                case 5:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -4873,27 +4850,51 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/Flo
 ```
 
 ### LongLiteralsEndingWithLowercaseL
-'long' literal `0xffffffffl` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
 #### Snippet
 ```java
-                return buffer.readByte() & 0xff;
-            case EncodingCodes.UINT:
-                return buffer.readInt() & 0xffffffffl;
-            case EncodingCodes.NULL:
-                return defaultValue;
+                    break;
+                case 2:
+                    open.setMaxFrameSize(decoder.readUnsignedInteger(stream, state, 0l));
+                    break;
+                case 3:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0l` ends with lowercase 'l'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
 #### Snippet
 ```java
-        switch (encodingCode) {
-            case EncodingCodes.ULONG0:
-                return 0l;
-            case EncodingCodes.SMALLULONG:
-                return (buffer.readByte() & 0xff);
+                    break;
+                case 4:
+                    open.setIdleTimeout(decoder.readUnsignedInteger(stream, state, 0l));
+                    break;
+                case 5:
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
+#### Snippet
+```java
+                    break;
+                case 2:
+                    open.setMaxFrameSize(decoder.readUnsignedInteger(buffer, state, 0l));
+                    break;
+                case 3:
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0l` ends with lowercase 'l'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transport/OpenTypeDecoder.java`
+#### Snippet
+```java
+                    break;
+                case 4:
+                    open.setIdleTimeout(decoder.readUnsignedInteger(buffer, state, 0l));
+                    break;
+                case 5:
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -5021,11 +5022,11 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/messaging/Properties.j
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
 ```java
-    public long readUnsignedInt() {
+    public Buffer writeUnsignedInt(long value) {
         try {
-            return readInt() & 0x00000000FFFFFFFFl;
+            resource.writeInt((int)(value & 0x00000000FFFFFFFFl));
+            return this;
         } catch (RuntimeException ex) {
-            throw translateToNettyException(ex);
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -5045,11 +5046,11 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToN
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
 ```java
-    public Buffer writeUnsignedInt(long value) {
+    public long readUnsignedInt() {
         try {
-            resource.writeInt((int)(value & 0x00000000FFFFFFFFl));
-            return this;
+            return readInt() & 0x00000000FFFFFFFFl;
         } catch (RuntimeException ex) {
+            throw translateToNettyException(ex);
 ```
 
 ### LongLiteralsEndingWithLowercaseL
@@ -5058,9 +5059,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             if (tagValue < 0) {
-                return Long.BYTES;
+                buffer.writeLong(tagValue);
             } else if (tagValue <= 0x00000000000000FFl) {
-                return Byte.BYTES;
+                buffer.writeByte((byte) tagValue);
             } else if (tagValue <= 0x000000000000FFFFl) {
 ```
 
@@ -5070,9 +5071,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             } else if (tagValue <= 0x00000000000000FFl) {
-                return Byte.BYTES;
+                buffer.writeByte((byte) tagValue);
             } else if (tagValue <= 0x000000000000FFFFl) {
-                return Short.BYTES;
+                buffer.writeShort((short) tagValue);
             } else if (tagValue <= 0x00000000FFFFFFFFl) {
 ```
 
@@ -5082,9 +5083,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             } else if (tagValue <= 0x000000000000FFFFl) {
-                return Short.BYTES;
+                buffer.writeShort((short) tagValue);
             } else if (tagValue <= 0x00000000FFFFFFFFl) {
-                return Integer.BYTES;
+                buffer.writeInt((int) tagValue);
             } else {
 ```
 
@@ -5130,9 +5131,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             if (tagValue < 0) {
-                buffer.writeLong(tagValue);
+                return Long.BYTES;
             } else if (tagValue <= 0x00000000000000FFl) {
-                buffer.writeByte((byte) tagValue);
+                return Byte.BYTES;
             } else if (tagValue <= 0x000000000000FFFFl) {
 ```
 
@@ -5142,9 +5143,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             } else if (tagValue <= 0x00000000000000FFl) {
-                buffer.writeByte((byte) tagValue);
+                return Byte.BYTES;
             } else if (tagValue <= 0x000000000000FFFFl) {
-                buffer.writeShort((short) tagValue);
+                return Short.BYTES;
             } else if (tagValue <= 0x00000000FFFFFFFFl) {
 ```
 
@@ -5154,37 +5155,13 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequential
 #### Snippet
 ```java
             } else if (tagValue <= 0x000000000000FFFFl) {
-                buffer.writeShort((short) tagValue);
+                return Short.BYTES;
             } else if (tagValue <= 0x00000000FFFFFFFFl) {
-                buffer.writeInt((int) tagValue);
+                return Integer.BYTES;
             } else {
 ```
 
 ## RuleId[id=RefusedBequest]
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
-#### Snippet
-```java
-
-    @Override
-    public ProtonTestClientOptions clone() {
-        return copyOptions(new ProtonTestClientOptions());
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
-#### Snippet
-```java
-
-    @Override
-    public ProtonTestServerOptions clone() {
-        return copyOptions(new ProtonTestServerOptions());
-    }
-```
-
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/OutputStreamOptions.java`
@@ -5199,18 +5176,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/OutputStreamOp
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamSenderOptions.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamSenderOptions clone() {
-        return copyInto(new StreamSenderOptions());
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReceiverOptions.java`
 #### Snippet
 ```java
@@ -5218,6 +5183,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReceiverOption
     @Override
     public ReceiverOptions clone() {
         return copyInto(new ReceiverOptions());
+    }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamSenderOptions.java`
+#### Snippet
+```java
+
+    @Override
+    public StreamSenderOptions clone() {
+        return copyInto(new StreamSenderOptions());
     }
 ```
 
@@ -5247,13 +5224,13 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamReceiver
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SslOptions.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SourceOptions.java`
 #### Snippet
 ```java
 
     @Override
-    public SslOptions clone() {
-        return copyInto(new SslOptions());
+    public SourceOptions clone() {
+        return copyInto(new SourceOptions());
     }
 ```
 
@@ -5271,18 +5248,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SaslOptions.ja
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TransportOptions.java`
-#### Snippet
-```java
-
-    @Override
-    public TransportOptions clone() {
-        return copyInto(new TransportOptions());
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TargetOptions.java`
 #### Snippet
 ```java
@@ -5295,13 +5260,13 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TargetOptions.
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SourceOptions.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SslOptions.java`
 #### Snippet
 ```java
 
     @Override
-    public SourceOptions clone() {
-        return copyInto(new SourceOptions());
+    public SslOptions clone() {
+        return copyInto(new SslOptions());
     }
 ```
 
@@ -5314,6 +5279,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ClientOptions.
     @Override
     public ClientOptions clone() {
         return copyInto(new ClientOptions());
+    }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TransportOptions.java`
+#### Snippet
+```java
+
+    @Override
+    public TransportOptions clone() {
+        return copyInto(new TransportOptions());
     }
 ```
 
@@ -5353,31 +5330,31 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ConnectionOpti
     }
 ```
 
-## RuleId[id=RedundantArrayCreation]
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
 #### Snippet
 ```java
-    public static final boolean DEFAULT_TRUST_ALL = false;
-    public static final boolean DEFAULT_VERIFY_HOST = true;
-    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
-    public static final int DEFAULT_LOCAL_PORT = 0;
-    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
+
+    @Override
+    public ProtonTestClientOptions clone() {
+        return copyOptions(new ProtonTestClientOptions());
+    }
 ```
 
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
 #### Snippet
 ```java
-    public static final boolean DEFAULT_TRUST_ALL = false;
-    public static final boolean DEFAULT_VERIFY_HOST = true;
-    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
-    public static final int DEFAULT_LOCAL_PORT = 0;
-    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
+
+    @Override
+    public ProtonTestServerOptions clone() {
+        return copyOptions(new ProtonTestServerOptions());
+    }
 ```
 
+## RuleId[id=RedundantArrayCreation]
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SslOptions.java`
@@ -5402,44 +5379,31 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/ThreadPoo
 
 ```
 
-## RuleId[id=ObjectNotify]
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
 #### Snippet
 ```java
-            queue.addFirst(envelope);
-            if (waiters > 0) {
-                queue.notify();
-            }
-        }
+    public static final boolean DEFAULT_TRUST_ALL = false;
+    public static final boolean DEFAULT_VERIFY_HOST = true;
+    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
+    public static final int DEFAULT_LOCAL_PORT = 0;
+    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
 ```
 
-### ObjectNotify
-`notify` should probably be replaced with 'notifyAll()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
 #### Snippet
 ```java
-            queue.addLast(envelope);
-            if (waiters > 0) {
-                queue.notify();
-            }
-        }
+    public static final boolean DEFAULT_TRUST_ALL = false;
+    public static final boolean DEFAULT_VERIFY_HOST = true;
+    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
+    public static final int DEFAULT_LOCAL_PORT = 0;
+    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
-#### Snippet
-```java
-                    break;
-                case DESCRIBED:
-                    break;
-                default:
-                    break;
-```
-
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
@@ -5718,6 +5682,18 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 
 ### DuplicateBranchesInSwitch
 Branch in 'switch' is a duplicate of the default branch
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
+#### Snippet
+```java
+                    break;
+                case DESCRIBED:
+                    break;
+                default:
+                    break;
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/MapElement.java`
 #### Snippet
 ```java
@@ -5726,6 +5702,18 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
                         break;
                     default:
                         break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/Flow.java`
+#### Snippet
+```java
+                    break;
+                case ECHO:
+                    result = Boolean.FALSE;
+                    break;
+                default:
 ```
 
 ### DuplicateBranchesInSwitch
@@ -5776,31 +5764,32 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
                 default:
 ```
 
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/Flow.java`
+## RuleId[id=ObjectNotify]
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
 #### Snippet
 ```java
-                    break;
-                case ECHO:
-                    result = Boolean.FALSE;
-                    break;
-                default:
+            queue.addLast(envelope);
+            if (waiters > 0) {
+                queue.notify();
+            }
+        }
+```
+
+### ObjectNotify
+`notify` should probably be replaced with 'notifyAll()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
+#### Snippet
+```java
+            queue.addFirst(envelope);
+            if (waiters > 0) {
+                queue.notify();
+            }
+        }
 ```
 
 ## RuleId[id=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
-    }
-
-    private static final void log(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
-        if (payload == null) {
-            LOG.trace("{}:[{}:{}] {}", prefix, connection, channel, performative);
-```
-
 ### FinalPrivateMethod
 'private' method declared `final`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
@@ -5823,6 +5812,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggi
     private static final void trace(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
         if (payload == null) {
             System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+    }
+
+    private static final void log(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
+        if (payload == null) {
+            LOG.trace("{}:[{}:{}] {}", prefix, connection, channel, performative);
 ```
 
 ### FinalPrivateMethod
@@ -5863,6 +5864,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientExc
 ```
 
 ### SizeReplaceableByIsEmpty
+`footer.getValue().size() > 0` can be replaced with '!footer.getValue().isEmpty()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+        return footer != null &&
+               footer.getValue() != null &&
+               footer.getValue().size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `messageAnnotations.getValue().size() > 0` can be replaced with '!messageAnnotations.getValue().isEmpty()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
 #### Snippet
@@ -5875,18 +5888,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
 ```
 
 ### SizeReplaceableByIsEmpty
-`footer.getValue().size() > 0` can be replaced with '!footer.getValue().isEmpty()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-        return footer != null &&
-               footer.getValue() != null &&
-               footer.getValue().size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
 `applicationProperties.getValue().size() > 0` can be replaced with '!applicationProperties.getValue().isEmpty()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
 #### Snippet
@@ -5894,42 +5895,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
         return applicationProperties != null &&
                applicationProperties.getValue() != null &&
                applicationProperties.getValue().size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`applicationProperties.getValue().size() > 0` can be replaced with '!applicationProperties.getValue().isEmpty()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-        return applicationProperties != null &&
-               applicationProperties.getValue() != null &&
-               applicationProperties.getValue().size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`annotations.getValue().size() > 0` can be replaced with '!annotations.getValue().isEmpty()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-        return annotations != null &&
-               annotations.getValue() != null &&
-               annotations.getValue().size() > 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`footer.getValue().size() > 0` can be replaced with '!footer.getValue().isEmpty()'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-        return footer != null &&
-               footer.getValue() != null &&
-               footer.getValue().size() > 0;
     }
 
 ```
@@ -5947,13 +5912,49 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/IOExcepti
 ```
 
 ### SizeReplaceableByIsEmpty
+`applicationProperties.getValue().size() > 0` can be replaced with '!applicationProperties.getValue().isEmpty()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+        return applicationProperties != null &&
+               applicationProperties.getValue() != null &&
+               applicationProperties.getValue().size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
 `footer.getValue().size() > 0` can be replaced with '!footer.getValue().isEmpty()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+        return footer != null &&
+               footer.getValue() != null &&
+               footer.getValue().size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.getValue().size() > 0` can be replaced with '!annotations.getValue().isEmpty()'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+        return annotations != null &&
+               annotations.getValue() != null &&
+               annotations.getValue().size() > 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`annotations.getValue().size() > 0` can be replaced with '!annotations.getValue().isEmpty()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
 #### Snippet
 ```java
-        }
-
-        return footer != null && footer.getValue() != null && footer.getValue().size() > 0;
+    public boolean hasAnnotations() throws ClientException {
+        ensureStreamDecodedTo(StreamState.MESSAGE_ANNOTATIONS_READ);
+        return annotations != null && annotations.getValue() != null && annotations.getValue().size() > 0;
     }
 
 ```
@@ -5971,13 +5972,13 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ```
 
 ### SizeReplaceableByIsEmpty
-`annotations.getValue().size() > 0` can be replaced with '!annotations.getValue().isEmpty()'
+`footer.getValue().size() > 0` can be replaced with '!footer.getValue().isEmpty()'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
 #### Snippet
 ```java
-    public boolean hasAnnotations() throws ClientException {
-        ensureStreamDecodedTo(StreamState.MESSAGE_ANNOTATIONS_READ);
-        return annotations != null && annotations.getValue() != null && annotations.getValue().size() > 0;
+        }
+
+        return footer != null && footer.getValue() != null && footer.getValue().size() > 0;
     }
 
 ```
@@ -6086,18 +6087,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonByteArrayB
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
 #### Snippet
 ```java
-    }
-
-    private static final void log(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
-        if (payload == null) {
-            LOG.trace("{}:[{}:{}] {}", prefix, connection, channel, performative);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
     private int uniqueIdentifier;
 
     private static final boolean checkTraceFramesEnabled() {
@@ -6117,7 +6106,55 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggi
             System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
 ```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+    }
+
+    private static final void log(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
+        if (payload == null) {
+            LOG.trace("{}:[{}:{}] {}", prefix, connection, channel, performative);
+```
+
 ## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `ClientConversionSupport` has no concrete subclass
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConversionSupport.java`
+#### Snippet
+```java
+ * Utilities used by various classes in the Client core
+ */
+abstract class ClientConversionSupport {
+
+    public static Symbol[] toSymbolArray(String[] stringArray) {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `IOExceptionSupport` has no concrete subclass
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/IOExceptionSupport.java`
+#### Snippet
+```java
+ * Used to make throwing IOException instances easier.
+ */
+public abstract class IOExceptionSupport {
+
+    /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `ClientMessageSupport` has no concrete subclass
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
+#### Snippet
+```java
+ * Support methods dealing with Message types and encode or decode operations.
+ */
+public abstract class ClientMessageSupport {
+
+    private static final Encoder DEFAULT_ENCODER = CodecFactory.getDefaultEncoder();
+```
+
 ### AbstractClassNeverImplemented
 Abstract class `TypeMapper` has no concrete subclass
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/util/TypeMapper.java`
@@ -6155,30 +6192,6 @@ public abstract class DescribedTypeRegistry {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `ClientConversionSupport` has no concrete subclass
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConversionSupport.java`
-#### Snippet
-```java
- * Utilities used by various classes in the Client core
- */
-abstract class ClientConversionSupport {
-
-    public static Symbol[] toSymbolArray(String[] stringArray) {
-```
-
-### AbstractClassNeverImplemented
-Abstract class `IOExceptionSupport` has no concrete subclass
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/IOExceptionSupport.java`
-#### Snippet
-```java
- * Used to make throwing IOException instances easier.
- */
-public abstract class IOExceptionSupport {
-
-    /**
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ProtonStreamUtils` has no concrete subclass
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
 #### Snippet
@@ -6188,18 +6201,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamU
 public abstract class ProtonStreamUtils {
 
     private static final byte[] EMPTY_ARRAY = new byte[0];
-```
-
-### AbstractClassNeverImplemented
-Abstract class `ClientMessageSupport` has no concrete subclass
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
-#### Snippet
-```java
- * Support methods dealing with Message types and encode or decode operations.
- */
-public abstract class ClientMessageSupport {
-
-    private static final Encoder DEFAULT_ENCODER = CodecFactory.getDefaultEncoder();
 ```
 
 ### AbstractClassNeverImplemented
@@ -6216,54 +6217,6 @@ public abstract class ProtonBufferUtils {
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super ByteBuffer`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
-#### Snippet
-```java
-    private final Consumer<ByteBuffer> inputConsumer;
-
-    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
-        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
-            processDriverOutput(frame);
-```
-
-### BoundedWildcard
-Can generalize to `? super ByteBuffer`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
-#### Snippet
-```java
-     *      A {@link Supplier} that will provide this driver with a scheduler service for delayed actions
-     */
-    public AMQPTestDriver(String name, Consumer<ByteBuffer> frameConsumer, Consumer<AssertionError> assertionConsumer, Supplier<EventLoop> scheduler) {
-        this.frameConsumer = frameConsumer;
-        this.assertionConsumer = assertionConsumer;
-```
-
-### BoundedWildcard
-Can generalize to `? super AssertionError`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
-#### Snippet
-```java
-     *      A {@link Supplier} that will provide this driver with a scheduler service for delayed actions
-     */
-    public AMQPTestDriver(String name, Consumer<ByteBuffer> frameConsumer, Consumer<AssertionError> assertionConsumer, Supplier<EventLoop> scheduler) {
-        this.frameConsumer = frameConsumer;
-        this.assertionConsumer = assertionConsumer;
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/transport/TransferPayloadCompositeMatcher.java`
-#### Snippet
-```java
-    }
-
-    public void setPayloadLengthMatcher(Matcher<Integer> payloadLengthMatcher) {
-        this.payloadLengthMatcher = payloadLengthMatcher;
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? super Session`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
 #### Snippet
@@ -6272,126 +6225,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLoc
     @Override
     public ClientLocalTransactionContext rollback(ClientFuture<Session> rollbackFuture, boolean startNew) throws ClientIllegalStateException {
         checkCanRollbackTransaction();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public Message<E> forEachAnnotation(BiConsumer<String, Object> action) {
-        if (hasAnnotations()) {
-            messageAnnotations.getValue().forEach((key, value) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public Message<E> forEachProperty(BiConsumer<String, Object> action) {
-        if (hasProperties()) {
-            applicationProperties.getValue().forEach(action);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Section`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    }
-
-    private static Section<?> validateBodySections(int messageFormat, List<Section<?>> target, Section<?> section) {
-        if (messageFormat == 0 && target != null && !target.isEmpty()) {
-            switch (section.getType()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public Message<E> forEachFooter(BiConsumer<String, Object> action) {
-        if (hasFooters()) {
-            footer.getValue().forEach((key, value) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Section`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public ClientMessage<E> bodySections(Collection<Section<?>> sections) {
-        if (sections == null || sections.isEmpty()) {
-            bodySections = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super Section`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public ClientMessage<E> forEachBodySection(Consumer<Section<?>> consumer) {
-        if (bodySections != null) {
-            bodySections.forEach(section -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamSenderMessage forEachAnnotation(BiConsumer<String, Object> action) {
-        if (hasAnnotations()) {
-            annotations.getValue().forEach((key, value) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamSenderMessage forEachProperty(BiConsumer<String, Object> action) {
-        if (hasProperties()) {
-            applicationProperties.getValue().forEach(action);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamSenderMessage forEachFooter(BiConsumer<String, Object> action) {
-        if (hasFooters()) {
-            footer.getValue().forEach((key, value) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Section`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-
-    @Override
-    public StreamSenderMessage bodySections(Collection<Section<?>> sections) throws ClientException {
-        Objects.requireNonNull(sections, "Cannot set body sections with a null Collection");
 
 ```
 
@@ -6408,15 +6241,99 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSes
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Thread`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TrackableThreadFactory.java`
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
 #### Snippet
 ```java
-     *      AtomicReference that will be updated any time a new Thread is created.
-     */
-    public TrackableThreadFactory(String threadName, boolean daemon, AtomicReference<Thread> threadTracker) {
-        this.threadName = threadName;
-        this.daemon = daemon;
+
+    @Override
+    public Message<E> forEachFooter(BiConsumer<String, Object> action) {
+        if (hasFooters()) {
+            footer.getValue().forEach((key, value) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super Section`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public ClientMessage<E> forEachBodySection(Consumer<Section<?>> consumer) {
+        if (bodySections != null) {
+            bodySections.forEach(section -> {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Section`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    }
+
+    private static Section<?> validateBodySections(int messageFormat, List<Section<?>> target, Section<?> section) {
+        if (messageFormat == 0 && target != null && !target.isEmpty()) {
+            switch (section.getType()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Section`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public ClientMessage<E> bodySections(Collection<Section<?>> sections) {
+        if (sections == null || sections.isEmpty()) {
+            bodySections = null;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public Message<E> forEachProperty(BiConsumer<String, Object> action) {
+        if (hasProperties()) {
+            applicationProperties.getValue().forEach(action);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public Message<E> forEachAnnotation(BiConsumer<String, Object> action) {
+        if (hasAnnotations()) {
+            messageAnnotations.getValue().forEach((key, value) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super Connection`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
+#### Snippet
+```java
+    }
+
+    private void submitDisconnectionEvent(BiConsumer<Connection, DisconnectionEvent> handler, String host, int port, ClientIOException cause) {
+        if (handler != null) {
+            try {
+```
+
+### BoundedWildcard
+Can generalize to `? super DisconnectionEvent`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
+#### Snippet
+```java
+    }
+
+    private void submitDisconnectionEvent(BiConsumer<Connection, DisconnectionEvent> handler, String host, int port, ClientIOException cause) {
+        if (handler != null) {
+            try {
 ```
 
 ### BoundedWildcard
@@ -6444,27 +6361,75 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientCon
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Connection`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
+Can generalize to `? super Thread`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TrackableThreadFactory.java`
 #### Snippet
 ```java
-    }
-
-    private void submitDisconnectionEvent(BiConsumer<Connection, DisconnectionEvent> handler, String host, int port, ClientIOException cause) {
-        if (handler != null) {
-            try {
+     *      AtomicReference that will be updated any time a new Thread is created.
+     */
+    public TrackableThreadFactory(String threadName, boolean daemon, AtomicReference<Thread> threadTracker) {
+        this.threadName = threadName;
+        this.daemon = daemon;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DisconnectionEvent`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
 #### Snippet
 ```java
-    }
 
-    private void submitDisconnectionEvent(BiConsumer<Connection, DisconnectionEvent> handler, String host, int port, ClientIOException cause) {
-        if (handler != null) {
-            try {
+    @Override
+    public StreamSenderMessage forEachAnnotation(BiConsumer<String, Object> action) {
+        if (hasAnnotations()) {
+            annotations.getValue().forEach((key, value) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public StreamSenderMessage forEachFooter(BiConsumer<String, Object> action) {
+        if (hasFooters()) {
+            footer.getValue().forEach((key, value) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public StreamSenderMessage forEachProperty(BiConsumer<String, Object> action) {
+        if (hasProperties()) {
+            applicationProperties.getValue().forEach(action);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Section`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+
+    @Override
+    public StreamSenderMessage bodySections(Collection<Section<?>> sections) throws ClientException {
+        Objects.requireNonNull(sections, "Cannot set body sections with a null Collection");
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ReconnectLocation`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/ReconnectLocationPool.java`
+#### Snippet
+```java
+     *        The new list of {@link ReconnectLocation} to add to the pool.
+     */
+    public void addAll(List<ReconnectLocation> additions) {
+        if (additions != null && !additions.isEmpty()) {
+            synchronized (entries) {
 ```
 
 ### BoundedWildcard
@@ -6504,15 +6469,27 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ReconnectLocation`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/ReconnectLocationPool.java`
+Can generalize to `? super ByteBuffer`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
 #### Snippet
 ```java
-     *        The new list of {@link ReconnectLocation} to add to the pool.
-     */
-    public void addAll(List<ReconnectLocation> additions) {
-        if (additions != null && !additions.isEmpty()) {
-            synchronized (entries) {
+    private final Consumer<ByteBuffer> inputConsumer;
+
+    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
+        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
+            processDriverOutput(frame);
+```
+
+### BoundedWildcard
+Can generalize to `? super DeliveryAnnotations`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
+#### Snippet
+```java
+
+    public static Message<?> decodeMessage(Decoder decoder, DecoderState decoderState,
+                                           ProtonBuffer buffer, Consumer<DeliveryAnnotations> daConsumer) throws ClientException {
+
+        final ClientMessage<?> message = new ClientMessage<>();
 ```
 
 ### BoundedWildcard
@@ -6528,15 +6505,135 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DeliveryAnnotations`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
+Can generalize to `? super ByteBuffer`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
+#### Snippet
+```java
+     *      A {@link Supplier} that will provide this driver with a scheduler service for delayed actions
+     */
+    public AMQPTestDriver(String name, Consumer<ByteBuffer> frameConsumer, Consumer<AssertionError> assertionConsumer, Supplier<EventLoop> scheduler) {
+        this.frameConsumer = frameConsumer;
+        this.assertionConsumer = assertionConsumer;
+```
+
+### BoundedWildcard
+Can generalize to `? super AssertionError`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
+#### Snippet
+```java
+     *      A {@link Supplier} that will provide this driver with a scheduler service for delayed actions
+     */
+    public AMQPTestDriver(String name, Consumer<ByteBuffer> frameConsumer, Consumer<AssertionError> assertionConsumer, Supplier<EventLoop> scheduler) {
+        this.frameConsumer = frameConsumer;
+        this.assertionConsumer = assertionConsumer;
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/transport/TransferPayloadCompositeMatcher.java`
+#### Snippet
+```java
+    }
+
+    public void setPayloadLengthMatcher(Matcher<Integer> payloadLengthMatcher) {
+        this.payloadLengthMatcher = payloadLengthMatcher;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Type`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonScanningContext.java`
+#### Snippet
+```java
+    }
+
+    public ProtonScanningContext(Class<?> expectedType, List<Type> entries, List<ProtonBuffer> encodedEntries) {
+        this.expectedType = expectedType;
+        this.entries = entries;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProtonBuffer`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonScanningContext.java`
+#### Snippet
+```java
+    }
+
+    public ProtonScanningContext(Class<?> expectedType, List<Type> entries, List<ProtonBuffer> encodedEntries) {
+        this.expectedType = expectedType;
+        this.entries = entries;
+```
+
+### BoundedWildcard
+Can generalize to `? super Type`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonScanningContext.java`
 #### Snippet
 ```java
 
-    public static Message<?> decodeMessage(Decoder decoder, DecoderState decoderState,
-                                           ProtonBuffer buffer, Consumer<DeliveryAnnotations> daConsumer) throws ClientException {
+    @Override
+    public boolean matches(StreamTypeDecoder<?> typeDecoder, InputStream stream, int encodedSize, Consumer<Type> matchConsumer) {
+        if (!stream.markSupported()) {
+            throw new UnsupportedOperationException("Type scanner requires a stream with mark and reset support");
+```
 
-        final ClientMessage<?> message = new ClientMessage<>();
+### BoundedWildcard
+Can generalize to `? super Type`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonScanningContext.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean matches(TypeDecoder<?> typeDecoder, ProtonBuffer candidate, int candidateLength, Consumer<Type> matchConsumer) {
+        if (isComplete() || !expectedType.equals(typeDecoder.getTypeClass())) {
+            return false;
+```
+
+### BoundedWildcard
+Can generalize to `? extends KeyType`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+
+    @Override
+    public <KeyType> void scanKeys(InputStream stream, StreamDecoderState state, StreamScanningContext<KeyType> context, BiConsumer<KeyType, Object> matchConsumer) throws DecodeException {
+        final StreamDecoder decoder = state.getDecoder();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super KeyType`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+
+    @Override
+    public <KeyType> void scanKeys(InputStream stream, StreamDecoderState state, StreamScanningContext<KeyType> context, BiConsumer<KeyType, Object> matchConsumer) throws DecodeException {
+        final StreamDecoder decoder = state.getDecoder();
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends KeyType`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+
+    @Override
+    public <KeyType> void scanKeys(ProtonBuffer buffer, DecoderState state, ScanningContext<KeyType> context, BiConsumer<KeyType, Object> matchConsumer) throws DecodeException {
+        final Decoder decoder = state.getDecoder();
+        final int encodedSize = readSize(buffer, state);
+```
+
+### BoundedWildcard
+Can generalize to `? super KeyType`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+
+    @Override
+    public <KeyType> void scanKeys(ProtonBuffer buffer, DecoderState state, ScanningContext<KeyType> context, BiConsumer<KeyType, Object> matchConsumer) throws DecodeException {
+        final Decoder decoder = state.getDecoder();
+        final int encodedSize = readSize(buffer, state);
 ```
 
 ### BoundedWildcard
@@ -6576,6 +6673,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionInc
 ```
 
 ### BoundedWildcard
+Can generalize to `? super OutgoingDelivery`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public Sender disposition(Predicate<OutgoingDelivery> filter, DeliveryState state, boolean settle) {
+        checkLinkOperable("Cannot apply disposition");
+        Objects.requireNonNull(filter, "Supplied filter cannot be null");
+```
+
+### BoundedWildcard
 Can generalize to `? super Sender`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
 #### Snippet
@@ -6592,71 +6701,11 @@ Can generalize to `? super OutgoingDelivery`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public Sender disposition(Predicate<OutgoingDelivery> filter, DeliveryState state, boolean settle) {
-        checkLinkOperable("Cannot apply disposition");
-        Objects.requireNonNull(filter, "Supplied filter cannot be null");
-```
-
-### BoundedWildcard
-Can generalize to `? super OutgoingDelivery`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
-#### Snippet
-```java
 
     @Override
     public Sender deliveryStateUpdatedHandler(EventHandler<OutgoingDelivery> handler) {
         this.deliveryUpdatedEventHandler = handler;
         return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super TransactionManager`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
-#### Snippet
-```java
-
-    @Override
-    public TransactionManager parentEndpointClosedHandler(EventHandler<TransactionManager> handler) {
-        this.parentEndpointClosedEventHandler = handler;
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Transaction`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
-#### Snippet
-```java
-
-    @Override
-    public TransactionManager declareHandler(EventHandler<Transaction<TransactionManager>> declaredEventHandler) {
-        this.declareEventHandler = declaredEventHandler;
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Transaction`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
-#### Snippet
-```java
-
-    @Override
-    public TransactionManager dischargeHandler(EventHandler<Transaction<TransactionManager>> dischargeEventHandler) {
-        this.dischargeEventHandler = dischargeEventHandler;
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProtonOutgoingDelivery`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOutgoingWindow.java`
-#### Snippet
-```java
-    }
-
-    private static void handleRangedDisposition(UnsettledMap<ProtonOutgoingDelivery> unsettled, Disposition disposition) {
-        // Dispositions cover a contiguous range in the map and since the tracker always moves forward
-        // when appending new deliveries the range can wrap without needing a second iteration.
 ```
 
 ### BoundedWildcard
@@ -6684,14 +6733,62 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SaslOutcome`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/SaslAuthenticator.java`
+Can generalize to `? super TransactionManager`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
 #### Snippet
 ```java
-     * @return this {@link SaslAuthenticator} instance.
-     */
-    public SaslAuthenticator saslComplete(EventHandler<SaslOutcome> saslCompleteEventHandler) {
-        this.saslCompleteHandler = saslCompleteEventHandler;
+
+    @Override
+    public TransactionManager parentEndpointClosedHandler(EventHandler<TransactionManager> handler) {
+        this.parentEndpointClosedEventHandler = handler;
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Transaction`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
+#### Snippet
+```java
+
+    @Override
+    public TransactionManager dischargeHandler(EventHandler<Transaction<TransactionManager>> dischargeEventHandler) {
+        this.dischargeEventHandler = dischargeEventHandler;
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super Transaction`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionManager.java`
+#### Snippet
+```java
+
+    @Override
+    public TransactionManager declareHandler(EventHandler<Transaction<TransactionManager>> declaredEventHandler) {
+        this.declareEventHandler = declaredEventHandler;
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProtonOutgoingDelivery`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOutgoingWindow.java`
+#### Snippet
+```java
+    }
+
+    private static void handleRangedDisposition(UnsettledMap<ProtonOutgoingDelivery> unsettled, Disposition disposition) {
+        // Dispositions cover a contiguous range in the map and since the tracker always moves forward
+        // when appending new deliveries the range can wrap without needing a second iteration.
+```
+
+### BoundedWildcard
+Can generalize to `? super Receiver`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.java`
+#### Snippet
+```java
+
+    @Override
+    public Receiver creditStateUpdateHandler(EventHandler<Receiver> handler) {
+        this.linkCreditUpdatedHandler = handler;
         return this;
 ```
 
@@ -6708,15 +6805,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Receiver`
+Can generalize to `? super IncomingDelivery`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.java`
 #### Snippet
 ```java
-
+    @SuppressWarnings("unchecked")
     @Override
-    public Receiver creditStateUpdateHandler(EventHandler<Receiver> handler) {
-        this.linkCreditUpdatedHandler = handler;
-        return this;
+    public Receiver disposition(Predicate<IncomingDelivery> filter, DeliveryState disposition, boolean settle) {
+        checkLinkOperable("Cannot apply disposition");
+        Objects.requireNonNull(filter, "Supplied filter cannot be null");
 ```
 
 ### BoundedWildcard
@@ -6744,15 +6841,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super IncomingDelivery`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.java`
+Can generalize to `? super SaslOutcome`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/SaslAuthenticator.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public Receiver disposition(Predicate<IncomingDelivery> filter, DeliveryState disposition, boolean settle) {
-        checkLinkOperable("Cannot apply disposition");
-        Objects.requireNonNull(filter, "Supplied filter cannot be null");
+     * @return this {@link SaslAuthenticator} instance.
+     */
+    public SaslAuthenticator saslComplete(EventHandler<SaslOutcome> saslCompleteEventHandler) {
+        this.saslCompleteHandler = saslCompleteEventHandler;
+        return this;
 ```
 
 ### BoundedWildcard
@@ -6765,6 +6862,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/RingQueue.java`
     public E poll(Supplier<E> createOnEmpty) {
         if (isEmpty()) {
             return createOnEmpty.get();
+```
+
+### BoundedWildcard
+Can generalize to `? super TransactionController`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionController.java`
+#### Snippet
+```java
+
+    @Override
+    public TransactionController parentEndpointClosedHandler(EventHandler<TransactionController> handler) {
+        this.parentEndpointClosedEventHandler = handler;
+        return self();
 ```
 
 ### BoundedWildcard
@@ -6792,18 +6901,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactio
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TransactionController`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionController.java`
-#### Snippet
-```java
-
-    @Override
-    public TransactionController parentEndpointClosedHandler(EventHandler<TransactionController> handler) {
-        this.parentEndpointClosedEventHandler = handler;
-        return self();
-```
-
-### BoundedWildcard
 Can generalize to `? super Transaction`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactionController.java`
 #### Snippet
@@ -6825,42 +6922,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactio
     public TransactionController declaredHandler(EventHandler<Transaction<TransactionController>> declaredEventHandler) {
         this.declaredEventHandler = declaredEventHandler;
         return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-         * 		The inner {@link Map} entry that is wrapped.
-         */
-        public ImmutableSplayMapEntry(SplayedEntry<E> entry) {
-            this.entry = entry;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? super Delivery`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-     * 		The action to invoke on each visited entry.
-     */
-    public void forEach(int first, int last, Consumer<Delivery> action) {
-        Objects.requireNonNull(action);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Delivery`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-        }
-
-        public UnsettledBucket(int bucketCapacity, UnsettledGetDeliveryId<Delivery> idSupplier) {
-            this.deliveryIdSupplier = idSupplier;
-            this.deliveries = new Object[bucketCapacity];
 ```
 
 ### BoundedWildcard
@@ -6887,103 +6948,43 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 
 ```
 
+### BoundedWildcard
+Can generalize to `? super Delivery`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+        }
+
+        public UnsettledBucket(int bucketCapacity, UnsettledGetDeliveryId<Delivery> idSupplier) {
+            this.deliveryIdSupplier = idSupplier;
+            this.deliveries = new Object[bucketCapacity];
+```
+
+### BoundedWildcard
+Can generalize to `? super Delivery`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+     * 		The action to invoke on each visited entry.
+     */
+    public void forEach(int first, int last, Consumer<Delivery> action) {
+        Objects.requireNonNull(action);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends E`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+         * 		The inner {@link Map} entry that is wrapped.
+         */
+        public ImmutableSplayMapEntry(SplayedEntry<E> entry) {
+            this.entry = entry;
+        }
+```
+
 ## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class VariableConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class SmallVariableConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class Fixed8SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class Fixed4SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class Fixed2SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class Fixed16SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-    }
-
-    private static abstract class Fixed1SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unused")
-    private static abstract class Fixed0SizeConstructor implements TypeConstructor {
-
-        @Override
-```
-
 ### MissortedModifiers
 Missorted modifiers `final protected`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSenderLinkType.java`
@@ -7021,27 +7022,99 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/NoOpAs
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
 #### Snippet
 ```java
-    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+    }
 
-    final static Symbol TRANSACTION_TIMEOUT = Symbol.valueOf("amqp:transaction:timeout");
+    private static abstract class Fixed4SizeConstructor implements TypeConstructor {
 
-}
+        @Override
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
 #### Snippet
 ```java
-    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+    }
 
-    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+    private static abstract class Fixed8SizeConstructor implements TypeConstructor {
 
-    final static Symbol TRANSACTION_TIMEOUT = Symbol.valueOf("amqp:transaction:timeout");
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+    }
+
+    private static abstract class Fixed2SizeConstructor implements TypeConstructor {
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+    }
+
+    private static abstract class Fixed1SizeConstructor implements TypeConstructor {
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+    }
+
+    private static abstract class SmallVariableConstructor implements TypeConstructor {
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+    }
+
+    private static abstract class Fixed16SizeConstructor implements TypeConstructor {
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+    }
+
+    private static abstract class VariableConstructor implements TypeConstructor {
+
+        @Override
+```
+
+### MissortedModifiers
+Missorted modifiers `static abstract`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("unused")
+    private static abstract class Fixed0SizeConstructor implements TypeConstructor {
+
+        @Override
 ```
 
 ### MissortedModifiers
@@ -7058,14 +7131,38 @@ public interface TransactionErrors {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+#### Snippet
+```java
+    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+
+    final static Symbol TRANSACTION_TIMEOUT = Symbol.valueOf("amqp:transaction:timeout");
+
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TransactionErrors.java`
+#### Snippet
+```java
+    final static Symbol UNKNOWN_ID = Symbol.valueOf("amqp:transaction:unknown-id");
+
+    final static Symbol TRANSACTION_ROLLBACK = Symbol.valueOf("amqp:transaction:rollback");
+
+    final static Symbol TRANSACTION_TIMEOUT = Symbol.valueOf("amqp:transaction:timeout");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
 #### Snippet
 ```java
-public interface TxnCapability {
-
     final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
 
     final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
+
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
 ```
 
 ### MissortedModifiers
@@ -7078,6 +7175,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapabi
     final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
 
     final static Symbol MULTI_SSNS_PER_TXN = Symbol.valueOf("amqp:multi-ssns-per-txn");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
+#### Snippet
+```java
+    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
+
+    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
+
+    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
 ```
 
 ### MissortedModifiers
@@ -7097,23 +7206,11 @@ Missorted modifiers `final static`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
 #### Snippet
 ```java
+public interface TxnCapability {
+
     final static Symbol LOCAL_TXN = Symbol.valueOf("amqp:local-transactions");
 
     final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transactions/TxnCapability.java`
-#### Snippet
-```java
-    final static Symbol DISTRIBUTED_TXN = Symbol.valueOf("amqp:distributed-transactions");
-
-    final static Symbol PROMOTABLE_TXN = Symbol.valueOf("amqp:promotable-transactions");
-
-    final static Symbol MULTI_TXNS_PER_SSN = Symbol.valueOf("amqp:multi-txns-per-ssn");
 ```
 
 ### MissortedModifiers
@@ -7179,6 +7276,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
+Result of `InputStream.skip()` is ignored
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
+#### Snippet
+```java
+    public static InputStream skipBytes(InputStream stream, long amount) {
+        try {
+            stream.skip(amount);
+        } catch (IOException ex) {
+            throw new DecodeException(
+```
+
+### IgnoreResultOfCall
 Result of `InputStream.read()` is ignored
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoderState.java`
 #### Snippet
@@ -7192,24 +7301,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamD
 
 ### IgnoreResultOfCall
 Result of `InputStream.skip()` is ignored
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
-#### Snippet
-```java
-    public static InputStream skipBytes(InputStream stream, long amount) {
-        try {
-            stream.skip(amount);
-        } catch (IOException ex) {
-            throw new DecodeException(
-```
-
-### IgnoreResultOfCall
-Result of `InputStream.skip()` is ignored
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractStringTypeDecoder.java`
 #### Snippet
 ```java
     public void skipValue(InputStream stream, StreamDecoderState state) throws DecodeException {
         try {
-            stream.skip(readSize(stream));
+            stream.skip(readSize(stream, state));
         } catch (IOException ex) {
             throw new DecodeException("Error while reading String payload bytes", ex);
 ```
@@ -7221,7 +7318,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
     public void skipValue(InputStream stream, StreamDecoderState state) throws DecodeException {
         try {
-            stream.skip(readSize(stream));
+            stream.skip(readSize(stream, state));
         } catch (IOException ex) {
             throw new DecodeException("Error while reading Symbol payload bytes", ex);
 ```
@@ -7245,21 +7342,21 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
     public void skipValue(InputStream stream, StreamDecoderState state) throws DecodeException {
         try {
-            stream.skip(readSize(stream));
+            stream.skip(readSize(stream, state));
         } catch (IOException ex) {
             throw new DecodeException("Error while reading List payload bytes", ex);
 ```
 
 ### IgnoreResultOfCall
 Result of `InputStream.skip()` is ignored
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractBinaryTypeDecoder.java`
 #### Snippet
 ```java
     public void skipValue(InputStream stream, StreamDecoderState state) throws DecodeException {
         try {
-            stream.skip(readSize(stream));
+            stream.skip(readSize(stream, state));
         } catch (IOException ex) {
-            throw new DecodeException("Error while reading Map payload bytes", ex);
+            throw new DecodeException("Error while reading Binary payload bytes", ex);
 ```
 
 ### IgnoreResultOfCall
@@ -7276,14 +7373,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 
 ### IgnoreResultOfCall
 Result of `InputStream.skip()` is ignored
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractBinaryTypeDecoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
 #### Snippet
 ```java
     public void skipValue(InputStream stream, StreamDecoderState state) throws DecodeException {
         try {
-            stream.skip(readSize(stream));
+            stream.skip(readSize(stream, state));
         } catch (IOException ex) {
-            throw new DecodeException("Error while reading Binary payload bytes", ex);
+            throw new DecodeException("Error while reading Map payload bytes", ex);
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -7306,8 +7403,8 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 #### Snippet
 ```java
 
-    public boolean isReceiver() {
-        return getRole().booleanValue() == true;
+    public boolean isSender() {
+        return getRole().booleanValue() == false;
     }
 
 ```
@@ -7318,8 +7415,8 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 #### Snippet
 ```java
 
-    public boolean isSender() {
-        return getRole().booleanValue() == false;
+    public boolean isReceiver() {
+        return getRole().booleanValue() == true;
     }
 
 ```
@@ -7366,8 +7463,8 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matc
 #### Snippet
 ```java
 
-    public AttachMatcher withSndSettleMode(Byte sndSettleMode) {
-        return withSndSettleMode(sndSettleMode == null ? nullValue() : equalTo(UnsignedByte.valueOf(sndSettleMode.byteValue())));
+    public AttachMatcher withRcvSettleMode(Byte rcvSettleMode) {
+        return withRcvSettleMode(rcvSettleMode == null ? nullValue() : equalTo(UnsignedByte.valueOf(rcvSettleMode.byteValue())));
     }
 
 ```
@@ -7378,19 +7475,7 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matc
 #### Snippet
 ```java
 
-    public AttachMatcher withRcvSettleMode(Byte rcvSettleMode) {
-        return withRcvSettleMode(rcvSettleMode == null ? nullValue() : equalTo(UnsignedByte.valueOf(rcvSettleMode.byteValue())));
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AttachExpectation.java`
-#### Snippet
-```java
-
-    public AttachExpectation withSndSettleMode(Byte sndSettleMode) {
+    public AttachMatcher withSndSettleMode(Byte sndSettleMode) {
         return withSndSettleMode(sndSettleMode == null ? nullValue() : equalTo(UnsignedByte.valueOf(sndSettleMode.byteValue())));
     }
 
@@ -7410,36 +7495,12 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expe
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/LongTypeEncoder.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AttachExpectation.java`
 #### Snippet
 ```java
-        buffer.writeByte(EncodingCodes.LONG);
-        for (Object value : values) {
-            buffer.writeLong(((Long) value).longValue());
-        }
-    }
-```
 
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/CharacterTypeEncoder.java`
-#### Snippet
-```java
-        buffer.writeByte(EncodingCodes.CHAR);
-        for (Object charValue : values) {
-            buffer.writeInt(((Character) charValue).charValue() & 0xffff);
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/CharacterTypeEncoder.java`
-#### Snippet
-```java
-    public void writeType(ProtonBuffer buffer, EncoderState state, Character value) {
-        buffer.writeByte(EncodingCodes.CHAR);
-        buffer.writeInt(value.charValue() & 0xffff);
+    public AttachExpectation withSndSettleMode(Byte sndSettleMode) {
+        return withSndSettleMode(sndSettleMode == null ? nullValue() : equalTo(UnsignedByte.valueOf(sndSettleMode.byteValue())));
     }
 
 ```
@@ -7458,12 +7519,36 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/In
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/FloatTypeEncoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/CharacterTypeEncoder.java`
 #### Snippet
 ```java
-        buffer.writeByte(EncodingCodes.FLOAT);
+    public void writeType(ProtonBuffer buffer, EncoderState state, Character value) {
+        buffer.writeByte(EncodingCodes.CHAR);
+        buffer.writeInt(value.charValue() & 0xffff);
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/CharacterTypeEncoder.java`
+#### Snippet
+```java
+        buffer.writeByte(EncodingCodes.CHAR);
+        for (Object charValue : values) {
+            buffer.writeInt(((Character) charValue).charValue() & 0xffff);
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/LongTypeEncoder.java`
+#### Snippet
+```java
+        buffer.writeByte(EncodingCodes.LONG);
         for (Object value : values) {
-            buffer.writeFloat(((Float) value).floatValue());
+            buffer.writeLong(((Long) value).longValue());
         }
     }
 ```
@@ -7478,6 +7563,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/Fl
         buffer.writeFloat(value.floatValue());
     }
 
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/FloatTypeEncoder.java`
+#### Snippet
+```java
+        buffer.writeByte(EncodingCodes.FLOAT);
+        for (Object value : values) {
+            buffer.writeFloat(((Float) value).floatValue());
+        }
+    }
 ```
 
 ### UnnecessaryUnboxing
@@ -7500,30 +7597,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/By
         buffer.writeByte(EncodingCodes.BYTE);
         for (Object byteVal : values) {
             buffer.writeByte(((Byte) byteVal).byteValue());
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/DoubleTypeEncoder.java`
-#### Snippet
-```java
-    public void writeType(ProtonBuffer buffer, EncoderState state, Double value) {
-        buffer.writeByte(EncodingCodes.DOUBLE);
-        buffer.writeDouble(value.doubleValue());
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/DoubleTypeEncoder.java`
-#### Snippet
-```java
-        buffer.writeByte(EncodingCodes.DOUBLE);
-        for (Object value : values) {
-            buffer.writeDouble(((Double) value).doubleValue());
         }
     }
 ```
@@ -7554,6 +7627,30 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/Sh
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/DoubleTypeEncoder.java`
+#### Snippet
+```java
+    public void writeType(ProtonBuffer buffer, EncoderState state, Double value) {
+        buffer.writeByte(EncodingCodes.DOUBLE);
+        buffer.writeDouble(value.doubleValue());
+    }
+
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/DoubleTypeEncoder.java`
+#### Snippet
+```java
+        buffer.writeByte(EncodingCodes.DOUBLE);
+        for (Object value : values) {
+            buffer.writeDouble(((Double) value).doubleValue());
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/DeliveryTag.java`
 #### Snippet
 ```java
@@ -7579,12 +7676,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ar
 
 ### RedundantMethodOverride
 Method `getListEncoding()` is identical to its super method
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/SourceTypeEncoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/PropertiesTypeEncoder.java`
 #### Snippet
 ```java
 
     @Override
-    public byte getListEncoding(Source value) {
+    public byte getListEncoding(Properties value) {
         return EncodingCodes.LIST32;
     }
 ```
@@ -7603,18 +7700,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/Tar
 
 ### RedundantMethodOverride
 Method `getListEncoding()` is identical to its super method
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/PropertiesTypeEncoder.java`
-#### Snippet
-```java
-
-    @Override
-    public byte getListEncoding(Properties value) {
-        return EncodingCodes.LIST32;
-    }
-```
-
-### RedundantMethodOverride
-Method `getListEncoding()` is identical to its super method
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/transport/ErrorConditionTypeEncoder.java`
 #### Snippet
 ```java
@@ -7627,12 +7712,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/transport/Err
 
 ### RedundantMethodOverride
 Method `getListEncoding()` is identical to its super method
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/transport/OpenTypeEncoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/SourceTypeEncoder.java`
 #### Snippet
 ```java
 
     @Override
-    public byte getListEncoding(Open value) {
+    public byte getListEncoding(Source value) {
         return EncodingCodes.LIST32;
     }
 ```
@@ -7645,6 +7730,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/transport/Att
 
     @Override
     public byte getListEncoding(Attach value) {
+        return EncodingCodes.LIST32;
+    }
+```
+
+### RedundantMethodOverride
+Method `getListEncoding()` is identical to its super method
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/transport/OpenTypeEncoder.java`
+#### Snippet
+```java
+
+    @Override
+    public byte getListEncoding(Open value) {
         return EncodingCodes.LIST32;
     }
 ```
@@ -7698,18 +7795,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonB
 ```
 
 ### RedundantMethodOverride
-Method `setNextTagId()` is identical to its super method
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonPooledTagGenerator.java`
-#### Snippet
-```java
-     */
-    @Override
-    void setNextTagId(long nextIdValue) {
-        this.nextTagId = nextIdValue;
-    }
-```
-
-### RedundantMethodOverride
 Method `engineStarting()` is identical to its super method
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
 #### Snippet
@@ -7719,6 +7804,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipe
         public void engineStarting(EngineHandlerContext context) {
         }
 
+```
+
+### RedundantMethodOverride
+Method `setNextTagId()` is identical to its super method
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonPooledTagGenerator.java`
+#### Snippet
+```java
+     */
+    @Override
+    void setNextTagId(long nextIdValue) {
+        this.nextTagId = nextIdValue;
+    }
 ```
 
 ## RuleId[id=MalformedFormatString]
@@ -7763,7 +7860,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonByteArrayB
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/MessageAnnotationsMatcher.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/DeliveryAnnotationsMatcher.java`
 #### Snippet
 ```java
 
@@ -7775,6 +7872,18 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matc
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/DeliveryAnnotationsMatcher.java`
+#### Snippet
+```java
+        validateType(key);
+
+        Map<Object, Object> receivedFields = super.getReceivedFields();
+
+        if (receivedFields != null) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/MessageAnnotationsMatcher.java`
 #### Snippet
 ```java
@@ -7787,19 +7896,7 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matc
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/DeliveryAnnotationsMatcher.java`
-#### Snippet
-```java
-        validateType(key);
-
-        Map<Object, Object> receivedFields = super.getReceivedFields();
-
-        if (receivedFields != null) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/DeliveryAnnotationsMatcher.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/MessageAnnotationsMatcher.java`
 #### Snippet
 ```java
 
@@ -7831,18 +7928,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matc
         Map<Object, Object> receivedFields = super.getReceivedFields();
 
         if (receivedFields != null) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        @Override
-        SplayedEntry<V> getFloorEntry(int key) {
-            return super.entryOrPredecessor(key);
-        }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -7863,8 +7948,8 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
-        SplayedEntry<V> getCeilingEntry(int key) {
-            return super.entryPredecessor(key);
+        SplayedEntry<V> getFloorEntry(int key) {
+            return super.entryOrPredecessor(key);
         }
 
 ```
@@ -7875,7 +7960,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
-        SplayedEntry<V> getLowerEntry(int key) {
+        SplayedEntry<V> getCeilingEntry(int key) {
             return super.entryOrSuccessor(key);
         }
 
@@ -7887,7 +7972,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
-        SplayedEntry<V> getLowestEntry() {
+        SplayedEntry<V> getHighestEntry() {
             return super.highestPossibleEntry();
         }
 
@@ -7911,18 +7996,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
-        SplayedEntry<V> getHighestEntry() {
-            return super.lowestPossibleEntry();
-        }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        @Override
         SplayedEntry<V> getLowerEntry(int key) {
             return super.entryPredecessor(key);
         }
@@ -7935,20 +8008,8 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
-        SplayedEntry<V> getCeilingEntry(int key) {
-            return super.entryOrSuccessor(key);
-        }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        @Override
         SplayedEntry<V> getLowestEntry() {
-            return super.lowestPossibleEntry();
+            return super.highestPossibleEntry();
         }
 
 ```
@@ -7971,8 +8032,44 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
         @Override
+        SplayedEntry<V> getLowerEntry(int key) {
+            return super.entryOrSuccessor(key);
+        }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        @Override
+        SplayedEntry<V> getCeilingEntry(int key) {
+            return super.entryPredecessor(key);
+        }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        @Override
         SplayedEntry<V> getHighestEntry() {
-            return super.highestPossibleEntry();
+            return super.lowestPossibleEntry();
+        }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        @Override
+        SplayedEntry<V> getLowestEntry() {
+            return super.lowestPossibleEntry();
         }
 
 ```
@@ -7993,78 +8090,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
-#### Snippet
-```java
-
-    private FrameParserStage initializeFrameBodyParsingStage(int frameSize) {
-        return stage = frameBodyParsingStage.reset(frameSize);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
-#### Snippet
-```java
-
-    private FrameParserStage transitionToFrameSizeParsingStage() {
-        return stage = frameSizeParser.reset(0);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
-#### Snippet
-```java
-
-    private FrameParserStage transitionToFrameBufferingStage(int frameSize) {
-        return stage = frameBufferingStage.reset(frameSize);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
-#### Snippet
-```java
-            if (symbolBuffer.remaining() <= MAX_CACHED_SYMBOL_SIZE) {
-                final Symbol existing;
-                if ((existing = bufferToSymbols.putIfAbsent(symbolBuffer, symbol)) != null) {
-                    symbol = existing;
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
-#### Snippet
-```java
-            if (underlying.remaining() <= MAX_CACHED_SYMBOL_SIZE) {
-                final Symbol existing;
-                if ((existing = stringToSymbols.putIfAbsent(symbolString, this)) != null) {
-                    symbolString = existing.symbolString;
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
-#### Snippet
-```java
-
-                    if (isSecureServer()) {
-                        ch.pipeline().addLast(sslHandler = SslSupport.createServerSslHandler(null, options));
-                    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDelivery.java`
 #### Snippet
 ```java
@@ -8080,11 +8105,11 @@ Result of assignment expression used
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
 #### Snippet
 ```java
-            if (outcome instanceof Accepted) {
-                txnOutcome = cachedReceiverOutcome != null ? cachedReceiverOutcome :
-                    (cachedReceiverOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()).setOutcome(Accepted.getInstance()));
+            } else if (outcome == null) {
+                DeliveryState txnOutcome = cachedSenderOutcome != null ?
+                    cachedSenderOutcome : (cachedSenderOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()));
+                sendable.send(txnOutcome, settled);
             } else {
-                txnOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()).setOutcome((Outcome) outcome);
 ```
 
 ### NestedAssignment
@@ -8092,11 +8117,11 @@ Result of assignment expression used
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
 #### Snippet
 ```java
-            } else if (outcome == null) {
-                DeliveryState txnOutcome = cachedSenderOutcome != null ?
-                    cachedSenderOutcome : (cachedSenderOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()));
-                sendable.send(txnOutcome, settled);
+            if (outcome instanceof Accepted) {
+                txnOutcome = cachedReceiverOutcome != null ? cachedReceiverOutcome :
+                    (cachedReceiverOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()).setOutcome(Accepted.getInstance()));
             } else {
+                txnOutcome = new TransactionalState().setTxnId(currentTxn.getTxnId()).setOutcome((Outcome) outcome);
 ```
 
 ### NestedAssignment
@@ -8132,6 +8157,78 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
         if (message == null) {
             message = new ClientStreamReceiverMessage(receiver, this, rawInputStream = new RawDeliveryInputStream());
         }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
+#### Snippet
+```java
+
+    private FrameParserStage initializeFrameBodyParsingStage(int frameSize) {
+        return stage = frameBodyParsingStage.reset(frameSize);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
+#### Snippet
+```java
+
+    private FrameParserStage transitionToFrameBufferingStage(int frameSize) {
+        return stage = frameBufferingStage.reset(frameSize);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
+#### Snippet
+```java
+
+    private FrameParserStage transitionToFrameSizeParsingStage() {
+        return stage = frameSizeParser.reset(0);
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
+#### Snippet
+```java
+            if (underlying.remaining() <= MAX_CACHED_SYMBOL_SIZE) {
+                final Symbol existing;
+                if ((existing = stringToSymbols.putIfAbsent(symbolString, this)) != null) {
+                    symbolString = existing.symbolString;
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
+#### Snippet
+```java
+            if (symbolBuffer.remaining() <= MAX_CACHED_SYMBOL_SIZE) {
+                final Symbol existing;
+                if ((existing = bufferToSymbols.putIfAbsent(symbolBuffer, symbol)) != null) {
+                    symbol = existing;
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
+#### Snippet
+```java
+
+                    if (isSecureServer()) {
+                        ch.pipeline().addLast(sslHandler = SslSupport.createServerSslHandler(null, options));
+                    }
 
 ```
 
@@ -8200,10 +8297,10 @@ Result of assignment expression used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbol.java`
 #### Snippet
 ```java
-            if (underlying.getReadableBytes() <= MAX_CACHED_SYMBOL_SIZE) {
+            if (symbolBuffer.getReadableBytes() <= MAX_CACHED_SYMBOL_SIZE) {
                 final Symbol existing;
-                if ((existing = stringToSymbols.putIfAbsent(symbolString, this)) != null) {
-                    symbolString = existing.symbolString;
+                if ((existing = bufferToSymbols.putIfAbsent(symbolBuffer, symbol)) != null) {
+                    symbol = existing;
                 }
 ```
 
@@ -8212,10 +8309,10 @@ Result of assignment expression used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbol.java`
 #### Snippet
 ```java
-            if (symbolBuffer.getReadableBytes() <= MAX_CACHED_SYMBOL_SIZE) {
+            if (underlying.getReadableBytes() <= MAX_CACHED_SYMBOL_SIZE) {
                 final Symbol existing;
-                if ((existing = bufferToSymbols.putIfAbsent(symbolBuffer, symbol)) != null) {
-                    symbol = existing;
+                if ((existing = stringToSymbols.putIfAbsent(symbolString, this)) != null) {
+                    symbolString = existing.symbolString;
                 }
 ```
 
@@ -8229,18 +8326,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/messaging/Data.java`
             return cachedBinary = new Binary(buffer.copy(true));
         }
     }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
-#### Snippet
-```java
-
-        // Update our state to keep in touch with the ByteBuf state
-        writeCapacity = readCapacity = resource.capacity();
-
-        return this;
 ```
 
 ### NestedAssignment
@@ -8269,14 +8354,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactio
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
 #### Snippet
 ```java
 
-            for (count = 0; count < composingBuffers.length && length > 0; ++count) {
-                if ((length -= composingBuffers[count].remaining()) < 0) {
-                    final ByteBuffer buffer = composingBuffers[count];
-                    buffer.limit(buffer.limit() + length);
+        // Update our state to keep in touch with the ByteBuf state
+        writeCapacity = readCapacity = resource.capacity();
+
+        return this;
 ```
 
 ### NestedAssignment
@@ -8289,18 +8374,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDe
             bytesRead = claimedBytes -= bytesRead;
             if (claimedBytes < 0) {
                 claimedBytes = 0;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDelivery.java`
-#### Snippet
-```java
-    @Override
-    public ProtonAttachments getAttachments() {
-        return attachments == null ? attachments = new ProtonAttachments() : attachments;
-    }
-
 ```
 
 ### NestedAssignment
@@ -8329,12 +8402,24 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDe
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLinkCreditState.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDelivery.java`
 #### Snippet
 ```java
+    @Override
+    public ProtonAttachments getAttachments() {
+        return attachments == null ? attachments = new ProtonAttachments() : attachments;
+    }
 
-    int incrementDeliveryCount(int amount) {
-        return deliveryCount += amount;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
+#### Snippet
+```java
+    @Override
+    public boolean isSendable() {
+        return sendable = sendable && sessionWindow.isSendable();
     }
 
 ```
@@ -8377,12 +8462,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameDecod
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLinkCreditState.java`
 #### Snippet
 ```java
-    @Override
-    public boolean isSendable() {
-        return sendable = sendable && sessionWindow.isSendable();
+
+    int incrementDeliveryCount(int amount) {
+        return deliveryCount += amount;
     }
 
 ```
@@ -8401,14 +8486,26 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonOutgoingDe
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOutgoingWindow.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
-        pendingOutgoingWrites = Math.max(0, --pendingOutgoingWrites);
 
-        if (!writeable && (writeable = pendingOutgoingWrites <= outgoingWindowLowWaterMark && remoteIncomingWindow > 0)) {
-            Set<ProtonSender> senders = session.senders();
-            for (ProtonSender sender : senders) {
+            for (count = 0; count < composingBuffers.length && length > 0; ++count) {
+                if ((length -= composingBuffers[count].remaining()) < 0) {
+                    final ByteBuffer buffer = composingBuffers[count];
+                    buffer.limit(buffer.limit() + length);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEndpoint.java`
+#### Snippet
+```java
+    @Override
+    public ProtonAttachments getAttachments() {
+        return attachments == null ? attachments = new ProtonAttachments() : attachments;
+    }
+
 ```
 
 ### NestedAssignment
@@ -8425,6 +8522,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOut
 
 ### NestedAssignment
 Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOutgoingWindow.java`
+#### Snippet
+```java
+        pendingOutgoingWrites = Math.max(0, --pendingOutgoingWrites);
+
+        if (!writeable && (writeable = pendingOutgoingWrites <= outgoingWindowLowWaterMark && remoteIncomingWindow > 0)) {
+            Set<ProtonSender> senders = session.senders();
+            for (ProtonSender sender : senders) {
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslContext.java`
 #### Snippet
 ```java
@@ -8437,12 +8546,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslC
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEndpoint.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/LinkedSplayMap.java`
 #### Snippet
 ```java
-    @Override
-    public ProtonAttachments getAttachments() {
-        return attachments == null ? attachments = new ProtonAttachments() : attachments;
+
+        // Unlink all the entries and reset to no insertions state
+        entries.linkNext = entries.linkPrev = entries;
     }
 
 ```
@@ -8485,41 +8594,74 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/LinkedSplayMap.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/LinkedSplayMap.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
+            final UnsettledBucket<Delivery> bucket = buckets[i];
 
-        // Unlink all the entries and reset to no insertions state
-        entries.linkNext = entries.linkPrev = entries;
-    }
-
+            for (int j = removeStart = removeEnd = bucket.readOffset; j < bucket.writeOffset && !foundLast; ) {
+                final Delivery delivery = bucket.entryAt(j);
+                final int deliveryId = deliveryIdSupplier.getDeliveryId(delivery);
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-        public NavigableMap<UnsignedInteger, V> descendingMap() {
-            return descendingMapView != null ? descendingMapView :
-                (descendingMapView = new DescendingSubMap<>(backingMap,
-                    fromStart, startKey, startInclusive, toEnd, endKey, endInclusive));
+            final UnsettledBucket<Delivery> bucket = buckets[i];
+
+            for (int j = removeStart = removeEnd = bucket.readOffset; j < bucket.writeOffset && !foundLast; ) {
+                final Delivery delivery = bucket.entryAt(j);
+                final int deliveryId = deliveryIdSupplier.getDeliveryId(delivery);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+                    removeEnd = ++j;
+                } else {
+                    removeStart = removeEnd = ++j;
+                }
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+            // Be optimistic and assume the result is in the first entry and then if not search
+            // beyond that entry for the result.
+            if (deliveryIdSupplier.getDeliveryId(delivery = (Delivery) deliveries[readOffset]) == deliveryId) {
+                return delivery;
+            } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
         }
 
+        current = totalEntries = 0;
+    }
+
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-    public NavigableMap<UnsignedInteger, E> descendingMap() {
-        return (descendingMapView != null) ? descendingMapView :
-               (descendingMapView = new DescendingSubMap<>(this,
-                    true, 0, true,
-                    true, UnsignedInteger.MAX_VALUE.intValue(), true));
-    }
 
+            for (int i = 0; i <= current; ++i) {
+                if (buckets[i].isInRange(deliveryId) && (result = buckets[i].remove(deliveryId)) != null) {
+                    totalEntries--;
+                    modCount++;
 ```
 
 ### NestedAssignment
@@ -8563,9 +8705,10 @@ Result of assignment expression used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
-        public Set<Entry<UnsignedInteger, V>> entrySet() {
-            return navigableEntrySet != null ?
-                navigableEntrySet : (navigableEntrySet = new DescendingNavigableSubMapEntrySet());
+        public NavigableMap<UnsignedInteger, V> descendingMap() {
+            return descendingMapView != null ? descendingMapView :
+                (descendingMapView = new DescendingSubMap<>(backingMap,
+                    fromStart, startKey, startInclusive, toEnd, endKey, endInclusive));
         }
 
 ```
@@ -8580,6 +8723,32 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
                 (ascendingMapView = new AscendingSubMap<>(backingMap,
                     fromStart, startKey, startInclusive, toEnd, endKey, endInclusive));
         }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        public final NavigableSet<UnsignedInteger> navigableKeySet() {
+            return (navigableSubMapKeySet != null) ?
+                navigableSubMapKeySet : (navigableSubMapKeySet = new NavigableSubMapKeySet(this));
+        }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    public NavigableMap<UnsignedInteger, E> descendingMap() {
+        return (descendingMapView != null) ? descendingMapView :
+               (descendingMapView = new DescendingSubMap<>(this,
+                    true, 0, true,
+                    true, UnsignedInteger.MAX_VALUE.intValue(), true));
+    }
 
 ```
 
@@ -8612,314 +8781,14 @@ Result of assignment expression used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
-        public final NavigableSet<UnsignedInteger> navigableKeySet() {
-            return (navigableSubMapKeySet != null) ?
-                navigableSubMapKeySet : (navigableSubMapKeySet = new NavigableSubMapKeySet(this));
+        public Set<Entry<UnsignedInteger, V>> entrySet() {
+            return navigableEntrySet != null ?
+                navigableEntrySet : (navigableEntrySet = new DescendingNavigableSubMapEntrySet());
         }
 
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-            // Be optimistic and assume the result is in the first entry and then if not search
-            // beyond that entry for the result.
-            if (deliveryIdSupplier.getDeliveryId(delivery = (Delivery) deliveries[readOffset]) == deliveryId) {
-                return delivery;
-            } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-
-            for (int i = 0; i <= current; ++i) {
-                if (buckets[i].isInRange(deliveryId) && (result = buckets[i].remove(deliveryId)) != null) {
-                    totalEntries--;
-                    modCount++;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-        }
-
-        current = totalEntries = 0;
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-            final UnsettledBucket<Delivery> bucket = buckets[i];
-
-            for (int j = removeStart = removeEnd = bucket.readOffset; j < bucket.writeOffset && !foundLast; ) {
-                final Delivery delivery = bucket.entryAt(j);
-                final int deliveryId = deliveryIdSupplier.getDeliveryId(delivery);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-            final UnsettledBucket<Delivery> bucket = buckets[i];
-
-            for (int j = removeStart = removeEnd = bucket.readOffset; j < bucket.writeOffset && !foundLast; ) {
-                final Delivery delivery = bucket.entryAt(j);
-                final int deliveryId = deliveryIdSupplier.getDeliveryId(delivery);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-                    removeEnd = ++j;
-                } else {
-                    removeStart = removeEnd = ++j;
-                }
-            }
 ```
 
 ## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
-#### Snippet
-```java
-
-    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
-        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
-            processDriverOutput(frame);
-        }, null);
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
-#### Snippet
-```java
-    public LinkTracker getLastOpenedLink() {
-        final AtomicReference<LinkTracker> linkTracker = new AtomicReference<>();
-        localLinks.forEach((key, value) -> {
-            linkTracker.set(value);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
-#### Snippet
-```java
-    public LinkTracker getLastRemotelyOpenedLink() {
-        final AtomicReference<LinkTracker> linkTracker = new AtomicReference<>();
-        remoteLinks.forEach((key, value) -> {
-            linkTracker.set(value);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.sendAMQPFrame(channel, performative, payload, splitWrite);
-            } else {
-                loop.execute(() -> {
-                    super.sendAMQPFrame(channel, performative, payload, splitWrite);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.deferSaslFrame(channel, performative);
-            } else {
-                loop.execute(() -> {
-                    super.deferSaslFrame(channel, performative);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.deferAMQPFrame(channel, performative, payload, splitWrite);
-            } else {
-                loop.execute(() -> {
-                    super.deferAMQPFrame(channel, performative, payload, splitWrite);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.sendHeader(header);
-            } else {
-                loop.execute(() -> {
-                    super.sendHeader(header);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.sendEmptyFrame(channel);
-            } else {
-                loop.execute(() -> {
-                    super.sendEmptyFrame(channel);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.sendSaslFrame(channel, performative);
-            } else {
-                loop.execute(() -> {
-                    super.sendSaslFrame(channel, performative);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
-                super.deferHeader(header);
-            } else {
-                loop.execute(() -> {
-                    super.deferHeader(header);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.sendEmptyFrame(channel);
-            } else {
-                loop.execute(() -> {
-                    super.sendEmptyFrame(channel);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.sendHeader(header);
-            } else {
-                loop.execute(() -> {
-                    super.sendHeader(header);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.deferAMQPFrame(channel, performative, payload, splitWrite);
-            } else {
-                loop.execute(() -> {
-                    super.deferAMQPFrame(channel, performative, payload, splitWrite);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.deferHeader(header);
-            } else {
-                loop.execute(() -> {
-                    super.deferHeader(header);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.sendSaslFrame(channel, performative);
-            } else {
-                loop.execute(() -> {
-                    super.sendSaslFrame(channel, performative);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.sendAMQPFrame(channel, performative, payload, splitWrite);
-            } else {
-                loop.execute(() -> {
-                    super.sendAMQPFrame(channel, performative, payload, splitWrite);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
-#### Snippet
-```java
-                super.deferSaslFrame(channel, performative);
-            } else {
-                loop.execute(() -> {
-                    super.deferSaslFrame(channel, performative);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/util/TypeMapper.java`
-#### Snippet
-```java
-        if (stringsMap != null) {
-            result = new HashMap<>(stringsMap.size());
-            stringsMap.forEach((key, value) -> {
-                result.put(Symbol.valueOf(key), value);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-                HttpHeaders headers = HttpHeaders.newHeaders();
-
-                options.getHttpHeaders().forEach((key, value) -> {
-                    headers.set(key, value);
-                });
-```
-
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientRemoteSource.java`
@@ -8934,14 +8803,14 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientRem
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConversionSupport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSender.java`
 #### Snippet
 ```java
-        if (stringsMap != null) {
-            result = new HashMap<>(stringsMap.size());
-            stringsMap.forEach((key, value) -> {
-                result.put(Symbol.valueOf(key), value);
-            });
+    void disposition(OutgoingDelivery delivery, DeliveryState state, boolean settled) throws ClientException {
+        checkClosedOrFailed();
+        executor.execute(() -> {
+            delivery.disposition(state, settled);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -8970,25 +8839,13 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientCon
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSender.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConversionSupport.java`
 #### Snippet
 ```java
-    void disposition(OutgoingDelivery delivery, DeliveryState state, boolean settled) throws ClientException {
-        checkClosedOrFailed();
-        executor.execute(() -> {
-            delivery.disposition(state, settled);
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    public Message<E> forEachAnnotation(BiConsumer<String, Object> action) {
-        if (hasAnnotations()) {
-            messageAnnotations.getValue().forEach((key, value) -> {
-                action.accept(key.toString(), value);
+        if (stringsMap != null) {
+            result = new HashMap<>(stringsMap.size());
+            stringsMap.forEach((key, value) -> {
+                result.put(Symbol.valueOf(key), value);
             });
 ```
 
@@ -9013,6 +8870,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
         if (bodySections != null) {
             bodySections.forEach(section -> {
                 consumer.accept(section);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    public Message<E> forEachAnnotation(BiConsumer<String, Object> action) {
+        if (hasAnnotations()) {
+            messageAnnotations.getValue().forEach((key, value) -> {
+                action.accept(key.toString(), value);
             });
 ```
 
@@ -9066,18 +8935,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
-#### Snippet
-```java
-                listener.transportError(failureCause);
-            } else {
-                channel.eventLoop().execute(() -> {
-                    listener.transportError(failureCause);
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/WebSocketTransport.java`
 #### Snippet
 ```java
@@ -9086,6 +8943,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
             options.webSocketHeaders().forEach((key, value) -> {
                 headers.set(key, value);
             });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
+#### Snippet
+```java
+                listener.transportError(failureCause);
+            } else {
+                channel.eventLoop().execute(() -> {
+                    listener.transportError(failureCause);
+                });
 ```
 
 ### CodeBlock2Expr
@@ -9102,14 +8971,14 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSender.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
 #### Snippet
 ```java
-    void disposition(OutgoingDelivery delivery, DeliveryState state, boolean settled) throws ClientException {
-        checkClosedOrFailed();
-        executor.execute(() -> {
-            delivery.disposition(state, settled);
-        });
+
+    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
+        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
+            processDriverOutput(frame);
+        }, null);
 ```
 
 ### CodeBlock2Expr
@@ -9122,6 +8991,126 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
                 channel.executor().execute(() -> {
                     listener.transportError(failureCause);
                 });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSender.java`
+#### Snippet
+```java
+    void disposition(OutgoingDelivery delivery, DeliveryState state, boolean settled) throws ClientException {
+        checkClosedOrFailed();
+        executor.execute(() -> {
+            delivery.disposition(state, settled);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.deferAMQPFrame(channel, performative, payload, splitWrite);
+            } else {
+                loop.execute(() -> {
+                    super.deferAMQPFrame(channel, performative, payload, splitWrite);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.deferHeader(header);
+            } else {
+                loop.execute(() -> {
+                    super.deferHeader(header);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.sendHeader(header);
+            } else {
+                loop.execute(() -> {
+                    super.sendHeader(header);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.sendEmptyFrame(channel);
+            } else {
+                loop.execute(() -> {
+                    super.sendEmptyFrame(channel);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.sendSaslFrame(channel, performative);
+            } else {
+                loop.execute(() -> {
+                    super.sendSaslFrame(channel, performative);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.deferSaslFrame(channel, performative);
+            } else {
+                loop.execute(() -> {
+                    super.deferSaslFrame(channel, performative);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+                super.sendAMQPFrame(channel, performative, payload, splitWrite);
+            } else {
+                loop.execute(() -> {
+                    super.sendAMQPFrame(channel, performative, payload, splitWrite);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
+#### Snippet
+```java
+    public LinkTracker getLastOpenedLink() {
+        final AtomicReference<LinkTracker> linkTracker = new AtomicReference<>();
+        localLinks.forEach((key, value) -> {
+            linkTracker.set(value);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
+#### Snippet
+```java
+    public LinkTracker getLastRemotelyOpenedLink() {
+        final AtomicReference<LinkTracker> linkTracker = new AtomicReference<>();
+        remoteLinks.forEach((key, value) -> {
+            linkTracker.set(value);
+        });
 ```
 
 ### CodeBlock2Expr
@@ -9158,6 +9147,114 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
             source.forEachFooter((key, value) -> {
                 footer.getValue().put(Symbol.valueOf(key), value);
             });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.deferSaslFrame(channel, performative);
+            } else {
+                loop.execute(() -> {
+                    super.deferSaslFrame(channel, performative);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.sendAMQPFrame(channel, performative, payload, splitWrite);
+            } else {
+                loop.execute(() -> {
+                    super.sendAMQPFrame(channel, performative, payload, splitWrite);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.sendEmptyFrame(channel);
+            } else {
+                loop.execute(() -> {
+                    super.sendEmptyFrame(channel);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.sendHeader(header);
+            } else {
+                loop.execute(() -> {
+                    super.sendHeader(header);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.sendSaslFrame(channel, performative);
+            } else {
+                loop.execute(() -> {
+                    super.sendSaslFrame(channel, performative);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.deferHeader(header);
+            } else {
+                loop.execute(() -> {
+                    super.deferHeader(header);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServer.java`
+#### Snippet
+```java
+                super.deferAMQPFrame(channel, performative, payload, splitWrite);
+            } else {
+                loop.execute(() -> {
+                    super.deferAMQPFrame(channel, performative, payload, splitWrite);
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/util/TypeMapper.java`
+#### Snippet
+```java
+        if (stringsMap != null) {
+            result = new HashMap<>(stringsMap.size());
+            stringsMap.forEach((key, value) -> {
+                result.put(Symbol.valueOf(key), value);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
+#### Snippet
+```java
+                HttpHeaders headers = HttpHeaders.newHeaders();
+
+                options.getHttpHeaders().forEach((key, value) -> {
+                    headers.set(key, value);
+                });
 ```
 
 ### CodeBlock2Expr
@@ -9210,6 +9307,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.jav
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
+    @Override
+    public Connection negotiate() {
+        return negotiate((header) -> {
+            LOG.trace("Negotiation completed with remote returning AMQP Header: {}", header);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOutgoingWindow.java`
 #### Snippet
 ```java
@@ -9230,18 +9339,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionOut
             unsettled.forEach((int) disposition.getFirst(), (int) disposition.getLast(), (delivery) -> {
                 delivery.getLink().remoteDisposition(disposition, delivery);
             });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-    @Override
-    public Connection negotiate() {
-        return negotiate((header) -> {
-            LOG.trace("Negotiation completed with remote returning AMQP Header: {}", header);
-        });
 ```
 
 ### CodeBlock2Expr
@@ -9416,6 +9513,30 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/Sess
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
+#### Snippet
+```java
+    private volatile int state = STOPPED;
+
+    private int waiters = 0;
+
+    private final Deque<ClientDelivery> queue;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+
+        protected boolean closed;
+        protected long remainingSectionBytes = 0;
+
+        protected MessageBodyInputStream(InputStream deliveryStream) throws ClientException {
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/DriverSessions.java`
 #### Snippet
@@ -9501,30 +9622,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/acti
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
-#### Snippet
-```java
-    private volatile int state = STOPPED;
-
-    private int waiters = 0;
-
-    private final Deque<ClientDelivery> queue;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-
-        protected boolean closed;
-        protected long remainingSectionBytes = 0;
-
-        protected MessageBodyInputStream(InputStream deliveryStream) throws ClientException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/messaging/Header.java`
 #### Snippet
 ```java
@@ -9585,10 +9682,10 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Begin.java`
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Transfer.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Flow.java`
 #### Snippet
 ```java
-    private static final int BATCHABLE = 1024;
+    private static final int PROPERTIES = 1024;
 
     private int modified = 0;
 
@@ -9597,10 +9694,10 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Transfer.jav
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Flow.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Transfer.java`
 #### Snippet
 ```java
-    private static final int PROPERTIES = 1024;
+    private static final int BATCHABLE = 1024;
 
     private int modified = 0;
 
@@ -9617,18 +9714,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/transport/Attach.java`
     private int modified = 0;
 
     // TODO - Consider using the matching signed types instead of next largest
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionIncomingWindow.java`
-#### Snippet
-```java
-
-    // Computed incoming window based on the incoming capacity minus bytes not yet read from deliveries.
-    private long incomingWindow = 0;
-
-    // Tracks the next expected incoming transfer ID from the remote
 ```
 
 ### RedundantFieldInitialization
@@ -9656,6 +9741,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionInc
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionIncomingWindow.java`
+#### Snippet
+```java
+
+    // Computed incoming window based on the incoming capacity minus bytes not yet read from deliveries.
+    private long incomingWindow = 0;
+
+    // Tracks the next expected incoming transfer ID from the remote
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDelivery.java`
 #### Snippet
@@ -9672,11 +9769,11 @@ Field initialization to `null` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDelivery.java`
 #### Snippet
 ```java
-    private Object linkedResource;
 
     private EventHandler<IncomingDelivery> deliveryReadEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryAbortedEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryUpdatedEventHandler = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -9684,23 +9781,11 @@ Field initialization to `null` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonIncomingDelivery.java`
 #### Snippet
 ```java
+    private Object linkedResource;
 
     private EventHandler<IncomingDelivery> deliveryReadEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryAbortedEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryUpdatedEventHandler = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequentialTagGenerator.java`
-#### Snippet
-```java
-public class ProtonSequentialTagGenerator extends ProtonDeliveryTagGenerator {
-
-    protected long nextTagId = 0;
-
-    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -9729,14 +9814,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSender.jav
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSequentialTagGenerator.java`
 #### Snippet
 ```java
-    private int lastInputSequence;
-    private int lastOutputSequence;
-    private long localIdleDeadline = 0;
-    private long remoteIdleDeadline = 0;
+public class ProtonSequentialTagGenerator extends ProtonDeliveryTagGenerator {
 
+    protected long nextTagId = 0;
+
+    @Override
 ```
 
 ### RedundantFieldInitialization
@@ -9749,6 +9834,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.jav
     private long remoteIdleDeadline = 0;
 
     // Engine event points
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.java`
+#### Snippet
+```java
+    private int lastInputSequence;
+    private int lastOutputSequence;
+    private long localIdleDeadline = 0;
+    private long remoteIdleDeadline = 0;
+
 ```
 
 ### RedundantFieldInitialization
@@ -9792,11 +9889,11 @@ Field initialization to `null` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.java`
 #### Snippet
 ```java
-public class ProtonReceiver extends ProtonLink<Receiver> implements Receiver {
 
     private EventHandler<IncomingDelivery> deliveryReadEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryAbortedEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryUpdatedEventHandler = null;
+    private EventHandler<Receiver> linkCreditUpdatedHandler = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9828,11 +9925,11 @@ Field initialization to `null` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.java`
 #### Snippet
 ```java
+public class ProtonReceiver extends ProtonLink<Receiver> implements Receiver {
 
     private EventHandler<IncomingDelivery> deliveryReadEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryAbortedEventHandler = null;
     private EventHandler<IncomingDelivery> deliveryUpdatedEventHandler = null;
-    private EventHandler<Receiver> linkCreditUpdatedHandler = null;
 ```
 
 ### RedundantFieldInitialization
@@ -9849,14 +9946,14 @@ public class RingQueue<E> extends AbstractQueue<E> {
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-    protected final RingQueue<SplayedEntry<E>> entryPool = new RingQueue<>(DEFAULT_ENTRY_POOL_SIZE);
+        private int entries;
+        private int lowestDeliveryId = 0;
+        private int highestDeliveryId = 0;
 
-    protected int entriesInExistence = 0;
-
-    /**
+        private final Object[] deliveries;
 ```
 
 ### RedundantFieldInitialization
@@ -9873,14 +9970,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
-        private int entries;
-        private int lowestDeliveryId = 0;
-        private int highestDeliveryId = 0;
+    protected final RingQueue<SplayedEntry<E>> entryPool = new RingQueue<>(DEFAULT_ENTRY_POOL_SIZE);
 
-        private final Object[] deliveries;
+    protected int entriesInExistence = 0;
+
+    /**
 ```
 
 ## RuleId[id=EqualsAndHashcode]
@@ -9910,6 +10007,42 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/acti
 ```
 
 ### PointlessBitwiseExpression
+`(readByte(stream) & 0xFF) << 0` can be replaced with '(readByte(stream) \& 0xFF)'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
+#### Snippet
+```java
+               (readByte(stream) & 0xFF) << 16 |
+               (readByte(stream) & 0xFF) << 8 |
+               (readByte(stream) & 0xFF) << 0;
+    }
+
+```
+
+### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
+#### Snippet
+```java
+        writeByte((byte) (value >>> 16), stream);
+        writeByte((byte) (value >>> 8), stream);
+        writeByte((byte) (value >>> 0), stream);
+
+        return stream;
+```
+
+### PointlessBitwiseExpression
+`(readByte(stream) & 0xFF) << 0` can be replaced with '(readByte(stream) \& 0xFF)'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
+#### Snippet
+```java
+    public static short readShort(InputStream stream) {
+        return (short) ((readByte(stream) & 0xFF) << 8 |
+                        (readByte(stream) & 0xFF) << 0);
+    }
+
+```
+
+### PointlessBitwiseExpression
 `value >>> 0` can be replaced with 'value'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
 #### Snippet
@@ -9934,30 +10067,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamU
 ```
 
 ### PointlessBitwiseExpression
-`(readByte(stream) & 0xFF) << 0` can be replaced with '(readByte(stream) \& 0xFF)'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
-#### Snippet
-```java
-               (readByte(stream) & 0xFF) << 16 |
-               (readByte(stream) & 0xFF) << 8 |
-               (readByte(stream) & 0xFF) << 0;
-    }
-
-```
-
-### PointlessBitwiseExpression
-`(readByte(stream) & 0xFF) << 0` can be replaced with '(readByte(stream) \& 0xFF)'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
-#### Snippet
-```java
-    public static short readShort(InputStream stream) {
-        return (short) ((readByte(stream) & 0xFF) << 8 |
-                        (readByte(stream) & 0xFF) << 0);
-    }
-
-```
-
-### PointlessBitwiseExpression
 `value >>> 0` can be replaced with 'value'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
 #### Snippet
@@ -9967,30 +10076,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamU
         writeByte((byte) (value >>> 0), stream);
 
         return stream;
-```
-
-### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamUtils.java`
-#### Snippet
-```java
-        writeByte((byte) (value >>> 16), stream);
-        writeByte((byte) (value >>> 8), stream);
-        writeByte((byte) (value >>> 0), stream);
-
-        return stream;
-```
-
-### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-    public static byte[] writeShort(short value, byte[] destination, int offset) {
-        destination[offset++] = (byte) (value >>> 8);
-        destination[offset++] = (byte) (value >>> 0);
-
-        return destination;
 ```
 
 ### PointlessBitwiseExpression
@@ -10015,6 +10100,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
                (array[offset++] & 0xFF) << 0;
     }
 
+```
+
+### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+        destination[offset++] = (byte) (value >>> 16);
+        destination[offset++] = (byte) (value >>> 8);
+        destination[offset++] = (byte) (value >>> 0);
+
+        return destination;
 ```
 
 ### PointlessBitwiseExpression
@@ -10046,23 +10143,11 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-        destination[offset++] = (byte) (value >>> 16);
+    public static byte[] writeShort(short value, byte[] destination, int offset) {
         destination[offset++] = (byte) (value >>> 8);
         destination[offset++] = (byte) (value >>> 0);
 
         return destination;
-```
-
-### PointlessBitwiseExpression
-`(getByte(index + 2) & 0xFF) << 0` can be replaced with '(getByte(index + 2) \& 0xFF)'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-            return (getByte(index)) << 16 |
-                    (getByte(index + 1) & 0xFF) << 8 |
-                    (getByte(index + 2) & 0xFF) << 0;
-        } catch (RuntimeException ex) {
-            throw translateToNettyException(ex);
 ```
 
 ### PointlessBitwiseExpression
@@ -10078,54 +10163,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToN
 ```
 
 ### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-            resource.writeByte((byte) (value >>> 16));
-            resource.writeByte((byte) (value >>> 8));
-            resource.writeByte((byte) (value >>> 0));
-
-            return this;
-```
-
-### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-            resource.setByte(woff, (byte) (value >>> 16));
-            resource.setByte(woff + 1, (byte) (value >>> 8));
-            resource.setByte(woff + 2, (byte) (value >>> 0));
-
-            return this;
-```
-
-### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-            resource.writeByte((byte) (value >>> 16));
-            resource.writeByte((byte) (value >>> 8));
-            resource.writeByte((byte) (value >>> 0));
-
-            return this;
-```
-
-### PointlessBitwiseExpression
-`value >>> 0` can be replaced with 'value'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-            resource.setByte(woff, (byte) (value >>> 16));
-            resource.setByte(woff + 1, (byte) (value >>> 8));
-            resource.setByte(woff + 2, (byte) (value >>> 0));
-
-            return this;
-```
-
-### PointlessBitwiseExpression
 `(getByte(index + 2) & 0xFF) << 0` can be replaced with '(getByte(index + 2) \& 0xFF)'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
@@ -10138,6 +10175,54 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToN
 ```
 
 ### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+            resource.setByte(woff, (byte) (value >>> 16));
+            resource.setByte(woff + 1, (byte) (value >>> 8));
+            resource.setByte(woff + 2, (byte) (value >>> 0));
+
+            return this;
+```
+
+### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+            resource.writeByte((byte) (value >>> 16));
+            resource.writeByte((byte) (value >>> 8));
+            resource.writeByte((byte) (value >>> 0));
+
+            return this;
+```
+
+### PointlessBitwiseExpression
+`(getByte(index + 2) & 0xFF) << 0` can be replaced with '(getByte(index + 2) \& 0xFF)'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+            return (getByte(index)) << 16 |
+                    (getByte(index + 1) & 0xFF) << 8 |
+                    (getByte(index + 2) & 0xFF) << 0;
+        } catch (RuntimeException ex) {
+            throw translateToNettyException(ex);
+```
+
+### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+            resource.setByte(woff, (byte) (value >>> 16));
+            resource.setByte(woff + 1, (byte) (value >>> 8));
+            resource.setByte(woff + 2, (byte) (value >>> 0));
+
+            return this;
+```
+
+### PointlessBitwiseExpression
 `(readByte() & 0xFF) << 0` can be replaced with '(readByte() \& 0xFF)'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
@@ -10147,6 +10232,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToN
                     (readByte() & 0xFF) << 0) & 0xFFFFFF;
         } catch (RuntimeException ex) {
             throw translateToNettyException(ex);
+```
+
+### PointlessBitwiseExpression
+`value >>> 0` can be replaced with 'value'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+            resource.writeByte((byte) (value >>> 16));
+            resource.writeByte((byte) (value >>> 8));
+            resource.writeByte((byte) (value >>> 0));
+
+            return this;
 ```
 
 ### PointlessBitwiseExpression
@@ -10163,18 +10260,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
-Redundant interface declaration `AutoCloseable`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
-#### Snippet
-```java
- * the server and outputs from the client back to the server.
- */
-public class ProtonTestClient extends ProtonTestPeer implements AutoCloseable {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ProtonTestClient.class);
-```
-
-### RedundantImplements
 Redundant interface declaration `ChannelHandler`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/WebSocketTransport.java`
 #### Snippet
@@ -10184,6 +10269,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
     private class NettyWebSocketTransportHandler extends NettyDefaultHandler<Object> implements ChannelHandler {
 
         private final WebSocketClientHandshaker handshaker;
+```
+
+### RedundantImplements
+Redundant interface declaration `AutoCloseable`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClient.java`
+#### Snippet
+```java
+ * the server and outputs from the client back to the server.
+ */
+public class ProtonTestClient extends ProtonTestPeer implements AutoCloseable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ProtonTestClient.class);
 ```
 
 ### RedundantImplements
@@ -10213,7 +10310,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonTransactio
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-14-02-41-39.220.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-23-30-08.994.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -10239,30 +10336,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/CramMD5Me
 ## RuleId[id=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
-    private static final void trace(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
-        if (payload == null) {
-            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
-        } else {
-            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
-            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
-        } else {
-            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
-        }
-    }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
 in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/LargeMessageReceiver.java`
 #### Snippet
 ```java
@@ -10283,6 +10356,30 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
                 System.out.println(String.format("Sent message to %s: %s", sender.address(), message.body()));
             }
         }
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+    private static final void trace(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
+        if (payload == null) {
+            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
+        } else {
+            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
+        } else {
+            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
+        }
+    }
 ```
 
 ## RuleId[id=NonFinalFieldOfException]
@@ -10313,6 +10410,54 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtocolVi
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSessionBuilder.java`
+#### Snippet
+```java
+        SessionOptions sessionOptions = defaultSessionOptions;
+        if (sessionOptions == null) {
+            synchronized (this) {
+                sessionOptions = defaultSessionOptions;
+                if (sessionOptions == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSenderBuilder.java`
+#### Snippet
+```java
+        StreamSenderOptions senderOptions = defaultStreamSenderOptions;
+        if (senderOptions == null) {
+            synchronized (this) {
+                senderOptions = defaultStreamSenderOptions;
+                if (senderOptions == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSenderBuilder.java`
+#### Snippet
+```java
+        SenderOptions senderOptions = defaultSenderOptions;
+        if (senderOptions == null) {
+            synchronized (this) {
+                senderOptions = defaultSenderOptions;
+                if (senderOptions == null) {
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTrackable.java`
+#### Snippet
+```java
+        } finally {
+            if (settle) {
+                synchronized (this) {
+                    if (remoteSettlementFuture == null) {
+                        remoteSettlementFuture = sender.session.connection().getFutureFactory().createFuture();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTrackable.java`
 #### Snippet
 ```java
@@ -10340,59 +10485,11 @@ Lock operations on 'this' may have unforeseen side-effects
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTrackable.java`
 #### Snippet
 ```java
-        } finally {
-            if (settle) {
-                synchronized (this) {
-                    if (remoteSettlementFuture == null) {
-                        remoteSettlementFuture = sender.session.connection().getFutureFactory().createFuture();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTrackable.java`
-#### Snippet
-```java
             sender.disposition(delivery, null, true);
         } finally {
             synchronized (this) {
                 if (remoteSettlementFuture == null) {
                     remoteSettlementFuture = sender.session.connection().getFutureFactory().createFuture();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSenderBuilder.java`
-#### Snippet
-```java
-        SenderOptions senderOptions = defaultSenderOptions;
-        if (senderOptions == null) {
-            synchronized (this) {
-                senderOptions = defaultSenderOptions;
-                if (senderOptions == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSenderBuilder.java`
-#### Snippet
-```java
-        StreamSenderOptions senderOptions = defaultStreamSenderOptions;
-        if (senderOptions == null) {
-            synchronized (this) {
-                senderOptions = defaultStreamSenderOptions;
-                if (senderOptions == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSessionBuilder.java`
-#### Snippet
-```java
-        SessionOptions sessionOptions = defaultSessionOptions;
-        if (sessionOptions == null) {
-            synchronized (this) {
-                sessionOptions = defaultSessionOptions;
-                if (sessionOptions == null) {
 ```
 
 ### SynchronizeOnThis
@@ -10421,10 +10518,58 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientRec
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
+#### Snippet
+```java
+                    idleCount++;
+                } else {
+                    synchronized (this) {
+                        if (isComplete()) {
+                            break;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
+#### Snippet
+```java
+                            waiting++;
+                            try {
+                                wait();
+                            } catch (InterruptedException e) {
+                                Thread.interrupted();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
+#### Snippet
+```java
+                    idleCount++;
+                } else {
+                    synchronized (this) {
+                        if (isComplete()) {
+                            break;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
+#### Snippet
+```java
+                            waiting++;
+                            try {
+                                wait(-diff / 1000000, (int) (-diff % 1000000));
+                            } catch (InterruptedException e) {
+                                Thread.interrupted();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
 #### Snippet
 ```java
-            STATE_FIELD_UPDATER.lazySet(this, FAILURE);
+            STATE_FIELD_UPDATER.lazySet(this, CANCELLED);
 
             synchronized(this) {
                 if (waiting > 0) {
@@ -10472,7 +10617,7 @@ Lock operations on 'this' may have unforeseen side-effects
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
 #### Snippet
 ```java
-            STATE_FIELD_UPDATER.lazySet(this, CANCELLED);
+            STATE_FIELD_UPDATER.lazySet(this, FAILURE);
 
             synchronized(this) {
                 if (waiting > 0) {
@@ -10489,102 +10634,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/Client
                     notifyAll();
                 }
             }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
-#### Snippet
-```java
-                    idleCount++;
-                } else {
-                    synchronized (this) {
-                        if (isComplete()) {
-                            break;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
-#### Snippet
-```java
-                            waiting++;
-                            try {
-                                wait();
-                            } catch (InterruptedException e) {
-                                Thread.interrupted();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
-#### Snippet
-```java
-                    idleCount++;
-                } else {
-                    synchronized (this) {
-                        if (isComplete()) {
-                            break;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
-#### Snippet
-```java
-                            waiting++;
-                            try {
-                                wait(-diff / 1000000, (int) (-diff % 1000000));
-                            } catch (InterruptedException e) {
-                                Thread.interrupted();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
-#### Snippet
-```java
-                    idleCount++;
-                } else {
-                    synchronized (this) {
-                        if (isComplete()) {
-                            break;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
-#### Snippet
-```java
-                            waiting++;
-                            try {
-                                wait(-diff / 1000000, (int) (-diff % 1000000));
-                            } catch (InterruptedException e) {
-                                Thread.interrupted();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
-#### Snippet
-```java
-                    idleCount++;
-                } else {
-                    synchronized (this) {
-                        if (isComplete()) {
-                            break;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
-#### Snippet
-```java
-                            waiting++;
-                            try {
-                                wait();
-                            } catch (InterruptedException e) {
-                                Thread.interrupted();
 ```
 
 ### SynchronizeOnThis
@@ -10635,91 +10684,55 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/Conser
                         Thread.interrupted();
 ```
 
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                    idleCount++;
+                } else {
+                    synchronized (this) {
+                        if (isComplete()) {
+                            break;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                            waiting++;
+                            try {
+                                wait(-diff / 1000000, (int) (-diff % 1000000));
+                            } catch (InterruptedException e) {
+                                Thread.interrupted();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                    idleCount++;
+                } else {
+                    synchronized (this) {
+                        if (isComplete()) {
+                            break;
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                            waiting++;
+                            try {
+                                wait();
+                            } catch (InterruptedException e) {
+                                Thread.interrupted();
+```
+
 ## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
-#### Snippet
-```java
-    private String[] disabledCipherSuites;
-    private String[] enabledProtocols;
-    private String[] disabledProtocols = DEFAULT_DISABLED_PROTOCOLS.toArray(new String[0]);
-    private String contextProtocol = DEFAULT_CONTEXT_PROTOCOL;
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
-#### Snippet
-```java
-    private String[] disabledCipherSuites;
-    private String[] enabledProtocols;
-    private String[] disabledProtocols = DEFAULT_DISABLED_PROTOCOLS.toArray(new String[0]);
-    private String contextProtocol = DEFAULT_CONTEXT_PROTOCOL;
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ScriptWriter.java`
-#### Snippet
-```java
-        expectSASLHeader().respondWithSASLHeader();
-        remoteSaslMechanisms().withMechanisms("EXTERNAL").queue();
-        expectSaslInit().withMechanism("EXTERNAL").withInitialResponse(new byte[0]);
-        remoteSaslOutcome().withCode(SaslCode.OK).queue();
-        expectAMQPHeader().respondWithAMQPHeader();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-        LOG.trace("Enabled protocols: {}", enabledProtocols);
-
-        return enabledProtocols.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-        LOG.trace("Enabled cipher suites: {}", enabledCipherSuites);
-
-        return enabledCipherSuites.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-        LOG.trace("Enabled cipher suites: {}", enabledCipherSuites);
-
-        return enabledCipherSuites.toArray(new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-        LOG.trace("Enabled protocols: {}", enabledProtocols);
-
-        return enabledProtocols.toArray(new String[0]);
-    }
-
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SslOptions.java`
@@ -10794,6 +10807,90 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
+#### Snippet
+```java
+    private String[] disabledCipherSuites;
+    private String[] enabledProtocols;
+    private String[] disabledProtocols = DEFAULT_DISABLED_PROTOCOLS.toArray(new String[0]);
+    private String contextProtocol = DEFAULT_CONTEXT_PROTOCOL;
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ScriptWriter.java`
+#### Snippet
+```java
+        expectSASLHeader().respondWithSASLHeader();
+        remoteSaslMechanisms().withMechanisms("EXTERNAL").queue();
+        expectSaslInit().withMechanism("EXTERNAL").withInitialResponse(new byte[0]);
+        remoteSaslOutcome().withCode(SaslCode.OK).queue();
+        expectAMQPHeader().respondWithAMQPHeader();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
+#### Snippet
+```java
+    private String[] disabledCipherSuites;
+    private String[] enabledProtocols;
+    private String[] disabledProtocols = DEFAULT_DISABLED_PROTOCOLS.toArray(new String[0]);
+    private String contextProtocol = DEFAULT_CONTEXT_PROTOCOL;
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+        LOG.trace("Enabled cipher suites: {}", enabledCipherSuites);
+
+        return enabledCipherSuites.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+        LOG.trace("Enabled protocols: {}", enabledProtocols);
+
+        return enabledProtocols.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+        LOG.trace("Enabled protocols: {}", enabledProtocols);
+
+        return enabledProtocols.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+        LOG.trace("Enabled cipher suites: {}", enabledCipherSuites);
+
+        return enabledCipherSuites.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/MechanismMismatchException.java`
 #### Snippet
 ```java
@@ -10848,9 +10945,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
 
                 if (Boolean.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, buffer, state, count);
                 } else if (Byte.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10858,11 +10955,11 @@ Cast to 'ByteTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTyp
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, buffer, state, count);
                 } else if (Byte.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
                 } else if (Short.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10870,9 +10967,9 @@ Cast to 'ShortTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
                 } else if (Short.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, buffer, state, count);
                 } else if (Integer.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.INT & 0xff)) {
 ```
@@ -10884,9 +10981,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                 } else if (Integer.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.INT & 0xff)) {
-                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, buffer, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10894,9 +10991,9 @@ Cast to 'Integer8TypeDecoder' type conflicts with preceding 'instanceof Primitiv
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, buffer, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, buffer, state, count);
                     }
                 } else if (Long.class.equals(typeClass)) {
 ```
@@ -10908,9 +11005,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                 } else if (Long.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.LONG & 0xff)) {
-                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, buffer, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10918,9 +11015,9 @@ Cast to 'Long8TypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, buffer, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, stream, state, count);
+                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, buffer, state, count);
                     }
                 } else if (Double.class.equals(typeClass)) {
 ```
@@ -10932,9 +11029,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                     }
                 } else if (Double.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, buffer, state, count);
                 } else if (Float.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10942,11 +11039,11 @@ Cast to 'FloatTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, buffer, state, count);
                 } else if (Float.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
                 } else if (Character.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, buffer, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10954,9 +11051,9 @@ Cast to 'CharacterTypeDecoder' type conflicts with preceding 'instanceof Primiti
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
                 } else if (Character.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, stream, state, count);
+                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, buffer, state, count);
                 } else {
                     throw new DecodeException("Unexpected class " + decoder.getClass().getName());
 ```
@@ -10968,9 +11065,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
 
                 if (Boolean.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, stream, state, count);
                 } else if (Byte.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10978,11 +11075,11 @@ Cast to 'ByteTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTyp
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((BooleanTypeDecoder) decoder, stream, state, count);
                 } else if (Byte.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
                 } else if (Short.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -10990,9 +11087,9 @@ Cast to 'ShortTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((ByteTypeDecoder) decoder, stream, state, count);
                 } else if (Short.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((ShortTypeDecoder) decoder, stream, state, count);
                 } else if (Integer.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.INT & 0xff)) {
 ```
@@ -11004,9 +11101,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                 } else if (Integer.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.INT & 0xff)) {
-                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, stream, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -11014,9 +11111,9 @@ Cast to 'Integer8TypeDecoder' type conflicts with preceding 'instanceof Primitiv
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Integer32TypeDecoder) decoder, stream, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Integer8TypeDecoder) decoder, stream, state, count);
                     }
                 } else if (Long.class.equals(typeClass)) {
 ```
@@ -11028,9 +11125,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                 } else if (Long.class.equals(typeClass)) {
                     if (primitiveTypeDecoder.getTypeCode() == (EncodingCodes.LONG & 0xff)) {
-                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, stream, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -11038,9 +11135,9 @@ Cast to 'Long8TypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((LongTypeDecoder) decoder, stream, state, count);
                     } else {
-                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, buffer, state, count);
+                        return decodePrimitiveTypeArray((Long8TypeDecoder) decoder, stream, state, count);
                     }
                 } else if (Double.class.equals(typeClass)) {
 ```
@@ -11052,9 +11149,9 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ab
 ```java
                     }
                 } else if (Double.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, stream, state, count);
                 } else if (Float.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -11062,11 +11159,11 @@ Cast to 'FloatTypeDecoder' type conflicts with preceding 'instanceof PrimitiveTy
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((DoubleTypeDecoder) decoder, stream, state, count);
                 } else if (Float.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
                 } else if (Character.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, stream, state, count);
 ```
 
 ### CastConflictsWithInstanceof
@@ -11074,98 +11171,14 @@ Cast to 'CharacterTypeDecoder' type conflicts with preceding 'instanceof Primiti
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractArrayTypeDecoder.java`
 #### Snippet
 ```java
-                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((FloatTypeDecoder) decoder, stream, state, count);
                 } else if (Character.class.equals(typeClass)) {
-                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, buffer, state, count);
+                    return decodePrimitiveTypeArray((CharacterTypeDecoder) decoder, stream, state, count);
                 } else {
                     throw new DecodeException("Unexpected class " + decoder.getClass().getName());
 ```
 
 ## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `val` initializer `null` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
-#### Snippet
-```java
-
-            Buffer payload = null;
-            Object val = null;
-
-            if (frameBodySize > 0) {
-```
-
-### UnusedAssignment
-The value `ByteBuffer.wrap(header.getBuffer())` assigned to `output` is never used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
-#### Snippet
-```java
-                deferredWrites = null;
-            } else {
-                output = ByteBuffer.wrap(header.getBuffer());
-            }
-
-```
-
-### UnusedAssignment
-The value changed at `offset++` is never used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
-#### Snippet
-```java
-        destination[offset++] = (byte) (value >>> 16);
-        destination[offset++] = (byte) (value >>> 8);
-        destination[offset++] = (byte) (value >>> 0);
-
-        return destination;
-```
-
-### UnusedAssignment
-Variable `engine` initializer `null` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-     */
-    public static SSLEngine createClientJdkSslEngine(URI remote, SSLContext context, ProtonTestClientOptions options) throws Exception {
-        SSLEngine engine = null;
-        if (remote == null) {
-            engine = context.createSSLEngine();
-```
-
-### UnusedAssignment
-Variable `engine` initializer `null` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-     */
-    public static SSLEngine createServerJdkSslEngine(URI remote, SSLContext context, ProtonTestServerOptions options) throws Exception {
-        SSLEngine engine = null;
-        if (remote == null) {
-            engine = context.createSSLEngine();
-```
-
-### UnusedAssignment
-Variable `binaryEncodedSize` initializer `-1` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedPartialDataSectionMatcher.java`
-#### Snippet
-```java
-            // Should be a Binary AMQP type with a length value and possibly some bytes
-            byte encodingCode = receivedBinary.readByte();
-            int binaryEncodedSize = -1;
-
-            if (encodingCode == EncodingCodes.VBIN8) {
-```
-
-### UnusedAssignment
-The value `footersMatcher.verify(footersSubBinary)` assigned to `bytesConsumed` is never used
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/transport/TransferPayloadCompositeMatcher.java`
-#### Snippet
-```java
-            try (Buffer footersSubBinary = receivedBinary.copy(bytesConsumed, origLength - bytesConsumed, true)) {
-                try {
-                    bytesConsumed += footersMatcher.verify(footersSubBinary);
-                } catch (Throwable t) {
-                    footerMatcherFailureDescription = "\nActual encoded form of remaining bytes passed to FooterMatcher: "
-```
-
 ### UnusedAssignment
 Variable `remoteError` initializer `null` is redundant
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientExceptionSupport.java`
@@ -11208,18 +11221,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 #### Snippet
 ```java
      */
-    public static SSLEngine createJdkSslEngine(String host, int port, SSLContext context, SslOptions options) throws Exception {
-        SSLEngine engine = null;
-        if (host == null || host.isEmpty()) {
-            engine = context.createSSLEngine();
-```
-
-### UnusedAssignment
-Variable `engine` initializer `null` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
-#### Snippet
-```java
-     */
     public static SSLEngine createOpenSslEngine(ByteBufAllocator allocator, String host, int port, SslContext context, SslOptions options) throws Exception {
         SSLEngine engine = null;
 
@@ -11228,7 +11229,7 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### UnusedAssignment
 Variable `engine` initializer `null` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
 #### Snippet
 ```java
      */
@@ -11251,6 +11252,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```
 
 ### UnusedAssignment
+Variable `engine` initializer `null` is redundant
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
+#### Snippet
+```java
+     */
+    public static SSLEngine createJdkSslEngine(String host, int port, SSLContext context, SslOptions options) throws Exception {
+        SSLEngine engine = null;
+        if (host == null || host.isEmpty()) {
+            engine = context.createSSLEngine();
+```
+
+### UnusedAssignment
 Variable `writeFuture` initializer `null` is redundant
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
 #### Snippet
@@ -11263,6 +11276,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```
 
 ### UnusedAssignment
+Variable `val` initializer `null` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
+#### Snippet
+```java
+
+            Buffer payload = null;
+            Object val = null;
+
+            if (frameBodySize > 0) {
+```
+
+### UnusedAssignment
 Variable `section` initializer `null` is redundant
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
 #### Snippet
@@ -11272,6 +11297,78 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
         Section<?> section = null;
 
         while (buffer.isReadable()) {
+```
+
+### UnusedAssignment
+The value `ByteBuffer.wrap(header.getBuffer())` assigned to `output` is never used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
+#### Snippet
+```java
+                deferredWrites = null;
+            } else {
+                output = ByteBuffer.wrap(header.getBuffer());
+            }
+
+```
+
+### UnusedAssignment
+Variable `engine` initializer `null` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+     */
+    public static SSLEngine createServerJdkSslEngine(URI remote, SSLContext context, ProtonTestServerOptions options) throws Exception {
+        SSLEngine engine = null;
+        if (remote == null) {
+            engine = context.createSSLEngine();
+```
+
+### UnusedAssignment
+Variable `engine` initializer `null` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+     */
+    public static SSLEngine createClientJdkSslEngine(URI remote, SSLContext context, ProtonTestClientOptions options) throws Exception {
+        SSLEngine engine = null;
+        if (remote == null) {
+            engine = context.createSSLEngine();
+```
+
+### UnusedAssignment
+The value changed at `offset++` is never used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
+#### Snippet
+```java
+        destination[offset++] = (byte) (value >>> 16);
+        destination[offset++] = (byte) (value >>> 8);
+        destination[offset++] = (byte) (value >>> 0);
+
+        return destination;
+```
+
+### UnusedAssignment
+Variable `binaryEncodedSize` initializer `-1` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedPartialDataSectionMatcher.java`
+#### Snippet
+```java
+            // Should be a Binary AMQP type with a length value and possibly some bytes
+            byte encodingCode = receivedBinary.readByte();
+            int binaryEncodedSize = -1;
+
+            if (encodingCode == EncodingCodes.VBIN8) {
+```
+
+### UnusedAssignment
+The value `footersMatcher.verify(footersSubBinary)` assigned to `bytesConsumed` is never used
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/transport/TransferPayloadCompositeMatcher.java`
+#### Snippet
+```java
+            try (Buffer footersSubBinary = receivedBinary.copy(bytesConsumed, origLength - bytesConsumed, true)) {
+                try {
+                    bytesConsumed += footersMatcher.verify(footersSubBinary);
+                } catch (Throwable t) {
+                    footerMatcherFailureDescription = "\nActual encoded form of remaining bytes passed to FooterMatcher: "
 ```
 
 ### UnusedAssignment
@@ -11299,18 +11396,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/ProtonEncoder
 ```
 
 ### UnusedAssignment
-Variable `typeEncoder` initializer `null` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ArrayTypeEncoder.java`
-#### Snippet
-```java
-        }
-
-        TypeEncoder<?> typeEncoder = null;
-
-        if (value.getClass().getComponentType().isPrimitive()) {
-```
-
-### UnusedAssignment
 Variable `typeEncoder` initializer `findTypeEncoder(buffer, state, values[0])` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ArrayTypeEncoder.java`
 #### Snippet
@@ -11323,15 +11408,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/Ar
 ```
 
 ### UnusedAssignment
-The value changed at `offset++` is never used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+Variable `typeEncoder` initializer `null` is redundant
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ArrayTypeEncoder.java`
 #### Snippet
 ```java
-    public static byte[] writeShort(short value, byte[] destination, int offset) {
-        destination[offset++] = (byte) (value >>> 8);
-        destination[offset++] = (byte) (value >>> 0);
+        }
 
-        return destination;
+        TypeEncoder<?> typeEncoder = null;
+
+        if (value.getClass().getComponentType().isPrimitive()) {
 ```
 
 ### UnusedAssignment
@@ -11363,6 +11448,18 @@ The value changed at `offset++` is never used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
+        destination[offset++] = (byte) (value >>> 16);
+        destination[offset++] = (byte) (value >>> 8);
+        destination[offset++] = (byte) (value >>> 0);
+
+        return destination;
+```
+
+### UnusedAssignment
+The value changed at `offset++` is never used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
                (long) (array[offset++] & 0xFF) << 16 |
                (long) (array[offset++] & 0xFF) << 8 |
                (long) (array[offset++] & 0xFF) << 0;
@@ -11387,7 +11484,7 @@ The value changed at `offset++` is never used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-        destination[offset++] = (byte) (value >>> 16);
+    public static byte[] writeShort(short value, byte[] destination, int offset) {
         destination[offset++] = (byte) (value >>> 8);
         destination[offset++] = (byte) (value >>> 0);
 
@@ -11419,18 +11516,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameDecod
 ```
 
 ### UnusedAssignment
-Variable `nextTag` initializer `null` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonPooledTagGenerator.java`
-#### Snippet
-```java
-
-    private DeliveryTag createTag() {
-        DeliveryTag nextTag = null;
-
-        if (nextTagId >= 0 && nextTagId < tagPoolSize) {
-```
-
-### UnusedAssignment
 The value `null` assigned to `this.deliveryTag` is never used
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonOutgoingDelivery.java`
 #### Snippet
@@ -11440,6 +11525,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonOutgoingDe
             this.deliveryTag = null;
         }
 
+```
+
+### UnusedAssignment
+Variable `nextTag` initializer `null` is redundant
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonPooledTagGenerator.java`
+#### Snippet
+```java
+
+    private DeliveryTag createTag() {
+        DeliveryTag nextTag = null;
+
+        if (nextTagId >= 0 && nextTagId < tagPoolSize) {
 ```
 
 ### UnusedAssignment
@@ -11467,30 +11564,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/ProtonLoggerFactory.
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-    private Delivery removeValue(int deliveryId) {
-        if (totalEntries > 0) {
-            Delivery result = null;
-
-            for (int i = 0; i <= current; ++i) {
-```
-
-### UnusedAssignment
-The value `(long) (prevBucketIndex) << 32` assigned to `result` is never used
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-                    // Moved into the previous bucket so the index being negative
-                    // give us the located when added to the previous write offset
-                    result = (long) (prevBucketIndex) << 32;
-                    result = prevBucket.writeOffset + nextEntryOffset;
-                } else if (nextBucket.entries + (bucket.entries - toCopyBackward) > 0) {
-```
-
-### UnusedAssignment
 Variable `removeStart` initializer `0` is redundant
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
@@ -11514,19 +11587,31 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
         for (int i = 0; i <= current && !foundLast; ++i) {
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Value `payload` is always 'null'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
+### UnusedAssignment
+The value `(long) (prevBucketIndex) << 32` assigned to `result` is never used
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-                }
-            } else {
-                LOG.trace("{} Read: CH[{}] : {} [{}]", driver.getName(), channel, HeartBeat.INSTANCE, payload);
-                transitionToFrameSizeParsingStage();
-                driver.handleHeartbeat(frameSize, channel);
+                    // Moved into the previous bucket so the index being negative
+                    // give us the located when added to the previous write offset
+                    result = (long) (prevBucketIndex) << 32;
+                    result = prevBucket.writeOffset + nextEntryOffset;
+                } else if (nextBucket.entries + (bucket.entries - toCopyBackward) > 0) {
 ```
 
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+    private Delivery removeValue(int deliveryId) {
+        if (totalEntries > 0) {
+            Delivery result = null;
+
+            for (int i = 0; i <= current; ++i) {
+```
+
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `body != null` is always `true`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
@@ -11552,15 +11637,15 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/Reconnect
 ```
 
 ### ConstantValue
-Condition `count == 1` is always `true`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transactions/DeclaredTypeDecoder.java`
+Value `payload` is always 'null'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/FrameDecoder.java`
 #### Snippet
 ```java
-        } else if (count > MAX_DECLARED_LIST_ENTRIES) {
-            throw new DecodeException("To many entries in Declared list encoding: " + count);
-        } else if (count == 1) {
-            declared.setTxnId(state.getDecoder().readBinary(stream, state));
-        }
+                }
+            } else {
+                LOG.trace("{} Read: CH[{}] : {} [{}]", driver.getName(), channel, HeartBeat.INSTANCE, payload);
+                transitionToFrameSizeParsingStage();
+                driver.handleHeartbeat(frameSize, channel);
 ```
 
 ### ConstantValue
@@ -11572,6 +11657,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transactions/
             throw new DecodeException("To many entries in Declared list encoding: " + count);
         } else if (count == 1) {
             declared.setTxnId(state.getDecoder().readBinary(buffer, state));
+        }
+```
+
+### ConstantValue
+Condition `count == 1` is always `true`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/transactions/DeclaredTypeDecoder.java`
+#### Snippet
+```java
+        } else if (count > MAX_DECLARED_LIST_ENTRIES) {
+            throw new DecodeException("To many entries in Declared list encoding: " + count);
+        } else if (count == 1) {
+            declared.setTxnId(state.getDecoder().readBinary(stream, state));
         }
 ```
 
@@ -11625,18 +11722,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/Amq
 
 ### ConstantValue
 Condition `writeSize > Integer.MAX_VALUE` is always `false`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/DataTypeEncoder.java`
-#### Snippet
-```java
-        final long writeSize = endIndex - startIndex - Integer.BYTES;
-
-        if (writeSize > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
-        }
-```
-
-### ConstantValue
-Condition `writeSize > Integer.MAX_VALUE` is always `false`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/AmqpValueTypeEncoder.java`
 #### Snippet
 ```java
@@ -11649,7 +11734,19 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/Amq
 
 ### ConstantValue
 Condition `writeSize > Integer.MAX_VALUE` is always `false`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/LongTypeEncoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/messaging/DataTypeEncoder.java`
+#### Snippet
+```java
+        final long writeSize = endIndex - startIndex - Integer.BYTES;
+
+        if (writeSize > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
+        }
+```
+
+### ConstantValue
+Condition `writeSize > Integer.MAX_VALUE` is always `false`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/IntegerTypeEncoder.java`
 #### Snippet
 ```java
         long writeSize = endIndex - startIndex - Integer.BYTES;
@@ -11685,7 +11782,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/Ch
 
 ### ConstantValue
 Condition `writeSize > Integer.MAX_VALUE` is always `false`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/IntegerTypeEncoder.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/LongTypeEncoder.java`
 #### Snippet
 ```java
         long writeSize = endIndex - startIndex - Integer.BYTES;
@@ -11698,6 +11795,30 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/In
 ### ConstantValue
 Condition `writeSize > Integer.MAX_VALUE` is always `false`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/FloatTypeEncoder.java`
+#### Snippet
+```java
+        long writeSize = endIndex - startIndex - Integer.BYTES;
+
+        if (writeSize > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
+        }
+```
+
+### ConstantValue
+Condition `writeSize > Integer.MAX_VALUE` is always `false`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ByteTypeEncoder.java`
+#### Snippet
+```java
+        long writeSize = endIndex - startIndex - Integer.BYTES;
+
+        if (writeSize > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
+        }
+```
+
+### ConstantValue
+Condition `writeSize > Integer.MAX_VALUE` is always `false`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ShortTypeEncoder.java`
 #### Snippet
 ```java
         long writeSize = endIndex - startIndex - Integer.BYTES;
@@ -11721,31 +11842,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/ProtonEncoder
 
 ### ConstantValue
 Condition `writeSize > Integer.MAX_VALUE` is always `false`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ByteTypeEncoder.java`
-#### Snippet
-```java
-        long writeSize = endIndex - startIndex - Integer.BYTES;
-
-        if (writeSize > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
-        }
-```
-
-### ConstantValue
-Condition `writeSize > Integer.MAX_VALUE` is always `false`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/DoubleTypeEncoder.java`
-#### Snippet
-```java
-        long writeSize = endIndex - startIndex - Integer.BYTES;
-
-        if (writeSize > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Cannot encode given array, encoded size to large: " + writeSize);
-        }
-```
-
-### ConstantValue
-Condition `writeSize > Integer.MAX_VALUE` is always `false`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/primitives/ShortTypeEncoder.java`
 #### Snippet
 ```java
         long writeSize = endIndex - startIndex - Integer.BYTES;
@@ -11816,18 +11913,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.ja
 ```
 
 ### ConstantValue
-Value `properties` is always 'null'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.java`
-#### Snippet
-```java
-            localBegin.setProperties(new LinkedHashMap<>(properties));
-        } else {
-            localBegin.setProperties(properties);
-        }
-
-```
-
-### ConstantValue
 Value `capabilities` is always 'null'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.java`
 #### Snippet
@@ -11841,48 +11926,12 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.ja
 
 ### ConstantValue
 Value `properties` is always 'null'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.java`
 #### Snippet
 ```java
-            localAttach.setProperties(new LinkedHashMap<>(properties));
+            localBegin.setProperties(new LinkedHashMap<>(properties));
         } else {
-            localAttach.setProperties(properties);
-        }
-
-```
-
-### ConstantValue
-Value `capabilities` is always 'null'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-            localAttach.setOfferedCapabilities(Arrays.copyOf(capabilities, capabilities.length));
-        } else {
-            localAttach.setOfferedCapabilities(capabilities);
-        }
-
-```
-
-### ConstantValue
-Value `capabilities` is always 'null'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-            localAttach.setDesiredCapabilities(Arrays.copyOf(capabilities, capabilities.length));
-        } else {
-            localAttach.setDesiredCapabilities(capabilities);
-        }
-
-```
-
-### ConstantValue
-Value `properties` is always 'null'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-            localOpen.setProperties(new LinkedHashMap<>(properties));
-        } else {
-            localOpen.setProperties(properties);
+            localBegin.setProperties(properties);
         }
 
 ```
@@ -11907,6 +11956,54 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection
             localOpen.setOfferedCapabilities(Arrays.copyOf(capabilities, capabilities.length));
         } else {
             localOpen.setOfferedCapabilities(capabilities);
+        }
+
+```
+
+### ConstantValue
+Value `properties` is always 'null'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
+            localOpen.setProperties(new LinkedHashMap<>(properties));
+        } else {
+            localOpen.setProperties(properties);
+        }
+
+```
+
+### ConstantValue
+Value `capabilities` is always 'null'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+            localAttach.setDesiredCapabilities(Arrays.copyOf(capabilities, capabilities.length));
+        } else {
+            localAttach.setDesiredCapabilities(capabilities);
+        }
+
+```
+
+### ConstantValue
+Value `capabilities` is always 'null'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+            localAttach.setOfferedCapabilities(Arrays.copyOf(capabilities, capabilities.length));
+        } else {
+            localAttach.setOfferedCapabilities(capabilities);
+        }
+
+```
+
+### ConstantValue
+Value `properties` is always 'null'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+            localAttach.setProperties(new LinkedHashMap<>(properties));
+        } else {
+            localAttach.setProperties(properties);
         }
 
 ```
@@ -11938,18 +12035,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbols.java`
 
 ## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `START_TRANSACTION_MARKER` may be 'static'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
-#### Snippet
-```java
-    private final String DECLARE_FUTURE_NAME = "Declare:Future";
-    private final String DISCHARGE_FUTURE_NAME = "Discharge:Future";
-    private final String START_TRANSACTION_MARKER = "Transaction:Start";
-
-    private final AtomicInteger coordinatorCounter = new AtomicInteger();
-```
-
-### FieldMayBeStatic
 Field `DISCHARGE_FUTURE_NAME` may be 'static'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
 #### Snippet
@@ -11959,6 +12044,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLoc
     private final String DISCHARGE_FUTURE_NAME = "Discharge:Future";
     private final String START_TRANSACTION_MARKER = "Transaction:Start";
 
+```
+
+### FieldMayBeStatic
+Field `START_TRANSACTION_MARKER` may be 'static'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientLocalTransactionContext.java`
+#### Snippet
+```java
+    private final String DECLARE_FUTURE_NAME = "Declare:Future";
+    private final String DISCHARGE_FUTURE_NAME = "Discharge:Future";
+    private final String START_TRANSACTION_MARKER = "Transaction:Start";
+
+    private final AtomicInteger coordinatorCounter = new AtomicInteger();
 ```
 
 ### FieldMayBeStatic
@@ -11986,18 +12083,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ```
 
 ### FieldMayBeStatic
-Field `MIN_IDLE_CHECK_INTERVAL` may be 'static'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.java`
-#### Snippet
-```java
-
-        // TODO - Pick reasonable values
-        private final long MIN_IDLE_CHECK_INTERVAL = 1000;
-        private final long MAX_IDLE_CHECK_INTERVAL = 10000;
-
-```
-
-### FieldMayBeStatic
 Field `MAX_IDLE_CHECK_INTERVAL` may be 'static'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.java`
 #### Snippet
@@ -12010,15 +12095,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.jav
 ```
 
 ### FieldMayBeStatic
-Field `DEFAULT_ENTRY_POOL_SIZE` may be 'static'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+Field `MIN_IDLE_CHECK_INTERVAL` may be 'static'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngine.java`
 #### Snippet
 ```java
-    protected static final Comparator<UnsignedInteger> REVERSE_COMPARATOR = Collections.reverseOrder(COMPARATOR);
 
-    protected final int DEFAULT_ENTRY_POOL_SIZE = 64;
+        // TODO - Pick reasonable values
+        private final long MIN_IDLE_CHECK_INTERVAL = 1000;
+        private final long MAX_IDLE_CHECK_INTERVAL = 10000;
 
-    protected final RingQueue<SplayedEntry<E>> entryPool = new RingQueue<>(DEFAULT_ENTRY_POOL_SIZE);
 ```
 
 ### FieldMayBeStatic
@@ -12033,43 +12118,19 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
     private static final int UNSETTLED_INITIAL_BUCKETS = 2;
 ```
 
+### FieldMayBeStatic
+Field `DEFAULT_ENTRY_POOL_SIZE` may be 'static'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    protected static final Comparator<UnsignedInteger> REVERSE_COMPARATOR = Collections.reverseOrder(COMPARATOR);
+
+    protected final int DEFAULT_ENTRY_POOL_SIZE = 64;
+
+    protected final RingQueue<SplayedEntry<E>> entryPool = new RingQueue<>(DEFAULT_ENTRY_POOL_SIZE);
+```
+
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `Factory` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/Codec.java`
-#### Snippet
-```java
-public interface Codec {
-
-    public static final class Factory {
-
-        public static Codec create() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TypeDecoder` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-import io.netty5.buffer.Buffer;
-
-class TypeDecoder {
-
-    private static final Charset ASCII = Charset.forName("US-ASCII");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SslSupport` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
- * Static class that provides various utility methods used by Transport implementations.
- */
-public class SslSupport {
-
-    private static final Logger LOG = LoggerFactory.getLogger(SslSupport.class);
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `ClientExceptionSupport` has only 'static' members, and lacks a 'private' constructor
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientExceptionSupport.java`
@@ -12119,6 +12180,18 @@ public final class Netty4Support {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `KQueueSupport` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/KQueueSupport.java`
+#### Snippet
+```java
+import io.netty.channel.kqueue.KQueueSocketChannel;
+
+public final class KQueueSupport {
+
+    private static final Logger LOG = LoggerFactory.getLogger(KQueueSupport.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `EpollSupport` has only 'static' members, and lacks a 'private' constructor
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/EpollSupport.java`
 #### Snippet
@@ -12143,18 +12216,6 @@ public final class IOUringSupport {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `KQueueSupport` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/KQueueSupport.java`
-#### Snippet
-```java
-import io.netty.channel.kqueue.KQueueSocketChannel;
-
-public final class KQueueSupport {
-
-    private static final Logger LOG = LoggerFactory.getLogger(KQueueSupport.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Netty5Support` has only 'static' members, and lacks a 'private' constructor
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/Netty5Support.java`
 #### Snippet
@@ -12167,18 +12228,6 @@ public final class Netty5Support {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `IOUringSupport` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/IOUringSupport.java`
-#### Snippet
-```java
-import io.netty5.channel.EventLoopGroup;
-
-public class IOUringSupport {
-
-    private static final Logger LOG = LoggerFactory.getLogger(IOUringSupport.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `KQueueSupport` has only 'static' members, and lacks a 'private' constructor
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/KQueueSupport.java`
 #### Snippet
@@ -12188,6 +12237,18 @@ import io.netty5.channel.kqueue.KQueueSocketChannel;
 public final class KQueueSupport {
 
     private static final Logger LOG = LoggerFactory.getLogger(KQueueSupport.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IOUringSupport` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/IOUringSupport.java`
+#### Snippet
+```java
+import io.netty5.channel.EventLoopGroup;
+
+public class IOUringSupport {
+
+    private static final Logger LOG = LoggerFactory.getLogger(IOUringSupport.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12227,63 +12288,39 @@ public final class SslSupport {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProtonConstants` has only 'static' members, and lacks a 'private' constructor
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConstants.java`
+Class `Factory` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/Codec.java`
 #### Snippet
 ```java
- * Constants referenced throughout the proton engine code.
+public interface Codec {
+
+    public static final class Factory {
+
+        public static Codec create() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TypeDecoder` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+import io.netty5.buffer.Buffer;
+
+class TypeDecoder {
+
+    private static final Charset ASCII = Charset.forName("US-ASCII");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SslSupport` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+ * Static class that provides various utility methods used by Transport implementations.
  */
-public final class ProtonConstants {
+public class SslSupport {
 
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProtonExceptionSupport` has only 'static' members, and lacks a 'private' constructor
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
-#### Snippet
-```java
-package org.apache.qpid.protonj2.engine.exceptions;
-
-public class ProtonExceptionSupport {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/StringUtils.java`
-#### Snippet
-```java
- * Set of {@link String} utilities used in the proton code.
- */
-public class StringUtils {
-
-    private static final int DEFAULT_QUOTED_STRING_LIMIT = 64;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Request` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
-#### Snippet
-```java
- * Sends a Request to a request Queue and awaits a response.
- */
-public class Request {
-
-    public static void main(String[] args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransactedSender` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/TransactedSender.java`
-#### Snippet
-```java
-import org.apache.qpid.protonj2.client.Session;
-
-public class TransactedSender {
-
-    public static void main(String[] args) throws Exception {
+    private static final Logger LOG = LoggerFactory.getLogger(SslSupport.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12335,6 +12372,30 @@ public class LargeMessageSender {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `Request` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
+#### Snippet
+```java
+ * Sends a Request to a request Queue and awaits a response.
+ */
+public class Request {
+
+    public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TransactedSender` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/TransactedSender.java`
+#### Snippet
+```java
+import org.apache.qpid.protonj2.client.Session;
+
+public class TransactedSender {
+
+    public static void main(String[] args) throws Exception {
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `StreamingFileSender` has only 'static' members, and lacks a 'private' constructor
 in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/StreamingFileSender.java`
 #### Snippet
@@ -12371,27 +12432,15 @@ public class Send {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Receive` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Receive.java`
+Class `NextReceiver` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
 #### Snippet
 ```java
-import org.apache.qpid.protonj2.client.Receiver;
+import org.apache.qpid.protonj2.client.Message;
 
-public class Receive {
+public class NextReceiver {
 
-    private static final int MESSAGE_COUNT = 100;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReconnectReceiver` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
-#### Snippet
-```java
-import org.apache.qpid.protonj2.client.Receiver;
-
-public class ReconnectReceiver {
-
-    private static final int MESSAGE_COUNT = 10;
+    public static void main(String[] args) throws Exception {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12407,15 +12456,15 @@ public class StreamingFileReceiver {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NextReceiver` has only 'static' members, and lacks a 'private' constructor
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
+Class `Receive` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Receive.java`
 #### Snippet
 ```java
-import org.apache.qpid.protonj2.client.Message;
+import org.apache.qpid.protonj2.client.Receiver;
 
-public class NextReceiver {
+public class Receive {
 
-    public static void main(String[] args) throws Exception {
+    private static final int MESSAGE_COUNT = 100;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -12428,6 +12477,54 @@ import org.apache.qpid.protonj2.client.Sender;
 public class ReconnectSender {
 
     private static final int MESSAGE_COUNT = 10;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReconnectReceiver` has only 'static' members, and lacks a 'private' constructor
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
+#### Snippet
+```java
+import org.apache.qpid.protonj2.client.Receiver;
+
+public class ReconnectReceiver {
+
+    private static final int MESSAGE_COUNT = 10;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtonConstants` has only 'static' members, and lacks a 'private' constructor
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConstants.java`
+#### Snippet
+```java
+ * Constants referenced throughout the proton engine code.
+ */
+public final class ProtonConstants {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtonExceptionSupport` has only 'static' members, and lacks a 'private' constructor
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
+#### Snippet
+```java
+package org.apache.qpid.protonj2.engine.exceptions;
+
+public class ProtonExceptionSupport {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StringUtils` has only 'static' members, and lacks a 'private' constructor
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/StringUtils.java`
+#### Snippet
+```java
+ * Set of {@link String} utilities used in the proton code.
+ */
+public class StringUtils {
+
+    private static final int DEFAULT_QUOTED_STRING_LIMIT = 64;
 ```
 
 ## RuleId[id=ManualArrayToCollectionCopy]
@@ -12444,18 +12541,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/SaslMecha
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
-        KeyStore store = KeyStore.getInstance(storeType);
-        try (InputStream in = new FileInputStream(new File(storePath));) {
-            store.load(in, password != null ? password.toCharArray() : null);
-        }
-```
-
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamDelivery.java`
@@ -12494,6 +12579,42 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
+        KeyStore store = KeyStore.getInstance(storeType);
+        try (InputStream in = new FileInputStream(new File(storePath));) {
+            store.load(in, password != null ? password.toCharArray() : null);
+        }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+                    // No match on the key means we need to skip the value so we are positioned
+                    // on the next key or the buffer is consumed.
+                    decoder.readNextTypeDecoder(stream, state).skipValue(stream, state);;
+                }
+            }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/AbstractMapTypeDecoder.java`
+#### Snippet
+```java
+                    // No match on the key means we need to skip the value so we are positioned
+                    // on the next key or the buffer is consumed.
+                    decoder.readNextTypeDecoder(buffer, state).skipValue(buffer, state);;
+                }
+            }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/TransactionState.java`
 #### Snippet
 ```java
@@ -12505,6 +12626,54 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/TransactionState.java
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `complete` may produce `NullPointerException`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientNextReceiverSelector.java`
+#### Snippet
+```java
+                delivery.getLink().getSession().getAttachments().set(LAST_RETURNED_STATE_KEY, receiver);
+
+                pending.poll().complete(receiver);
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `addListener` may produce `NullPointerException`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
+#### Snippet
+```java
+
+            if (onComplete != null) {
+                writeFuture.addListener(onComplete, TcpTransport::handleWriteComplete);
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `isOptional` may produce `NullPointerException`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
+#### Snippet
+```java
+                amqp.invoke(scriptEntry, frameSize, payload, channel, this);
+            } catch (UnexpectedPerformativeError e) {
+                if (scriptEntry.isOptional()) {
+                    handlePerformative(frameSize, amqp, channel, payload);
+                } else {
+```
+
+### DataFlowIssue
+Argument `scriptEntry` might be null
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
+#### Snippet
+```java
+            }
+
+            processScript(scriptEntry);
+        }
+    }
+```
+
 ### DataFlowIssue
 Method invocation `isOptional` may produce `NullPointerException`
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
@@ -12554,30 +12723,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQP
 ```
 
 ### DataFlowIssue
-Method invocation `isOptional` may produce `NullPointerException`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
-#### Snippet
-```java
-                amqp.invoke(scriptEntry, frameSize, payload, channel, this);
-            } catch (UnexpectedPerformativeError e) {
-                if (scriptEntry.isOptional()) {
-                    handlePerformative(frameSize, amqp, channel, payload);
-                } else {
-```
-
-### DataFlowIssue
-Argument `scriptEntry` might be null
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/AMQPTestDriver.java`
-#### Snippet
-```java
-            }
-
-            processScript(scriptEntry);
-        }
-    }
-```
-
-### DataFlowIssue
 Argument `toArray()` might be null
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/AMQPHeader.java`
 #### Snippet
@@ -12590,30 +12735,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 ```
 
 ### DataFlowIssue
-Method invocation `complete` may produce `NullPointerException`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientNextReceiverSelector.java`
-#### Snippet
-```java
-                delivery.getLink().getSession().getAttachments().set(LAST_RETURNED_STATE_KEY, receiver);
-
-                pending.poll().complete(receiver);
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `addListener` may produce `NullPointerException`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
-#### Snippet
-```java
-
-            if (onComplete != null) {
-                writeFuture.addListener(onComplete, TcpTransport::handleWriteComplete);
-            }
-        }
-```
-
-### DataFlowIssue
 Switch label `0` is the only reachable in the whole switch
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/RejectedTypeDecoder.java`
 #### Snippet
@@ -12621,7 +12742,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/Rej
         for (int index = 0; index < count; ++index) {
             switch (index) {
                 case 0:
-                    rejected.setError(state.getDecoder().readObject(stream, state, ErrorCondition.class));
+                    rejected.setError(state.getDecoder().readObject(buffer, state, ErrorCondition.class));
                     break;
 ```
 
@@ -12633,7 +12754,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/messaging/Rej
         for (int index = 0; index < count; ++index) {
             switch (index) {
                 case 0:
-                    rejected.setError(state.getDecoder().readObject(buffer, state, ErrorCondition.class));
+                    rejected.setError(state.getDecoder().readObject(stream, state, ErrorCondition.class));
                     break;
 ```
 
@@ -12699,30 +12820,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/AbstractS
 ```
 
 ## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
-#### Snippet
-```java
-    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
-        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
-            processDriverOutput(frame);
-        }, null);
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-
-                options.getHttpHeaders().forEach((key, value) -> {
-                    headers.set(key, value);
-                });
-
-```
-
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiver.java`
@@ -12821,6 +12918,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestConnector.java`
+#### Snippet
+```java
+    public ProtonTestConnector(Consumer<ByteBuffer> frameSink) {
+        this.driver = new AMQPTestDriver(getPeerName(), (frame) -> {
+            processDriverOutput(frame);
+        }, null);
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
 #### Snippet
 ```java
@@ -12845,6 +12954,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMes
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
+#### Snippet
+```java
+
+                options.getHttpHeaders().forEach((key, value) -> {
+                    headers.set(key, value);
+                });
+
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
@@ -12853,6 +12974,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
             buffer.close();
         });
     }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/AMQPPerformativeEnvelopePool.java`
+#### Snippet
+```java
+     */
+    public static AMQPPerformativeEnvelopePool<IncomingAMQPEnvelope> incomingEnvelopePool() {
+        return new AMQPPerformativeEnvelopePool<>((pool) -> new IncomingAMQPEnvelope(pool));
+    }
+
 ```
 
 ### Convert2MethodRef
@@ -12877,18 +13010,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/AMQPPerformativeEnvel
         return new AMQPPerformativeEnvelopePool<>((pool) -> new OutgoingAMQPEnvelope(pool));
     }
 }
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/AMQPPerformativeEnvelopePool.java`
-#### Snippet
-```java
-     */
-    public static AMQPPerformativeEnvelopePool<IncomingAMQPEnvelope> incomingEnvelopePool() {
-        return new AMQPPerformativeEnvelopePool<>((pool) -> new IncomingAMQPEnvelope(pool));
-    }
-
 ```
 
 ### Convert2MethodRef
@@ -12956,11 +13077,11 @@ Lambda can be replaced with method reference
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/RingQueue.java`
 #### Snippet
 ```java
-        this.backingArray = new Object[collection.size()];
+        }
 
-        collection.forEach(value -> offer(value));
-    }
+        c.forEach(value -> offer(value));
 
+        return !c.isEmpty();
 ```
 
 ### Convert2MethodRef
@@ -12968,11 +13089,11 @@ Lambda can be replaced with method reference
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/RingQueue.java`
 #### Snippet
 ```java
-        }
+        this.backingArray = new Object[collection.size()];
 
-        c.forEach(value -> offer(value));
+        collection.forEach(value -> offer(value));
+    }
 
-        return !c.isEmpty();
 ```
 
 ### Convert2MethodRef
@@ -13038,6 +13159,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbols.java`
 
 ## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
 ### NonSynchronizedMethodOverridesSynchronizedMethod
+Unsynchronized method `reset()` overrides synchronized method
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferInputStream.java`
+#### Snippet
+```java
+
+    @Override
+    public void reset() throws IOException {
+        if (readOffsetMark == NOT_SET) {
+            throw new IOException("The stream has not been marked or the mark was invalidated");
+```
+
+### NonSynchronizedMethodOverridesSynchronizedMethod
 Unsynchronized method `mark()` overrides synchronized method
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferInputStream.java`
 #### Snippet
@@ -13049,16 +13182,65 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferInputStre
     }
 ```
 
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `reset()` overrides synchronized method
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferInputStream.java`
+## RuleId[id=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'redirect' in a Serializable class
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/exceptions/ClientLinkRedirectedException.java`
 #### Snippet
 ```java
+    private static final long serialVersionUID = 5872211116061710369L;
 
-    @Override
-    public void reset() throws IOException {
-        if (readOffsetMark == NOT_SET) {
-            throw new IOException("The stream has not been marked or the mark was invalidated");
+    private final ClientRedirect redirect;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'redirect' in a Serializable class
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/exceptions/ClientConnectionRedirectedException.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 5872211116061710369L;
+
+    private final ClientRedirect redirect;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'policy' in a Serializable class
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/messaging/TerminusExpiryPolicy.java`
+#### Snippet
+```java
+    NEVER("never");
+
+    private Symbol policy;
+    private static final Map<Symbol, TerminusExpiryPolicy> map = new HashMap<>();
+
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'policy' in a Serializable class
+in `protonj2/src/main/java/org/apache/qpid/protonj2/types/messaging/TerminusExpiryPolicy.java`
+#### Snippet
+```java
+    private static final Map<Symbol, TerminusExpiryPolicy> map = new HashMap<>();
+
+    private final Symbol policy;
+
+    TerminusExpiryPolicy(String policy) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'condition' in a Serializable class
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtocolViolationException.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private Symbol condition;
+
+    public ProtocolViolationException() {
 ```
 
 ## RuleId[id=AbstractMethodCallInConstructor]
@@ -13086,92 +13268,7 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'policy' in a Serializable class
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/messaging/TerminusExpiryPolicy.java`
-#### Snippet
-```java
-    NEVER("never");
-
-    private Symbol policy;
-    private static final Map<Symbol, TerminusExpiryPolicy> map = new HashMap<>();
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'redirect' in a Serializable class
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/exceptions/ClientConnectionRedirectedException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 5872211116061710369L;
-
-    private final ClientRedirect redirect;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'redirect' in a Serializable class
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/exceptions/ClientLinkRedirectedException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 5872211116061710369L;
-
-    private final ClientRedirect redirect;
-
-    /**
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'policy' in a Serializable class
-in `protonj2/src/main/java/org/apache/qpid/protonj2/types/messaging/TerminusExpiryPolicy.java`
-#### Snippet
-```java
-    private static final Map<Symbol, TerminusExpiryPolicy> map = new HashMap<>();
-
-    private final Symbol policy;
-
-    TerminusExpiryPolicy(String policy) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'condition' in a Serializable class
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtocolViolationException.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private Symbol condition;
-
-    public ProtocolViolationException() {
-```
-
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/DescribedTypeRegistry.java`
-#### Snippet
-```java
-                Constructor<? extends DescribedType> constructor = typeClass.getConstructor(Object.class);
-                return constructor.newInstance(described);
-            } catch (Throwable err){
-            }
-        }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-                    return new URI(options.isSecure() ? "ssl" : "tcp", null, host, port, null, null, null);
-                }
-            } catch (URISyntaxException e) {
-            }
-        }
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiver.java`
@@ -13213,6 +13310,18 @@ Empty `catch` block
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamDelivery.java`
 #### Snippet
 ```java
+                    // returned to the pool and the rest are discarded.
+                    buffer.splitComponentsFloor(buffer.getReadOffset()).close();;
+                } catch (Exception e) {
+                }
+            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamDelivery.java`
+#### Snippet
+```java
             try {
                 receiver.disposition(delivery, null, true);
             } catch (Exception error) {
@@ -13230,18 +13339,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
                     } catch (Exception e) {
                     }
                 }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamDelivery.java`
-#### Snippet
-```java
-                    // returned to the pool and the rest are discarded.
-                    buffer.splitComponentsFloor(buffer.getReadOffset()).close();;
-                } catch (Exception e) {
-                }
-            }
 ```
 
 ### CatchMayIgnoreException
@@ -13270,11 +13367,11 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/WebSocketTransport.java`
 #### Snippet
 ```java
             try {
-                return new URI(getScheme(), null, host, port, null, null, null);
+                return new URI(getScheme(), null, host, port, options.webSocketPath(), null, null);
             } catch (URISyntaxException e) {
             }
         }
@@ -13282,11 +13379,11 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/WebSocketTransport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
 #### Snippet
 ```java
             try {
-                return new URI(getScheme(), null, host, port, options.webSocketPath(), null, null);
+                return new URI(getScheme(), null, host, port, null, null, null);
             } catch (URISyntaxException e) {
             }
         }
@@ -13306,6 +13403,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### CatchMayIgnoreException
 Empty `catch` block
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
+#### Snippet
+```java
+            try {
+                return new URI(getScheme(), null, host, port, null, null, null);
+            } catch (URISyntaxException e) {
+            }
+        }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSender.java`
 #### Snippet
 ```java
@@ -13318,11 +13427,23 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/DescribedTypeRegistry.java`
 #### Snippet
 ```java
-            try {
-                return new URI(getScheme(), null, host, port, null, null, null);
+                Constructor<? extends DescribedType> constructor = typeClass.getConstructor(Object.class);
+                return constructor.newInstance(described);
+            } catch (Throwable err){
+            }
+        }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
+#### Snippet
+```java
+                    return new URI(options.isSecure() ? "ssl" : "tcp", null, host, port, null, null, null);
+                }
             } catch (URISyntaxException e) {
             }
         }
@@ -13343,18 +13464,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamReceiver
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TargetOptions.java`
-#### Snippet
-```java
-     * @return the given {@link TargetOptions} instance with all configuration copied from this instance.
-     */
-    protected TargetOptions copyInto(TargetOptions other) {
-        super.copyInto(other);
-        return other;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SourceOptions.java`
 #### Snippet
 ```java
@@ -13363,6 +13472,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SourceOptions.
     protected SourceOptions copyInto(SourceOptions other) {
         super.copyInto(other);
         other.distributionMode(distributionMode);
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/TargetOptions.java`
+#### Snippet
+```java
+     * @return the given {@link TargetOptions} instance with all configuration copied from this instance.
+     */
+    protected TargetOptions copyInto(TargetOptions other) {
+        super.copyInto(other);
+        return other;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -13408,10 +13529,10 @@ Assignment to for-loop parameter `i`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/ProtonEncoderState.java`
 #### Snippet
 ```java
-                    // with a 4 octet representation
-                    if ((c & 0xD800) == 0xD800 && c < 0xDC00) {
-                        i++;
-                    }
+                int low;
+
+                if ((++i == remaining) || ((low = value.charAt(i)) & 0xDC00) != 0xDC00) {
+                    throw new IllegalArgumentException("String contains invalid Unicode code points");
                 }
 ```
 
@@ -13420,10 +13541,10 @@ Assignment to for-loop parameter `i`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/ProtonEncoderState.java`
 #### Snippet
 ```java
-                int low;
-
-                if ((++i == remaining) || ((low = value.charAt(i)) & 0xDC00) != 0xDC00) {
-                    throw new IllegalArgumentException("String contains invalid Unicode code points");
+                    // with a 4 octet representation
+                    if ((c & 0xD800) == 0xD800 && c < 0xDC00) {
+                        i++;
+                    }
                 }
 ```
 
@@ -13513,15 +13634,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty5ToProtonB
 ```
 
 ### InnerClassMayBeStatic
-Inner class `Netty4ToProtonBufferIterator` may be 'static'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
+Inner class `ProtonBufferToNetty5ByteCursor` may be 'static'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
 ```java
     }
 
-    private final class Netty4ToProtonBufferIterator implements ProtonBufferIterator {
+    private final class ProtonBufferToNetty5ByteCursor implements ByteCursor {
 
-        private final ByteBuf resource;
+        private final ProtonBufferIterator iterator;
 ```
 
 ### InnerClassMayBeStatic
@@ -13537,42 +13658,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonB
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ProtonBufferToNetty5ByteCursor` may be 'static'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+Inner class `Netty4ToProtonBufferIterator` may be 'static'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
 #### Snippet
 ```java
     }
 
-    private final class ProtonBufferToNetty5ByteCursor implements ByteCursor {
+    private final class Netty4ToProtonBufferIterator implements ProtonBufferIterator {
 
-        private final ProtonBufferIterator iterator;
+        private final ByteBuf resource;
 ```
 
 ## RuleId[id=Java9CollectionFactory]
-### Java9CollectionFactory
-Can be replaced with 'List.of()' call
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
-#### Snippet
-```java
-    public static final boolean DEFAULT_TRUST_ALL = false;
-    public static final boolean DEFAULT_VERIFY_HOST = true;
-    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
-    public static final int DEFAULT_LOCAL_PORT = 0;
-    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
-```
-
-### Java9CollectionFactory
-Can be replaced with 'List.of()' call
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
-#### Snippet
-```java
-    public static final boolean DEFAULT_TRUST_ALL = false;
-    public static final boolean DEFAULT_VERIFY_HOST = true;
-    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
-    public static final int DEFAULT_LOCAL_PORT = 0;
-    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
-```
-
 ### Java9CollectionFactory
 Can be replaced with 'List.of()' call
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/SslOptions.java`
@@ -13609,45 +13706,33 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ConnectionOpti
     public static final long INFINITE = -1;
 ```
 
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestClientOptions.java`
+#### Snippet
+```java
+    public static final boolean DEFAULT_TRUST_ALL = false;
+    public static final boolean DEFAULT_VERIFY_HOST = true;
+    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
+    public static final int DEFAULT_LOCAL_PORT = 0;
+    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
+```
+
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ProtonTestServerOptions.java`
+#### Snippet
+```java
+    public static final boolean DEFAULT_TRUST_ALL = false;
+    public static final boolean DEFAULT_VERIFY_HOST = true;
+    public static final List<String> DEFAULT_DISABLED_PROTOCOLS = Collections.unmodifiableList(Arrays.asList(new String[]{"SSLv2Hello", "SSLv3"}));
+    public static final int DEFAULT_LOCAL_PORT = 0;
+    public static final boolean DEFAULT_USE_WEBSOCKETS = false;
+```
+
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
-#### Snippet
-```java
-
-            synchronized(this) {
-                if (waiting > 0) {
-                    notifyAll();
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
-#### Snippet
-```java
-
-            synchronized(this) {
-                if (waiting > 0) {
-                    notifyAll();
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
-#### Snippet
-```java
-
-            synchronized(this) {
-                if (waiting > 0) {
-                    notifyAll();
-                }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `waiting` accessed in synchronized context
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ProgressiveClientFuture.java`
 #### Snippet
 ```java
@@ -13696,50 +13781,38 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/Progre
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
 #### Snippet
 ```java
-                            break;
-                        } else if (getState() < COMPLETING) {
-                            waiting++;
-                            try {
-                                wait(-diff / 1000000, (int) (-diff % 1000000));
+
+            synchronized(this) {
+                if (waiting > 0) {
+                    notifyAll();
+                }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
 #### Snippet
 ```java
-                                throw e;
-                            } finally {
-                                waiting--;
-                            }
-                        }
+
+            synchronized(this) {
+                if (waiting > 0) {
+                    notifyAll();
+                }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/ClientFuture.java`
 #### Snippet
 ```java
-                            break;
-                        } else if (getState() < COMPLETING) {
-                            waiting++;
-                            try {
-                                wait();
-```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `waiting` accessed in synchronized context
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
-#### Snippet
-```java
-                                throw e;
-                            } finally {
-                                waiting--;
-                            }
-                        }
+            synchronized(this) {
+                if (waiting > 0) {
+                    notifyAll();
+                }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -13788,6 +13861,54 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/Conser
                         waiting--;
                     }
                 }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `waiting` accessed in synchronized context
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                            break;
+                        } else if (getState() < COMPLETING) {
+                            waiting++;
+                            try {
+                                wait(-diff / 1000000, (int) (-diff % 1000000));
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `waiting` accessed in synchronized context
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                                throw e;
+                            } finally {
+                                waiting--;
+                            }
+                        }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `waiting` accessed in synchronized context
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                            break;
+                        } else if (getState() < COMPLETING) {
+                            waiting++;
+                            try {
+                                wait();
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `waiting` accessed in synchronized context
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/futures/BalancedClientFuture.java`
+#### Snippet
+```java
+                                throw e;
+                            } finally {
+                                waiting--;
+                            }
+                        }
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -13950,6 +14071,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Lo
 
 ### UnnecessaryBoxing
 Unnecessary boxing
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/LongTypeDecoder.java`
+#### Snippet
+```java
+    @Override
+    public Long readValue(InputStream stream, StreamDecoderState state) throws DecodeException {
+        return Long.valueOf(ProtonStreamUtils.readLong(stream));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/CharacterTypeDecoder.java`
 #### Snippet
 ```java
@@ -13972,67 +14105,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/Ch
 
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/primitives/LongTypeDecoder.java`
-#### Snippet
-```java
-    @Override
-    public Long readValue(InputStream stream, StreamDecoderState state) throws DecodeException {
-        return Long.valueOf(ProtonStreamUtils.readLong(stream));
-    }
-
-```
-
 ## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
-    private static final void trace(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
-        if (payload == null) {
-            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
-        } else {
-            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
-#### Snippet
-```java
-            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
-        } else {
-            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
-#### Snippet
-```java
-
-            String dynamicAddress = dynamicReceiver.address();
-            System.out.println("Waiting for response to requests on address: " + dynamicAddress);
-
-            SenderOptions senderOptions = new SenderOptions();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
-#### Snippet
-```java
-            Delivery response = dynamicReceiver.receive(30, TimeUnit.SECONDS);
-            Message<String> received = response.message();
-            System.out.println("Received message with body: " + received.body());
-        }
-    }
-```
-
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Respond.java`
@@ -14083,6 +14156,42 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
+#### Snippet
+```java
+
+            String dynamicAddress = dynamicReceiver.address();
+            System.out.println("Waiting for response to requests on address: " + dynamicAddress);
+
+            SenderOptions senderOptions = new SenderOptions();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Request.java`
+#### Snippet
+```java
+            Delivery response = dynamicReceiver.receive(30, TimeUnit.SECONDS);
+            Message<String> received = response.message();
+            System.out.println("Received message with body: " + received.body());
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/LargeMessageReceiver.java`
+#### Snippet
+```java
+
+            while (inputStream.read(chunk) != -1) {
+                System.out.println(String.format("Read data chunk [%2d]: %s", ++readCount, Arrays.toString(chunk)));
+            }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/StreamingFileSender.java`
 #### Snippet
 ```java
@@ -14107,18 +14216,6 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/LargeMessageReceiver.java`
-#### Snippet
-```java
-
-            while (inputStream.read(chunk) != -1) {
-                System.out.println(String.format("Read data chunk [%2d]: %s", ++readCount, Arrays.toString(chunk)));
-            }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Send.java`
 #### Snippet
 ```java
@@ -14131,50 +14228,26 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Receive.java`
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
 #### Snippet
 ```java
-                Message<String> message = delivery.message();
+            final Delivery delivery2 = connection.nextReceiver().receive();
 
-                System.out.println("Received message with body: " + message.body());
-            }
+            System.out.println("Received first message with body: " + delivery1.message().body());
+            System.out.println("Received second message with body: " + delivery2.message().body());
         }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
 #### Snippet
 ```java
-                Delivery delivery = receiver.receive();
-                Message<String> message = delivery.message();
-                System.out.println(message.body());
-            }
-        } catch (Exception exp) {
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
-#### Snippet
-```java
-            }
-        } catch (Exception exp) {
-            System.out.println("Caught exception, exiting.");
-            exp.printStackTrace(System.out);
-            System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
-#### Snippet
-```java
-        } catch (Exception exp) {
-            System.out.println("Caught exception, exiting.");
-            exp.printStackTrace(System.out);
-            System.exit(1);
+            System.out.println("Received first message with body: " + delivery1.message().body());
+            System.out.println("Received second message with body: " + delivery2.message().body());
         }
+    }
 ```
 
 ### SystemOutErr
@@ -14239,26 +14312,14 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/Receive.java`
 #### Snippet
 ```java
-            final Delivery delivery2 = connection.nextReceiver().receive();
+                Message<String> message = delivery.message();
 
-            System.out.println("Received first message with body: " + delivery1.message().body());
-            System.out.println("Received second message with body: " + delivery2.message().body());
+                System.out.println("Received message with body: " + message.body());
+            }
         }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/NextReceiver.java`
-#### Snippet
-```java
-
-            System.out.println("Received first message with body: " + delivery1.message().body());
-            System.out.println("Received second message with body: " + delivery2.message().body());
-        }
-    }
 ```
 
 ### SystemOutErr
@@ -14297,6 +14358,66 @@ in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examp
         }
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
+#### Snippet
+```java
+                Delivery delivery = receiver.receive();
+                Message<String> message = delivery.message();
+                System.out.println(message.body());
+            }
+        } catch (Exception exp) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
+#### Snippet
+```java
+            }
+        } catch (Exception exp) {
+            System.out.println("Caught exception, exiting.");
+            exp.printStackTrace(System.out);
+            System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2-client-examples/src/main/java/org/apache/qpid/protonj2/client/examples/reconnect/ReconnectReceiver.java`
+#### Snippet
+```java
+        } catch (Exception exp) {
+            System.out.println("Caught exception, exiting.");
+            exp.printStackTrace(System.out);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+    private static final void trace(String prefix, int connection, int channel, Object performative, ProtonBuffer payload) {
+        if (payload == null) {
+            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
+        } else {
+            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonFrameLoggingHandler.java`
+#### Snippet
+```java
+            System.out.println(String.format("%s:[%d:%d] %s", prefix, connection, channel, performative));
+        } else {
+            System.out.println(String.format("%s:[%d:%d] %s - %s", prefix, connection, channel, performative, StringUtils.toQuotedString(payload, PAYLOAD_STRING_LIMIT, true)));
+        }
+    }
+```
+
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
@@ -14323,18 +14444,6 @@ class SymbolElement extends AtomicElement<Symbol> {
 ```
 
 ### CharsetObjectCanBeUsed
-StandardCharsets.US_ASCII can be used instead
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
-#### Snippet
-```java
-class TypeDecoder {
-
-    private static final Charset ASCII = Charset.forName("US-ASCII");
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
-
-```
-
-### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
 #### Snippet
@@ -14344,6 +14453,18 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
     private static final TypeConstructor[] constructors = new TypeConstructor[256];
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.US_ASCII can be used instead
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/TypeDecoder.java`
+#### Snippet
+```java
+class TypeDecoder {
+
+    private static final Charset ASCII = Charset.forName("US-ASCII");
+    private static final Charset UTF_8 = Charset.forName("UTF-8");
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -14388,10 +14509,10 @@ Condition 'handler != null' covered by subsequent condition 'handler instanceof 
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngineConfiguration.java`
 #### Snippet
 ```java
-        // the setting will have no effect and isTraceFrames will always return false
+    public boolean isTraceFrames() {
         EngineHandler handler = engine.pipeline().find(ProtonConstants.FRAME_LOGGING_HANDLER);
         if (handler != null && handler instanceof ProtonFrameLoggingHandler) {
-            ((ProtonFrameLoggingHandler) handler).setTraceFrames(traceFrames);
+            return ((ProtonFrameLoggingHandler) handler).isTraceFrames();
         } else {
 ```
 
@@ -14400,62 +14521,14 @@ Condition 'handler != null' covered by subsequent condition 'handler instanceof 
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngineConfiguration.java`
 #### Snippet
 ```java
-    public boolean isTraceFrames() {
+        // the setting will have no effect and isTraceFrames will always return false
         EngineHandler handler = engine.pipeline().find(ProtonConstants.FRAME_LOGGING_HANDLER);
         if (handler != null && handler instanceof ProtonFrameLoggingHandler) {
-            return ((ProtonFrameLoggingHandler) handler).isTraceFrames();
+            ((ProtonFrameLoggingHandler) handler).setTraceFrames(traceFrames);
         } else {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.test.driver.codec` is unnecessary, and can be replaced with an import
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
-#### Snippet
-```java
-
-    private Buffer encodePayload() {
-        org.apache.qpid.protonj2.test.driver.codec.Codec codec =
-            org.apache.qpid.protonj2.test.driver.codec.Codec.Factory.create();
-        final Buffer buffer = BufferAllocator.onHeapUnpooled().allocate(128);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.test.driver.codec` is unnecessary, and can be replaced with an import
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
-#### Snippet
-```java
-    private Buffer encodePayload() {
-        org.apache.qpid.protonj2.test.driver.codec.Codec codec =
-            org.apache.qpid.protonj2.test.driver.codec.Codec.Factory.create();
-        final Buffer buffer = BufferAllocator.onHeapUnpooled().allocate(128);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.engine` is unnecessary and can be removed
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientReceiverLinkType.java`
-#### Snippet
-```java
-    }
-
-    protected void handleReceiverCreditUpdated(org.apache.qpid.protonj2.engine.Receiver receiver) {
-        LOG.trace("Receiver credit update by remote: {}", receiver);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.engine` is unnecessary and can be removed
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientReceiverLinkType.java`
-#### Snippet
-```java
-
-    @Override
-    protected org.apache.qpid.protonj2.engine.Receiver protonLink() {
-        return protonReceiver;
-    }
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.qpid.protonj2.types.messaging` is unnecessary, and can be replaced with an import
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDeliveryState.java`
@@ -14478,6 +14551,30 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDel
      * Returns the Proton version of the specific {@link org.apache.qpid.protonj2.client.DeliveryState} that
      * this type represents.
      *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.qpid.protonj2.engine` is unnecessary and can be removed
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientReceiverLinkType.java`
+#### Snippet
+```java
+
+    @Override
+    protected org.apache.qpid.protonj2.engine.Receiver protonLink() {
+        return protonReceiver;
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.qpid.protonj2.engine` is unnecessary and can be removed
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientReceiverLinkType.java`
+#### Snippet
+```java
+    }
+
+    protected void handleReceiverCreditUpdated(org.apache.qpid.protonj2.engine.Receiver receiver) {
+        LOG.trace("Receiver credit update by remote: {}", receiver);
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14521,11 +14618,11 @@ Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/ThreadPoolUtils.java`
 #### Snippet
 ```java
-     * <p>
-     * This implementation invokes the
-     * {@link #shutdownGraceful(java.util.concurrent.ExecutorService, long)} with a timeout
-     * value of {@link #DEFAULT_SHUTDOWN_AWAIT_TERMINATION} millis.
+     * @return list of tasks that never commenced execution
      *
+     * @see java.util.concurrent.ExecutorService#shutdownNow()
+     */
+    public static List<Runnable> shutdownNow(ExecutorService executorService) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14557,11 +14654,11 @@ Qualifier `java.util.concurrent` is unnecessary and can be removed
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/ThreadPoolUtils.java`
 #### Snippet
 ```java
-     * @return list of tasks that never commenced execution
+     * <p>
+     * This implementation invokes the
+     * {@link #shutdownGraceful(java.util.concurrent.ExecutorService, long)} with a timeout
+     * value of {@link #DEFAULT_SHUTDOWN_AWAIT_TERMINATION} millis.
      *
-     * @see java.util.concurrent.ExecutorService#shutdownNow()
-     */
-    public static List<Runnable> shutdownNow(ExecutorService executorService) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14571,8 +14668,8 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```java
 
         @Override
-        public java.util.concurrent.Future<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-            return group.scheduleAtFixedRate(command, initialDelay, period, unit);
+        public <V> java.util.concurrent.Future<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
+            return group.schedule(task, delay, unit);
         }
 ```
 
@@ -14595,8 +14692,8 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```java
 
         @Override
-        public java.util.concurrent.Future<?> schedule(Runnable command, long delay, TimeUnit unit) {
-            return group.schedule(command, delay, unit);
+        public java.util.concurrent.Future<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+            return group.scheduleAtFixedRate(command, initialDelay, period, unit);
         }
 ```
 
@@ -14607,21 +14704,9 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```java
 
         @Override
-        public <V> java.util.concurrent.Future<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
-            return group.schedule(task, delay, unit);
+        public java.util.concurrent.Future<?> schedule(Runnable command, long delay, TimeUnit unit) {
+            return group.schedule(command, delay, unit);
         }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.engine` is unnecessary, and can be replaced with an import
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSender.java`
-#### Snippet
-```java
-    //----- Handlers for proton receiver events
-
-    private void handleCreditStateUpdated(org.apache.qpid.protonj2.engine.Sender sender) {
-        if (!blocked.isEmpty()) {
-            while (sender.isSendable() && !blocked.isEmpty()) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14637,15 +14722,39 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.qpid.protonj2.buffer` is unnecessary and can be removed
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/SectionEncoder.java`
+Qualifier `org.apache.qpid.protonj2.engine` is unnecessary, and can be replaced with an import
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSender.java`
 #### Snippet
 ```java
- * AMQP Section type specific encoder that uses any {@link Encoder} to
- * cache the specific type encoders for various section types and use them
- * directly instead of looking them up via calls to {@link Encoder#writeObject(org.apache.qpid.protonj2.buffer.ProtonBuffer, EncoderState, Object)}
- */
-public final class SectionEncoder {
+    //----- Handlers for proton receiver events
+
+    private void handleCreditStateUpdated(org.apache.qpid.protonj2.engine.Sender sender) {
+        if (!blocked.isEmpty()) {
+            while (sender.isSendable() && !blocked.isEmpty()) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.qpid.protonj2.test.driver.codec` is unnecessary, and can be replaced with an import
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
+#### Snippet
+```java
+
+    private Buffer encodePayload() {
+        org.apache.qpid.protonj2.test.driver.codec.Codec codec =
+            org.apache.qpid.protonj2.test.driver.codec.Codec.Factory.create();
+        final Buffer buffer = BufferAllocator.onHeapUnpooled().allocate(128);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.qpid.protonj2.test.driver.codec` is unnecessary, and can be replaced with an import
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/TransferInjectAction.java`
+#### Snippet
+```java
+    private Buffer encodePayload() {
+        org.apache.qpid.protonj2.test.driver.codec.Codec codec =
+            org.apache.qpid.protonj2.test.driver.codec.Codec.Factory.create();
+        final Buffer buffer = BufferAllocator.onHeapUnpooled().allocate(128);
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14658,6 +14767,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/PerformativeEncoder.ja
  * {@link Encoder#writeObject(org.apache.qpid.protonj2.buffer.ProtonBuffer, EncoderState, Object)}
  */
 public final class PerformativeEncoder implements PerformativeHandler<Encoder> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.qpid.protonj2.buffer` is unnecessary and can be removed
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/SectionEncoder.java`
+#### Snippet
+```java
+ * AMQP Section type specific encoder that uses any {@link Encoder} to
+ * cache the specific type encoders for various section types and use them
+ * directly instead of looking them up via calls to {@link Encoder#writeObject(org.apache.qpid.protonj2.buffer.ProtonBuffer, EncoderState, Object)}
+ */
+public final class SectionEncoder {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -14699,18 +14820,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBuffer.java`
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
-#### Snippet
-```java
-            LOG.info("NettyServerHandler: NettyServerHandlerException caught on channel: {}", ctx.channel());
-            // Close the connection when an exception is raised.
-            cause.printStackTrace();
-            ctx.close();
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/Netty4IOContext.java`
 #### Snippet
 ```java
@@ -14730,6 +14839,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
+#### Snippet
+```java
+            LOG.info("NettyServerHandler: NettyServerHandlerException caught on channel: {}", ctx.channel());
+            // Close the connection when an exception is raised.
+            cause.printStackTrace();
+            ctx.close();
         }
 ```
 
@@ -14796,231 +14917,15 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/OutgoingAMQPEnvelope.
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `LinkTracker()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+Constructor `LinkOptions()` of an abstract class should not be declared 'public'
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/LinkOptions.java`
 #### Snippet
 ```java
-    private Detach localDetach;
-
-    public LinkTracker(SessionTracker session) {
-        this.session = session;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `MapDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/MapDescribedType.java`
-#### Snippet
-```java
-    private final Map<Object, Object> fields;
-
-    public MapDescribedType() {
-        fields = new HashMap<>();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
-#### Snippet
-```java
+     * Create a new LinkOptions instance with defaults set for all options.
+     */
+    public LinkOptions() {
     }
 
-    public ListDescribedType(int numberOfFields, List<Object> described) {
-        if (described.size() > numberOfFields) {
-            throw new IllegalArgumentException("List encoded exceeds expected number of elements for this type");
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
-#### Snippet
-```java
-    private final ArrayList<Object> fields;
-
-    public ListDescribedType(int numberOfFields) {
-        fields = new ArrayList<>(numberOfFields);
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
-#### Snippet
-```java
-    }
-
-    public ListDescribedType(int numberOfFields, ListDescribedType described) {
-        if (described.fields.size() > numberOfFields) {
-            throw new IllegalArgumentException("List encoded exceeds expected number of elements for this type");
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SaslDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/security/SaslDescribedType.java`
-#### Snippet
-```java
-    }
-
-    public SaslDescribedType(int numberOfFields) {
-        super(numberOfFields);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SaslDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/security/SaslDescribedType.java`
-#### Snippet
-```java
-    }
-
-    public SaslDescribedType(int numberOfFields, List<Object> described) {
-        super(numberOfFields, described);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `PerformativeDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/PerformativeDescribedType.java`
-#### Snippet
-```java
-    }
-
-    public PerformativeDescribedType(int numberOfFields, List<Object> described) {
-        super(numberOfFields, described);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `PerformativeDescribedType()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/PerformativeDescribedType.java`
-#### Snippet
-```java
-    }
-
-    public PerformativeDescribedType(int numberOfFields) {
-        super(numberOfFields);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSaslPerformativeInjectAction()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractSaslPerformativeInjectAction.java`
-#### Snippet
-```java
-    private int channel = CHANNEL_UNSET;
-
-    public AbstractSaslPerformativeInjectAction(AMQPTestDriver driver) {
-        this.driver = driver;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `NettyServer()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
-#### Snippet
-```java
-    private final AtomicBoolean started = new AtomicBoolean();
-
-    public NettyServer(ProtonTestServerOptions options) {
-        this.options = options;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ListDescribedTypeMatcher()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/ListDescribedTypeMatcher.java`
-#### Snippet
-```java
-    protected final Map<Enum<?>, Matcher<?>> fieldMatchers = new LinkedHashMap<>();
-
-    public ListDescribedTypeMatcher(int numFields, UnsignedLong code, Symbol symbol) {
-        this.descriptorCode = code;
-        this.descriptorSymbol = symbol;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EncodedAmqpTypeMatcher()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedAmqpTypeMatcher.java`
-#### Snippet
-```java
-    }
-
-    public EncodedAmqpTypeMatcher(Symbol symbol, UnsignedLong code, Object expectedValue, boolean permitTrailingBytes) {
-        this.descriptorSymbol = symbol;
-        this.descriptorCode = code;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EncodedAmqpTypeMatcher()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedAmqpTypeMatcher.java`
-#### Snippet
-```java
-    private boolean unexpectedTrailingBytes;
-
-    public EncodedAmqpTypeMatcher(Symbol symbol, UnsignedLong code, Object expectedValue) {
-        this(symbol, code, expectedValue, false);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPerformativeInjectAction()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractPerformativeInjectAction.java`
-#### Snippet
-```java
-    private boolean deferred = false;
-
-    public AbstractPerformativeInjectAction(AMQPTestDriver driver) {
-        this.driver = driver;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `NettyClient()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-    protected final CountDownLatch connectedLatch = new CountDownLatch(1);
-
-    public NettyClient(ProtonTestClientOptions options) {
-        this.options = options;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMapSectionMatcher()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/AbstractMapSectionMatcher.java`
-#### Snippet
-```java
-public abstract class AbstractMapSectionMatcher extends AbstractMessageSectionMatcher {
-
-    public AbstractMapSectionMatcher(UnsignedLong numericDescriptor, Symbol symbolicDescriptor, Map<Object, Matcher<?>> fieldMatchers, boolean expectTrailingBytes) {
-        super(numericDescriptor, symbolicDescriptor, fieldMatchers, expectTrailingBytes);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractListSectionMatcher()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/AbstractListSectionMatcher.java`
-#### Snippet
-```java
-public abstract class AbstractListSectionMatcher extends AbstractMessageSectionMatcher {
-
-    public AbstractListSectionMatcher(UnsignedLong numericDescriptor, Symbol symbolicDescriptor, Map<Object, Matcher<?>> fieldMatchers, boolean expectTrailingBytes) {
-        super(numericDescriptor, symbolicDescriptor, fieldMatchers, expectTrailingBytes);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractExpectation()` of an abstract class should not be declared 'public'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AbstractExpectation.java`
-#### Snippet
-```java
-    private boolean optional;
-
-    public AbstractExpectation(AMQPTestDriver driver) {
-        this.driver = driver;
-    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -15033,18 +14938,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/LinkOptions.ja
     public LinkOptions(LinkOptions<T> options) {
         if (options != null) {
             options.copyInto(this);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `LinkOptions()` of an abstract class should not be declared 'public'
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/LinkOptions.java`
-#### Snippet
-```java
-     * Create a new LinkOptions instance with defaults set for all options.
-     */
-    public LinkOptions() {
-    }
-
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -15084,6 +14977,234 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `LinkTracker()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+#### Snippet
+```java
+    private Detach localDetach;
+
+    public LinkTracker(SessionTracker session) {
+        this.session = session;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MapDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/MapDescribedType.java`
+#### Snippet
+```java
+    private final Map<Object, Object> fields;
+
+    public MapDescribedType() {
+        fields = new HashMap<>();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public ListDescribedType(int numberOfFields, ListDescribedType described) {
+        if (described.fields.size() > numberOfFields) {
+            throw new IllegalArgumentException("List encoded exceeds expected number of elements for this type");
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
+#### Snippet
+```java
+    private final ArrayList<Object> fields;
+
+    public ListDescribedType(int numberOfFields) {
+        fields = new ArrayList<>(numberOfFields);
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ListDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ListDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public ListDescribedType(int numberOfFields, List<Object> described) {
+        if (described.size() > numberOfFields) {
+            throw new IllegalArgumentException("List encoded exceeds expected number of elements for this type");
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SaslDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/security/SaslDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public SaslDescribedType(int numberOfFields, List<Object> described) {
+        super(numberOfFields, described);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SaslDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/security/SaslDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public SaslDescribedType(int numberOfFields) {
+        super(numberOfFields);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `PerformativeDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/PerformativeDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public PerformativeDescribedType(int numberOfFields) {
+        super(numberOfFields);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `PerformativeDescribedType()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/PerformativeDescribedType.java`
+#### Snippet
+```java
+    }
+
+    public PerformativeDescribedType(int numberOfFields, List<Object> described) {
+        super(numberOfFields, described);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractSaslPerformativeInjectAction()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractSaslPerformativeInjectAction.java`
+#### Snippet
+```java
+    private int channel = CHANNEL_UNSET;
+
+    public AbstractSaslPerformativeInjectAction(AMQPTestDriver driver) {
+        this.driver = driver;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `NettyClient()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
+#### Snippet
+```java
+    protected final CountDownLatch connectedLatch = new CountDownLatch(1);
+
+    public NettyClient(ProtonTestClientOptions options) {
+        this.options = options;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `NettyServer()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
+#### Snippet
+```java
+    private final AtomicBoolean started = new AtomicBoolean();
+
+    public NettyServer(ProtonTestServerOptions options) {
+        this.options = options;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractPerformativeInjectAction()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractPerformativeInjectAction.java`
+#### Snippet
+```java
+    private boolean deferred = false;
+
+    public AbstractPerformativeInjectAction(AMQPTestDriver driver) {
+        this.driver = driver;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EncodedAmqpTypeMatcher()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedAmqpTypeMatcher.java`
+#### Snippet
+```java
+    private boolean unexpectedTrailingBytes;
+
+    public EncodedAmqpTypeMatcher(Symbol symbol, UnsignedLong code, Object expectedValue) {
+        this(symbol, code, expectedValue, false);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EncodedAmqpTypeMatcher()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedAmqpTypeMatcher.java`
+#### Snippet
+```java
+    }
+
+    public EncodedAmqpTypeMatcher(Symbol symbol, UnsignedLong code, Object expectedValue, boolean permitTrailingBytes) {
+        this.descriptorSymbol = symbol;
+        this.descriptorCode = code;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ListDescribedTypeMatcher()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/ListDescribedTypeMatcher.java`
+#### Snippet
+```java
+    protected final Map<Enum<?>, Matcher<?>> fieldMatchers = new LinkedHashMap<>();
+
+    public ListDescribedTypeMatcher(int numFields, UnsignedLong code, Symbol symbol) {
+        this.descriptorCode = code;
+        this.descriptorSymbol = symbol;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractMapSectionMatcher()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/AbstractMapSectionMatcher.java`
+#### Snippet
+```java
+public abstract class AbstractMapSectionMatcher extends AbstractMessageSectionMatcher {
+
+    public AbstractMapSectionMatcher(UnsignedLong numericDescriptor, Symbol symbolicDescriptor, Map<Object, Matcher<?>> fieldMatchers, boolean expectTrailingBytes) {
+        super(numericDescriptor, symbolicDescriptor, fieldMatchers, expectTrailingBytes);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractListSectionMatcher()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/messaging/AbstractListSectionMatcher.java`
+#### Snippet
+```java
+public abstract class AbstractListSectionMatcher extends AbstractMessageSectionMatcher {
+
+    public AbstractListSectionMatcher(UnsignedLong numericDescriptor, Symbol symbolicDescriptor, Map<Object, Matcher<?>> fieldMatchers, boolean expectTrailingBytes) {
+        super(numericDescriptor, symbolicDescriptor, fieldMatchers, expectTrailingBytes);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractExpectation()` of an abstract class should not be declared 'public'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AbstractExpectation.java`
+#### Snippet
+```java
+    private boolean optional;
+
+    public AbstractExpectation(AMQPTestDriver driver) {
+        this.driver = driver;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `ProtonEndpoint()` of an abstract class should not be declared 'public'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEndpoint.java`
 #### Snippet
@@ -15092,6 +15213,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEndpoint.j
      */
     public ProtonEndpoint(ProtonEngine engine) {
         this.engine = engine;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EngineStateException()` of an abstract class should not be declared 'public'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/EngineStateException.java`
+#### Snippet
+```java
+    }
+
+    public EngineStateException(Throwable cause) {
+        super(cause);
     }
 ```
 
@@ -15114,18 +15247,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/EngineStat
 ```java
     }
 
-    public EngineStateException(String message, Throwable cause) {
-        super(message, cause);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EngineStateException()` of an abstract class should not be declared 'public'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/EngineStateException.java`
-#### Snippet
-```java
-    }
-
     public EngineStateException(String message) {
         super(message);
     }
@@ -15138,8 +15259,8 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/EngineStat
 ```java
     }
 
-    public EngineStateException(Throwable cause) {
-        super(cause);
+    public EngineStateException(String message, Throwable cause) {
+        super(message, cause);
     }
 ```
 
@@ -15156,18 +15277,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/LinkedSplayMap.j
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `SplayMapIterator()` of an abstract class should not be declared 'public'
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        protected int expectedModCount;
-
-        public SplayMapIterator(SplayedEntry<E> startAt) {
-            this.nextNode = startAt;
-            this.expectedModCount = SplayMap.this.modCount;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `UnsettledTrackingMapIterator()` of an abstract class should not be declared 'public'
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
@@ -15179,31 +15288,56 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
             this.readOffset = buckets[startAt].isReadable() ? buckets[startAt].readOffset : -1;
 ```
 
+### NonProtectedConstructorInAbstractClass
+Constructor `SplayMapIterator()` of an abstract class should not be declared 'public'
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        protected int expectedModCount;
+
+        public SplayMapIterator(SplayedEntry<E> startAt) {
+            this.nextNode = startAt;
+            this.expectedModCount = SplayMap.this.modCount;
+```
+
+## RuleId[id=Anonymous2MethodRef]
+### Anonymous2MethodRef
+Anonymous new Iterable() can be replaced with method reference
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferComponentAccessor.java`
+#### Snippet
+```java
+     */
+    default Iterable<ProtonBufferComponent> writableComponents() {
+        return new Iterable<ProtonBufferComponent>() {
+
+            @Override
+```
+
+### Anonymous2MethodRef
+Anonymous new Iterable() can be replaced with method reference
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferComponentAccessor.java`
+#### Snippet
+```java
+     */
+    default Iterable<ProtonBufferComponent> readableComponents() {
+        return new Iterable<ProtonBufferComponent>() {
+
+            @Override
+```
+
+### Anonymous2MethodRef
+Anonymous new Iterable() can be replaced with method reference
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferComponentAccessor.java`
+#### Snippet
+```java
+     */
+    default Iterable<ProtonBufferComponent> components() {
+        return new Iterable<ProtonBufferComponent>() {
+
+            @Override
+```
+
 ## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new FutureListener() can be replaced with lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
-#### Snippet
-```java
-            SslHandler handler = ctx.pipeline().get(SslHandler.class);
-            if (handler != null) {
-                handler.handshakeFuture().addListener(new FutureListener<Channel>() {
-                    @Override
-                    public void operationComplete(Future<? extends Channel> future) throws Exception {
-```
-
-### Convert2Lambda
-Anonymous new FutureListener() can be replaced with lambda
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-            } else {
-                SslHandler sslHandler = context.pipeline().get(SslHandler.class);
-                sslHandler.handshakeFuture().addListener(new FutureListener<Channel>() {
-                    @Override
-                    public void operationComplete(Future<? extends Channel> future) throws Exception {
-```
-
 ### Convert2Lambda
 Anonymous new Runnable() can be replaced with lambda
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TrackableThreadFactory.java`
@@ -15245,6 +15379,18 @@ Anonymous new FutureListener() can be replaced with lambda
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
 #### Snippet
 ```java
+        configureNetty(bootstrap, options);
+
+        bootstrap.connect(getHost(), getPort()).addListener(new FutureListener<Channel>() {
+
+            @Override
+```
+
+### Convert2Lambda
+Anonymous new FutureListener() can be replaced with lambda
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
+#### Snippet
+```java
             } else {
                 SslHandler sslHandler = context.pipeline().get(SslHandler.class);
                 sslHandler.handshakeFuture().addListener(new FutureListener<Channel>() {
@@ -15254,17 +15400,101 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### Convert2Lambda
 Anonymous new FutureListener() can be replaced with lambda
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/TcpTransport.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
 #### Snippet
 ```java
-        configureNetty(bootstrap, options);
+            } else {
+                SslHandler sslHandler = context.pipeline().get(SslHandler.class);
+                sslHandler.handshakeFuture().addListener(new FutureListener<Channel>() {
+                    @Override
+                    public void operationComplete(Future<? extends Channel> future) throws Exception {
+```
 
-        bootstrap.connect(getHost(), getPort()).addListener(new FutureListener<Channel>() {
-
-            @Override
+### Convert2Lambda
+Anonymous new FutureListener() can be replaced with lambda
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
+#### Snippet
+```java
+            SslHandler handler = ctx.pipeline().get(SslHandler.class);
+            if (handler != null) {
+                handler.handshakeFuture().addListener(new FutureListener<Channel>() {
+                    @Override
+                    public void operationComplete(Future<? extends Channel> future) throws Exception {
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `timeout`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
+#### Snippet
+```java
+                        waiters--;
+                    }
+                    timeout = Math.max(timeout + start - System.currentTimeMillis(), 0);
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uptime`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
+#### Snippet
+```java
+        NumberFormat fmtD = new DecimalFormat("###,##0.000", new DecimalFormatSymbols(Locale.ENGLISH));
+
+        uptime /= 1000;
+        if (uptime < 60) {
+            return fmtD.format(uptime) + " seconds";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uptime`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
+#### Snippet
+```java
+            return fmtD.format(uptime) + " seconds";
+        }
+        uptime /= 60;
+        if (uptime < 60) {
+            long minutes = (long) uptime;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uptime`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
+#### Snippet
+```java
+            return s;
+        }
+        uptime /= 60;
+        if (uptime < 24) {
+            long hours = (long) uptime;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uptime`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
+#### Snippet
+```java
+            return s;
+        }
+        uptime /= 24;
+        long days = (long) uptime;
+        long hours = (long) ((uptime - days) * 24);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `incoming`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+
+    private void appendDataToBuffer(ProtonBuffer incoming) throws ClientException {
+        incoming = Objects.requireNonNull(incoming, "Appended buffer cannot be null").convertToReadOnly();
+
+        if (buffer == null) {
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `elt`
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/AbstractElement.java`
@@ -15434,78 +15664,6 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/acti
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `timeout`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
-#### Snippet
-```java
-                        waiters--;
-                    }
-                    timeout = Math.max(timeout + start - System.currentTimeMillis(), 0);
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uptime`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
-#### Snippet
-```java
-        NumberFormat fmtD = new DecimalFormat("###,##0.000", new DecimalFormatSymbols(Locale.ENGLISH));
-
-        uptime /= 1000;
-        if (uptime < 60) {
-            return fmtD.format(uptime) + " seconds";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uptime`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
-#### Snippet
-```java
-            return fmtD.format(uptime) + " seconds";
-        }
-        uptime /= 60;
-        if (uptime < 60) {
-            long minutes = (long) uptime;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uptime`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
-#### Snippet
-```java
-            return s;
-        }
-        uptime /= 60;
-        if (uptime < 24) {
-            long hours = (long) uptime;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `uptime`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
-#### Snippet
-```java
-            return s;
-        }
-        uptime /= 24;
-        long days = (long) uptime;
-        long hours = (long) ((uptime - days) * 24);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `incoming`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-
-    private void appendDataToBuffer(ProtonBuffer incoming) throws ClientException {
-        incoming = Objects.requireNonNull(incoming, "Appended buffer cannot be null").convertToReadOnly();
-
-        if (buffer == null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `position`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/encoders/ProtonEncoderState.java`
 #### Snippet
@@ -15655,30 +15813,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
 #### Snippet
 ```java
      */
-    public static byte[] writeShort(short value, byte[] destination, int offset) {
-        destination[offset++] = (byte) (value >>> 8);
-        destination[offset++] = (byte) (value >>> 0);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-    public static byte[] writeShort(short value, byte[] destination, int offset) {
-        destination[offset++] = (byte) (value >>> 8);
-        destination[offset++] = (byte) (value >>> 0);
-
-        return destination;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-     */
     public static byte[] writeLong(long value, byte[] destination, int offset) {
         destination[offset++] = (byte) (value >>> 56);
         destination[offset++] = (byte) (value >>> 48);
@@ -15818,122 +15952,50 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+Assignment to method parameter `leftStartIndex`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-     */
-    public static long readLong(byte[] array, int offset) {
-        return (long) (array[offset++] & 0xFF) << 56 |
-               (long) (array[offset++] & 0xFF) << 48 |
-               (long) (array[offset++] & 0xFF) << 40 |
+            }
+
+            leftStartIndex += 8;
+            rightStartIndex += 8;
+        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+Assignment to method parameter `rightStartIndex`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-    public static long readLong(byte[] array, int offset) {
-        return (long) (array[offset++] & 0xFF) << 56 |
-               (long) (array[offset++] & 0xFF) << 48 |
-               (long) (array[offset++] & 0xFF) << 40 |
-               (long) (array[offset++] & 0xFF) << 32 |
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-        return (long) (array[offset++] & 0xFF) << 56 |
-               (long) (array[offset++] & 0xFF) << 48 |
-               (long) (array[offset++] & 0xFF) << 40 |
-               (long) (array[offset++] & 0xFF) << 32 |
-               (long) (array[offset++] & 0xFF) << 24 |
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-               (long) (array[offset++] & 0xFF) << 48 |
-               (long) (array[offset++] & 0xFF) << 40 |
-               (long) (array[offset++] & 0xFF) << 32 |
-               (long) (array[offset++] & 0xFF) << 24 |
-               (long) (array[offset++] & 0xFF) << 16 |
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-               (long) (array[offset++] & 0xFF) << 40 |
-               (long) (array[offset++] & 0xFF) << 32 |
-               (long) (array[offset++] & 0xFF) << 24 |
-               (long) (array[offset++] & 0xFF) << 16 |
-               (long) (array[offset++] & 0xFF) << 8 |
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-               (long) (array[offset++] & 0xFF) << 32 |
-               (long) (array[offset++] & 0xFF) << 24 |
-               (long) (array[offset++] & 0xFF) << 16 |
-               (long) (array[offset++] & 0xFF) << 8 |
-               (long) (array[offset++] & 0xFF) << 0;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-               (long) (array[offset++] & 0xFF) << 24 |
-               (long) (array[offset++] & 0xFF) << 16 |
-               (long) (array[offset++] & 0xFF) << 8 |
-               (long) (array[offset++] & 0xFF) << 0;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
-#### Snippet
-```java
-               (long) (array[offset++] & 0xFF) << 16 |
-               (long) (array[offset++] & 0xFF) << 8 |
-               (long) (array[offset++] & 0xFF) << 0;
-    }
+            leftStartIndex += 8;
+            rightStartIndex += 8;
+        }
 
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+Assignment to method parameter `leftStartIndex`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-     */
-    public static short readShort(byte[] array, int offset) {
-        return (short) ((array[offset++] & 0xFF) << 8 |
-                        (array[offset++] & 0xFF) << 0);
-    }
+            }
+
+            leftStartIndex++;
+            rightStartIndex++;
+        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+Assignment to method parameter `rightStartIndex`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
 #### Snippet
 ```java
-    public static short readShort(byte[] array, int offset) {
-        return (short) ((array[offset++] & 0xFF) << 8 |
-                        (array[offset++] & 0xFF) << 0);
-    }
+
+            leftStartIndex++;
+            rightStartIndex++;
+        }
 
 ```
 
@@ -15983,6 +16045,162 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.jav
         destination[offset++] = (byte) (value >>> 0);
 
         return destination;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+     */
+    public static long readLong(byte[] array, int offset) {
+        return (long) (array[offset++] & 0xFF) << 56 |
+               (long) (array[offset++] & 0xFF) << 48 |
+               (long) (array[offset++] & 0xFF) << 40 |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+    public static long readLong(byte[] array, int offset) {
+        return (long) (array[offset++] & 0xFF) << 56 |
+               (long) (array[offset++] & 0xFF) << 48 |
+               (long) (array[offset++] & 0xFF) << 40 |
+               (long) (array[offset++] & 0xFF) << 32 |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+        return (long) (array[offset++] & 0xFF) << 56 |
+               (long) (array[offset++] & 0xFF) << 48 |
+               (long) (array[offset++] & 0xFF) << 40 |
+               (long) (array[offset++] & 0xFF) << 32 |
+               (long) (array[offset++] & 0xFF) << 24 |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+               (long) (array[offset++] & 0xFF) << 48 |
+               (long) (array[offset++] & 0xFF) << 40 |
+               (long) (array[offset++] & 0xFF) << 32 |
+               (long) (array[offset++] & 0xFF) << 24 |
+               (long) (array[offset++] & 0xFF) << 16 |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+               (long) (array[offset++] & 0xFF) << 40 |
+               (long) (array[offset++] & 0xFF) << 32 |
+               (long) (array[offset++] & 0xFF) << 24 |
+               (long) (array[offset++] & 0xFF) << 16 |
+               (long) (array[offset++] & 0xFF) << 8 |
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+               (long) (array[offset++] & 0xFF) << 32 |
+               (long) (array[offset++] & 0xFF) << 24 |
+               (long) (array[offset++] & 0xFF) << 16 |
+               (long) (array[offset++] & 0xFF) << 8 |
+               (long) (array[offset++] & 0xFF) << 0;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+               (long) (array[offset++] & 0xFF) << 24 |
+               (long) (array[offset++] & 0xFF) << 16 |
+               (long) (array[offset++] & 0xFF) << 8 |
+               (long) (array[offset++] & 0xFF) << 0;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+               (long) (array[offset++] & 0xFF) << 16 |
+               (long) (array[offset++] & 0xFF) << 8 |
+               (long) (array[offset++] & 0xFF) << 0;
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+     */
+    public static short readShort(byte[] array, int offset) {
+        return (short) ((array[offset++] & 0xFF) << 8 |
+                        (array[offset++] & 0xFF) << 0);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+    public static short readShort(byte[] array, int offset) {
+        return (short) ((array[offset++] & 0xFF) << 8 |
+                        (array[offset++] & 0xFF) << 0);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+     */
+    public static byte[] writeShort(short value, byte[] destination, int offset) {
+        destination[offset++] = (byte) (value >>> 8);
+        destination[offset++] = (byte) (value >>> 0);
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/ProtonBufferUtils.java`
+#### Snippet
+```java
+    public static byte[] writeShort(short value, byte[] destination, int offset) {
+        destination[offset++] = (byte) (value >>> 8);
+        destination[offset++] = (byte) (value >>> 0);
+
+        return destination;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonByteArrayBuffer.java`
+#### Snippet
+```java
+        ProtonBufferUtils.checkIsReadOnly(this);
+
+        length = Math.min(getWritableBytes(), length);
+
+        if (length == 0) {
 ```
 
 ### AssignmentToMethodParameter
@@ -16023,18 +16241,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonByteArrayB
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `length`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonByteArrayBuffer.java`
-#### Snippet
-```java
-        ProtonBufferUtils.checkIsReadOnly(this);
-
-        length = Math.min(getWritableBytes(), length);
-
-        if (length == 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty5ToProtonBufferAdapter.java`
 #### Snippet
 ```java
@@ -16139,6 +16345,114 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty5ToProtonB
                 for (; length > 0; length--, offset++, destOffset++) {
                     destination.setByte(destOffset, getByte(offset));
                 }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+        try {
+            // Try to reduce bounds-checking by using larger primitives when possible.
+            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
+                destination.setLong(destPos, getLong(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+        try {
+            // Try to reduce bounds-checking by using larger primitives when possible.
+            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
+                destination.setLong(destPos, getLong(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+        try {
+            // Try to reduce bounds-checking by using larger primitives when possible.
+            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
+                destination.setLong(destPos, getLong(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setLong(destPos, getLong(srcPos));
+            }
+            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
+                destination.setInt(destPos, getInt(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setLong(destPos, getLong(srcPos));
+            }
+            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
+                destination.setInt(destPos, getInt(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setLong(destPos, getLong(srcPos));
+            }
+            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
+                destination.setInt(destPos, getInt(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setInt(destPos, getInt(srcPos));
+            }
+            for (; length > 0; length--, srcPos++, destPos++) {
+                destination.setByte(destPos, getByte(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `srcPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setInt(destPos, getInt(srcPos));
+            }
+            for (; length > 0; length--, srcPos++, destPos++) {
+                destination.setByte(destPos, getByte(srcPos));
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destPos`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
+#### Snippet
+```java
+                destination.setInt(destPos, getInt(srcPos));
+            }
+            for (; length > 0; length--, srcPos++, destPos++) {
+                destination.setByte(destPos, getByte(srcPos));
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -16167,170 +16481,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonB
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `length`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-        try {
-            // Try to reduce bounds-checking by using larger primitives when possible.
-            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
-                destination.setLong(destPos, getLong(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-        try {
-            // Try to reduce bounds-checking by using larger primitives when possible.
-            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
-                destination.setLong(destPos, getLong(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `destPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-        try {
-            // Try to reduce bounds-checking by using larger primitives when possible.
-            for (; length >= Long.BYTES; length -= Long.BYTES, srcPos += Long.BYTES, destPos += Long.BYTES) {
-                destination.setLong(destPos, getLong(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setLong(destPos, getLong(srcPos));
-            }
-            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
-                destination.setInt(destPos, getInt(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setLong(destPos, getLong(srcPos));
-            }
-            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
-                destination.setInt(destPos, getInt(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `destPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setLong(destPos, getLong(srcPos));
-            }
-            for (; length >= Integer.BYTES; length -= Integer.BYTES, srcPos += Integer.BYTES, destPos += Integer.BYTES) {
-                destination.setInt(destPos, getInt(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setInt(destPos, getInt(srcPos));
-            }
-            for (; length > 0; length--, srcPos++, destPos++) {
-                destination.setByte(destPos, getByte(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `srcPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setInt(destPos, getInt(srcPos));
-            }
-            for (; length > 0; length--, srcPos++, destPos++) {
-                destination.setByte(destPos, getByte(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `destPos`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
-#### Snippet
-```java
-                destination.setInt(destPos, getInt(srcPos));
-            }
-            for (; length > 0; length--, srcPos++, destPos++) {
-                destination.setByte(destPos, getByte(srcPos));
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-                buffer.writeBytes(source, offset, writableBytes);
-
-                offset += writableBytes;
-                length -= writableBytes;
-                writeOffset += writableBytes;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
 
-                offset += writableBytes;
-                length -= writableBytes;
-                writeOffset += writableBytes;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-        @Override
-        public ProtonBuffer setInt(int index, int value) {
-            index -= parent.startIndices[chunk];
-
-            for (int i = Integer.BYTES - 1; i >= 0; --i) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-
-            for (int i = Integer.BYTES - 1; i >= 0; --i) {
-                parent.buffers[chunk].setByte(index++, (byte) (value >>> (i * Byte.SIZE)));
-                if (parent.buffers[chunk].capacity() <= index) {
-                    ++chunk;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-                if (parent.buffers[chunk].capacity() <= index) {
-                    ++chunk;
-                    index = 0;
-                }
-            }
+            for (count = 0; count < composingBuffers.length && length > 0; ++count) {
+                if ((length -= composingBuffers[count].remaining()) < 0) {
+                    final ByteBuffer buffer = composingBuffers[count];
+                    buffer.limit(buffer.limit() + length);
 ```
 
 ### AssignmentToMethodParameter
@@ -16367,18 +16525,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
             destOffset += readBytes;
 
             lastAccessedChunk++;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `length`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-
-            bytesRead += buffer.getReadableBytes();
-            length -= buffer.getReadableBytes();
-            readOffset = 0;
-        }
 ```
 
 ### AssignmentToMethodParameter
@@ -16394,51 +16540,39 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+Assignment to method parameter `index`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
-            buffer.copyInto(offset - startIndices[lastAccessedChunk], destination, destOffset, readBytes);
+            int result = 0;
 
-            offset += readBytes;
-            length -= readBytes;
-            destOffset += readBytes;
+            index -= parent.startIndices[chunk];
+
+            for (int i = Integer.BYTES - 1; i >= 0; --i) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `length`
+Assignment to method parameter `index`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
 
-            offset += readBytes;
-            length -= readBytes;
-            destOffset += readBytes;
-
+            for (int i = Integer.BYTES - 1; i >= 0; --i) {
+                result |= (parent.buffers[chunk].getByte(index++) & 0xFF) << (i * Byte.SIZE);
+                if (parent.buffers[chunk].capacity() <= index) {
+                    ++chunk;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `destOffset`
+Assignment to method parameter `index`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
-            offset += readBytes;
-            length -= readBytes;
-            destOffset += readBytes;
-
-            lastAccessedChunk++;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `position`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
-#### Snippet
-```java
-            writeOffset = Math.addExact(writeOffset, read);
-            bytesRead += read;
-            position += read;
-            lastAccessedChunk++;
-        }
+                if (parent.buffers[chunk].capacity() <= index) {
+                    ++chunk;
+                    index = 0;
+                }
+            }
 ```
 
 ### AssignmentToMethodParameter
@@ -16518,8 +16652,8 @@ Assignment to method parameter `index`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
-            int result = 0;
-
+        @Override
+        public ProtonBuffer setInt(int index, int value) {
             index -= parent.startIndices[chunk];
 
             for (int i = Integer.BYTES - 1; i >= 0; --i) {
@@ -16532,7 +16666,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
 ```java
 
             for (int i = Integer.BYTES - 1; i >= 0; --i) {
-                result |= (parent.buffers[chunk].getByte(index++) & 0xFF) << (i * Byte.SIZE);
+                parent.buffers[chunk].setByte(index++, (byte) (value >>> (i * Byte.SIZE)));
                 if (parent.buffers[chunk].capacity() <= index) {
                     ++chunk;
 ```
@@ -16610,15 +16744,111 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `position`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+            writeOffset = Math.addExact(writeOffset, read);
+            bytesRead += read;
+            position += read;
+            lastAccessedChunk++;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+            buffer.copyInto(offset - startIndices[lastAccessedChunk], destination, destOffset, readBytes);
+
+            offset += readBytes;
+            length -= readBytes;
+            destOffset += readBytes;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `length`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
 
-            for (count = 0; count < composingBuffers.length && length > 0; ++count) {
-                if ((length -= composingBuffers[count].remaining()) < 0) {
-                    final ByteBuffer buffer = composingBuffers[count];
-                    buffer.limit(buffer.limit() + length);
+            offset += readBytes;
+            length -= readBytes;
+            destOffset += readBytes;
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `destOffset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+            offset += readBytes;
+            length -= readBytes;
+            destOffset += readBytes;
+
+            lastAccessedChunk++;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+
+            bytesRead += buffer.getReadableBytes();
+            length -= buffer.getReadableBytes();
+            readOffset = 0;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+                buffer.writeBytes(source, offset, writableBytes);
+
+                offset += writableBytes;
+                length -= writableBytes;
+                writeOffset += writableBytes;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `length`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+#### Snippet
+```java
+
+                offset += writableBytes;
+                length -= writableBytes;
+                writeOffset += writableBytes;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
+#### Snippet
+```java
+
+        if (message == null || message.isEmpty()) {
+            message = cause.getMessage();
+            if (message == null || message.length() == 0) {
+                message = cause.toString();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
+#### Snippet
+```java
+            message = cause.getMessage();
+            if (message == null || message.length() == 0) {
+                message = cause.toString();
+            }
+        }
 ```
 
 ### AssignmentToMethodParameter
@@ -16658,27 +16888,27 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/RingQueue.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
+Assignment to method parameter `bucketEntry`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
+            if (nextBucket.getFreeSpace() + prevBucket.getFreeSpace() >= bucket.entries) {
+                final int toCopyBackward = Math.min(prevBucket.getFreeSpace(), bucket.entries);
+                final int nextEntryOffset = ++bucketEntry - (bucket.readOffset + toCopyBackward);
 
-        if (message == null || message.isEmpty()) {
-            message = cause.getMessage();
-            if (message == null || message.length() == 0) {
-                message = cause.toString();
+                if (nextEntryOffset < 0) {
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/exceptions/ProtonExceptionSupport.java`
+Assignment to method parameter `bucketEntry`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
-            message = cause.getMessage();
-            if (message == null || message.length() == 0) {
-                message = cause.toString();
-            }
-        }
+                // the next element otherwise it is the first element of the next bucket if it
+                // non-empty otherwise we reached the end of the elements.
+                if (++bucketEntry < bucket.writeOffset) {
+                    result = (long) bucketIndex << 32;
+                    result |= bucketEntry;
 ```
 
 ### AssignmentToMethodParameter
@@ -16729,30 +16959,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
             } else {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `bucketEntry`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-            if (nextBucket.getFreeSpace() + prevBucket.getFreeSpace() >= bucket.entries) {
-                final int toCopyBackward = Math.min(prevBucket.getFreeSpace(), bucket.entries);
-                final int nextEntryOffset = ++bucketEntry - (bucket.readOffset + toCopyBackward);
-
-                if (nextEntryOffset < 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucketEntry`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-                // the next element otherwise it is the first element of the next bucket if it
-                // non-empty otherwise we reached the end of the elements.
-                if (++bucketEntry < bucket.writeOffset) {
-                    result = (long) bucketIndex << 32;
-                    result |= bucketEntry;
-```
-
 ## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -16781,378 +16987,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ScriptedElement.java`
-#### Snippet
-```java
-     */
-    default ScriptedAction performAfterwards() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
-#### Snippet
-```java
-
-    public Coordinator getCoordinator() {
-        return localAttach.getTarget() instanceof Coordinator ? (Coordinator) localAttach.getTarget() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
-#### Snippet
-```java
-
-    public Target getRemoteTarget() {
-        return remoteAttach.getTarget() instanceof Target ? (Target) remoteAttach.getTarget() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
-#### Snippet
-```java
-
-    public Coordinator getRemoteCoordinator() {
-        return remoteAttach.getTarget() instanceof Coordinator ? (Coordinator) remoteAttach.getTarget() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
-#### Snippet
-```java
-
-    public Target getTarget() {
-        return localAttach.getTarget() instanceof Target ? (Target) localAttach.getTarget() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
-#### Snippet
-```java
-                        break;
-                    default:
-                        return null;
-                }
-                return new IntegerElement(element.parent(), element.prev(), i);
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
-#### Snippet
-```java
-                        break;
-                    default:
-                        return null;
-                }
-                return new LongElement(element.parent(), element.prev(), l);
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
-#### Snippet
-```java
-                break;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
-#### Snippet
-```java
-    @Override
-    public Object getObject() {
-        return current == null ? null : current.getValue();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
-#### Snippet
-```java
-            current = next;
-        }
-        return next == null ? null : next.getDataType();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
-#### Snippet
-```java
-    @Override
-    public DataType type() {
-        return current == null ? null : current.getDataType();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
-#### Snippet
-```java
-
-        current = prev;
-        return prev == null ? null : prev.getDataType();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/HeartBeat.java`
-#### Snippet
-```java
-    @Override
-    public Object getDescriptor() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/AMQPHeader.java`
-#### Snippet
-```java
-            return ByteBuffer.wrap(toArray());
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/AMQPHeader.java`
-#### Snippet
-```java
-            return Arrays.copyOf(buffer, buffer.length);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
-#### Snippet
-```java
-    public static Symbol getSymbol(ByteBuffer symbolBuffer, boolean copyOnCreate) {
-        if (symbolBuffer == null) {
-            return null;
-        } else if (!symbolBuffer.hasRemaining()) {
-            return EMPTY_SYMBOL;
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
-#### Snippet
-```java
-    public static Symbol getSymbol(String stringValue) {
-        if (stringValue == null) {
-            return null;
-        } else if (stringValue.isEmpty()) {
-            return EMPTY_SYMBOL;
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Binary.java`
-#### Snippet
-```java
-
-    public ByteBuffer asByteBuffer() {
-        return buffer != null ? ByteBuffer.wrap(buffer) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
-#### Snippet
-```java
-            return sslHandler.engine();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-    private static KeyManager[] loadKeyManagers(ProtonTestServerOptions options) throws Exception {
-        if (options.getKeyStoreLocation() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-    private static KeyManager[] loadKeyManagers(ProtonTestClientOptions options) throws Exception {
-        if (options.getKeyStoreLocation() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-
-        if (options.getTrustStoreLocation() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-
-        if (options.getTrustStoreLocation() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-            return factory.getTrustManagers();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-            return factory.getTrustManagers();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractPerformativeInjectAction.java`
-#### Snippet
-```java
-     */
-    public Buffer getPayload() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedCompositingDataSectionMatcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedPartialDataSectionMatcher.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AbstractExpectation.java`
-#### Snippet
-```java
-
-    protected Matcher<Buffer> getPayloadMatcher() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDelivery.java`
 #### Snippet
 ```java
@@ -17168,8 +17002,8 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDeliveryState.java`
 #### Snippet
 ```java
-    static DeliveryState fromProtonType(org.apache.qpid.protonj2.types.messaging.Outcome outcome) {
-        if (outcome == null) {
+    static DeliveryState fromProtonType(org.apache.qpid.protonj2.types.transport.DeliveryState state) {
+        if (state == null) {
             return null;
         }
 
@@ -17180,8 +17014,8 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientDeliveryState.java`
 #### Snippet
 ```java
-    static DeliveryState fromProtonType(org.apache.qpid.protonj2.types.transport.DeliveryState state) {
-        if (state == null) {
+    static DeliveryState fromProtonType(org.apache.qpid.protonj2.types.messaging.Outcome outcome) {
+        if (outcome == null) {
             return null;
         }
 
@@ -17300,7 +17134,7 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
 #### Snippet
 ```java
-        synchronized (queue) {
+
             if (!isRunning()) {
                 return null;
             }
@@ -17312,7 +17146,7 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliveryQueue.java`
 #### Snippet
 ```java
-
+        synchronized (queue) {
             if (!isRunning()) {
                 return null;
             }
@@ -17321,46 +17155,10 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/FifoDeliv
 
 ### ReturnNull
 Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSession.java`
 #### Snippet
 ```java
-    @Override
-    public String contentType() {
-        return properties != null ? properties.getContentType() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public Object correlationId() {
-        return properties != null ? properties.getCorrelationId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public Object messageId() {
-        return properties != null ? properties.getMessageId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-            return messageAnnotations.getValue().get(Symbol.valueOf(key));
+            return serializer.schedule(() -> request.failed(errorSupplier.get()), timeout, TimeUnit.MILLISECONDS);
         } else {
             return null;
         }
@@ -17384,105 +17182,9 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
 #### Snippet
 ```java
-            return footer.getValue().remove(Symbol.valueOf(key));
-        } else {
-            return null;
-        }
-     }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-            return applicationProperties.getValue().get(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
     @Override
-    public String replyToGroupId() {
-        return properties != null ? properties.getReplyToGroupId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public String subject() {
-        return properties != null ? properties.getSubject() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public String contentEncoding() {
-        return properties != null ? properties.getContentEncoding() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-            return messageAnnotations.getValue().remove(Symbol.valueOf(key));
-        } else {
-            return null;
-        }
-     }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-            return footer.getValue().get(Symbol.valueOf(key));
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public String to() {
-        return properties != null ? properties.getTo() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
-#### Snippet
-```java
-    @Override
-    public String groupId() {
-        return properties != null ? properties.getGroupId() : null;
+    public Object correlationId() {
+        return properties != null ? properties.getCorrelationId() : null;
     }
 
 ```
@@ -17504,11 +17206,155 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
 #### Snippet
 ```java
+    @Override
+    public String contentType() {
+        return properties != null ? properties.getContentType() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
             return applicationProperties.getValue().remove(key);
         } else {
             return null;
         }
      }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+            return messageAnnotations.getValue().get(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public String groupId() {
+        return properties != null ? properties.getGroupId() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public String subject() {
+        return properties != null ? properties.getSubject() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+            return footer.getValue().remove(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+     }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public String to() {
+        return properties != null ? properties.getTo() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+            return messageAnnotations.getValue().remove(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+     }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public Object messageId() {
+        return properties != null ? properties.getMessageId() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public String replyToGroupId() {
+        return properties != null ? properties.getReplyToGroupId() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+            return footer.getValue().get(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+            return applicationProperties.getValue().get(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessage.java`
+#### Snippet
+```java
+    @Override
+    public String contentEncoding() {
+        return properties != null ? properties.getContentEncoding() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17528,11 +17374,35 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
 #### Snippet
 ```java
-            return properties.getUserId().asByteArray();
-        } else {
-            return null;
-        }
+    @Override
+    public String contentType() {
+        return properties != null ? properties.getContentType() : null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+    @Override
+    public String replyToGroupId() {
+        return properties != null ? properties.getReplyToGroupId() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+    @Override
+    public String subject() {
+        return properties != null ? properties.getSubject() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17545,6 +17415,30 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
         return properties != null ? properties.getGroupId() : null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+    @Override
+    public String replyTo() {
+        return properties != null ? properties.getReplyTo() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
+            return annotations.getValue().remove(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+     }
 ```
 
 ### ReturnNull
@@ -17576,69 +17470,21 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
 #### Snippet
 ```java
+            return applicationProperties.getValue().remove(key);
+        } else {
+            return null;
+        }
+     }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
+#### Snippet
+```java
     @Override
     public String to() {
         return properties != null ? properties.getTo() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-    @Override
-    public String replyToGroupId() {
-        return properties != null ? properties.getReplyToGroupId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-    @Override
-    public Object messageId() {
-        return properties != null ? properties.getMessageId() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-    @Override
-    public String subject() {
-        return properties != null ? properties.getSubject() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-    @Override
-    public String replyTo() {
-        return properties != null ? properties.getReplyTo() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
-#### Snippet
-```java
-    @Override
-    public String contentType() {
-        return properties != null ? properties.getContentType() : null;
     }
 
 ```
@@ -17660,11 +17506,11 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
 #### Snippet
 ```java
-            return annotations.getValue().remove(Symbol.valueOf(key));
-        } else {
-            return null;
-        }
-     }
+    @Override
+    public Object messageId() {
+        return properties != null ? properties.getMessageId() : null;
+    }
+
 ```
 
 ### ReturnNull
@@ -17672,43 +17518,7 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamSenderMessage.java`
 #### Snippet
 ```java
-            return applicationProperties.getValue().remove(key);
-        } else {
-            return null;
-        }
-     }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientSession.java`
-#### Snippet
-```java
-            return serializer.schedule(() -> request.failed(errorSupplier.get()), timeout, TimeUnit.MILLISECONDS);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getReplyToGroupId();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getTo();
+            return properties.getUserId().asByteArray();
         } else {
             return null;
         }
@@ -17732,103 +17542,7 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
 #### Snippet
 ```java
-            return footer.getValue().get(Symbol.valueOf(key));
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return copyOfUserId;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getSubject();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return footer;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
             return properties().getContentEncoding();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return properties().getGroupId();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return applicationProperties;
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return applicationProperties.getValue().get(key);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
-#### Snippet
-```java
-            return annotations;
         } else {
             return null;
         }
@@ -17852,7 +17566,19 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
 #### Snippet
 ```java
-            return annotations.getValue().get(Symbol.valueOf(key));
+            return applicationProperties;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return copyOfUserId;
         } else {
             return null;
         }
@@ -17876,6 +17602,114 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
 #### Snippet
 ```java
+            return properties().getSubject();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return footer.getValue().get(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return footer;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return annotations.getValue().get(Symbol.valueOf(key));
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return properties().getTo();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return annotations;
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return properties().getReplyToGroupId();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return applicationProperties.getValue().get(key);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
+            return properties().getGroupId();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStreamReceiverMessage.java`
+#### Snippet
+```java
             return properties().getReplyTo();
         } else {
             return null;
@@ -17885,7 +17719,7 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
 
 ### ReturnNull
 Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/WebSocketTransport.java`
 #### Snippet
 ```java
         }
@@ -17897,7 +17731,7 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### ReturnNull
 Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/WebSocketTransport.java`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/TcpTransport.java`
 #### Snippet
 ```java
         }
@@ -17924,11 +17758,35 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
 #### Snippet
 ```java
+
+        if (options.trustStoreLocation() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
+#### Snippet
+```java
     private static KeyManagerFactory loadKeyManagerFactory(SslOptions options, SslProvider provider) throws Exception {
         if (options.keyStoreLocation() == null) {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
+#### Snippet
+```java
+            return factory.getTrustManagers();
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -17945,47 +17803,11 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### ReturnNull
 Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
-#### Snippet
-```java
-
-        if (options.trustStoreLocation() == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
-#### Snippet
-```java
-            return factory.getTrustManagers();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
 #### Snippet
 ```java
-            return factory.getTrustManagers();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
-#### Snippet
-```java
-
-        if (options.trustStoreLocation() == null) {
+    private static KeyManager[] loadKeyManagers(SslOptions options) throws Exception {
+        if (options.keyStoreLocation() == null) {
             return null;
         }
 
@@ -18008,11 +17830,23 @@ Return of `null`
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
 #### Snippet
 ```java
-    private static KeyManager[] loadKeyManagers(SslOptions options) throws Exception {
-        if (options.keyStoreLocation() == null) {
+
+        if (options.trustStoreLocation() == null) {
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
+#### Snippet
+```java
+            return factory.getTrustManagers();
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### ReturnNull
@@ -18029,12 +17863,384 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/nett
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/UnknownDescribedTypeDecoder.java`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/ScriptedElement.java`
+#### Snippet
+```java
+     */
+    default ScriptedAction performAfterwards() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+#### Snippet
+```java
+
+    public Coordinator getCoordinator() {
+        return localAttach.getTarget() instanceof Coordinator ? (Coordinator) localAttach.getTarget() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+#### Snippet
+```java
+
+    public Target getRemoteTarget() {
+        return remoteAttach.getTarget() instanceof Target ? (Target) remoteAttach.getTarget() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+#### Snippet
+```java
+
+    public Target getTarget() {
+        return localAttach.getTarget() instanceof Target ? (Target) localAttach.getTarget() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/LinkTracker.java`
+#### Snippet
+```java
+
+    public Coordinator getRemoteCoordinator() {
+        return remoteAttach.getTarget() instanceof Coordinator ? (Coordinator) remoteAttach.getTarget() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/SessionTracker.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
+#### Snippet
+```java
+    public static <E> Section<E> createSectionFromValue(E body) {
+        if (body == null) {
+            return null;
+        } else if (body instanceof byte[]) {
+            return (Section<E>) new Data((byte[]) body);
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
+#### Snippet
+```java
+                        break;
+                    default:
+                        return null;
+                }
+                return new IntegerElement(element.parent(), element.prev(), i);
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
+#### Snippet
+```java
+                        break;
+                    default:
+                        return null;
+                }
+                return new LongElement(element.parent(), element.prev(), l);
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/ArrayElement.java`
+#### Snippet
+```java
+                break;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
+#### Snippet
+```java
+            current = next;
+        }
+        return next == null ? null : next.getDataType();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
+#### Snippet
+```java
+
+        current = prev;
+        return prev == null ? null : prev.getDataType();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
 #### Snippet
 ```java
     @Override
-    public final Symbol getDescriptorSymbol() {
-        return getDescriptor() instanceof Symbol ? (Symbol) getDescriptor() : null;
+    public Object getObject() {
+        return current == null ? null : current.getValue();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
+#### Snippet
+```java
+    @Override
+    public DataType type() {
+        return current == null ? null : current.getDataType();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/HeartBeat.java`
+#### Snippet
+```java
+    @Override
+    public Object getDescriptor() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/AMQPHeader.java`
+#### Snippet
+```java
+            return ByteBuffer.wrap(toArray());
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/AMQPHeader.java`
+#### Snippet
+```java
+            return Arrays.copyOf(buffer, buffer.length);
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
+#### Snippet
+```java
+    public static Symbol getSymbol(String stringValue) {
+        if (stringValue == null) {
+            return null;
+        } else if (stringValue.isEmpty()) {
+            return EMPTY_SYMBOL;
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Symbol.java`
+#### Snippet
+```java
+    public static Symbol getSymbol(ByteBuffer symbolBuffer, boolean copyOnCreate) {
+        if (symbolBuffer == null) {
+            return null;
+        } else if (!symbolBuffer.hasRemaining()) {
+            return EMPTY_SYMBOL;
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/primitives/Binary.java`
+#### Snippet
+```java
+
+    public ByteBuffer asByteBuffer() {
+        return buffer != null ? ByteBuffer.wrap(buffer) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyClient.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+    private static KeyManager[] loadKeyManagers(ProtonTestServerOptions options) throws Exception {
+        if (options.getKeyStoreLocation() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+
+        if (options.getTrustStoreLocation() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+            return factory.getTrustManagers();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+    private static KeyManager[] loadKeyManagers(ProtonTestClientOptions options) throws Exception {
+        if (options.getKeyStoreLocation() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+
+        if (options.getTrustStoreLocation() == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+            return factory.getTrustManagers();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/NettyServer.java`
+#### Snippet
+```java
+            return sslHandler.engine();
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/actions/AbstractPerformativeInjectAction.java`
+#### Snippet
+```java
+     */
+    public Buffer getPayload() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedCompositingDataSectionMatcher.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/matchers/types/EncodedPartialDataSectionMatcher.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/expectations/AbstractExpectation.java`
+#### Snippet
+```java
+
+    protected Matcher<Buffer> getPayloadMatcher() {
+        return null;
     }
 
 ```
@@ -18053,14 +18259,26 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/UnknownDescri
 
 ### ReturnNull
 Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/UnknownDescribedTypeDecoder.java`
+#### Snippet
+```java
+    @Override
+    public final Symbol getDescriptorSymbol() {
+        return getDescriptor() instanceof Symbol ? (Symbol) getDescriptor() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return Character.valueOf((char) (ProtonStreamUtils.readInt(stream) & 0xFFFF));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Character type but found encoding: " + EncodingCodes.toString(encodingCode));
+
+        if (val == null) {
+            return null;
+        } else if (val.getClass().isArray()) {
+            if (clazz.isAssignableFrom(val.getClass().getComponentType())) {
 ```
 
 ### ReturnNull
@@ -18080,11 +18298,95 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
+                return new DeliveryTag.ProtonDeliveryTag(binary32Decoder.readValueAsArray(stream, state));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
 
-        if (val == null) {
-            return null;
-        } else if (val.getClass().isArray()) {
-            if (clazz.isAssignableFrom(val.getClass().getComponentType())) {
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return ProtonStreamUtils.readLong(stream);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Long type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return new UUID(ProtonStreamUtils.readLong(stream), ProtonStreamUtils.readLong(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected UUID type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return ProtonStreamUtils.readByte(stream) == 0 ? Boolean.FALSE : Boolean.TRUE;
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Boolean type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return UnsignedInteger.valueOf(ProtonStreamUtils.readInt(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Unsigned Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return UnsignedLong.valueOf(ProtonStreamUtils.readLong(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Unsigned Long type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return Character.valueOf((char) (ProtonStreamUtils.readInt(stream) & 0xFFFF));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Character type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return Float.intBitsToFloat(ProtonStreamUtils.readInt(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Float type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18116,167 +18418,11 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return UnsignedLong.valueOf(ProtonStreamUtils.readLong(stream));
+                return UnsignedShort.valueOf(ProtonStreamUtils.readShort(stream));
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Unsigned Long type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return binary32Decoder.readValue(stream, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return ProtonStreamUtils.readShort(stream);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Short type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return binary32Decoder.readValueAsBuffer(stream, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return Float.intBitsToFloat(ProtonStreamUtils.readInt(stream));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Float type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return (List<V>) list32Decoder.readValue(stream, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected List type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return ProtonStreamUtils.readInt(stream);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return ProtonStreamUtils.readByte(stream);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return ProtonStreamUtils.readLong(stream);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Long type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return new DeliveryTag.ProtonDeliveryTag(binary32Decoder.readValueAsArray(stream, state));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return Double.longBitsToDouble(ProtonStreamUtils.readLong(stream));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Double type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return new Decimal32(ProtonStreamUtils.readInt(stream));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Decimal32 type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return new UUID(ProtonStreamUtils.readLong(stream), ProtonStreamUtils.readLong(stream));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected UUID type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
-#### Snippet
-```java
-                return ProtonStreamUtils.readLong(stream);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Timestamp type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Unsigned Short type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18296,6 +18442,18 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
+                return new Decimal64(ProtonStreamUtils.readLong(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Decimal64 type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
                 return string32Decoder.readValue(stream, state);
             case EncodingCodes.NULL:
                 return null;
@@ -18308,11 +18466,11 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return ProtonStreamUtils.readByte(stream) == 0 ? Boolean.FALSE : Boolean.TRUE;
+                return ProtonStreamUtils.readInt(stream);
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Boolean type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18320,11 +18478,11 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return UnsignedShort.valueOf(ProtonStreamUtils.readShort(stream));
+                return binary32Decoder.readValueAsBuffer(stream, state);
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Unsigned Short type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18332,11 +18490,71 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return UnsignedInteger.valueOf(ProtonStreamUtils.readInt(stream));
+                return (List<V>) list32Decoder.readValue(stream, state);
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Unsigned Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected List type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return ProtonStreamUtils.readByte(stream);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return Double.longBitsToDouble(ProtonStreamUtils.readLong(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Double type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return ProtonStreamUtils.readShort(stream);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Short type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return new Decimal32(ProtonStreamUtils.readInt(stream));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Decimal32 type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
+#### Snippet
+```java
+                return ProtonStreamUtils.readLong(stream);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Timestamp type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18356,191 +18574,11 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonStreamDecoder.java`
 #### Snippet
 ```java
-                return new Decimal64(ProtonStreamUtils.readLong(stream));
+                return binary32Decoder.readValue(stream, state);
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Decimal64 type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientMessageSupport.java`
-#### Snippet
-```java
-    public static <E> Section<E> createSectionFromValue(E body) {
-        if (body == null) {
-            return null;
-        } else if (body instanceof byte[]) {
-            return (Section<E>) new Data((byte[]) body);
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return buffer.readByte() == 0 ? Boolean.FALSE : Boolean.TRUE;
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Boolean type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-
-        if (result == null) {
-            return null;
-        } else if (clazz.isAssignableFrom(result.getClass())) {
-            return (T) result;
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return (Map<K, V>) map32Decoder.readValue(buffer, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Map type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return symbol32Decoder.readValue(buffer, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Symbol type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return UnsignedShort.valueOf(buffer.readShort());
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Unsigned Short type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return buffer.readFloat();
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Float type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return new Decimal128(buffer.readLong(), buffer.readLong());
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Decimal128 type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return Character.valueOf((char) (buffer.readInt() & 0xffff));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Character type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return buffer.readShort();
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Short type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return buffer.readLong();
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Long type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return buffer.readByte();
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return new Decimal32(buffer.readInt());
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Decimal32 type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return (List<V>) list32Decoder.readValue(buffer, state);
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected List type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return UnsignedLong.valueOf((buffer.readLong()));
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Unsigned Long type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18560,11 +18598,35 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-                return string32Decoder.readValue(buffer, state);
+                return binary32Decoder.readValue(buffer, state);
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected String type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return (Map<K, V>) map32Decoder.readValue(buffer, state);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Map type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return buffer.readByte() == 0 ? Boolean.FALSE : Boolean.TRUE;
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Boolean type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18576,7 +18638,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Timestamp type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Long type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18584,11 +18646,23 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-                return binary32Decoder.readValueAsBuffer(buffer, state);
+                return UnsignedLong.valueOf((buffer.readLong()));
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Unsigned Long type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return UnsignedByte.valueOf(buffer.readByte());
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Unsigned Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18608,6 +18682,54 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
+                return new Decimal64(buffer.readLong());
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Decimal64 type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return new Decimal128(buffer.readLong(), buffer.readLong());
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Decimal128 type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+
+        if (result == null) {
+            return null;
+        } else if (clazz.isAssignableFrom(result.getClass())) {
+            return (T) result;
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return buffer.readByte();
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
 
         if (val == null) {
             return null;
@@ -18620,11 +18742,83 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-                return binary32Decoder.readValue(buffer, state);
+                return buffer.readShort();
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Short type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return buffer.readFloat();
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Float type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return (List<V>) list32Decoder.readValue(buffer, state);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected List type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return symbol32Decoder.readValue(buffer, state);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Symbol type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return new Decimal32(buffer.readInt());
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Decimal32 type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return binary32Decoder.readValueAsBuffer(buffer, state);
             case EncodingCodes.NULL:
                 return null;
             default:
                 throw new DecodeException("Expected Binary type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return Character.valueOf((char) (buffer.readInt() & 0xffff));
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Character type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18644,11 +18838,35 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-                return UnsignedInteger.valueOf((buffer.readInt()));
+                return UnsignedShort.valueOf(buffer.readShort());
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Unsigned Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Unsigned Short type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return buffer.readLong();
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected Timestamp type but found encoding: " + EncodingCodes.toString(encodingCode));
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
+#### Snippet
+```java
+                return string32Decoder.readValue(buffer, state);
+            case EncodingCodes.NULL:
+                return null;
+            default:
+                throw new DecodeException("Expected String type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18668,23 +18886,11 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
 #### Snippet
 ```java
-                return new Decimal64(buffer.readLong());
+                return UnsignedInteger.valueOf((buffer.readInt()));
             case EncodingCodes.NULL:
                 return null;
             default:
-                throw new DecodeException("Expected Decimal64 type but found encoding: " + EncodingCodes.toString(encodingCode));
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/codec/decoders/ProtonDecoder.java`
-#### Snippet
-```java
-                return UnsignedByte.valueOf(buffer.readByte());
-            case EncodingCodes.NULL:
-                return null;
-            default:
-                throw new DecodeException("Expected Unsigned Byte type but found encoding: " + EncodingCodes.toString(encodingCode));
+                throw new DecodeException("Expected Unsigned Integer type but found encoding: " + EncodingCodes.toString(encodingCode));
 ```
 
 ### ReturnNull
@@ -18704,10 +18910,10 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbol.java`
 #### Snippet
 ```java
-    public static Symbol getSymbol(String stringValue) {
-        if (stringValue == null) {
+    public static Symbol getSymbol(ProtonBuffer symbolBuffer, boolean copyOnCreate) {
+        if (symbolBuffer == null) {
             return null;
-        } else if (stringValue.isEmpty()) {
+        } else if (symbolBuffer.getReadableBytes() == 0) {
             return EMPTY_SYMBOL;
 ```
 
@@ -18716,10 +18922,10 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/types/Symbol.java`
 #### Snippet
 ```java
-    public static Symbol getSymbol(ProtonBuffer symbolBuffer, boolean copyOnCreate) {
-        if (symbolBuffer == null) {
+    public static Symbol getSymbol(String stringValue) {
+        if (stringValue == null) {
             return null;
-        } else if (symbolBuffer.getReadableBytes() == 0) {
+        } else if (stringValue.isEmpty()) {
             return EMPTY_SYMBOL;
 ```
 
@@ -18809,18 +19015,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty5ToProtonB
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
-#### Snippet
-```java
-    @Override
-    public ProtonBufferComponent next() {
-        return null; // For now we don't try and expose Netty composites
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToNetty5Adapter.java`
 #### Snippet
 ```java
@@ -18857,6 +19051,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/ProtonBufferToN
 
 ### ReturnNull
 Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/netty/Netty4ToProtonBufferAdapter.java`
+#### Snippet
+```java
+    @Override
+    public ProtonBufferComponent next() {
+        return null; // For now we don't try and expose Netty composites
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngineNoOpSaslDriver.java`
 #### Snippet
 ```java
@@ -18869,25 +19075,49 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEngineNoOp
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
 #### Snippet
 ```java
-            }
-
-            return currentComponent == null ? null : this;
-        }
+    @Override
+    public EngineHandler last() {
+        return tail.previous == head ? null : tail.previous.handler();
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
 #### Snippet
 ```java
-            }
+    @Override
+    public EngineHandler first() {
+        return head.next == tail ? null : head.next.handler();
+    }
 
-            return currentComponent == null ? null : this;
-        }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+    @Override
+    public EngineHandlerContext lastContext() {
+        return tail.previous == head ? null : tail.previous;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+    @Override
+    public EngineHandlerContext firstContext() {
+        return head.next == tail ? null : head.next;
+    }
 
 ```
 
@@ -18989,193 +19219,25 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.ja
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
+            }
+
+            return currentComponent == null ? null : this;
         }
 
-        return null;
-    }
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeBufferImpl.java`
 #### Snippet
 ```java
+            }
+
+            return currentComponent == null ? null : this;
         }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonEngineSaslDriver.java`
-#### Snippet
-```java
-    @Override
-    public SaslOutcome getSaslOutcome() {
-        return context == null ? null : context.getSaslOutcome();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-    @Override
-    public EngineHandlerContext lastContext() {
-        return tail.previous == head ? null : tail.previous;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-    @Override
-    public EngineHandlerContext firstContext() {
-        return head.next == tail ? null : head.next;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-    @Override
-    public EngineHandler last() {
-        return tail.previous == head ? null : tail.previous.handler();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-    @Override
-    public EngineHandler first() {
-        return head.next == tail ? null : head.next.handler();
-    }
 
 ```
 
@@ -19184,21 +19246,9 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
 #### Snippet
 ```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-        }
-
-        return null;
+    @Override
+    public String getRemoteContainerId() {
+        return remoteOpen == null ? null : remoteOpen.getContainerId();
     }
 
 ```
@@ -19268,9 +19318,33 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonEngineSaslDriver.java`
+#### Snippet
+```java
     @Override
-    public String getRemoteContainerId() {
-        return remoteOpen == null ? null : remoteOpen.getContainerId();
+    public SaslOutcome getSaslOutcome() {
+        return context == null ? null : context.getSaslOutcome();
     }
 
 ```
@@ -19289,11 +19363,131 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslC
 
 ### ReturnNull
 Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/CramMD5Mechanism.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
 #### Snippet
 ```java
-    @Override
-    public ProtonBuffer getInitialResponse(SaslCredentialsProvider credentials) {
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonLink.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -19325,6 +19519,18 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/DeliveryIdTracke
 
 ### ReturnNull
 Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/sasl/client/CramMD5Mechanism.java`
+#### Snippet
+```java
+    @Override
+    public ProtonBuffer getInitialResponse(SaslCredentialsProvider credentials) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/RingQueue.java`
 #### Snippet
 ```java
@@ -19342,486 +19548,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/logging/NoOpProtonLogger.jav
 ```java
     @Override
     public String getName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-            SplayedEntry<E> e = backingMap.getFloorEntry(key);
-
-            return (e == null || isToLow(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        public final UnsignedInteger lowerKey(UnsignedInteger key) {
-            SplayedEntry<E> result = getLowerEntry(key.intValue());
-            return result == null ? null : result.getKey();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        public final UnsignedInteger higherKey(UnsignedInteger key) {
-            SplayedEntry<E> result = getHigherEntry(key.intValue());
-            return result == null ? null : result.getKey();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    @Override
-    public UnsignedInteger lastKey() {
-        return isEmpty() ? null : lastEntry(root).getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                    root = splay(root, succ.key);
-                } else {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                    root = splay(root, pred.key);
-                } else {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    public E remove(int key) {
-        if (root == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        root = splay(root, key);
-        if (root.key != key) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-
-    protected static <V> ImmutableSplayMapEntry<V> export(SplayedEntry<V> entry) {
-        return entry == null ? null : new ImmutableSplayMapEntry<>(entry);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        E result = get(key);
-        if (result == null && root != null && root.key == key) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                    root = splay(root, succ.key);
-                } else {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-
-        public final E get(int key) {
-            return !isInRange(key) ? null :  backingMap.get(key);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                startInclusive ? backingMap.getCeilingEntry(startKey) : backingMap.getHigherEntry(startKey);
-
-            return (e == null || isToHigh(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    @Override
-    public UnsignedInteger firstKey() {
-        return isEmpty() ? null : firstEntry(root).getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    private static <E> SplayedEntry<E> predecessor(SplayedEntry<E> node) {
-        if (node == null) {
-            return null;
-        } else if (node.left != null) {
-            // Walk to bottom of tree from this node's left child.
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    public E get(int key) {
-        if (root == null) {
-            return null;
-        } else if (root.key == key) {
-            return root.value;
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                return root.value;
-            } else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        modCount++;
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-            SplayedEntry<E> e = backingMap.getHigherEntry(key);
-
-            return (e == null || isToHigh(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-            SplayedEntry<E> e = backingMap.getLowerEntry(key);
-
-            return (e == null || isToLow(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        final SplayedEntry<E> result = splayToCeilingEntry(key.intValue());
-
-        return result == null ? null : result.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-            SplayedEntry<E> e = backingMap.getCeilingEntry(key);
-
-            return (e == null || isToHigh(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        root = splay(root, key);
-        if (root == null || root.key != key || root.value == null) {
-            return null;
-        } else {
-            return root.setValue(value);
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                    root = splay(root, pred.key);
-                } else {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        public final UnsignedInteger ceilingKey(UnsignedInteger key) {
-            SplayedEntry<E> result = getCeilingEntry(key.intValue());
-            return result == null ? null : result.getKey();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        final SplayedEntry<E> result = splayToHigherEntry(key.intValue());
-
-        return result == null ? null : result.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        public final UnsignedInteger floorKey(UnsignedInteger key) {
-            SplayedEntry<E> result = getFloorEntry(key.intValue());
-            return result == null ? null : result.getKey();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        final SplayedEntry<E> result = splayToLowerEntry(key.intValue());
-
-        return result == null ? null : result.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    private static <E> SplayedEntry<E> successor(SplayedEntry<E> node) {
-        if (node == null) {
-            return null;
-        } else if (node.right != null) {
-            // Walk to bottom of tree from this node's right child.
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-        final SplayedEntry<E> result = splayToFloorEntry(key.intValue());
-
-        return result == null ? null : result.getKey();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                endInclusive ? backingMap.getFloorEntry(endKey) : backingMap.getLowerEntry(endKey);
-
-            return (e == null || isToLow(e.key)) ? null : e;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-
-        public final E remove(int key) {
-            return !isInRange(key) ? null : backingMap.remove(key);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-    private SplayedEntry<E> findEntry(int key) {
-        if (root == null) {
-            return null;
-        } else if (root.key == key) {
-            return root;
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
-#### Snippet
-```java
-                return root;
-            } else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -19868,6 +19594,30 @@ Return of `null`
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
 #### Snippet
 ```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.java`
+#### Snippet
+```java
         modCount++;
 
         return null;
@@ -19875,19 +19625,463 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/UnsettledMap.jav
 
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `oldParent` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
 #### Snippet
 ```java
-    public boolean exit() {
-        if (parent != null) {
-            Element<?> oldParent = this.parent;
-            current = oldParent;
-            parent = current.parent();
+        public final UnsignedInteger lowerKey(UnsignedInteger key) {
+            SplayedEntry<E> result = getLowerEntry(key.intValue());
+            return result == null ? null : result.getKey();
+        }
+
 ```
 
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+            SplayedEntry<E> e = backingMap.getHigherEntry(key);
+
+            return (e == null || isToHigh(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        final SplayedEntry<E> result = splayToCeilingEntry(key.intValue());
+
+        return result == null ? null : result.getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    public E remove(int key) {
+        if (root == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        root = splay(root, key);
+        if (root.key != key) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    @Override
+    public UnsignedInteger lastKey() {
+        return isEmpty() ? null : lastEntry(root).getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    @Override
+    public UnsignedInteger firstKey() {
+        return isEmpty() ? null : firstEntry(root).getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+
+        public final E get(int key) {
+            return !isInRange(key) ? null :  backingMap.get(key);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+            SplayedEntry<E> e = backingMap.getLowerEntry(key);
+
+            return (e == null || isToLow(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        public final UnsignedInteger ceilingKey(UnsignedInteger key) {
+            SplayedEntry<E> result = getCeilingEntry(key.intValue());
+            return result == null ? null : result.getKey();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        root = splay(root, key);
+        if (root == null || root.key != key || root.value == null) {
+            return null;
+        } else {
+            return root.setValue(value);
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                    root = splay(root, pred.key);
+                } else {
+                    return null;
+                }
+            } else {
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                startInclusive ? backingMap.getCeilingEntry(startKey) : backingMap.getHigherEntry(startKey);
+
+            return (e == null || isToHigh(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                    root = splay(root, succ.key);
+                } else {
+                    return null;
+                }
+            } else {
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        public final UnsignedInteger floorKey(UnsignedInteger key) {
+            SplayedEntry<E> result = getFloorEntry(key.intValue());
+            return result == null ? null : result.getKey();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                endInclusive ? backingMap.getFloorEntry(endKey) : backingMap.getLowerEntry(endKey);
+
+            return (e == null || isToLow(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+
+        public final E remove(int key) {
+            return !isInRange(key) ? null : backingMap.remove(key);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        final SplayedEntry<E> result = splayToHigherEntry(key.intValue());
+
+        return result == null ? null : result.getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+            SplayedEntry<E> e = backingMap.getCeilingEntry(key);
+
+            return (e == null || isToHigh(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        final SplayedEntry<E> result = splayToFloorEntry(key.intValue());
+
+        return result == null ? null : result.getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        final SplayedEntry<E> result = splayToLowerEntry(key.intValue());
+
+        return result == null ? null : result.getKey();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+
+    protected static <V> ImmutableSplayMapEntry<V> export(SplayedEntry<V> entry) {
+        return entry == null ? null : new ImmutableSplayMapEntry<>(entry);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        E result = get(key);
+        if (result == null && root != null && root.key == key) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+            SplayedEntry<E> e = backingMap.getFloorEntry(key);
+
+            return (e == null || isToLow(e.key)) ? null : e;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    private static <E> SplayedEntry<E> predecessor(SplayedEntry<E> node) {
+        if (node == null) {
+            return null;
+        } else if (node.left != null) {
+            // Walk to bottom of tree from this node's left child.
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        public final UnsignedInteger higherKey(UnsignedInteger key) {
+            SplayedEntry<E> result = getHigherEntry(key.intValue());
+            return result == null ? null : result.getKey();
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+        modCount++;
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    public E get(int key) {
+        if (root == null) {
+            return null;
+        } else if (root.key == key) {
+            return root.value;
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                return root.value;
+            } else {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    private static <E> SplayedEntry<E> successor(SplayedEntry<E> node) {
+        if (node == null) {
+            return null;
+        } else if (node.right != null) {
+            // Walk to bottom of tree from this node's right child.
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                    root = splay(root, pred.key);
+                } else {
+                    return null;
+                }
+            } else {
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                    root = splay(root, succ.key);
+                } else {
+                    return null;
+                }
+            } else {
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+    private SplayedEntry<E> findEntry(int key) {
+        if (root == null) {
+            return null;
+        } else if (root.key == key) {
+            return root;
+```
+
+### ReturnNull
+Return of `null`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/util/SplayMap.java`
+#### Snippet
+```java
+                return root;
+            } else {
+                return null;
+            }
+        }
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `s` is redundant
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/util/TimeUtils.java`
@@ -19910,6 +20104,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientStr
         final ProtonBuffer buffer = payload;
         final ClientOutgoingEnvelope envelope = new ClientOutgoingEnvelope(
             this, context.getProtonDelivery(), messageFormat, buffer, context.completed(), operation);
+```
+
+### UnnecessaryLocalVariable
+Local variable `oldParent` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/CodecImpl.java`
+#### Snippet
+```java
+    public boolean exit() {
+        if (parent != null) {
+            Element<?> oldParent = this.parent;
+            current = oldParent;
+            parent = current.parent();
 ```
 
 ### UnnecessaryLocalVariable
@@ -19998,18 +20204,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/OutputStreamOp
 ```
 
 ### CopyConstructorMissesField
-Copy constructor does not copy 4 fields
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamSenderOptions.java`
-#### Snippet
-```java
-     *      The options instance to copy all configuration values from.
-     */
-    public StreamSenderOptions(StreamSenderOptions options) {
-        if (options != null) {
-            options.copyInto(this);
-```
-
-### CopyConstructorMissesField
 Copy constructor does not copy fields 'drainTimeout', 'autoAccept' and 'creditWindow'
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReceiverOptions.java`
 #### Snippet
@@ -20017,6 +20211,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReceiverOption
      * 		The ReceiverOptions instance whose settings are to be copied into this one.
      */
     public ReceiverOptions(ReceiverOptions options) {
+        if (options != null) {
+            options.copyInto(this);
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy 4 fields
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/StreamSenderOptions.java`
+#### Snippet
+```java
+     *      The options instance to copy all configuration values from.
+     */
+    public StreamSenderOptions(StreamSenderOptions options) {
         if (options != null) {
             options.copyInto(this);
 ```
@@ -20058,18 +20264,6 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ClientOptions.
 ```
 
 ### CopyConstructorMissesField
-Copy constructor does not copy 8 fields
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReconnectOptions.java`
-#### Snippet
-```java
-     *      The {@link ReconnectOptions} instance whose configuration should be copied to this one.
-     */
-    public ReconnectOptions(ReconnectOptions options) {
-        if (options != null) {
-            options.copyInto(this);
-```
-
-### CopyConstructorMissesField
 Copy constructor does not copy 9 fields
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/LinkOptions.java`
 #### Snippet
@@ -20077,6 +20271,18 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/LinkOptions.ja
      * 		The LinkOptions instance whose settings are to be copied into this one.
      */
     public LinkOptions(LinkOptions<T> options) {
+        if (options != null) {
+            options.copyInto(this);
+```
+
+### CopyConstructorMissesField
+Copy constructor does not copy 8 fields
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/ReconnectOptions.java`
+#### Snippet
+```java
+     *      The {@link ReconnectOptions} instance whose configuration should be copied to this one.
+     */
+    public ReconnectOptions(ReconnectOptions options) {
         if (options != null) {
             options.copyInto(this);
 ```
@@ -20117,19 +20323,44 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/buffer/impl/ProtonCompositeB
         this.startIndices = other.startIndices;
 ```
 
-## RuleId[id=ThrowableNotThrown]
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTransportListener.java`
+## RuleId[id=RedundantFileCreation]
+### RedundantFileCreation
+`new File` is redundant
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
 #### Snippet
 ```java
-        if (!engine.isShutdown()) {
-            LOG.debug("Transport failed: {}", error.getMessage());
-            engine.engineFailed(ClientExceptionSupport.convertToConnectionClosedException(error));
+    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
+        KeyStore store = KeyStore.getInstance(storeType);
+        try (InputStream in = new FileInputStream(new File(storePath));) {
+            store.load(in, password != null ? password.toCharArray() : null);
         }
-    }
 ```
 
+### RedundantFileCreation
+`new File` is redundant
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
+#### Snippet
+```java
+    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
+        KeyStore store = KeyStore.getInstance(storeType);
+        try (InputStream in = new FileInputStream(new File(storePath));) {
+            store.load(in, password != null ? password.toCharArray() : null);
+        }
+```
+
+### RedundantFileCreation
+`new File` is redundant
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
+#### Snippet
+```java
+    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
+        KeyStore store = KeyStore.getInstance(storeType);
+        try (InputStream in = new FileInputStream(new File(storePath));) {
+            store.load(in, password != null ? password.toCharArray() : null);
+        }
+```
+
+## RuleId[id=ThrowableNotThrown]
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTransportListener.java`
@@ -20144,14 +20375,26 @@ in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTra
 
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
+in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientTransportListener.java`
+#### Snippet
+```java
+        if (!engine.isShutdown()) {
+            LOG.debug("Transport failed: {}", error.getMessage());
+            engine.engineFailed(ClientExceptionSupport.convertToConnectionClosedException(error));
+        }
+    }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
 #### Snippet
 ```java
-            transport.connect(location.getHost(), location.getPort(), new ClientTransportListener(this, engine));
-        } catch (Throwable error) {
-            engine.engineFailed(ClientExceptionSupport.createOrPassthroughFatal(error));
-        }
-    }
+
+            try {
+                connection.getEngine().engineFailed(failureCause);
+            } catch (Throwable ignore) {
+            }
 ```
 
 ### ThrowableNotThrown
@@ -20171,10 +20414,22 @@ Result of `engineFailed()` not thrown
 in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/impl/ClientConnection.java`
 #### Snippet
 ```java
+            transport.connect(location.getHost(), location.getPort(), new ClientTransportListener(this, engine));
+        } catch (Throwable error) {
+            engine.engineFailed(ClientExceptionSupport.createOrPassthroughFatal(error));
+        }
+    }
+```
 
-            try {
-                connection.getEngine().engineFailed(failureCause);
-            } catch (Throwable ignore) {
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionIncomingWindow.java`
+#### Snippet
+```java
+            int previousId = lastDeliveryid.intValue();
+            if (lastDeliveryid.increment().compareTo((int) deliveryId) != 0) {
+                session.getConnection().getEngine().engineFailed(
+                    new ProtocolViolationException("Expected delivery-id " + previousId + ", got " + deliveryId));
             }
 ```
 
@@ -20192,14 +20447,194 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonPerformati
 
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSessionIncomingWindow.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
 #### Snippet
 ```java
-            int previousId = lastDeliveryid.intValue();
-            if (lastDeliveryid.increment().compareTo((int) deliveryId) != 0) {
-                session.getConnection().getEngine().engineFailed(
-                    new ProtocolViolationException("Expected delivery-id " + previousId + ", got " + deliveryId));
+                oldLast.handler().handlerRemoved(oldLast);
+            } catch (Throwable e) {
+                engine.engineFailed(e);
             }
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            head.fireWrite(buffer, ioComplete);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            tail.fireRead(envelope);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            head.fireEngineStateChanged();
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+        }
+        return this;
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            newLast.handler().handlerAdded(newLast);
+        } catch (Throwable e) {
+            engine.engineFailed(e);
+        }
+
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            head.fireWrite(envelope);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            tail.fireRead(envelope);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            newFirst.handler().handlerAdded(newFirst);
+        } catch (Throwable e) {
+            engine.engineFailed(e);
+        }
+
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+                    current.fireEngineStarting();
+                } catch (Throwable error) {
+                    engine.engineFailed(error);
+                    break;
+                }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+                    removed.handler().handlerRemoved(removed);
+                } catch (Throwable e) {
+                    engine.engineFailed(e);
+                }
+            }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+                    removed.handler().handlerRemoved(removed);
+                } catch (Throwable e) {
+                    engine.engineFailed(e);
+                }
+            }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            head.fireWrite(envelope);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+                oldFirst.handler().handlerRemoved(oldFirst);
+            } catch (Throwable e) {
+                engine.engineFailed(e);
+            }
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            tail.fireRead(input);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            tail.fireRead(header);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+#### Snippet
+```java
+            head.fireWrite(envelope);
+        } catch (Throwable error) {
+            engine.engineFailed(error);
+            throw error;
+        }
 ```
 
 ### ThrowableNotThrown
@@ -20264,193 +20699,13 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonSession.ja
 
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
 #### Snippet
 ```java
-                    removed.handler().handlerRemoved(removed);
-                } catch (Throwable e) {
-                    engine.engineFailed(e);
-                }
-            }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            newFirst.handler().handlerAdded(newFirst);
-        } catch (Throwable e) {
-            engine.engineFailed(e);
-        }
-
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            tail.fireRead(envelope);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-                    current.fireEngineStarting();
-                } catch (Throwable error) {
-                    engine.engineFailed(error);
-                    break;
-                }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-                oldFirst.handler().handlerRemoved(oldFirst);
-            } catch (Throwable e) {
-                engine.engineFailed(e);
-            }
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            head.fireWrite(envelope);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            head.fireWrite(buffer, ioComplete);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            tail.fireRead(header);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-                oldLast.handler().handlerRemoved(oldLast);
-            } catch (Throwable e) {
-                engine.engineFailed(e);
-            }
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            newLast.handler().handlerAdded(newLast);
-        } catch (Throwable e) {
-            engine.engineFailed(e);
-        }
-
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            tail.fireRead(input);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            head.fireEngineStateChanged();
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-        }
-        return this;
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            head.fireWrite(envelope);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            head.fireWrite(envelope);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-                    removed.handler().handlerRemoved(removed);
-                } catch (Throwable e) {
-                    engine.engineFailed(e);
-                }
-            }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonEnginePipeline.java`
-#### Snippet
-```java
-            tail.fireRead(envelope);
-        } catch (Throwable error) {
-            engine.engineFailed(error);
-            throw error;
+    public void handleOpen(Open open, ProtonBuffer payload, int channel, ProtonEngine context) {
+        if (remoteOpen != null) {
+            context.engineFailed(new ProtocolViolationException("Received second Open for Connection from remote"));
+            return;
         }
 ```
 
@@ -20471,11 +20726,47 @@ Result of `engineFailed()` not thrown
 in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
 #### Snippet
 ```java
+        final ProtonSession session = remoteSessions.get(channel);
+        if (session == null) {
+            engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on Attach from remote: " + channel));
+        } else {
+            session.remoteAttach(attach, channel);
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
+    @Override
+    public void handleSASLHeader(AMQPHeader header, ProtonEngine context) {
+        context.engineFailed(new ProtocolViolationException("Received unexpected SASL Header"));
+    }
+
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
             // due to it being cleaned up by GC,
             if (zombieSessions.remove(channel) == null) {
                 engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on End from remote: " + channel));
             }
         } else {
+```
+
+### ThrowableNotThrown
+Result of `engineFailed()` not thrown
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
+#### Snippet
+```java
+        final ProtonSession session = remoteSessions.get(channel);
+        if (session == null) {
+            engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on Detach from remote: " + channel));
+        } else {
+            session.remoteDetach(detach, channel);
 ```
 
 ### ThrowableNotThrown
@@ -20521,42 +20812,6 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection
 ```java
         final ProtonSession session = remoteSessions.get(channel);
         if (session == null) {
-            engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on Detach from remote: " + channel));
-        } else {
-            session.remoteDetach(detach, channel);
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-        final ProtonSession session = remoteSessions.get(channel);
-        if (session == null) {
-            engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on Attach from remote: " + channel));
-        } else {
-            session.remoteAttach(attach, channel);
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-    public void handleOpen(Open open, ProtonBuffer payload, int channel, ProtonEngine context) {
-        if (remoteOpen != null) {
-            context.engineFailed(new ProtocolViolationException("Received second Open for Connection from remote"));
-            return;
-        }
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-        final ProtonSession session = remoteSessions.get(channel);
-        if (session == null) {
             engine.engineFailed(new ProtocolViolationException("Received uncorrelated channel on Transfer from remote: " + channel));
         } else {
             session.remoteTransfer(transfer, payload, channel);
@@ -20564,26 +20819,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection
 
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonConnection.java`
-#### Snippet
-```java
-    @Override
-    public void handleSASLHeader(AMQPHeader header, ProtonEngine context) {
-        context.engineFailed(new ProtocolViolationException("Received unexpected SASL Header"));
-    }
-
-```
-
-### ThrowableNotThrown
-Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslClientContext.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslServerContext.java`
 #### Snippet
 ```java
         if (!isDone()) {
             done(org.apache.qpid.protonj2.engine.sasl.SaslOutcome.SASL_PERM);
             saslHandler.engine().engineFailed(failure);
         }
-
+        return this;
 ```
 
 ### ThrowableNotThrown
@@ -20600,14 +20843,14 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslC
 
 ### ThrowableNotThrown
 Result of `engineFailed()` not thrown
-in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslServerContext.java`
+in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/sasl/ProtonSaslClientContext.java`
 #### Snippet
 ```java
         if (!isDone()) {
             done(org.apache.qpid.protonj2.engine.sasl.SaslOutcome.SASL_PERM);
             saslHandler.engine().engineFailed(failure);
         }
-        return this;
+
 ```
 
 ### ThrowableNotThrown
@@ -20634,56 +20877,7 @@ in `protonj2/src/main/java/org/apache/qpid/protonj2/engine/impl/ProtonReceiver.j
                                                currentDeliveryId + " and " + transfer.getDeliveryId()));
 ```
 
-## RuleId[id=RedundantFileCreation]
-### RedundantFileCreation
-`new File` is redundant
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/netty/SslSupport.java`
-#### Snippet
-```java
-    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
-        KeyStore store = KeyStore.getInstance(storeType);
-        try (InputStream in = new FileInputStream(new File(storePath));) {
-            store.load(in, password != null ? password.toCharArray() : null);
-        }
-```
-
-### RedundantFileCreation
-`new File` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty4/SslSupport.java`
-#### Snippet
-```java
-    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
-        KeyStore store = KeyStore.getInstance(storeType);
-        try (InputStream in = new FileInputStream(new File(storePath));) {
-            store.load(in, password != null ? password.toCharArray() : null);
-        }
-```
-
-### RedundantFileCreation
-`new File` is redundant
-in `protonj2-client/src/main/java/org/apache/qpid/protonj2/client/transport/netty5/SslSupport.java`
-#### Snippet
-```java
-    private static KeyStore loadStore(String storePath, final String password, String storeType) throws Exception {
-        KeyStore store = KeyStore.getInstance(storeType);
-        try (InputStream in = new FileInputStream(new File(storePath));) {
-            store.load(in, password != null ? password.toCharArray() : null);
-        }
-```
-
 ## RuleId[id=PointlessBooleanExpression]
-### PointlessBooleanExpression
-`getRole().booleanValue() == true` can be simplified to 'getRole().booleanValue()'
-in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/Attach.java`
-#### Snippet
-```java
-
-    public boolean isReceiver() {
-        return getRole().booleanValue() == true;
-    }
-
-```
-
 ### PointlessBooleanExpression
 `getRole().booleanValue() == false` can be simplified to '!getRole().booleanValue()'
 in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/Attach.java`
@@ -20692,6 +20886,18 @@ in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/code
 
     public boolean isSender() {
         return getRole().booleanValue() == false;
+    }
+
+```
+
+### PointlessBooleanExpression
+`getRole().booleanValue() == true` can be simplified to 'getRole().booleanValue()'
+in `protonj2-test-driver/src/main/java/org/apache/qpid/protonj2/test/driver/codec/transport/Attach.java`
+#### Snippet
+```java
+
+    public boolean isReceiver() {
+        return getRole().booleanValue() == true;
     }
 
 ```
