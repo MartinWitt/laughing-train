@@ -1,7 +1,7 @@
 # commons-bcel 
  
 # Bad smells
-I found 1174 bad smells with 18 repairable:
+I found 1173 bad smells with 18 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessarySuperQualifier | 335 | false |
@@ -47,7 +47,6 @@ I found 1174 bad smells with 18 repairable:
 | MagicConstant | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | SynchronizeOnThis | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
@@ -101,6 +100,18 @@ Referencing subclass BasicType from superclass Type initializer might lead to cl
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
+
+    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
+    public static final BasicType INT = new BasicType(Const.T_INT);
+    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
+    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
     public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
     public static final BasicType INT = new BasicType(Const.T_INT);
     public static final BasicType SHORT = new BasicType(Const.T_SHORT);
@@ -113,119 +124,23 @@ Referencing subclass BasicType from superclass Type initializer might lead to cl
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
-    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
-    public static final BasicType LONG = new BasicType(Const.T_LONG);
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType VOID = new BasicType(Const.T_VOID);
-
-    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
-    public static final BasicType INT = new BasicType(Const.T_INT);
-    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-
-    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
-    public static final BasicType INT = new BasicType(Const.T_INT);
-    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
-    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-    public static final ObjectType STRING = new ObjectType("java.lang.String");
-    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
-    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
-
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
-    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
-    public static final BasicType INT = new BasicType(Const.T_INT);
-    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
-    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
-    public static final BasicType LONG = new BasicType(Const.T_LONG);
-    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
-in `src/main/java/org/apache/bcel/generic/Type.java`
-#### Snippet
-```java
     public static final BasicType SHORT = new BasicType(Const.T_SHORT);
     public static final BasicType BYTE = new BasicType(Const.T_BYTE);
     public static final BasicType LONG = new BasicType(Const.T_LONG);
     public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
     public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
+    public static final BasicType LONG = new BasicType(Const.T_LONG);
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -245,11 +160,71 @@ Referencing subclass ObjectType from superclass Type initializer might lead to c
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
+    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
+    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType LONG = new BasicType(Const.T_LONG);
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
+    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType VOID = new BasicType(Const.T_VOID);
+
+    public static final BasicType BOOLEAN = new BasicType(Const.T_BOOLEAN);
+    public static final BasicType INT = new BasicType(Const.T_INT);
+    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
     public static final ObjectType STRING = new ObjectType("java.lang.String");
     public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
     public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
 
-    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -265,15 +240,280 @@ in `src/main/java/org/apache/bcel/generic/Type.java`
 ```
 
 ### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
+    public static final ObjectType STRINGBUFFER = new ObjectType("java.lang.StringBuffer");
+    public static final ObjectType THROWABLE = new ObjectType("java.lang.Throwable");
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass ObjectType from superclass Type initializer might lead to class loading deadlock
+in `src/main/java/org/apache/bcel/generic/Type.java`
+#### Snippet
+```java
+    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
+    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
+    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+    public static final ObjectType CLASS = new ObjectType("java.lang.Class");
+    public static final ObjectType STRING = new ObjectType("java.lang.String");
+```
+
+### StaticInitializerReferencesSubClass
 Referencing subclass BasicType from superclass Type initializer might lead to class loading deadlock
 in `src/main/java/org/apache/bcel/generic/Type.java`
 #### Snippet
 ```java
+    public static final BasicType INT = new BasicType(Const.T_INT);
+    public static final BasicType SHORT = new BasicType(Const.T_SHORT);
+    public static final BasicType BYTE = new BasicType(Const.T_BYTE);
     public static final BasicType LONG = new BasicType(Const.T_LONG);
     public static final BasicType DOUBLE = new BasicType(Const.T_DOUBLE);
-    public static final BasicType FLOAT = new BasicType(Const.T_FLOAT);
-    public static final BasicType CHAR = new BasicType(Const.T_CHAR);
-    public static final ObjectType OBJECT = new ObjectType("java.lang.Object");
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/generic/ElementValuePairGen.java`
+#### Snippet
+```java
+        // Could assert nvp.getNameString() points to the same thing as
+        // constantPoolGen.getConstant(nvp.getNameIndex())
+        // if
+        // (!nvp.getNameString().equals(((ConstantUtf8)constantPoolGen.getConstant(nvp.getNameIndex())).getBytes()))
+        // {
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/verifier/exc/VerifierConstraintViolatedException.java`
+#### Snippet
+```java
+ */
+public abstract class VerifierConstraintViolatedException extends RuntimeException {
+    // /** The name of the offending class that did not pass the verifier. */
+    // String name_of_offending_class;
+
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/ClassElementValueGen.java`
+#### Snippet
+```java
+        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
+        return cu8.getBytes();
+        // ConstantClass c = (ConstantClass)getConstantPool().getConstant(idx);
+        // ConstantUtf8 utf8 =
+        // (ConstantUtf8)getConstantPool().getConstant(c.getNameIndex());
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
+#### Snippet
+```java
+            // System.err.println("WARNING: " + u[i]);
+            // Everything should have been read now
+            // if(file.available() > 0) {
+            // int bytes = file.available();
+            // byte[] buf = new byte[bytes];
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        final String bootClassPathProp = System.getProperty("sun.boot.class.path");
+        final String extDirs = System.getProperty("java.ext.dirs");
+        // System.out.println("java.version = " + System.getProperty("java.version"));
+        // System.out.println("java.class.path = " + classPathProp);
+        // System.out.println("sun.boot.class.path=" + bootClassPathProp);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/util/CodeHTML.java`
+#### Snippet
+```java
+                bytes.readUnsignedByte(); // Redundant
+                bytes.readUnsignedByte(); // Reserved
+//                    int nargs = bytes.readUnsignedByte(); // Redundant
+//                    int reserved = bytes.readUnsignedByte(); // Reserved
+                final ConstantInterfaceMethodref c = constantPool.getConstant(mIndex, Const.CONSTANT_InterfaceMethodref, ConstantInterfaceMethodref.class);
+```
+
+### CommentedOutCode
+Commented out code (22 lines)
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+                }
+            }
+//            else if (c == null) { // entries may be null
+//                // nothing to do
+//            } else if (c instanceof ConstantInteger) {
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+    public String getEnumValueString() {
+        return ((ConstantUtf8) getConstantPool().getConstant(valueIdx)).getBytes();
+        // ConstantString cu8 =
+        // (ConstantString)getConstantPool().getConstant(valueIdx);
+        // return
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
+        return cu8.getBytes();
+        // ConstantString cu8 =
+        // (ConstantString)getConstantPool().getConstant(valueIdx);
+        // return
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
+    // here?
+    public String getEnumTypeString() {
+        // Constant cc = getConstantPool().getConstant(typeIdx);
+        // ConstantClass cu8 =
+        // (ConstantClass)getConstantPool().getConstant(typeIdx);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+            constraintViolated(o, "The 'objectref' is not of a ReferenceType or of ReturnaddressType but of " + stack().peek() + ".");
+        }
+        // if (stack().peek() instanceof ReferenceType) {
+        // referenceTypeIsInitialized(o, (ReferenceType) (stack().peek()) );
+        // }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+    public void setFrame(final Frame f) { // TODO could be package-protected?
+        this.frame = f;
+        // if (singleInstance.mg == null || singleInstance.cpg == null)
+        // throw new AssertionViolatedException("Forgot to set important values first.");
+    }
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+        // It cannot be done using Staerk-et-al's "set of object types" instead of a
+        // "wider cast object type", anyway.
+        // if (! objectref.isAssignmentCompatibleWith(mg.getReturnType() )) {
+        // constraintViolated(o, "The 'objectref' type "+objectref+
+        // " at the stack top is not assignment compatible with the return type '"+mg.getReturnType()+"' of the method.");
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                    + "'; Instruction expects a ReferenceType or a ReturnadressType.");
+            }
+            // if (stacktop instanceof ReferenceType) {
+            // referenceTypeIsInitialized(o, (ReferenceType) stacktop);
+            // }
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                    // TODO: This can only be checked when using Staerk-et-al's "set of object types"
+                    // instead of a "wider cast object type" created during verification.
+                    // if ( ! rFromStack.isAssignmentCompatibleWith(rFromDesc) ) {
+                    // constraintViolated(o, "Expecting a '"+fromDesc+"' but found a '"+fromStack+
+                    // "' on the stack (which is not assignment compatible).");
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+        // TODO: This can only be checked if we're using Staerk-et-al's "set of object types"
+        // instead of "wider cast object types" generated during verification.
+        // if ( ! Repository.implementationOf(objref_classname, theInterface) ) {
+        // constraintViolated(o, "The 'objref' item '"+objref+"' does not implement '"+theInterface+"' as expected.");
+        // }
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+            // TODO: This can only be checked if using Staerk-et-al's "set of object types" instead of a
+            // "wider cast object type" created during verification.
+            // if (! (objectref.isAssignmentCompatibleWith(mg.getType())) ) {
+            // constraintViolated(o, "Type on stack top which should be returned is a '"+stack().peek()+
+            // "' which is not assignment compatible with the return type of this method, '"+mg.getType()+"'.");
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
+#### Snippet
+```java
+        stack.push(bm);
+        bm.accept(visitor);
+        // BootstrapMethod[] bms = bm.getBootstrapMethods();
+        // for (int i = 0; i < bms.length; i++)
+        // {
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+                    // Argh. Sun's implementation allows us to have multiple fields of
+                    // the same name but with a different signature.
+                    // if (! f_type.equals(o_type)) {
+                    // constraintViolated(o,
+                    // "Referenced field '"+field_name+"' has type '"+f_type+"' instead of '"+o_type+"' as expected.");
+```
+
+### CommentedOutCode
+Commented out code (19 lines)
+in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
+#### Snippet
+```java
+     * Internal debugging routines.
+     */
+//    private static final String pattern2string( String pattern ) {
+//        return pattern2string(pattern, true);
+//    }
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -379,7 +619,7 @@ in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
 #### Snippet
 ```java
         super(Const.CONSTANT_Utf8);
-        this.value = Objects.requireNonNull(value, "value");
+        value = dataInput.readUTF();
         created++;
     }
 
@@ -391,254 +631,37 @@ in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
 #### Snippet
 ```java
         super(Const.CONSTANT_Utf8);
-        value = dataInput.readUTF();
+        this.value = Objects.requireNonNull(value, "value");
         created++;
     }
 
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/generic/ElementValuePairGen.java`
-#### Snippet
-```java
-        // Could assert nvp.getNameString() points to the same thing as
-        // constantPoolGen.getConstant(nvp.getNameIndex())
-        // if
-        // (!nvp.getNameString().equals(((ConstantUtf8)constantPoolGen.getConstant(nvp.getNameIndex())).getBytes()))
-        // {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/verifier/exc/VerifierConstraintViolatedException.java`
-#### Snippet
-```java
- */
-public abstract class VerifierConstraintViolatedException extends RuntimeException {
-    // /** The name of the offending class that did not pass the verifier. */
-    // String name_of_offending_class;
-
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/ClassElementValueGen.java`
-#### Snippet
-```java
-        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(idx);
-        return cu8.getBytes();
-        // ConstantClass c = (ConstantClass)getConstantPool().getConstant(idx);
-        // ConstantUtf8 utf8 =
-        // (ConstantUtf8)getConstantPool().getConstant(c.getNameIndex());
-```
-
-### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/org/apache/bcel/classfile/ClassParser.java`
-#### Snippet
-```java
-            // System.err.println("WARNING: " + u[i]);
-            // Everything should have been read now
-            // if(file.available() > 0) {
-            // int bytes = file.available();
-            // byte[] buf = new byte[bytes];
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/util/CodeHTML.java`
-#### Snippet
-```java
-                bytes.readUnsignedByte(); // Redundant
-                bytes.readUnsignedByte(); // Reserved
-//                    int nargs = bytes.readUnsignedByte(); // Redundant
-//                    int reserved = bytes.readUnsignedByte(); // Reserved
-                final ConstantInterfaceMethodref c = constantPool.getConstant(mIndex, Const.CONSTANT_InterfaceMethodref, ConstantInterfaceMethodref.class);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
+## RuleId[id=ObsoleteCollection]
+### ObsoleteCollection
+Obsolete collection type `Vector` used
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-        final String bootClassPathProp = System.getProperty("sun.boot.class.path");
-        final String extDirs = System.getProperty("java.ext.dirs");
-        // System.out.println("java.version = " + System.getProperty("java.version"));
-        // System.out.println("java.class.path = " + classPathProp);
-        // System.out.println("sun.boot.class.path=" + bootClassPathProp);
-```
-
-### CommentedOutCode
-Commented out code (22 lines)
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-                }
-            }
-//            else if (c == null) { // entries may be null
-//                // nothing to do
-//            } else if (c instanceof ConstantInteger) {
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-        final ConstantUtf8 cu8 = (ConstantUtf8) getConstantPool().getConstant(valueIdx);
-        return cu8.getBytes();
-        // ConstantString cu8 =
-        // (ConstantString)getConstantPool().getConstant(valueIdx);
-        // return
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-    public String getEnumValueString() {
-        return ((ConstantUtf8) getConstantPool().getConstant(valueIdx)).getBytes();
-        // ConstantString cu8 =
-        // (ConstantString)getConstantPool().getConstant(valueIdx);
-        // return
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-    // here?
-    public String getEnumTypeString() {
-        // Constant cc = getConstantPool().getConstant(typeIdx);
-        // ConstantClass cu8 =
-        // (ConstantClass)getConstantPool().getConstant(typeIdx);
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
-#### Snippet
-```java
-        stack.push(bm);
-        bm.accept(visitor);
-        // BootstrapMethod[] bms = bm.getBootstrapMethods();
-        // for (int i = 0; i < bms.length; i++)
-        // {
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-            constraintViolated(o, "The 'objectref' is not of a ReferenceType or of ReturnaddressType but of " + stack().peek() + ".");
-        }
-        // if (stack().peek() instanceof ReferenceType) {
-        // referenceTypeIsInitialized(o, (ReferenceType) (stack().peek()) );
-        // }
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-            // TODO: This can only be checked if using Staerk-et-al's "set of object types" instead of a
-            // "wider cast object type" created during verification.
-            // if (! (objectref.isAssignmentCompatibleWith(mg.getType())) ) {
-            // constraintViolated(o, "Type on stack top which should be returned is a '"+stack().peek()+
-            // "' which is not assignment compatible with the return type of this method, '"+mg.getType()+"'.");
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-        // It cannot be done using Staerk-et-al's "set of object types" instead of a
-        // "wider cast object type", anyway.
-        // if (! objectref.isAssignmentCompatibleWith(mg.getReturnType() )) {
-        // constraintViolated(o, "The 'objectref' type "+objectref+
-        // " at the stack top is not assignment compatible with the return type '"+mg.getReturnType()+"' of the method.");
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-                    + "'; Instruction expects a ReferenceType or a ReturnadressType.");
-            }
-            // if (stacktop instanceof ReferenceType) {
-            // referenceTypeIsInitialized(o, (ReferenceType) stacktop);
-            // }
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-                    // TODO: This can only be checked when using Staerk-et-al's "set of object types"
-                    // instead of a "wider cast object type" created during verification.
-                    // if ( ! rFromStack.isAssignmentCompatibleWith(rFromDesc) ) {
-                    // constraintViolated(o, "Expecting a '"+fromDesc+"' but found a '"+fromStack+
-                    // "' on the stack (which is not assignment compatible).");
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-        // TODO: This can only be checked if we're using Staerk-et-al's "set of object types"
-        // instead of "wider cast object types" generated during verification.
-        // if ( ! Repository.implementationOf(objref_classname, theInterface) ) {
-        // constraintViolated(o, "The 'objref' item '"+objref+"' does not implement '"+theInterface+"' as expected.");
-        // }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-    public void setFrame(final Frame f) { // TODO could be package-protected?
-        this.frame = f;
-        // if (singleInstance.mg == null || singleInstance.cpg == null)
-        // throw new AssertionViolatedException("Forgot to set important values first.");
-    }
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-                    // Argh. Sun's implementation allows us to have multiple fields of
-                    // the same name but with a different signature.
-                    // if (! f_type.equals(o_type)) {
-                    // constraintViolated(o,
-                    // "Referenced field '"+field_name+"' has type '"+f_type+"' instead of '"+o_type+"' as expected.");
-```
-
-### CommentedOutCode
-Commented out code (19 lines)
-in `src/main/java/org/apache/bcel/util/InstructionFinder.java`
-#### Snippet
-```java
-     * Internal debugging routines.
      */
-//    private static final String pattern2string( String pattern ) {
-//        return pattern2string(pattern, true);
-//    }
+    public Enumeration<URL> getResources(final String name) {
+        final Vector<URL> results = new Vector<>();
+        for (final AbstractPathEntry path : paths) {
+            URL url;
 ```
 
-## RuleId[id=ObsoleteCollection]
+### ObsoleteCollection
+Obsolete collection type `Vector<>` used
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+     */
+    public Enumeration<URL> getResources(final String name) {
+        final Vector<URL> results = new Vector<>();
+        for (final AbstractPathEntry path : paths) {
+            URL url;
+```
+
 ### ObsoleteCollection
 Obsolete collection type `Hashtable` used
 in `src/main/java/org/apache/bcel/generic/MethodGen.java`
@@ -688,30 +711,6 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Vector` used
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-     */
-    public Enumeration<URL> getResources(final String name) {
-        final Vector<URL> results = new Vector<>();
-        for (final AbstractPathEntry path : paths) {
-            URL url;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Vector<>` used
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-     */
-    public Enumeration<URL> getResources(final String name) {
-        final Vector<URL> results = new Vector<>();
-        for (final AbstractPathEntry path : paths) {
-            URL url;
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack` used
 in `src/main/java/org/apache/bcel/util/ClassStack.java`
 #### Snippet
@@ -740,11 +739,11 @@ Obsolete collection type `Vector<>` used
 in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
 #### Snippet
 ```java
-        // The following two fields together represent the queue.
-        /** The first elements from pairs in the queue. */
         private final List<InstructionContext> ics = new Vector<>();
         /** The second elements from pairs in the queue. */
         private final List<ArrayList<InstructionContext>> ecs = new Vector<>();
+
+        /**
 ```
 
 ### ObsoleteCollection
@@ -752,11 +751,11 @@ Obsolete collection type `Vector<>` used
 in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
 #### Snippet
 ```java
+        // The following two fields together represent the queue.
+        /** The first elements from pairs in the queue. */
         private final List<InstructionContext> ics = new Vector<>();
         /** The second elements from pairs in the queue. */
         private final List<ArrayList<InstructionContext>> ecs = new Vector<>();
-
-        /**
 ```
 
 ### ObsoleteCollection
@@ -986,18 +985,6 @@ in `src/main/java/org/apache/bcel/classfile/ElementValuePair.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/org/apache/bcel/util/CodeHTML.java`
-#### Snippet
-```java
-                        anchor2 = "<A NAME=code" + methodNumber + "@" + code.length + ">" + offset + "</A>";
-                    } else {
-                        anchor2 = "" + offset;
-                    }
-                    printWriter.println("<TR VALIGN=TOP><TD>" + anchor2 + "</TD><TD>" + anchor + str + "</TR>");
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
 #### Snippet
 ```java
@@ -1018,6 +1005,18 @@ in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
                 t = "" + index;
             }
         }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/apache/bcel/util/CodeHTML.java`
+#### Snippet
+```java
+                        anchor2 = "<A NAME=code" + methodNumber + "@" + code.length + ">" + offset + "</A>";
+                    } else {
+                        anchor2 = "" + offset;
+                    }
+                    printWriter.println("<TR VALIGN=TOP><TD>" + anchor2 + "</TD><TD>" + anchor + str + "</TR>");
 ```
 
 ### TrivialStringConcatenation
@@ -1071,6 +1070,18 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
 
 ### BoundedWildcard
 Can generalize to `? super Integer`
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+    }
+
+    private static void wrap(final ThreadLocal<Integer> tl, final int value) {
+        tl.set(Integer.valueOf(value));
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
 in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 #### Snippet
 ```java
@@ -1091,18 +1102,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
         private void getRecursivelyAccessedLocalsIndicesHelper(final Set<Integer> set, final Subroutine[] subs) {
             for (final Subroutine sub : subs) {
                 final int[] lvs = sub.getAccessedLocalsIndices();
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-    }
-
-    private static void wrap(final ThreadLocal<Integer> tl, final int value) {
-        tl.set(Integer.valueOf(value));
-    }
 ```
 
 ### BoundedWildcard
@@ -1193,18 +1192,6 @@ in `src/main/java/org/apache/bcel/verifier/NativeVerifier.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.err.println()' call
-in `src/main/java/org/apache/bcel/generic/Instruction.java`
-#### Snippet
-```java
-                i = (Instruction) clone();
-            } catch (final CloneNotSupportedException e) {
-                System.err.println(e);
-            }
-        }
-```
-
-### ThrowablePrintedToSystemOut
-'Throwable' argument `e` to 'System.err.println()' call
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
@@ -1213,6 +1200,18 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
             System.err.println(e);
         }
         return str;
+```
+
+### ThrowablePrintedToSystemOut
+'Throwable' argument `e` to 'System.err.println()' call
+in `src/main/java/org/apache/bcel/generic/Instruction.java`
+#### Snippet
+```java
+                i = (Instruction) clone();
+            } catch (final CloneNotSupportedException e) {
+                System.err.println(e);
+            }
+        }
 ```
 
 ### ThrowablePrintedToSystemOut
@@ -1302,14 +1301,14 @@ in `src/main/java/org/apache/bcel/util/BCELFactory.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
-                for (final Integer accessedLocal : acc) {
-                    j++;
-                    ret[j] = accessedLocal.intValue();
-                }
-                return ret;
+
+    private static int unwrap(final ThreadLocal<Integer> tl) {
+        return tl.get().intValue();
+    }
+
 ```
 
 ### UnnecessaryUnboxing
@@ -1326,14 +1325,14 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
+in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 #### Snippet
 ```java
-
-    private static int unwrap(final ThreadLocal<Integer> tl) {
-        return tl.get().intValue();
-    }
-
+                for (final Integer accessedLocal : acc) {
+                    j++;
+                    ret[j] = accessedLocal.intValue();
+                }
+                return ret;
 ```
 
 ### UnnecessaryUnboxing
@@ -1354,10 +1353,10 @@ in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
 #### Snippet
 ```java
 
-        // Set the size to 0 or below to skip caching entirely
-        private static final int MAX_ENTRY_SIZE = Integer.getInteger(SYS_PROP_CACHE_MAX_ENTRY_SIZE, 200).intValue();
+        private static final boolean BCEL_STATISTICS = Boolean.getBoolean(SYS_PROP_STATISTICS);
+        private static final int MAX_ENTRIES = Integer.getInteger(SYS_PROP_CACHE_MAX_ENTRIES, 0).intValue();
+        private static final int INITIAL_CAPACITY = (int) (MAX_ENTRIES / 0.75);
 
-        static boolean isEnabled() {
 ```
 
 ### UnnecessaryUnboxing
@@ -1366,10 +1365,10 @@ in `src/main/java/org/apache/bcel/classfile/ConstantUtf8.java`
 #### Snippet
 ```java
 
-        private static final boolean BCEL_STATISTICS = Boolean.getBoolean(SYS_PROP_STATISTICS);
-        private static final int MAX_ENTRIES = Integer.getInteger(SYS_PROP_CACHE_MAX_ENTRIES, 0).intValue();
-        private static final int INITIAL_CAPACITY = (int) (MAX_ENTRIES / 0.75);
+        // Set the size to 0 or below to skip caching entirely
+        private static final int MAX_ENTRY_SIZE = Integer.getInteger(SYS_PROP_CACHE_MAX_ENTRY_SIZE, 200).intValue();
 
+        static boolean isEnabled() {
 ```
 
 ## RuleId[id=ClassNameSameAsAncestorName]
@@ -1399,30 +1398,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/GenericArray.java`
 ```
 
 ### RedundantMethodOverride
-Method `visitGOTO()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
-#### Snippet
-```java
-    /** Symbolically executes the corresponding Java Virtual Machine instruction. */
-    @Override
-    public void visitGOTO(final GOTO o) {
-        // no stack changes.
-    }
-```
-
-### RedundantMethodOverride
-Method `visitGOTO_W()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
-#### Snippet
-```java
-    /** Symbolically executes the corresponding Java Virtual Machine instruction. */
-    @Override
-    public void visitGOTO_W(final GOTO_W o) {
-        // no stack changes.
-    }
-```
-
-### RedundantMethodOverride
 Method `visitRET()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 #### Snippet
@@ -1435,14 +1410,26 @@ in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `visitIINC()` is identical to its super method
+Method `visitNOP()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 #### Snippet
 ```java
     /** Symbolically executes the corresponding Java Virtual Machine instruction. */
     @Override
-    public void visitIINC(final IINC o) {
-        // stack is not changed.
+    public void visitNOP(final NOP o) {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `visitGOTO()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
+#### Snippet
+```java
+    /** Symbolically executes the corresponding Java Virtual Machine instruction. */
+    @Override
+    public void visitGOTO(final GOTO o) {
+        // no stack changes.
     }
 ```
 
@@ -1459,61 +1446,37 @@ in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `visitNOP()` is identical to its super method
+Method `visitIINC()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
 #### Snippet
 ```java
     /** Symbolically executes the corresponding Java Virtual Machine instruction. */
     @Override
-    public void visitNOP(final NOP o) {
+    public void visitIINC(final IINC o) {
+        // stack is not changed.
     }
-
 ```
 
 ### RedundantMethodOverride
-Method `visitModuleProvides()` is identical to its super method
+Method `visitGOTO_W()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/ExecutionVisitor.java`
+#### Snippet
+```java
+    /** Symbolically executes the corresponding Java Virtual Machine instruction. */
+    @Override
+    public void visitGOTO_W(final GOTO_W o) {
+        // no stack changes.
+    }
+```
+
+### RedundantMethodOverride
+Method `visitModuleMainClass()` is identical to its super method
 in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 #### Snippet
 ```java
     /** @since 6.4.0 */
     @Override
-    public void visitModuleProvides(final ModuleProvides obj) {
-    }
-
-```
-
-### RedundantMethodOverride
-Method `visitModulePackages()` is identical to its super method
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-    /** @since 6.4.0 */
-    @Override
-    public void visitModulePackages(final ModulePackages obj) {
-    }
-
-```
-
-### RedundantMethodOverride
-Method `visitNestMembers()` is identical to its super method
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-    /** @since 6.4.0 */
-    @Override
-    public void visitNestMembers(final NestMembers obj) {
-    }
-
-```
-
-### RedundantMethodOverride
-Method `visitModule()` is identical to its super method
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-    /** @since 6.4.0 */
-    @Override
-    public void visitModule(final Module obj) {
+    public void visitModuleMainClass(final ModuleMainClass obj) {
     }
 
 ```
@@ -1526,6 +1489,18 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
      */
     @Override
     public void visitConstantDynamic(final ConstantDynamic obj) {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `visitNestMembers()` is identical to its super method
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+    /** @since 6.4.0 */
+    @Override
+    public void visitNestMembers(final NestMembers obj) {
     }
 
 ```
@@ -1555,6 +1530,18 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 ```
 
 ### RedundantMethodOverride
+Method `visitNestHost()` is identical to its super method
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+    /** @since 6.4.0 */
+    @Override
+    public void visitNestHost(final NestHost obj) {
+    }
+
+```
+
+### RedundantMethodOverride
 Method `visitModuleRequires()` is identical to its super method
 in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 #### Snippet
@@ -1562,6 +1549,30 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
     /** @since 6.4.0 */
     @Override
     public void visitModuleRequires(final ModuleRequires obj) {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `visitModuleProvides()` is identical to its super method
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+    /** @since 6.4.0 */
+    @Override
+    public void visitModuleProvides(final ModuleProvides obj) {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `visitModulePackages()` is identical to its super method
+in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
+#### Snippet
+```java
+    /** @since 6.4.0 */
+    @Override
+    public void visitModulePackages(final ModulePackages obj) {
     }
 
 ```
@@ -1579,123 +1590,15 @@ in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `visitModuleMainClass()` is identical to its super method
+Method `visitModule()` is identical to its super method
 in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
 #### Snippet
 ```java
     /** @since 6.4.0 */
     @Override
-    public void visitModuleMainClass(final ModuleMainClass obj) {
+    public void visitModule(final Module obj) {
     }
 
-```
-
-### RedundantMethodOverride
-Method `visitNestHost()` is identical to its super method
-in `src/main/java/org/apache/bcel/classfile/EmptyVisitor.java`
-#### Snippet
-```java
-    /** @since 6.4.0 */
-    @Override
-    public void visitNestHost(final NestHost obj) {
-    }
-
-```
-
-### RedundantMethodOverride
-Method `visitLocalVariableTable()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-        @Override
-        public void visitLocalVariableTable(final LocalVariableTable obj) {// vmspec2 4.7.9
-            // In JustIce,this check is partially delayed to Pass 3a.
-            // The other part can be found in the visitCode(Code) method.
-```
-
-### RedundantMethodOverride
-Method `visitLocalVariable()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-        //////////
-        @Override
-        public void visitLocalVariable(final LocalVariable obj) {
-            // This does not represent an Attribute but is only
-            // related to internal BCEL data representation.
-```
-
-### RedundantMethodOverride
-Method `visitCodeException()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-        @Override
-        public void visitCodeException(final CodeException obj) {
-            // Code constraints are checked in Pass3 (3a and 3b).
-            // This does not represent an Attribute but is only
-```
-
-### RedundantMethodOverride
-Method `visitLineNumber()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-        @Override
-        public void visitLineNumber(final LineNumber obj) {
-            // This does not represent an Attribute but is only
-            // related to internal BCEL data representation.
-```
-
-### RedundantMethodOverride
-Method `visitInnerClass()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-        @Override
-        public void visitInnerClass(final InnerClass obj) {
-            // This does not represent an Attribute but is only
-            // related to internal BCEL data representation.
-```
-
-### RedundantMethodOverride
-Method `visitConstantPool()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-
-        @Override
-        public void visitConstantPool(final ConstantPool obj) {
-            // No need to. We're piggybacked by the DescendingVisitor.
-            // This does not represent an Attribute but is only
-```
-
-### RedundantMethodOverride
-Method `visitFSTORE()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitFSTORE(final FSTORE o) {
-        // visitStoreInstruction(StoreInstruction) is called before.
-
-```
-
-### RedundantMethodOverride
-Method `visitILOAD()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitILOAD(final ILOAD o) {
-        // All done by visitLocalVariableInstruction(), visitLoadInstruction()
-    }
 ```
 
 ### RedundantMethodOverride
@@ -1711,63 +1614,27 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantMethodOverride
-Method `visitSIPUSH()` is identical to its super method
+Method `visitLSTORE()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitSIPUSH(final SIPUSH o) {
-        // nothing to do here. Generic visitXXX() methods did the trick before.
-    }
-```
-
-### RedundantMethodOverride
-Method `visitNOP()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitNOP(final NOP o) {
-        // nothing is to be done here.
-    }
-```
-
-### RedundantMethodOverride
-Method `visitDLOAD()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitDLOAD(final DLOAD o) {
-        // visitLoadInstruction(LoadInstruction) is called before.
+    public void visitLSTORE(final LSTORE o) {
+        // visitStoreInstruction(StoreInstruction) is called before.
 
 ```
 
 ### RedundantMethodOverride
-Method `visitICONST()` is identical to its super method
+Method `visitJSR_W()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitICONST(final ICONST o) {
+    public void visitJSR_W(final JSR_W o) {
         // nothing to do here.
     }
-```
-
-### RedundantMethodOverride
-Method `visitFLOAD()` is identical to its super method
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void visitFLOAD(final FLOAD o) {
-        // visitLoadInstruction(LoadInstruction) is called before.
-
 ```
 
 ### RedundantMethodOverride
@@ -1783,62 +1650,62 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantMethodOverride
-Method `visitDCONST()` is identical to its super method
+Method `visitILOAD()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitDCONST(final DCONST o) {
-        // There's nothing to be done here.
+    public void visitILOAD(final ILOAD o) {
+        // All done by visitLocalVariableInstruction(), visitLoadInstruction()
     }
 ```
 
 ### RedundantMethodOverride
-Method `visitGOTO_W()` is identical to its super method
+Method `visitICONST()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitGOTO_W(final GOTO_W o) {
+    public void visitICONST(final ICONST o) {
         // nothing to do here.
     }
 ```
 
 ### RedundantMethodOverride
-Method `visitLSTORE()` is identical to its super method
+Method `visitSIPUSH()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitLSTORE(final LSTORE o) {
-        // visitStoreInstruction(StoreInstruction) is called before.
-
+    public void visitSIPUSH(final SIPUSH o) {
+        // nothing to do here. Generic visitXXX() methods did the trick before.
+    }
 ```
 
 ### RedundantMethodOverride
-Method `visitDSTORE()` is identical to its super method
+Method `visitJSR()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitDSTORE(final DSTORE o) {
-        // visitStoreInstruction(StoreInstruction) is called before.
-
+    public void visitJSR(final JSR o) {
+        // nothing to do here.
+    }
 ```
 
 ### RedundantMethodOverride
-Method `visitLLOAD()` is identical to its super method
+Method `visitFSTORE()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitLLOAD(final LLOAD o) {
-        // visitLoadInstruction(LoadInstruction) is called before.
+    public void visitFSTORE(final FSTORE o) {
+        // visitStoreInstruction(StoreInstruction) is called before.
 
 ```
 
@@ -1867,26 +1734,38 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantMethodOverride
-Method `visitJSR()` is identical to its super method
+Method `visitGOTO_W()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitJSR(final JSR o) {
+    public void visitGOTO_W(final GOTO_W o) {
         // nothing to do here.
     }
 ```
 
 ### RedundantMethodOverride
-Method `visitACONST_NULL()` is identical to its super method
+Method `visitFLOAD()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitACONST_NULL(final ACONST_NULL o) {
-        // Nothing needs to be done here.
+    public void visitFLOAD(final FLOAD o) {
+        // visitLoadInstruction(LoadInstruction) is called before.
+
+```
+
+### RedundantMethodOverride
+Method `visitDCONST()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitDCONST(final DCONST o) {
+        // There's nothing to be done here.
     }
 ```
 
@@ -1903,6 +1782,18 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantMethodOverride
+Method `visitDSTORE()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitDSTORE(final DSTORE o) {
+        // visitStoreInstruction(StoreInstruction) is called before.
+
+```
+
+### RedundantMethodOverride
 Method `visitGOTO()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
@@ -1911,6 +1802,18 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
     @Override
     public void visitGOTO(final GOTO o) {
         // nothing to do here.
+    }
+```
+
+### RedundantMethodOverride
+Method `visitBIPUSH()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitBIPUSH(final BIPUSH o) {
+        // Nothing to do...
     }
 ```
 
@@ -1927,27 +1830,123 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### RedundantMethodOverride
-Method `visitJSR_W()` is identical to its super method
+Method `visitACONST_NULL()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitJSR_W(final JSR_W o) {
-        // nothing to do here.
+    public void visitACONST_NULL(final ACONST_NULL o) {
+        // Nothing needs to be done here.
     }
 ```
 
 ### RedundantMethodOverride
-Method `visitBIPUSH()` is identical to its super method
+Method `visitNOP()` is identical to its super method
 in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
 #### Snippet
 ```java
      */
     @Override
-    public void visitBIPUSH(final BIPUSH o) {
-        // Nothing to do...
+    public void visitNOP(final NOP o) {
+        // nothing is to be done here.
     }
+```
+
+### RedundantMethodOverride
+Method `visitDLOAD()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitDLOAD(final DLOAD o) {
+        // visitLoadInstruction(LoadInstruction) is called before.
+
+```
+
+### RedundantMethodOverride
+Method `visitLLOAD()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void visitLLOAD(final LLOAD o) {
+        // visitLoadInstruction(LoadInstruction) is called before.
+
+```
+
+### RedundantMethodOverride
+Method `visitLocalVariableTable()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+        @Override
+        public void visitLocalVariableTable(final LocalVariableTable obj) {// vmspec2 4.7.9
+            // In JustIce,this check is partially delayed to Pass 3a.
+            // The other part can be found in the visitCode(Code) method.
+```
+
+### RedundantMethodOverride
+Method `visitLineNumber()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+        @Override
+        public void visitLineNumber(final LineNumber obj) {
+            // This does not represent an Attribute but is only
+            // related to internal BCEL data representation.
+```
+
+### RedundantMethodOverride
+Method `visitCodeException()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+        @Override
+        public void visitCodeException(final CodeException obj) {
+            // Code constraints are checked in Pass3 (3a and 3b).
+            // This does not represent an Attribute but is only
+```
+
+### RedundantMethodOverride
+Method `visitInnerClass()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+        @Override
+        public void visitInnerClass(final InnerClass obj) {
+            // This does not represent an Attribute but is only
+            // related to internal BCEL data representation.
+```
+
+### RedundantMethodOverride
+Method `visitConstantPool()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+
+        @Override
+        public void visitConstantPool(final ConstantPool obj) {
+            // No need to. We're piggybacked by the DescendingVisitor.
+            // This does not represent an Attribute but is only
+```
+
+### RedundantMethodOverride
+Method `visitLocalVariable()` is identical to its super method
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
+#### Snippet
+```java
+        //////////
+        @Override
+        public void visitLocalVariable(final LocalVariable obj) {
+            // This does not represent an Attribute but is only
+            // related to internal BCEL data representation.
 ```
 
 ### RedundantMethodOverride
@@ -1977,109 +1976,13 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPGT.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
+in `src/main/java/org/apache/bcel/generic/TABLESWITCH.java`
 #### Snippet
 ```java
-        setPosition(getPosition() + offset); // Position may be shifted by preceding expansions
-        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
-            super.setOpcode(org.apache.bcel.Const.JSR_W);
-            final short oldLength = (short) super.getLength();
-            super.setLength(5);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
-            super.setOpcode(org.apache.bcel.Const.JSR_W);
-            final short oldLength = (short) super.getLength();
-            super.setLength(5);
-            return super.getLength() - oldLength;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-            super.setOpcode(org.apache.bcel.Const.JSR_W);
-            final short oldLength = (short) super.getLength();
-            super.setLength(5);
-            return super.getLength() - oldLength;
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-            final short oldLength = (short) super.getLength();
-            super.setLength(5);
-            return super.getLength() - oldLength;
-        }
-        return 0;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
-            super.dump(out);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
-            super.dump(out);
-        } else { // JSR_W
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-            super.dump(out);
-        } else { // JSR_W
-            super.setIndex(getTargetOffset());
-            out.writeByte(super.getOpcode());
-            out.writeInt(super.getIndex());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-        } else { // JSR_W
-            super.setIndex(getTargetOffset());
-            out.writeByte(super.getOpcode());
-            out.writeInt(super.getIndex());
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR.java`
-#### Snippet
-```java
-            super.setIndex(getTargetOffset());
-            out.writeByte(super.getOpcode());
-            out.writeInt(super.getIndex());
-        }
+        /* Alignment remainder assumed 0 here, until dump time */
+        final short length = (short) (13 + getMatchLength() * 4);
+        super.setLength(length);
+        setFixedLength(length);
     }
 ```
 
@@ -2205,18 +2108,6 @@ in `src/main/java/org/apache/bcel/generic/TABLESWITCH.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/TABLESWITCH.java`
-#### Snippet
-```java
-        /* Alignment remainder assumed 0 here, until dump time */
-        final short length = (short) (13 + getMatchLength() * 4);
-        super.setLength(length);
-        setFixedLength(length);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldInstruction.java`
 #### Snippet
 ```java
@@ -2237,6 +2128,114 @@ in `src/main/java/org/apache/bcel/generic/FieldInstruction.java`
         return org.apache.bcel.Const.getOpcodeName(super.getOpcode()) + " " + cp.constantToString(super.getIndex(), org.apache.bcel.Const.CONSTANT_Fieldref);
     }
 }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
+            super.dump(out);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
+            super.dump(out);
+        } else { // JSR_W
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+            super.dump(out);
+        } else { // JSR_W
+            super.setIndex(getTargetOffset());
+            out.writeByte(super.getOpcode());
+            out.writeInt(super.getIndex());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+        } else { // JSR_W
+            super.setIndex(getTargetOffset());
+            out.writeByte(super.getOpcode());
+            out.writeInt(super.getIndex());
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+            super.setIndex(getTargetOffset());
+            out.writeByte(super.getOpcode());
+            out.writeInt(super.getIndex());
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+        setPosition(getPosition() + offset); // Position may be shifted by preceding expansions
+        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
+            super.setOpcode(org.apache.bcel.Const.JSR_W);
+            final short oldLength = (short) super.getLength();
+            super.setLength(5);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
+            super.setOpcode(org.apache.bcel.Const.JSR_W);
+            final short oldLength = (short) super.getLength();
+            super.setLength(5);
+            return super.getLength() - oldLength;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+            super.setOpcode(org.apache.bcel.Const.JSR_W);
+            final short oldLength = (short) super.getLength();
+            super.setLength(5);
+            return super.getLength() - oldLength;
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR.java`
+#### Snippet
+```java
+            final short oldLength = (short) super.getLength();
+            super.setLength(5);
+            return super.getLength() - oldLength;
+        }
+        return 0;
 ```
 
 ### UnnecessarySuperQualifier
@@ -2277,30 +2276,6 @@ in `src/main/java/org/apache/bcel/generic/IFGT.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/SIPUSH.java`
-#### Snippet
-```java
-    @Override
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.setLength(3);
-        b = bytes.readShort();
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantClass.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream file) throws IOException {
-        file.writeByte(super.getTag());
-        file.writeShort(nameIndex);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/ExceptionTable.java`
 #### Snippet
 ```java
@@ -2321,6 +2296,30 @@ in `src/main/java/org/apache/bcel/classfile/ExceptionTable.java`
             str = super.getConstantPool().getConstantString(exceptionIndexTable[i], Const.CONSTANT_Class);
             buf.append(Utility.compactClassName(str, false));
             if (i < exceptionIndexTable.length - 1) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/SIPUSH.java`
+#### Snippet
+```java
+    @Override
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.setLength(3);
+        b = bytes.readShort();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ConstantClass.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream file) throws IOException {
+        file.writeByte(super.getTag());
+        file.writeShort(nameIndex);
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -2376,18 +2375,6 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/EnumElementValue.java`
 #### Snippet
 ```java
-
-    public String getEnumValueString() {
-        return super.getConstantPool().getConstantUtf8(valueIdx).getBytes();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/EnumElementValue.java`
-#### Snippet
-```java
     @Override
     public void dump(final DataOutputStream dos) throws IOException {
         dos.writeByte(super.getType()); // u1 type of value (ENUM_CONSTANT == 'e')
@@ -2421,12 +2408,144 @@ in `src/main/java/org/apache/bcel/classfile/EnumElementValue.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+in `src/main/java/org/apache/bcel/classfile/EnumElementValue.java`
+#### Snippet
+```java
+
+    public String getEnumValueString() {
+        return super.getConstantPool().getConstantUtf8(valueIdx).getBytes();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ConstantLong.java`
 #### Snippet
 ```java
     @Override
-    public String getSignature() {
-        return super.getType().getSignature();
+    public void dump(final DataOutputStream file) throws IOException {
+        file.writeByte(super.getTag());
+        file.writeLong(bytes);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+
+    private void checkType(final Type atype) {
+        final Type superType = super.getType();
+        if (superType == null) {
+            throw new ClassGenException("You haven't defined the type of the field yet");
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+    public Field getField() {
+        final String signature = getSignature();
+        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
+        final int signatureIndex = super.getConstantPool().addUtf8(signature);
+        if (value != null) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+    public Field getField() {
+        final String signature = getSignature();
+        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
+        final int signatureIndex = super.getConstantPool().addUtf8(signature);
+        if (value != null) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        final String signature = getSignature();
+        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
+        final int signatureIndex = super.getConstantPool().addUtf8(signature);
+        if (value != null) {
+            checkType(super.getType());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        final int signatureIndex = super.getConstantPool().addUtf8(signature);
+        if (value != null) {
+            checkType(super.getType());
+            final int index = addConstant();
+            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+            checkType(super.getType());
+            final int index = addConstant();
+            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
+        }
+        addAnnotationsAsAttribute(super.getConstantPool());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+            checkType(super.getType());
+            final int index = addConstant();
+            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
+        }
+        addAnnotationsAsAttribute(super.getConstantPool());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
+        }
+        addAnnotationsAsAttribute(super.getConstantPool());
+        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        }
+        addAnnotationsAsAttribute(super.getConstantPool());
+        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        }
+        addAnnotationsAsAttribute(super.getConstantPool());
+        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
     }
 
 ```
@@ -2448,131 +2567,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
-        String signature;
-        String access; // Short cuts to constant pool
-        access = Utility.accessToString(super.getAccessFlags());
-        access = access.isEmpty() ? "" : access + " ";
-        signature = super.getType().toString();
-```
 
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        access = Utility.accessToString(super.getAccessFlags());
-        access = access.isEmpty() ? "" : access + " ";
-        signature = super.getType().toString();
-        name = getName();
-        final StringBuilder buf = new StringBuilder(32); // CHECKSTYLE IGNORE MagicNumber
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-    public Field getField() {
-        final String signature = getSignature();
-        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
-        final int signatureIndex = super.getConstantPool().addUtf8(signature);
-        if (value != null) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-    public Field getField() {
-        final String signature = getSignature();
-        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
-        final int signatureIndex = super.getConstantPool().addUtf8(signature);
-        if (value != null) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        final String signature = getSignature();
-        final int nameIndex = super.getConstantPool().addUtf8(super.getName());
-        final int signatureIndex = super.getConstantPool().addUtf8(signature);
-        if (value != null) {
-            checkType(super.getType());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        final int signatureIndex = super.getConstantPool().addUtf8(signature);
-        if (value != null) {
-            checkType(super.getType());
-            final int index = addConstant();
-            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-            checkType(super.getType());
-            final int index = addConstant();
-            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
-        }
-        addAnnotationsAsAttribute(super.getConstantPool());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-            checkType(super.getType());
-            final int index = addConstant();
-            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
-        }
-        addAnnotationsAsAttribute(super.getConstantPool());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-            addAttribute(new ConstantValue(super.getConstantPool().addUtf8("ConstantValue"), 2, index, super.getConstantPool().getConstantPool())); // sic
-        }
-        addAnnotationsAsAttribute(super.getConstantPool());
-        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        }
-        addAnnotationsAsAttribute(super.getConstantPool());
-        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        }
-        addAnnotationsAsAttribute(super.getConstantPool());
-        return new Field(super.getAccessFlags(), nameIndex, signatureIndex, getAttributes(), super.getConstantPool().getConstantPool()); // sic
-    }
-
+    private void setValue(final int index) {
+        final ConstantPool cp = super.getConstantPool().getConstantPool();
+        final Constant c = cp.getConstant(index);
+        value = ((ConstantObject) c).getConstantValue(cp);
 ```
 
 ### UnnecessarySuperQualifier
@@ -2649,18 +2648,6 @@ in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantLong.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream file) throws IOException {
-        file.writeByte(super.getTag());
-        file.writeLong(bytes);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
@@ -2676,11 +2663,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
+    @Override
+    public String getSignature() {
+        return super.getType().getSignature();
+    }
 
-    private void setValue(final int index) {
-        final ConstantPool cp = super.getConstantPool().getConstantPool();
-        final Constant c = cp.getConstant(index);
-        value = ((ConstantObject) c).getConstantValue(cp);
 ```
 
 ### UnnecessarySuperQualifier
@@ -2688,179 +2675,23 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
-
-    private void checkType(final Type atype) {
-        final Type superType = super.getType();
-        if (superType == null) {
-            throw new ClassGenException("You haven't defined the type of the field yet");
+        String signature;
+        String access; // Short cuts to constant pool
+        access = Utility.accessToString(super.getAccessFlags());
+        access = access.isEmpty() ? "" : access + " ";
+        signature = super.getType().toString();
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
-    @Override
-    public String stringifyValue() {
-        final ConstantPool cpool = super.getConstantPool();
-        final int type = super.getType();
-        switch (type) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-    public String stringifyValue() {
-        final ConstantPool cpool = super.getConstantPool();
-        final int type = super.getType();
-        switch (type) {
-        case PRIMITIVE_INT:
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public short getValueShort() {
-        if (super.getType() != PRIMITIVE_SHORT) {
-            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
-        }
-        final ConstantInteger s = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
-        return (short) s.getBytes();
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public int getValueInt() {
-        if (super.getType() != PRIMITIVE_INT) {
-            throw new IllegalStateException("Don't call getValueInt() on a non INT ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueInt() on a non INT ElementValue");
-        }
-        return super.getConstantPool().getConstantInteger(getIndex()).getBytes();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public float getValueFloat() {
-        if (super.getType() != PRIMITIVE_FLOAT) {
-            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
-        }
-        final ConstantFloat f = (ConstantFloat) super.getConstantPool().getConstant(getIndex());
-        return f.getBytes();
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public char getValueChar() {
-        if (super.getType() != PRIMITIVE_CHAR) {
-            throw new IllegalStateException("Don't call getValueChar() on a non CHAR ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueChar() on a non CHAR ElementValue");
-        }
-        return (char) super.getConstantPool().getConstantInteger(getIndex()).getBytes();
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public long getValueLong() {
-        if (super.getType() != PRIMITIVE_LONG) {
-            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
-        }
-        final ConstantLong j = (ConstantLong) super.getConstantPool().getConstant(getIndex());
-        return j.getBytes();
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-
-    public boolean getValueBoolean() {
-        if (super.getType() != PRIMITIVE_BOOLEAN) {
-            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
-#### Snippet
-```java
-            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
-        }
-        final ConstantInteger bo = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
-        return bo.getBytes() != 0;
-    }
+        access = Utility.accessToString(super.getAccessFlags());
+        access = access.isEmpty() ? "" : access + " ";
+        signature = super.getType().toString();
+        name = getName();
+        final StringBuilder buf = new StringBuilder(32); // CHECKSTYLE IGNORE MagicNumber
 ```
 
 ### UnnecessarySuperQualifier
@@ -2897,6 +2728,126 @@ in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
         return super.getConstantPool().getConstantUtf8(getIndex()).getBytes();
     }
 
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public float getValueFloat() {
+        if (super.getType() != PRIMITIVE_FLOAT) {
+            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueFloat() on a non FLOAT ElementValue");
+        }
+        final ConstantFloat f = (ConstantFloat) super.getConstantPool().getConstant(getIndex());
+        return f.getBytes();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public int getValueInt() {
+        if (super.getType() != PRIMITIVE_INT) {
+            throw new IllegalStateException("Don't call getValueInt() on a non INT ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueInt() on a non INT ElementValue");
+        }
+        return super.getConstantPool().getConstantInteger(getIndex()).getBytes();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+    @Override
+    public String stringifyValue() {
+        final ConstantPool cpool = super.getConstantPool();
+        final int type = super.getType();
+        switch (type) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+    public String stringifyValue() {
+        final ConstantPool cpool = super.getConstantPool();
+        final int type = super.getType();
+        switch (type) {
+        case PRIMITIVE_INT:
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public long getValueLong() {
+        if (super.getType() != PRIMITIVE_LONG) {
+            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueLong() on a non LONG ElementValue");
+        }
+        final ConstantLong j = (ConstantLong) super.getConstantPool().getConstant(getIndex());
+        return j.getBytes();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public short getValueShort() {
+        if (super.getType() != PRIMITIVE_SHORT) {
+            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueShort() on a non SHORT ElementValue");
+        }
+        final ConstantInteger s = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
+        return (short) s.getBytes();
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -2949,6 +2900,54 @@ in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public boolean getValueBoolean() {
+        if (super.getType() != PRIMITIVE_BOOLEAN) {
+            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueBoolean() on a non BOOLEAN ElementValue");
+        }
+        final ConstantInteger bo = (ConstantInteger) super.getConstantPool().getConstant(getIndex());
+        return bo.getBytes() != 0;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+
+    public char getValueChar() {
+        if (super.getType() != PRIMITIVE_CHAR) {
+            throw new IllegalStateException("Don't call getValueChar() on a non CHAR ElementValue");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/SimpleElementValue.java`
+#### Snippet
+```java
+            throw new IllegalStateException("Don't call getValueChar() on a non CHAR ElementValue");
+        }
+        return (char) super.getConstantPool().getConstantInteger(getIndex()).getBytes();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/Module.java`
 #### Snippet
 ```java
@@ -2957,30 +2956,6 @@ in `src/main/java/org/apache/bcel/classfile/Module.java`
         final ConstantPool cp = super.getConstantPool();
         final StringBuilder buf = new StringBuilder();
         buf.append("Module:\n");
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantInteger.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream file) throws IOException {
-        file.writeByte(super.getTag());
-        file.writeInt(bytes);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ClassElementValue.java`
-#### Snippet
-```java
-
-    public String getClassString() {
-        return super.getConstantPool().getConstantUtf8(idx).getBytes();
-    }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -3009,14 +2984,38 @@ in `src/main/java/org/apache/bcel/classfile/ClassElementValue.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ArrayElementValue.java`
+in `src/main/java/org/apache/bcel/classfile/ClassElementValue.java`
+#### Snippet
+```java
+
+    public String getClassString() {
+        return super.getConstantPool().getConstantUtf8(idx).getBytes();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ConstantInteger.java`
 #### Snippet
 ```java
     @Override
-    public void dump(final DataOutputStream dos) throws IOException {
-        dos.writeByte(super.getType()); // u1 type of value (ARRAY == '[')
-        dos.writeShort(elementValues.length);
-        for (final ElementValue evalue : elementValues) {
+    public void dump(final DataOutputStream file) throws IOException {
+        file.writeByte(super.getTag());
+        file.writeInt(bytes);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
+#### Snippet
+```java
+
+    public int getValueInt() {
+        if (super.getElementValueType() != PRIMITIVE_INT) {
+            throw new IllegalStateException("Don't call getValueString() on a non STRING ElementValue");
+        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -3041,18 +3040,6 @@ in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
             throw new IllegalStateException("SimpleElementValueGen class does not know how to stringify type " + super.getElementValueType());
         }
     }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
-#### Snippet
-```java
-
-    public int getValueInt() {
-        if (super.getElementValueType() != PRIMITIVE_INT) {
-            throw new IllegalStateException("Don't call getValueString() on a non STRING ElementValue");
-        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -3129,26 +3116,14 @@ in `src/main/java/org/apache/bcel/generic/SimpleElementValueGen.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEINTERFACE.java`
+in `src/main/java/org/apache/bcel/classfile/ArrayElementValue.java`
 #### Snippet
 ```java
-    public INVOKEINTERFACE(final int index, final int nargs) {
-        super(Const.INVOKEINTERFACE, index);
-        super.setLength(5);
-        if (nargs < 1) {
-            throw new ClassGenException("Number of arguments must be > 0 " + nargs);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEINTERFACE.java`
-#### Snippet
-```java
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.initFromFile(bytes, wide);
-        super.setLength(5);
-        nargs = bytes.readUnsignedByte();
-        bytes.readByte(); // Skip 0 byte
+    @Override
+    public void dump(final DataOutputStream dos) throws IOException {
+        dos.writeByte(super.getType()); // u1 type of value (ARRAY == '[')
+        dos.writeShort(elementValues.length);
+        for (final ElementValue evalue : elementValues) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -3173,6 +3148,30 @@ in `src/main/java/org/apache/bcel/generic/INVOKEINTERFACE.java`
         out.writeShort(super.getIndex());
         out.writeByte(nargs);
         out.writeByte(0);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEINTERFACE.java`
+#### Snippet
+```java
+    public INVOKEINTERFACE(final int index, final int nargs) {
+        super(Const.INVOKEINTERFACE, index);
+        super.setLength(5);
+        if (nargs < 1) {
+            throw new ClassGenException("Number of arguments must be > 0 " + nargs);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEINTERFACE.java`
+#### Snippet
+```java
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.initFromFile(bytes, wide);
+        super.setLength(5);
+        nargs = bytes.readUnsignedByte();
+        bytes.readByte(); // Skip 0 byte
 ```
 
 ### UnnecessarySuperQualifier
@@ -3213,18 +3212,6 @@ in `src/main/java/org/apache/bcel/classfile/ConstantNameAndType.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/InnerClasses.java`
-#### Snippet
-```java
-        buf.append("):\n");
-        for (final InnerClass innerClass : innerClasses) {
-            buf.append(innerClass.toString(super.getConstantPool())).append("\n");
-        }
-        return buf.substring(0, buf.length() - 1); // remove the last newline
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/ConstantValue.java`
 #### Snippet
 ```java
@@ -3245,6 +3232,18 @@ in `src/main/java/org/apache/bcel/classfile/ConstantValue.java`
             c = super.getConstantPool().getConstantUtf8(i);
             buf = "\"" + Utility.convertString(((ConstantUtf8) c).getBytes()) + "\"";
             break;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/InnerClasses.java`
+#### Snippet
+```java
+        buf.append("):\n");
+        for (final InnerClass innerClass : innerClasses) {
+            buf.append(innerClass.toString(super.getConstantPool())).append("\n");
+        }
+        return buf.substring(0, buf.length() - 1); // remove the last newline
 ```
 
 ### UnnecessarySuperQualifier
@@ -3348,6 +3347,30 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/LDC.java`
 #### Snippet
 ```java
+
+    public Object getValue(final ConstantPoolGen cpg) {
+        org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(super.getIndex());
+        switch (c.getTag()) {
+        case org.apache.bcel.Const.CONSTANT_String:
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC.java`
+#### Snippet
+```java
+            return Type.getType(((org.apache.bcel.classfile.ConstantUtf8) c).getBytes());
+        default: // Never reached
+            throw new IllegalArgumentException("Unknown or invalid constant type at " + super.getIndex());
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC.java`
+#### Snippet
+```java
     // Adjust to proper size
     protected final void setSize() {
         if (super.getIndex() <= org.apache.bcel.Const.MAX_BYTE) { // Fits in one byte?
@@ -3405,30 +3428,6 @@ in `src/main/java/org/apache/bcel/generic/LDC.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC.java`
-#### Snippet
-```java
-
-    public Object getValue(final ConstantPoolGen cpg) {
-        org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(super.getIndex());
-        switch (c.getTag()) {
-        case org.apache.bcel.Const.CONSTANT_String:
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC.java`
-#### Snippet
-```java
-            return Type.getType(((org.apache.bcel.classfile.ConstantUtf8) c).getBytes());
-        default: // Never reached
-            throw new IllegalArgumentException("Unknown or invalid constant type at " + super.getIndex());
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/ConstantPackage.java`
 #### Snippet
 ```java
@@ -3453,14 +3452,14 @@ in `src/main/java/org/apache/bcel/generic/BasicType.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ModulePackages.java`
+in `src/main/java/org/apache/bcel/classfile/ConstantMethodHandle.java`
 #### Snippet
 ```java
-        buf.append("):\n");
-        for (final int index : packageIndexTable) {
-            final String packageName = super.getConstantPool().getConstantString(index, Const.CONSTANT_Package);
-            buf.append("  ").append(Utility.compactClassName(packageName, false)).append("\n");
-        }
+    @Override
+    public void dump(final DataOutputStream file) throws IOException {
+        file.writeByte(super.getTag());
+        file.writeByte(referenceKind);
+        file.writeShort(referenceIndex);
 ```
 
 ### UnnecessarySuperQualifier
@@ -3477,6 +3476,18 @@ in `src/main/java/org/apache/bcel/classfile/ModulePackages.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ModulePackages.java`
+#### Snippet
+```java
+        buf.append("):\n");
+        for (final int index : packageIndexTable) {
+            final String packageName = super.getConstantPool().getConstantString(index, Const.CONSTANT_Package);
+            buf.append("  ").append(Utility.compactClassName(packageName, false)).append("\n");
+        }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/BootstrapMethods.java`
 #### Snippet
 ```java
@@ -3489,18 +3500,6 @@ in `src/main/java/org/apache/bcel/classfile/BootstrapMethods.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantMethodHandle.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream file) throws IOException {
-        file.writeByte(super.getTag());
-        file.writeByte(referenceKind);
-        file.writeShort(referenceIndex);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/SourceFile.java`
 #### Snippet
 ```java
@@ -3509,42 +3508,6 @@ in `src/main/java/org/apache/bcel/classfile/SourceFile.java`
         return super.getConstantPool().getConstantUtf8(sourceFileIndex).getBytes();
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKESPECIAL.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKESPECIAL.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/Method.java`
-#### Snippet
-```java
-     */
-    public Code getCode() {
-        for (final Attribute attribute : super.getAttributes()) {
-            if (attribute instanceof Code) {
-                return (Code) attribute;
 ```
 
 ### UnnecessarySuperQualifier
@@ -3633,12 +3596,60 @@ in `src/main/java/org/apache/bcel/classfile/Method.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/Method.java`
+#### Snippet
+```java
+     */
+    public Code getCode() {
+        for (final Attribute attribute : super.getAttributes()) {
+            if (attribute instanceof Code) {
+                return (Code) attribute;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKESPECIAL.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKESPECIAL.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/IFNE.java`
 #### Snippet
 ```java
     @Override
     public IfInstruction negate() {
         return new IFEQ(super.getTarget());
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IF_ICMPEQ.java`
+#### Snippet
+```java
+    @Override
+    public IfInstruction negate() {
+        return new IF_ICMPNE(super.getTarget());
     }
 }
 ```
@@ -3657,90 +3668,6 @@ in `src/main/java/org/apache/bcel/classfile/ConstantString.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IF_ICMPEQ.java`
-#### Snippet
-```java
-    @Override
-    public IfInstruction negate() {
-        return new IF_ICMPNE(super.getTarget());
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-
-    public final boolean isSuper() {
-        return (super.getAccessFlags() & Const.ACC_SUPER) != 0;
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-        file.writeShort(major);
-        constantPool.dump(file);
-        file.writeShort(super.getAccessFlags());
-        file.writeShort(classNameIndex);
-        file.writeShort(superclassNameIndex);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        String access = Utility.accessToString(super.getAccessFlags(), true);
-        access = access.isEmpty() ? "" : access + " ";
-        final StringBuilder buf = new StringBuilder(128);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-        access = access.isEmpty() ? "" : access + " ";
-        final StringBuilder buf = new StringBuilder(128);
-        buf.append(access).append(Utility.classOrInterface(super.getAccessFlags())).append(" ").append(className).append(" extends ")
-            .append(Utility.compactClassName(superclassName, false)).append('\n');
-        final int size = interfaces.length;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-        buf.append("compiled from\t\t").append(sourceFileName).append('\n');
-        buf.append("compiler version\t").append(major).append(".").append(minor).append('\n');
-        buf.append("access flags\t\t").append(super.getAccessFlags()).append('\n');
-        buf.append("constant pool\t\t").append(constantPool.getLength()).append(" entries\n");
-        buf.append("ACC_SUPER flag\t\t").append(isSuper()).append("\n");
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-
-    public final boolean isClass() {
-        return (super.getAccessFlags() & Const.ACC_INTERFACE) == 0;
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/IFEQ.java`
 #### Snippet
 ```java
@@ -3749,90 +3676,6 @@ in `src/main/java/org/apache/bcel/generic/IFEQ.java`
         return new IFNE(super.getTarget());
     }
 }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JsrInstruction.java`
-#### Snippet
-```java
-     */
-    public InstructionHandle physicalSuccessor() {
-        InstructionHandle ih = super.getTarget();
-        // Rewind!
-        while (ih.getPrev() != null) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-    public IINC(final int n, final int c) {
-        // Default behavior of LocalVariableInstruction causes error
-        super.setOpcode(Const.IINC);
-        super.setLength((short) 3);
-        setIndex(n); // May set wide as side effect
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-        // Default behavior of LocalVariableInstruction causes error
-        super.setOpcode(Const.IINC);
-        super.setLength((short) 3);
-        setIndex(n); // May set wide as side effect
-        setIncrement(c);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-
-    private void setWide() {
-        wide = super.getIndex() > Const.MAX_BYTE;
-        if (c > 0) {
-            wide = wide || c > Byte.MAX_VALUE;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-        }
-        if (wide) {
-            super.setLength(6); // wide byte included
-        } else {
-            super.setLength(3);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-            super.setLength(6); // wide byte included
-        } else {
-            super.setLength(3);
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IINC.java`
-#### Snippet
-```java
-            throw new ClassGenException("Negative index value: " + n);
-        }
-        super.setIndexOnly(n);
-        setWide();
-    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -3888,6 +3731,42 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/IINC.java`
 #### Snippet
 ```java
+
+    private void setWide() {
+        wide = super.getIndex() > Const.MAX_BYTE;
+        if (c > 0) {
+            wide = wide || c > Byte.MAX_VALUE;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
+        }
+        if (wide) {
+            super.setLength(6); // wide byte included
+        } else {
+            super.setLength(3);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
+            super.setLength(6); // wide byte included
+        } else {
+            super.setLength(3);
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
             out.writeByte(Const.WIDE);
         }
         out.writeByte(super.getOpcode());
@@ -3917,6 +3796,54 @@ in `src/main/java/org/apache/bcel/generic/IINC.java`
             out.writeByte(super.getIndex());
             out.writeByte(c);
         }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
+    public IINC(final int n, final int c) {
+        // Default behavior of LocalVariableInstruction causes error
+        super.setOpcode(Const.IINC);
+        super.setLength((short) 3);
+        setIndex(n); // May set wide as side effect
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
+        // Default behavior of LocalVariableInstruction causes error
+        super.setOpcode(Const.IINC);
+        super.setLength((short) 3);
+        setIndex(n); // May set wide as side effect
+        setIncrement(c);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IINC.java`
+#### Snippet
+```java
+            throw new ClassGenException("Negative index value: " + n);
+        }
+        super.setIndexOnly(n);
+        setWide();
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JsrInstruction.java`
+#### Snippet
+```java
+     */
+    public InstructionHandle physicalSuccessor() {
+        InstructionHandle ih = super.getTarget();
+        // Rewind!
+        while (ih.getPrev() != null) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -3969,14 +3896,14 @@ in `src/main/java/org/apache/bcel/classfile/Unknown.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/BIPUSH.java`
+in `src/main/java/org/apache/bcel/generic/AnnotationElementValueGen.java`
 #### Snippet
 ```java
     @Override
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.setLength(2);
-        b = bytes.readByte();
+    public ElementValue getElementValue() {
+        return new AnnotationElementValue(super.getElementValueType(), a.getAnnotation(), getConstantPool().getConstantPool());
     }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -3993,14 +3920,86 @@ in `src/main/java/org/apache/bcel/generic/AnnotationElementValueGen.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/AnnotationElementValueGen.java`
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+        file.writeShort(major);
+        constantPool.dump(file);
+        file.writeShort(super.getAccessFlags());
+        file.writeShort(classNameIndex);
+        file.writeShort(superclassNameIndex);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+
+    public final boolean isSuper() {
+        return (super.getAccessFlags() & Const.ACC_SUPER) != 0;
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+
+    public final boolean isClass() {
+        return (super.getAccessFlags() & Const.ACC_INTERFACE) == 0;
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
     @Override
-    public ElementValue getElementValue() {
-        return new AnnotationElementValue(super.getElementValueType(), a.getAnnotation(), getConstantPool().getConstantPool());
-    }
+    public String toString() {
+        String access = Utility.accessToString(super.getAccessFlags(), true);
+        access = access.isEmpty() ? "" : access + " ";
+        final StringBuilder buf = new StringBuilder(128);
+```
 
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+        access = access.isEmpty() ? "" : access + " ";
+        final StringBuilder buf = new StringBuilder(128);
+        buf.append(access).append(Utility.classOrInterface(super.getAccessFlags())).append(" ").append(className).append(" extends ")
+            .append(Utility.compactClassName(superclassName, false)).append('\n');
+        final int size = interfaces.length;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+        buf.append("compiled from\t\t").append(sourceFileName).append('\n');
+        buf.append("compiler version\t").append(major).append(".").append(minor).append('\n');
+        buf.append("access flags\t\t").append(super.getAccessFlags()).append('\n');
+        buf.append("constant pool\t\t").append(constantPool.getLength()).append(" entries\n");
+        buf.append("ACC_SUPER flag\t\t").append(isSuper()).append("\n");
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/BIPUSH.java`
+#### Snippet
+```java
+    @Override
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.setLength(2);
+        b = bytes.readByte();
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -4020,11 +4019,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/CPInstruction.java`
 #### Snippet
 ```java
-            str = Utility.packageToPath(str);
-        }
-        return org.apache.bcel.Const.getOpcodeName(super.getOpcode()) + " " + str;
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(index);
     }
-}
 ```
 
 ### UnnecessarySuperQualifier
@@ -4032,11 +4031,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/CPInstruction.java`
 #### Snippet
 ```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(index);
+            str = Utility.packageToPath(str);
+        }
+        return org.apache.bcel.Const.getOpcodeName(super.getOpcode()) + " " + str;
     }
+}
 ```
 
 ### UnnecessarySuperQualifier
@@ -4061,78 +4060,6 @@ in `src/main/java/org/apache/bcel/generic/ClassElementValueGen.java`
         return new ClassElementValue(super.getElementValueType(), idx, getConstantPool().getConstantPool());
     }
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-    public GOTO_W(final InstructionHandle target) {
-        super(org.apache.bcel.Const.GOTO_W, target);
-        super.setLength(5);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-    @Override
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.setIndex(bytes.readInt());
-        super.setLength(5);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.setIndex(bytes.readInt());
-        super.setLength(5);
-    }
-}
 ```
 
 ### UnnecessarySuperQualifier
@@ -4164,6 +4091,18 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/RET.java`
 #### Snippet
 ```java
+            out.writeByte(org.apache.bcel.Const.WIDE);
+        }
+        out.writeByte(super.getOpcode());
+        if (wide) {
+            out.writeShort(index);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/RET.java`
+#### Snippet
+```java
         if (wide) {
             index = bytes.readUnsignedShort();
             super.setLength(4);
@@ -4181,30 +4120,6 @@ in `src/main/java/org/apache/bcel/generic/RET.java`
             super.setLength(2);
         }
     }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/RET.java`
-#### Snippet
-```java
-            out.writeByte(org.apache.bcel.Const.WIDE);
-        }
-        out.writeByte(super.getOpcode());
-        if (wide) {
-            out.writeShort(index);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantInvokeDynamic.java`
-#### Snippet
-```java
-     */
-    public int getBootstrapMethodAttrIndex() {
-        return super.getClassIndex(); // AKA bootstrap_method_attr_index
-    }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -4257,6 +4172,90 @@ in `src/main/java/org/apache/bcel/classfile/Deprecated.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ConstantInvokeDynamic.java`
+#### Snippet
+```java
+     */
+    public int getBootstrapMethodAttrIndex() {
+        return super.getClassIndex(); // AKA bootstrap_method_attr_index
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+    @Override
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.setIndex(bytes.readInt());
+        super.setLength(5);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.setIndex(bytes.readInt());
+        super.setLength(5);
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+    public GOTO_W(final InstructionHandle target) {
+        super(org.apache.bcel.Const.GOTO_W, target);
+        super.setLength(5);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
 #### Snippet
 ```java
@@ -4277,162 +4276,6 @@ in `src/main/java/org/apache/bcel/generic/BranchInstruction.java`
         out.writeByte(super.getOpcode());
         index = getTargetOffset();
         if (!isValidShort(index)) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/ArithmeticInstruction.java`
-#### Snippet
-```java
-    @Override
-    public Type getType(final ConstantPoolGen cp) {
-        final short opcode = super.getOpcode();
-        switch (opcode) {
-        case Const.DADD:
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
-#### Snippet
-```java
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        super.initFromFile(bytes, wide);
-        super.setLength(5);
-        bytes.readByte(); // Skip 0 byte
-        bytes.readByte(); // Skip 0 byte
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
-#### Snippet
-```java
-    public String getClassName(final ConstantPoolGen cpg) {
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantInvokeDynamic cid = cp.getConstant(super.getIndex(), Const.CONSTANT_InvokeDynamic, ConstantInvokeDynamic.class);
-        return cp.getConstant(cid.getNameAndTypeIndex(), ConstantNameAndType.class).getName(cp);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
-        out.writeByte(0);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
-        out.writeByte(0);
-        out.writeByte(0);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/ICONST.java`
-#### Snippet
-```java
-            throw new ClassGenException("ICONST can be used only for value between -1 and 5: " + i);
-        }
-        super.setOpcode((short) (org.apache.bcel.Const.ICONST_0 + i)); // Even works for i == -1
-        value = i;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-    @Override
-    public String getSignature() {
-        return Type.getMethodSignature(super.getType(), argTypes);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-    @Override
-    public final String toString() {
-        final String access = Utility.accessToString(super.getAccessFlags());
-        String signature = Type.getMethodSignature(super.getType(), argTypes);
-        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-    public final String toString() {
-        final String access = Utility.accessToString(super.getAccessFlags());
-        String signature = Type.getMethodSignature(super.getType(), argTypes);
-        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
-        final StringBuilder buf = new StringBuilder(signature);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-        final String access = Utility.accessToString(super.getAccessFlags());
-        String signature = Type.getMethodSignature(super.getType(), argTypes);
-        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
-        final StringBuilder buf = new StringBuilder(signature);
-        for (final Attribute a : getAttributes()) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-        final String access = Utility.accessToString(super.getAccessFlags());
-        String signature = Type.getMethodSignature(super.getType(), argTypes);
-        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
-        final StringBuilder buf = new StringBuilder(signature);
-        for (final Attribute a : getAttributes()) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-                final Instruction ins = ih.getInstruction();
-                if (ins instanceof LocalVariableInstruction || ins instanceof RET || ins instanceof IINC) {
-                    final int index = ((IndexedInstruction) ins).getIndex() + ((TypedInstruction) ins).getType(super.getConstantPool()).getSize();
-                    if (index > max) {
-                        max = index;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-
-    private Attribute[] addRuntimeAnnotationsAsAttribute(final ConstantPoolGen cp) {
-        final Attribute[] attrs = AnnotationEntryGen.getAnnotationAttributes(cp, super.getAnnotationEntries());
-        addAll(attrs);
-        return attrs;
 ```
 
 ### UnnecessarySuperQualifier
@@ -4469,6 +4312,30 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
             mg.getInstructionList().replaceConstantPool(super.getConstantPool(), cp);
         }
         return mg;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+                final Instruction ins = ih.getInstruction();
+                if (ins instanceof LocalVariableInstruction || ins instanceof RET || ins instanceof IINC) {
+                    final int index = ((IndexedInstruction) ins).getIndex() + ((TypedInstruction) ins).getType(super.getConstantPool()).getSize();
+                    if (index > max) {
+                        max = index;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+    @Override
+    public String getSignature() {
+        return Type.getMethodSignature(super.getType(), argTypes);
+    }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -4524,6 +4391,78 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 #### Snippet
 ```java
+    public void setMaxStack() { // TODO could be package-protected? (some tests would need repackaging)
+        if (il != null) {
+            maxStack = getMaxStack(super.getConstantPool(), il, getExceptionHandlers());
+        } else {
+            maxStack = 0;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+
+    private Attribute[] addRuntimeAnnotationsAsAttribute(final ConstantPoolGen cp) {
+        final Attribute[] attrs = AnnotationEntryGen.getAnnotationAttributes(cp, super.getAnnotationEntries());
+        addAll(attrs);
+        return attrs;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+    @Override
+    public final String toString() {
+        final String access = Utility.accessToString(super.getAccessFlags());
+        String signature = Type.getMethodSignature(super.getType(), argTypes);
+        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+    public final String toString() {
+        final String access = Utility.accessToString(super.getAccessFlags());
+        String signature = Type.getMethodSignature(super.getType(), argTypes);
+        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
+        final StringBuilder buf = new StringBuilder(signature);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+        final String access = Utility.accessToString(super.getAccessFlags());
+        String signature = Type.getMethodSignature(super.getType(), argTypes);
+        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
+        final StringBuilder buf = new StringBuilder(signature);
+        for (final Attribute a : getAttributes()) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+        final String access = Utility.accessToString(super.getAccessFlags());
+        String signature = Type.getMethodSignature(super.getType(), argTypes);
+        signature = Utility.methodSignatureToString(signature, super.getName(), access, true, getLocalVariableTable(super.getConstantPool()));
+        final StringBuilder buf = new StringBuilder(signature);
+        for (final Attribute a : getAttributes()) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
         final int size = exceptionList.size();
         final CodeException[] cExc = new CodeException[size];
         Arrays.setAll(cExc, i -> exceptionList.get(i).getCodeException(super.getConstantPool()));
@@ -4533,14 +4472,26 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+in `src/main/java/org/apache/bcel/generic/ArithmeticInstruction.java`
 #### Snippet
 ```java
-    public void setMaxStack() { // TODO could be package-protected? (some tests would need repackaging)
-        if (il != null) {
-            maxStack = getMaxStack(super.getConstantPool(), il, getExceptionHandlers());
-        } else {
-            maxStack = 0;
+    @Override
+    public Type getType(final ConstantPoolGen cp) {
+        final short opcode = super.getOpcode();
+        switch (opcode) {
+        case Const.DADD:
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/ICONST.java`
+#### Snippet
+```java
+            throw new ClassGenException("ICONST can be used only for value between -1 and 5: " + i);
+        }
+        super.setOpcode((short) (org.apache.bcel.Const.ICONST_0 + i)); // Even works for i == -1
+        value = i;
+    }
 ```
 
 ### UnnecessarySuperQualifier
@@ -4557,12 +4508,84 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPNE.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
+#### Snippet
+```java
+    public String getClassName(final ConstantPoolGen cpg) {
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantInvokeDynamic cid = cp.getConstant(super.getIndex(), Const.CONSTANT_InvokeDynamic, ConstantInvokeDynamic.class);
+        return cp.getConstant(cid.getNameAndTypeIndex(), ConstantNameAndType.class).getName(cp);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
+#### Snippet
+```java
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        super.initFromFile(bytes, wide);
+        super.setLength(5);
+        bytes.readByte(); // Skip 0 byte
+        bytes.readByte(); // Skip 0 byte
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+        out.writeByte(0);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKEDYNAMIC.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+        out.writeByte(0);
+        out.writeByte(0);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/JSR_W.java`
 #### Snippet
 ```java
-    public JSR_W(final InstructionHandle target) {
-        super(org.apache.bcel.Const.JSR_W, target);
-        super.setLength(5);
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR_W.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/JSR_W.java`
+#### Snippet
+```java
+        super.setIndex(getTargetOffset());
+        out.writeByte(super.getOpcode());
+        out.writeInt(super.getIndex());
     }
 
 ```
@@ -4596,33 +4619,9 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/JSR_W.java`
 #### Snippet
 ```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR_W.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/JSR_W.java`
-#### Snippet
-```java
-        super.setIndex(getTargetOffset());
-        out.writeByte(super.getOpcode());
-        out.writeInt(super.getIndex());
+    public JSR_W(final InstructionHandle target) {
+        super(org.apache.bcel.Const.JSR_W, target);
+        super.setLength(5);
     }
 
 ```
@@ -4701,6 +4700,90 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPLT.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
+#### Snippet
+```java
+
+    public Number getValue(final ConstantPoolGen cpg) {
+        final org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(super.getIndex());
+        switch (c.getTag()) {
+        case org.apache.bcel.Const.CONSTANT_Long:
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
+#### Snippet
+```java
+            return Double.valueOf(((org.apache.bcel.classfile.ConstantDouble) c).getBytes());
+        default: // Never reached
+            throw new IllegalArgumentException("Unknown or invalid constant type at " + super.getIndex());
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
+#### Snippet
+```java
+    @Override
+    public Type getType(final ConstantPoolGen cpg) {
+        switch (cpg.getConstantPool().getConstant(super.getIndex()).getTag()) {
+        case org.apache.bcel.Const.CONSTANT_Long:
+            return Type.LONG;
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
+#### Snippet
+```java
+            return Type.DOUBLE;
+        default: // Never reached
+            throw new IllegalArgumentException("Unknown constant type " + super.getOpcode());
+        }
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+    protected int updatePosition(final int offset, final int maxOffset) {
+        setPosition(getPosition() + offset); // Additional offset caused by preceding SWITCHs, GOTOs, etc.
+        final short oldLength = (short) super.getLength();
+        /*
+         * Alignment on 4-byte-boundary, + 1, because of tag byte.
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+         */
+        padding = (4 - (getPosition() + 1) % 4) % 4;
+        super.setLength((short) (fixed_length + padding)); // Update length
+        return super.getLength() - oldLength;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/Select.java`
+#### Snippet
+```java
+        padding = (4 - (getPosition() + 1) % 4) % 4;
+        super.setLength((short) (fixed_length + padding)); // Update length
+        return super.getLength() - oldLength;
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/Select.java`
 #### Snippet
 ```java
@@ -4709,18 +4792,6 @@ in `src/main/java/org/apache/bcel/generic/Select.java`
         if (super.getTarget() == oldIh) {
             targeted = true;
             setTarget(newIh);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-    @Override
-    public boolean containsTarget(final InstructionHandle ih) {
-        if (super.getTarget() == ih) {
-            return true;
-        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -4776,35 +4847,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/Select.java`
 #### Snippet
 ```java
-    protected int updatePosition(final int offset, final int maxOffset) {
-        setPosition(getPosition() + offset); // Additional offset caused by preceding SWITCHs, GOTOs, etc.
-        final short oldLength = (short) super.getLength();
-        /*
-         * Alignment on 4-byte-boundary, + 1, because of tag byte.
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-         */
-        padding = (4 - (getPosition() + 1) % 4) % 4;
-        super.setLength((short) (fixed_length + padding)); // Update length
-        return super.getLength() - oldLength;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-        padding = (4 - (getPosition() + 1) % 4) % 4;
-        super.setLength((short) (fixed_length + padding)); // Update length
-        return super.getLength() - oldLength;
-    }
-
+    @Override
+    public boolean containsTarget(final InstructionHandle ih) {
+        if (super.getTarget() == ih) {
+            return true;
+        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -4812,11 +4859,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
 #### Snippet
 ```java
-    public String getClassName(final ConstantPoolGen cpg) {
+    public String getSignature(final ConstantPoolGen cpg) {
         final ConstantPool cp = cpg.getConstantPool();
         final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
-        if (className.startsWith("[")) {
+        final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
+        return ((ConstantUtf8) cp.getConstant(cnat.getSignatureIndex())).getBytes();
 ```
 
 ### UnnecessarySuperQualifier
@@ -4848,71 +4895,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/FieldOrMethod.java`
 #### Snippet
 ```java
-    public String getSignature(final ConstantPoolGen cpg) {
+    public String getClassName(final ConstantPoolGen cpg) {
         final ConstantPool cp = cpg.getConstantPool();
         final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        final ConstantNameAndType cnat = (ConstantNameAndType) cp.getConstant(cmr.getNameAndTypeIndex());
-        return ((ConstantUtf8) cp.getConstant(cnat.getSignatureIndex())).getBytes();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
-#### Snippet
-```java
-
-    public Number getValue(final ConstantPoolGen cpg) {
-        final org.apache.bcel.classfile.Constant c = cpg.getConstantPool().getConstant(super.getIndex());
-        switch (c.getTag()) {
-        case org.apache.bcel.Const.CONSTANT_Long:
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
-#### Snippet
-```java
-            return Double.valueOf(((org.apache.bcel.classfile.ConstantDouble) c).getBytes());
-        default: // Never reached
-            throw new IllegalArgumentException("Unknown or invalid constant type at " + super.getIndex());
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
-#### Snippet
-```java
-    @Override
-    public Type getType(final ConstantPoolGen cpg) {
-        switch (cpg.getConstantPool().getConstant(super.getIndex()).getTag()) {
-        case org.apache.bcel.Const.CONSTANT_Long:
-            return Type.LONG;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
-#### Snippet
-```java
-            return Type.DOUBLE;
-        default: // Never reached
-            throw new IllegalArgumentException("Unknown constant type " + super.getOpcode());
-        }
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/ClassGen.java`
-#### Snippet
-```java
-        // Must be last since the above calls may still add something to it
-        final ConstantPool cp = this.cp.getFinalConstantPool();
-        return new JavaClass(classNameIndex, superclassNameIndex, fileName, major, minor, super.getAccessFlags(), cp, interfaces, fields, methods,
-            attributes);
-    }
+        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
+        if (className.startsWith("[")) {
 ```
 
 ### UnnecessarySuperQualifier
@@ -4929,26 +4916,26 @@ in `src/main/java/org/apache/bcel/classfile/NestHost.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
+in `src/main/java/org/apache/bcel/generic/DCONST.java`
 #### Snippet
 ```java
-            out.writeByte(Const.WIDE);
-        }
-        out.writeByte(super.getOpcode());
-        if (super.getLength() > 1) { // Otherwise ILOAD_n, instruction, e.g.
-            if (wide()) {
+        super(org.apache.bcel.Const.DCONST_0, (short) 1);
+        if (f == 0.0) {
+            super.setOpcode(org.apache.bcel.Const.DCONST_0);
+        } else if (f == 1.0) {
+            super.setOpcode(org.apache.bcel.Const.DCONST_1);
 ```
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
+in `src/main/java/org/apache/bcel/generic/DCONST.java`
 #### Snippet
 ```java
-        }
-        out.writeByte(super.getOpcode());
-        if (super.getLength() > 1) { // Otherwise ILOAD_n, instruction, e.g.
-            if (wide()) {
-                out.writeShort(n);
+            super.setOpcode(org.apache.bcel.Const.DCONST_0);
+        } else if (f == 1.0) {
+            super.setOpcode(org.apache.bcel.Const.DCONST_1);
+        } else {
+            throw new ClassGenException("DCONST can be used only for 0.0 and 1.0: " + f);
 ```
 
 ### UnnecessarySuperQualifier
@@ -5004,11 +4991,23 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
 #### Snippet
 ```java
-    @Override
-    public String toString(final boolean verbose) {
-        final short opcode = super.getOpcode();
-        if (opcode >= Const.ILOAD_0 && opcode <= Const.ALOAD_3 || opcode >= Const.ISTORE_0 && opcode <= Const.ASTORE_3) {
-            return super.toString(verbose);
+            out.writeByte(Const.WIDE);
+        }
+        out.writeByte(super.getOpcode());
+        if (super.getLength() > 1) { // Otherwise ILOAD_n, instruction, e.g.
+            if (wide()) {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
+#### Snippet
+```java
+        }
+        out.writeByte(super.getOpcode());
+        if (super.getLength() > 1) { // Otherwise ILOAD_n, instruction, e.g.
+            if (wide()) {
+                out.writeShort(n);
 ```
 
 ### UnnecessarySuperQualifier
@@ -5073,6 +5072,30 @@ in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LocalVariableInstruction.java`
+#### Snippet
+```java
+    @Override
+    public String toString(final boolean verbose) {
+        final short opcode = super.getOpcode();
+        if (opcode >= Const.ILOAD_0 && opcode <= Const.ALOAD_3 || opcode >= Const.ISTORE_0 && opcode <= Const.ASTORE_3) {
+            return super.toString(verbose);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/ClassGen.java`
+#### Snippet
+```java
+        // Must be last since the above calls may still add something to it
+        final ConstantPool cp = this.cp.getFinalConstantPool();
+        return new JavaClass(classNameIndex, superclassNameIndex, fileName, major, minor, super.getAccessFlags(), cp, interfaces, fields, methods,
+            attributes);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/IFNULL.java`
 #### Snippet
 ```java
@@ -5081,30 +5104,6 @@ in `src/main/java/org/apache/bcel/generic/IFNULL.java`
         return new IFNONNULL(super.getTarget());
     }
 }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/DCONST.java`
-#### Snippet
-```java
-        super(org.apache.bcel.Const.DCONST_0, (short) 1);
-        if (f == 0.0) {
-            super.setOpcode(org.apache.bcel.Const.DCONST_0);
-        } else if (f == 1.0) {
-            super.setOpcode(org.apache.bcel.Const.DCONST_1);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/DCONST.java`
-#### Snippet
-```java
-            super.setOpcode(org.apache.bcel.Const.DCONST_0);
-        } else if (f == 1.0) {
-            super.setOpcode(org.apache.bcel.Const.DCONST_1);
-        } else {
-            throw new ClassGenException("DCONST can be used only for 0.0 and 1.0: " + f);
 ```
 
 ### UnnecessarySuperQualifier
@@ -5184,11 +5183,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
 #### Snippet
 ```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeByte(type);
+    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
+        type = bytes.readByte();
+        super.setLength(2);
     }
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -5196,11 +5195,11 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
 #### Snippet
 ```java
-    protected void initFromFile(final ByteSequence bytes, final boolean wide) throws IOException {
-        type = bytes.readByte();
-        super.setLength(2);
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeByte(type);
     }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -5213,54 +5212,6 @@ in `src/main/java/org/apache/bcel/classfile/ConstantMethodType.java`
         file.writeByte(super.getTag());
         file.writeShort(descriptorIndex);
     }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/AnnotationElementValue.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream dos) throws IOException {
-        dos.writeByte(super.getType()); // u1 type of value (ANNOTATION == '@')
-        annotationEntry.dump(dos);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/NestMembers.java`
-#### Snippet
-```java
-        buf.append("):\n");
-        for (final int index : classes) {
-            final String className = super.getConstantPool().getConstantString(index, Const.CONSTANT_Class);
-            buf.append("  ").append(Utility.compactClassName(className, false)).append("\n");
-        }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/NestMembers.java`
-#### Snippet
-```java
-    public String[] getClassNames() {
-        final String[] names = new String[classes.length];
-        Arrays.setAll(names, i -> Utility.pathToPackage(super.getConstantPool().getConstantString(classes[i], Const.CONSTANT_Class)));
-        return names;
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
-#### Snippet
-```java
-    public ElementValue getElementValue() {
-        System.err.println("Duplicating value: " + getEnumTypeString() + ":" + getEnumValueString());
-        return new EnumElementValue(super.getElementValueType(), typeIdx, valueIdx, getConstantPool().getConstantPool());
-    }
-
 ```
 
 ### UnnecessarySuperQualifier
@@ -5292,11 +5243,59 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
 #### Snippet
 ```java
+    public ElementValue getElementValue() {
+        System.err.println("Duplicating value: " + getEnumTypeString() + ":" + getEnumValueString());
+        return new EnumElementValue(super.getElementValueType(), typeIdx, valueIdx, getConstantPool().getConstantPool());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
+#### Snippet
+```java
     @Override
     public void dump(final DataOutputStream dos) throws IOException {
         dos.writeByte(super.getElementValueType()); // u1 type of value (ENUM_CONSTANT == 'e')
         dos.writeShort(typeIdx); // u2
         dos.writeShort(valueIdx); // u2
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/AnnotationElementValue.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream dos) throws IOException {
+        dos.writeByte(super.getType()); // u1 type of value (ANNOTATION == '@')
+        annotationEntry.dump(dos);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/NestMembers.java`
+#### Snippet
+```java
+    public String[] getClassNames() {
+        final String[] names = new String[classes.length];
+        Arrays.setAll(names, i -> Utility.pathToPackage(super.getConstantPool().getConstantString(classes[i], Const.CONSTANT_Class)));
+        return names;
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/NestMembers.java`
+#### Snippet
+```java
+        buf.append("):\n");
+        for (final int index : classes) {
+            final String className = super.getConstantPool().getConstantString(index, Const.CONSTANT_Class);
+            buf.append("  ").append(Utility.compactClassName(className, false)).append("\n");
+        }
 ```
 
 ### UnnecessarySuperQualifier
@@ -5313,11 +5312,71 @@ in `src/main/java/org/apache/bcel/classfile/ConstantFloat.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
+#### Snippet
+```java
+    @Override
+    public String toString(final ConstantPool cp) {
+        final Constant c = cp.getConstant(super.getIndex());
+        final StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
+#### Snippet
+```java
+        final StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
+
+        final String opcodeName = Const.getOpcodeName(super.getOpcode());
+
+        final StringBuilder sb = new StringBuilder(opcodeName);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
+#### Snippet
+```java
+    public String getClassName(final ConstantPoolGen cpg) {
+        final ConstantPool cp = cpg.getConstantPool();
+        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
+        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
+        return Utility.pathToPackage(className);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
+#### Snippet
+```java
+    public int consumeStack(final ConstantPoolGen cpg) {
+        int sum;
+        if (super.getOpcode() == Const.INVOKESTATIC || super.getOpcode() == Const.INVOKEDYNAMIC) {
+            sum = 0;
+        } else {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
+#### Snippet
+```java
+    public int consumeStack(final ConstantPoolGen cpg) {
+        int sum;
+        if (super.getOpcode() == Const.INVOKESTATIC || super.getOpcode() == Const.INVOKEDYNAMIC) {
+            sum = 0;
+        } else {
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/MULTIANEWARRAY.java`
 #### Snippet
 ```java
-        super.initFromFile(bytes, wide);
-        dimensions = bytes.readByte();
+        }
+        this.dimensions = dimensions;
         super.setLength(4);
     }
 
@@ -5328,8 +5387,8 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/MULTIANEWARRAY.java`
 #### Snippet
 ```java
-        }
-        this.dimensions = dimensions;
+        super.initFromFile(bytes, wide);
+        dimensions = bytes.readByte();
         super.setLength(4);
     }
 
@@ -5368,78 +5427,6 @@ in `src/main/java/org/apache/bcel/generic/MULTIANEWARRAY.java`
         out.writeByte(super.getOpcode());
         out.writeShort(super.getIndex());
         out.writeByte(dimensions);
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
-#### Snippet
-```java
-    @Override
-    public String toString(final ConstantPool cp) {
-        final Constant c = cp.getConstant(super.getIndex());
-        final StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
-#### Snippet
-```java
-        final StringTokenizer tok = new StringTokenizer(cp.constantToString(c));
-
-        final String opcodeName = Const.getOpcodeName(super.getOpcode());
-
-        final StringBuilder sb = new StringBuilder(opcodeName);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
-#### Snippet
-```java
-    public int consumeStack(final ConstantPoolGen cpg) {
-        int sum;
-        if (super.getOpcode() == Const.INVOKESTATIC || super.getOpcode() == Const.INVOKEDYNAMIC) {
-            sum = 0;
-        } else {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
-#### Snippet
-```java
-    public int consumeStack(final ConstantPoolGen cpg) {
-        int sum;
-        if (super.getOpcode() == Const.INVOKESTATIC || super.getOpcode() == Const.INVOKEDYNAMIC) {
-            sum = 0;
-        } else {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/InvokeInstruction.java`
-#### Snippet
-```java
-    public String getClassName(final ConstantPoolGen cpg) {
-        final ConstantPool cp = cpg.getConstantPool();
-        final ConstantCP cmr = (ConstantCP) cp.getConstant(super.getIndex());
-        final String className = cp.getConstantString(cmr.getClassIndex(), Const.CONSTANT_Class);
-        return Utility.pathToPackage(className);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/LOOKUPSWITCH.java`
-#### Snippet
-```java
-        /* alignment remainder assumed 0 here, until dump time. */
-        final short length = (short) (9 + getMatchLength() * 8);
-        super.setLength(length);
-        setFixedLength(length);
     }
 ```
 
@@ -5532,6 +5519,18 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/LOOKUPSWITCH.java`
 #### Snippet
 ```java
+        /* alignment remainder assumed 0 here, until dump time. */
+        final short length = (short) (9 + getMatchLength() * 8);
+        super.setLength(length);
+        setFixedLength(length);
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/LOOKUPSWITCH.java`
+#### Snippet
+```java
         out.writeInt(matchLength); // npairs
         for (int i = 0; i < matchLength; i++) {
             out.writeInt(super.getMatch(i)); // match-offset pairs
@@ -5613,6 +5612,102 @@ in `src/main/java/org/apache/bcel/generic/LDC_W.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IFLT.java`
+#### Snippet
+```java
+    @Override
+    public IfInstruction negate() {
+        return new IFGE(super.getTarget());
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/IFNONNULL.java`
+#### Snippet
+```java
+    @Override
+    public IfInstruction negate() {
+        return new IFNULL(super.getTarget());
+    }
+}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKESTATIC.java`
+#### Snippet
+```java
+    @Override
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+    }
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/generic/INVOKESTATIC.java`
+#### Snippet
+```java
+    public void dump(final DataOutputStream out) throws IOException {
+        out.writeByte(super.getOpcode());
+        out.writeShort(super.getIndex());
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
+#### Snippet
+```java
+    @Override
+    public final void dump(final DataOutputStream file) throws IOException {
+        file.writeByte(super.getTag());
+        file.writeShort(class_index);
+        file.writeShort(name_and_type_index);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/Code.java`
+#### Snippet
+```java
+        Args.requireU2(this.exceptionTable.length, "exceptionTable.length");
+        this.attributes = attributes != null ? attributes : EMPTY_ARRAY;
+        super.setLength(calculateLength()); // Adjust length
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/Code.java`
+#### Snippet
+```java
+    public void setExceptionTable(final CodeException[] exceptionTable) {
+        this.exceptionTable = exceptionTable != null ? exceptionTable : CodeException.EMPTY_CODE_EXCEPTION_ARRAY;
+        super.setLength(calculateLength()); // Adjust length
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/Code.java`
+#### Snippet
+```java
+         * attributes into account yet! Very subtle bug, fixed in 3.1.1.
+         */
+        super.setLength(length);
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/Code.java`
 #### Snippet
 ```java
@@ -5652,105 +5747,9 @@ Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/classfile/Code.java`
 #### Snippet
 ```java
-         * attributes into account yet! Very subtle bug, fixed in 3.1.1.
-         */
-        super.setLength(length);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/Code.java`
-#### Snippet
-```java
-        Args.requireU2(this.exceptionTable.length, "exceptionTable.length");
-        this.attributes = attributes != null ? attributes : EMPTY_ARRAY;
-        super.setLength(calculateLength()); // Adjust length
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/Code.java`
-#### Snippet
-```java
-    public void setExceptionTable(final CodeException[] exceptionTable) {
-        this.exceptionTable = exceptionTable != null ? exceptionTable : CodeException.EMPTY_CODE_EXCEPTION_ARRAY;
-        super.setLength(calculateLength()); // Adjust length
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/Code.java`
-#### Snippet
-```java
     public void setAttributes(final Attribute[] attributes) {
         this.attributes = attributes != null ? attributes : EMPTY_ARRAY;
         super.setLength(calculateLength()); // Adjust length
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IFLT.java`
-#### Snippet
-```java
-    @Override
-    public IfInstruction negate() {
-        return new IFGE(super.getTarget());
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/IFNONNULL.java`
-#### Snippet
-```java
-    @Override
-    public IfInstruction negate() {
-        return new IFNULL(super.getTarget());
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/ConstantCP.java`
-#### Snippet
-```java
-    @Override
-    public final void dump(final DataOutputStream file) throws IOException {
-        file.writeByte(super.getTag());
-        file.writeShort(class_index);
-        file.writeShort(name_and_type_index);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKESTATIC.java`
-#### Snippet
-```java
-    @Override
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/generic/INVOKESTATIC.java`
-#### Snippet
-```java
-    public void dump(final DataOutputStream out) throws IOException {
-        out.writeByte(super.getOpcode());
-        out.writeShort(super.getIndex());
     }
 
 ```
@@ -5925,6 +5924,18 @@ in `src/main/java/org/apache/bcel/generic/FCONST.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/org/apache/bcel/classfile/Signature.java`
+#### Snippet
+```java
+     */
+    public String getSignature() {
+        return super.getConstantPool().getConstantUtf8(signatureIndex).getBytes();
+    }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/org/apache/bcel/generic/INVOKEVIRTUAL.java`
 #### Snippet
 ```java
@@ -5943,18 +5954,6 @@ in `src/main/java/org/apache/bcel/generic/INVOKEVIRTUAL.java`
     public void dump(final DataOutputStream out) throws IOException {
         out.writeByte(super.getOpcode());
         out.writeShort(super.getIndex());
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/org/apache/bcel/classfile/Signature.java`
-#### Snippet
-```java
-     */
-    public String getSignature() {
-        return super.getConstantPool().getConstantUtf8(signatureIndex).getBytes();
     }
 
 ```
@@ -6036,6 +6035,42 @@ in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        for (final AbstractPathEntry path : paths) {
+            URL url;
+            if ((url = path.getResource(name)) != null) {
+                return url;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        for (final AbstractPathEntry path : paths) {
+            URL url;
+            if ((url = path.getResource(name)) != null) {
+                results.add(url);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+        for (final AbstractPathEntry path : paths) {
+            InputStream is;
+            if ((is = path.getResourceAsStream(name)) != null) {
+                return is;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 #### Snippet
 ```java
@@ -6084,42 +6119,6 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-        for (final AbstractPathEntry path : paths) {
-            URL url;
-            if ((url = path.getResource(name)) != null) {
-                results.add(url);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-        for (final AbstractPathEntry path : paths) {
-            InputStream is;
-            if ((is = path.getResourceAsStream(name)) != null) {
-                return is;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-        for (final AbstractPathEntry path : paths) {
-            URL url;
-            if ((url = path.getResource(name)) != null) {
-                return url;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
@@ -6128,6 +6127,18 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
                 while ((index = str.indexOf(old, oldIndex)) != -1) {
                     buf.append(str, oldIndex, index); // append prefix
                     buf.append(new_); // append replacement
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+            for (int i = 0; i < noPadBytes; i++) {
+                byte b;
+                if ((b = bytes.readByte()) != 0) {
+                    System.err.println("Warning: Padding byte != 0 in " + Const.getOpcodeName(opcode) + ":" + b);
+                }
 ```
 
 ### NestedAssignment
@@ -6152,18 +6163,6 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
             while ((b = gis.read()) >= 0) {
                 tmp[count++] = (byte) b;
             }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-            for (int i = 0; i < noPadBytes; i++) {
-                byte b;
-                if ((b = bytes.readByte()) != 0) {
-                    System.err.println("Warning: Padding byte != 0 in " + Const.getOpcodeName(opcode) + ":" + b);
-                }
 ```
 
 ### NestedAssignment
@@ -6195,93 +6194,9 @@ Result of assignment expression used
 in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
 #### Snippet
 ```java
-    public int addNameAndType(final String name, final String signature) {
-        int ret;
-        if ((ret = lookupNameAndType(name, signature)) != -1) {
-            return ret; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addLong(final long n) {
-        int ret;
-        if ((ret = lookupLong(n)) != -1) {
-            return ret; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addFieldref(final String className, final String fieldName, final String signature) {
-        final int cpRet;
-        if ((cpRet = lookupFieldref(className, fieldName, signature)) != -1) {
-            return cpRet; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addUtf8(final String n) {
-        int ret;
-        if ((ret = lookupUtf8(n)) != -1) {
-            return ret; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addMethodref(final String className, final String methodName, final String signature) {
-        final int cpRet;
-        if ((cpRet = lookupMethodref(className, methodName, signature)) != -1) {
-            return cpRet; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
     public int addString(final String str) {
         int ret;
         if ((ret = lookupString(str)) != -1) {
-            return ret; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addFloat(final float n) {
-        int ret;
-        if ((ret = lookupFloat(n)) != -1) {
-            return ret; // Already in CP
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
-#### Snippet
-```java
-    public int addDouble(final double n) {
-        int ret;
-        if ((ret = lookupDouble(n)) != -1) {
             return ret; // Already in CP
         }
 ```
@@ -6303,9 +6218,57 @@ Result of assignment expression used
 in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
 #### Snippet
 ```java
-    public int addInteger(final int n) {
+    public int addUtf8(final String n) {
         int ret;
-        if ((ret = lookupInteger(n)) != -1) {
+        if ((ret = lookupUtf8(n)) != -1) {
+            return ret; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addDouble(final double n) {
+        int ret;
+        if ((ret = lookupDouble(n)) != -1) {
+            return ret; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addFieldref(final String className, final String fieldName, final String signature) {
+        final int cpRet;
+        if ((cpRet = lookupFieldref(className, fieldName, signature)) != -1) {
+            return cpRet; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addMethodref(final String className, final String methodName, final String signature) {
+        final int cpRet;
+        if ((cpRet = lookupMethodref(className, methodName, signature)) != -1) {
+            return cpRet; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addLong(final long n) {
+        int ret;
+        if ((ret = lookupLong(n)) != -1) {
             return ret; // Already in CP
         }
 ```
@@ -6319,6 +6282,54 @@ in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
         final int cpRet;
         if ((cpRet = lookupClass(clazz)) != -1) {
             return cpRet; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addNameAndType(final String name, final String signature) {
+        int ret;
+        if ((ret = lookupNameAndType(name, signature)) != -1) {
+            return ret; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addInteger(final int n) {
+        int ret;
+        if ((ret = lookupInteger(n)) != -1) {
+            return ret; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
+#### Snippet
+```java
+    public int addFloat(final float n) {
+        int ret;
+        if ((ret = lookupFloat(n)) != -1) {
+            return ret; // Already in CP
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/util/BCELifier.java`
+#### Snippet
+```java
+    static JavaClass getJavaClass(final String name) throws ClassNotFoundException, IOException {
+        JavaClass javaClass;
+        if ((javaClass = Repository.lookupClass(name)) == null) {
+            javaClass = new ClassParser(name).parse(); // May throw IOException
         }
 ```
 
@@ -6344,18 +6355,6 @@ in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
         super(message = "INTERNAL ERROR: " + message); // Thanks to Java, the constructor call here must be first.
         detailMessage = message;
     }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/util/BCELifier.java`
-#### Snippet
-```java
-    static JavaClass getJavaClass(final String name) throws ClassNotFoundException, IOException {
-        JavaClass javaClass;
-        if ((javaClass = Repository.lookupClass(name)) == null) {
-            javaClass = new ClassParser(name).parse(); // May throw IOException
-        }
 ```
 
 ### NestedAssignment
@@ -6459,23 +6458,11 @@ Result of assignment expression used
 in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 #### Snippet
 ```java
-            first = start;
-            last = end;
-            start = end = null;
+    private void append(final InstructionHandle ih) {
+        if (isEmpty()) {
+            start = end = ih;
+            ih.setNext(ih.setPrev(null));
         } else {
-            if (prev == null) { // At start of list
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/InstructionList.java`
-#### Snippet
-```java
-    public void delete(final Instruction i) throws TargetLostException {
-        InstructionHandle ih;
-        if ((ih = findInstruction1(i)) == null) {
-            throw new ClassGenException("Instruction " + i + " is not contained in this list.");
-        }
 ```
 
 ### NestedAssignment
@@ -6488,6 +6475,30 @@ in `src/main/java/org/apache/bcel/generic/InstructionList.java`
             start = end = ih;
             ih.setNext(ih.setPrev(null));
         } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/InstructionList.java`
+#### Snippet
+```java
+         * Pass 3: Update position numbers (which may have changed due to the preceding expansions), like pass 1.
+         */
+        index = count = 0;
+        for (InstructionHandle ih = start; ih != null; ih = ih.getNext()) {
+            final Instruction i = ih.getInstruction();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/InstructionList.java`
+#### Snippet
+```java
+
+    private void clear() {
+        start = end = null;
+        length = 0;
+    }
 ```
 
 ### NestedAssignment
@@ -6531,11 +6542,23 @@ Result of assignment expression used
 in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 #### Snippet
 ```java
-         * Pass 3: Update position numbers (which may have changed due to the preceding expansions), like pass 1.
-         */
-        index = count = 0;
-        for (InstructionHandle ih = start; ih != null; ih = ih.getNext()) {
-            final Instruction i = ih.getInstruction();
+    public void delete(final Instruction i) throws TargetLostException {
+        InstructionHandle ih;
+        if ((ih = findInstruction1(i)) == null) {
+            throw new ClassGenException("Instruction " + i + " is not contained in this list.");
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/apache/bcel/generic/InstructionList.java`
+#### Snippet
+```java
+            first = start;
+            last = end;
+            start = end = null;
+        } else {
+            if (prev == null) { // At start of list
 ```
 
 ### NestedAssignment
@@ -6548,30 +6571,6 @@ in `src/main/java/org/apache/bcel/generic/InstructionList.java`
         if ((ih = findInstruction1(i)) == null) {
             throw new ClassGenException("Instruction " + i + " is not contained in this list.");
         }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/InstructionList.java`
-#### Snippet
-```java
-    private void append(final InstructionHandle ih) {
-        if (isEmpty()) {
-            start = end = ih;
-            ih.setNext(ih.setPrev(null));
-        } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/bcel/generic/InstructionList.java`
-#### Snippet
-```java
-
-    private void clear() {
-        start = end = null;
-        length = 0;
-    }
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -7019,19 +7018,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
     }
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-07-01-38-30.401.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
@@ -7123,18 +7109,6 @@ in `src/main/java/org/apache/bcel/classfile/StackMapType.java`
 ```
 
 ### UnusedAssignment
-Variable `source` initializer `HEAP` is redundant
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-
-    private AnnotationEntry[] annotations; // annotations defined on the class
-    private byte source = HEAP; // Generated in memory
-
-    private boolean isAnonymous;
-```
-
-### UnusedAssignment
 Variable `jc` initializer `null` is redundant
 in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
 #### Snippet
@@ -7159,15 +7133,15 @@ in `src/main/java/org/apache/bcel/classfile/Attribute.java`
 ```
 
 ### UnusedAssignment
-Variable `obj` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/generic/Instruction.java`
+Variable `source` initializer `HEAP` is redundant
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
-        boolean wide = false;
-        short opcode = (short) bytes.readUnsignedByte();
-        Instruction obj = null;
-        if (opcode == Const.WIDE) { // Read next opcode after wide byte
-            wide = true;
+
+    private AnnotationEntry[] annotations; // annotations defined on the class
+    private byte source = HEAP; // Generated in memory
+
+    private boolean isAnonymous;
 ```
 
 ### UnusedAssignment
@@ -7192,6 +7166,18 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
             index += unwrap(CONSUMER_CHARS); // update position
             // ignore any throws information in the signature
             return type;
+```
+
+### UnusedAssignment
+Variable `obj` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/generic/Instruction.java`
+#### Snippet
+```java
+        boolean wide = false;
+        short opcode = (short) bytes.readUnsignedByte();
+        Instruction obj = null;
+        if (opcode == Const.WIDE) { // Read next opcode after wide byte
+            wide = true;
 ```
 
 ### UnusedAssignment
@@ -7279,6 +7265,30 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
 ```
 
 ### UnusedAssignment
+The value `GENERIC_ARRAY` assigned to `objref` is never used
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                constraintViolated(o, "Expecting an ObjectType as 'objectref' on the stack, not a '" + objref + "'.");
+            } else {
+                objref = GENERIC_ARRAY;
+            }
+        }
+```
+
+### UnusedAssignment
+Variable `objRefClassName` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+                constraintViolated(o, "Expecting a reference type as 'objectref' on the stack, not a '" + objref + "'.");
+            }
+            String objRefClassName = null;
+            if (!o.getMethodName(cpg).equals(Const.CONSTRUCTOR_NAME)) {
+                referenceTypeIsInitialized(o, (ReferenceType) objref);
+```
+
+### UnusedAssignment
 Variable `i` initializer `null` is redundant
 in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
 #### Snippet
@@ -7288,18 +7298,6 @@ in `src/main/java/org/apache/bcel/generic/InstructionFactory.java`
             Instruction i = null;
             try {
                 i = (Instruction) Class.forName(name).newInstance();
-```
-
-### UnusedAssignment
-Variable `clazz` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/util/ClassLoader.java`
-#### Snippet
-```java
-        final int index = className.indexOf(BCEL_TOKEN);
-        final String realName = className.substring(index + BCEL_TOKEN.length());
-        JavaClass clazz = null;
-        try {
-            final byte[] bytes = Utility.decode(realName, true);
 ```
 
 ### UnusedAssignment
@@ -7327,27 +7325,15 @@ in `src/main/java/org/apache/bcel/util/ClassLoader.java`
 ```
 
 ### UnusedAssignment
-Variable `objRefClassName` initializer `null` is redundant
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+Variable `clazz` initializer `null` is redundant
+in `src/main/java/org/apache/bcel/util/ClassLoader.java`
 #### Snippet
 ```java
-                constraintViolated(o, "Expecting a reference type as 'objectref' on the stack, not a '" + objref + "'.");
-            }
-            String objRefClassName = null;
-            if (!o.getMethodName(cpg).equals(Const.CONSTRUCTOR_NAME)) {
-                referenceTypeIsInitialized(o, (ReferenceType) objref);
-```
-
-### UnusedAssignment
-The value `GENERIC_ARRAY` assigned to `objref` is never used
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-                constraintViolated(o, "Expecting an ObjectType as 'objectref' on the stack, not a '" + objref + "'.");
-            } else {
-                objref = GENERIC_ARRAY;
-            }
-        }
+        final int index = className.indexOf(BCEL_TOKEN);
+        final String realName = className.substring(index + BCEL_TOKEN.length());
+        JavaClass clazz = null;
+        try {
+            final byte[] bytes = Utility.decode(realName, true);
 ```
 
 ### UnusedAssignment
@@ -7400,18 +7386,6 @@ in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `ins instanceof IINC` is always `false`
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-            for (InstructionHandle ih = il.getStart(); ih != null; ih = ih.getNext()) {
-                final Instruction ins = ih.getInstruction();
-                if (ins instanceof LocalVariableInstruction || ins instanceof RET || ins instanceof IINC) {
-                    final int index = ((IndexedInstruction) ins).getIndex() + ((TypedInstruction) ins).getType(super.getConstantPool()).getSize();
-                    if (index > max) {
-```
-
-### ConstantValue
 Value `end` is always 'null'
 in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 #### Snippet
@@ -7433,6 +7407,18 @@ in `src/main/java/org/apache/bcel/generic/MethodGen.java`
                     addLocalVariable(argNames[i], argTypes[i], start, end);
                 }
             }
+```
+
+### ConstantValue
+Condition `ins instanceof IINC` is always `false`
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+            for (InstructionHandle ih = il.getStart(); ih != null; ih = ih.getNext()) {
+                final Instruction ins = ih.getInstruction();
+                if (ins instanceof LocalVariableInstruction || ins instanceof RET || ins instanceof IINC) {
+                    final int index = ((IndexedInstruction) ins).getIndex() + ((TypedInstruction) ins).getType(super.getConstantPool()).getSize();
+                    if (index > max) {
 ```
 
 ### ConstantValue
@@ -7465,8 +7451,8 @@ in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
 #### Snippet
 ```java
         }
-        pass3bTextPane.setText(all3bmsg.toString());
-        pass3bTextPane.setBackground(all3bok ? Color.green : rejected ? Color.red : Color.yellow);
+        pass3aTextPane.setText(all3amsg.toString());
+        pass3aTextPane.setBackground(all3aok ? Color.green : rejected ? Color.red : Color.yellow);
     }
 
 ```
@@ -7477,8 +7463,8 @@ in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
 #### Snippet
 ```java
         }
-        pass3aTextPane.setText(all3amsg.toString());
-        pass3aTextPane.setBackground(all3aok ? Color.green : rejected ? Color.red : Color.yellow);
+        pass3bTextPane.setText(all3bmsg.toString());
+        pass3bTextPane.setBackground(all3bok ? Color.green : rejected ? Color.red : Color.yellow);
     }
 
 ```
@@ -7619,42 +7605,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.jav
 ```
 
 ### DataFlowIssue
-Casting `this` to `ObjectType` may produce `ClassCastException`
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-        }
-        // this and t are ObjectTypes, see above.
-        final ObjectType thiz = (ObjectType) this;
-        final ObjectType other = (ObjectType) t;
-        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
-```
-
-### DataFlowIssue
-Casting `t` to `ObjectType` may produce `ClassCastException`
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-        // this and t are ObjectTypes, see above.
-        final ObjectType thiz = (ObjectType) this;
-        final ObjectType other = (ObjectType) t;
-        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
-        final JavaClass[] otherSups = Repository.getSuperClasses(other.getClassName());
-```
-
-### DataFlowIssue
-Method invocation `getClassName` may produce `NullPointerException`
-in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
-#### Snippet
-```java
-        final ObjectType other = (ObjectType) t;
-        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
-        final JavaClass[] otherSups = Repository.getSuperClasses(other.getClassName());
-        if (thizSups == null || otherSups == null) {
-            return null;
-```
-
-### DataFlowIssue
 Method invocation `getCode` may produce `NullPointerException`
 in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
@@ -7695,11 +7645,11 @@ Method invocation `getClassName` may produce `NullPointerException`
 in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
-                final String fieldName = o.getFieldName(constantPoolGen);
+                }
 
-                final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
-                Field[] fields = jc.getFields();
-                Field f = null;
+                if (f.isFinal() && !verifier.getClassName().equals(getObjectType(o).getClassName())) {
+                    constraintViolated(o, "Referenced field '" + f + "' is final and must therefore be declared in the current class '"
+                            + verifier.getClassName() + "' which is not the case: it is declared in '" + o.getReferenceType(constantPoolGen) + "'.");
 ```
 
 ### DataFlowIssue
@@ -7719,11 +7669,47 @@ Method invocation `getClassName` may produce `NullPointerException`
 in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
-                }
+                final String fieldName = o.getFieldName(constantPoolGen);
 
-                if (f.isFinal() && !verifier.getClassName().equals(getObjectType(o).getClassName())) {
-                    constraintViolated(o, "Referenced field '" + f + "' is final and must therefore be declared in the current class '"
-                            + verifier.getClassName() + "' which is not the case: it is declared in '" + o.getReferenceType(constantPoolGen) + "'.");
+                final JavaClass jc = Repository.lookupClass(getObjectType(o).getClassName());
+                Field[] fields = jc.getFields();
+                Field f = null;
+```
+
+### DataFlowIssue
+Casting `this` to `ObjectType` may produce `ClassCastException`
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+        }
+        // this and t are ObjectTypes, see above.
+        final ObjectType thiz = (ObjectType) this;
+        final ObjectType other = (ObjectType) t;
+        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
+```
+
+### DataFlowIssue
+Casting `t` to `ObjectType` may produce `ClassCastException`
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+        // this and t are ObjectTypes, see above.
+        final ObjectType thiz = (ObjectType) this;
+        final ObjectType other = (ObjectType) t;
+        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
+        final JavaClass[] otherSups = Repository.getSuperClasses(other.getClassName());
+```
+
+### DataFlowIssue
+Method invocation `getClassName` may produce `NullPointerException`
+in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
+#### Snippet
+```java
+        final ObjectType other = (ObjectType) t;
+        final JavaClass[] thizSups = Repository.getSuperClasses(thiz.getClassName());
+        final JavaClass[] otherSups = Repository.getSuperClasses(other.getClassName());
+        if (thizSups == null || otherSups == null) {
+            return null;
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -7741,6 +7727,18 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'InstructionConstants' is still used
+in `src/main/java/org/apache/bcel/generic/InstructionConstants.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface InstructionConstants {
+
+    /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'i_position' is still used
 in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
 #### Snippet
@@ -7750,6 +7748,18 @@ in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
     protected int i_position = -1; // byte code offset of instruction
     private Set<InstructionTargeter> targeters;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'attributes_count' is still used
+in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
+#### Snippet
+```java
+     */
+    @java.lang.Deprecated
+    protected int attributes_count; // No. of attributes
+
+    // @since 6.0
 ```
 
 ### DeprecatedIsStillUsed
@@ -7789,30 +7799,6 @@ in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'attributes_count' is still used
-in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
-#### Snippet
-```java
-     */
-    @java.lang.Deprecated
-    protected int attributes_count; // No. of attributes
-
-    // @since 6.0
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'InstructionConstants' is still used
-in `src/main/java/org/apache/bcel/generic/InstructionConstants.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface InstructionConstants {
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'cpGen' is still used
 in `src/main/java/org/apache/bcel/generic/ElementValueGen.java`
 #### Snippet
@@ -7822,6 +7808,18 @@ in `src/main/java/org/apache/bcel/generic/ElementValueGen.java`
     protected ConstantPoolGen cpGen;
 
     protected ElementValueGen(final int type, final ConstantPoolGen cpGen) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'name_index' is still used
+in `src/main/java/org/apache/bcel/classfile/Attribute.java`
+#### Snippet
+```java
+     */
+    @java.lang.Deprecated
+    protected int name_index; // Points to attribute name in constant pool TODO make private (has getter & setter)
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -7837,13 +7835,13 @@ in `src/main/java/org/apache/bcel/classfile/Attribute.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'name_index' is still used
-in `src/main/java/org/apache/bcel/classfile/Attribute.java`
+Deprecated member 'match_length' is still used
+in `src/main/java/org/apache/bcel/generic/Select.java`
 #### Snippet
 ```java
      */
-    @java.lang.Deprecated
-    protected int name_index; // Points to attribute name in constant pool TODO make private (has getter & setter)
+    @Deprecated
+    protected int match_length; // number of cases TODO could be package-protected?
 
     /**
 ```
@@ -7868,18 +7866,6 @@ in `src/main/java/org/apache/bcel/generic/Select.java`
      */
     @Deprecated
     protected int fixed_length; // fixed length defined by subclasses TODO could be package-protected?
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'match_length' is still used
-in `src/main/java/org/apache/bcel/generic/Select.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    protected int match_length; // number of cases TODO could be package-protected?
 
     /**
 ```
@@ -8026,8 +8012,8 @@ in `src/main/java/org/apache/bcel/Repository.java`
 ```java
 
     /**
-     * @return list of super classes of clazz in ascending order, i.e., Object is always the last element
-     * @throws ClassNotFoundException if any of the superclasses can't be found
+     * @return list of super classes of clazz in ascending order, i.e., Object is always the last element.
+     * @throws ClassNotFoundException if the named class or any of its superclasses can't be found
      */
 ```
 
@@ -8038,8 +8024,8 @@ in `src/main/java/org/apache/bcel/Repository.java`
 ```java
 
     /**
-     * @return list of super classes of clazz in ascending order, i.e., Object is always the last element.
-     * @throws ClassNotFoundException if the named class or any of its superclasses can't be found
+     * @return list of super classes of clazz in ascending order, i.e., Object is always the last element
+     * @throws ClassNotFoundException if any of the superclasses can't be found
      */
 ```
 
@@ -8086,11 +8072,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
-                final int temp = unwrap(Utility.CONSUMER_CHARS) + consumedChars;
-                wrap(Utility.CONSUMER_CHARS, temp);
-                return type + brackets.toString();
             }
-            case 'V':
+        } catch (final IOException e) {
+            throw new ClassFormatException("Byte code error: " + buf.toString(), e);
+        }
+        return buf.toString();
 ```
 
 ### UnnecessaryToStringCall
@@ -8110,11 +8096,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
+                final int temp = unwrap(Utility.CONSUMER_CHARS) + consumedChars;
+                wrap(Utility.CONSUMER_CHARS, temp);
+                return type + brackets.toString();
             }
-        } catch (final IOException e) {
-            throw new ClassFormatException("Byte code error: " + buf.toString(), e);
-        }
-        return buf.toString();
+            case 'V':
 ```
 
 ### UnnecessaryToStringCall
@@ -8281,14 +8267,14 @@ in `src/main/java/org/apache/bcel/generic/SIPUSH.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+in `src/main/java/org/apache/bcel/classfile/ConstantLong.java`
 #### Snippet
 ```java
-        checkType(Type.CHAR);
-        if (c != 0) {
-            value = Integer.valueOf(c);
-        }
+    @Override
+    public Object getConstantValue(final ConstantPool cp) {
+        return Long.valueOf(bytes);
     }
+
 ```
 
 ### UnnecessaryBoxing
@@ -8299,6 +8285,30 @@ in `src/main/java/org/apache/bcel/generic/FieldGen.java`
         checkType(Type.BYTE);
         if (b != 0) {
             value = Integer.valueOf(b);
+        }
+    }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        checkType(Type.FLOAT);
+        if (f != 0.0) {
+            value = Float.valueOf(f);
+        }
+    }
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
+#### Snippet
+```java
+        checkType(Type.CHAR);
+        if (c != 0) {
+            value = Integer.valueOf(c);
         }
     }
 ```
@@ -8332,33 +8342,9 @@ Unnecessary boxing
 in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
-        checkType(Type.DOUBLE);
-        if (d != 0.0) {
-            value = Double.valueOf(d);
-        }
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
         checkType(Type.BOOLEAN);
         if (b) {
             value = Integer.valueOf(1);
-        }
-    }
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/bcel/generic/FieldGen.java`
-#### Snippet
-```java
-        checkType(Type.FLOAT);
-        if (f != 0.0) {
-            value = Float.valueOf(f);
         }
     }
 ```
@@ -8377,14 +8363,14 @@ in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/bcel/classfile/ConstantLong.java`
+in `src/main/java/org/apache/bcel/generic/FieldGen.java`
 #### Snippet
 ```java
-    @Override
-    public Object getConstantValue(final ConstantPool cp) {
-        return Long.valueOf(bytes);
+        checkType(Type.DOUBLE);
+        if (d != 0.0) {
+            value = Double.valueOf(d);
+        }
     }
-
 ```
 
 ### UnnecessaryBoxing
@@ -8509,14 +8495,26 @@ in `src/main/java/org/apache/bcel/generic/ICONST.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
-                    if (ih.getInstruction() instanceof LocalVariableInstruction || ih.getInstruction() instanceof RET) {
-                        final int idx = ((IndexedInstruction) ih.getInstruction()).getIndex();
-                        acc.add(Integer.valueOf(idx));
-                        // LONG? DOUBLE?.
-                        try {
+
+    private static void wrap(final ThreadLocal<Integer> tl, final int value) {
+        tl.set(Integer.valueOf(value));
+    }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+     * by side effect, but only internally.
+     */
+    private static final ThreadLocal<Integer> CONSUMER_CHARS = ThreadLocal.withInitial(() -> Integer.valueOf(0));
+
+    /*
 ```
 
 ### UnnecessaryBoxing
@@ -8524,11 +8522,11 @@ Unnecessary boxing
 in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 #### Snippet
 ```java
-                                final int s = ((LocalVariableInstruction) ih.getInstruction()).getType(null).getSize();
-                                if (s == 2) {
-                                    acc.add(Integer.valueOf(idx + 1));
-                                }
-                            }
+            final int[] lvs = getAccessedLocalsIndices();
+            for (final int lv : lvs) {
+                s.add(Integer.valueOf(lv));
+            }
+            getRecursivelyAccessedLocalsIndicesHelper(s, this.subSubs());
 ```
 
 ### UnnecessaryBoxing
@@ -8560,11 +8558,23 @@ Unnecessary boxing
 in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
 #### Snippet
 ```java
-            final int[] lvs = getAccessedLocalsIndices();
-            for (final int lv : lvs) {
-                s.add(Integer.valueOf(lv));
-            }
-            getRecursivelyAccessedLocalsIndicesHelper(s, this.subSubs());
+                    if (ih.getInstruction() instanceof LocalVariableInstruction || ih.getInstruction() instanceof RET) {
+                        final int idx = ((IndexedInstruction) ih.getInstruction()).getIndex();
+                        acc.add(Integer.valueOf(idx));
+                        // LONG? DOUBLE?.
+                        try {
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+#### Snippet
+```java
+                                final int s = ((LocalVariableInstruction) ih.getInstruction()).getType(null).getSize();
+                                if (s == 2) {
+                                    acc.add(Integer.valueOf(idx + 1));
+                                }
+                            }
 ```
 
 ### UnnecessaryBoxing
@@ -8577,30 +8587,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
                     set.add(Integer.valueOf(lv));
                 }
                 if (sub.subSubs().length != 0) {
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-
-    private static void wrap(final ThreadLocal<Integer> tl, final int value) {
-        tl.set(Integer.valueOf(value));
-    }
-
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-     * by side effect, but only internally.
-     */
-    private static final ThreadLocal<Integer> CONSUMER_CHARS = ThreadLocal.withInitial(() -> Integer.valueOf(0));
-
-    /*
 ```
 
 ### UnnecessaryBoxing
@@ -8625,6 +8611,18 @@ in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
             return Double.valueOf(((org.apache.bcel.classfile.ConstantDouble) c).getBytes());
         default: // Never reached
             throw new IllegalArgumentException("Unknown or invalid constant type at " + super.getIndex());
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/bcel/generic/DCONST.java`
+#### Snippet
+```java
+    @Override
+    public Number getValue() {
+        return Double.valueOf(value);
+    }
+}
 ```
 
 ### UnnecessaryBoxing
@@ -8697,18 +8695,6 @@ in `src/main/java/org/apache/bcel/generic/ConstantPoolGen.java`
         return map.computeIfAbsent(key, k -> Integer.valueOf(value));
     }
 
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/bcel/generic/DCONST.java`
-#### Snippet
-```java
-    @Override
-    public Number getValue() {
-        return Double.valueOf(value);
-    }
-}
 ```
 
 ### UnnecessaryBoxing
@@ -8834,14 +8820,26 @@ in `src/main/java/org/apache/bcel/verifier/NativeVerifier.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
 #### Snippet
 ```java
-    static void Debug(final String str) {
-        if (debug) {
-            System.out.println(str);
-        }
-    }
+    private void handleException(final Throwable exception) {
+        /* Uncomment the following lines to print uncaught exceptions to stdout */
+        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
+        exception.printStackTrace(System.out);
+        // manually added code
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
+#### Snippet
+```java
+        /* Uncomment the following lines to print uncaught exceptions to stdout */
+        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
+        exception.printStackTrace(System.out);
+        // manually added code
+        if (exception instanceof ThreadDeath) {
 ```
 
 ### SystemOutErr
@@ -8869,30 +8867,6 @@ in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
-#### Snippet
-```java
-    private void handleException(final Throwable exception) {
-        /* Uncomment the following lines to print uncaught exceptions to stdout */
-        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
-        exception.printStackTrace(System.out);
-        // manually added code
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
-#### Snippet
-```java
-        /* Uncomment the following lines to print uncaught exceptions to stdout */
-        System.out.println("--------- UNCAUGHT EXCEPTION ---------");
-        exception.printStackTrace(System.out);
-        // manually added code
-        if (exception instanceof ThreadDeath) {
-```
-
-### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/classfile/Attribute.java`
 #### Snippet
@@ -8900,6 +8874,18 @@ in `src/main/java/org/apache/bcel/classfile/Attribute.java`
     protected static void println(final String msg) {
         if (debug) {
             System.err.println(msg);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+    static void Debug(final String str) {
+        if (debug) {
+            System.out.println(str);
         }
     }
 ```
@@ -8914,30 +8900,6 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
                         System.err.println("CLASSPATH component " + file + ": " + e);
                     }
                 }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
-#### Snippet
-```java
-            }
-        }
-        System.err.println("DEBUG: Please verify '" + any.toString(true) + "' lies in dead code.");
-        return null;
-        // throw new AssertionViolatedException("No subroutine for InstructionHandle found (DEAD CODE?).");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/generic/Instruction.java`
-#### Snippet
-```java
-                i = (Instruction) clone();
-            } catch (final CloneNotSupportedException e) {
-                System.err.println(e);
-            }
-        }
 ```
 
 ### SystemOutErr
@@ -8962,6 +8924,30 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
                     System.err.println("Warning: Padding byte != 0 in " + Const.getOpcodeName(opcode) + ":" + b);
                 }
             }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+#### Snippet
+```java
+            }
+        }
+        System.err.println("DEBUG: Please verify '" + any.toString(true) + "' lies in dead code.");
+        return null;
+        // throw new AssertionViolatedException("No subroutine for InstructionHandle found (DEAD CODE?).");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/generic/Instruction.java`
+#### Snippet
+```java
+                i = (Instruction) clone();
+            } catch (final CloneNotSupportedException e) {
+                System.err.println(e);
+            }
+        }
 ```
 
 ### SystemOutErr
@@ -9077,18 +9063,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/verifier/TransitiveHull.java`
 #### Snippet
 ```java
-    public static void main(final String[] args) {
-        if (args.length != 1) {
-            System.out.println("Need exactly one argument: The root class to verify.");
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/TransitiveHull.java`
-#### Snippet
-```java
         System.gc(); // avoid swapping if possible.
         for (int i = 0; i < indent; i++) {
             System.out.print(" ");
@@ -9170,6 +9144,18 @@ in `src/main/java/org/apache/bcel/verifier/TransitiveHull.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/verifier/TransitiveHull.java`
+#### Snippet
+```java
+    public static void main(final String[] args) {
+        if (args.length != 1) {
+            System.out.println("Need exactly one argument: The root class to verify.");
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/util/BCELifier.java`
 #### Snippet
 ```java
@@ -9214,30 +9200,6 @@ in `src/main/java/org/apache/bcel/generic/EnumElementValueGen.java`
         System.err.println("Duplicating value: " + getEnumTypeString() + ":" + getEnumValueString());
         return new EnumElementValue(super.getElementValueType(), typeIdx, valueIdx, getConstantPool().getConstantPool());
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/Verifier.java`
-#### Snippet
-```java
-     */
-    public static void main(final String[] args) {
-        System.out.println(BANNER);
-        for (int index = 0; index < args.length; index++) {
-            try {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/verifier/Verifier.java`
-#### Snippet
-```java
-                }
-                args[index] = Utility.pathToPackage(args[index]);
-                System.out.println("Now verifying: " + args[index] + "\n");
-                verifyType(args[index]);
-                org.apache.bcel.Repository.clearCache();
 ```
 
 ### SystemOutErr
@@ -9334,6 +9296,30 @@ in `src/main/java/org/apache/bcel/verifier/Verifier.java`
         System.out.println("\n");
         // avoid swapping.
         verifier.flush();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/verifier/Verifier.java`
+#### Snippet
+```java
+     */
+    public static void main(final String[] args) {
+        System.out.println(BANNER);
+        for (int index = 0; index < args.length; index++) {
+            try {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/verifier/Verifier.java`
+#### Snippet
+```java
+                }
+                args[index] = Utility.pathToPackage(args[index]);
+                System.out.println("Now verifying: " + args[index] + "\n");
+                verifyType(args[index]);
+                org.apache.bcel.Repository.clearCache();
 ```
 
 ### SystemOutErr
@@ -9436,6 +9422,18 @@ in `src/main/java/org/apache/bcel/generic/LSTORE.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LSHR.java`
+#### Snippet
+```java
+
+    public LSHR() {
+        super(org.apache.bcel.Const.LSHR);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/LSTORE.java`
 #### Snippet
 ```java
@@ -9454,18 +9452,6 @@ in `src/main/java/org/apache/bcel/generic/LSTORE.java`
      */
     LSTORE() {
         super(org.apache.bcel.Const.LSTORE, org.apache.bcel.Const.LSTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LSHR.java`
-#### Snippet
-```java
-
-    public LSHR() {
-        super(org.apache.bcel.Const.LSHR);
     }
 
 ```
@@ -9508,14 +9494,26 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPGT.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/TABLESWITCH.java`
+#### Snippet
+```java
+     */
+    public TABLESWITCH(final int[] match, final InstructionHandle[] targets, final InstructionHandle defaultTarget) {
+        super(org.apache.bcel.Const.TABLESWITCH, match, targets, defaultTarget);
+        /* Alignment remainder assumed 0 here, until dump time */
+        final short length = (short) (13 + getMatchLength() * 4);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/JSR.java`
 #### Snippet
 ```java
-        setPosition(getPosition() + offset); // Position may be shifted by preceding expansions
-        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
-            super.setOpcode(org.apache.bcel.Const.JSR_W);
-            final short oldLength = (short) super.getLength();
-            super.setLength(5);
+    public void dump(final DataOutputStream out) throws IOException {
+        super.setIndex(getTargetOffset());
+        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
+            super.dump(out);
+        } else { // JSR_W
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9535,23 +9533,11 @@ Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/JSR.java`
 #### Snippet
 ```java
-    public void dump(final DataOutputStream out) throws IOException {
-        super.setIndex(getTargetOffset());
-        if (super.getOpcode() == org.apache.bcel.Const.JSR) {
-            super.dump(out);
-        } else { // JSR_W
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/TABLESWITCH.java`
-#### Snippet
-```java
-     */
-    public TABLESWITCH(final int[] match, final InstructionHandle[] targets, final InstructionHandle defaultTarget) {
-        super(org.apache.bcel.Const.TABLESWITCH, match, targets, defaultTarget);
-        /* Alignment remainder assumed 0 here, until dump time */
-        final short length = (short) (13 + getMatchLength() * 4);
+        setPosition(getPosition() + offset); // Position may be shifted by preceding expansions
+        if (Math.abs(i) >= Short.MAX_VALUE - maxOffset) { // to large for short (estimate)
+            super.setOpcode(org.apache.bcel.Const.JSR_W);
+            final short oldLength = (short) super.getLength();
+            super.setLength(5);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9616,18 +9602,6 @@ in `src/main/java/org/apache/bcel/generic/LRETURN.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/SIPUSH.java`
-#### Snippet
-```java
-
-    public SIPUSH(final short b) {
-        super(org.apache.bcel.Const.SIPUSH, (short) 3);
-        this.b = b;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/DNEG.java`
 #### Snippet
 ```java
@@ -9636,6 +9610,18 @@ in `src/main/java/org/apache/bcel/generic/DNEG.java`
         super(org.apache.bcel.Const.DNEG);
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/SIPUSH.java`
+#### Snippet
+```java
+
+    public SIPUSH(final short b) {
+        super(org.apache.bcel.Const.SIPUSH, (short) 3);
+        this.b = b;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -9676,18 +9662,6 @@ in `src/main/java/org/apache/bcel/generic/ATHROW.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/AALOAD.java`
-#### Snippet
-```java
-     */
-    public AALOAD() {
-        super(org.apache.bcel.Const.AALOAD);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/L2I.java`
 #### Snippet
 ```java
@@ -9706,6 +9680,18 @@ in `src/main/java/org/apache/bcel/generic/FASTORE.java`
      */
     public FASTORE() {
         super(org.apache.bcel.Const.FASTORE);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/AALOAD.java`
+#### Snippet
+```java
+     */
+    public AALOAD() {
+        super(org.apache.bcel.Const.AALOAD);
     }
 
 ```
@@ -9740,30 +9726,6 @@ in `src/main/java/org/apache/bcel/generic/FLOAD.java`
 #### Snippet
 ```java
      */
-    FLOAD() {
-        super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/FLOAD.java`
-#### Snippet
-```java
-     */
-    FLOAD() {
-        super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/FLOAD.java`
-#### Snippet
-```java
-     */
     public FLOAD(final int n) {
         super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0, n);
     }
@@ -9778,6 +9740,30 @@ in `src/main/java/org/apache/bcel/generic/FLOAD.java`
      */
     public FLOAD(final int n) {
         super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/FLOAD.java`
+#### Snippet
+```java
+     */
+    FLOAD() {
+        super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/FLOAD.java`
+#### Snippet
+```java
+     */
+    FLOAD() {
+        super(org.apache.bcel.Const.FLOAD, org.apache.bcel.Const.FLOAD_0);
     }
 
 ```
@@ -9896,30 +9882,6 @@ in `src/main/java/org/apache/bcel/generic/ALOAD.java`
 #### Snippet
 ```java
      */
-    public ALOAD(final int n) {
-        super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ALOAD.java`
-#### Snippet
-```java
-     */
-    public ALOAD(final int n) {
-        super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ALOAD.java`
-#### Snippet
-```java
-     */
     ALOAD() {
         super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0);
     }
@@ -9934,6 +9896,30 @@ in `src/main/java/org/apache/bcel/generic/ALOAD.java`
      */
     ALOAD() {
         super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ALOAD.java`
+#### Snippet
+```java
+     */
+    public ALOAD(final int n) {
+        super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ALOAD.java`
+#### Snippet
+```java
+     */
+    public ALOAD(final int n) {
+        super(org.apache.bcel.Const.ALOAD, org.apache.bcel.Const.ALOAD_0, n);
     }
 
 ```
@@ -9988,18 +9974,6 @@ in `src/main/java/org/apache/bcel/generic/LCMP.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/BREAKPOINT.java`
-#### Snippet
-```java
-
-    public BREAKPOINT() {
-        super(org.apache.bcel.Const.BREAKPOINT, (short) 1);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/LDIV.java`
 #### Snippet
 ```java
@@ -10024,12 +9998,12 @@ in `src/main/java/org/apache/bcel/generic/F2D.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/IAND.java`
+in `src/main/java/org/apache/bcel/generic/BREAKPOINT.java`
 #### Snippet
 ```java
 
-    public IAND() {
-        super(org.apache.bcel.Const.IAND);
+    public BREAKPOINT() {
+        super(org.apache.bcel.Const.BREAKPOINT, (short) 1);
     }
 
 ```
@@ -10042,6 +10016,18 @@ in `src/main/java/org/apache/bcel/generic/IALOAD.java`
      */
     public IALOAD() {
         super(org.apache.bcel.Const.IALOAD);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/IAND.java`
+#### Snippet
+```java
+
+    public IAND() {
+        super(org.apache.bcel.Const.IAND);
     }
 
 ```
@@ -10107,6 +10093,18 @@ in `src/main/java/org/apache/bcel/generic/IMUL.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/IUSHR.java`
+#### Snippet
+```java
+
+    public IUSHR() {
+        super(org.apache.bcel.Const.IUSHR);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
 #### Snippet
@@ -10120,12 +10118,24 @@ in `src/main/java/org/apache/bcel/classfile/FieldOrMethod.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/IUSHR.java`
+in `src/main/java/org/apache/bcel/generic/FNEG.java`
 #### Snippet
 ```java
 
-    public IUSHR() {
-        super(org.apache.bcel.Const.IUSHR);
+    public FNEG() {
+        super(org.apache.bcel.Const.FNEG);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DUP2_X1.java`
+#### Snippet
+```java
+
+    public DUP2_X1() {
+        super(org.apache.bcel.Const.DUP2_X1);
     }
 
 ```
@@ -10188,42 +10198,6 @@ in `src/main/java/org/apache/bcel/generic/LDC.java`
         super(org.apache.bcel.Const.LDC_W, index);
         setSize();
     }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LDC.java`
-#### Snippet
-```java
-    // Adjust to proper size
-    protected final void setSize() {
-        if (super.getIndex() <= org.apache.bcel.Const.MAX_BYTE) { // Fits in one byte?
-            super.setOpcode(org.apache.bcel.Const.LDC);
-            super.setLength(2);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LDC.java`
-#### Snippet
-```java
-    protected final void setSize() {
-        if (super.getIndex() <= org.apache.bcel.Const.MAX_BYTE) { // Fits in one byte?
-            super.setOpcode(org.apache.bcel.Const.LDC);
-            super.setLength(2);
-        } else {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LDC.java`
-#### Snippet
-```java
-            super.setLength(2);
-        } else {
-            super.setOpcode(org.apache.bcel.Const.LDC_W);
-            super.setLength(3);
-        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10360,26 +10334,38 @@ in `src/main/java/org/apache/bcel/generic/LDC.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/FNEG.java`
+in `src/main/java/org/apache/bcel/generic/LDC.java`
 #### Snippet
 ```java
-
-    public FNEG() {
-        super(org.apache.bcel.Const.FNEG);
-    }
-
+    // Adjust to proper size
+    protected final void setSize() {
+        if (super.getIndex() <= org.apache.bcel.Const.MAX_BYTE) { // Fits in one byte?
+            super.setOpcode(org.apache.bcel.Const.LDC);
+            super.setLength(2);
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DUP2_X1.java`
+in `src/main/java/org/apache/bcel/generic/LDC.java`
 #### Snippet
 ```java
+    protected final void setSize() {
+        if (super.getIndex() <= org.apache.bcel.Const.MAX_BYTE) { // Fits in one byte?
+            super.setOpcode(org.apache.bcel.Const.LDC);
+            super.setLength(2);
+        } else {
+```
 
-    public DUP2_X1() {
-        super(org.apache.bcel.Const.DUP2_X1);
-    }
-
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LDC.java`
+#### Snippet
+```java
+            super.setLength(2);
+        } else {
+            super.setOpcode(org.apache.bcel.Const.LDC_W);
+            super.setLength(3);
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10396,24 +10382,24 @@ in `src/main/java/org/apache/bcel/generic/FREM.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/SWAP.java`
-#### Snippet
-```java
-
-    public SWAP() {
-        super(org.apache.bcel.Const.SWAP);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/IASTORE.java`
 #### Snippet
 ```java
      */
     public IASTORE() {
         super(org.apache.bcel.Const.IASTORE);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/SWAP.java`
+#### Snippet
+```java
+
+    public SWAP() {
+        super(org.apache.bcel.Const.SWAP);
     }
 
 ```
@@ -10468,18 +10454,6 @@ in `src/main/java/org/apache/bcel/generic/IREM.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/NOP.java`
-#### Snippet
-```java
-
-    public NOP() {
-        super(org.apache.bcel.Const.NOP, (short) 1);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/CALOAD.java`
 #### Snippet
 ```java
@@ -10504,12 +10478,84 @@ in `src/main/java/org/apache/bcel/generic/IFNE.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/NOP.java`
+#### Snippet
+```java
+
+    public NOP() {
+        super(org.apache.bcel.Const.NOP, (short) 1);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/IF_ICMPEQ.java`
 #### Snippet
 ```java
 
     public IF_ICMPEQ(final InstructionHandle target) {
         super(org.apache.bcel.Const.IF_ICMPEQ, target);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/IFEQ.java`
+#### Snippet
+```java
+
+    public IFEQ(final InstructionHandle target) {
+        super(org.apache.bcel.Const.IFEQ, target);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DADD.java`
+#### Snippet
+```java
+     */
+    public DADD() {
+        super(org.apache.bcel.Const.DADD);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/bcel/classfile/Unknown.java`
+#### Snippet
+```java
+/**
+ * This class represents a reference to an unknown (i.e., application-specific) attribute of a class. It is instantiated
+ * from the {@link Attribute#readAttribute(java.io.DataInput, ConstantPool)} method. Applications that need to read in
+ * application-specific attributes should create an {@link UnknownAttributeReader} implementation and attach it via
+ * {@link Attribute#addAttributeReader(String, UnknownAttributeReader)}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/classfile/AttributeReader.java`
+#### Snippet
+```java
+     * @see Attribute#addAttributeReader( String, AttributeReader )
+     */
+    Attribute createAttribute(int nameIndex, int length, java.io.DataInputStream file, ConstantPool constantPool);
+}
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/D2I.java`
+#### Snippet
+```java
+     */
+    public D2I() {
+        super(org.apache.bcel.Const.D2I);
     }
 
 ```
@@ -10531,18 +10577,6 @@ Qualifier `org.apache.bcel.util` is unnecessary, and can be replaced with an imp
 in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
-     * SyntheticRepository.getInstance();
-     */
-    public org.apache.bcel.util.Repository getRepository() {
-        return repository;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.util` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
      * better.
      */
     private transient org.apache.bcel.util.Repository repository = SyntheticRepository.getInstance();
@@ -10551,75 +10585,15 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DADD.java`
+Qualifier `org.apache.bcel.util` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
+     * SyntheticRepository.getInstance();
      */
-    public DADD() {
-        super(org.apache.bcel.Const.DADD);
+    public org.apache.bcel.util.Repository getRepository() {
+        return repository;
     }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/IFEQ.java`
-#### Snippet
-```java
-
-    public IFEQ(final InstructionHandle target) {
-        super(org.apache.bcel.Const.IFEQ, target);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/D2I.java`
-#### Snippet
-```java
-     */
-    public D2I() {
-        super(org.apache.bcel.Const.D2I);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/classfile/AttributeReader.java`
-#### Snippet
-```java
-     * @see Attribute#addAttributeReader( String, AttributeReader )
-     */
-    Attribute createAttribute(int nameIndex, int length, java.io.DataInputStream file, ConstantPool constantPool);
-}
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/bcel/classfile/Unknown.java`
-#### Snippet
-```java
-/**
- * This class represents a reference to an unknown (i.e., application-specific) attribute of a class. It is instantiated
- * from the {@link Attribute#readAttribute(java.io.DataInput, ConstantPool)} method. Applications that need to read in
- * application-specific attributes should create an {@link UnknownAttributeReader} implementation and attach it via
- * {@link Attribute#addAttributeReader(String, UnknownAttributeReader)}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/IMPDEP2.java`
-#### Snippet
-```java
-
-    public IMPDEP2() {
-        super(org.apache.bcel.Const.IMPDEP2, (short) 1);
-    }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10636,14 +10610,14 @@ in `src/main/java/org/apache/bcel/generic/BIPUSH.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/CPInstruction.java`
+in `src/main/java/org/apache/bcel/generic/IMPDEP2.java`
 #### Snippet
 ```java
-            str = Utility.packageToPath(str);
-        }
-        return org.apache.bcel.Const.getOpcodeName(super.getOpcode()) + " " + str;
+
+    public IMPDEP2() {
+        super(org.apache.bcel.Const.IMPDEP2, (short) 1);
     }
-}
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10660,6 +10634,18 @@ in `src/main/java/org/apache/bcel/generic/CPInstruction.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/CPInstruction.java`
+#### Snippet
+```java
+            str = Utility.packageToPath(str);
+        }
+        return org.apache.bcel.Const.getOpcodeName(super.getOpcode()) + " " + str;
+    }
+}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/DASTORE.java`
 #### Snippet
 ```java
@@ -10668,30 +10654,6 @@ in `src/main/java/org/apache/bcel/generic/DASTORE.java`
         super(org.apache.bcel.Const.DASTORE);
     }
 
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DCMPL.java`
-#### Snippet
-```java
-
-    public DCMPL() {
-        super(org.apache.bcel.Const.DCMPL, (short) 1);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
-#### Snippet
-```java
-
-    public GOTO_W(final InstructionHandle target) {
-        super(org.apache.bcel.Const.GOTO_W, target);
-        super.setLength(5);
-    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10732,6 +10694,18 @@ in `src/main/java/org/apache/bcel/generic/RET.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DREM.java`
+#### Snippet
+```java
+     */
+    public DREM() {
+        super(org.apache.bcel.Const.DREM);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/MONITOREXIT.java`
 #### Snippet
 ```java
@@ -10744,12 +10718,12 @@ in `src/main/java/org/apache/bcel/generic/MONITOREXIT.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DREM.java`
+in `src/main/java/org/apache/bcel/generic/ISHL.java`
 #### Snippet
 ```java
-     */
-    public DREM() {
-        super(org.apache.bcel.Const.DREM);
+
+    public ISHL() {
+        super(org.apache.bcel.Const.ISHL);
     }
 
 ```
@@ -10792,12 +10766,12 @@ in `src/main/java/org/apache/bcel/generic/LCONST.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ISHL.java`
+in `src/main/java/org/apache/bcel/generic/DCMPL.java`
 #### Snippet
 ```java
 
-    public ISHL() {
-        super(org.apache.bcel.Const.ISHL);
+    public DCMPL() {
+        super(org.apache.bcel.Const.DCMPL, (short) 1);
     }
 
 ```
@@ -10812,6 +10786,18 @@ in `src/main/java/org/apache/bcel/generic/L2F.java`
         super(org.apache.bcel.Const.L2F);
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/GOTO_W.java`
+#### Snippet
+```java
+
+    public GOTO_W(final InstructionHandle target) {
+        super(org.apache.bcel.Const.GOTO_W, target);
+        super.setLength(5);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -10864,60 +10850,60 @@ in `src/main/java/org/apache/bcel/generic/D2L.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LLOAD.java`
-#### Snippet
-```java
-     */
-    LLOAD() {
-        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LLOAD.java`
-#### Snippet
-```java
-     */
-    LLOAD() {
-        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LLOAD.java`
-#### Snippet
-```java
-
-    public LLOAD(final int n) {
-        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LLOAD.java`
-#### Snippet
-```java
-
-    public LLOAD(final int n) {
-        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/DUP.java`
 #### Snippet
 ```java
 
     public DUP() {
         super(org.apache.bcel.Const.DUP);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LLOAD.java`
+#### Snippet
+```java
+     */
+    LLOAD() {
+        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LLOAD.java`
+#### Snippet
+```java
+     */
+    LLOAD() {
+        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LLOAD.java`
+#### Snippet
+```java
+
+    public LLOAD(final int n) {
+        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LLOAD.java`
+#### Snippet
+```java
+
+    public LLOAD(final int n) {
+        super(org.apache.bcel.Const.LLOAD, org.apache.bcel.Const.LLOAD_0, n);
     }
 
 ```
@@ -11032,24 +11018,24 @@ in `src/main/java/org/apache/bcel/generic/INEG.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DUP_X1.java`
-#### Snippet
-```java
-
-    public DUP_X1() {
-        super(org.apache.bcel.Const.DUP_X1);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/LXOR.java`
 #### Snippet
 ```java
 
     public LXOR() {
         super(org.apache.bcel.Const.LXOR);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DUP_X1.java`
+#### Snippet
+```java
+
+    public DUP_X1() {
+        super(org.apache.bcel.Const.DUP_X1);
     }
 
 ```
@@ -11176,18 +11162,6 @@ in `src/main/java/org/apache/bcel/generic/I2B.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/I2F.java`
-#### Snippet
-```java
-     */
-    public I2F() {
-        super(org.apache.bcel.Const.I2F);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/SALOAD.java`
 #### Snippet
 ```java
@@ -11212,6 +11186,18 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPLE.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/I2F.java`
+#### Snippet
+```java
+     */
+    public I2F() {
+        super(org.apache.bcel.Const.I2F);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/IF_ICMPLT.java`
 #### Snippet
 ```java
@@ -11219,18 +11205,6 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPLT.java`
     public IF_ICMPLT(final InstructionHandle target) {
         super(org.apache.bcel.Const.IF_ICMPLT, target);
     }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/classfile/UnknownAttributeReader.java`
-#### Snippet
-```java
-     * @see Attribute#addAttributeReader(String, UnknownAttributeReader)
-     */
-    Attribute createAttribute(int nameIndex, int length, java.io.DataInput file, ConstantPool constantPool);
-}
 
 ```
 
@@ -11299,18 +11273,6 @@ Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
 #### Snippet
 ```java
-
-    public LDC2_W(final int index) {
-        super(org.apache.bcel.Const.LDC2_W, index);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
-#### Snippet
-```java
     public Type getType(final ConstantPoolGen cpg) {
         switch (cpg.getConstantPool().getConstant(super.getIndex()).getTag()) {
         case org.apache.bcel.Const.CONSTANT_Long:
@@ -11332,72 +11294,36 @@ in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/LDC2_W.java`
+#### Snippet
+```java
+
+    public LDC2_W(final int index) {
+        super(org.apache.bcel.Const.LDC2_W, index);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/classfile/UnknownAttributeReader.java`
+#### Snippet
+```java
+     * @see Attribute#addAttributeReader(String, UnknownAttributeReader)
+     */
+    Attribute createAttribute(int nameIndex, int length, java.io.DataInput file, ConstantPool constantPool);
+}
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/POP.java`
 #### Snippet
 ```java
 
     public POP() {
         super(org.apache.bcel.Const.POP);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ASTORE.java`
-#### Snippet
-```java
-     */
-    ASTORE() {
-        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ASTORE.java`
-#### Snippet
-```java
-     */
-    ASTORE() {
-        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ASTORE.java`
-#### Snippet
-```java
-     */
-    public ASTORE(final int n) {
-        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ASTORE.java`
-#### Snippet
-```java
-     */
-    public ASTORE(final int n) {
-        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/IFNULL.java`
-#### Snippet
-```java
-
-    public IFNULL(final InstructionHandle target) {
-        super(org.apache.bcel.Const.IFNULL, target);
     }
 
 ```
@@ -11440,12 +11366,72 @@ in `src/main/java/org/apache/bcel/generic/DCONST.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ASTORE.java`
+#### Snippet
+```java
+     */
+    ASTORE() {
+        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ASTORE.java`
+#### Snippet
+```java
+     */
+    ASTORE() {
+        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ASTORE.java`
+#### Snippet
+```java
+     */
+    public ASTORE(final int n) {
+        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ASTORE.java`
+#### Snippet
+```java
+     */
+    public ASTORE(final int n) {
+        super(org.apache.bcel.Const.ASTORE, org.apache.bcel.Const.ASTORE_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/FALOAD.java`
 #### Snippet
 ```java
      */
     public FALOAD() {
         super(org.apache.bcel.Const.FALOAD);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/IFNULL.java`
+#### Snippet
+```java
+
+    public IFNULL(final InstructionHandle target) {
+        super(org.apache.bcel.Const.IFNULL, target);
     }
 
 ```
@@ -11480,30 +11466,6 @@ in `src/main/java/org/apache/bcel/generic/ISTORE.java`
 #### Snippet
 ```java
      */
-    public ISTORE(final int n) {
-        super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ISTORE.java`
-#### Snippet
-```java
-     */
-    public ISTORE(final int n) {
-        super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ISTORE.java`
-#### Snippet
-```java
-     */
     ISTORE() {
         super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0);
     }
@@ -11518,6 +11480,30 @@ in `src/main/java/org/apache/bcel/generic/ISTORE.java`
      */
     ISTORE() {
         super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ISTORE.java`
+#### Snippet
+```java
+     */
+    public ISTORE(final int n) {
+        super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ISTORE.java`
+#### Snippet
+```java
+     */
+    public ISTORE(final int n) {
+        super(org.apache.bcel.Const.ISTORE, org.apache.bcel.Const.ISTORE_0, n);
     }
 
 ```
@@ -11547,18 +11533,6 @@ in `src/main/java/org/apache/bcel/generic/FMUL.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.classfile` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/verifier/statics/StringRepresentation.java`
-#### Snippet
-```java
- * placeholder for more sophisticated message handling in future versions of JustIce.
- */
-public class StringRepresentation extends org.apache.bcel.classfile.EmptyVisitor {
-    /** The string representation, created by a visitXXX() method, output by toString(). */
-    private String tostring;
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/ISUB.java`
 #### Snippet
@@ -11580,6 +11554,18 @@ in `src/main/java/org/apache/bcel/generic/LAND.java`
         super(org.apache.bcel.Const.LAND);
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel.classfile` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/verifier/statics/StringRepresentation.java`
+#### Snippet
+```java
+ * placeholder for more sophisticated message handling in future versions of JustIce.
+ */
+public class StringRepresentation extends org.apache.bcel.classfile.EmptyVisitor {
+    /** The string representation, created by a visitXXX() method, output by toString(). */
+    private String tostring;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11631,6 +11617,18 @@ in `src/main/java/org/apache/bcel/generic/FADD.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel.classfile` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/util/BCELifier.java`
+#### Snippet
+```java
+ * of BCEL, but tries to mimic hand-written code as close as possible.
+ */
+public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
+
+    /**
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/FRETURN.java`
 #### Snippet
@@ -11640,6 +11638,18 @@ in `src/main/java/org/apache/bcel/generic/FRETURN.java`
         super(org.apache.bcel.Const.FRETURN);
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel.verifier` is unnecessary and can be removed
+in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
+#### Snippet
+```java
+     * This class should only be instantiated by a Verifier.
+     *
+     * @see org.apache.bcel.verifier.Verifier
+     */
+    public Pass3bVerifier(final Verifier myOwner, final int methodNo) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11671,6 +11681,18 @@ Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
 #### Snippet
 ```java
+
+    public NEWARRAY(final byte type) {
+        super(org.apache.bcel.Const.NEWARRAY, (short) 2);
+        this.type = type;
+    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
+#### Snippet
+```java
     @Override
     public String toString(final boolean verbose) {
         return super.toString(verbose) + " " + org.apache.bcel.Const.getTypeName(type);
@@ -11680,38 +11702,26 @@ in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/NEWARRAY.java`
+in `src/main/java/org/apache/bcel/generic/FSTORE.java`
 #### Snippet
 ```java
-
-    public NEWARRAY(final byte type) {
-        super(org.apache.bcel.Const.NEWARRAY, (short) 2);
-        this.type = type;
-    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.classfile` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/util/BCELifier.java`
-#### Snippet
-```java
- * of BCEL, but tries to mimic hand-written code as close as possible.
- */
-public class BCELifier extends org.apache.bcel.classfile.EmptyVisitor {
-
-    /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.verifier` is unnecessary and can be removed
-in `src/main/java/org/apache/bcel/verifier/structurals/Pass3bVerifier.java`
-#### Snippet
-```java
-     * This class should only be instantiated by a Verifier.
-     *
-     * @see org.apache.bcel.verifier.Verifier
      */
-    public Pass3bVerifier(final Verifier myOwner, final int methodNo) {
+    FSTORE() {
+        super(org.apache.bcel.Const.FSTORE, org.apache.bcel.Const.FSTORE_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/FSTORE.java`
+#### Snippet
+```java
+     */
+    FSTORE() {
+        super(org.apache.bcel.Const.FSTORE, org.apache.bcel.Const.FSTORE_0);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11734,30 +11744,6 @@ in `src/main/java/org/apache/bcel/generic/FSTORE.java`
      */
     public FSTORE(final int n) {
         super(org.apache.bcel.Const.FSTORE, org.apache.bcel.Const.FSTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/FSTORE.java`
-#### Snippet
-```java
-     */
-    FSTORE() {
-        super(org.apache.bcel.Const.FSTORE, org.apache.bcel.Const.FSTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/FSTORE.java`
-#### Snippet
-```java
-     */
-    FSTORE() {
-        super(org.apache.bcel.Const.FSTORE, org.apache.bcel.Const.FSTORE_0);
     }
 
 ```
@@ -11816,6 +11802,30 @@ in `src/main/java/org/apache/bcel/generic/ILOAD.java`
 #### Snippet
 ```java
      */
+    ILOAD() {
+        super(org.apache.bcel.Const.ILOAD, org.apache.bcel.Const.ILOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ILOAD.java`
+#### Snippet
+```java
+     */
+    ILOAD() {
+        super(org.apache.bcel.Const.ILOAD, org.apache.bcel.Const.ILOAD_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/ILOAD.java`
+#### Snippet
+```java
+     */
     public ILOAD(final int n) {
         super(org.apache.bcel.Const.ILOAD, org.apache.bcel.Const.ILOAD_0, n);
     }
@@ -11835,27 +11845,15 @@ in `src/main/java/org/apache/bcel/generic/ILOAD.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ILOAD.java`
+Qualifier `org.apache.bcel.classfile` is unnecessary and can be removed
+in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
 #### Snippet
 ```java
-     */
-    ILOAD() {
-        super(org.apache.bcel.Const.ILOAD, org.apache.bcel.Const.ILOAD_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/ILOAD.java`
-#### Snippet
-```java
-     */
-    ILOAD() {
-        super(org.apache.bcel.Const.ILOAD, org.apache.bcel.Const.ILOAD_0);
-    }
-
+ * LocalVariableTypeTable attribute does have a signatureIndex.
+ *
+ * @see org.apache.bcel.classfile.Utility for more details on the difference.
+ *
+ * @see LocalVariableTable
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11883,42 +11881,6 @@ in `src/main/java/org/apache/bcel/generic/IF_ICMPGE.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.classfile` is unnecessary and can be removed
-in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
-#### Snippet
-```java
- * LocalVariableTypeTable attribute does have a signatureIndex.
- *
- * @see org.apache.bcel.classfile.Utility for more details on the difference.
- *
- * @see LocalVariableTable
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/verifier/Verifier.java`
-#### Snippet
-```java
-                System.out.println("Now verifying: " + args[index] + "\n");
-                verifyType(args[index]);
-                org.apache.bcel.Repository.clearCache();
-                System.gc();
-            } catch (final ClassNotFoundException e) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/verifier/Verifier.java`
-#### Snippet
-```java
-        System.out.println("Pass 2:\n" + verificationResult);
-        if (verificationResult == VerificationResult.VR_OK) {
-            final JavaClass jc = org.apache.bcel.Repository.lookupClass(fullyQualifiedClassName);
-            for (int i = 0; i < jc.getMethods().length; i++) {
-                verificationResult = verifier.doPass3a(i);
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/verifier/Verifier.java`
 #### Snippet
@@ -11940,6 +11902,30 @@ in `src/main/java/org/apache/bcel/verifier/Verifier.java`
                 messages.add("Pass 3b, method " + meth + " ('" + org.apache.bcel.Repository.lookupClass(className).getMethods()[meth] + "'): " + element);
             }
         }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/verifier/Verifier.java`
+#### Snippet
+```java
+        System.out.println("Pass 2:\n" + verificationResult);
+        if (verificationResult == VerificationResult.VR_OK) {
+            final JavaClass jc = org.apache.bcel.Repository.lookupClass(fullyQualifiedClassName);
+            for (int i = 0; i < jc.getMethods().length; i++) {
+                verificationResult = verifier.doPass3a(i);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/verifier/Verifier.java`
+#### Snippet
+```java
+                System.out.println("Now verifying: " + args[index] + "\n");
+                verifyType(args[index]);
+                org.apache.bcel.Repository.clearCache();
+                System.gc();
+            } catch (final ClassNotFoundException e) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12159,6 +12145,18 @@ in `src/main/java/org/apache/bcel/generic/LOR.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel.generic` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+     * This visitor class does the actual checking for the instruction operand's constraints.
+     */
+    private class InstOperandConstraintVisitor extends org.apache.bcel.generic.EmptyVisitor {
+        /** The ConstantPoolGen instance this Visitor operates on. */
+        private final ConstantPoolGen constantPoolGen;
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/IFLT.java`
 #### Snippet
@@ -12184,24 +12182,24 @@ in `src/main/java/org/apache/bcel/generic/IFNONNULL.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/I2S.java`
-#### Snippet
-```java
-
-    public I2S() {
-        super(org.apache.bcel.Const.I2S);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/D2F.java`
 #### Snippet
 ```java
      */
     public D2F() {
         super(org.apache.bcel.Const.D2F);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/I2S.java`
+#### Snippet
+```java
+
+    public I2S() {
+        super(org.apache.bcel.Const.I2S);
     }
 
 ```
@@ -12240,18 +12238,6 @@ in `src/main/java/org/apache/bcel/generic/GOTO.java`
             super.setOpcode(org.apache.bcel.Const.GOTO_W);
             final short oldLength = (short) super.getLength();
             super.setLength(5);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel.generic` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-     * This visitor class does the actual checking for the instruction operand's constraints.
-     */
-    private class InstOperandConstraintVisitor extends org.apache.bcel.generic.EmptyVisitor {
-        /** The ConstantPoolGen instance this Visitor operates on. */
-        private final ConstantPoolGen constantPoolGen;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12316,54 +12302,6 @@ in `src/main/java/org/apache/bcel/generic/ANEWARRAY.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DSTORE.java`
-#### Snippet
-```java
-     */
-    public DSTORE(final int n) {
-        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DSTORE.java`
-#### Snippet
-```java
-     */
-    public DSTORE(final int n) {
-        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0, n);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DSTORE.java`
-#### Snippet
-```java
-     */
-    DSTORE() {
-        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/bcel/generic/DSTORE.java`
-#### Snippet
-```java
-     */
-    DSTORE() {
-        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0);
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/bcel/generic/DUP2_X2.java`
 #### Snippet
 ```java
@@ -12372,6 +12310,18 @@ in `src/main/java/org/apache/bcel/generic/DUP2_X2.java`
         super(org.apache.bcel.Const.DUP2_X2);
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary and can be removed
+in `src/main/java/org/apache/bcel/verifier/statics/Pass1Verifier.java`
+#### Snippet
+```java
+     * </P>
+     *
+     * @see org.apache.bcel.Repository
+     * @see org.apache.bcel.Const#JVM_CLASSFILE_MAGIC
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12387,15 +12337,51 @@ in `src/main/java/org/apache/bcel/generic/RETURN.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.bcel` is unnecessary and can be removed
-in `src/main/java/org/apache/bcel/verifier/statics/Pass1Verifier.java`
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DSTORE.java`
 #### Snippet
 ```java
-     * </P>
-     *
-     * @see org.apache.bcel.Repository
-     * @see org.apache.bcel.Const#JVM_CLASSFILE_MAGIC
      */
+    public DSTORE(final int n) {
+        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DSTORE.java`
+#### Snippet
+```java
+     */
+    public DSTORE(final int n) {
+        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0, n);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DSTORE.java`
+#### Snippet
+```java
+     */
+    DSTORE() {
+        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0);
+    }
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.bcel` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/bcel/generic/DSTORE.java`
+#### Snippet
+```java
+     */
+    DSTORE() {
+        super(org.apache.bcel.Const.DSTORE, org.apache.bcel.Const.DSTORE_0);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12473,18 +12459,6 @@ in `src/main/java/org/apache/bcel/verifier/GraphicalVerifier.java`
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-            dump(dos);
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-        return baos.toByteArray();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
 #### Snippet
 ```java
@@ -12493,6 +12467,18 @@ in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
                 ex.printStackTrace();
             }
         } else {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
+            dump(dos);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+        return baos.toByteArray();
 ```
 
 ### ThrowablePrintStackTrace
@@ -12584,11 +12570,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
 #### Snippet
 ```java
-            jbInit();
-        } catch (final Exception e) {
-            e.printStackTrace();
-        }
-    }
+                } catch (final ClassNotFoundException ex) {
+                    // FIXME: handle the error
+                    ex.printStackTrace();
+                }
+            }
 ```
 
 ### ThrowablePrintStackTrace
@@ -12596,11 +12582,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/apache/bcel/verifier/VerifierAppFrame.java`
 #### Snippet
 ```java
-                } catch (final ClassNotFoundException ex) {
-                    // FIXME: handle the error
-                    ex.printStackTrace();
-                }
-            }
+            jbInit();
+        } catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
 ```
 
 ## RuleId[id=SuspiciousToArrayCall]
@@ -12775,6 +12761,30 @@ in `src/main/java/org/apache/bcel/classfile/ConstantPool.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `fullyQualifiedClassName`
+in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
+#### Snippet
+```java
+        final int dotclasspos = fullyQualifiedClassName.lastIndexOf(JavaClass.EXTENSION);
+        if (dotclasspos != -1) {
+            fullyQualifiedClassName = fullyQualifiedClassName.substring(0, dotclasspos);
+        }
+        fullyQualifiedClassName = Utility.pathToPackage(fullyQualifiedClassName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fullyQualifiedClassName`
+in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
+#### Snippet
+```java
+            fullyQualifiedClassName = fullyQualifiedClassName.substring(0, dotclasspos);
+        }
+        fullyQualifiedClassName = Utility.pathToPackage(fullyQualifiedClassName);
+        this.className = fullyQualifiedClassName;
+        initialize();
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `pre`
 in `src/main/java/org/apache/bcel/verifier/exc/VerifierConstraintViolatedException.java`
 #### Snippet
@@ -12847,30 +12857,6 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fullyQualifiedClassName`
-in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
-#### Snippet
-```java
-        final int dotclasspos = fullyQualifiedClassName.lastIndexOf(JavaClass.EXTENSION);
-        if (dotclasspos != -1) {
-            fullyQualifiedClassName = fullyQualifiedClassName.substring(0, dotclasspos);
-        }
-        fullyQualifiedClassName = Utility.pathToPackage(fullyQualifiedClassName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fullyQualifiedClassName`
-in `src/main/java/org/apache/bcel/verifier/VerifyDialog.java`
-#### Snippet
-```java
-            fullyQualifiedClassName = fullyQualifiedClassName.substring(0, dotclasspos);
-        }
-        fullyQualifiedClassName = Utility.pathToPackage(fullyQualifiedClassName);
-        this.className = fullyQualifiedClassName;
-        initialize();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `argNames`
 in `src/main/java/org/apache/bcel/generic/MethodGen.java`
 #### Snippet
@@ -12895,6 +12881,18 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+            brackets = countBrackets(type.substring(index));
+        }
+        type = buf.toString();
+        buf.setLength(0);
+        for (int i = 0; i < brackets; i++) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `str`
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
@@ -12904,6 +12902,18 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
                 str = buf.toString();
             }
         } catch (final StringIndexOutOfBoundsException e) { // Should not occur
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/org/apache/bcel/classfile/Utility.java`
+#### Snippet
+```java
+     */
+    public static short searchOpcode(String name) {
+        name = name.toLowerCase(Locale.ENGLISH);
+        for (short i = 0; i < Const.OPCODE_NAMES_LENGTH; i++) {
+            if (Const.getOpcodeName(i).equals(name)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -12931,18 +12941,6 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-     */
-    public static short searchOpcode(String name) {
-        name = name.toLowerCase(Locale.ENGLISH);
-        for (short i = 0; i < Const.OPCODE_NAMES_LENGTH; i++) {
-            if (Const.getOpcodeName(i).equals(name)) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `bytes`
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
@@ -12952,42 +12950,6 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
                 bytes = baos.toByteArray();
             }
         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `src/main/java/org/apache/bcel/classfile/Utility.java`
-#### Snippet
-```java
-            brackets = countBrackets(type.substring(index));
-        }
-        type = buf.toString();
-        buf.setLength(0);
-        for (int i = 0; i < brackets; i++) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
-#### Snippet
-```java
-     */
-    public AssertionViolatedException(String message, final Throwable initCause) {
-        super(message = "INTERNAL ERROR: " + message, initCause);
-        detailMessage = message;
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `message`
-in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
-#### Snippet
-```java
-     */
-    public AssertionViolatedException(String message) {
-        super(message = "INTERNAL ERROR: " + message); // Thanks to Java, the constructor call here must be first.
-        detailMessage = message;
-    }
 ```
 
 ### AssignmentToMethodParameter
@@ -13015,15 +12977,27 @@ in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `className`
-in `src/main/java/org/apache/bcel/util/AbstractClassPathRepository.java`
+Assignment to method parameter `message`
+in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
 #### Snippet
 ```java
-            throw new IllegalArgumentException("Invalid class name " + className);
-        }
-        className = Utility.pathToPackage(className); // Just in case, canonical form
-        final JavaClass clazz = findClass(className);
-        if (clazz != null) {
+     */
+    public AssertionViolatedException(String message, final Throwable initCause) {
+        super(message = "INTERNAL ERROR: " + message, initCause);
+        detailMessage = message;
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `message`
+in `src/main/java/org/apache/bcel/verifier/exc/AssertionViolatedException.java`
+#### Snippet
+```java
+     */
+    public AssertionViolatedException(String message) {
+        super(message = "INTERNAL ERROR: " + message); // Thanks to Java, the constructor call here must be first.
+        detailMessage = message;
+    }
 ```
 
 ### AssignmentToMethodParameter
@@ -13036,6 +13010,18 @@ in `src/main/java/org/apache/bcel/classfile/ElementValue.java`
             arrayNesting++;
             if (arrayNesting > Const.MAX_ARRAY_DIMENSIONS) {
                 // JVM spec 4.4.1
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `className`
+in `src/main/java/org/apache/bcel/util/AbstractClassPathRepository.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Invalid class name " + className);
+        }
+        className = Utility.pathToPackage(className); // Just in case, canonical form
+        final JavaClass clazz = findClass(className);
+        if (clazz != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13053,18 +13039,6 @@ in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/LineNumber.java`
-#### Snippet
-```java
-            // TODO should this throw?
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/classfile/EnclosingMethod.java`
 #### Snippet
 ```java
@@ -13073,6 +13047,18 @@ in `src/main/java/org/apache/bcel/classfile/EnclosingMethod.java`
             return null;
         }
         return super.getConstantPool().getConstant(methodIndex, Const.CONSTANT_NameAndType, ConstantNameAndType.class);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/classfile/LineNumber.java`
+#### Snippet
+```java
+            // TODO should this throw?
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -13101,18 +13087,6 @@ in `src/main/java/org/apache/bcel/classfile/Field.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/StackMapType.java`
-#### Snippet
-```java
-            // TODO should this throw?
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/generic/INSTANCEOF.java`
 #### Snippet
 ```java
@@ -13121,6 +13095,18 @@ in `src/main/java/org/apache/bcel/generic/INSTANCEOF.java`
         return t instanceof ObjectType ? (ObjectType) t : null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/classfile/StackMapType.java`
+#### Snippet
+```java
+            // TODO should this throw?
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -13149,10 +13135,10 @@ in `src/main/java/org/apache/bcel/classfile/ModuleOpens.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
+in `src/main/java/org/apache/bcel/classfile/MethodParameter.java`
 #### Snippet
 ```java
-            return attributes.get(key);
+            // TODO should this throw?
         }
         return null;
     }
@@ -13173,10 +13159,10 @@ in `src/main/java/org/apache/bcel/classfile/MethodParameter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/MethodParameter.java`
+in `src/main/java/org/apache/bcel/generic/InstructionHandle.java`
 #### Snippet
 ```java
-            // TODO should this throw?
+            return attributes.get(key);
         }
         return null;
     }
@@ -13252,7 +13238,7 @@ in `src/main/java/org/apache/bcel/classfile/Method.java`
         if (code == null) {
             return null;
         }
-        return code.getLocalVariableTable();
+        return code.getLineNumberTable();
 ```
 
 ### ReturnNull
@@ -13264,7 +13250,7 @@ in `src/main/java/org/apache/bcel/classfile/Method.java`
         if (code == null) {
             return null;
         }
-        return code.getLineNumberTable();
+        return code.getLocalVariableTable();
 ```
 
 ### ReturnNull
@@ -13296,6 +13282,18 @@ Return of `null`
 in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
+#### Snippet
+```java
             return c;
         } catch (final CloneNotSupportedException e) {
             return null;
@@ -13313,18 +13311,6 @@ in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
             return null;
         }
         return repository.loadClass(getSuperclassName());
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/classfile/JavaClass.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -13413,60 +13399,12 @@ in `src/main/java/org/apache/bcel/verifier/structurals/OperandStack.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-                return branchTargets.pop();
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/generic/MethodGen.java`
-#### Snippet
-```java
-        ensureExistingParameterAnnotationsUnpacked();
-        if (!hasParameterAnnotations || i > argTypes.length) {
-            return null;
-        }
-        return paramAnnotations[i];
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-            final File file = toFile(name);
+            final ZipEntry entry = zipFile.getEntry(name);
             try {
-                return file.exists() ? file.toURI().toURL() : null;
+                return entry != null ? new URL("jar:file:" + zipFile.getName() + "!/" + name) : null;
             } catch (final MalformedURLException e) {
                 return null;
 ```
@@ -13476,7 +13414,7 @@ Return of `null`
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-                return file.exists() ? file.toURI().toURL() : null;
+                return entry != null ? new URL("jar:file:" + zipFile.getName() + "!/" + name) : null;
             } catch (final MalformedURLException e) {
                 return null;
             }
@@ -13488,10 +13426,22 @@ Return of `null`
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-
-            if (entry == null) {
+                return Files.newInputStream(modulePath.resolve(name));
+            } catch (final IOException e) {
                 return null;
             }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -13516,6 +13466,18 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
             }
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -13560,102 +13522,6 @@ Return of `null`
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-                        return file.getCanonicalPath();
-                    } catch (final IOException e) {
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-            final ZipEntry entry = zipFile.getEntry(name);
-            try {
-                return entry != null ? new URL("jar:file:" + zipFile.getName() + "!/" + name) : null;
-            } catch (final MalformedURLException e) {
-                return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-                return entry != null ? new URL("jar:file:" + zipFile.getName() + "!/" + name) : null;
-            } catch (final MalformedURLException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-            final ZipEntry entry = zipFile.getEntry(name);
-            try {
-                return entry != null ? zipFile.getInputStream(entry) : null;
-            } catch (final IOException e) {
-                return null;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-                return entry != null ? zipFile.getInputStream(entry) : null;
-            } catch (final IOException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
-                return Files.newInputStream(modulePath.resolve(name));
-            } catch (final IOException e) {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/util/ClassPath.java`
-#### Snippet
-```java
             final File file = toFile(name);
             try {
                 return file.exists() ? new FileInputStream(file) : null;
@@ -13680,6 +13546,42 @@ Return of `null`
 in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
+            final File file = toFile(name);
+            try {
+                return file.exists() ? file.toURI().toURL() : null;
+            } catch (final MalformedURLException e) {
+                return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+                return file.exists() ? file.toURI().toURL() : null;
+            } catch (final MalformedURLException e) {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
                     return file.lastModified();
                 }
             } : null;
@@ -13689,14 +13591,86 @@ in `src/main/java/org/apache/bcel/util/ClassPath.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
 #### Snippet
 ```java
+                        return file.getCanonicalPath();
+                    } catch (final IOException e) {
+                        return null;
+                    }
+                }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+            final ZipEntry entry = zipFile.getEntry(name);
+            try {
+                return entry != null ? zipFile.getInputStream(entry) : null;
+            } catch (final IOException e) {
+                return null;
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+                return entry != null ? zipFile.getInputStream(entry) : null;
+            } catch (final IOException e) {
+                return null;
+            }
         }
-        System.err.println("DEBUG: Please verify '" + any.toString(true) + "' lies in dead code.");
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+            }
+        }
         return null;
-        // throw new AssertionViolatedException("No subroutine for InstructionHandle found (DEAD CODE?).");
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+        ensureExistingParameterAnnotationsUnpacked();
+        if (!hasParameterAnnotations || i > argTypes.length) {
+            return null;
+        }
+        return paramAnnotations[i];
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/generic/MethodGen.java`
+#### Snippet
+```java
+                return branchTargets.pop();
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/util/ClassPath.java`
+#### Snippet
+```java
+
+            if (entry == null) {
+                return null;
+            }
+
 ```
 
 ### ReturnNull
@@ -13713,18 +13687,6 @@ in `src/main/java/org/apache/bcel/verifier/structurals/ControlFlowGraph.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/ModuleProvides.java`
-#### Snippet
-```java
-            // TODO should this throw?
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/classfile/Utility.java`
 #### Snippet
 ```java
@@ -13733,6 +13695,30 @@ in `src/main/java/org/apache/bcel/classfile/Utility.java`
             return null;
         }
         final StringBuilder buf = new StringBuilder();
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/verifier/structurals/Subroutines.java`
+#### Snippet
+```java
+        }
+        System.err.println("DEBUG: Please verify '" + any.toString(true) + "' lies in dead code.");
+        return null;
+        // throw new AssertionViolatedException("No subroutine for InstructionHandle found (DEAD CODE?).");
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/classfile/ModuleProvides.java`
+#### Snippet
+```java
+            // TODO should this throw?
+        }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -13797,24 +13783,24 @@ in `src/main/java/org/apache/bcel/util/AbstractClassPathRepository.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
-#### Snippet
-```java
-    public LocalVariablesInfo getLocalVariablesInfo(final int methodNr) {
-        if (this.verify() != VerificationResult.VR_OK) {
-            return null; // It's cached, don't worry.
-        }
-        if (methodNr < 0 || methodNr >= localVariablesInfos.length) {
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/util/MemorySensitiveClassPathRepository.java`
 #### Snippet
 ```java
     public JavaClass findClass(final String className) {
         final SoftReference<JavaClass> ref = loadedClasses.get(className);
         return ref == null ? null : ref.get();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
+#### Snippet
+```java
+        }
+        constraintViolated(o, "expecting ObjectType but got " + rt);
+        return null;
     }
 
 ```
@@ -13833,6 +13819,18 @@ in `src/main/java/org/apache/bcel/generic/MULTIANEWARRAY.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
+#### Snippet
+```java
+            // TODO should this throw?
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
 #### Snippet
 ```java
@@ -13845,14 +13843,14 @@ in `src/main/java/org/apache/bcel/classfile/DescendingVisitor.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/LocalVariable.java`
+in `src/main/java/org/apache/bcel/verifier/statics/Pass2Verifier.java`
 #### Snippet
 ```java
-            // TODO should this throw?
+    public LocalVariablesInfo getLocalVariablesInfo(final int methodNr) {
+        if (this.verify() != VerificationResult.VR_OK) {
+            return null; // It's cached, don't worry.
         }
-        return null;
-    }
-
+        if (methodNr < 0 || methodNr >= localVariablesInfos.length) {
 ```
 
 ### ReturnNull
@@ -13869,18 +13867,6 @@ in `src/main/java/org/apache/bcel/util/ClassLoader.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/verifier/structurals/InstConstraintVisitor.java`
-#### Snippet
-```java
-        }
-        constraintViolated(o, "expecting ObjectType but got " + rt);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/bcel/classfile/BootstrapMethod.java`
 #### Snippet
 ```java
@@ -13893,25 +13879,37 @@ in `src/main/java/org/apache/bcel/classfile/BootstrapMethod.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/Code.java`
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
             }
+            constraintViolated(o, "expecting ObjectType but got " + rt);
+            return null;
         }
-        return null;
-    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/classfile/Code.java`
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
 #### Snippet
 ```java
             }
+            // method not found in the hierarchy
+            return null;
         }
-        return null;
-    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
 
 ```
 
@@ -13941,37 +13939,25 @@ in `src/main/java/org/apache/bcel/generic/ReferenceType.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+in `src/main/java/org/apache/bcel/classfile/Code.java`
 #### Snippet
 ```java
             }
-            // method not found in the hierarchy
-            return null;
         }
+        return null;
+    }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
+in `src/main/java/org/apache/bcel/classfile/Code.java`
 #### Snippet
 ```java
             }
-            constraintViolated(o, "expecting ObjectType but got " + rt);
-            return null;
         }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/verifier/statics/Pass3aVerifier.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
+        return null;
+    }
 
 ```
 
@@ -14004,6 +13990,18 @@ Return of `null`
 in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/bcel/generic/InstructionList.java`
+#### Snippet
+```java
             ih = ih.getNext();
         }
         return null;
@@ -14016,11 +14014,11 @@ Return of `null`
 in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 #### Snippet
 ```java
+            }
         }
-        if (il.isEmpty()) {
-            return null;
-        }
-        if (isEmpty()) {
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -14040,23 +14038,11 @@ Return of `null`
 in `src/main/java/org/apache/bcel/generic/InstructionList.java`
 #### Snippet
 ```java
-            }
         }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/bcel/generic/InstructionList.java`
-#### Snippet
-```java
-            }
+        if (il.isEmpty()) {
+            return null;
         }
-        return null;
-    }
-
+        if (isEmpty()) {
 ```
 
 ## RuleId[id=AssignmentToLambdaParameter]
