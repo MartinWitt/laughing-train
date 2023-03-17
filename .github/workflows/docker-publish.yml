@@ -48,7 +48,7 @@ jobs:
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
         if: github.event_name != 'pull_request'
-        uses: sigstore/cosign-installer@bd2d1189b064bcddc3903176a807dcdba72d7fd0
+        uses: sigstore/cosign-installer@ca922a571676e06d3299cce5d520e178ba89a276
         with:
           cosign-release: 'v1.13.1'
       # Build Quarkus
