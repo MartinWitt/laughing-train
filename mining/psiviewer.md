@@ -95,19 +95,32 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
         packColumn(myTable, 0, 2);
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+## RuleId[id=MarkedForRemoval]
+### MarkedForRemoval
+'Integer(int)' is deprecated and marked for removal
+in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
 #### Snippet
 ```java
-import java.lang.reflect.Method;
-
-public class IntrospectionUtil
-{
-    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
+        _slider.addChangeListener(it -> {
+                    int value = ((JSlider) it.getSource()).getValue();
+                    _spinner.setValue(new Integer(value));
+                    updateColor(value);
+                }
 ```
 
+### MarkedForRemoval
+'findPluginId(java.lang.@org.jetbrains.annotations.NotNull Throwable)' is deprecated and marked for removal
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+        Throwable t = ideaLoggingEvents[0].getThrowable();
+        if (t != null) {
+            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
+            if (pluginId != null) {
+                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `PluginPsiUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/idea/plugin/psiviewer/util/PluginPsiUtil.java`
@@ -118,6 +131,18 @@ import org.jetbrains.annotations.Nullable;
 public class PluginPsiUtil
 {
     @Nullable
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+import java.lang.reflect.Method;
+
+public class IntrospectionUtil
+{
+    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -142,31 +167,6 @@ import com.intellij.psi.PsiFile;
 public class ActionEventUtil
 {
     public static Project getProject(AnActionEvent event)
-```
-
-## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'Integer(int)' is deprecated and marked for removal
-in `src/main/java/idea/plugin/psiviewer/view/configuration/CompoundSlider.java`
-#### Snippet
-```java
-        _slider.addChangeListener(it -> {
-                    int value = ((JSlider) it.getSource()).getValue();
-                    _spinner.setValue(new Integer(value));
-                    updateColor(value);
-                }
-```
-
-### MarkedForRemoval
-'findPluginId(java.lang.@org.jetbrains.annotations.NotNull Throwable)' is deprecated and marked for removal
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-        Throwable t = ideaLoggingEvents[0].getThrowable();
-        if (t != null) {
-            final PluginId pluginId = IdeErrorsDialog.findPluginId(t);
-            if (pluginId != null) {
-                final IdeaPluginDescriptor ideaPluginDescriptor = PluginManager.getPlugin(pluginId);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -307,27 +307,15 @@ public class PropertySheetPanel extends JPanel {
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field '_model' in a Serializable class
+Non-serializable field '_caretMover' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private String _actionTitle;
-    private PsiViewerTree _tree;
-    private PsiViewerTreeModel _model;
-    private PsiElement _rootElement; // The root element of the tree
-    private PsiElement _selectedElement; // The currently selected element in the tree
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_highlighter' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
+    private JSplitPane _splitPane;
     private final ViewerTreeSelectionListener _treeSelectionListener;
     private final EditorCaretMover _caretMover;
     private final EditorPsiElementHighlighter _highlighter;
     private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -343,6 +331,18 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field '_highlighter' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field '_projectComponent' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
@@ -355,15 +355,15 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field '_caretMover' in a Serializable class
+Non-serializable field '_model' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
 #### Snippet
 ```java
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
+    private String _actionTitle;
+    private PsiViewerTree _tree;
+    private PsiViewerTreeModel _model;
+    private PsiElement _rootElement; // The root element of the tree
+    private PsiElement _selectedElement; // The currently selected element in the tree
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -663,18 +663,6 @@ in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerToolWindowFactory.java`
-#### Snippet
-```java
-    @Override
-    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        PsiViewerProjectService component = idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(project);
-        ContentManager contentManager = toolWindow.getContentManager();
-        PsiViewerPanel panel = component.initToolWindow(toolWindow);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
 in `src/main/java/idea/plugin/psiviewer/view/EditorPsiElementHighlighter.java`
 #### Snippet
 ```java
@@ -683,6 +671,18 @@ in `src/main/java/idea/plugin/psiviewer/view/EditorPsiElementHighlighter.java`
         return idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(_project).isHighlighted();
     }
 
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `idea.plugin.psiviewer.controller.project` is unnecessary and can be removed
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerToolWindowFactory.java`
+#### Snippet
+```java
+    @Override
+    public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        PsiViewerProjectService component = idea.plugin.psiviewer.controller.project.PsiViewerProjectService.getInstance(project);
+        ContentManager contentManager = toolWindow.getContentManager();
+        PsiViewerPanel panel = component.initToolWindow(toolWindow);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -790,59 +790,47 @@ Field initialization to `false` is redundant
 in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
 #### Snippet
 ```java
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
         public int SPLIT_DIVIDER_POSITION = 300;
         public boolean AUTOSCROLL_TO_SOURCE = false;
         public boolean AUTOSCROLL_FROM_SOURCE = false;
     }
     private State myState = new State();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
-#### Snippet
-```java
-    private static final String PROJECT_NAME = "PSI";
-
-    private String myDescription = null;
-    private String myExtraInformation = "";
-    private String myAffectedVersion = null;
 ```
 
 ### RedundantFieldInitialization
@@ -855,6 +843,18 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
     private String myAffectedVersion = null;
     private final boolean myShowDialog = ApplicationInfo.getInstance().getBuild().getBaselineVersion() > 110;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
+#### Snippet
+```java
+    private static final String PROJECT_NAME = "PSI";
+
+    private String myDescription = null;
+    private String myExtraInformation = "";
+    private String myAffectedVersion = null;
 ```
 
 ### RedundantFieldInitialization
@@ -937,7 +937,7 @@ Return of `null`
 in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
 #### Snippet
 ```java
-    public Icon getLargeDisplayIcon()
+    public Icon getSmallDisplayIcon()
     {
         return null;
     }
@@ -949,7 +949,7 @@ Return of `null`
 in `src/main/java/idea/plugin/psiviewer/view/configuration/AlphaChooserPanel.java`
 #### Snippet
 ```java
-    public Icon getSmallDisplayIcon()
+    public Icon getLargeDisplayIcon()
     {
         return null;
     }
@@ -1016,6 +1016,31 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
         while (element != null && element != _rootElement)
 ```
 
+## RuleId[id=StringBufferReplaceableByStringBuilder]
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buf` may be declared as 'StringBuilder'
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
+#### Snippet
+```java
+        if (object == null) return "null";
+        if (!object.getClass().isArray()) return object.toString();
+        StringBuffer buf = new StringBuffer();
+        buf.append("[");
+        int arrayLength = Array.getLength(object);
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer cookieStringBuffer` may be declared as 'StringBuilder'
+in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
+#### Snippet
+```java
+    Map domainStore = (Map) myStore.get(domain);
+if (domainStore == null) return;
+StringBuffer cookieStringBuffer = new StringBuffer();
+
+Iterator cookieNames = domainStore.keySet().iterator();
+```
+
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `filePath` is redundant
@@ -1053,44 +1078,7 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
 }
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
-#### Snippet
-```java
-        if (object == null) return "null";
-        if (!object.getClass().isArray()) return object.toString();
-        StringBuffer buf = new StringBuffer();
-        buf.append("[");
-        int arrayLength = Array.getLength(object);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer cookieStringBuffer` may be declared as 'StringBuilder'
-in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
-#### Snippet
-```java
-    Map domainStore = (Map) myStore.get(domain);
-if (domainStore == null) return;
-StringBuffer cookieStringBuffer = new StringBuffer();
-
-Iterator cookieNames = domainStore.keySet().iterator();
-```
-
 ## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
-
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
@@ -1101,6 +1089,18 @@ in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
             propertyDescriptors = new PropertyDescriptor[0];
         }
         return propertyDescriptors;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+        try
+        {
+            Object args[] = {};
+            getter.setAccessible(true);
+
 ```
 
 ## RuleId[id=UnusedAssignment]
