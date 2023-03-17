@@ -26,18 +26,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Loggers` has only 'static' members, and lacks a 'private' constructor
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
-#### Snippet
-```java
-import com.intellij.openapi.diagnostic.Logger;
-
-public class Loggers {
-
-    public static final Logger DETECTION_LOGGER = Logger.getInstance("jetbrains.buildServer.powershell.agent.DETECT");
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `LegacyKeys` has only 'static' members, and lacks a 'private' constructor
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/LegacyKeys.java`
 #### Snippet
@@ -47,6 +35,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Legacy
 class LegacyKeys {
 
   private static String getVersionKey(@NotNull final PowerShellBitness bitness) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Loggers` has only 'static' members, and lacks a 'private' constructor
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Loggers.java`
+#### Snippet
+```java
+import com.intellij.openapi.diagnostic.Logger;
+
+public class Loggers {
+
+    public static final Logger DETECTION_LOGGER = Logger.getInstance("jetbrains.buildServer.powershell.agent.DETECT");
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -76,18 +76,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
-#### Snippet
-```java
-      if (!propertyPaths.isEmpty()) {
-        LOG.debug("Adding PowerShell detection paths from [teamcity.powershell.detector.search.paths] property.");
-        LOG.debug(StringUtil.join(propertyPaths, "\n"));
-      }
-    }
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system/PowerShellCommands.java`
 #### Snippet
@@ -97,6 +85,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/system
     if (StringUtil.isEmptyOrSpaces(windir)) {
       LOG.warn("Failed to find %windir%");
       return "cmd.exe";
+```
+
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
+#### Snippet
+```java
+      if (!propertyPaths.isEmpty()) {
+        LOG.debug("Adding PowerShell detection paths from [teamcity.powershell.detector.search.paths] property.");
+        LOG.debug(StringUtil.join(propertyPaths, "\n"));
+      }
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -136,27 +136,27 @@ in `powershell-server/src/main/java/jetbrains/buildServer/powershell/server/Powe
 ```
 
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-    final String command = myCommands.getNativeCommand(info, getRunnerContext());
-    buildLogger.message("Command: " + command);
-    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
-    return new SimpleProgramCommandLine(env, workDir, command, args);
-  }
+    final List<String> result = new ArrayList<>();
+    final String custom = runnerParams.get(key);
+    if (!StringUtil.isEmptyOrSpaces(custom)) {
+      List<String> lines;
+      if (Boolean.parseBoolean(sharedConfigParams.get(PARAM_ARGS_MULTILINE))) {
 ```
 
 ### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-  private boolean isInternalPropertySetExecutionPolicy(@NotNull final String name, boolean def) {
-    final String prop = getConfigParameters().get("teamcity.powershell." + name);
-    if (StringUtil.isEmptyOrSpaces(prop)) {
-      return def;
-    } else {
+      }
+      lines.stream().map(String::trim)
+              .filter(it -> !StringUtil.isEmptyOrSpaces(it))
+              .map(StringUtil::splitHonorQuotes)
+              .forEach(result::addAll);
 ```
 
 ### StaticCallOnSubclass
@@ -185,38 +185,26 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerS
 
 ### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
 ```java
-    final List<String> result = new ArrayList<>();
-    final String custom = runnerParams.get(key);
-    if (!StringUtil.isEmptyOrSpaces(custom)) {
-      List<String> lines;
-      if (Boolean.parseBoolean(sharedConfigParams.get(PARAM_ARGS_MULTILINE))) {
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
-#### Snippet
-```java
-      }
-      lines.stream().map(String::trim)
-              .filter(it -> !StringUtil.isEmptyOrSpaces(it))
-              .map(StringUtil::splitHonorQuotes)
-              .forEach(result::addAll);
+  private boolean isInternalPropertySetExecutionPolicy(@NotNull final String name, boolean def) {
+    final String prop = getConfigParameters().get("teamcity.powershell." + name);
+    if (StringUtil.isEmptyOrSpaces(prop)) {
+      return def;
+    } else {
 ```
 
 ### StaticCallOnSubclass
 Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/service/PowerShellServiceWindows.java`
 #### Snippet
 ```java
-    final List<String> pathsToCheck = myDetectionPaths.getPaths(detectionContext);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
-    }
-
+    final String command = myCommands.getNativeCommand(info, getRunnerContext());
+    buildLogger.message("Command: " + command);
+    buildLogger.message("PowerShell arguments: " + StringUtil.join(args, ", "));
+    return new SimpleProgramCommandLine(env, workDir, command, args);
+  }
 ```
 
 ### StaticCallOnSubclass
@@ -229,6 +217,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
           LOG.debug("Detection script output at " + executablePath + "\n" + StringUtil.join(outputLines, "\n"));
         }
         if (outputLines.size() == 3) {
+```
+
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/CommandLinePowerShellDetector.java`
+#### Snippet
+```java
+    final List<String> pathsToCheck = myDetectionPaths.getPaths(detectionContext);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Will be detecting PowerShell in the following locations: [\n" + StringUtil.join(pathsToCheck, "\n") + "\n");
+    }
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -358,11 +358,11 @@ Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-  }
-
-  private void addVersion(@NotNull final List<String> list,
-                          @NotNull final Map<String, String> runnerParams,
-                          @NotNull final PowerShellInfo info) {
+   * @param key runner parameter key
+   */
+  private void addCustomArguments(@NotNull final List<String> args,
+                                  @NotNull final Map<String, String> runnerParams,
+                                  Map<String, String> sharedConfigParams,
 ```
 
 ### BoundedWildcard
@@ -370,11 +370,11 @@ Can generalize to `? super String`
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/PowerShellCommandLineProvider.java`
 #### Snippet
 ```java
-   * @param key runner parameter key
-   */
-  private void addCustomArguments(@NotNull final List<String> args,
-                                  @NotNull final Map<String, String> runnerParams,
-                                  Map<String, String> sharedConfigParams,
+  }
+
+  private void addVersion(@NotNull final List<String> list,
+                          @NotNull final Map<String, String> runnerParams,
+                          @NotNull final PowerShellInfo info) {
 ```
 
 ### BoundedWildcard
