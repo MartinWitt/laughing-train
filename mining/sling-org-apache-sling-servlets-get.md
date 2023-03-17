@@ -54,18 +54,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `r.adaptTo(String[].class)` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
-#### Snippet
-```java
-            printProlog(pw, isIncluded);
-            printResourceInfo(pw, r);
-            render(pw, r, r.adaptTo(String[].class));
-            printEpilog(pw, isIncluded);
-        } else {
-```
-
-### DataFlowIssue
 Method invocation `getWorkspace` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
 #### Snippet
@@ -102,18 +90,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
 ```
 
 ### DataFlowIssue
-Method invocation `include` may produce `NullPointerException`
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-
-                try {
-					dispatcher.include(request, response);
-				} catch (ServletException e) {
-					throw new IOException(e);
-```
-
-### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
@@ -147,6 +123,30 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
             try (InputStream istream = new BufferedInputStream(resourceInputStream,
                     IO_BUFFER_SIZE)) {
                 Range currentRange = ranges.next();
+```
+
+### DataFlowIssue
+Method invocation `include` may produce `NullPointerException`
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+
+                try {
+					dispatcher.include(request, response);
+				} catch (ServletException e) {
+					throw new IOException(e);
+```
+
+### DataFlowIssue
+Argument `r.adaptTo(String[].class)` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
+#### Snippet
+```java
+            printProlog(pw, isIncluded);
+            printResourceInfo(pw, r);
+            render(pw, r, r.adaptTo(String[].class));
+            printEpilog(pw, isIncluded);
+        } else {
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -190,18 +190,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `toString()` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
-#### Snippet
-```java
-            final String value = resource.adaptTo(String.class);
-            if (value != null) {
-                obj.add(resource.getName(), value.toString());
-            } else {
-                final String[] values = resource.adaptTo(String[].class);
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 #### Snippet
 ```java
@@ -222,6 +210,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
                             dashPos + 1, rangeDefinition.length()));
                     else
                         currentRange.end = fileLength - 1;
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
+#### Snippet
+```java
+            final String value = resource.adaptTo(String.class);
+            if (value != null) {
+                obj.add(resource.getName(), value.toString());
+            } else {
+                final String[] values = resource.adaptTo(String[].class);
 ```
 
 ## RuleId[id=WhileCanBeForeach]
@@ -377,7 +377,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-00-59-53.012.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-04-29-50.283.html`
 #### Snippet
 ```java
               <td>0</td>
