@@ -24,8 +24,8 @@ I found 40 bad smells with 4 repairable:
 | UnnecessaryToStringCall | 1 | true |
 | InnerClassMayBeStatic | 1 | true |
 | BoundedWildcard | 1 | false |
-| UnusedAssignment | 1 | false |
 | MissortedModifiers | 1 | false |
+| UnusedAssignment | 1 | false |
 ## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
@@ -53,6 +53,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `r.adaptTo(String[].class)` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
+#### Snippet
+```java
+            printProlog(pw, isIncluded);
+            printResourceInfo(pw, r);
+            render(pw, r, r.adaptTo(String[].class));
+            printEpilog(pw, isIncluded);
+        } else {
+```
+
 ### DataFlowIssue
 Method invocation `getWorkspace` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/VersionInfoServlet.java`
@@ -114,18 +126,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ```
 
 ### DataFlowIssue
-Argument `resourceInputStream` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
-
-            try (InputStream istream = new BufferedInputStream(resourceInputStream,
-                    IO_BUFFER_SIZE)) {
-                Range currentRange = ranges.next();
-```
-
-### DataFlowIssue
 Method invocation `include` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
@@ -138,15 +138,15 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ```
 
 ### DataFlowIssue
-Argument `r.adaptTo(String[].class)` might be null
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/HtmlRenderer.java`
+Argument `resourceInputStream` might be null
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
 #### Snippet
 ```java
-            printProlog(pw, isIncluded);
-            printResourceInfo(pw, r);
-            render(pw, r, r.adaptTo(String[].class));
-            printEpilog(pw, isIncluded);
-        } else {
+            InputStream resourceInputStream = resource.adaptTo(InputStream.class);
+
+            try (InputStream istream = new BufferedInputStream(resourceInputStream,
+                    IO_BUFFER_SIZE)) {
+                Range currentRange = ranges.next();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -201,18 +201,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
 ```
 
 ### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
-#### Snippet
-```java
-                    if (dashPos < rangeDefinition.length() - 1)
-                        currentRange.end = Long.parseLong(rangeDefinition.substring(
-                            dashPos + 1, rangeDefinition.length()));
-                    else
-                        currentRange.end = fileLength - 1;
-```
-
-### StringOperationCanBeSimplified
 Call to `toString()` is redundant
 in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java`
 #### Snippet
@@ -222,6 +210,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonObjectCreator.java
                 obj.add(resource.getName(), value.toString());
             } else {
                 final String[] values = resource.adaptTo(String[].class);
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java`
+#### Snippet
+```java
+                    if (dashPos < rangeDefinition.length() - 1)
+                        currentRange.end = Long.parseLong(rangeDefinition.substring(
+                            dashPos + 1, rangeDefinition.length()));
+                    else
+                        currentRange.end = fileLength - 1;
 ```
 
 ## RuleId[id=WhileCanBeForeach]
@@ -277,18 +277,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentLevel`
-in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
-#### Snippet
-```java
-        while (!currentQueue.isEmpty() || !nextQueue.isEmpty()) {
-            if (currentQueue.isEmpty()) {
-                currentLevel++;
-                currentQueue = nextQueue;
-                nextQueue = new LinkedList<>();
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `response`
 in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
 #### Snippet
@@ -298,6 +286,18 @@ in `src/main/java/org/apache/sling/servlets/get/impl/DefaultGetServlet.java`
         response = new HeadServletResponse(response);
         doGet(request, response);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentLevel`
+in `src/main/java/org/apache/sling/servlets/get/impl/util/ResourceTraversor.java`
+#### Snippet
+```java
+        while (!currentQueue.isEmpty() || !nextQueue.isEmpty()) {
+            if (currentQueue.isEmpty()) {
+                currentLevel++;
+                currentQueue = nextQueue;
+                nextQueue = new LinkedList<>();
 ```
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
@@ -377,7 +377,7 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-04-29-50.283.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-05-05-36.392.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -477,19 +477,6 @@ in `src/main/java/org/apache/sling/servlets/get/impl/helpers/StreamRenderer.java
         String contentType = resource.getResourceMetadata().getContentType();
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `maxRecursionLevels` initializer `0` is redundant
-in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
-#### Snippet
-```java
-        }
-
-        int maxRecursionLevels = 0;
-        try {
-            maxRecursionLevels = getMaxRecursionLevel(req);
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `static public`
@@ -501,6 +488,19 @@ in `src/main/java/org/apache/sling/servlets/get/impl/util/JsonToText.java`
     static public class Options {
         int indent;
         private boolean indentIsPositive;
+```
+
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `maxRecursionLevels` initializer `0` is redundant
+in `src/main/java/org/apache/sling/servlets/get/impl/helpers/JsonRenderer.java`
+#### Snippet
+```java
+        }
+
+        int maxRecursionLevels = 0;
+        try {
+            maxRecursionLevels = getMaxRecursionLevel(req);
 ```
 
 ## RuleId[id=ConstantValue]
