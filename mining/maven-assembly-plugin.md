@@ -210,7 +210,7 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java
 
 ### SizeReplaceableByIsEmpty
 `leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.java`
+in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfServicesHandler.java`
 #### Snippet
 ```java
         }
@@ -222,7 +222,7 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.
 
 ### SizeReplaceableByIsEmpty
 `leftover.length() > 0` can be replaced with '!leftover.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfServicesHandler.java`
+in `src/main/java/org/apache/maven/plugins/assembly/filter/MetaInfSpringHandler.java`
 #### Snippet
 ```java
         }
@@ -242,6 +242,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/ProjectUtils.java`
         if ( classifier != null && classifier.length() == 0 )
         {
             classifier = null;
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
+#### Snippet
+```java
+        }
+
+        if ( finalSep != null && value.length() > 0 && !value.endsWith( finalSep ) )
+        {
+            value += finalSep;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -269,15 +281,27 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.ja
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
+`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFileSet.java`
 #### Snippet
 ```java
-        }
+        this.selectors = selectors;
 
-        if ( finalSep != null && value.length() > 0 && !value.endsWith( finalSep ) )
+        if ( rootPrefix.length() > 0 && !rootPrefix.endsWith( "/" ) )
         {
-            value += finalSep;
+            this.rootPrefix = rootPrefix + "/";
+```
+
+### SizeReplaceableByIsEmpty
+`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedArchivedFileSet.java`
+#### Snippet
+```java
+        this.selectors = selectors;
+
+        if ( rootPrefix.length() > 0 && !rootPrefix.endsWith( "/" ) )
+        {
+            this.rootPrefix = rootPrefix + "/";
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -302,30 +326,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.j
                 if ( effectiveFormats == null || effectiveFormats.size() == 0 )
                 {
                     throw new MojoFailureException(
-```
-
-### SizeReplaceableByIsEmpty
-`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedFileSet.java`
-#### Snippet
-```java
-        this.selectors = selectors;
-
-        if ( rootPrefix.length() > 0 && !rootPrefix.endsWith( "/" ) )
-        {
-            this.rootPrefix = rootPrefix + "/";
-```
-
-### SizeReplaceableByIsEmpty
-`rootPrefix.length() > 0` can be replaced with '!rootPrefix.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/PrefixedArchivedFileSet.java`
-#### Snippet
-```java
-        this.selectors = selectors;
-
-        if ( rootPrefix.length() > 0 && !rootPrefix.endsWith( "/" ) )
-        {
-            this.rootPrefix = rootPrefix + "/";
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -440,18 +440,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregati
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ArtifactFilter`
-in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
-#### Snippet
-```java
-    }
-
-    public static void reportFilteringStatistics( final Collection<ArtifactFilter> filters, final Logger logger )
-    {
-        for ( final ArtifactFilter f : filters )
-```
-
-### BoundedWildcard
 Can generalize to `? extends MavenProject`
 in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
 #### Snippet
@@ -461,6 +449,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
     public static Set<MavenProject> filterProjects( final Set<MavenProject> projects, final List<String> includes,
                                                     final List<String> excludes, final boolean actTransitively,
                                                     final Logger logger )
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactFilter`
+in `src/main/java/org/apache/maven/plugins/assembly/utils/FilterUtils.java`
+#### Snippet
+```java
+    }
+
+    public static void reportFilteringStatistics( final Collection<ArtifactFilter> filters, final Logger logger )
+    {
+        for ( final ArtifactFilter f : filters )
 ```
 
 ### BoundedWildcard
@@ -500,30 +500,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/ModuleSetAssem
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-public class MavenProjects
-{
-    public static void without( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer )
-    {
-        for ( MavenProject project : source )
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
-#### Snippet
-```java
-    }
-
-    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer include,
-                               MavenProjectConsumer excluded )
-    {
-```
-
-### BoundedWildcard
 Can generalize to `? super MavenProject`
 in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
 #### Snippet
@@ -542,7 +518,31 @@ in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java
 ```java
     }
 
+    public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer include,
+                               MavenProjectConsumer excluded )
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenProject`
+in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
+#### Snippet
+```java
+    }
+
     public static void select( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer )
+    {
+        for ( MavenProject project : source )
+```
+
+### BoundedWildcard
+Can generalize to `? extends MavenProject`
+in `src/main/java/org/apache/maven/plugins/assembly/functions/MavenProjects.java`
+#### Snippet
+```java
+public class MavenProjects
+{
+    public static void without( Iterable<MavenProject> source, String packagingType, MavenProjectConsumer consumer )
     {
         for ( MavenProject project : source )
 ```
@@ -659,6 +659,42 @@ in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.j
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
+Non-private field `mainProjectInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+    public synchronized FixedStringSearchInterpolator getMainProjectInterpolator()
+    {
+        if ( mainProjectInterpolator == null )
+        {
+            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `this.mainProjectInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+        if ( mainProjectInterpolator == null )
+        {
+            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
+        }
+        return mainProjectInterpolator;
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `mainProjectInterpolator` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
+#### Snippet
+```java
+            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
+        }
+        return mainProjectInterpolator;
+    }
+
+```
+
+### PublicFieldAccessedInSynchronizedContext
 Non-private field `commandLinePropertiesInterpolator` accessed in synchronized context
 in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
 #### Snippet
@@ -730,42 +766,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.j
 
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-    public synchronized FixedStringSearchInterpolator getMainProjectInterpolator()
-    {
-        if ( mainProjectInterpolator == null )
-        {
-            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-        if ( mainProjectInterpolator == null )
-        {
-            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
-        }
-        return mainProjectInterpolator;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `mainProjectInterpolator` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/assembly/mojos/AbstractAssemblyMojo.java`
-#### Snippet
-```java
-            this.mainProjectInterpolator = mainProjectInterpolator( getProject() );
-        }
-        return mainProjectInterpolator;
-    }
-
-```
-
 ## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
@@ -832,18 +832,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.ja
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.interpolation.fixed` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
-#### Snippet
-```java
-            // 5
-            return FixedStringSearchInterpolator.create(
-                new org.codehaus.plexus.interpolation.fixed.PrefixedObjectValueSource(
-                    InterpolationConstants.PROJECT_PREFIXES, mainProject, true ) );
-        }
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.plugins.assembly` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.java`
 #### Snippet
@@ -877,6 +865,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/AssemblyArchiver.jav
      * @throws org.apache.maven.plugins.assembly.InvalidAssemblerConfigurationException when the configuration is bad
      */
     File createArchive( Assembly assembly, String fullName, String format, AssemblerConfigurationSource configSource,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.interpolation.fixed` is unnecessary and can be removed
+in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFormatUtils.java`
+#### Snippet
+```java
+            // 5
+            return FixedStringSearchInterpolator.create(
+                new org.codehaus.plexus.interpolation.fixed.PrefixedObjectValueSource(
+                    InterpolationConstants.PROJECT_PREFIXES, mainProject, true ) );
+        }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -993,7 +993,7 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregati
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
-in `src/it/projects/file-sets/multimodule-unix-lineEndings/verify.groovy`
+in `src/it/projects/file-sets/multimodule-win-lineEndings/verify.groovy`
 #### Snippet
 ```java
 FileReader reader = new FileReader( f );
@@ -1005,7 +1005,7 @@ while( ( read = reader.read( cbuf ) ) > -1 )
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `src/it/projects/file-sets/multimodule-win-lineEndings/verify.groovy`
+in `src/it/projects/file-sets/multimodule-unix-lineEndings/verify.groovy`
 #### Snippet
 ```java
 FileReader reader = new FileReader( f );
@@ -1069,18 +1069,6 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
 #### Snippet
 ```java
-    private boolean slashNSeen = false;
-
-    private boolean slashRSeen = false;
-
-    private boolean eofSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
-#### Snippet
-```java
     private boolean slashRSeen = false;
 
     private boolean eofSeen = false;
@@ -1093,23 +1081,23 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
 #### Snippet
 ```java
+    private boolean slashNSeen = false;
+
+    private boolean slashRSeen = false;
+
+    private boolean eofSeen = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LinuxLineFeedInputStream.java`
+#### Snippet
+```java
     private final boolean ensureLineFeedAtEndOfFile;
 
     private boolean slashNSeen = false;
 
     private boolean slashRSeen = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
-#### Snippet
-```java
-    private boolean slashRSeen = false;
-
-    private boolean slashNSeen = false;
-
-    private boolean injectSlashN = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1129,11 +1117,11 @@ Field initialization to `false` is redundant
 in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
 #### Snippet
 ```java
-    private final boolean ensureLineFeedAtEndOfFile;
-
     private boolean slashRSeen = false;
 
     private boolean slashNSeen = false;
+
+    private boolean injectSlashN = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1146,6 +1134,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputSt
     private boolean eofSeen = false;
 
     WindowsLineFeedInputStream( InputStream in, boolean ensureLineFeedAtEndOfFile )
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/utils/WindowsLineFeedInputStream.java`
+#### Snippet
+```java
+    private final boolean ensureLineFeedAtEndOfFile;
+
+    private boolean slashRSeen = false;
+
+    private boolean slashNSeen = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1332,7 +1332,7 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-06-10-12-21.302.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-05-14-11.019.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1357,11 +1357,23 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/AssemblyFileUtils.java
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/ManifestCreationFinalizer.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
 #### Snippet
 ```java
-            {
-                LOGGER.debug( "Ignoring missing assembly descriptor: '" + descriptor + "' per configuration." );
+                LOGGER.debug( "Ignoring missing assembly descriptor with ID '" + spec
+                    + "' per configuration.\nLocator output was:\n\n" + locator.getMessageHolder().render() );
                 return null;
             }
             else
@@ -1384,8 +1396,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
 #### Snippet
 ```java
-                LOGGER.debug( "Ignoring missing assembly descriptor with ID '" + spec
-                    + "' per configuration.\nLocator output was:\n\n" + locator.getMessageHolder().render() );
+            {
+                LOGGER.debug( "Ignoring missing assembly descriptor: '" + descriptor + "' per configuration." );
                 return null;
             }
             else
@@ -1394,18 +1406,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.jav
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/maven/plugins/assembly/filter/ComponentsXmlArchiverFileFilter.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/ManifestCreationFinalizer.java`
 #### Snippet
 ```java
         }
@@ -1531,6 +1531,18 @@ Allocation of zero length array
 in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
 #### Snippet
 ```java
+        if ( !selectors.isEmpty() )
+        {
+            this.selectors = selectors.toArray( new FileSelector[0] );
+        }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
+#### Snippet
+```java
             dfs.setCaseSensitive( fs.isCaseSensitive() );
             dfs.setDirectory( fs.getDirectory() );
             dfs.setExcludes( newEx.toArray( new String[0] ) );
@@ -1548,18 +1560,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyPro
             dfs.setIncludes( newIn.toArray( new String[0] ) );
             dfs.setIncludingEmptyDirectories( fs.isIncludingEmptyDirectories() );
             dfs.setPrefix( fs.getPrefix() );
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/apache/maven/plugins/assembly/archive/archiver/AssemblyProxyArchiver.java`
-#### Snippet
-```java
-        if ( !selectors.isEmpty() )
-        {
-            this.selectors = selectors.toArray( new FileSelector[0] );
-        }
-    }
 ```
 
 ## RuleId[id=UnusedAssignment]
