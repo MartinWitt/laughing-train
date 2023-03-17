@@ -1,34 +1,22 @@
 # metric-schema 
  
 # Bad smells
-I found 29 bad smells with 1 repairable:
+I found 33 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 7 | false |
+| UnstableApiUsage | 6 | false |
 | OptionalUsedAsFieldOrParameterType | 4 | false |
 | ZeroLengthArrayInitialization | 4 | false |
 | AbstractClassNeverImplemented | 3 | false |
 | TrivialStringConcatenation | 2 | false |
 | OptionalContainsCollection | 2 | false |
-| UnstableApiUsage | 2 | false |
 | IOResource | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | DataFlowIssue | 1 | false |
 | CodeBlock2Expr | 1 | true |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            String metricName,
-            Optional<String> libraryName,
-            MetricNamespace metricNamespace,
-            MetricDefinition definition,
-```
-
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'libraryName'
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
@@ -49,8 +37,8 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
+            MetricNamespace metricNamespace,
             MetricDefinition definition,
-            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -63,6 +51,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             Optional<String> libraryName,
             String packageName,
             ImplementationVisibility visibility) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
+            String metricName,
+            Optional<String> libraryName,
+            MetricDefinition definition,
+            MetricNamespace metricNamespace) {
 ```
 
 ## RuleId[id=IOResource]
@@ -121,11 +121,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
-                .addModifiers(visibility.apply())
-                .addModifiers(extraModifiers.toArray(new Modifier[0]))
-                .returns(MetricName.class)
-                .addCode("return $L;", metricNameBlock)
+        }
+        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
+                .addModifiers(modifiers.toArray(new Modifier[0]))
+                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
+                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
 ```
 
 ### ZeroLengthArrayInitialization
@@ -133,11 +133,11 @@ Allocation of zero length array
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
-        }
-        outerBuilder.addType(TypeSpec.classBuilder(Custodian.anyToUpperCamel(stagedBuilderSpec.name()) + "Builder")
-                .addModifiers(modifiers.toArray(new Modifier[0]))
-                .addSuperinterfaces(stagedBuilderSpec.stages().stream()
-                        .map(stage -> ClassName.bestGuess(stageName(stagedBuilderSpec.name(), stage.name())))
+        MethodSpec metricNameMethod = MethodSpec.methodBuilder(Custodian.sanitizeName(metricName + "MetricName"))
+                .addModifiers(visibility.apply())
+                .addModifiers(extraModifiers.toArray(new Modifier[0]))
+                .returns(MetricName.class)
+                .addCode("return $L;", metricNameBlock)
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -156,7 +156,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -168,7 +168,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
             .value(getProject()
@@ -192,18 +192,6 @@ public abstract class CompileMetricSchemaTask extends DefaultTask {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `JavaGeneratorArgs` has no concrete subclass
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
-#### Snippet
-```java
-        jdkOnly = true,
-        get = {"get*", "is*"})
-public abstract class JavaGeneratorArgs {
-
-    private static final Predicate<String> LIBRARY_NAME =
-```
-
-### AbstractClassNeverImplemented
 Abstract class `GenerateMetricSchemaTask` has no concrete subclass
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
 #### Snippet
@@ -213,6 +201,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 public abstract class GenerateMetricSchemaTask extends DefaultTask {
     private final Property<String> libraryName =
             getProject().getObjects().property(String.class).value(defaultLibraryName());
+```
+
+### AbstractClassNeverImplemented
+Abstract class `JavaGeneratorArgs` has no concrete subclass
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/JavaGeneratorArgs.java`
+#### Snippet
+```java
+        jdkOnly = true,
+        get = {"get*", "is*"})
+public abstract class JavaGeneratorArgs {
+
+    private static final Predicate<String> LIBRARY_NAME =
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -230,7 +230,7 @@ public final class ProviderUtils {
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
     }
@@ -242,7 +242,7 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 
 ### BoundedWildcard
 Can generalize to `? extends List`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricMarkdownTask.java`
 #### Snippet
 ```java
     }
@@ -361,6 +361,54 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
         return escapeIfNecessary(splitter.splitToStream(input)
                 .map(segment -> CaseFormats.estimate(segment)
                         .orElse(CaseFormat.LOWER_CAMEL)
+```
+
+### UnstableApiUsage
+'com.google.common.io.MoreFiles' is marked unstable with @Beta
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+    private static void clearOutput(Path outputPath) {
+        try {
+            MoreFiles.deleteRecursively(outputPath, RecursiveDeleteOption.ALLOW_INSECURE);
+        } catch (IOException e) {
+            throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
+```
+
+### UnstableApiUsage
+'deleteRecursively(java.nio.file.Path, com.google.common.io.RecursiveDeleteOption...)' is declared in unstable class 'com.google.common.io.MoreFiles' marked with @Beta
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+    private static void clearOutput(Path outputPath) {
+        try {
+            MoreFiles.deleteRecursively(outputPath, RecursiveDeleteOption.ALLOW_INSECURE);
+        } catch (IOException e) {
+            throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
+```
+
+### UnstableApiUsage
+'com.google.common.io.RecursiveDeleteOption' is marked unstable with @Beta
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+    private static void clearOutput(Path outputPath) {
+        try {
+            MoreFiles.deleteRecursively(outputPath, RecursiveDeleteOption.ALLOW_INSECURE);
+        } catch (IOException e) {
+            throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
+```
+
+### UnstableApiUsage
+'ALLOW_INSECURE' is declared in unstable enum 'com.google.common.io.RecursiveDeleteOption' marked with @Beta
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
+#### Snippet
+```java
+    private static void clearOutput(Path outputPath) {
+        try {
+            MoreFiles.deleteRecursively(outputPath, RecursiveDeleteOption.ALLOW_INSECURE);
+        } catch (IOException e) {
+            throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
