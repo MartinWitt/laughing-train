@@ -19,7 +19,7 @@ dependencies {
 
 	implementation project(":commons")
 	implementation project(":application")
-	testImplementation project(":commons")
+  testImplementation project(path: ':commons', configuration: 'testRuntime')
 }
 
 group 'io.github.martinwitt'
