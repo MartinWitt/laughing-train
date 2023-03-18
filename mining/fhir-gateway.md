@@ -1,7 +1,7 @@
 # fhir-gateway 
  
 # Bad smells
-I found 44 bad smells with 6 repairable:
+I found 45 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 9 | false |
@@ -16,11 +16,24 @@ I found 44 bad smells with 6 repairable:
 | MismatchedCollectionQueryUpdate | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | MismatchedJavadocCode | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
+#### Snippet
+```java
+import org.apache.http.entity.ContentType;
+
+public class ProxyConstants {
+
+  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
@@ -46,18 +59,6 @@ public class ExceptionUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
-#### Snippet
-```java
-@SpringBootApplication
-@ServletComponentScan
-public class MainApp {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
 #### Snippet
@@ -70,30 +71,18 @@ public class JwtUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
+Class `MainApp` has only 'static' members, and lacks a 'private' constructor
+in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
 #### Snippet
 ```java
-import org.apache.http.entity.ContentType;
+@SpringBootApplication
+@ServletComponentScan
+public class MainApp {
 
-public class ProxyConstants {
-
-  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+  public static void main(String[] args) {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
-#### Snippet
-```java
-  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
-    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
-    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
-    this.credentials = credentials;
-
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
@@ -104,6 +93,18 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.ja
       String[] scopes = scopesClaim.strip().split("\\s+");
       return new SmartScopeChecker(
           SmartFhirScope.extractSmartFhirScopesFromTokens(Arrays.asList(scopes)),
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
+#### Snippet
+```java
+  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
+    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
+    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
+    this.credentials = credentials;
+
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -246,18 +247,6 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
-#### Snippet
-```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
-
-  private final FhirContext fhirContext;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
 #### Snippet
 ```java
@@ -266,6 +255,18 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
   private AllowedQueriesConfig config = null;
 
   AllowedQueriesChecker(String configFile) throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+#### Snippet
+```java
+          + "header containing a JWT access token. This token must have been issued by the "
+          + "authorization server defined by the configured TOKEN_ISSUER.";
+  private static CapabilityPostProcessor instance = null;
+
+  private final FhirContext fhirContext;
 ```
 
 ### RedundantFieldInitialization
@@ -305,6 +306,19 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
   @Override
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-11-51-25.705.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -332,11 +346,23 @@ in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
 #### Snippet
 ```java
+    IBaseResource resource = jsonParser.parseResource(requestContent);
+    if (!(resource instanceof Bundle)) {
+      return null;
     }
-    // We should never get here, this is to keep the IDE happy!
+    return (Bundle) resource;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+#### Snippet
+```java
+  @Override
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -356,26 +382,14 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 
 ### ReturnNull
 Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-  @Override
-  public String postProcess(HttpResponse response) {
+    }
+    // We should never get here, this is to keep the IDE happy!
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
-#### Snippet
-```java
-    IBaseResource resource = jsonParser.parseResource(requestContent);
-    if (!(resource instanceof Bundle)) {
-      return null;
-    }
-    return (Bundle) resource;
 ```
 
 ### ReturnNull
@@ -395,11 +409,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
+          e,
+          ForbiddenOperationException.class);
+      return null;
     }
-    // It should never reach here!
-    return null;
   }
-
 ```
 
 ### ReturnNull
@@ -407,11 +421,11 @@ Return of `null`
 in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-          e,
-          ForbiddenOperationException.class);
-      return null;
     }
+    // It should never reach here!
+    return null;
   }
+
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
