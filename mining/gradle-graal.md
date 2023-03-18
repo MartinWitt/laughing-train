@@ -225,18 +225,6 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
-#### Snippet
-```java
-    }
-
-    public final void setOptions(Provider<List<String>> options) {
-        this.options.set(options);
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Configuration`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
@@ -245,6 +233,18 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 
     public final void setClasspath(Provider<Configuration> provider) {
         classpath.set(provider);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
+#### Snippet
+```java
+    }
+
+    public final void setOptions(Provider<List<String>> options) {
+        this.options.set(options);
     }
 ```
 
