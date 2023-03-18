@@ -140,11 +140,11 @@ Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
+    Resource resource = null;
+    if (isEmptyOrSpaces(resourceId)) {
       return null;
-    } else {
-      return params;
+    }
+    if (ResourceType.QUOTED.equals(resourceType)) {
 ```
 
 ### ReturnNull
@@ -152,11 +152,11 @@ Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
+  private Map<String, String> validate(@NotNull final Map<String, String> params) {
+    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
       return null;
-    }
-    if (ResourceType.QUOTED.equals(resourceType)) {
+    } else {
+      return params;
 ```
 
 ### ReturnNull
@@ -381,6 +381,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.ja
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
+    return myLocks.stream()
+                  .collect(Collectors.toMap(Function.identity(), val -> ""));
+```
+
+### BoundedWildcard
 Can generalize to `? extends Resource`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
 #### Snippet
@@ -414,18 +426,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
   private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
                                                            @NotNull final Map<String, Lock> locks) {
     final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
 ```
 
 ### BoundedWildcard
@@ -465,18 +465,6 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.ja
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Map`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-  private void gatherRuntimeInfo(@NotNull final List<RunningBuildEx> runningBuilds,
-                                 @NotNull final Map<QueuedBuildInfo, SBuildAgent> canBeStarted,
-                                 @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
-    if (takenLocks.get() == null) {
-      takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
-```
-
-### BoundedWildcard
 Can generalize to `? extends TakenLock`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
 #### Snippet
@@ -486,6 +474,18 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgent
                                        @NotNull final Map<Resource, TakenLock> takenLocks,
                                        @NotNull final BuildPromotion promotion,
                                        @NotNull final DistributionDataAccessor accessor) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Map`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+#### Snippet
+```java
+  private void gatherRuntimeInfo(@NotNull final List<RunningBuildEx> runningBuilds,
+                                 @NotNull final Map<QueuedBuildInfo, SBuildAgent> canBeStarted,
+                                 @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
+    if (takenLocks.get() == null) {
+      takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
 ```
 
 ### BoundedWildcard
