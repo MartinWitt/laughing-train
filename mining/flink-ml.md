@@ -1,11 +1,11 @@
 # flink-ml 
  
 # Bad smells
-I found 547 bad smells with 103 repairable:
+I found 551 bad smells with 106 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DataFlowIssue | 89 | false |
-| UtilityClassWithoutPrivateConstructor | 75 | true |
+| UtilityClassWithoutPrivateConstructor | 78 | true |
 | BoundedWildcard | 70 | false |
 | SystemOutErr | 63 | false |
 | NonSerializableFieldInSerializableClass | 39 | false |
@@ -16,12 +16,12 @@ I found 547 bad smells with 103 repairable:
 | RedundantFieldInitialization | 13 | false |
 | ReturnNull | 13 | false |
 | MissortedModifiers | 12 | false |
+| AssignmentToMethodParameter | 12 | false |
 | Convert2Lambda | 11 | false |
-| AssignmentToMethodParameter | 11 | false |
 | OptionalGetWithoutIsPresent | 8 | false |
-| UnnecessaryFullyQualifiedName | 7 | false |
 | NonProtectedConstructorInAbstractClass | 7 | true |
 | KeySetIterationMayUseEntrySet | 6 | false |
+| UnnecessaryFullyQualifiedName | 6 | false |
 | ReplaceAssignmentWithOperatorAssignment | 5 | false |
 | RedundantImplements | 5 | false |
 | NestedAssignment | 4 | false |
@@ -29,11 +29,11 @@ I found 547 bad smells with 103 repairable:
 | MismatchedJavadocCode | 3 | false |
 | UnnecessaryToStringCall | 3 | true |
 | DynamicRegexReplaceableByCompiledPattern | 3 | false |
+| HtmlWrongAttributeValue | 3 | false |
 | UnnecessarySemicolon | 2 | false |
 | TrivialStringConcatenation | 2 | false |
 | AbstractClassNeverImplemented | 2 | false |
 | CodeBlock2Expr | 2 | true |
-| HtmlWrongAttributeValue | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
 | DoubleBraceInitialization | 2 | false |
 | ConstantValue | 2 | false |
@@ -43,8 +43,8 @@ I found 547 bad smells with 103 repairable:
 | TypeParameterHidesVisibleType | 1 | false |
 | SetReplaceableByEnumSet | 1 | false |
 | RedundantStreamOptionalCall | 1 | false |
-| WhileLoopSpinsOnField | 1 | false |
 | RedundantMethodOverride | 1 | false |
+| WhileLoopSpinsOnField | 1 | false |
 | SlowListContainsAll | 1 | false |
 | UnnecessaryContinue | 1 | false |
 | InstanceofCatchParameter | 1 | false |
@@ -112,687 +112,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/headpro
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `IterationOptions` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/config/IterationOptions.java`
-#### Snippet
-```java
-
-/** The options for the iteration. */
-public class IterationOptions {
-
-    public static final ConfigOption<String> DATA_CACHE_PATH =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OperatorStateUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/OperatorStateUtils.java`
-#### Snippet
-```java
-
-/** Utility to deal with the states inside the operator. */
-public class OperatorStateUtils {
-
-    public static <T> Optional<T> getUniqueElement(ListState<T> listState, String stateName)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/utils/ReflectionUtils.java`
-#### Snippet
-```java
-
-/** Utility class to provide some reflection tools. */
-public class ReflectionUtils {
-
-    public static Field getClassField(Class<?> declaredClass, String fieldName) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OperatorUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/OperatorUtils.java`
-#### Snippet
-```java
-
-/** Utility class for operators. */
-public class OperatorUtils {
-
-    /** Returns the unique id for the specified operator. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BroadcastOutputFactory` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/BroadcastOutputFactory.java`
-#### Snippet
-```java
-
-/** Factory that creates the corresponding {@link BroadcastOutput} from the {@link Output}. */
-public class BroadcastOutputFactory {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Iterations` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+Class `AllReduceImpl` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/AllReduceImpl.java`
 #### Snippet
 ```java
  */
-@Experimental
-public class Iterations {
+@Internal
+class AllReduceImpl {
 
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OperatorEpochWatermarkTrackerFactory` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/progresstrack/OperatorEpochWatermarkTrackerFactory.java`
-#### Snippet
-```java
- * create the corresponding progress tracker.
- */
-public class OperatorEpochWatermarkTrackerFactory {
-
-    public static OperatorEpochWatermarkTracker create(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SQLTransformerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/SQLTransformerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a SQLTransformer instance and uses it for feature engineering. */
-public class SQLTransformerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VectorToArrayExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/VectorToArrayExample.java`
-#### Snippet
-```java
-
-/** Simple program that converts a column of dense/sparse vectors into a column of double arrays. */
-public class VectorToArrayExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ArrayToVectorExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/ArrayToVectorExample.java`
-#### Snippet
-```java
-
-/** Simple program that converts a column of double arrays into a column of dense vectors. */
-public class ArrayToVectorExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VarianceThresholdSelectorExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
-#### Snippet
-```java
- * selection.
- */
-public class VarianceThresholdSelectorExample {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NGramExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NGramExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates an NGram instance and uses it for feature engineering. */
-public class NGramExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IDFExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IDFExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains an IDF model and uses it for feature engineering. */
-public class IDFExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ChiSqTestExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/stats/ChiSqTestExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a ChiSqTest instance and uses it for statistics. */
-public class ChiSqTestExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VectorSlicerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorSlicerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a VectorSlicer instance and uses it for feature engineering. */
-public class VectorSlicerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VectorIndexerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorIndexerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a VectorIndexer instance and uses it for feature engineering. */
-public class VectorIndexerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BinarizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BinarizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a Binarizer instance and uses it for feature engineering. */
-public class BinarizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HashingTFExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a HashingTF instance and uses it for feature engineering. */
-public class HashingTFExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MinMaxScalerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinMaxScalerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a MinMaxScaler model and uses it for feature engineering. */
-public class MinMaxScalerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ImputerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a {@link Imputer} model and uses it for feature engineering. */
-public class ImputerExample {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CountVectorizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
-#### Snippet
-```java
- * Simple program that trains a {@link CountVectorizer} model and uses it for feature engineering.
- */
-public class CountVectorizerExample {
-
-    public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PolynomialExpansionExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/PolynomialExpansionExample.java`
-#### Snippet
-```java
- * Simple program that creates a PolynomialExpansion instance and uses it for feature engineering.
- */
-public class PolynomialExpansionExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OnlineStandardScalerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OnlineStandardScalerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a OnlineStandardScaler model and uses it for feature engineering. */
-public class OnlineStandardScalerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NormalizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NormalizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a Normalizer instance and uses it for feature engineering. */
-public class NormalizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StopWordsRemoverExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StopWordsRemoverExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a StopWordsRemover instance and uses it for feature engineering. */
-public class StopWordsRemoverExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IndexToStringModelExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
-#### Snippet
-```java
- * engineering.
- */
-public class IndexToStringModelExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegexTokenizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RegexTokenizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a RegexTokenizer instance and uses it for feature engineering. */
-public class RegexTokenizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BucketizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a Bucketizer instance and uses it for feature engineering. */
-public class BucketizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InteractionExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/InteractionExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates an Interaction instance and uses it for feature engineering. */
-public class InteractionExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TokenizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/TokenizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a Tokenizer instance and uses it for feature engineering. */
-public class TokenizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StandardScalerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StandardScalerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a StandardScaler model and uses it for feature engineering. */
-public class StandardScalerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringIndexerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a StringIndexer model and uses it for feature engineering. */
-public class StringIndexerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VectorAssemblerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorAssemblerExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a VectorAssembler instance and uses it for feature engineering. */
-public class VectorAssemblerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DCTExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/DCTExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a DCT instance and uses it for feature engineering. */
-public class DCTExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FeatureHasherExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/FeatureHasherExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a FeatureHasher instance and uses it for feature engineering. */
-public class FeatureHasherExample {
-    public static void main(String[] args) {
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MaxAbsScalerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MaxAbsScalerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a MaxAbsScaler model and uses it for feature engineering. */
-public class MaxAbsScalerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MinHashLSHExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
-#### Snippet
-```java
- * similarity join.
- */
-public class MinHashLSHExample {
-    public static void main(String[] args) throws Exception {
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RobustScalerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RobustScalerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a {@link RobustScaler} model and uses it for feature selection. */
-public class RobustScalerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OneHotEncoderExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OneHotEncoderExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a OneHotEncoder model and uses it for feature engineering. */
-public class OneHotEncoderExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UnivariateFeatureSelectorExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/UnivariateFeatureSelectorExample.java`
-#### Snippet
-```java
- * selection.
- */
-public class UnivariateFeatureSelectorExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `KBinsDiscretizerExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/KBinsDiscretizerExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a KBinsDiscretizer model and uses it for feature engineering. */
-public class KBinsDiscretizerExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RandomSplitterExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RandomSplitterExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates a RandomSplitter instance and uses it for data splitting. */
-public class RandomSplitterExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ElementwiseProductExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ElementwiseProductExample.java`
-#### Snippet
-```java
- * Simple program that creates a ElementwiseProduct instance and uses it for feature engineering.
- */
-public class ElementwiseProductExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BinaryClassificationEvaluatorExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/evaluation/BinaryClassificationEvaluatorExample.java`
-#### Snippet
-```java
- * Simple program that creates a BinaryClassificationEvaluator instance and uses it for evaluation.
- */
-public class BinaryClassificationEvaluatorExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AgglomerativeClusteringExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/AgglomerativeClusteringExample.java`
-#### Snippet
-```java
-
-/** Simple program that creates an AgglomerativeClustering instance and uses it for clustering. */
-public class AgglomerativeClusteringExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `KMeansExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a KMeans model and uses it for clustering. */
-public class KMeansExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OnlineKMeansExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/OnlineKMeansExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains an OnlineKMeans model and uses it for clustering. */
-public class OnlineKMeansExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LinearSVCExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a LinearSVC model and uses it for classification. */
-public class LinearSVCExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LinearRegressionExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a LinearRegression model and uses it for regression. */
-public class LinearRegressionExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SwingExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/recommendation/SwingExample.java`
-#### Snippet
-```java
- * Simple program that creates a Swing instance and uses it to generate recommendations for items.
- */
-public class SwingExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NaiveBayesExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a NaiveBayes model and uses it for classification. */
-public class NaiveBayesExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OnlineLogisticRegressionExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/OnlineLogisticRegressionExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains an OnlineLogisticRegression model and uses it for classification. */
-public class OnlineLogisticRegressionExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `KnnExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a Knn model and uses it for classification. */
-public class KnnExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LogisticRegressionExample` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
-#### Snippet
-```java
-
-/** Simple program that trains a LogisticRegression model and uses it for classification. */
-public class LogisticRegressionExample {
-    public static void main(String[] args) {
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BroadcastContext` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
-#### Snippet
-```java
- * broadcast variables.
- */
-public class BroadcastContext {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PythonBridgeUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
-#### Snippet
-```java
-// TODO: Remove this class after Flink ML depends on a Flink version with FLINK-30168 and
-// FLINK-29477 fixed.
-public class PythonBridgeUtils {
-    public static Object getPickledBytesFromJavaObject(Object obj, TypeInformation<?> dataType)
-            throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BroadcastUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-
-/** Utility class to support withBroadcast in DataStream. */
-public class BroadcastUtils {
-    /**
-     * supports withBroadcastStream in DataStream API. Broadcast data streams are available at all
+    @VisibleForTesting static final int CHUNK_SIZE = 1024 * 4;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -808,111 +136,51 @@ public class TableUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `AllReduceImpl` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/AllReduceImpl.java`
+Class `PythonBridgeUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-python/src/main/java/org/apache/flink/ml/python/PythonBridgeUtils.java`
 #### Snippet
 ```java
+// TODO: Remove this class after Flink ML depends on a Flink version with FLINK-30168 and
+// FLINK-29477 fixed.
+public class PythonBridgeUtils {
+    public static Object getPickledBytesFromJavaObject(Object obj, TypeInformation<?> dataType)
+            throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BroadcastContext` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
+#### Snippet
+```java
+ * broadcast variables.
  */
-@Internal
-class AllReduceImpl {
-
-    @VisibleForTesting static final int CHUNK_SIZE = 1024 * 4;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Functions` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/Functions.java`
-#### Snippet
-```java
-/** Built-in table functions for data transformations. */
-@SuppressWarnings("unused")
-public class Functions {
-    /** Converts a column of {@link Vector}s into a column of double arrays. */
-    public static ApiExpression vectorToArray(Object... arguments) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReadWriteUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
-#### Snippet
-```java
-
-/** Utility methods for reading and writing stages. */
-public class ReadWriteUtils {
-    public static final ObjectMapper OBJECT_MAPPER =
-            new ObjectMapper().enable(JsonParser.Feature.ALLOW_COMMENTS);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VectorUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/VectorUtils.java`
-#### Snippet
-```java
-
-/** Provides utility functions for {@link Vector}. */
-public class VectorUtils {
-    /**
-     * Selects a subset of the vector base on the indices. Note that the input indices must be
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegularizationUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/RegularizationUtils.java`
-#### Snippet
-```java
- */
-@Internal
-class RegularizationUtils {
+public class BroadcastContext {
 
     /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `OneHotEncoderModelData` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModelData.java`
+Class `BroadcastUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
 #### Snippet
 ```java
- * to save/load model data.
- */
-public class OneHotEncoderModelData {
+
+/** Utility class to support withBroadcast in DataStream. */
+public class BroadcastUtils {
     /**
-     * Converts the table model to a data stream.
+     * supports withBroadcastStream in DataStream API. Broadcast data streams are available at all
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StopWordsRemoverUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/StopWordsRemoverUtils.java`
+Class `Bits` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/Bits.java`
 #### Snippet
 ```java
+ * byte ordering. Referenced from java.io.Bits.
+ */
+public class Bits {
 
-/** Utility methods used by {@link StopWordsRemover} and {@link StopWordsRemoverParams}. */
-class StopWordsRemoverUtils {
-
-    private static final Set<String> SUPPORTED_LANGUAGES =
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Benchmark` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-
-/** Entry class for benchmark execution. */
-public class Benchmark {
-    static final String VERSION_KEY = "version";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BenchmarkUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
-#### Snippet
-```java
-
-/** Utility methods for benchmarks. */
-public class BenchmarkUtils {
-    /** Loads benchmark configuration maps from the provided json file. */
-    @SuppressWarnings("unchecked")
+    /*
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -928,15 +196,39 @@ public class JsonUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Bits` has only 'static' members, and lacks a 'private' constructor
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/Bits.java`
+Class `ReadWriteUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
 #### Snippet
 ```java
- * byte ordering. Referenced from java.io.Bits.
- */
-public class Bits {
 
-    /*
+/** Utility methods for reading and writing stages. */
+public class ReadWriteUtils {
+    public static final ObjectMapper OBJECT_MAPPER =
+            new ObjectMapper().enable(JsonParser.Feature.ALLOW_COMMENTS);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ServableReadWriteUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/ServableReadWriteUtils.java`
+#### Snippet
+```java
+
+/** Utility methods for loading Servables. */
+public class ServableReadWriteUtils {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/FileUtils.java`
+#### Snippet
+```java
+
+/** Utility methods for file operations. */
+public class FileUtils {
+
+    /** Saves a given string to the specified file. */
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -988,6 +280,18 @@ public class Vectors {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `DataTypes` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/types/DataTypes.java`
+#### Snippet
+```java
+
+/** This class gives access to the most common types that are used to define DataFrames. */
+public class DataTypes {
+
+    public static final ScalarType BOOLEAN = new ScalarType(BasicType.BOOLEAN);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `BLAS` has only 'static' members, and lacks a 'private' constructor
 in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/BLAS.java`
 #### Snippet
@@ -997,6 +301,714 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/BLAS.java`
 public class BLAS {
     /** For level-1 function dspmv, use javaBLAS for better performance. */
     private static final dev.ludovic.netlib.BLAS JAVA_BLAS =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BenchmarkUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+
+/** Utility methods for benchmarks. */
+public class BenchmarkUtils {
+    /** Loads benchmark configuration maps from the provided json file. */
+    @SuppressWarnings("unchecked")
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ArrayToVectorExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/ArrayToVectorExample.java`
+#### Snippet
+```java
+
+/** Simple program that converts a column of double arrays into a column of dense vectors. */
+public class ArrayToVectorExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VectorToArrayExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/VectorToArrayExample.java`
+#### Snippet
+```java
+
+/** Simple program that converts a column of dense/sparse vectors into a column of double arrays. */
+public class VectorToArrayExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SQLTransformerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/SQLTransformerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a SQLTransformer instance and uses it for feature engineering. */
+public class SQLTransformerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VectorSlicerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorSlicerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a VectorSlicer instance and uses it for feature engineering. */
+public class VectorSlicerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IDFExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IDFExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains an IDF model and uses it for feature engineering. */
+public class IDFExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ChiSqTestExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/stats/ChiSqTestExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a ChiSqTest instance and uses it for statistics. */
+public class ChiSqTestExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VarianceThresholdSelectorExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
+#### Snippet
+```java
+ * selection.
+ */
+public class VarianceThresholdSelectorExample {
+
+    public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VectorIndexerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorIndexerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a VectorIndexer instance and uses it for feature engineering. */
+public class VectorIndexerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NGramExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NGramExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates an NGram instance and uses it for feature engineering. */
+public class NGramExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Benchmark` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+
+/** Entry class for benchmark execution. */
+public class Benchmark {
+    static final String VERSION_KEY = "version";
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ImputerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a {@link Imputer} model and uses it for feature engineering. */
+public class ImputerExample {
+
+    public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MinMaxScalerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinMaxScalerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a MinMaxScaler model and uses it for feature engineering. */
+public class MinMaxScalerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OnlineStandardScalerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OnlineStandardScalerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a OnlineStandardScaler model and uses it for feature engineering. */
+public class OnlineStandardScalerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PolynomialExpansionExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/PolynomialExpansionExample.java`
+#### Snippet
+```java
+ * Simple program that creates a PolynomialExpansion instance and uses it for feature engineering.
+ */
+public class PolynomialExpansionExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `HashingTFExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a HashingTF instance and uses it for feature engineering. */
+public class HashingTFExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NormalizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NormalizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a Normalizer instance and uses it for feature engineering. */
+public class NormalizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StopWordsRemoverExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StopWordsRemoverExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a StopWordsRemover instance and uses it for feature engineering. */
+public class StopWordsRemoverExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `InteractionExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/InteractionExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates an Interaction instance and uses it for feature engineering. */
+public class InteractionExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BinarizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BinarizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a Binarizer instance and uses it for feature engineering. */
+public class BinarizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CountVectorizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
+#### Snippet
+```java
+ * Simple program that trains a {@link CountVectorizer} model and uses it for feature engineering.
+ */
+public class CountVectorizerExample {
+
+    public static void main(String[] args) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BucketizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a Bucketizer instance and uses it for feature engineering. */
+public class BucketizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegexTokenizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RegexTokenizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a RegexTokenizer instance and uses it for feature engineering. */
+public class RegexTokenizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TokenizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/TokenizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a Tokenizer instance and uses it for feature engineering. */
+public class TokenizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IndexToStringModelExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
+#### Snippet
+```java
+ * engineering.
+ */
+public class IndexToStringModelExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FeatureHasherExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/FeatureHasherExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a FeatureHasher instance and uses it for feature engineering. */
+public class FeatureHasherExample {
+    public static void main(String[] args) {
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StringIndexerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a StringIndexer model and uses it for feature engineering. */
+public class StringIndexerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DCTExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/DCTExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a DCT instance and uses it for feature engineering. */
+public class DCTExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VectorAssemblerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorAssemblerExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a VectorAssembler instance and uses it for feature engineering. */
+public class VectorAssemblerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RobustScalerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RobustScalerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a {@link RobustScaler} model and uses it for feature selection. */
+public class RobustScalerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MaxAbsScalerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MaxAbsScalerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a MaxAbsScaler model and uses it for feature engineering. */
+public class MaxAbsScalerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `UnivariateFeatureSelectorExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/UnivariateFeatureSelectorExample.java`
+#### Snippet
+```java
+ * selection.
+ */
+public class UnivariateFeatureSelectorExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StandardScalerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StandardScalerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a StandardScaler model and uses it for feature engineering. */
+public class StandardScalerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `KBinsDiscretizerExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/KBinsDiscretizerExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a KBinsDiscretizer model and uses it for feature engineering. */
+public class KBinsDiscretizerExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ElementwiseProductExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ElementwiseProductExample.java`
+#### Snippet
+```java
+ * Simple program that creates a ElementwiseProduct instance and uses it for feature engineering.
+ */
+public class ElementwiseProductExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MinHashLSHExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHashLSHExample.java`
+#### Snippet
+```java
+ * similarity join.
+ */
+public class MinHashLSHExample {
+    public static void main(String[] args) throws Exception {
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OneHotEncoderExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OneHotEncoderExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a OneHotEncoder model and uses it for feature engineering. */
+public class OneHotEncoderExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RandomSplitterExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RandomSplitterExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates a RandomSplitter instance and uses it for data splitting. */
+public class RandomSplitterExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `KMeansExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a KMeans model and uses it for clustering. */
+public class KMeansExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BinaryClassificationEvaluatorExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/evaluation/BinaryClassificationEvaluatorExample.java`
+#### Snippet
+```java
+ * Simple program that creates a BinaryClassificationEvaluator instance and uses it for evaluation.
+ */
+public class BinaryClassificationEvaluatorExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LinearRegressionExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a LinearRegression model and uses it for regression. */
+public class LinearRegressionExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AgglomerativeClusteringExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/AgglomerativeClusteringExample.java`
+#### Snippet
+```java
+
+/** Simple program that creates an AgglomerativeClustering instance and uses it for clustering. */
+public class AgglomerativeClusteringExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OnlineKMeansExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/OnlineKMeansExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains an OnlineKMeans model and uses it for clustering. */
+public class OnlineKMeansExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LinearSVCExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a LinearSVC model and uses it for classification. */
+public class LinearSVCExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SwingExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/recommendation/SwingExample.java`
+#### Snippet
+```java
+ * Simple program that creates a Swing instance and uses it to generate recommendations for items.
+ */
+public class SwingExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `KnnExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a Knn model and uses it for classification. */
+public class KnnExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogisticRegressionExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a LogisticRegression model and uses it for classification. */
+public class LogisticRegressionExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NaiveBayesExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains a NaiveBayes model and uses it for classification. */
+public class NaiveBayesExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OnlineLogisticRegressionExample` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/OnlineLogisticRegressionExample.java`
+#### Snippet
+```java
+
+/** Simple program that trains an OnlineLogisticRegression model and uses it for classification. */
+public class OnlineLogisticRegressionExample {
+    public static void main(String[] args) {
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IterationOptions` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/config/IterationOptions.java`
+#### Snippet
+```java
+
+/** The options for the iteration. */
+public class IterationOptions {
+
+    public static final ConfigOption<String> DATA_CACHE_PATH =
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/utils/ReflectionUtils.java`
+#### Snippet
+```java
+
+/** Utility class to provide some reflection tools. */
+public class ReflectionUtils {
+
+    public static Field getClassField(Class<?> declaredClass, String fieldName) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OperatorStateUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/OperatorStateUtils.java`
+#### Snippet
+```java
+
+/** Utility to deal with the states inside the operator. */
+public class OperatorStateUtils {
+
+    public static <T> Optional<T> getUniqueElement(ListState<T> listState, String stateName)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OperatorUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/OperatorUtils.java`
+#### Snippet
+```java
+
+/** Utility class for operators. */
+public class OperatorUtils {
+
+    /** Returns the unique id for the specified operator. */
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Iterations` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+#### Snippet
+```java
+ */
+@Experimental
+public class Iterations {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BroadcastOutputFactory` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/BroadcastOutputFactory.java`
+#### Snippet
+```java
+
+/** Factory that creates the corresponding {@link BroadcastOutput} from the {@link Output}. */
+public class BroadcastOutputFactory {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `OperatorEpochWatermarkTrackerFactory` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/progresstrack/OperatorEpochWatermarkTrackerFactory.java`
+#### Snippet
+```java
+ * create the corresponding progress tracker.
+ */
+public class OperatorEpochWatermarkTrackerFactory {
+
+    public static OperatorEpochWatermarkTracker create(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Functions` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/Functions.java`
+#### Snippet
+```java
+/** Built-in table functions for data transformations. */
+@SuppressWarnings("unused")
+public class Functions {
+    /** Converts a column of {@link Vector}s into a column of double arrays. */
+    public static ApiExpression vectorToArray(Object... arguments) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `VectorUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/VectorUtils.java`
+#### Snippet
+```java
+
+/** Provides utility functions for {@link Vector}. */
+public class VectorUtils {
+    /**
+     * Selects a subset of the vector base on the indices. Note that the input indices must be
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RegularizationUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/RegularizationUtils.java`
+#### Snippet
+```java
+ */
+@Internal
+class RegularizationUtils {
+
+    /**
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -1011,284 +1023,31 @@ public class DataStreamUtils {
      * Applies allReduceSum on the input data stream. The input data stream is supposed to contain
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+### UtilityClassWithoutPrivateConstructor
+Class `OneHotEncoderModelData` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModelData.java`
 #### Snippet
 ```java
-    public enum StageType {
-        ESTIMATOR,
-        ALGO_OPERATOR;
-    }
-
+ * to save/load model data.
+ */
+public class OneHotEncoderModelData {
+    /**
+     * Converts the table model to a data stream.
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/types/BasicType.java`
+### UtilityClassWithoutPrivateConstructor
+Class `StopWordsRemoverUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/StopWordsRemoverUtils.java`
 #### Snippet
 ```java
-    DOUBLE,
-    STRING,
-    BYTE_STRING;
-}
 
+/** Utility methods used by {@link StopWordsRemover} and {@link StopWordsRemoverParams}. */
+class StopWordsRemoverUtils {
+
+    private static final Set<String> SUPPORTED_LANGUAGES =
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `b` might be null
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentWriter.java`
-#### Snippet
-```java
-            while (len > 0) {
-                int currentLen = Math.min(len, pageSize - segmentOffset);
-                segments.get(segmentIndex).put(segmentOffset, b, off, currentLen);
-                segmentOffset += currentLen;
-                globalOffset += currentLen;
-```
-
-### DataFlowIssue
-Method invocation `next` may produce `NullPointerException`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheReader.java`
-#### Snippet
-```java
-    public T next() {
-        try {
-            T record = currentSegmentReader.next();
-
-            currentSegmentCount++;
-```
-
-### DataFlowIssue
-Method invocation `stream` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
-#### Snippet
-```java
-            System.out.printf(
-                    "Input Value: %s \tOutput Value: %s\n",
-                    Arrays.toString(inputValue.stream().toArray()), outputValue);
-        }
-    }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(imputer.getInputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
-#### Snippet
-```java
-            double[] outputValues = new double[imputer.getInputCols().length];
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = (double) row.getField(imputer.getInputCols()[i]);
-                outputValues[i] = (double) row.getField(imputer.getOutputCols()[i]);
-            }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(imputer.getOutputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
-#### Snippet
-```java
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = (double) row.getField(imputer.getInputCols()[i]);
-                outputValues[i] = (double) row.getField(imputer.getOutputCols()[i]);
-            }
-            System.out.printf(
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
-#### Snippet
-```java
-            System.out.printf(
-                    "Input Value: %-15s \tOutput Value: %s\n",
-                    Arrays.toString(inputValue), outputValue.toString());
-        }
-    }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(indexToStringModel.getInputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
-#### Snippet
-```java
-            String[] outputValues = new String[indexToStringModel.getInputCols().length];
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = (int) row.getField(indexToStringModel.getInputCols()[i]);
-                outputValues[i] = (String) row.getField(indexToStringModel.getOutputCols()[i]);
-            }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(bucketizer.getInputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
-#### Snippet
-```java
-            double[] outputValues = new double[bucketizer.getInputCols().length];
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = (double) row.getField(bucketizer.getInputCols()[i]);
-                outputValues[i] = (double) row.getField(bucketizer.getOutputCols()[i]);
-            }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(bucketizer.getOutputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
-#### Snippet
-```java
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = (double) row.getField(bucketizer.getInputCols()[i]);
-                outputValues[i] = (double) row.getField(bucketizer.getOutputCols()[i]);
-            }
-
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(stringIndexer.getOutputCols()[i])` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
-#### Snippet
-```java
-            for (int i = 0; i < inputValues.length; i++) {
-                inputValues[i] = row.getField(stringIndexer.getInputCols()[i]);
-                outputValues[i] = (double) row.getField(stringIndexer.getOutputCols()[i]);
-            }
-
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(agglomerativeClustering.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/AgglomerativeClusteringExample.java`
-#### Snippet
-```java
-            DenseVector features =
-                    (DenseVector) row.getField(agglomerativeClustering.getFeaturesCol());
-            int clusterId = (Integer) row.getField(agglomerativeClustering.getPredictionCol());
-            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
-        }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(kmeans.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(kmeans.getFeaturesCol());
-            int clusterId = (Integer) row.getField(kmeans.getPredictionCol());
-            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
-        }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(linearSVC.getLabelCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(linearSVC.getFeaturesCol());
-            double expectedResult = (Double) row.getField(linearSVC.getLabelCol());
-            double predictionResult = (Double) row.getField(linearSVC.getPredictionCol());
-            DenseVector rawPredictionResult =
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(linearSVC.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(linearSVC.getFeaturesCol());
-            double expectedResult = (Double) row.getField(linearSVC.getLabelCol());
-            double predictionResult = (Double) row.getField(linearSVC.getPredictionCol());
-            DenseVector rawPredictionResult =
-                    (DenseVector) row.getField(linearSVC.getRawPredictionCol());
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(lr.getLabelCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
-            double expectedResult = (Double) row.getField(lr.getLabelCol());
-            double predictionResult = (Double) row.getField(lr.getPredictionCol());
-            System.out.printf(
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(lr.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
-            double expectedResult = (Double) row.getField(lr.getLabelCol());
-            double predictionResult = (Double) row.getField(lr.getPredictionCol());
-            System.out.printf(
-                    "Features: %s \tExpected Result: %s \tPrediction Result: %s\n",
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(naiveBayes.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(naiveBayes.getFeaturesCol());
-            double predictionResult = (Double) row.getField(naiveBayes.getPredictionCol());
-            System.out.printf("Features: %s \tPrediction Result: %s\n", features, predictionResult);
-        }
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(lr.getLabelCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
-            double expectedResult = (Double) row.getField(lr.getLabelCol());
-            double predictionResult = (Double) row.getField(lr.getPredictionCol());
-            DenseVector rawPredictionResult = (DenseVector) row.getField(lr.getRawPredictionCol());
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(lr.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
-            double expectedResult = (Double) row.getField(lr.getLabelCol());
-            double predictionResult = (Double) row.getField(lr.getPredictionCol());
-            DenseVector rawPredictionResult = (DenseVector) row.getField(lr.getRawPredictionCol());
-            System.out.printf(
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(knn.getLabelCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
-#### Snippet
-```java
-            Row row = it.next();
-            DenseVector features = (DenseVector) row.getField(knn.getFeaturesCol());
-            double expectedResult = (Double) row.getField(knn.getLabelCol());
-            double predictionResult = (Double) row.getField(knn.getPredictionCol());
-            System.out.printf(
-```
-
-### DataFlowIssue
-Unboxing of `row.getField(knn.getPredictionCol())` may produce `NullPointerException`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(knn.getFeaturesCol());
-            double expectedResult = (Double) row.getField(knn.getLabelCol());
-            double predictionResult = (Double) row.getField(knn.getPredictionCol());
-            System.out.printf(
-                    "Features: %-15s \tExpected Result: %s \tPrediction Result: %s\n",
-```
-
 ### DataFlowIssue
 Method invocation `fit` may produce `NullPointerException`
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
@@ -1391,10 +1150,262 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
 #### Snippet
 ```java
         for (GraphNode node : graphData.nodes) {
-            String stagePath = getPathForPipelineStage(node.nodeId, maxNodeId + 1, path);
+            String stagePath = FileUtils.getPathForPipelineStage(node.nodeId, maxNodeId + 1, path);
             node.stage.save(stagePath);
         }
     }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(imputer.getInputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
+#### Snippet
+```java
+            double[] outputValues = new double[imputer.getInputCols().length];
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = (double) row.getField(imputer.getInputCols()[i]);
+                outputValues[i] = (double) row.getField(imputer.getOutputCols()[i]);
+            }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(imputer.getOutputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ImputerExample.java`
+#### Snippet
+```java
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = (double) row.getField(imputer.getInputCols()[i]);
+                outputValues[i] = (double) row.getField(imputer.getOutputCols()[i]);
+            }
+            System.out.printf(
+```
+
+### DataFlowIssue
+Method invocation `stream` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
+#### Snippet
+```java
+            System.out.printf(
+                    "Input Value: %s \tOutput Value: %s\n",
+                    Arrays.toString(inputValue.stream().toArray()), outputValue);
+        }
+    }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(bucketizer.getInputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
+#### Snippet
+```java
+            double[] outputValues = new double[bucketizer.getInputCols().length];
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = (double) row.getField(bucketizer.getInputCols()[i]);
+                outputValues[i] = (double) row.getField(bucketizer.getOutputCols()[i]);
+            }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(bucketizer.getOutputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BucketizerExample.java`
+#### Snippet
+```java
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = (double) row.getField(bucketizer.getInputCols()[i]);
+                outputValues[i] = (double) row.getField(bucketizer.getOutputCols()[i]);
+            }
+
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
+#### Snippet
+```java
+            System.out.printf(
+                    "Input Value: %-15s \tOutput Value: %s\n",
+                    Arrays.toString(inputValue), outputValue.toString());
+        }
+    }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(indexToStringModel.getInputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
+#### Snippet
+```java
+            String[] outputValues = new String[indexToStringModel.getInputCols().length];
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = (int) row.getField(indexToStringModel.getInputCols()[i]);
+                outputValues[i] = (String) row.getField(indexToStringModel.getOutputCols()[i]);
+            }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(stringIndexer.getOutputCols()[i])` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
+#### Snippet
+```java
+            for (int i = 0; i < inputValues.length; i++) {
+                inputValues[i] = row.getField(stringIndexer.getInputCols()[i]);
+                outputValues[i] = (double) row.getField(stringIndexer.getOutputCols()[i]);
+            }
+
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(kmeans.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(kmeans.getFeaturesCol());
+            int clusterId = (Integer) row.getField(kmeans.getPredictionCol());
+            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
+        }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(lr.getLabelCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
+            double expectedResult = (Double) row.getField(lr.getLabelCol());
+            double predictionResult = (Double) row.getField(lr.getPredictionCol());
+            System.out.printf(
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(lr.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
+#### Snippet
+```java
+            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
+            double expectedResult = (Double) row.getField(lr.getLabelCol());
+            double predictionResult = (Double) row.getField(lr.getPredictionCol());
+            System.out.printf(
+                    "Features: %s \tExpected Result: %s \tPrediction Result: %s\n",
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(agglomerativeClustering.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/AgglomerativeClusteringExample.java`
+#### Snippet
+```java
+            DenseVector features =
+                    (DenseVector) row.getField(agglomerativeClustering.getFeaturesCol());
+            int clusterId = (Integer) row.getField(agglomerativeClustering.getPredictionCol());
+            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
+        }
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(linearSVC.getLabelCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(linearSVC.getFeaturesCol());
+            double expectedResult = (Double) row.getField(linearSVC.getLabelCol());
+            double predictionResult = (Double) row.getField(linearSVC.getPredictionCol());
+            DenseVector rawPredictionResult =
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(linearSVC.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LinearSVCExample.java`
+#### Snippet
+```java
+            DenseVector features = (DenseVector) row.getField(linearSVC.getFeaturesCol());
+            double expectedResult = (Double) row.getField(linearSVC.getLabelCol());
+            double predictionResult = (Double) row.getField(linearSVC.getPredictionCol());
+            DenseVector rawPredictionResult =
+                    (DenseVector) row.getField(linearSVC.getRawPredictionCol());
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(knn.getLabelCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(knn.getFeaturesCol());
+            double expectedResult = (Double) row.getField(knn.getLabelCol());
+            double predictionResult = (Double) row.getField(knn.getPredictionCol());
+            System.out.printf(
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(knn.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/KnnExample.java`
+#### Snippet
+```java
+            DenseVector features = (DenseVector) row.getField(knn.getFeaturesCol());
+            double expectedResult = (Double) row.getField(knn.getLabelCol());
+            double predictionResult = (Double) row.getField(knn.getPredictionCol());
+            System.out.printf(
+                    "Features: %-15s \tExpected Result: %s \tPrediction Result: %s\n",
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(lr.getLabelCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
+            double expectedResult = (Double) row.getField(lr.getLabelCol());
+            double predictionResult = (Double) row.getField(lr.getPredictionCol());
+            DenseVector rawPredictionResult = (DenseVector) row.getField(lr.getRawPredictionCol());
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(lr.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/LogisticRegressionExample.java`
+#### Snippet
+```java
+            DenseVector features = (DenseVector) row.getField(lr.getFeaturesCol());
+            double expectedResult = (Double) row.getField(lr.getLabelCol());
+            double predictionResult = (Double) row.getField(lr.getPredictionCol());
+            DenseVector rawPredictionResult = (DenseVector) row.getField(lr.getRawPredictionCol());
+            System.out.printf(
+```
+
+### DataFlowIssue
+Unboxing of `row.getField(naiveBayes.getPredictionCol())` may produce `NullPointerException`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
+#### Snippet
+```java
+            Row row = it.next();
+            DenseVector features = (DenseVector) row.getField(naiveBayes.getFeaturesCol());
+            double predictionResult = (Double) row.getField(naiveBayes.getPredictionCol());
+            System.out.printf("Features: %s \tPrediction Result: %s\n", features, predictionResult);
+        }
+```
+
+### DataFlowIssue
+Argument `b` might be null
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentWriter.java`
+#### Snippet
+```java
+            while (len > 0) {
+                int currentLen = Math.min(len, pageSize - segmentOffset);
+                segments.get(segmentIndex).put(segmentOffset, b, off, currentLen);
+                segmentOffset += currentLen;
+                globalOffset += currentLen;
+```
+
+### DataFlowIssue
+Method invocation `next` may produce `NullPointerException`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheReader.java`
+#### Snippet
+```java
+    public T next() {
+        try {
+            T record = currentSegmentReader.next();
+
+            currentSegmentCount++;
 ```
 
 ### DataFlowIssue
@@ -1407,18 +1418,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.j
                                                     number.doubleValue());
                                         })
                         .returns(Types.TUPLE(VectorTypeInfo.INSTANCE, Types.DOUBLE));
-```
-
-### DataFlowIssue
-Method invocation `doubleValue` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.java`
-#### Snippet
-```java
-                                            return new Tuple2<>(
-                                                    ((Vector) row.getField(featuresCol)),
-                                                    number.doubleValue());
-                                        },
-                                Types.TUPLE(VectorTypeInfo.INSTANCE, Types.DOUBLE));
 ```
 
 ### DataFlowIssue
@@ -1458,15 +1457,15 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.jav
 ```
 
 ### DataFlowIssue
-Method invocation `returnAll` may produce `NullPointerException`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
+Method invocation `doubleValue` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.java`
 #### Snippet
 ```java
-            }
-            if (!segment.getCache().isEmpty()) {
-                segmentPool.returnAll(segment.getCache());
-            }
-        }
+                                            return new Tuple2<>(
+                                                    ((Vector) row.getField(featuresCol)),
+                                                    number.doubleValue());
+                                        },
+                                Types.TUPLE(VectorTypeInfo.INSTANCE, Types.DOUBLE));
 ```
 
 ### DataFlowIssue
@@ -1479,6 +1478,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
         if (!currentSegmentWriter.addRecord(record)) {
             currentSegmentWriter.finish().ifPresent(finishedSegments::add);
             currentSegmentWriter = new FileSegmentWriter<>(serializer, pathGenerator.get());
+```
+
+### DataFlowIssue
+Method invocation `returnAll` may produce `NullPointerException`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
+#### Snippet
+```java
+            }
+            if (!segment.getCache().isEmpty()) {
+                segmentPool.returnAll(segment.getCache());
+            }
+        }
 ```
 
 ### DataFlowIssue
@@ -1506,6 +1517,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/bucketizer/Bucketizer
 ```
 
 ### DataFlowIssue
+Method invocation `clone` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/robustscaler/RobustScalerModel.java`
+#### Snippet
+```java
+                                        .toArray());
+            }
+            DenseVector outputVec = ((Vector) row.getField(inputCol)).clone().toDense();
+            Preconditions.checkState(
+                    medians.size() == outputVec.size(),
+```
+
+### DataFlowIssue
 Method invocation `toDense` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/minmaxscaler/MinMaxScalerModel.java`
 #### Snippet
@@ -1530,27 +1553,15 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/minmaxscaler/MinMaxSc
 ```
 
 ### DataFlowIssue
-Method invocation `clone` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/robustscaler/RobustScalerModel.java`
+Method invocation `intValue` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
 #### Snippet
 ```java
-                                        .toArray());
-            }
-            DenseVector outputVec = ((Vector) row.getField(inputCol)).clone().toDense();
-            Preconditions.checkState(
-                    medians.size() == outputVec.size(),
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/robustscaler/RobustScaler.java`
-#### Snippet
-```java
-                        .map(
-                                (MapFunction<Row, DenseVector>)
-                                        value -> ((Vector) value.getField(inputCol)).toDense());
-        DataStream<RobustScalerModelData> modelData =
-                DataStreamUtils.aggregate(
+                Number number = (Number) row.getField(inputCols[i]);
+                Preconditions.checkArgument(
+                        number.intValue() == number.doubleValue(),
+                        String.format("Value %s cannot be parsed as indexed integer.", number));
+                int idx = number.intValue();
 ```
 
 ### DataFlowIssue
@@ -1578,18 +1589,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotE
 ```
 
 ### DataFlowIssue
-Unboxing of `input.getField(inputCols[i])` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stringindexer/IndexToStringModel.java`
-#### Snippet
-```java
-            Row outputStrings = new Row(inputCols.length);
-            for (int i = 0; i < inputCols.length; i++) {
-                int stringId = (Integer) input.getField(inputCols[i]);
-                if (stringId < stringArrays[i].length && stringId >= 0) {
-                    outputStrings.setField(i, stringArrays[i][stringId]);
-```
-
-### DataFlowIssue
 Method invocation `intValue` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoder.java`
 #### Snippet
@@ -1602,39 +1601,27 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotE
 ```
 
 ### DataFlowIssue
-Method invocation `intValue` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
+Unboxing of `input.getField(inputCols[i])` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stringindexer/IndexToStringModel.java`
 #### Snippet
 ```java
-                Number number = (Number) row.getField(inputCols[i]);
-                Preconditions.checkArgument(
-                        number.intValue() == number.doubleValue(),
-                        String.format("Value %s cannot be parsed as indexed integer.", number));
-                int idx = number.intValue();
+            Row outputStrings = new Row(inputCols.length);
+            for (int i = 0; i < inputCols.length; i++) {
+                int stringId = (Integer) input.getField(inputCols[i]);
+                if (stringId < stringArrays[i].length && stringId >= 0) {
+                    outputStrings.setField(i, stringArrays[i][stringId]);
 ```
 
 ### DataFlowIssue
-Argument `sum` might be null
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/OnlineStandardScaler.java`
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/robustscaler/RobustScaler.java`
 #### Snippet
 ```java
-                    squaredSum = new DenseVector(inputVec.size());
-                }
-                BLAS.axpy(1, inputVec, sum);
-                BLAS.hDot(inputVec, inputVec);
-                BLAS.axpy(1, inputVec, squaredSum);
-```
-
-### DataFlowIssue
-Argument `squaredSum` might be null
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/OnlineStandardScaler.java`
-#### Snippet
-```java
-                BLAS.axpy(1, inputVec, sum);
-                BLAS.hDot(inputVec, inputVec);
-                BLAS.axpy(1, inputVec, squaredSum);
-                numElements++;
-            }
+                        .map(
+                                (MapFunction<Row, DenseVector>)
+                                        value -> ((Vector) value.getField(inputCol)).toDense());
+        DataStream<RobustScalerModelData> modelData =
+                DataStreamUtils.aggregate(
 ```
 
 ### DataFlowIssue
@@ -1686,6 +1673,54 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorindexer/VectorI
 ```
 
 ### DataFlowIssue
+Argument `sum` might be null
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/OnlineStandardScaler.java`
+#### Snippet
+```java
+                    squaredSum = new DenseVector(inputVec.size());
+                }
+                BLAS.axpy(1, inputVec, sum);
+                BLAS.hDot(inputVec, inputVec);
+                BLAS.axpy(1, inputVec, squaredSum);
+```
+
+### DataFlowIssue
+Argument `squaredSum` might be null
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/OnlineStandardScaler.java`
+#### Snippet
+```java
+                BLAS.axpy(1, inputVec, sum);
+                BLAS.hDot(inputVec, inputVec);
+                BLAS.axpy(1, inputVec, squaredSum);
+                numElements++;
+            }
+```
+
+### DataFlowIssue
+Dereference of `document` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/countvectorizer/CountVectorizerModel.java`
+#### Snippet
+```java
+            String[] document = (String[]) row.getField(inputCol);
+            double[] termCounts = new double[vocabulary.size()];
+            for (String word : document) {
+                if (vocabulary.containsKey(word)) {
+                    termCounts[vocabulary.get(word)] += 1;
+```
+
+### DataFlowIssue
+Argument `in` might be null
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/StopWordsRemoverUtils.java`
+#### Snippet
+```java
+                                "org/apache/flink/ml/feature/stopwords/" + language + ".txt");
+
+        return new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
+                .lines()
+                .toArray(String[]::new);
+```
+
+### DataFlowIssue
 Method invocation `size` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/StandardScaler.java`
 #### Snippet
@@ -1707,42 +1742,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/standardscaler/Standa
             BLAS.axpy(1, inputVec, sum);
             BLAS.hDot(inputVec, inputVec);
             BLAS.axpy(1, inputVec, squaredSum);
-```
-
-### DataFlowIssue
-Dereference of `document` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/countvectorizer/CountVectorizerModel.java`
-#### Snippet
-```java
-            String[] document = (String[]) row.getField(inputCol);
-            double[] termCounts = new double[vocabulary.size()];
-            for (String word : document) {
-                if (vocabulary.containsKey(word)) {
-                    termCounts[vocabulary.get(word)] += 1;
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBinsDiscretizerModel.java`
-#### Snippet
-```java
-                binEdges = modelData.binEdges;
-            }
-            DenseVector inputVec = ((Vector) row.getField(inputCol)).toDense();
-            DenseVector outputVec = inputVec.clone();
-            for (int i = 0; i < inputVec.size(); i++) {
-```
-
-### DataFlowIssue
-Argument `in` might be null
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/StopWordsRemoverUtils.java`
-#### Snippet
-```java
-                                "org/apache/flink/ml/feature/stopwords/" + language + ".txt");
-
-        return new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
-                .lines()
-                .toArray(String[]::new);
 ```
 
 ### DataFlowIssue
@@ -1770,6 +1769,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/vectorassembler/Vecto
 ```
 
 ### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBinsDiscretizerModel.java`
+#### Snippet
+```java
+                binEdges = modelData.binEdges;
+            }
+            DenseVector inputVec = ((Vector) row.getField(inputCol)).toDense();
+            DenseVector outputVec = inputVec.clone();
+            for (int i = 0; i < inputVec.size(); i++) {
+```
+
+### DataFlowIssue
 Unboxing of `x.getField(0)` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/variancethresholdselector/VarianceThresholdSelectorModelData.java`
 #### Snippet
@@ -1782,18 +1793,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/variancethresholdsele
 ```
 
 ### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeatureselector/UnivariateFeatureSelectorModel.java`
-#### Snippet
-```java
-                Vector inputVec = ((Vector) row.getField(inputCol));
-                Preconditions.checkArgument(
-                        inputVec.size() > indices[indices.length - 1],
-                        "Input %s features, but UnivariateFeatureSelector is "
-                                + "expecting at least %s features as input.",
-```
-
-### DataFlowIssue
 Method invocation `toDense` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBinsDiscretizer.java`
 #### Snippet
@@ -1803,6 +1802,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBin
                                         value -> ((Vector) value.getField(inputCol)).toDense());
 
         DataStream<DenseVector> preprocessedData;
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeatureselector/UnivariateFeatureSelectorModel.java`
+#### Snippet
+```java
+                Vector inputVec = ((Vector) row.getField(inputCol));
+                Preconditions.checkArgument(
+                        inputVec.size() > indices[indices.length - 1],
+                        "Input %s features, but UnivariateFeatureSelector is "
+                                + "expecting at least %s features as input.",
 ```
 
 ### DataFlowIssue
@@ -1842,6 +1853,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/variancethresholdsele
 ```
 
 ### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeansModel.java`
+#### Snippet
+```java
+                return;
+            }
+            DenseVector point = ((Vector) dataPoint.getField(featuresCol)).toDense();
+            int closestCentroidId =
+                    distanceMeasure.findClosest(centroids, new VectorWithNorm(point));
+```
+
+### DataFlowIssue
 Unboxing of `row.getField("pValue")` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeatureselector/UnivariateFeatureSelector.java`
 #### Snippet
@@ -1867,18 +1890,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/univariatefeaturesele
 
 ### DataFlowIssue
 Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeansModel.java`
-#### Snippet
-```java
-                return;
-            }
-            DenseVector point = ((Vector) dataPoint.getField(featuresCol)).toDense();
-            int closestCentroidId =
-                    distanceMeasure.findClosest(centroids, new VectorWithNorm(point));
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansModel.java`
 #### Snippet
 ```java
@@ -1891,30 +1902,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansModel
 
 ### DataFlowIssue
 Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeans.java`
-#### Snippet
-```java
-        @Override
-        public DenseVector map(Row row) {
-            return ((Vector) row.getField(featuresCol)).toDense();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java`
-#### Snippet
-```java
-        DataStream<DenseVector> points =
-                tEnv.toDataStream(inputs[0])
-                        .map(row -> ((Vector) row.getField(getFeaturesCol())).toDense());
-
-        DataStream<DenseVector[]> initCentroids = selectRandomCentroids(points, getK(), getSeed());
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/regression/linearregression/LinearRegressionModel.java`
 #### Snippet
 ```java
@@ -1923,6 +1910,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/regression/linearregression/L
             DenseVector features = ((Vector) dataPoint.getField(featuresCol)).toDense();
             Row predictionResult = predictOneDataPoint(features, coefficient);
             return Row.join(dataPoint, predictionResult);
+```
+
+### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/OnlineKMeans.java`
+#### Snippet
+```java
+        @Override
+        public DenseVector map(Row row) {
+            return ((Vector) row.getField(featuresCol)).toDense();
+        }
+    }
 ```
 
 ### DataFlowIssue
@@ -1962,6 +1961,30 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModelDa
 ```
 
 ### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/LinearSVCModelData.java`
+#### Snippet
+```java
+                (StreamTableEnvironment) ((TableImpl) modelData).getTableEnvironment();
+        return tEnv.toDataStream(modelData)
+                .map(x -> new LinearSVCModelData(((Vector) x.getField(0)).toDense()));
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/LinearSVCModel.java`
+#### Snippet
+```java
+                coefficient = modelData.coefficient;
+            }
+            DenseVector features = ((Vector) dataPoint.getField(featuresCol)).toDense();
+            Row predictionResult = predictOneDataPoint(features, coefficient, threshold);
+            return Row.join(dataPoint, predictionResult);
+```
+
+### DataFlowIssue
 Method invocation `doubleValue` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/Knn.java`
 #### Snippet
@@ -1983,54 +2006,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/Knn.java`
                         DenseVector feature = ((Vector) value.getField(getFeaturesCol())).toDense();
                         return Tuple3.of(feature, label, Math.pow(BLAS.norm2(feature), 2));
                     }
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/LinearSVCModel.java`
-#### Snippet
-```java
-                coefficient = modelData.coefficient;
-            }
-            DenseVector features = ((Vector) dataPoint.getField(featuresCol)).toDense();
-            Row predictionResult = predictOneDataPoint(features, coefficient, threshold);
-            return Row.join(dataPoint, predictionResult);
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/linearsvc/LinearSVCModelData.java`
-#### Snippet
-```java
-                (StreamTableEnvironment) ((TableImpl) modelData).getTableEnvironment();
-        return tEnv.toDataStream(modelData)
-                .map(x -> new LinearSVCModelData(((Vector) x.getField(0)).toDense()));
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `toDense` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModel.java`
-#### Snippet
-```java
-                distanceVector = new DenseVector(knnModelData.labels.size());
-            }
-            DenseVector feature = ((Vector) row.getField(featureCol)).toDense();
-            double prediction = predictLabel(feature);
-            return Row.join(row, Row.of(prediction));
-```
-
-### DataFlowIssue
-Dereference of `currentFarthestNeighbor` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModel.java`
-#### Snippet
-```java
-                } else {
-                    Tuple2<Double, Double> currentFarthestNeighbor = nearestKNeighbors.peek();
-                    if (currentFarthestNeighbor.f0 > distanceVector.get(i)) {
-                        nearestKNeighbors.poll();
-                        nearestKNeighbors.add(Tuple2.of(distanceVector.get(i), labelValues[i]));
 ```
 
 ### DataFlowIssue
@@ -2059,6 +2034,42 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/Nai
 
 ### DataFlowIssue
 Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java`
+#### Snippet
+```java
+        DataStream<DenseVector> points =
+                tEnv.toDataStream(inputs[0])
+                        .map(row -> ((Vector) row.getField(getFeaturesCol())).toDense());
+
+        DataStream<DenseVector[]> initCentroids = selectRandomCentroids(points, getK(), getSeed());
+```
+
+### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModel.java`
+#### Snippet
+```java
+                distanceVector = new DenseVector(knnModelData.labels.size());
+            }
+            DenseVector feature = ((Vector) row.getField(featureCol)).toDense();
+            double prediction = predictLabel(feature);
+            return Row.join(row, Row.of(prediction));
+```
+
+### DataFlowIssue
+Dereference of `currentFarthestNeighbor` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModel.java`
+#### Snippet
+```java
+                } else {
+                    Tuple2<Double, Double> currentFarthestNeighbor = nearestKNeighbors.peek();
+                    if (currentFarthestNeighbor.f0 > distanceVector.get(i)) {
+                        nearestKNeighbors.poll();
+                        nearestKNeighbors.add(Tuple2.of(distanceVector.get(i), labelValues[i]));
+```
+
+### DataFlowIssue
+Method invocation `toDense` may produce `NullPointerException`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregression/LogisticRegressionModel.java`
 #### Snippet
 ```java
@@ -2067,18 +2078,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregres
             DenseVector features = ((Vector) dataPoint.getField(featuresCol)).toDense();
             Row predictionResult = predictOneDataPoint(features, coefficient);
             return Row.join(dataPoint, predictionResult);
-```
-
-### DataFlowIssue
-Method invocation `intValue` may produce `NullPointerException`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
-#### Snippet
-```java
-                                                    "Input data should contain label value.");
-                                            Preconditions.checkArgument(
-                                                    number.intValue() == number.doubleValue(),
-                                                    "Label value should be indexed number.");
-                                            return new Tuple2<>(
 ```
 
 ### DataFlowIssue
@@ -2103,6 +2102,43 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassificati
                     weightCol == null ? 1.0 : ((Number) value.getField(weightCol)).doubleValue();
             return Tuple3.of(prob, label == 1.0, weight);
         }
+```
+
+### DataFlowIssue
+Method invocation `intValue` may produce `NullPointerException`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayes.java`
+#### Snippet
+```java
+                                                    "Input data should contain label value.");
+                                            Preconditions.checkArgument(
+                                                    number.intValue() == number.doubleValue(),
+                                                    "Label value should be indexed number.");
+                                            return new Tuple2<>(
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public enum StageType {
+        ESTIMATOR,
+        ALGO_OPERATOR;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/types/BasicType.java`
+#### Snippet
+```java
+    DOUBLE,
+    STRING,
+    BYTE_STRING;
+}
+
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -2134,18 +2170,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 ## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationRecord.java`
-#### Snippet
-```java
-
-    @Override
-    public IterationRecord<T> clone() {
-        switch (type) {
-            case RECORD:
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/DenseVector.java`
 #### Snippet
 ```java
@@ -2168,6 +2192,18 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/SparseVector
     }
 ```
 
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationRecord.java`
+#### Snippet
+```java
+
+    @Override
+    public IterationRecord<T> clone() {
+        switch (type) {
+            case RECORD:
+```
+
 ## RuleId[id=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `bcStreams.keySet()` may be replaced with 'entrySet()' iteration
@@ -2179,6 +2215,18 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUt
         for (String name : bcStreams.keySet()) {
             broadcastNames[idx] = broadcastId + "-" + name;
             broadcastInputs[idx] = bcStreams.get(name);
+```
+
+### KeySetIterationMayUseEntrySet
+Iteration over `cntMap.keySet()` may be replaced with 'entrySet()' iteration
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
+#### Snippet
+```java
+        @Override
+        public void endInput() {
+            for (Tuple3<Integer, Double, Double> key : cntMap.keySet()) {
+                Long count = cntMap.get(key);
+                output.collect(new StreamRecord<>(new Tuple4<>(key.f0, key.f1, key.f2, count)));
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -2203,18 +2251,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.jav
             for (Tuple2<Integer, Double> key : labelMarginsMap.keySet()) {
                 Long labelMargin = labelMarginsMap.get(key);
                 output.collect(new StreamRecord<>(new Tuple3<>(key.f0, key.f1, labelMargin)));
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `cntMap.keySet()` may be replaced with 'entrySet()' iteration
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
-#### Snippet
-```java
-        @Override
-        public void endInput() {
-            for (Tuple3<Integer, Double, Double> key : cntMap.keySet()) {
-                Long count = cntMap.get(key);
-                output.collect(new StreamRecord<>(new Tuple4<>(key.f0, key.f1, key.f2, count)));
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -2243,243 +2279,15 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/recommendation/swing/Swing.ja
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/OneInputAllRoundWrapperOperator.java`
-#### Snippet
-```java
-                BoundedOneInput {
-
-    private final StreamRecord<IN> reusedInput;
-
-    public OneInputAllRoundWrapperOperator(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'progressTracker' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
-#### Snippet
-```java
-                BoundedMultiInput {
-
-    private OperatorEpochWatermarkTracker progressTracker;
-
-    private Path basePath;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'currentDataCacheReader' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
-#### Snippet
-```java
-    private DataCacheWriter<T> dataCacheWriter;
-
-    @Nullable private DataCacheReader<T> currentDataCacheReader;
-
-    private int currentEpoch;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'dataCacheWriter' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
-#### Snippet
-```java
-    private MailboxExecutor mailboxExecutor;
-
-    private DataCacheWriter<T> dataCacheWriter;
-
-    @Nullable private DataCacheReader<T> currentDataCacheReader;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput2' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/TwoInputAllRoundWrapperOperator.java`
-#### Snippet
-```java
-    private final StreamRecord<IN1> reusedInput1;
-
-    private final StreamRecord<IN2> reusedInput2;
-
-    public TwoInputAllRoundWrapperOperator(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput1' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/TwoInputAllRoundWrapperOperator.java`
-#### Snippet
-```java
-                BoundedMultiInput {
-
-    private final StreamRecord<IN1> reusedInput1;
-
-    private final StreamRecord<IN2> reusedInput2;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'epochWatermarkSupplier' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-    protected final ProxyOutput<T> proxyOutput;
-
-    protected final EpochSupplier epochWatermarkSupplier;
-
-    // --------------- Metrics ---------------------------
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'metrics' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-
-    /** Metric group for the operator. */
-    protected final InternalOperatorMetricGroup metrics;
-
-    // ------------- Iteration Related --------------------
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'parameters' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractWrapperOperator.class);
-
-    protected final StreamOperatorParameters<IterationRecord<T>> parameters;
-
-    protected final StreamConfig streamConfig;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'iterationContext' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-    protected final StreamOperatorFactory<T> operatorFactory;
-
-    protected final IterationContext iterationContext;
-
-    // --------------- proxy ---------------------------
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'epochWatermarkTracker' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-    // ------------- Iteration Related --------------------
-
-    protected final OperatorEpochWatermarkTracker epochWatermarkTracker;
-
-    protected final String uniqueSenderId;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'proxyOutput' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
-#### Snippet
-```java
-    // --------------- proxy ---------------------------
-
-    protected final ProxyOutput<T> proxyOutput;
-
-    protected final EpochSupplier epochWatermarkSupplier;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/OneInputPerRoundWrapperOperator.java`
-#### Snippet
-```java
-            LoggerFactory.getLogger(OneInputPerRoundWrapperOperator.class);
-
-    private final StreamRecord<IN> reusedInput;
-
-    public OneInputPerRoundWrapperOperator(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'mailboxExecutor' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
-#### Snippet
-```java
-    private final OperatorEventGateway operatorEventGateway;
-
-    private final MailboxExecutorWithYieldTimeout mailboxExecutor;
-
-    private transient BroadcastOutput<?> eventBroadcastOutput;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'checkpoints' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
-#### Snippet
-```java
-    private ListState<HeadOperatorState> processorState;
-
-    private Checkpoints<IterationRecord<?>> checkpoints;
-
-    public HeadOperator(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'checkpointAligner' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
-#### Snippet
-```java
-    private HeadOperatorRecordProcessor recordProcessor;
-
-    private HeadOperatorCheckpointAligner checkpointAligner;
-
-    // ------------- states -------------------
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput1' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/TwoInputPerRoundWrapperOperator.java`
-#### Snippet
-```java
-                IterationRecord<IN1>, IterationRecord<IN2>, IterationRecord<OUT>> {
-
-    private final StreamRecord<IN1> reusedInput1;
-
-    private final StreamRecord<IN2> reusedInput2;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'reusedInput2' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/TwoInputPerRoundWrapperOperator.java`
-#### Snippet
-```java
-    private final StreamRecord<IN1> reusedInput1;
-
-    private final StreamRecord<IN2> reusedInput2;
-
-    public TwoInputPerRoundWrapperOperator(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'latencyStats' in a Serializable class
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/AbstractPerRoundWrapperOperator.java`
-#### Snippet
-```java
-    private final Map<Integer, S> wrappedOperators;
-
-    protected final LatencyStats latencyStats;
-
-    private transient StreamOperatorStateContext streamOperatorStateContext;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'inputModelDataIds' in a Serializable class
+Non-serializable field 'outputIds' in a Serializable class
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 #### Snippet
 ```java
+    private final TableId[] estimatorInputIds;
     private final TableId[] modelInputIds;
     private final TableId[] outputIds;
     private final @Nullable TableId[] inputModelDataIds;
     private final @Nullable TableId[] outputModelDataIds;
-
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2519,51 +2327,15 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'outputIds' in a Serializable class
+Non-serializable field 'inputModelDataIds' in a Serializable class
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 #### Snippet
 ```java
-    private final TableId[] estimatorInputIds;
     private final TableId[] modelInputIds;
     private final TableId[] outputIds;
     private final @Nullable TableId[] inputModelDataIds;
     private final @Nullable TableId[] outputModelDataIds;
-```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'inputIds' in a Serializable class
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final Map<Param<?>, Object> paramMap = new HashMap<>();
-    private final List<GraphNode> nodes;
-    private final TableId[] inputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'executionHelper' in a Serializable class
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
-
-    public GraphModel(
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'outputIds' in a Serializable class
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final List<GraphNode> nodes;
-    private final TableId[] inputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2591,15 +2363,39 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'wrappedOperatorRuntimeContext' in a Serializable class
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+Non-serializable field 'executionHelper' in a Serializable class
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
 #### Snippet
 ```java
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
 
-    /** runtimeContext of the rich function in wrapped operator. */
-    BroadcastStreamingRuntimeContext wrappedOperatorRuntimeContext;
+    public GraphModel(
+```
 
-    /**
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'inputIds' in a Serializable class
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final Map<Param<?>, Object> paramMap = new HashMap<>();
+    private final List<GraphNode> nodes;
+    private final TableId[] inputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'outputIds' in a Serializable class
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final List<GraphNode> nodes;
+    private final TableId[] inputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2624,6 +2420,258 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/Ab
     protected DataCacheWriter[] dataCacheWriters;
 
     /** whether each input has pending elements. */
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'wrappedOperatorRuntimeContext' in a Serializable class
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+
+    /** runtimeContext of the rich function in wrapped operator. */
+    BroadcastStreamingRuntimeContext wrappedOperatorRuntimeContext;
+
+    /**
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'progressTracker' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
+#### Snippet
+```java
+                BoundedMultiInput {
+
+    private OperatorEpochWatermarkTracker progressTracker;
+
+    private Path basePath;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'currentDataCacheReader' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
+#### Snippet
+```java
+    private DataCacheWriter<T> dataCacheWriter;
+
+    @Nullable private DataCacheReader<T> currentDataCacheReader;
+
+    private int currentEpoch;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'dataCacheWriter' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
+#### Snippet
+```java
+    private MailboxExecutor mailboxExecutor;
+
+    private DataCacheWriter<T> dataCacheWriter;
+
+    @Nullable private DataCacheReader<T> currentDataCacheReader;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'iterationContext' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+    protected final StreamOperatorFactory<T> operatorFactory;
+
+    protected final IterationContext iterationContext;
+
+    // --------------- proxy ---------------------------
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'metrics' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+
+    /** Metric group for the operator. */
+    protected final InternalOperatorMetricGroup metrics;
+
+    // ------------- Iteration Related --------------------
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'epochWatermarkTracker' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+    // ------------- Iteration Related --------------------
+
+    protected final OperatorEpochWatermarkTracker epochWatermarkTracker;
+
+    protected final String uniqueSenderId;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'parameters' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractWrapperOperator.class);
+
+    protected final StreamOperatorParameters<IterationRecord<T>> parameters;
+
+    protected final StreamConfig streamConfig;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'proxyOutput' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+    // --------------- proxy ---------------------------
+
+    protected final ProxyOutput<T> proxyOutput;
+
+    protected final EpochSupplier epochWatermarkSupplier;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'epochWatermarkSupplier' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
+#### Snippet
+```java
+    protected final ProxyOutput<T> proxyOutput;
+
+    protected final EpochSupplier epochWatermarkSupplier;
+
+    // --------------- Metrics ---------------------------
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/OneInputAllRoundWrapperOperator.java`
+#### Snippet
+```java
+                BoundedOneInput {
+
+    private final StreamRecord<IN> reusedInput;
+
+    public OneInputAllRoundWrapperOperator(
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput2' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/TwoInputAllRoundWrapperOperator.java`
+#### Snippet
+```java
+    private final StreamRecord<IN1> reusedInput1;
+
+    private final StreamRecord<IN2> reusedInput2;
+
+    public TwoInputAllRoundWrapperOperator(
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput1' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/TwoInputAllRoundWrapperOperator.java`
+#### Snippet
+```java
+                BoundedMultiInput {
+
+    private final StreamRecord<IN1> reusedInput1;
+
+    private final StreamRecord<IN2> reusedInput2;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/OneInputPerRoundWrapperOperator.java`
+#### Snippet
+```java
+            LoggerFactory.getLogger(OneInputPerRoundWrapperOperator.class);
+
+    private final StreamRecord<IN> reusedInput;
+
+    public OneInputPerRoundWrapperOperator(
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput2' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/TwoInputPerRoundWrapperOperator.java`
+#### Snippet
+```java
+    private final StreamRecord<IN1> reusedInput1;
+
+    private final StreamRecord<IN2> reusedInput2;
+
+    public TwoInputPerRoundWrapperOperator(
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'reusedInput1' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/TwoInputPerRoundWrapperOperator.java`
+#### Snippet
+```java
+                IterationRecord<IN1>, IterationRecord<IN2>, IterationRecord<OUT>> {
+
+    private final StreamRecord<IN1> reusedInput1;
+
+    private final StreamRecord<IN2> reusedInput2;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'checkpoints' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
+#### Snippet
+```java
+    private ListState<HeadOperatorState> processorState;
+
+    private Checkpoints<IterationRecord<?>> checkpoints;
+
+    public HeadOperator(
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'mailboxExecutor' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
+#### Snippet
+```java
+    private final OperatorEventGateway operatorEventGateway;
+
+    private final MailboxExecutorWithYieldTimeout mailboxExecutor;
+
+    private transient BroadcastOutput<?> eventBroadcastOutput;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'checkpointAligner' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/HeadOperator.java`
+#### Snippet
+```java
+    private HeadOperatorRecordProcessor recordProcessor;
+
+    private HeadOperatorCheckpointAligner checkpointAligner;
+
+    // ------------- states -------------------
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'latencyStats' in a Serializable class
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perround/AbstractPerRoundWrapperOperator.java`
+#### Snippet
+```java
+    private final Map<Integer, S> wrappedOperators;
+
+    protected final LatencyStats latencyStats;
+
+    private transient StreamOperatorStateContext streamOperatorStateContext;
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'valuesState' in a Serializable class
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+            implements OneInputStreamOperator<IN, OUT>, BoundedOneInput {
+
+        private ListStateWithCache<IN> valuesState;
+
+        public MapPartitionOperator(MapPartitionFunction<IN, OUT> mapPartitionFunc) {
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -2663,6 +2711,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeansModel
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'modelData' in a Serializable class
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayesModel.java`
+#### Snippet
+```java
+        private final String featuresCol;
+        private final String broadcastModelKey;
+        private NaiveBayesModelData modelData = null;
+
+        public PredictLabelFunction(String featuresCol, String broadcastModelKey) {
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'points' in a Serializable class
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java`
 #### Snippet
@@ -2686,43 +2746,7 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/KnnModel.j
         private final String broadcastKey;
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'modelData' in a Serializable class
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/naivebayes/NaiveBayesModel.java`
-#### Snippet
-```java
-        private final String featuresCol;
-        private final String broadcastModelKey;
-        private NaiveBayesModelData modelData = null;
-
-        public PredictLabelFunction(String featuresCol, String broadcastModelKey) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'valuesState' in a Serializable class
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-            implements OneInputStreamOperator<IN, OUT>, BoundedOneInput {
-
-        private ListStateWithCache<IN> valuesState;
-
-        public MapPartitionOperator(MapPartitionFunction<IN, OUT> mapPartitionFunc) {
-```
-
 ## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `flink-ml-core/src/main/java/org/apache/flink/ml/api/AlgoOperator.java`
-#### Snippet
-```java
-     *
-     * @param inputs a list of tables
-     * @return a list of tables
-     */
-    Table[] transform(Table... inputs);
-```
-
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
 in `flink-ml-core/src/main/java/org/apache/flink/ml/api/Model.java`
@@ -2733,6 +2757,18 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/api/Model.java`
      * @return a list of tables
      */
     default Table[] getModelData() {
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `flink-ml-core/src/main/java/org/apache/flink/ml/api/AlgoOperator.java`
+#### Snippet
+```java
+     *
+     * @param inputs a list of tables
+     * @return a list of tables
+     */
+    Table[] transform(Table... inputs);
 ```
 
 ### MismatchedJavadocCode
@@ -2748,6 +2784,42 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/PipelineModel.java`
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`inputList.size() > 0` can be replaced with '!inputList.isEmpty()'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
+#### Snippet
+```java
+            Map<String, DataStream<?>> bcStreams,
+            Function<List<DataStream<?>>, DataStream<OUT>> userDefinedFunction) {
+        Preconditions.checkArgument(inputList.size() > 0);
+
+        StreamExecutionEnvironment env = inputList.get(0).getExecutionEnvironment();
+```
+
+### SizeReplaceableByIsEmpty
+`inputs.size() == 0` can be replaced with 'inputs.isEmpty()'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+        Preconditions.checkState(
+                inputs.size() < 2, "The input from raw operator state should be one or zero.");
+        if (inputs.size() == 0) {
+            for (int i = 0; i < numInputs; i++) {
+                dataCacheWriters[i] =
+```
+
+### SizeReplaceableByIsEmpty
+`pendingSegments.size() != 0` can be replaced with '!pendingSegments.isEmpty()'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+            throws Exception {
+        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
+        if (pendingSegments.size() != 0) {
+            DataCacheReader dataCacheReader =
+                    new DataCacheReader<>(
+```
+
 ### SizeReplaceableByIsEmpty
 `rawStateInputs.size() > 0` can be replaced with '!rawStateInputs.isEmpty()'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/ReplayOperator.java`
@@ -2794,42 +2866,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
                 wrappedOperators.size() == 0,
                 "Some wrapped operators are still not closed yet: " + wrappedOperators.keySet());
     }
-```
-
-### SizeReplaceableByIsEmpty
-`inputList.size() > 0` can be replaced with '!inputList.isEmpty()'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-            Map<String, DataStream<?>> bcStreams,
-            Function<List<DataStream<?>>, DataStream<OUT>> userDefinedFunction) {
-        Preconditions.checkArgument(inputList.size() > 0);
-
-        StreamExecutionEnvironment env = inputList.get(0).getExecutionEnvironment();
-```
-
-### SizeReplaceableByIsEmpty
-`inputs.size() == 0` can be replaced with 'inputs.isEmpty()'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-        Preconditions.checkState(
-                inputs.size() < 2, "The input from raw operator state should be one or zero.");
-        if (inputs.size() == 0) {
-            for (int i = 0; i < numInputs; i++) {
-                dataCacheWriters[i] =
-```
-
-### SizeReplaceableByIsEmpty
-`pendingSegments.size() != 0` can be replaced with '!pendingSegments.isEmpty()'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-            throws Exception {
-        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
-        if (pendingSegments.size() != 0) {
-            DataCacheReader dataCacheReader =
-                    new DataCacheReader<>(
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2993,18 +3029,6 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `EpochAwareAllRoundProcessFunction` has no concrete subclass
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/functions/EpochAwareAllRoundProcessFunction.java`
-#### Snippet
-```java
- */
-@Internal
-public abstract class EpochAwareAllRoundProcessFunction<I, O> extends ProcessFunction<I, O>
-        implements EpochAware {
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `EpochAwareCoProcessFunction` has no concrete subclass
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/functions/EpochAwareCoProcessFunction.java`
 #### Snippet
@@ -3016,7 +3040,235 @@ public abstract class EpochAwareCoProcessFunction<I1, I2, O> extends CoProcessFu
 
 ```
 
+### AbstractClassNeverImplemented
+Abstract class `EpochAwareAllRoundProcessFunction` has no concrete subclass
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/functions/EpochAwareAllRoundProcessFunction.java`
+#### Snippet
+```java
+ */
+@Internal
+public abstract class EpochAwareAllRoundProcessFunction<I, O> extends ProcessFunction<I, O>
+        implements EpochAware {
+
+```
+
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends GraphNode`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphExecutionHelper.java`
+#### Snippet
+```java
+    private final Deque<GraphNode> unFetchedReadyNodes = new LinkedList<>();
+
+    public GraphExecutionHelper(List<GraphNode> nodes) {
+        // Initializes dependentNodes and numUnConstructedInputs.
+        for (GraphNode node : nodes) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    public static void putBroadcastVariable(String key, Tuple2<Boolean, List<?>> variable) {
+        BROADCAST_VARIABLES.compute(
+                key,
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/TerminateOnMaxIter.java`
+#### Snippet
+```java
+    @Override
+    public void onEpochWatermarkIncremented(
+            int epochWatermark, Context context, Collector<Integer> out) {
+        if (epochWatermark + 1 < maxIter) {
+            out.collect(0);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/ForwardInputsOfLastRound.java`
+#### Snippet
+```java
+
+    @Override
+    public void onIterationTerminated(Context context, Collector<T> out) {
+        for (T value : valuesInLastEpoch) {
+            out.collect(value);
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/TerminateOnMaxIterOrTol.java`
+#### Snippet
+```java
+    @Override
+    public void onEpochWatermarkIncremented(
+            int epochWatermark, Context context, Collector<Integer> collector) {
+        if ((epochWatermark + 1) < maxIter && loss > tol) {
+            collector.collect(0);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStream`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
+#### Snippet
+```java
+    public static <OUT> DataStream<OUT> withBroadcastStream(
+            List<DataStream<?>> inputList,
+            Map<String, DataStream<?>> bcStreams,
+            Function<List<DataStream<?>>, DataStream<OUT>> userDefinedFunction) {
+        Preconditions.checkArgument(inputList.size() > 0);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStream`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
+#### Snippet
+```java
+    private static <OUT> DataStream<OUT> getResultStream(
+            StreamExecutionEnvironment env,
+            List<DataStream<?>> inputList,
+            String[] broadcastStreamNames,
+            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
+```
+
+### BoundedWildcard
+Can generalize to `? super List`>
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
+#### Snippet
+```java
+            List<DataStream<?>> inputList,
+            String[] broadcastStreamNames,
+            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
+        TypeInformation<?>[] inTypes = new TypeInformation[inputList.size()];
+        for (int i = 0; i < inputList.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends DataStream`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
+#### Snippet
+```java
+            List<DataStream<?>> inputList,
+            String[] broadcastStreamNames,
+            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
+        TypeInformation<?>[] inTypes = new TypeInformation[inputList.size()];
+        for (int i = 0; i < inputList.size(); i++) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Stage`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
+#### Snippet
+```java
+     * @param path The parent directory to save the pipeline metadata and its stages.
+     */
+    public static void savePipeline(Stage<?> pipeline, List<Stage<?>> stages, String path)
+            throws IOException {
+        // Creates parent directories if not already created.
+```
+
+### BoundedWildcard
+Can generalize to `? super Param`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/ParamUtils.java`
+#### Snippet
+```java
+     */
+    public static void initializeMapWithDefaultValues(
+            Map<Param<?>, Object> paramMap, WithParams<?> instance) {
+        List<Param<?>> defaultParams = getPublicFinalParamFields(instance);
+        for (Param<?> param : defaultParams) {
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.java`
+#### Snippet
+```java
+     */
+    @SuppressWarnings("unchecked")
+    default <V> V get(Param<V> param) {
+        Map<Param<?>, Object> paramMap = getParamMap();
+        V value = (V) paramMap.get(param);
+```
+
+### BoundedWildcard
+Can generalize to `? super StreamRecord`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+    private void processPendingElementsAndWatermarks(
+            int inputIndex,
+            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
+            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
+            throws Exception {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+    private void processPendingElementsAndWatermarks(
+            int inputIndex,
+            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
+            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
+            throws Exception {
+```
+
+### BoundedWildcard
+Can generalize to `? super Watermark`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+            int inputIndex,
+            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
+            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
+            throws Exception {
+        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Exception`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
+#### Snippet
+```java
+            int inputIndex,
+            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
+            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
+            throws Exception {
+        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Map`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+            StreamTableEnvironment tEnv,
+            String name,
+            Map<String, Map<String, ?>> params,
+            boolean dryRun)
+            throws Exception {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
+#### Snippet
+```java
+     *     between two adjacent intervals.
+     */
+    public PeriodicSourceFunction(long interval, List<List<Row>> data) {
+        this.interval = interval;
+        this.data = data;
+```
+
 ### BoundedWildcard
 Can generalize to `? extends DataStream`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/ReplayableDataStreamList.java`
@@ -3198,6 +3450,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 ```
 
 ### BoundedWildcard
+Can generalize to `? super StreamRecord`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/ChainingBroadcastOutput.java`
+#### Snippet
+```java
+    private final OutputTag outputTag;
+
+    ChainingBroadcastOutput(Output<StreamRecord<OUT>> rawOutput, OutputTag outputTag) {
+        this.rawOutput = rawOutput;
+        this.outputTag = outputTag;
+```
+
+### BoundedWildcard
 Can generalize to `? extends BroadcastOutput`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/CountingBroadcastOutput.java`
 #### Snippet
@@ -3210,15 +3474,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/Counti
 ```
 
 ### BoundedWildcard
-Can generalize to `? super StreamRecord`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/ChainingBroadcastOutput.java`
+Can generalize to `? extends Executor`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/SharedProgressAligner.java`
 #### Snippet
 ```java
-    private final OutputTag outputTag;
-
-    ChainingBroadcastOutput(Output<StreamRecord<OUT>> rawOutput, OutputTag outputTag) {
-        this.rawOutput = rawOutput;
-        this.outputTag = outputTag;
+            int totalHeadParallelism,
+            OperatorCoordinator.Context context,
+            Supplier<Executor> executorFactory) {
+        return instances.computeIfAbsent(
+                iterationId,
 ```
 
 ### BoundedWildcard
@@ -3243,54 +3507,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/broadcast/Record
             RecordWriter<SerializationDelegate<StreamElement>> recordWriter,
             TypeSerializer<StreamElement> typeSerializer) {
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends Executor`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/SharedProgressAligner.java`
-#### Snippet
-```java
-            int totalHeadParallelism,
-            OperatorCoordinator.Context context,
-            Supplier<Executor> executorFactory) {
-        return instances.computeIfAbsent(
-                iterationId,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/FileSegmentReader.java`
-#### Snippet
-```java
-    private int count;
-
-    FileSegmentReader(TypeSerializer<T> serializer, Segment segment, int startOffset)
-            throws IOException {
-        this.serializer = serializer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentWriter.java`
-#### Snippet
-```java
-
-    MemorySegmentWriter(
-            TypeSerializer<T> serializer,
-            Path path,
-            MemorySegmentPool segmentPool,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentReader.java`
-#### Snippet
-```java
-    private int count;
-
-    MemorySegmentReader(TypeSerializer<T> serializer, Segment segment, int startOffset)
-            throws IOException {
-        ManagedMemoryInputStream inputStream = new ManagedMemoryInputStream(segment.getCache());
 ```
 
 ### BoundedWildcard
@@ -3330,6 +3546,18 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends TypeInformation`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+#### Snippet
+```java
+            DataStreamList dataStreams,
+            DraftExecutionEnvironment draftEnv,
+            List<TypeInformation<?>> typeInfos) {
+
+        return new DataStreamList(
+```
+
+### BoundedWildcard
 Can generalize to `? super DataStream`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 #### Snippet
@@ -3354,27 +3582,51 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TypeInformation`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
+Can generalize to `? super T`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentWriter.java`
 #### Snippet
 ```java
-            DataStreamList dataStreams,
-            DraftExecutionEnvironment draftEnv,
-            List<TypeInformation<?>> typeInfos) {
 
-        return new DataStreamList(
+    MemorySegmentWriter(
+            TypeSerializer<T> serializer,
+            Path path,
+            MemorySegmentPool segmentPool,
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
+Can generalize to `? extends T`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/FileSegmentReader.java`
 #### Snippet
 ```java
-     *     between two adjacent intervals.
-     */
-    public PeriodicSourceFunction(long interval, List<List<Row>> data) {
-        this.interval = interval;
-        this.data = data;
+    private int count;
+
+    FileSegmentReader(TypeSerializer<T> serializer, Segment segment, int startOffset)
+            throws IOException {
+        this.serializer = serializer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentReader.java`
+#### Snippet
+```java
+    private int count;
+
+    MemorySegmentReader(TypeSerializer<T> serializer, Segment segment, int startOffset)
+            throws IOException {
+        ManagedMemoryInputStream inputStream = new ManagedMemoryInputStream(segment.getCache());
+```
+
+### BoundedWildcard
+Can generalize to `? extends Segment`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheReader.java`
+#### Snippet
+```java
+    public DataCacheReader(
+            TypeSerializer<T> serializer,
+            List<Segment> segments,
+            Tuple2<Integer, Integer> readerPosition) {
+        this.serializer = serializer;
 ```
 
 ### BoundedWildcard
@@ -3439,30 +3691,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 
 ### BoundedWildcard
 Can generalize to `? extends Segment`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheReader.java`
-#### Snippet
-```java
-    public DataCacheReader(
-            TypeSerializer<T> serializer,
-            List<Segment> segments,
-            Tuple2<Integer, Integer> readerPosition) {
-        this.serializer = serializer;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheSnapshot.java`
-#### Snippet
-```java
-            InputStream checkpointInputStream,
-            TypeSerializer<T> serializer,
-            FeedbackConsumer<T> feedbackConsumer)
-            throws Exception {
-        try (DataInputStream dis =
-```
-
-### BoundedWildcard
-Can generalize to `? extends Segment`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheSnapshot.java`
 #### Snippet
 ```java
@@ -3498,123 +3726,15 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastContext.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    public static void putBroadcastVariable(String key, Tuple2<Boolean, List<?>> variable) {
-        BROADCAST_VARIABLES.compute(
-                key,
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/ForwardInputsOfLastRound.java`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheSnapshot.java`
 #### Snippet
 ```java
-
-    @Override
-    public void onIterationTerminated(Context context, Collector<T> out) {
-        for (T value : valuesInLastEpoch) {
-            out.collect(value);
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/TerminateOnMaxIter.java`
-#### Snippet
-```java
-    @Override
-    public void onEpochWatermarkIncremented(
-            int epochWatermark, Context context, Collector<Integer> out) {
-        if (epochWatermark + 1 < maxIter) {
-            out.collect(0);
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/iteration/TerminateOnMaxIterOrTol.java`
-#### Snippet
-```java
-    @Override
-    public void onEpochWatermarkIncremented(
-            int epochWatermark, Context context, Collector<Integer> collector) {
-        if ((epochWatermark + 1) < maxIter && loss > tol) {
-            collector.collect(0);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStream`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-    private static <OUT> DataStream<OUT> getResultStream(
-            StreamExecutionEnvironment env,
-            List<DataStream<?>> inputList,
-            String[] broadcastStreamNames,
-            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
-```
-
-### BoundedWildcard
-Can generalize to `? super List`>
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-            List<DataStream<?>> inputList,
-            String[] broadcastStreamNames,
-            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
-        TypeInformation<?>[] inTypes = new TypeInformation[inputList.size()];
-        for (int i = 0; i < inputList.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStream`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-            List<DataStream<?>> inputList,
-            String[] broadcastStreamNames,
-            Function<List<DataStream<?>>, DataStream<OUT>> graphBuilder) {
-        TypeInformation<?>[] inTypes = new TypeInformation[inputList.size()];
-        for (int i = 0; i < inputList.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataStream`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/BroadcastUtils.java`
-#### Snippet
-```java
-    public static <OUT> DataStream<OUT> withBroadcastStream(
-            List<DataStream<?>> inputList,
-            Map<String, DataStream<?>> bcStreams,
-            Function<List<DataStream<?>>, DataStream<OUT>> userDefinedFunction) {
-        Preconditions.checkArgument(inputList.size() > 0);
-```
-
-### BoundedWildcard
-Can generalize to `? extends GraphNode`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphExecutionHelper.java`
-#### Snippet
-```java
-    private final Deque<GraphNode> unFetchedReadyNodes = new LinkedList<>();
-
-    public GraphExecutionHelper(List<GraphNode> nodes) {
-        // Initializes dependentNodes and numUnConstructedInputs.
-        for (GraphNode node : nodes) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Stage`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
-#### Snippet
-```java
-     * @param path The parent directory to save the pipeline metadata and its stages.
-     */
-    public static void savePipeline(Stage<?> pipeline, List<Stage<?>> stages, String path)
-            throws IOException {
-        // Creates parent directories if not already created.
+            InputStream checkpointInputStream,
+            TypeSerializer<T> serializer,
+            FeedbackConsumer<T> feedbackConsumer)
+            throws Exception {
+        try (DataInputStream dis =
 ```
 
 ### BoundedWildcard
@@ -3642,54 +3762,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super StreamRecord`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-    private void processPendingElementsAndWatermarks(
-            int inputIndex,
-            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
-            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
-            throws Exception {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-    private void processPendingElementsAndWatermarks(
-            int inputIndex,
-            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
-            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
-            throws Exception {
-```
-
-### BoundedWildcard
-Can generalize to `? super Watermark`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-            int inputIndex,
-            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
-            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
-            throws Exception {
-        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Exception`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/AbstractBroadcastWrapperOperator.java`
-#### Snippet
-```java
-            int inputIndex,
-            ThrowingConsumer<StreamRecord, Exception> elementConsumer,
-            ThrowingConsumer<Watermark, Exception> watermarkConsumer)
-            throws Exception {
-        List<Segment> pendingSegments = dataCacheWriters[inputIndex].getSegments();
-```
-
-### BoundedWildcard
 Can generalize to `? extends Path`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
 #### Snippet
@@ -3714,18 +3786,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DenseVector`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/SGD.java`
-#### Snippet
-```java
-
-        private CacheDataAndDoTrain(
-                LossFunc lossFunc, SGDParams params, OutputTag<DenseVector> modelDataOutputTag) {
-            this.lossFunc = lossFunc;
-            this.params = params;
-```
-
-### BoundedWildcard
 Can generalize to `? extends DenseVector`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/SGD.java`
 #### Snippet
@@ -3738,6 +3798,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/SGD.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super DenseVector`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/optimizer/SGD.java`
+#### Snippet
+```java
+
+        private CacheDataAndDoTrain(
+                LossFunc lossFunc, SGDParams params, OutputTag<DenseVector> modelDataOutputTag) {
+            this.lossFunc = lossFunc;
+            this.params = params;
+```
+
+### BoundedWildcard
 Can generalize to `? super Integer`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/featurehasher/FeatureHasher.java`
 #### Snippet
@@ -3747,6 +3819,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/featurehasher/Feature
             String s, double value, TreeMap<Integer, Double> feature, int numFeature) {
         int hashValue = Math.abs(HASH.hashUnencodedChars(s).asInt());
 
+```
+
+### BoundedWildcard
+Can generalize to `? extends DenseVector`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBinsDiscretizer.java`
+#### Snippet
+```java
+
+    private static double[][] findBinEdgesWithQuantileStrategy(
+            List<DenseVector> input, int numBins) {
+        int numColumns = input.get(0).size();
+        int numData = input.size();
 ```
 
 ### BoundedWildcard
@@ -3774,15 +3858,15 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DenseVector`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBinsDiscretizer.java`
+Can generalize to `? extends BinarySummary`
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassification/BinaryClassificationEvaluator.java`
 #### Snippet
 ```java
-
-    private static double[][] findBinEdgesWithQuantileStrategy(
-            List<DenseVector> input, int numBins) {
-        int numColumns = input.get(0).size();
-        int numData = input.size();
+     * @return [curTrue, curFalse, TotalTrue, TotalFalse]
+     */
+    private static long[] reduceBinarySummary(List<BinarySummary> values, int taskId) {
+        List<BinarySummary> list = new ArrayList<>(values);
+        list.sort(Comparator.comparingDouble(t -> -t.maxScore));
 ```
 
 ### BoundedWildcard
@@ -3809,55 +3893,284 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/agglomerativeclust
             for (Tuple4<Integer, Integer, Integer, Double> t : nnChains) {
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 #### Snippet
 ```java
-            StreamTableEnvironment tEnv,
-            String name,
-            Map<String, Map<String, ?>> params,
-            boolean dryRun)
-            throws Exception {
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+
+    public Graph(
 ```
 
-### BoundedWildcard
-Can generalize to `? extends BinarySummary`
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassification/BinaryClassificationEvaluator.java`
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 #### Snippet
 ```java
-     * @return [curTrue, curFalse, TotalTrue, TotalFalse]
-     */
-    private static long[] reduceBinarySummary(List<BinarySummary> values, int taskId) {
-        List<BinarySummary> list = new ArrayList<>(values);
-        list.sort(Comparator.comparingDouble(t -> -t.maxScore));
+    private final TableId[] modelInputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+
 ```
 
-### BoundedWildcard
-Can generalize to `? super Param`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/ParamUtils.java`
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
 #### Snippet
 ```java
-     */
-    public static void initializeMapWithDefaultValues(
-            Map<Param<?>, Object> paramMap, WithParams<?> instance) {
-        List<Param<?>> defaultParams = getPublicFinalParamFields(instance);
-        for (Param<?> param : defaultParams) {
+    public final TableId[] modelInputIds;
+    public final TableId[] outputIds;
+    public final @Nullable TableId[] inputModelDataIds;
+    public final @Nullable TableId[] outputModelDataIds;
+
 ```
 
-### BoundedWildcard
-Can generalize to `? super V`
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.java`
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
 #### Snippet
 ```java
+    public final TableId[] outputIds;
+    public final @Nullable TableId[] inputModelDataIds;
+    public final @Nullable TableId[] outputModelDataIds;
+
+    public GraphData(
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
+#### Snippet
+```java
+public class GraphData {
+    public final List<GraphNode> nodes;
+    public final @Nullable TableId[] estimatorInputIds;
+    public final TableId[] modelInputIds;
+    public final TableId[] outputIds;
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final TableId[] inputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public final TableId[] algoOpInputIds;
+    public final TableId[] outputIds;
+    public @Nullable TableId[] inputModelDataIds;
+    public @Nullable TableId[] outputModelDataIds;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `public final @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public @Nullable Stage<?> stage;
+    public final StageType stageType;
+    public final @Nullable TableId[] estimatorInputIds;
+    public final TableId[] algoOpInputIds;
+    public final TableId[] outputIds;
+```
+
+### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public final TableId[] outputIds;
+    public @Nullable TableId[] inputModelDataIds;
+    public @Nullable TableId[] outputModelDataIds;
+
+    public GraphNode(
+```
+
+### MissortedModifiers
+Missorted modifiers `public @Nullable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+
+    public final int nodeId;
+    public @Nullable Stage<?> stage;
+    public final StageType stageType;
+    public final @Nullable TableId[] estimatorInputIds;
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationBodyResult.java`
+#### Snippet
+```java
+     * with the feedback variable streams to determine when the iteration should terminate.
      */
-    @SuppressWarnings("unchecked")
-    default <V> V get(Param<V> param) {
-        Map<Param<?>, Object> paramMap = getParamMap();
-        V value = (V) paramMap.get(param);
+    private final @Nullable DataStream<?> terminationCriteria;
+
+    public IterationBodyResult(
 ```
 
 ## RuleId[id=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
+#### Snippet
+```java
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+
+    public Graph(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
+#### Snippet
+```java
+    private final TableId[] modelInputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
+#### Snippet
+```java
+    public final TableId[] modelInputIds;
+    public final TableId[] outputIds;
+    public final @Nullable TableId[] inputModelDataIds;
+    public final @Nullable TableId[] outputModelDataIds;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
+#### Snippet
+```java
+    public final TableId[] outputIds;
+    public final @Nullable TableId[] inputModelDataIds;
+    public final @Nullable TableId[] outputModelDataIds;
+
+    public GraphData(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
+#### Snippet
+```java
+public class GraphData {
+    public final List<GraphNode> nodes;
+    public final @Nullable TableId[] estimatorInputIds;
+    public final TableId[] modelInputIds;
+    public final TableId[] outputIds;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final TableId[] inputIds;
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
+#### Snippet
+```java
+    private final TableId[] outputIds;
+    private final @Nullable TableId[] inputModelDataIds;
+    private final @Nullable TableId[] outputModelDataIds;
+    private final GraphExecutionHelper executionHelper;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public final TableId[] algoOpInputIds;
+    public final TableId[] outputIds;
+    public @Nullable TableId[] inputModelDataIds;
+    public @Nullable TableId[] outputModelDataIds;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public @Nullable Stage<?> stage;
+    public final StageType stageType;
+    public final @Nullable TableId[] estimatorInputIds;
+    public final TableId[] algoOpInputIds;
+    public final TableId[] outputIds;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+    public final TableId[] outputIds;
+    public @Nullable TableId[] inputModelDataIds;
+    public @Nullable TableId[] outputModelDataIds;
+
+    public GraphNode(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
+#### Snippet
+```java
+
+    public final int nodeId;
+    public @Nullable Stage<?> stage;
+    public final StageType stageType;
+    public final @Nullable TableId[] estimatorInputIds;
+```
+
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationBodyResult.java`
@@ -3908,138 +4221,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
-#### Snippet
-```java
-    private final TableId[] modelInputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
-#### Snippet
-```java
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-
-    public Graph(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-    public final TableId[] modelInputIds;
-    public final TableId[] outputIds;
-    public final @Nullable TableId[] inputModelDataIds;
-    public final @Nullable TableId[] outputModelDataIds;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-    public final TableId[] outputIds;
-    public final @Nullable TableId[] inputModelDataIds;
-    public final @Nullable TableId[] outputModelDataIds;
-
-    public GraphData(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-public class GraphData {
-    public final List<GraphNode> nodes;
-    public final @Nullable TableId[] estimatorInputIds;
-    public final TableId[] modelInputIds;
-    public final TableId[] outputIds;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public final TableId[] algoOpInputIds;
-    public final TableId[] outputIds;
-    public @Nullable TableId[] inputModelDataIds;
-    public @Nullable TableId[] outputModelDataIds;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public @Nullable Stage<?> stage;
-    public final StageType stageType;
-    public final @Nullable TableId[] estimatorInputIds;
-    public final TableId[] algoOpInputIds;
-    public final TableId[] outputIds;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-
-    public final int nodeId;
-    public @Nullable Stage<?> stage;
-    public final StageType stageType;
-    public final @Nullable TableId[] estimatorInputIds;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public final TableId[] outputIds;
-    public @Nullable TableId[] inputModelDataIds;
-    public @Nullable TableId[] outputModelDataIds;
-
-    public GraphNode(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final TableId[] inputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/DataCacheWriter.java`
 #### Snippet
 ```java
@@ -4060,151 +4241,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
     @Nullable private final MemorySegmentPool segmentPool;
 
     /** The segments that contain previously added records. */
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/IterationBodyResult.java`
-#### Snippet
-```java
-     * with the feedback variable streams to determine when the iteration should terminate.
-     */
-    private final @Nullable DataStream<?> terminationCriteria;
-
-    public IterationBodyResult(
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
-#### Snippet
-```java
-    private final TableId[] modelInputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
-#### Snippet
-```java
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-
-    public Graph(
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-    public final TableId[] modelInputIds;
-    public final TableId[] outputIds;
-    public final @Nullable TableId[] inputModelDataIds;
-    public final @Nullable TableId[] outputModelDataIds;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-    public final TableId[] outputIds;
-    public final @Nullable TableId[] inputModelDataIds;
-    public final @Nullable TableId[] outputModelDataIds;
-
-    public GraphData(
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphData.java`
-#### Snippet
-```java
-public class GraphData {
-    public final List<GraphNode> nodes;
-    public final @Nullable TableId[] estimatorInputIds;
-    public final TableId[] modelInputIds;
-    public final TableId[] outputIds;
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public final TableId[] algoOpInputIds;
-    public final TableId[] outputIds;
-    public @Nullable TableId[] inputModelDataIds;
-    public @Nullable TableId[] outputModelDataIds;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `public final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public @Nullable Stage<?> stage;
-    public final StageType stageType;
-    public final @Nullable TableId[] estimatorInputIds;
-    public final TableId[] algoOpInputIds;
-    public final TableId[] outputIds;
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-
-    public final int nodeId;
-    public @Nullable Stage<?> stage;
-    public final StageType stageType;
-    public final @Nullable TableId[] estimatorInputIds;
-```
-
-### MissortedModifiers
-Missorted modifiers `public @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphNode.java`
-#### Snippet
-```java
-    public final TableId[] outputIds;
-    public @Nullable TableId[] inputModelDataIds;
-    public @Nullable TableId[] outputModelDataIds;
-
-    public GraphNode(
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final TableId[] inputIds;
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
-#### Snippet
-```java
-    private final TableId[] outputIds;
-    private final @Nullable TableId[] inputModelDataIds;
-    private final @Nullable TableId[] outputModelDataIds;
-    private final GraphExecutionHelper executionHelper;
-
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -4403,18 +4439,6 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/typeinfo/Den
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/VectorToArrayExample.java`
-#### Snippet
-```java
-            Vector vector = row.getFieldAs("vector");
-            Double[] doubleArray = row.getFieldAs("array");
-            System.out.printf(
-                    "Input vector: %s\tOutput double array: %s\n",
-                    vector, Arrays.toString(doubleArray));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/ArrayToVectorExample.java`
 #### Snippet
 ```java
@@ -4427,38 +4451,26 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/ArrayToVectorEx
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/VectorToArrayExample.java`
 #### Snippet
 ```java
-
-        // Extracts and displays the results.
-        System.out.printf("Variance Threshold: %s\n", threshold);
-        for (CloseableIterator<Row> it = outputTable.execute().collect(); it.hasNext(); ) {
-            Row row = it.next();
+            Vector vector = row.getFieldAs("vector");
+            Double[] doubleArray = row.getFieldAs("array");
+            System.out.printf(
+                    "Input vector: %s\tOutput double array: %s\n",
+                    vector, Arrays.toString(doubleArray));
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorSlicerExample.java`
 #### Snippet
 ```java
-            DenseVector outputValue =
-                    (DenseVector) row.getField(varianceThresholdSelector.getOutputCol());
-            System.out.printf("Input Values: %-15s\tOutput Values: %s\n", inputValue, outputValue);
+            Vector outputValue = (Vector) row.getField(vectorSlicer.getOutputCol());
+
+            System.out.printf("Input Value: %s \tOutput Value: %s\n", inputValue, outputValue);
         }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NGramExample.java`
-#### Snippet
-```java
-            String[] outputValue = (String[]) row.getField(nGram.getOutputCol());
-
-            System.out.printf(
-                    "Input Value: %s \tOutput Value: %s\n",
-                    Arrays.toString(inputValue), Arrays.toString(outputValue));
 ```
 
 ### SystemOutErr
@@ -4487,12 +4499,24 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/stats/ChiSqTest
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorSlicerExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
 #### Snippet
 ```java
-            Vector outputValue = (Vector) row.getField(vectorSlicer.getOutputCol());
 
-            System.out.printf("Input Value: %s \tOutput Value: %s\n", inputValue, outputValue);
+        // Extracts and displays the results.
+        System.out.printf("Variance Threshold: %s\n", threshold);
+        for (CloseableIterator<Row> it = outputTable.execute().collect(); it.hasNext(); ) {
+            Row row = it.next();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VarianceThresholdSelectorExample.java`
+#### Snippet
+```java
+            DenseVector outputValue =
+                    (DenseVector) row.getField(varianceThresholdSelector.getOutputCol());
+            System.out.printf("Input Values: %-15s\tOutput Values: %s\n", inputValue, outputValue);
         }
     }
 ```
@@ -4511,38 +4535,110 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorI
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BinarizerExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NGramExample.java`
 #### Snippet
 ```java
-            }
-
-            System.out.printf(
-                    "Input Values: %s\tOutput Values: %s\n",
-                    Arrays.toString(inputValues), Arrays.toString(outputValues));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
-#### Snippet
-```java
-            SparseVector outputValue = (SparseVector) row.getField(hashingTF.getOutputCol());
+            String[] outputValue = (String[]) row.getField(nGram.getOutputCol());
 
             System.out.printf(
                     "Input Value: %s \tOutput Value: %s\n",
-                    Arrays.toString(inputValue.stream().toArray()), outputValue);
+                    Arrays.toString(inputValue), Arrays.toString(outputValue));
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinMaxScalerExample.java`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
 #### Snippet
 ```java
-            DenseVector inputValue = (DenseVector) row.getField(minMaxScaler.getInputCol());
-            DenseVector outputValue = (DenseVector) row.getField(minMaxScaler.getOutputCol());
-            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
+        Map<String, Map<String, Map<String, ?>>> benchmarks =
+                BenchmarkUtils.parseJsonFile(configFile);
+        System.out.printf("Found %d benchmarks.\n", benchmarks.keySet().size());
+        String saveFile = commandLine.getOptionValue(OUTPUT_FILE_OPTION.getLongOpt());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+            }
+        }
+        System.out.println("Benchmarks execution completed.");
+
+        String benchmarkResultsJson =
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+        if (commandLine.hasOption(OUTPUT_FILE_OPTION.getLongOpt())) {
+            FileUtils.saveToFile(saveFile, benchmarkResultsJson, true);
+            System.out.printf("Benchmark results saved as json in %s.\n", saveFile);
+        } else {
+            System.out.printf("Benchmark results summary:\n%s\n", benchmarkResultsJson);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+            System.out.printf("Benchmark results saved as json in %s.\n", saveFile);
+        } else {
+            System.out.printf("Benchmark results summary:\n%s\n", benchmarkResultsJson);
         }
     }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+        formatter.setWidth(80);
+
+        System.out.println("./benchmark-run.sh <config-file-path> [OPTIONS]\n");
+        formatter.setSyntaxPrefix("The following options are available:");
+        formatter.printHelp(" ", OPTIONS);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+        formatter.printHelp(" ", OPTIONS);
+
+        System.out.println();
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+            executeBenchmarks(commandLine);
+        } else {
+            System.out.printf("Invalid command line arguments %s\n\n", Arrays.toString(args));
+            System.out.println(
+                    "Specify the help option (-h or --help) to get help on the command.");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+#### Snippet
+```java
+        } else {
+            System.out.printf("Invalid command line arguments %s\n\n", Arrays.toString(args));
+            System.out.println(
+                    "Specify the help option (-h or --help) to get help on the command.");
+        }
 ```
 
 ### SystemOutErr
@@ -4559,14 +4655,26 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/Imputer
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinMaxScalerExample.java`
 #### Snippet
 ```java
-            String[] inputValue = (String[]) row.getField(countVectorizer.getInputCol());
-            SparseVector outputValue = (SparseVector) row.getField(countVectorizer.getOutputCol());
+            DenseVector inputValue = (DenseVector) row.getField(minMaxScaler.getInputCol());
+            DenseVector outputValue = (DenseVector) row.getField(minMaxScaler.getOutputCol());
+            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OnlineStandardScalerExample.java`
+#### Snippet
+```java
+                    (DenseVector) row.getField(onlineStandardScaler.getOutputCol());
+            long modelVersion = row.getFieldAs(onlineStandardScaler.getModelVersionCol());
             System.out.printf(
-                    "Input Value: %-15s \tOutput Value: %s\n",
-                    Arrays.toString(inputValue), outputValue.toString());
+                    "Input Value: %s\tOutput Value: %-65s\tModel Version: %s\n",
+                    inputValue, outputValue, modelVersion);
 ```
 
 ### SystemOutErr
@@ -4583,14 +4691,14 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/Polynom
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OnlineStandardScalerExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/HashingTFExample.java`
 #### Snippet
 ```java
-                    (DenseVector) row.getField(onlineStandardScaler.getOutputCol());
-            long modelVersion = row.getFieldAs(onlineStandardScaler.getModelVersionCol());
+            SparseVector outputValue = (SparseVector) row.getField(hashingTF.getOutputCol());
+
             System.out.printf(
-                    "Input Value: %s\tOutput Value: %-65s\tModel Version: %s\n",
-                    inputValue, outputValue, modelVersion);
+                    "Input Value: %s \tOutput Value: %s\n",
+                    Arrays.toString(inputValue.stream().toArray()), outputValue);
 ```
 
 ### SystemOutErr
@@ -4619,26 +4727,26 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StopWor
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/InteractionExample.java`
+#### Snippet
+```java
+            }
+            Vector outputValue = (Vector) row.getField(interaction.getOutputCol());
+            System.out.printf(
+                    "Input Values: %s \tOutput Value: %s\n",
+                    Arrays.toString(inputValues), outputValue);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/BinarizerExample.java`
 #### Snippet
 ```java
             }
 
             System.out.printf(
-                    "Input Values: %s \tOutput Values: %s\n",
+                    "Input Values: %s\tOutput Values: %s\n",
                     Arrays.toString(inputValues), Arrays.toString(outputValues));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RegexTokenizerExample.java`
-#### Snippet
-```java
-            String[] outputValues = (String[]) row.getField(regexTokenizer.getOutputCol());
-
-            System.out.printf(
-                    "Input Value: %s \tOutput Values: %s\n",
-                    inputValue, Arrays.toString(outputValues));
 ```
 
 ### SystemOutErr
@@ -4655,14 +4763,26 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/Bucketi
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/InteractionExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/CountVectorizerExample.java`
 #### Snippet
 ```java
-            }
-            Vector outputValue = (Vector) row.getField(interaction.getOutputCol());
+            String[] inputValue = (String[]) row.getField(countVectorizer.getInputCol());
+            SparseVector outputValue = (SparseVector) row.getField(countVectorizer.getOutputCol());
             System.out.printf(
-                    "Input Values: %s \tOutput Value: %s\n",
-                    Arrays.toString(inputValues), outputValue);
+                    "Input Value: %-15s \tOutput Value: %s\n",
+                    Arrays.toString(inputValue), outputValue.toString());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RegexTokenizerExample.java`
+#### Snippet
+```java
+            String[] outputValues = (String[]) row.getField(regexTokenizer.getOutputCol());
+
+            System.out.printf(
+                    "Input Value: %s \tOutput Values: %s\n",
+                    inputValue, Arrays.toString(outputValues));
 ```
 
 ### SystemOutErr
@@ -4679,19 +4799,7 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/Tokeniz
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StandardScalerExample.java`
-#### Snippet
-```java
-            DenseVector inputValue = (DenseVector) row.getField(standardScaler.getInputCol());
-            DenseVector outputValue = (DenseVector) row.getField(standardScaler.getOutputCol());
-            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/IndexToStringModelExample.java`
 #### Snippet
 ```java
             }
@@ -4699,30 +4807,6 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringI
             System.out.printf(
                     "Input Values: %s \tOutput Values: %s\n",
                     Arrays.toString(inputValues), Arrays.toString(outputValues));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorAssemblerExample.java`
-#### Snippet
-```java
-            Vector outputValue = (Vector) row.getField(vectorAssembler.getOutputCol());
-
-            System.out.printf(
-                    "Input Values: %s \tOutput Value: %s\n",
-                    Arrays.toString(inputValues), outputValue);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/DCTExample.java`
-#### Snippet
-```java
-            Vector outputValue = row.getFieldAs(dct.getOutputCol());
-
-            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
-        }
-    }
 ```
 
 ### SystemOutErr
@@ -4739,12 +4823,108 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/Feature
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StringIndexerExample.java`
+#### Snippet
+```java
+            }
+
+            System.out.printf(
+                    "Input Values: %s \tOutput Values: %s\n",
+                    Arrays.toString(inputValues), Arrays.toString(outputValues));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/DCTExample.java`
+#### Snippet
+```java
+            Vector outputValue = row.getFieldAs(dct.getOutputCol());
+
+            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/VectorAssemblerExample.java`
+#### Snippet
+```java
+            Vector outputValue = (Vector) row.getField(vectorAssembler.getOutputCol());
+
+            System.out.printf(
+                    "Input Values: %s \tOutput Value: %s\n",
+                    Arrays.toString(inputValues), outputValue);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RobustScalerExample.java`
+#### Snippet
+```java
+            DenseVector inputValue = (DenseVector) row.getField(robustScaler.getInputCol());
+            DenseVector outputValue = (DenseVector) row.getField(robustScaler.getOutputCol());
+            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MaxAbsScalerExample.java`
 #### Snippet
 ```java
             DenseVector inputValue = (DenseVector) row.getField(maxAbsScaler.getInputCol());
             DenseVector outputValue = (DenseVector) row.getField(maxAbsScaler.getOutputCol());
             System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/UnivariateFeatureSelectorExample.java`
+#### Snippet
+```java
+            DenseVector outputValue =
+                    (DenseVector) row.getField(univariateFeatureSelector.getOutputCol());
+            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StandardScalerExample.java`
+#### Snippet
+```java
+            DenseVector inputValue = (DenseVector) row.getField(standardScaler.getInputCol());
+            DenseVector outputValue = (DenseVector) row.getField(standardScaler.getOutputCol());
+            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/KBinsDiscretizerExample.java`
+#### Snippet
+```java
+            DenseVector inputValue = (DenseVector) row.getField(kBinsDiscretizer.getInputCol());
+            DenseVector outputValue = (DenseVector) row.getField(kBinsDiscretizer.getOutputCol());
+            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ElementwiseProductExample.java`
+#### Snippet
+```java
+            Vector inputValue = (Vector) row.getField(elementwiseProduct.getInputCol());
+            Vector outputValue = (Vector) row.getField(elementwiseProduct.getOutputCol());
+            System.out.printf("Input Value: %s \tOutput Value: %s\n", inputValue, outputValue);
         }
     }
 ```
@@ -4787,47 +4967,11 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/MinHash
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RobustScalerExample.java`
-#### Snippet
-```java
-            DenseVector inputValue = (DenseVector) row.getField(robustScaler.getInputCol());
-            DenseVector outputValue = (DenseVector) row.getField(robustScaler.getOutputCol());
-            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/OneHotEncoderExample.java`
 #### Snippet
 ```java
             SparseVector outputValue =
                     (SparseVector) row.getField(oneHotEncoder.getOutputCols()[0]);
-            System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/UnivariateFeatureSelectorExample.java`
-#### Snippet
-```java
-            DenseVector outputValue =
-                    (DenseVector) row.getField(univariateFeatureSelector.getOutputCol());
-            System.out.printf("Input Value: %-15s\tOutput Value: %s\n", inputValue, outputValue);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/KBinsDiscretizerExample.java`
-#### Snippet
-```java
-            DenseVector inputValue = (DenseVector) row.getField(kBinsDiscretizer.getInputCol());
-            DenseVector outputValue = (DenseVector) row.getField(kBinsDiscretizer.getOutputCol());
             System.out.printf("Input Value: %s\tOutput Value: %s\n", inputValue, outputValue);
         }
     }
@@ -4883,12 +5027,12 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/RandomS
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/ElementwiseProductExample.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
 #### Snippet
 ```java
-            Vector inputValue = (Vector) row.getField(elementwiseProduct.getInputCol());
-            Vector outputValue = (Vector) row.getField(elementwiseProduct.getOutputCol());
-            System.out.printf("Input Value: %s \tOutput Value: %s\n", inputValue, outputValue);
+            DenseVector features = (DenseVector) row.getField(kmeans.getFeaturesCol());
+            int clusterId = (Integer) row.getField(kmeans.getPredictionCol());
+            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
         }
     }
 ```
@@ -4931,23 +5075,23 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/evaluation/Bina
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
+#### Snippet
+```java
+            double expectedResult = (Double) row.getField(lr.getLabelCol());
+            double predictionResult = (Double) row.getField(lr.getPredictionCol());
+            System.out.printf(
+                    "Features: %s \tExpected Result: %s \tPrediction Result: %s\n",
+                    features, expectedResult, predictionResult);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/AgglomerativeClusteringExample.java`
 #### Snippet
 ```java
                     (DenseVector) row.getField(agglomerativeClustering.getFeaturesCol());
             int clusterId = (Integer) row.getField(agglomerativeClustering.getPredictionCol());
-            System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/clustering/KMeansExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(kmeans.getFeaturesCol());
-            int clusterId = (Integer) row.getField(kmeans.getPredictionCol());
             System.out.printf("Features: %s \tCluster ID: %s\n", features, clusterId);
         }
     }
@@ -4991,18 +5135,6 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/regression/LinearRegressionExample.java`
-#### Snippet
-```java
-            double expectedResult = (Double) row.getField(lr.getLabelCol());
-            double predictionResult = (Double) row.getField(lr.getPredictionCol());
-            System.out.printf(
-                    "Features: %s \tExpected Result: %s \tPrediction Result: %s\n",
-                    features, expectedResult, predictionResult);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/recommendation/SwingExample.java`
 #### Snippet
 ```java
@@ -5011,30 +5143,6 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/recommendation/
             System.out.printf("item: %d, top-k similar items: %s\n", mainItem, itemRankScore);
         }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
-#### Snippet
-```java
-            DenseVector features = (DenseVector) row.getField(naiveBayes.getFeaturesCol());
-            double predictionResult = (Double) row.getField(naiveBayes.getPredictionCol());
-            System.out.printf("Features: %s \tPrediction Result: %s\n", features, predictionResult);
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/OnlineLogisticRegressionExample.java`
-#### Snippet
-```java
-            Double predictionResult = (Double) row.getField(olr.getPredictionCol());
-            DenseVector rawPredictionResult = (DenseVector) row.getField(olr.getRawPredictionCol());
-            System.out.printf(
-                    "Features: %-25s \tExpected Result: %s \tPrediction Result: %s \tRaw Prediction Result: %s\n",
-                    features, expectedResult, predictionResult, rawPredictionResult);
 ```
 
 ### SystemOutErr
@@ -5063,98 +5171,26 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/NaiveBayesExample.java`
 #### Snippet
 ```java
-        formatter.setWidth(80);
-
-        System.out.println("./benchmark-run.sh <config-file-path> [OPTIONS]\n");
-        formatter.setSyntaxPrefix("The following options are available:");
-        formatter.printHelp(" ", OPTIONS);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-        formatter.printHelp(" ", OPTIONS);
-
-        System.out.println();
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-        Map<String, Map<String, Map<String, ?>>> benchmarks =
-                BenchmarkUtils.parseJsonFile(configFile);
-        System.out.printf("Found %d benchmarks.\n", benchmarks.keySet().size());
-        String saveFile = commandLine.getOptionValue(OUTPUT_FILE_OPTION.getLongOpt());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-            }
-        }
-        System.out.println("Benchmarks execution completed.");
-
-        String benchmarkResultsJson =
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-        if (commandLine.hasOption(OUTPUT_FILE_OPTION.getLongOpt())) {
-            ReadWriteUtils.saveToFile(saveFile, benchmarkResultsJson, true);
-            System.out.printf("Benchmark results saved as json in %s.\n", saveFile);
-        } else {
-            System.out.printf("Benchmark results summary:\n%s\n", benchmarkResultsJson);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-            System.out.printf("Benchmark results saved as json in %s.\n", saveFile);
-        } else {
-            System.out.printf("Benchmark results summary:\n%s\n", benchmarkResultsJson);
+            DenseVector features = (DenseVector) row.getField(naiveBayes.getFeaturesCol());
+            double predictionResult = (Double) row.getField(naiveBayes.getPredictionCol());
+            System.out.printf("Features: %s \tPrediction Result: %s\n", features, predictionResult);
         }
     }
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/classification/OnlineLogisticRegressionExample.java`
 #### Snippet
 ```java
-            executeBenchmarks(commandLine);
-        } else {
-            System.out.printf("Invalid command line arguments %s\n\n", Arrays.toString(args));
-            System.out.println(
-                    "Specify the help option (-h or --help) to get help on the command.");
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/Benchmark.java`
-#### Snippet
-```java
-        } else {
-            System.out.printf("Invalid command line arguments %s\n\n", Arrays.toString(args));
-            System.out.println(
-                    "Specify the help option (-h or --help) to get help on the command.");
-        }
+            Double predictionResult = (Double) row.getField(olr.getPredictionCol());
+            DenseVector rawPredictionResult = (DenseVector) row.getField(olr.getRawPredictionCol());
+            System.out.printf(
+                    "Features: %-25s \tExpected Result: %s \tPrediction Result: %s \tRaw Prediction Result: %s\n",
+                    features, expectedResult, predictionResult, rawPredictionResult);
 ```
 
 ## RuleId[id=RedundantStreamOptionalCall]
@@ -5170,19 +5206,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/recommendation/swing/Swing.ja
                                 .map(tuple2 -> "" + tuple2.f0 + commaDelimiter + tuple2.f1)
 ```
 
-## RuleId[id=WhileLoopSpinsOnField]
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
-#### Snippet
-```java
-    @Override
-    public void run(SourceFunction.SourceContext<Row> sourceContext) throws Exception {
-        while (isRunning) {
-            for (Row data : this.data.get(index)) {
-                sourceContext.collect(data);
-```
-
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `setup()` only delegates to its super method
@@ -5194,6 +5217,19 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/TailOpe
     public void setup(
             StreamTask<?, ?> containingTask,
             StreamConfig config,
+```
+
+## RuleId[id=WhileLoopSpinsOnField]
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
+#### Snippet
+```java
+    @Override
+    public void run(SourceFunction.SourceContext<Row> sourceContext) throws Exception {
+        while (isRunning) {
+            for (Row data : this.data.get(index)) {
+                sourceContext.collect(data);
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -5210,18 +5246,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/tokenizer/Tokenizer.j
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTransformer.java`
-#### Snippet
-```java
-        StreamTableEnvironment tEnv =
-                (StreamTableEnvironment) ((TableImpl) inputs[0]).getTableEnvironment();
-        String statement = getStatement().replace(TABLE_IDENTIFIER, inputs[0].toString());
-
-        Table outputTable = tEnv.sqlQuery(statement);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTransformer.java`
 #### Snippet
@@ -5231,6 +5255,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTra
                     && e.getMessage().matches(INSERT_ONLY_EXCEPTION_PATTERN)) {
                 return false;
             }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTransformer.java`
+#### Snippet
+```java
+        StreamTableEnvironment tEnv =
+                (StreamTableEnvironment) ((TableImpl) inputs[0]).getTableEnvironment();
+        String statement = getStatement().replace(TABLE_IDENTIFIER, inputs[0].toString());
+
+        Table outputTable = tEnv.sqlQuery(statement);
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -5248,15 +5284,27 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/featurehasher/Feature
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.core.fs` is unnecessary and can be removed
-in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
+Qualifier `dev.ludovic.netlib` is unnecessary, and can be replaced with an import
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/BLAS.java`
 #### Snippet
 ```java
-        FileSink<T> sink =
-                FileSink.forRowFormat(
-                                new org.apache.flink.core.fs.Path(getDataPath(path)), modelEncoder)
-                        .withRollingPolicy(OnCheckpointRollingPolicy.build())
-                        .withBucketAssigner(new BasePathBucketAssigner<>())
+    /** For level-1 function dspmv, use javaBLAS for better performance. */
+    private static final dev.ludovic.netlib.BLAS JAVA_BLAS =
+            dev.ludovic.netlib.JavaBLAS.getInstance();
+
+    /** \sum_i |x_i| . */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.api.common` is unnecessary and can be removed
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
+     * #COUNTER_NAME} and can be acquired by {@link
+     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
+     *
+     * @param <T> The type of elements received by the sink.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -5307,43 +5355,7 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/hashingtf/HashingTF.j
 
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.api.common` is unnecessary and can be removed
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
-#### Snippet
-```java
-     * {@link org.apache.flink.api.common.accumulators.Accumulator} specified by {@link
-     * #COUNTER_NAME} and can be acquired by {@link
-     * org.apache.flink.api.common.JobExecutionResult#getAccumulatorResult(String)}.
-     *
-     * @param <T> The type of elements received by the sink.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `dev.ludovic.netlib` is unnecessary, and can be replaced with an import
-in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/BLAS.java`
-#### Snippet
-```java
-    /** For level-1 function dspmv, use javaBLAS for better performance. */
-    private static final dev.ludovic.netlib.BLAS JAVA_BLAS =
-            dev.ludovic.netlib.JavaBLAS.getInstance();
-
-    /** \sum_i |x_i| . */
-```
-
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`nextSample.delta = nextSample.delta + additionalDelta` could be simplified to 'nextSample.delta += additionalDelta'
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
-#### Snippet
-```java
-                }
-                nextSample = nextSample.shallowCopy();
-                nextSample.delta = nextSample.delta + additionalDelta;
-                mergedSampled.add(nextSample);
-            }
-```
-
 ### ReplaceAssignmentWithOperatorAssignment
 `head.g = head.g + tuple.g` could be simplified to 'head.g += tuple.g'
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
@@ -5366,6 +5378,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.j
         targetError = targetError / 2;
         Map<Double, Integer> zipWithIndex = new HashMap<>(percentiles.length);
         IntStream.range(0, percentiles.length).forEach(i -> zipWithIndex.put(percentiles[i], i));
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`nextSample.delta = nextSample.delta + additionalDelta` could be simplified to 'nextSample.delta += additionalDelta'
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/common/util/QuantileSummary.java`
+#### Snippet
+```java
+                }
+                nextSample = nextSample.shallowCopy();
+                nextSample.delta = nextSample.delta + additionalDelta;
+                mergedSampled.add(nextSample);
+            }
 ```
 
 ### ReplaceAssignmentWithOperatorAssignment
@@ -5395,18 +5419,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregres
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
-#### Snippet
-```java
-
-        byte next;
-        while ((next = source.readByte()) < 0) {
-            value |= (((long) (next & 0x7f)) << offset);
-            offset += 7;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/Graph.java`
 #### Snippet
 ```java
@@ -5431,7 +5443,7 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphModel.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/util/FileUtils.java`
 #### Snippet
 ```java
         try (BufferedReader br = new BufferedReader(new InputStreamReader(fs.open(metadataPath)))) {
@@ -5439,6 +5451,18 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/util/ReadWriteUtils.java`
             while ((line = br.readLine()) != null) {
                 if (!line.startsWith("#")) {
                     buffer.append(line);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
+#### Snippet
+```java
+
+        byte next;
+        while ((next = source.readByte()) < 0) {
+            value |= (((long) (next & 0x7f)) << offset);
+            offset += 7;
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -5467,6 +5491,30 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `InputTableGenerator()` of an abstract class should not be declared 'public'
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/datagenerator/common/InputTableGenerator.java`
+#### Snippet
+```java
+    protected final Map<Param<?>, Object> paramMap = new HashMap<>();
+
+    public InputTableGenerator() {
+        ParamUtils.initializeMapWithDefaultValues(paramMap, this);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RowGenerator()` of an abstract class should not be declared 'public'
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/datagenerator/common/RowGenerator.java`
+#### Snippet
+```java
+    private Row[] preGeneratedRows;
+
+    public RowGenerator(long numValues, long initSeed) {
+        this.numValues = numValues;
+        this.initSeed = initSeed;
+```
+
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractWrapperOperator()` of an abstract class should not be declared 'public'
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/AbstractWrapperOperator.java`
@@ -5527,31 +5575,19 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
         ParamUtils.initializeMapWithDefaultValues(paramMap, this);
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `InputTableGenerator()` of an abstract class should not be declared 'public'
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/datagenerator/common/InputTableGenerator.java`
-#### Snippet
-```java
-    protected final Map<Param<?>, Object> paramMap = new HashMap<>();
-
-    public InputTableGenerator() {
-        ParamUtils.initializeMapWithDefaultValues(paramMap, this);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RowGenerator()` of an abstract class should not be declared 'public'
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/datagenerator/common/RowGenerator.java`
-#### Snippet
-```java
-    private Row[] preGeneratedRows;
-
-    public RowGenerator(long numValues, long initSeed) {
-        this.numValues = numValues;
-        this.initSeed = initSeed;
-```
-
 ## RuleId[id=Convert2Lambda]
+### Convert2Lambda
+Anonymous new MapFunction, Tuple3\>() can be replaced with lambda
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.java`
+#### Snippet
+```java
+            DataStream<Tuple3<DenseVector, long[], DenseVector>> output =
+                    datastream.map(
+                            new MapFunction<List<Row>, Tuple3<DenseVector, long[], DenseVector>>() {
+                                @Override
+                                public Tuple3<DenseVector, long[], DenseVector> map(
+```
+
 ### Convert2Lambda
 Anonymous new MapPartitionFunction\< Tuple4,... can be replaced with lambda
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
@@ -5567,15 +5603,15 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.j
 ```
 
 ### Convert2Lambda
-Anonymous new MapFunction, Tuple3\>() can be replaced with lambda
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.java`
+Anonymous new MapFunction, T\[\]\>() can be replaced with lambda
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
 #### Snippet
 ```java
-            DataStream<Tuple3<DenseVector, long[], DenseVector>> output =
-                    datastream.map(
-                            new MapFunction<List<Row>, Tuple3<DenseVector, long[], DenseVector>>() {
-                                @Override
-                                public Tuple3<DenseVector, long[], DenseVector> map(
+                .partitionCustom((chunkId, numPartitions) -> chunkId, x -> x.f0)
+                .map(
+                        new MapFunction<Tuple2<Integer, T[]>, T[]>() {
+                            @Override
+                            public T[] map(Tuple2<Integer, T[]> integerTuple2) throws Exception {
 ```
 
 ### Convert2Lambda
@@ -5615,6 +5651,18 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBin
 ```
 
 ### Convert2Lambda
+Anonymous new MapFunction\>() can be replaced with lambda
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/Knn.java`
+#### Snippet
+```java
+            DataStream<Row> inputData) {
+        return inputData.map(
+                new MapFunction<Row, Tuple3<DenseVector, Double, Double>>() {
+                    @Override
+                    public Tuple3<DenseVector, Double, Double> map(Row value) {
+```
+
+### Convert2Lambda
 Anonymous new MapPartitionFunction() can be replaced with lambda
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java`
 #### Snippet
@@ -5627,15 +5675,17 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java
 ```
 
 ### Convert2Lambda
-Anonymous new MapFunction\>() can be replaced with lambda
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/knn/Knn.java`
+Anonymous new MapPartitionFunction\< Tuple4, ... can be replaced with lambda
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassification/BinaryClassificationEvaluator.java`
 #### Snippet
 ```java
-            DataStream<Row> inputData) {
-        return inputData.map(
-                new MapFunction<Row, Tuple3<DenseVector, Double, Double>>() {
-                    @Override
-                    public Tuple3<DenseVector, Double, Double> map(Row value) {
+                DataStreamUtils.mapPartition(
+                        evalDataWithTaskId,
+                        new MapPartitionFunction<
+                                Tuple4<Double, Boolean, Double, Integer>,
+                                Tuple3<Double, Boolean, Double>>() {
+                            @Override
+                            public void mapPartition(
 ```
 
 ### Convert2Lambda
@@ -5662,69 +5712,7 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassificati
                             public void mapPartition(
 ```
 
-### Convert2Lambda
-Anonymous new MapPartitionFunction\< Tuple4, ... can be replaced with lambda
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/evaluation/binaryclassification/BinaryClassificationEvaluator.java`
-#### Snippet
-```java
-                DataStreamUtils.mapPartition(
-                        evalDataWithTaskId,
-                        new MapPartitionFunction<
-                                Tuple4<Double, Boolean, Double, Integer>,
-                                Tuple3<Double, Boolean, Double>>() {
-                            @Override
-                            public void mapPartition(
-```
-
-### Convert2Lambda
-Anonymous new MapFunction, T\[\]\>() can be replaced with lambda
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
-#### Snippet
-```java
-                .partitionCustom((chunkId, numPartitions) -> chunkId, x -> x.f0)
-                .map(
-                        new MapFunction<Tuple2<Integer, T[]>, T[]>() {
-                            @Override
-                            public T[] map(Tuple2<Integer, T[]> integerTuple2) throws Exception {
-```
-
 ## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/Segment.java`
-#### Snippet
-```java
-     * not been written to the given path.
-     */
-    private long fsSize = 0L;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
-#### Snippet
-```java
-    private final List<List<Row>> data;
-
-    private int index = 0;
-
-    private boolean isRunning = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/AllReduceImpl.java`
-#### Snippet
-```java
-            extends RichFlatMapFunction<double[], Tuple3<Integer, Integer, double[]>> {
-
-        private boolean hasReceivedOneRecord = false;
-
-        private double[] transferBuffer = new double[CHUNK_SIZE];
-```
-
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphBuilder.java`
@@ -5747,6 +5735,42 @@ in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/GraphBuilder.java`
     private int nextTableId = 0;
 
     private int nextNodeId = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/AllReduceImpl.java`
+#### Snippet
+```java
+            extends RichFlatMapFunction<double[], Tuple3<Integer, Integer, double[]>> {
+
+        private boolean hasReceivedOneRecord = false;
+
+        private double[] transferBuffer = new double[CHUNK_SIZE];
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
+#### Snippet
+```java
+    private final List<List<Row>> data;
+
+    private int index = 0;
+
+    private boolean isRunning = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0L` is redundant
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/Segment.java`
+#### Snippet
+```java
+     * not been written to the given path.
+     */
+    private long fsSize = 0L;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -5847,6 +5871,42 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/classification/logisticregres
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `inputs`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/PipelineModel.java`
+#### Snippet
+```java
+    public Table[] transform(Table... inputs) {
+        for (Stage<?> stage : stages) {
+            inputs = ((AlgoOperator<?>) stage).transform(inputs);
+        }
+        return inputs;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/servable/builder/PipelineModelServable.java`
+#### Snippet
+```java
+    public DataFrame transform(DataFrame input) {
+        for (TransformerServable<?> servable : servables) {
+            input = servable.transform(input);
+        }
+        return input;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `value`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
+#### Snippet
+```java
+            while (value > 0x7F) {
+                target.writeByte((byte) ((value & 0x7F) | 0x80));
+                value >>>= 7;
+            }
+            target.writeByte((byte) (value & 0x7F));
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentWriter.java`
 #### Snippet
@@ -5871,18 +5931,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/typeinfo/IterationRecordSerializer.java`
-#### Snippet
-```java
-            while (value > 0x7F) {
-                target.writeByte((byte) ((value & 0x7F) | 0x80));
-                value >>>= 7;
-            }
-            target.writeByte((byte) (value & 0x7F));
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `off`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkeyed/MemorySegmentReader.java`
 #### Snippet
@@ -5904,18 +5952,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
                 len -= currentLen;
             }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `inputs`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/builder/PipelineModel.java`
-#### Snippet
-```java
-    public Table[] transform(Table... inputs) {
-        for (Stage<?> stage : stages) {
-            inputs = ((AlgoOperator<?>) stage).transform(inputs);
-        }
-        return inputs;
 ```
 
 ### AssignmentToMethodParameter
@@ -5993,6 +6029,30 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/kbinsdiscretizer/KBin
 
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
+Redundant interface declaration `Serializable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/BroadcastVariableReceiverOperator.java`
+#### Snippet
+```java
+/** The operator that process all broadcast inputs and stores them in {@link BroadcastContext}. */
+public class BroadcastVariableReceiverOperator<OUT> extends AbstractStreamOperatorV2<OUT>
+        implements MultipleInputStreamOperator<OUT>, BoundedMultiInput, Serializable {
+
+    /** names of the broadcast data streams. */
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/BroadcastVariableReceiverOperatorFactory.java`
+#### Snippet
+```java
+/** Factory class for {@link BroadcastVariableReceiverOperator}. */
+public class BroadcastVariableReceiverOperatorFactory<OUT>
+        extends AbstractStreamOperatorFactory<OUT> implements Serializable {
+
+    /** names of the broadcast data streams. */
+```
+
+### RedundantImplements
 Redundant interface declaration `BoundedMultiInput`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/allround/TwoInputAllRoundWrapperOperator.java`
 #### Snippet
@@ -6014,30 +6074,6 @@ public class MultipleInputAllRoundWrapperOperator<OUT>
         implements MultipleInputStreamOperator<IterationRecord<OUT>>, BoundedMultiInput {
 
     public MultipleInputAllRoundWrapperOperator(
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/BroadcastVariableReceiverOperatorFactory.java`
-#### Snippet
-```java
-/** Factory class for {@link BroadcastVariableReceiverOperator}. */
-public class BroadcastVariableReceiverOperatorFactory<OUT>
-        extends AbstractStreamOperatorFactory<OUT> implements Serializable {
-
-    /** names of the broadcast data streams. */
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/operator/BroadcastVariableReceiverOperator.java`
-#### Snippet
-```java
-/** The operator that process all broadcast inputs and stores them in {@link BroadcastContext}. */
-public class BroadcastVariableReceiverOperator<OUT> extends AbstractStreamOperatorV2<OUT>
-        implements MultipleInputStreamOperator<OUT>, BoundedMultiInput, Serializable {
-
-    /** names of the broadcast data streams. */
 ```
 
 ### RedundantImplements
@@ -6077,6 +6113,18 @@ in `docs/layouts/_default/baseof.html`
   <input type="checkbox" class="hidden toggle" id="toc-control" />
 ```
 
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-19-03-01.129.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -6091,6 +6139,42 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/sqltransformer/SQLTra
 ```
 
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementSerializer.java`
+#### Snippet
+```java
+    @Override
+    public CacheElement<T> createInstance() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
+#### Snippet
+```java
+
+        if (dryRun) {
+            return null;
+        }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/proxy/state/ProxyStreamOperatorStateContext.java`
@@ -6177,30 +6261,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/perroun
 
 ### ReturnNull
 Return of `null`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/broadcast/typeinfo/CacheElementSerializer.java`
-#### Snippet
-```java
-    @Override
-    public CacheElement<T> createInstance() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/binarizer/Binarizer.java`
 #### Snippet
 ```java
@@ -6235,18 +6295,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/Stop
             }
 ```
 
-### ReturnNull
-Return of `null`
-in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkUtils.java`
-#### Snippet
-```java
-
-        if (dryRun) {
-            return null;
-        }
-
-```
-
 ## RuleId[id=AssignmentToLambdaParameter]
 ### AssignmentToLambdaParameter
 Assignment to lambda parameter `x`
@@ -6262,18 +6310,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/stopwordsremover/Stop
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `outputTypeInfo` is redundant
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
-#### Snippet
-```java
-        TypeInformation<?> idColType = inputTypeInfo.getTypeAt(idCol);
-
-        RowTypeInfo outputTypeInfo =
-                new RowTypeInfo(
-                        new TypeInformation[] {
-```
-
-### UnnecessaryLocalVariable
 Local variable `sbr` is redundant
 in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/SparseVector.java`
 #### Snippet
@@ -6285,31 +6321,19 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/linalg/SparseVector
         return sbr;
 ```
 
+### UnnecessaryLocalVariable
+Local variable `outputTypeInfo` is redundant
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/lsh/LSHModel.java`
+#### Snippet
+```java
+        TypeInformation<?> idColType = inputTypeInfo.getTypeAt(idCol);
+
+        RowTypeInfo outputTypeInfo =
+                new RowTypeInfo(
+                        new TypeInformation[] {
+```
+
 ## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/utils/ReflectionUtils.java`
-#### Snippet
-```java
-            Method method =
-                    declaredClass.getDeclaredMethod(
-                            methodName, parameterClass.toArray(new Class[0]));
-            method.setAccessible(true);
-            return (T) method.invoke(targetObject, parameters.toArray());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/SharedProgressAligner.java`
-#### Snippet
-```java
-                        for (CompletableFuture<byte[]> stateFuture :
-                                checkpointStatus.getStateFutures()) {
-                            stateFuture.complete(new byte[0]);
-                        }
-
-```
-
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/NGramExample.java`
@@ -6336,25 +6360,25 @@ in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/feature/StopWor
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/utils/ReflectionUtils.java`
 #### Snippet
 ```java
-        public Tuple5<Long, Double, Double, DenseVector, DenseVector> createAccumulator() {
-            return Tuple5.of(
-                    0L, 0.0, 0.0, new DenseVector(new double[0]), new DenseVector(new double[0]));
-        }
-
+            Method method =
+                    declaredClass.getDeclaredMethod(
+                            methodName, parameterClass.toArray(new Class[0]));
+            method.setAccessible(true);
+            return (T) method.invoke(targetObject, parameters.toArray());
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
+in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/operator/coordinator/SharedProgressAligner.java`
 #### Snippet
 ```java
-        public Tuple5<Long, Double, Double, DenseVector, DenseVector> createAccumulator() {
-            return Tuple5.of(
-                    0L, 0.0, 0.0, new DenseVector(new double[0]), new DenseVector(new double[0]));
-        }
+                        for (CompletableFuture<byte[]> stateFuture :
+                                checkpointStatus.getStateFutures()) {
+                            stateFuture.complete(new byte[0]);
+                        }
 
 ```
 
@@ -6366,6 +6390,30 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/anovatest/ANOVATest.jav
         @Override
         public Tuple3<Double, Double, HashMap<Double, Tuple2<Double, Long>>>[] createAccumulator() {
             return new Tuple3[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
+#### Snippet
+```java
+        public Tuple5<Long, Double, Double, DenseVector, DenseVector> createAccumulator() {
+            return Tuple5.of(
+                    0L, 0.0, 0.0, new DenseVector(new double[0]), new DenseVector(new double[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/fvaluetest/FValueTest.java`
+#### Snippet
+```java
+        public Tuple5<Long, Double, Double, DenseVector, DenseVector> createAccumulator() {
+            return Tuple5.of(
+                    0L, 0.0, 0.0, new DenseVector(new double[0]), new DenseVector(new double[0]));
         }
 
 ```
@@ -6396,6 +6444,54 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/ngram/NGram.java`
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+#### Snippet
+```java
+        public void apply(GlobalWindow timeWindow, Iterable<T> iterable, Collector<T[]> collector) {
+            List<T> points = IteratorUtils.toList(iterable.iterator());
+            collector.collect(points.toArray((T[]) new Object[0]));
+        }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
+#### Snippet
+```java
+                                Collections.nCopies(
+                                                outputCols.length, SparseVectorTypeInfo.INSTANCE)
+                                        .toArray(new TypeInformation[0])),
+                        ArrayUtils.addAll(inputTypeInfo.getFieldNames(), outputCols));
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
+#### Snippet
+```java
+                int idx = number.intValue();
+                if (idx == categorySizes[i]) {
+                    result.setField(i, Vectors.sparse(categorySizes[i], new int[0], new double[0]));
+                } else {
+                    result.setField(
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
+#### Snippet
+```java
+                int idx = number.intValue();
+                if (idx == categorySizes[i]) {
+                    result.setField(i, Vectors.sparse(categorySizes[i], new int[0], new double[0]));
+                } else {
+                    result.setField(
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/robustscaler/RobustScaler.java`
 #### Snippet
 ```java
@@ -6415,42 +6511,6 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/featurehasher/Feature
         }
         return resultColList.toArray(new String[0]);
     }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
-#### Snippet
-```java
-                int idx = number.intValue();
-                if (idx == categorySizes[i]) {
-                    result.setField(i, Vectors.sparse(categorySizes[i], new int[0], new double[0]));
-                } else {
-                    result.setField(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
-#### Snippet
-```java
-                int idx = number.intValue();
-                if (idx == categorySizes[i]) {
-                    result.setField(i, Vectors.sparse(categorySizes[i], new int[0], new double[0]));
-                } else {
-                    result.setField(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/feature/onehotencoder/OneHotEncoderModel.java`
-#### Snippet
-```java
-                                Collections.nCopies(
-                                                outputCols.length, SparseVectorTypeInfo.INSTANCE)
-                                        .toArray(new TypeInformation[0])),
-                        ArrayUtils.addAll(inputTypeInfo.getFieldNames(), outputCols));
 
 ```
 
@@ -6514,31 +6574,20 @@ in `flink-ml-lib/src/main/java/org/apache/flink/ml/clustering/kmeans/KMeans.java
                         });
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/DataStreamUtils.java`
+## RuleId[id=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
 #### Snippet
 ```java
-        public void apply(GlobalWindow timeWindow, Iterable<T> iterable, Collector<T[]> collector) {
-            List<T> points = IteratorUtils.toList(iterable.iterator());
-            collector.collect(points.toArray((T[]) new Object[0]));
+                sourceContext.collect(data);
+            }
+            Thread.sleep(interval);
+            index = (index + 1) % this.data.size();
         }
-    }
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
-#### Snippet
-```java
-
-        HashMap<String, DataStream<?>> bcMap =
-                new HashMap<String, DataStream<?>>() {
-                    {
-                        put(bcCategoricalMarginsKey, categoricalMargins);
-```
-
 ### DoubleBraceInitialization
 Double brace initialization
 in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkResult.java`
@@ -6551,17 +6600,16 @@ in `flink-ml-benchmark/src/main/java/org/apache/flink/ml/benchmark/BenchmarkResu
                 put("totalTimeMs", totalTimeMs);
 ```
 
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `flink-ml-examples/src/main/java/org/apache/flink/ml/examples/util/PeriodicSourceFunction.java`
+### DoubleBraceInitialization
+Double brace initialization
+in `flink-ml-lib/src/main/java/org/apache/flink/ml/stats/chisqtest/ChiSqTest.java`
 #### Snippet
 ```java
-                sourceContext.collect(data);
-            }
-            Thread.sleep(interval);
-            index = (index + 1) % this.data.size();
-        }
+
+        HashMap<String, DataStream<?>> bcMap =
+                new HashMap<String, DataStream<?>>() {
+                    {
+                        put(bcCategoricalMarginsKey, categoricalMargins);
 ```
 
 ## RuleId[id=ConstantValue]
@@ -6592,6 +6640,30 @@ in `flink-ml-servable-core/src/main/java/org/apache/flink/ml/param/WithParams.ja
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
+#### Snippet
+```java
+
+        for (int i = 0; i < schema.getColumnCount(); i++) {
+            Column column = schema.getColumn(i).get();
+            types[i] = getTypeInformationFromDataType(column.getDataType());
+            names[i] = column.getName();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
+#### Snippet
+```java
+
+        for (int i = 0; i < schema.getColumnCount(); i++) {
+            Column column = schema.getColumn(i).get();
+            nameToIndex.put(column.getName(), i);
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/Iterations.java`
 #### Snippet
 ```java
@@ -6612,30 +6684,6 @@ in `flink-ml-iteration/src/main/java/org/apache/flink/iteration/datacache/nonkey
                 segment.setCache(writer.finish().get().getCache());
             }
         }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
-#### Snippet
-```java
-
-        for (int i = 0; i < schema.getColumnCount(); i++) {
-            Column column = schema.getColumn(i).get();
-            nameToIndex.put(column.getName(), i);
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `flink-ml-core/src/main/java/org/apache/flink/ml/common/datastream/TableUtils.java`
-#### Snippet
-```java
-
-        for (int i = 0; i < schema.getColumnCount(); i++) {
-            Column column = schema.getColumn(i).get();
-            types[i] = getTypeInformationFromDataType(column.getDataType());
-            names[i] = column.getName();
 ```
 
 ### OptionalGetWithoutIsPresent
