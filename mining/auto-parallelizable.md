@@ -158,6 +158,18 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
+Abstract class `DoItInjectedParameterTask` has no concrete subclass
+in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+#### Snippet
+```java
+@AutoParallelizable
+public final class DoItInjectedParameter {
+    public abstract static class DoItInjectedParameterTask extends DoItInjectedParameterTaskImpl {
+        public DoItInjectedParameterTask() {
+            setDescription("lol");
+```
+
+### AbstractClassNeverImplemented
 Abstract class `DoItTask` has no concrete subclass
 in `integ-test/src/main/java/integtest/DoIt.java`
 #### Snippet
@@ -169,16 +181,17 @@ public final class DoIt {
             setDescription("lol");
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `DoItInjectedParameterTask` has no concrete subclass
-in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
 #### Snippet
 ```java
-@AutoParallelizable
-public final class DoItInjectedParameter {
-    public abstract static class DoItInjectedParameterTask extends DoItInjectedParameterTaskImpl {
-        public DoItInjectedParameterTask() {
-            setDescription("lol");
+        }
+
+        roundEnv.getElementsAnnotatedWith(AutoParallelizable.class).forEach(element -> {
+            paralleliseTask((TypeElement) element);
+        });
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -204,19 +217,6 @@ public final class DoItInjectedParameter {
         public DoItInjectedParameterTask() {
             setDescription("lol");
         }
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-        }
-
-        roundEnv.getElementsAnnotatedWith(AutoParallelizable.class).forEach(element -> {
-            paralleliseTask((TypeElement) element);
-        });
 ```
 
 ## RuleId[id=UnstableApiUsage]
