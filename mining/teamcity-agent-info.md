@@ -13,8 +13,8 @@ Return of `null`
 in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
 #### Snippet
 ```java
-      }
     }
+    LOG.warn("Failed to get CPU count.");
     return null;
   }
 
@@ -25,8 +25,8 @@ Return of `null`
 in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
 #### Snippet
 ```java
+      }
     }
-    LOG.warn("Failed to get CPU count.");
     return null;
   }
 
