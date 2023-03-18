@@ -4,8 +4,8 @@ import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
-import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
-import io.github.martinwitt.laughing_train.persistence.impl.ProjectRepositoryImpl;
+import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
+import io.github.martinwitt.laughing_train.persistence.impl.MongoProjectRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -39,10 +39,10 @@ public class DataBaseMigration {
     BadSmellRepository badSmellRepository;
     // we use this for faster mongodb access
     @Inject
-    BadSmellRepositoryImpl badSmellRepositoryImpl;
+    MongoBadSmellRepository badSmellRepositoryImpl;
 
     @Inject
-    ProjectRepositoryImpl projectRepositoryImpl;
+    MongoProjectRepository projectRepositoryImpl;
 
     @Inject
     Vertx vertx;

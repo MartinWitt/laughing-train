@@ -10,7 +10,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectRepositoryImpl implements ProjectRepository, PanacheMongoRepository<ProjectDao> {
+public class MongoProjectRepository implements ProjectRepository, PanacheMongoRepository<ProjectDao> {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();

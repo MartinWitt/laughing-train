@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class BadSmellRepositoryImpl implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
+public class MongoBadSmellRepository implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
 
     private static final BadSmellDaoConverter badSmellConverter = new BadSmellDaoConverter();
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();

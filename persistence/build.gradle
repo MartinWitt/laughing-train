@@ -6,26 +6,18 @@ plugins {
 
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.1'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.16.0'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:1.16.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
-	implementation project(":code-transformation")
+
 	implementation 'io.quarkus:quarkus-mongodb-panache:2.16.4.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
-	implementation("io.quarkus:quarkus-smallrye-graphql")
-	implementation("io.quarkus:quarkus-smallrye-graphql-client")
-	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:1.2.6'
-	implementation("io.quarkus:quarkus-oidc")
-	implementation("io.quarkus:quarkus-keycloak-authorization")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
 	implementation project(":application")
-	implementation project(":persistence")
 	implementation project(":commons")
 	testImplementation(testFixtures(project(":commons")))
 }

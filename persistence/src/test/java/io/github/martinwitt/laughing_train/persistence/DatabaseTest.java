@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
+import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.utils.Contract;
 import io.github.martinwitt.laughing_train.utils.TestAnalyzerResult;
@@ -22,7 +22,7 @@ class DatabaseTest {
     BadSmellRepository badSmellRepository;
 
     @Inject
-    BadSmellRepositoryImpl badSmellRepositoryImpl;
+    MongoBadSmellRepository badSmellRepositoryImpl;
 
     private static Faker faker = new Faker();
 
