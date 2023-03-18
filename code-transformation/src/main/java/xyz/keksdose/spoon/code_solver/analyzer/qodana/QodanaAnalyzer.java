@@ -23,6 +23,7 @@ import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
 import com.github.dockerjava.transport.DockerHttpClient;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class QodanaAnalyzer {
 

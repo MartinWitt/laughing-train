@@ -1,6 +1,7 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
 import java.util.List;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -9,7 +10,6 @@ import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtParameterReference;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;

@@ -1,11 +1,11 @@
 package xyz.keksdose.spoon.code_solver.analyzer;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import java.util.ArrayList;
 import java.util.List;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.path.CtRole;
 import spoon.reflect.visitor.EarlyTerminatingScanner;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 /**
  * This class matches AST elements with a given position {@link Position}.

@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.mining;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.MarkdownPrinter;
 import io.github.martinwitt.laughing_train.data.Project;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
 public class MiningPrinter {

@@ -1,5 +1,6 @@
-package xyz.keksdose.spoon.code_solver.api.analyzer;
+package io.github.martinwitt.laughing_train.domain.entity;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.io.Serializable;
 import javax.annotation.Nonnull;

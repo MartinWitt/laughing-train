@@ -1,5 +1,7 @@
 package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import java.nio.file.Path;
 import java.util.List;
 import spoon.reflect.code.CtExpression;
@@ -7,8 +9,6 @@ import spoon.reflect.code.CtLambda;
 import spoon.reflect.code.CtReturn;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.PositionScanner;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;

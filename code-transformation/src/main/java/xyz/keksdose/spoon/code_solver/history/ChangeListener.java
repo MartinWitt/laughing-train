@@ -1,10 +1,10 @@
 package xyz.keksdose.spoon.code_solver.history;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.util.HashSet;
 import java.util.Set;
 import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 public class ChangeListener {
 
