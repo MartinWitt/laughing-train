@@ -158,18 +158,6 @@ Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.S
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
 #### Snippet
 ```java
-
-    String path = getRunnerParameters().get(GradleRunnerConstants.PATH_TO_BUILD_FILE);
-    if (StringUtil.isNotEmpty(path)) {
-      params.add("-b");
-      params.add(path);
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
-#### Snippet
-```java
     final String runnerJavaArguments = getJavaArgs();
 
     if (StringUtil.isNotEmpty(runnerJavaArguments)) {
@@ -187,6 +175,18 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleR
     } else if (StringUtil.isNotEmpty(runnerGradleOpts)) {
       return runnerGradleOpts;
     } else {
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/GradleRunnerService.java`
+#### Snippet
+```java
+
+    String path = getRunnerParameters().get(GradleRunnerConstants.PATH_TO_BUILD_FILE);
+    if (StringUtil.isNotEmpty(path)) {
+      params.add("-b");
+      params.add(path);
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -321,6 +321,18 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
+  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
+  {
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
+  }
+
   public static @NotNull List<String> getGradleParams(Map<String, String> runParameters)
   {
     return CommandLineArgumentsUtil.extractArguments(emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_PARAMS)));
@@ -336,18 +348,6 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
   public static @NotNull String getGradleTasks(Map<String, String> runParameters)
   {
     return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
-  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
-  {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
 ```
 
 ## RuleId[id=Convert2MethodRef]
