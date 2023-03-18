@@ -13,7 +13,7 @@ dependencies {
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
-	implementation project(":commons")
+	testImplementation project(":commons")
 	implementation project(":code-transformation")
 	implementation 'io.quarkus:quarkus-mongodb-panache:2.16.4.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
