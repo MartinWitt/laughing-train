@@ -18,6 +18,7 @@ dependencies {
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
 	implementation project(":application")	
+	implementation project(":commons")	
 	testImplementation(testFixtures(project(":commons")))
 }
 
