@@ -17,8 +17,8 @@ dependencies {
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
-	implementation project(":application")
-  testImplementation project(path: ':commons', configuration: 'testRuntime')
+	implementation project(":application")	
+	testImplementation(testFixtures(project(":commons")))
 }
 
 group 'io.github.martinwitt'
