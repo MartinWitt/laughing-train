@@ -49,15 +49,15 @@ public class ParametersValidator {
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
 #### Snippet
 ```java
-    final AWSException awse = new AWSException(e);
-    final String details = awse.getDetails();
-    if (StringUtil.isNotEmpty(details)) LOG.error(details);
-    LOG.error(awse.getMessage(), awse);
+    final Map<String, String> invalids = new HashMap<String, String>(AWSCommonParams.validate(params, acceptReferences));
 
+    if (StringUtil.isEmptyOrSpaces(CodePipelineUtil.getActionToken(params))) {
+      invalids.put(CodePipelineConstants.ACTION_TOKEN_PARAM, CodePipelineConstants.ACTION_TOKEN_LABEL + " parameter must not be empty");
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -70,18 +70,6 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     if (StringUtil.isNotEmpty(details)) {
       LOG.error(details);
       build.getBuildLogger().error(details);
-```
-
-### StaticCallOnSubclass
-Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
-    final File dest = new File(inputFolder, path);
-    FileUtil.createParentDirs(dest);
-    try {
-      FileUtil.copy(artifactFile, dest);
 ```
 
 ### StaticCallOnSubclass
@@ -109,15 +97,27 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
+Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
+in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
 #### Snippet
 ```java
-    final Map<String, String> invalids = new HashMap<String, String>(AWSCommonParams.validate(params, acceptReferences));
+  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
+    final File dest = new File(inputFolder, path);
+    FileUtil.createParentDirs(dest);
+    try {
+      FileUtil.copy(artifactFile, dest);
+```
 
-    if (StringUtil.isEmptyOrSpaces(CodePipelineUtil.getActionToken(params))) {
-      invalids.put(CodePipelineConstants.ACTION_TOKEN_PARAM, CodePipelineConstants.ACTION_TOKEN_LABEL + " parameter must not be empty");
-    }
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+#### Snippet
+```java
+    final AWSException awse = new AWSException(e);
+    final String details = awse.getDetails();
+    if (StringUtil.isNotEmpty(details)) LOG.error(details);
+    LOG.error(awse.getMessage(), awse);
+
 ```
 
 ## RuleId[id=DataFlowIssue]
