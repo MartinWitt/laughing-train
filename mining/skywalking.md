@@ -1,73 +1,69 @@
 # skywalking 
  
 # Bad smells
-I found 1167 bad smells with 199 repairable:
+I found 1156 bad smells with 183 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 140 | false |
-| ReturnNull | 140 | false |
-| ZeroLengthArrayInitialization | 82 | false |
+| ReturnNull | 171 | false |
+| BoundedWildcard | 137 | false |
 | RedundantFieldInitialization | 72 | false |
-| AssignmentToMethodParameter | 62 | false |
-| UtilityClassWithoutPrivateConstructor | 56 | true |
+| AssignmentToMethodParameter | 65 | false |
+| ZeroLengthArrayInitialization | 62 | false |
+| UtilityClassWithoutPrivateConstructor | 57 | true |
 | SizeReplaceableByIsEmpty | 47 | true |
-| CodeBlock2Expr | 45 | true |
-| OptionalUsedAsFieldOrParameterType | 32 | false |
+| CodeBlock2Expr | 38 | true |
 | UnstableApiUsage | 32 | false |
+| OptionalUsedAsFieldOrParameterType | 31 | false |
 | DataFlowIssue | 24 | false |
-| UnnecessaryFullyQualifiedName | 22 | false |
 | Lombok | 21 | false |
+| UnnecessaryFullyQualifiedName | 21 | false |
+| DynamicRegexReplaceableByCompiledPattern | 20 | false |
 | EnumSwitchStatementWhichMissesCases | 19 | false |
 | StaticCallOnSubclass | 19 | false |
-| DynamicRegexReplaceableByCompiledPattern | 19 | false |
 | MissortedModifiers | 16 | false |
-| MismatchedCollectionQueryUpdate | 15 | false |
 | NonProtectedConstructorInAbstractClass | 15 | true |
-| NestedAssignment | 13 | false |
-| UnusedAssignment | 13 | false |
-| UnnecessaryToStringCall | 13 | true |
-| ReplaceAssignmentWithOperatorAssignment | 12 | false |
+| NestedAssignment | 14 | false |
+| MismatchedCollectionQueryUpdate | 14 | false |
+| UnusedAssignment | 12 | false |
 | StringConcatenationInsideStringBufferAppend | 12 | false |
+| StringBufferReplaceableByString | 11 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 11 | false |
-| SimplifyOptionalCallChains | 10 | false |
+| SimplifyOptionalCallChains | 9 | false |
+| ReplaceAssignmentWithOperatorAssignment | 9 | false |
 | RedundantImplements | 9 | false |
 | ConstantValue | 9 | false |
-| CatchMayIgnoreException | 9 | false |
+| AbstractClassNeverImplemented | 7 | false |
+| CatchMayIgnoreException | 7 | false |
+| UnnecessaryToStringCall | 7 | true |
 | RedundantSuppression | 7 | false |
 | ReplaceNullCheck | 7 | false |
-| UnnecessaryLocalVariable | 7 | true |
 | UnnecessaryModifier | 6 | true |
 | TrivialStringConcatenation | 6 | false |
-| AbstractClassNeverImplemented | 6 | false |
 | DefaultAnnotationParam | 6 | false |
+| SimplifyStreamApiCallChains | 6 | false |
 | DeprecatedIsStillUsed | 6 | false |
 | BusyWait | 6 | false |
 | UseBulkOperation | 6 | false |
 | IgnoreResultOfCall | 5 | false |
 | UnnecessarySuperQualifier | 5 | false |
-| SlowListContainsAll | 5 | false |
 | SynchronizeOnThis | 5 | false |
-| SimplifyStreamApiCallChains | 5 | false |
 | OptionalContainsCollection | 5 | false |
-| NonSerializableFieldInSerializableClass | 5 | false |
+| UnnecessaryLocalVariable | 5 | true |
 | UnnecessaryReturn | 4 | true |
-| StringBufferReplaceableByString | 3 | false |
+| EmptyMethod | 4 | false |
+| NonSerializableFieldInSerializableClass | 4 | false |
 | ClassNameSameAsAncestorName | 3 | false |
-| EmptyMethod | 3 | false |
+| SlowListContainsAll | 3 | false |
 | Java8MapForEach | 3 | false |
 | UnnecessarySemicolon | 3 | false |
 | Convert2MethodRef | 3 | false |
-| InnerClassMayBeStatic | 3 | true |
 | SwitchStatementWithConfusingDeclaration | 3 | false |
 | Java8MapApi | 3 | false |
-| ToArrayCallWithZeroLengthArrayArgument | 2 | true |
-| EmptyStatementBody | 2 | false |
 | DoubleCheckedLocking | 2 | false |
 | AssignmentToStaticFieldFromInstanceMethod | 2 | false |
 | RegExpRedundantEscape | 2 | false |
 | DuplicateBranchesInSwitch | 2 | false |
 | UnnecessaryQualifierForThis | 2 | false |
-| RedundantMethodOverride | 2 | false |
 | InfiniteLoopStatement | 2 | false |
 | UseOfPropertiesAsHashtable | 2 | false |
 | CallToStringConcatCanBeReplacedByOperator | 2 | false |
@@ -75,15 +71,15 @@ I found 1167 bad smells with 199 repairable:
 | StringOperationCanBeSimplified | 2 | false |
 | AbstractMethodCallInConstructor | 2 | false |
 | AssignmentToForLoopParameter | 2 | false |
+| InnerClassMayBeStatic | 2 | true |
 | AssignmentToLambdaParameter | 2 | false |
-| LoopStatementsThatDontLoop | 1 | false |
+| ToArrayCallWithZeroLengthArrayArgument | 1 | true |
+| NullableProblems | 1 | false |
 | IfStatementMissingBreakInLoop | 1 | false |
-| UnnecessaryUnboxing | 1 | false |
+| RedundantMethodOverride | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | StringBufferReplaceableByStringBuilder | 1 | false |
 | DoubleBraceInitialization | 1 | false |
-| NullArgumentToVariableArgMethod | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
@@ -106,282 +102,32 @@ in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apa
         future.join();
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[segments.size()\]'
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), segments.toArray(new String[segments.size()]))) {
-                while (resultSet.next()) {
-                    BasicTrace basicTrace = new BasicTrace();
-```
-
 ## RuleId[id=EnumSwitchStatementWhichMissesCases]
 ### EnumSwitchStatementWhichMissesCases
-`switch (clientAction.getAction()) { case Unchanged: newRemoteCli...` statement on enum type 'org.apache.skywalking.oap.server.core.remote.client.RemoteClientManager.Action' misses case 'Close'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/client/RemoteClientManager.java`
-#### Snippet
-```java
-        final List<RemoteClient> newRemoteClients = new LinkedList<>();
-        remoteClientCollection.forEach((address, clientAction) -> {
-            switch (clientAction.getAction()) {
-                case Unchanged:
-                    newRemoteClients.add(clientAction.getRemoteClient());
-                    break;
-                case Create:
-                    if (address.isSelf()) {
-                        RemoteClient client = new SelfRemoteClient(moduleDefineHolder, address);
-                        newRemoteClients.add(client);
-                    } else {
-                        RemoteClient client;
-                        client = new GRPCRemoteClient(moduleDefineHolder, address, 1, 3000, remoteTimeout, sslContext);
-                        client.connect();
-                        newRemoteClients.add(client);
-                    }
-                    break;
-            }
-        });
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (source.getDetectPoint()) { case SERVER: processRelationServerSid...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationDispatcher.java`
-#### Snippet
-```java
-    @Override
-    public void dispatch(ProcessRelation source) {
-        switch (source.getDetectPoint()) {
-            case SERVER:
-                processRelationServerSide(source);
-                break;
-            case CLIENT:
-                processRelationClientSide(source);
-                break;
-        }
-    }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/service/ServiceCallRelationDispatcher.java`
-#### Snippet
-```java
-    @Override
-    public void dispatch(ServiceRelation source) {
-        switch (source.getDetectPoint()) {
-            case SERVER:
-                serverSide(source);
-                break;
-            case CLIENT:
-                clientSide(source);
-                break;
-        }
-    }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/service/TCPServiceCallRelationDispatcher.java`
-#### Snippet
-```java
-    @Override
-    public void dispatch(TCPServiceRelation source) {
-        switch (source.getDetectPoint()) {
-            case SERVER:
-                serverSide(source);
-                break;
-            case CLIENT:
-                clientSide(source);
-                break;
-        }
-    }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/instance/TCPServiceInstanceCallRelationDispatcher.java`
-#### Snippet
-```java
-    @Override
-    public void dispatch(TCPServiceInstanceRelation source) {
-        switch (source.getDetectPoint()) {
-            case SERVER:
-                serverSide(source);
-                break;
-            case CLIENT:
-                clientSide(source);
-                break;
-        }
-    }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/instance/ServiceInstanceCallRelationDispatcher.java`
-#### Snippet
-```java
-    @Override
-    public void dispatch(ServiceInstanceRelation source) {
-        switch (source.getDetectPoint()) {
-            case SERVER:
-                serverSide(source);
-                break;
-            case CLIENT:
-                clientSide(source);
-                break;
-        }
-    }
-
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (traceState) { case ERROR: query.and(eq(SegmentRe...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBTraceQueryDAO.java`
-#### Snippet
-```java
-                }
-
-                switch (traceState) {
-                    case ERROR:
-                        query.and(eq(SegmentRecord.IS_ERROR, BooleanUtils.TRUE));
-                        break;
-                    case SUCCESS:
-                        query.and(eq(SegmentRecord.IS_ERROR, BooleanUtils.FALSE));
-                        break;
-                }
-
-                switch (queryOrder) {
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (traceState) { case ERROR: query.must(Query.match(SegmentRecord.I...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/TraceQueryEsDAO.java`
-#### Snippet
-```java
-            query.must(Query.term(SegmentRecord.TRACE_ID, traceId));
-        }
-        switch (traceState) {
-            case ERROR:
-                query.must(Query.match(SegmentRecord.IS_ERROR, BooleanUtils.TRUE));
-                break;
-            case SUCCESS:
-                query.must(Query.match(SegmentRecord.IS_ERROR, BooleanUtils.FALSE));
-                break;
-        }
-
-        final SearchBuilder search = Search.builder().query(query);
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (type) { case INT: intThreshold = Integer.parseInt(thresh...` statement on enum type 'org.apache.skywalking.oap.server.core.alarm.provider.MetricsValueType' misses case 'LABELED_LONG'
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/Threshold.java`
-#### Snippet
-```java
-    public void setType(MetricsValueType type) {
-        try {
-            switch (type) {
-                case INT:
-                    intThreshold = Integer.parseInt(threshold);
-                    break;
-                case LONG:
-                    longThreshold = Long.parseLong(threshold);
-                    break;
-                case DOUBLE:
-                    doubleThreshold = Double.parseDouble(threshold);
-                    break;
-                case MULTI_INTS:
-                    String[] strings = threshold.split(",");
-                    intValuesThreshold = new Integer[strings.length];
-                    for (int i = 0; i < strings.length; i++) {
-                        String thresholdItem = strings[i].trim();
-                        if (NONE_THRESHOLD.equals(thresholdItem)) {
-                            intValuesThreshold[i] = null;
-                        } else {
-                            intValuesThreshold[i] = Integer.parseInt(thresholdItem);
-                        }
-                    }
-            }
-        } catch (NumberFormatException e) {
-            LOGGER.warn("Alarm rule {} threshold doesn't match the metrics type, expected type: {}", alarmRuleName, type);
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (traceState) { case ERROR: sql.append(" and ").append(SegmentReco...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
-#### Snippet
-```java
-            }
-        }
-        switch (traceState) {
-            case ERROR:
-                sql.append(" and ").append(SegmentRecord.IS_ERROR).append(" = ").append(BooleanUtils.TRUE);
-                break;
-            case SUCCESS:
-                sql.append(" and ").append(SegmentRecord.IS_ERROR).append(" = ").append(BooleanUtils.FALSE);
-                break;
-        }
-        switch (queryOrder) {
-            case BY_START_TIME:
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (role) { case PROXY: return analyzeProxy(entry); case...` statement on enum type 'org.apache.skywalking.oap.server.receiver.envoy.als.Role' misses case 'NONE'
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8sALSServiceMeshHTTPAnalysis.java`
-#### Snippet
-```java
-            return result;
-        }
-        switch (role) {
-            case PROXY:
-                return analyzeProxy(entry);
-            case SIDECAR:
-                return analyzeSideCar(entry);
-        }
-
-        return Result.builder().build();
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (role) { case PROXY: return analyzeProxy(previousResult, entry); ...` statement on enum type 'org.apache.skywalking.oap.server.receiver.envoy.als.Role' misses case 'NONE'
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/k8s/K8sALSServiceMeshTCPAnalysis.java`
-#### Snippet
-```java
-            return previousResult;
-        }
-        switch (role) {
-            case PROXY:
-                return analyzeProxy(previousResult, entry);
-            case SIDECAR:
-                return analyzeSideCar(previousResult, entry);
-        }
-
-        return previousResult;
-```
-
-### EnumSwitchStatementWhichMissesCases
-`switch (parseResult.getResultType()) { case METRICS_RANGE: build...` statement on enum type 'org.apache.skywalking.oap.query.promql.rt.result.ParseResultType' misses case 'MATCH'
+`switch (scope) { case Service: metricInfo.getLabels().add(new LabelValue...` statement on enum type 'org.apache.skywalking.oap.server.core.query.enumeration.Scope' misses cases: 'All', 'ServiceRelation', ...
 in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
 #### Snippet
 ```java
-            response.setError("Bad expression, can not parse it.");
-        } else if (StringUtil.isBlank(parseResult.getErrorInfo())) {
-            switch (parseResult.getResultType()) {
-                case METRICS_RANGE:
-                    buildMatrixRsp(parseResult, response);
-                    break;
-                case SCALAR:
-                    buildScalarMatrixRsp(duration, parseResult, response);
-                    break;
-            }
-        } else {
-            response.setStatus(ResultStatus.ERROR);
+            metricInfo.getLabels().add(new LabelValuePair(LabelName.RELABELS, ""));
+        }
+        switch (scope) {
+            case Service:
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.Service.name()));
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.SERVICE, ""));
+                break;
+            case ServiceInstance:
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.ServiceInstance.name()));
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.SERVICE_INSTANCE, ""));
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.PARENT_SERVICE, ""));
+                break;
+            case Endpoint:
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.Endpoint.name()));
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.ENDPOINT, ""));
+                metricInfo.getLabels().add(new LabelValuePair(LabelName.PARENT_SERVICE, ""));
+                break;
+        }
+        return metricInfo;
+    }
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -413,6 +159,25 @@ in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywal
 ```
 
 ### EnumSwitchStatementWhichMissesCases
+`switch (parseResult.getResultType()) { case METRICS_RANGE: ...` statement on enum type 'org.apache.skywalking.oap.query.promql.rt.result.ParseResultType' misses case 'MATCH'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+                buildMatrixRsp(parseResult, response);
+            } else {
+                switch (parseResult.getResultType()) {
+                    case METRICS_RANGE:
+                        buildVectorRsp(parseResult, response);
+                        break;
+                    case SCALAR:
+                        buildScalarRsp(parseResult, response);
+                        break;
+                }
+            }
+        } else {
+```
+
+### EnumSwitchStatementWhichMissesCases
 `switch (scope) { case ServiceInstance: labelNames.add(LabelName.SERVICE_...` statement on enum type 'org.apache.skywalking.oap.server.core.query.enumeration.Scope' misses cases: 'All', 'Service', 'ServiceRelation', ...
 in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
 #### Snippet
@@ -434,49 +199,41 @@ in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywal
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (parseResult.getResultType()) { case METRICS_RANGE: ...` statement on enum type 'org.apache.skywalking.oap.query.promql.rt.result.ParseResultType' misses case 'MATCH'
+`switch (parseResult.getResultType()) { case METRICS_RANGE: build...` statement on enum type 'org.apache.skywalking.oap.query.promql.rt.result.ParseResultType' misses case 'MATCH'
 in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
 #### Snippet
 ```java
-                buildMatrixRsp(parseResult, response);
-            } else {
-                switch (parseResult.getResultType()) {
-                    case METRICS_RANGE:
-                        buildVectorRsp(parseResult, response);
-                        break;
-                    case SCALAR:
-                        buildScalarRsp(parseResult, response);
-                        break;
-                }
+            response.setError("Bad expression, can not parse it.");
+        } else if (StringUtil.isBlank(parseResult.getErrorInfo())) {
+            switch (parseResult.getResultType()) {
+                case METRICS_RANGE:
+                    buildMatrixRsp(parseResult, response);
+                    break;
+                case SCALAR:
+                    buildScalarMatrixRsp(duration, parseResult, response);
+                    break;
             }
         } else {
+            response.setStatus(ResultStatus.ERROR);
 ```
 
 ### EnumSwitchStatementWhichMissesCases
-`switch (scope) { case Service: metricInfo.getLabels().add(new LabelValue...` statement on enum type 'org.apache.skywalking.oap.server.core.query.enumeration.Scope' misses cases: 'All', 'ServiceRelation', ...
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+`switch (traceState) { case ERROR: query.and(eq(SegmentRe...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBTraceQueryDAO.java`
 #### Snippet
 ```java
-            metricInfo.getLabels().add(new LabelValuePair(LabelName.RELABELS, ""));
-        }
-        switch (scope) {
-            case Service:
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.Service.name()));
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.SERVICE, ""));
-                break;
-            case ServiceInstance:
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.ServiceInstance.name()));
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.SERVICE_INSTANCE, ""));
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.PARENT_SERVICE, ""));
-                break;
-            case Endpoint:
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.SCOPE, Scope.Endpoint.name()));
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.ENDPOINT, ""));
-                metricInfo.getLabels().add(new LabelValuePair(LabelName.PARENT_SERVICE, ""));
-                break;
-        }
-        return metricInfo;
-    }
+                }
+
+                switch (traceState) {
+                    case ERROR:
+                        query.and(eq(SegmentRecord.IS_ERROR, BooleanUtils.TRUE));
+                        break;
+                    case SUCCESS:
+                        query.and(eq(SegmentRecord.IS_ERROR, BooleanUtils.FALSE));
+                        break;
+                }
+
+                switch (queryOrder) {
 ```
 
 ### EnumSwitchStatementWhichMissesCases
@@ -548,41 +305,244 @@ in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywal
     }
 ```
 
+### EnumSwitchStatementWhichMissesCases
+`switch (role) { case PROXY: return analyzeProxy(entry); case...` statement on enum type 'org.apache.skywalking.oap.server.receiver.envoy.als.Role' misses case 'NONE'
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8sALSServiceMeshHTTPAnalysis.java`
+#### Snippet
+```java
+            return result;
+        }
+        switch (role) {
+            case PROXY:
+                return analyzeProxy(entry);
+            case SIDECAR:
+                return analyzeSideCar(entry);
+        }
+
+        return Result.builder().build();
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (role) { case PROXY: return analyzeProxy(previousResult, entry); ...` statement on enum type 'org.apache.skywalking.oap.server.receiver.envoy.als.Role' misses case 'NONE'
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/k8s/K8sALSServiceMeshTCPAnalysis.java`
+#### Snippet
+```java
+            return previousResult;
+        }
+        switch (role) {
+            case PROXY:
+                return analyzeProxy(previousResult, entry);
+            case SIDECAR:
+                return analyzeSideCar(previousResult, entry);
+        }
+
+        return previousResult;
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (traceState) { case ERROR: query.must(Query.match(SegmentRecord.I...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/TraceQueryEsDAO.java`
+#### Snippet
+```java
+            query.must(Query.term(SegmentRecord.TRACE_ID, traceId));
+        }
+        switch (traceState) {
+            case ERROR:
+                query.must(Query.match(SegmentRecord.IS_ERROR, BooleanUtils.TRUE));
+                break;
+            case SUCCESS:
+                query.must(Query.match(SegmentRecord.IS_ERROR, BooleanUtils.FALSE));
+                break;
+        }
+
+        final SearchBuilder search = Search.builder().query(query);
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (clientAction.getAction()) { case Unchanged: newRemoteCli...` statement on enum type 'org.apache.skywalking.oap.server.core.remote.client.RemoteClientManager.Action' misses case 'Close'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/client/RemoteClientManager.java`
+#### Snippet
+```java
+        final List<RemoteClient> newRemoteClients = new LinkedList<>();
+        remoteClientCollection.forEach((address, clientAction) -> {
+            switch (clientAction.getAction()) {
+                case Unchanged:
+                    newRemoteClients.add(clientAction.getRemoteClient());
+                    break;
+                case Create:
+                    if (address.isSelf()) {
+                        RemoteClient client = new SelfRemoteClient(moduleDefineHolder, address);
+                        newRemoteClients.add(client);
+                    } else {
+                        RemoteClient client;
+                        client = new GRPCRemoteClient(moduleDefineHolder, address, 1, 3000, remoteTimeout, sslContext);
+                        client.connect();
+                        newRemoteClients.add(client);
+                    }
+                    break;
+            }
+        });
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (source.getDetectPoint()) { case SERVER: processRelationServerSid...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationDispatcher.java`
+#### Snippet
+```java
+    @Override
+    public void dispatch(ProcessRelation source) {
+        switch (source.getDetectPoint()) {
+            case SERVER:
+                processRelationServerSide(source);
+                break;
+            case CLIENT:
+                processRelationClientSide(source);
+                break;
+        }
+    }
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/service/TCPServiceCallRelationDispatcher.java`
+#### Snippet
+```java
+    @Override
+    public void dispatch(TCPServiceRelation source) {
+        switch (source.getDetectPoint()) {
+            case SERVER:
+                serverSide(source);
+                break;
+            case CLIENT:
+                clientSide(source);
+                break;
+        }
+    }
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/service/ServiceCallRelationDispatcher.java`
+#### Snippet
+```java
+    @Override
+    public void dispatch(ServiceRelation source) {
+        switch (source.getDetectPoint()) {
+            case SERVER:
+                serverSide(source);
+                break;
+            case CLIENT:
+                clientSide(source);
+                break;
+        }
+    }
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/instance/ServiceInstanceCallRelationDispatcher.java`
+#### Snippet
+```java
+    @Override
+    public void dispatch(ServiceInstanceRelation source) {
+        switch (source.getDetectPoint()) {
+            case SERVER:
+                serverSide(source);
+                break;
+            case CLIENT:
+                clientSide(source);
+                break;
+        }
+    }
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (source.getDetectPoint()) { case SERVER: serverSide(source); ...` statement on enum type 'org.apache.skywalking.oap.server.core.source.DetectPoint' misses cases: 'PROXY', and 'UNRECOGNIZED'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/instance/TCPServiceInstanceCallRelationDispatcher.java`
+#### Snippet
+```java
+    @Override
+    public void dispatch(TCPServiceInstanceRelation source) {
+        switch (source.getDetectPoint()) {
+            case SERVER:
+                serverSide(source);
+                break;
+            case CLIENT:
+                clientSide(source);
+                break;
+        }
+    }
+
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (traceState) { case ERROR: sql.append(" and ").append(Seg...` statement on enum type 'org.apache.skywalking.oap.server.core.query.type.TraceState' misses case 'ALL'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                }
+            }
+            switch (traceState) {
+                case ERROR:
+                    sql.append(" and ").append(SegmentRecord.IS_ERROR).append(" = ").append(BooleanUtils.TRUE);
+                    break;
+                case SUCCESS:
+                    sql.append(" and ").append(SegmentRecord.IS_ERROR).append(" = ").append(BooleanUtils.FALSE);
+                    break;
+            }
+            switch (queryOrder) {
+                case BY_START_TIME:
+```
+
+### EnumSwitchStatementWhichMissesCases
+`switch (type) { case INT: intThreshold = Integer.parseInt(thresh...` statement on enum type 'org.apache.skywalking.oap.server.core.alarm.provider.MetricsValueType' misses case 'LABELED_LONG'
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/Threshold.java`
+#### Snippet
+```java
+    public void setType(MetricsValueType type) {
+        try {
+            switch (type) {
+                case INT:
+                    intThreshold = Integer.parseInt(threshold);
+                    break;
+                case LONG:
+                    longThreshold = Long.parseLong(threshold);
+                    break;
+                case DOUBLE:
+                    doubleThreshold = Double.parseDouble(threshold);
+                    break;
+                case MULTI_INTS:
+                    String[] strings = threshold.split(",");
+                    intValuesThreshold = new Integer[strings.length];
+                    for (int i = 0; i < strings.length; i++) {
+                        String thresholdItem = strings[i].trim();
+                        if (NONE_THRESHOLD.equals(thresholdItem)) {
+                            intValuesThreshold[i] = null;
+                        } else {
+                            intValuesThreshold[i] = Integer.parseInt(thresholdItem);
+                        }
+                    }
+            }
+        } catch (NumberFormatException e) {
+            LOGGER.warn("Alarm rule {} threshold doesn't match the metrics type, expected type: {}", alarmRuleName, type);
+```
+
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/Generator.java`
+Modifier `static` is redundant for inner classes of interfaces
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/AccessLogAnalyzer.java`
 #### Snippet
 ```java
-    public T next();
-
-    default public void reset() {
-    }
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/Generator.java`
-#### Snippet
-```java
-})
-public interface Generator<T> {
-    public T next();
-
-    default public void reset() {
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `oap-server/server-library/library-kubernetes-support/src/main/java/org/apache/skywalking/library/kubernetes/KubernetesPods.java`
-#### Snippet
-```java
-
-    @SneakyThrows
-    private KubernetesPods() {
-        KubernetesClient.setDefault();
-
+    @Data
+    @Builder
+    static class Result {
+        /**
+         * The service representing the Envoy node.
 ```
 
 ### UnnecessaryModifier
@@ -610,55 +570,42 @@ in `oap-server/server-library/library-kubernetes-support/src/main/java/org/apach
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/AccessLogAnalyzer.java`
+Modifier `private` is redundant for enum constructors
+in `oap-server/server-library/library-kubernetes-support/src/main/java/org/apache/skywalking/library/kubernetes/KubernetesPods.java`
 #### Snippet
 ```java
-    @Data
-    @Builder
-    static class Result {
-        /**
-         * The service representing the Envoy node.
+
+    @SneakyThrows
+    private KubernetesPods() {
+        KubernetesClient.setDefault();
+
 ```
 
-## RuleId[id=LoopStatementsThatDontLoop]
-### LoopStatementsThatDontLoop
-`while` statement does not loop
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/Generator.java`
 #### Snippet
 ```java
+    public T next();
 
-            try (ResultSet resultSet = jdbcClient.executeQuery(connection, sql.toString(), params)) {
-                while (resultSet.next()) {
-                    return resultSet.getInt(1);
-                }
+    default public void reset() {
+    }
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/Generator.java`
+#### Snippet
+```java
+})
+public interface Generator<T> {
+    public T next();
+
+    default public void reset() {
 ```
 
 ## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `binaryTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-        public void accept(String fieldName, byte[] fieldValue) {
-            try {
-                this.streamWrite.tag(fieldName, TagAndValue.binaryTagValue(fieldValue));
-            } catch (BanyanDBException ex) {
-                log.error("fail to add tag", ex);
-```
-
-### StaticCallOnSubclass
-Static method `stringTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-        public void acceptID(String id) {
-            try {
-                this.measureWrite.tag(ID, TagAndValue.stringTagValue(id));
-            } catch (BanyanDBException ex) {
-                log.error("fail to add ID tag", ex);
-```
-
 ### StaticCallOnSubclass
 Static method `stringArrayTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
@@ -669,6 +616,66 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
                 this.streamWrite.tag(fieldName, TagAndValue.stringArrayTagValue(fieldValue));
             } catch (BanyanDBException ex) {
                 log.error("fail to accept string array tag", ex);
+```
+
+### StaticCallOnSubclass
+Static method `longFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+    private static Serializable<BanyandbModel.FieldValue> buildField(Object value, final Class<?> clazz) {
+        if (Integer.class.equals(clazz) || int.class.equals(clazz)) {
+            return TagAndValue.longFieldValue(((Number) value).longValue());
+        } else if (Long.class.equals(clazz) || long.class.equals(clazz)) {
+            return TagAndValue.longFieldValue((Long) value);
+```
+
+### StaticCallOnSubclass
+Static method `longFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+            return TagAndValue.longFieldValue(((Number) value).longValue());
+        } else if (Long.class.equals(clazz) || long.class.equals(clazz)) {
+            return TagAndValue.longFieldValue((Long) value);
+        } else if (String.class.equals(clazz)) {
+            return TagAndValue.stringFieldValue((String) value);
+```
+
+### StaticCallOnSubclass
+Static method `stringFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+            return TagAndValue.longFieldValue((Long) value);
+        } else if (String.class.equals(clazz)) {
+            return TagAndValue.stringFieldValue((String) value);
+        } else if (Double.class.equals(clazz) || double.class.equals(clazz)) {
+            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
+```
+
+### StaticCallOnSubclass
+Static method `binaryFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+            return TagAndValue.stringFieldValue((String) value);
+        } else if (Double.class.equals(clazz) || double.class.equals(clazz)) {
+            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
+        } else if (StorageDataComplexObject.class.isAssignableFrom(clazz)) {
+            return TagAndValue.stringFieldValue(((StorageDataComplexObject<?>) value).toStorageData());
+```
+
+### StaticCallOnSubclass
+Static method `stringFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
+        } else if (StorageDataComplexObject.class.isAssignableFrom(clazz)) {
+            return TagAndValue.stringFieldValue(((StorageDataComplexObject<?>) value).toStorageData());
+        }
+        throw new IllegalStateException(clazz.getSimpleName() + " is not supported");
 ```
 
 ### StaticCallOnSubclass
@@ -768,75 +775,27 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
 ```
 
 ### StaticCallOnSubclass
-Static method `longFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+Static method `binaryTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
 #### Snippet
 ```java
-    private static Serializable<BanyandbModel.FieldValue> buildField(Object value, final Class<?> clazz) {
-        if (Integer.class.equals(clazz) || int.class.equals(clazz)) {
-            return TagAndValue.longFieldValue(((Number) value).longValue());
-        } else if (Long.class.equals(clazz) || long.class.equals(clazz)) {
-            return TagAndValue.longFieldValue((Long) value);
-```
-
-### StaticCallOnSubclass
-Static method `longFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-            return TagAndValue.longFieldValue(((Number) value).longValue());
-        } else if (Long.class.equals(clazz) || long.class.equals(clazz)) {
-            return TagAndValue.longFieldValue((Long) value);
-        } else if (String.class.equals(clazz)) {
-            return TagAndValue.stringFieldValue((String) value);
-```
-
-### StaticCallOnSubclass
-Static method `stringFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-            return TagAndValue.longFieldValue((Long) value);
-        } else if (String.class.equals(clazz)) {
-            return TagAndValue.stringFieldValue((String) value);
-        } else if (Double.class.equals(clazz) || double.class.equals(clazz)) {
-            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
-```
-
-### StaticCallOnSubclass
-Static method `binaryFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-            return TagAndValue.stringFieldValue((String) value);
-        } else if (Double.class.equals(clazz) || double.class.equals(clazz)) {
-            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
-        } else if (StorageDataComplexObject.class.isAssignableFrom(clazz)) {
-            return TagAndValue.stringFieldValue(((StorageDataComplexObject<?>) value).toStorageData());
-```
-
-### StaticCallOnSubclass
-Static method `stringFieldValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-            return TagAndValue.binaryFieldValue(ByteUtil.double2Bytes((double) value));
-        } else if (StorageDataComplexObject.class.isAssignableFrom(clazz)) {
-            return TagAndValue.stringFieldValue(((StorageDataComplexObject<?>) value).toStorageData());
-        }
-        throw new IllegalStateException(clazz.getSimpleName() + " is not supported");
-```
-
-### StaticCallOnSubclass
-Static method `stringArrayTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-        public void accept(String fieldName, List<String> fieldValue) {
+        public void accept(String fieldName, byte[] fieldValue) {
             try {
-                this.measureWrite.tag(fieldName, TagAndValue.stringArrayTagValue(fieldValue));
+                this.streamWrite.tag(fieldName, TagAndValue.binaryTagValue(fieldValue));
             } catch (BanyanDBException ex) {
-                log.error("fail to accept string array tag", ex);
+                log.error("fail to add tag", ex);
+```
+
+### StaticCallOnSubclass
+Static method `stringTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+        public void acceptID(String id) {
+            try {
+                this.measureWrite.tag(ID, TagAndValue.stringTagValue(id));
+            } catch (BanyanDBException ex) {
+                log.error("fail to add ID tag", ex);
 ```
 
 ### StaticCallOnSubclass
@@ -863,44 +822,19 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
             } catch (BanyanDBException ex) {
 ```
 
-## RuleId[id=EmptyStatementBody]
-### EmptyStatementBody
-`while` statement has empty body
-in `oap-server/server-storage-plugin/storage-tidb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/tidb/dao/TiDBHistoryDeleteDAO.java`
+### StaticCallOnSubclass
+Static method `stringArrayTagValue()` declared in class 'org.apache.skywalking.banyandb.v1.client.Value' but referenced via subclass 'org.apache.skywalking.banyandb.v1.client.TagAndValue'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
 #### Snippet
 ```java
-                }
-            }
-            while (client.executeUpdate(connection, dataDeleteSQL.toString(), deadline, minTime) > 0) {
-            }
-            //delete additional tables
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `oap-server/server-storage-plugin/storage-tidb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/tidb/dao/TiDBHistoryDeleteDAO.java`
-#### Snippet
-```java
-                    .append(timeBucketColumnName).append(">= ? ")
-                    .append(" limit 10000");
-                while (client.executeUpdate(connection, additionalTableDeleteSQL.toString(), deadline, minTime) > 0) {
-                }
-            }
+        public void accept(String fieldName, List<String> fieldValue) {
+            try {
+                this.measureWrite.tag(fieldName, TagAndValue.stringArrayTagValue(fieldValue));
+            } catch (BanyanDBException ex) {
+                log.error("fail to accept string array tag", ex);
 ```
 
 ## RuleId[id=DoubleCheckedLocking]
-### DoubleCheckedLocking
-Double-checked locking
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
-#### Snippet
-```java
-
-    private MeasureBulkWriteProcessor getMeasureBulkWriteProcessor() {
-        if (measureBulkWriteProcessor == null) {
-            synchronized (MEASURE_SYNCHRONIZER) {
-                if (measureBulkWriteProcessor == null) {
-```
-
 ### DoubleCheckedLocking
 Double-checked locking
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
@@ -911,6 +845,18 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
         if (streamBulkWriteProcessor == null) {
             synchronized (STREAM_SYNCHRONIZER) {
                 if (streamBulkWriteProcessor == null) {
+```
+
+### DoubleCheckedLocking
+Double-checked locking
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
+#### Snippet
+```java
+
+    private MeasureBulkWriteProcessor getMeasureBulkWriteProcessor() {
+        if (measureBulkWriteProcessor == null) {
+            synchronized (MEASURE_SYNCHRONIZER) {
+                if (measureBulkWriteProcessor == null) {
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -965,18 +911,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 
 ## RuleId[id=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetricsQueryEsDAO.java`
-#### Snippet
-```java
-        switch (function) {
-            case Avg:
-                parentAggBuilder.subAggregation(Aggregation.avg(valueCName).field(valueCName));
-                break;
-            case Sum:
-```
-
-### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/RPCAnalysisListener.java`
 #### Snippet
@@ -986,6 +920,18 @@ in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/s
                 return Layer.UNDEFINED;
             case FAAS:
                 return Layer.FAAS;
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetricsQueryEsDAO.java`
+#### Snippet
+```java
+        switch (function) {
+            case Avg:
+                parentAggBuilder.subAggregation(Aggregation.avg(valueCName).field(valueCName));
+                break;
+            case Sum:
 ```
 
 ## RuleId[id=UnnecessaryQualifierForThis]
@@ -1015,87 +961,87 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`services.size() > 0` can be replaced with '!services.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
+`oapServices.trim().length() == 0` can be replaced with 'oapServices.trim().isEmpty()'
+in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
 #### Snippet
 ```java
-    public Service getService(final String serviceId) throws IOException {
-        final List<Service> services = this.combineServices(getMetadataQueryDAO().getServices(serviceId));
-        return services.size() > 0 ? services.get(0) : null;
+
+  public String[] oapServices() {
+    if (oapServices == null || oapServices.trim().length() == 0) {
+      throw new IllegalArgumentException("oapServices cannot be null or empty");
     }
-
 ```
 
 ### SizeReplaceableByIsEmpty
-`clientList.size() == 0` can be replaced with 'clientList.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/RemoteSenderService.java`
+`serverPort.trim().length() == 0` can be replaced with 'serverPort.trim().isEmpty()'
+in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
 #### Snippet
 ```java
 
-        List<RemoteClient> clientList = clientManager.getRemoteClient();
-        if (clientList.size() == 0) {
-            LOGGER.warn(
-                "There is no available remote server for now, ignore the streaming data until the cluster metadata initialized.");
+  public int port() {
+    return serverPort == null || serverPort.trim().length() == 0
+      ? 80
+      : Integer.parseInt(serverPort);
 ```
 
 ### SizeReplaceableByIsEmpty
-`lastCollection.size() == 0` can be replaced with 'lastCollection.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+`zipkinServices.trim().length() == 0` can be replaced with 'zipkinServices.trim().isEmpty()'
+in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
 #### Snippet
 ```java
 
-        long start = System.currentTimeMillis();
-        if (lastCollection.size() == 0) {
-            return Collections.emptyList();
-        }
+  public String[] zipkinServices() {
+    if (zipkinServices == null || zipkinServices.trim().length() == 0) {
+      throw new IllegalArgumentException("zipkinServices cannot be null or empty");
+    }
 ```
 
 ### SizeReplaceableByIsEmpty
-`metricsList.size() > 0` can be replaced with '!metricsList.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+`changedGroupItems.size() > 0` can be replaced with '!changedGroupItems.isEmpty()'
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
 #### Snippet
 ```java
-        }
+                });
 
-        if (metricsList.size() > 0) {
-            prepareFlushDataToStorage(metricsList, prepareRequests);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`prepareRequests.size() > 0` can be replaced with '!prepareRequests.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
-#### Snippet
-```java
-        }
-
-        if (prepareRequests.size() > 0) {
-            log.debug(
-                "prepare batch requests for model {}, took time: {}, size: {}", model.getName(),
-```
-
-### SizeReplaceableByIsEmpty
-`notExistLabels.size() > 0` can be replaced with '!notExistLabels.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
+                if (changedGroupItems.size() > 0) {
+                    watcher.notifyGroup(changedGroupItems);
                 }
-            }
-            if (notExistLabels.size() > 0) {
-                err = String.format("The service doesn't have processes with label(s) %s.", Joiner.on(", ").join(notExistLabels));
-            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`jsonNode.size() == 0` can be replaced with 'jsonNode.isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/management/ui/template/UITemplateInitializer.java`
+`values.size() > 0` can be replaced with '!values.isEmpty()'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
 #### Snippet
 ```java
-    public void initTemplate(File template) throws IOException {
-        JsonNode jsonNode = mapper.readTree(template);
-        if (jsonNode == null || jsonNode.size() == 0) {
-            return;
+        matrixResult.getMetricDataList().forEach(rangData -> {
+            List<TimeValuePair> values = rangData.getValues();
+            if (values.size() > 0) {
+                MetricInstantData instantData = new MetricInstantData();
+                instantData.setValue(values.get(values.size() - 1));
+```
+
+### SizeReplaceableByIsEmpty
+`moduleSet.size() > 0` can be replaced with '!moduleSet.isEmpty()'
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleManager.java`
+#### Snippet
+```java
+        isInPrepareStage = false;
+
+        if (moduleSet.size() > 0) {
+            throw new ModuleNotFoundException(moduleSet.toString() + " missing.");
         }
+```
+
+### SizeReplaceableByIsEmpty
+`allProviders.size() != 0` can be replaced with '!allProviders.isEmpty()'
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/BootstrapFlow.java`
+#### Snippet
+```java
+            }
+        }
+        while (allProviders.size() != 0);
+    }
+}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1108,30 +1054,6 @@ in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/DeepAnal
         if (expressions != null && expressions.size() > 0) {
             for (ConditionExpression expression : expressions) {
                 final FilterMatchers.MatcherInfo matcherInfo = FilterMatchers.INSTANCE.find(
-```
-
-### SizeReplaceableByIsEmpty
-`metrics.getIds().size() == 0` can be replaced with 'metrics.getIds().isEmpty()'
-in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/resolver/MetricQuery.java`
-#### Snippet
-```java
-    public IntValues getValues(final BatchMetricConditions metrics, final Duration duration) throws IOException {
-        IntValues values = new IntValues();
-        if (metrics.getIds().size() == 0) {
-            KVInt kv = new KVInt();
-
-```
-
-### SizeReplaceableByIsEmpty
-`m.size() > 0` can be replaced with '!m.isEmpty()'
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/codec/V7MappingsDeserializer.java`
-#### Snippet
-```java
-            });
-
-        if (m.size() > 0) {
-            Map<String, Object> properties = (Map<String, Object>) m.get("properties");
-            Map<String, Object> source = (Map<String, Object>) m.get("_source");
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1219,35 +1141,11 @@ in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/
 ```
 
 ### SizeReplaceableByIsEmpty
-`changedGroupItems.size() > 0` can be replaced with '!changedGroupItems.isEmpty()'
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-                });
-
-                if (changedGroupItems.size() > 0) {
-                    watcher.notifyGroup(changedGroupItems);
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`subscriptionList.size() == 0` can be replaced with 'subscriptionList.isEmpty()'
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
-#### Snippet
-```java
-        if (metrics instanceof WithMetadata) {
-            MetricsMetaInfo meta = ((WithMetadata) metrics).getMeta();
-            if (subscriptionList.size() == 0 && ExportEvent.EventType.INCREMENT.equals(event.getType())) {
-                exportBuffer.produce(new ExportData(meta, metrics, event.getType()));
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
 `response.getHits().getHits().size() != 0` can be replaced with '!response.getHits().getHits().isEmpty()'
 in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
 #### Snippet
 ```java
-        List<Span> trace = new ArrayList<>();
+        final Set<String> scrollIds = new HashSet<>();
         try {
             while (response.getHits().getHits().size() != 0) {
                 String scrollId = response.getScrollId();
@@ -1271,11 +1169,95 @@ in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/
 in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
 #### Snippet
 ```java
-        final Set<String> scrollIds = new HashSet<>();
+        List<Span> trace = new ArrayList<>();
         try {
             while (response.getHits().getHits().size() != 0) {
                 String scrollId = response.getScrollId();
                 scrollIds.add(scrollId);
+```
+
+### SizeReplaceableByIsEmpty
+`services.size() > 0` can be replaced with '!services.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
+#### Snippet
+```java
+    public Service getService(final String serviceId) throws IOException {
+        final List<Service> services = this.combineServices(getMetadataQueryDAO().getServices(serviceId));
+        return services.size() > 0 ? services.get(0) : null;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`clientList.size() == 0` can be replaced with 'clientList.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/RemoteSenderService.java`
+#### Snippet
+```java
+
+        List<RemoteClient> clientList = clientManager.getRemoteClient();
+        if (clientList.size() == 0) {
+            LOGGER.warn(
+                "There is no available remote server for now, ignore the streaming data until the cluster metadata initialized.");
+```
+
+### SizeReplaceableByIsEmpty
+`lastCollection.size() == 0` can be replaced with 'lastCollection.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+#### Snippet
+```java
+
+        long start = System.currentTimeMillis();
+        if (lastCollection.size() == 0) {
+            return Collections.emptyList();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`metricsList.size() > 0` can be replaced with '!metricsList.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+#### Snippet
+```java
+        }
+
+        if (metricsList.size() > 0) {
+            prepareFlushDataToStorage(metricsList, prepareRequests);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`prepareRequests.size() > 0` can be replaced with '!prepareRequests.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+#### Snippet
+```java
+        }
+
+        if (prepareRequests.size() > 0) {
+            log.debug(
+                "prepare batch requests for model {}, took time: {}, size: {}", model.getName(),
+```
+
+### SizeReplaceableByIsEmpty
+`notExistLabels.size() > 0` can be replaced with '!notExistLabels.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+                }
+            }
+            if (notExistLabels.size() > 0) {
+                err = String.format("The service doesn't have processes with label(s) %s.", Joiner.on(", ").join(notExistLabels));
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`jsonNode.size() == 0` can be replaced with 'jsonNode.isEmpty()'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/management/ui/template/UITemplateInitializer.java`
+#### Snippet
+```java
+    public void initTemplate(File template) throws IOException {
+        JsonNode jsonNode = mapper.readTree(template);
+        if (jsonNode == null || jsonNode.size() == 0) {
+            return;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1307,11 +1289,11 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
 #### Snippet
 ```java
-        conditions[1] = duration.getEndTimeBucket();
-        StringBuilder serviceIdMatchSql = new StringBuilder();
-        if (serviceIds.size() > 0) {
-            serviceIdMatchSql.append("and (");
-            for (int i = 0; i < serviceIds.size(); i++) {
+            conditions[2] = duration.getEndTimeBucket();
+            StringBuilder serviceIdMatchSql = new StringBuilder();
+            if (serviceIds.size() > 0) {
+                serviceIdMatchSql.append("and (");
+                for (int i = 0; i < serviceIds.size(); i++) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1319,11 +1301,11 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
 #### Snippet
 ```java
-                    connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<Process> processes = buildProcesses(resultSet);
-            return processes.size() > 0 ? processes.get(0) : null;
-        } catch (SQLException e) {
-            throw new IOException(e);
+                resultSet -> {
+                    final List<Process> processes = buildProcesses(resultSet);
+                    return processes.size() > 0 ? processes.get(0) : null;
+                },
+                condition.toArray(new Object[0]));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1331,71 +1313,35 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
 #### Snippet
 ```java
-                connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<ServiceInstance> instances = buildInstances(resultSet);
-            return instances.size() > 0 ? instances.get(0) : null;
-        } catch (SQLException e) {
-            throw new IOException(e);
+            final var result = jdbcClient.executeQuery(sql.toString(), resultSet -> {
+                final List<ServiceInstance> instances = buildInstances(resultSet);
+                return instances.size() > 0 ? instances.get(0) : null;
+            }, condition.toArray(new Object[0]));
+            if (result != null) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`providerConfig.size() > 0` can be replaced with '!providerConfig.isEmpty()'
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
+`m.size() > 0` can be replaced with '!m.isEmpty()'
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/codec/V7MappingsDeserializer.java`
 #### Snippet
 ```java
-                selectConfig(moduleConfig);
-                moduleConfig.forEach((moduleName, providerConfig) -> {
-                    if (providerConfig.size() > 0) {
-                        log.info("Get a module define from application.yml, module name: {}", moduleName);
-                        ApplicationConfiguration.ModuleConfiguration moduleConfiguration = configuration.addModule(
+            });
+
+        if (m.size() > 0) {
+            Map<String, Object> properties = (Map<String, Object>) m.get("properties");
+            Map<String, Object> source = (Map<String, Object>) m.get("_source");
 ```
 
 ### SizeReplaceableByIsEmpty
-`valueString.trim().length() == 0` can be replaced with 'valueString.trim().isEmpty()'
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
+`metrics.getIds().size() == 0` can be replaced with 'metrics.getIds().isEmpty()'
+in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/resolver/MetricQuery.java`
 #### Snippet
 ```java
-            .replacePlaceholders(propertyValue + "", target);
-        if (valueString != null) {
-            if (valueString.trim().length() == 0) {
-                target.replace(propertyName, valueString);
-                log.info("Provider={} config={} has been set as an empty string", providerName, propertyName);
-```
+    public IntValues getValues(final BatchMetricConditions metrics, final Duration duration) throws IOException {
+        IntValues values = new IntValues();
+        if (metrics.getIds().size() == 0) {
+            KVInt kv = new KVInt();
 
-### SizeReplaceableByIsEmpty
-`serverPort.trim().length() == 0` can be replaced with 'serverPort.trim().isEmpty()'
-in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
-#### Snippet
-```java
-
-  public int port() {
-    return serverPort == null || serverPort.trim().length() == 0
-      ? 80
-      : Integer.parseInt(serverPort);
-```
-
-### SizeReplaceableByIsEmpty
-`zipkinServices.trim().length() == 0` can be replaced with 'zipkinServices.trim().isEmpty()'
-in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
-#### Snippet
-```java
-
-  public String[] zipkinServices() {
-    if (zipkinServices == null || zipkinServices.trim().length() == 0) {
-      throw new IllegalArgumentException("zipkinServices cannot be null or empty");
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`oapServices.trim().length() == 0` can be replaced with 'oapServices.trim().isEmpty()'
-in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/Configuration.java`
-#### Snippet
-```java
-
-  public String[] oapServices() {
-    if (oapServices == null || oapServices.trim().length() == 0) {
-      throw new IllegalArgumentException("oapServices cannot be null or empty");
-    }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1411,87 +1357,63 @@ in `oap-server/server-cluster-plugin/cluster-consul-plugin/src/main/java/org/apa
 ```
 
 ### SizeReplaceableByIsEmpty
-`values.size() > 0` can be replaced with '!values.isEmpty()'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+`subscriptionList.size() == 0` can be replaced with 'subscriptionList.isEmpty()'
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
 #### Snippet
 ```java
-        matrixResult.getMetricDataList().forEach(rangData -> {
-            List<TimeValuePair> values = rangData.getValues();
-            if (values.size() > 0) {
-                MetricInstantData instantData = new MetricInstantData();
-                instantData.setValue(values.get(values.size() - 1));
+        if (metrics instanceof WithMetadata) {
+            MetricsMetaInfo meta = ((WithMetadata) metrics).getMeta();
+            if (subscriptionList.size() == 0 && ExportEvent.EventType.INCREMENT.equals(event.getType())) {
+                exportBuffer.produce(new ExportData(meta, metrics, event.getType()));
+            } else {
 ```
 
 ### SizeReplaceableByIsEmpty
-`moduleSet.size() > 0` can be replaced with '!moduleSet.isEmpty()'
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleManager.java`
+`valueString.trim().length() == 0` can be replaced with 'valueString.trim().isEmpty()'
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
 #### Snippet
 ```java
-        isInPrepareStage = false;
-
-        if (moduleSet.size() > 0) {
-            throw new ModuleNotFoundException(moduleSet.toString() + " missing.");
-        }
+            .replacePlaceholders(propertyValue + "", target);
+        if (valueString != null) {
+            if (valueString.trim().length() == 0) {
+                target.replace(propertyName, valueString);
+                log.info("Provider={} config={} has been set as an empty string", providerName, propertyName);
 ```
 
 ### SizeReplaceableByIsEmpty
-`allProviders.size() != 0` can be replaced with '!allProviders.isEmpty()'
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/BootstrapFlow.java`
+`providerConfig.size() > 0` can be replaced with '!providerConfig.isEmpty()'
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
 #### Snippet
 ```java
-            }
-        }
-        while (allProviders.size() != 0);
-    }
-}
+                selectConfig(moduleConfig);
+                moduleConfig.forEach((moduleName, providerConfig) -> {
+                    if (providerConfig.size() > 0) {
+                        log.info("Get a module define from application.yml, module name: {}", moduleName);
+                        ApplicationConfiguration.ModuleConfiguration moduleConfiguration = configuration.addModule(
 ```
 
 ### SizeReplaceableByIsEmpty
-`labelKeys.size() > 0` can be replaced with '!labelKeys.isEmpty()'
+`serviceKeys.size() > 0` can be replaced with '!serviceKeys.isEmpty()'
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
-
-    public SampleFamily service(List<String> labelKeys, String delimiter, Layer layer) {
-        Preconditions.checkArgument(labelKeys.size() > 0);
-        ExpressionParsingContext.get().ifPresent(ctx -> {
-            ctx.scopeType = ScopeType.SERVICE;
-```
-
-### SizeReplaceableByIsEmpty
-`labelKeys.size() > 0` can be replaced with '!labelKeys.isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-
-    public SampleFamily service(List<String> labelKeys, Layer layer) {
-        Preconditions.checkArgument(labelKeys.size() > 0);
-        ExpressionParsingContext.get().ifPresent(ctx -> {
-            ctx.scopeType = ScopeType.SERVICE;
-```
-
-### SizeReplaceableByIsEmpty
-`sourceServiceKeys.size() > 0` can be replaced with '!sourceServiceKeys.isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-
-    public SampleFamily serviceRelation(DetectPoint detectPoint, List<String> sourceServiceKeys, List<String> destServiceKeys, Layer layer) {
-        Preconditions.checkArgument(sourceServiceKeys.size() > 0);
-        Preconditions.checkArgument(destServiceKeys.size() > 0);
+                                 List<String> instanceKeys, String instanceDelimiter,
+                                 Layer layer, Closure<Map<String, String>> propertiesExtractor) {
+        Preconditions.checkArgument(serviceKeys.size() > 0);
+        Preconditions.checkArgument(instanceKeys.size() > 0);
         ExpressionParsingContext.get().ifPresent(ctx -> {
 ```
 
 ### SizeReplaceableByIsEmpty
-`destServiceKeys.size() > 0` can be replaced with '!destServiceKeys.isEmpty()'
+`instanceKeys.size() > 0` can be replaced with '!instanceKeys.isEmpty()'
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
-    public SampleFamily serviceRelation(DetectPoint detectPoint, List<String> sourceServiceKeys, List<String> destServiceKeys, Layer layer) {
-        Preconditions.checkArgument(sourceServiceKeys.size() > 0);
-        Preconditions.checkArgument(destServiceKeys.size() > 0);
+                                 Layer layer, Closure<Map<String, String>> propertiesExtractor) {
+        Preconditions.checkArgument(serviceKeys.size() > 0);
+        Preconditions.checkArgument(instanceKeys.size() > 0);
         ExpressionParsingContext.get().ifPresent(ctx -> {
-            ctx.scopeType = ScopeType.SERVICE_RELATION;
+            ctx.scopeType = ScopeType.SERVICE_INSTANCE;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1504,30 +1426,6 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
         Preconditions.checkArgument(percentiles.size() > 0);
         int[] p = percentiles.stream().mapToInt(i -> i).toArray();
         ExpressionParsingContext.get().ifPresent(ctx -> {
-```
-
-### SizeReplaceableByIsEmpty
-`serviceKeys.size() > 0` can be replaced with '!serviceKeys.isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-
-    public SampleFamily processRelation(String detectPointKey, List<String> serviceKeys, List<String> instanceKeys, String sourceProcessIdKey, String destProcessIdKey, String componentKey) {
-        Preconditions.checkArgument(serviceKeys.size() > 0);
-        Preconditions.checkArgument(instanceKeys.size() > 0);
-        Preconditions.checkArgument(StringUtil.isNotEmpty(sourceProcessIdKey));
-```
-
-### SizeReplaceableByIsEmpty
-`instanceKeys.size() > 0` can be replaced with '!instanceKeys.isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-    public SampleFamily processRelation(String detectPointKey, List<String> serviceKeys, List<String> instanceKeys, String sourceProcessIdKey, String destProcessIdKey, String componentKey) {
-        Preconditions.checkArgument(serviceKeys.size() > 0);
-        Preconditions.checkArgument(instanceKeys.size() > 0);
-        Preconditions.checkArgument(StringUtil.isNotEmpty(sourceProcessIdKey));
-        Preconditions.checkArgument(StringUtil.isNotEmpty(destProcessIdKey));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1555,15 +1453,51 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ### SizeReplaceableByIsEmpty
+`sourceServiceKeys.size() > 0` can be replaced with '!sourceServiceKeys.isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+
+    public SampleFamily serviceRelation(DetectPoint detectPoint, List<String> sourceServiceKeys, List<String> destServiceKeys, Layer layer) {
+        Preconditions.checkArgument(sourceServiceKeys.size() > 0);
+        Preconditions.checkArgument(destServiceKeys.size() > 0);
+        ExpressionParsingContext.get().ifPresent(ctx -> {
+```
+
+### SizeReplaceableByIsEmpty
+`destServiceKeys.size() > 0` can be replaced with '!destServiceKeys.isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+    public SampleFamily serviceRelation(DetectPoint detectPoint, List<String> sourceServiceKeys, List<String> destServiceKeys, Layer layer) {
+        Preconditions.checkArgument(sourceServiceKeys.size() > 0);
+        Preconditions.checkArgument(destServiceKeys.size() > 0);
+        ExpressionParsingContext.get().ifPresent(ctx -> {
+            ctx.scopeType = ScopeType.SERVICE_RELATION;
+```
+
+### SizeReplaceableByIsEmpty
+`labelKeys.size() > 0` can be replaced with '!labelKeys.isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+
+    public SampleFamily service(List<String> labelKeys, String delimiter, Layer layer) {
+        Preconditions.checkArgument(labelKeys.size() > 0);
+        ExpressionParsingContext.get().ifPresent(ctx -> {
+            ctx.scopeType = ScopeType.SERVICE;
+```
+
+### SizeReplaceableByIsEmpty
 `serviceKeys.size() > 0` can be replaced with '!serviceKeys.isEmpty()'
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
-                                 List<String> instanceKeys, String instanceDelimiter,
-                                 Layer layer, Closure<Map<String, String>> propertiesExtractor) {
+
+    public SampleFamily processRelation(String detectPointKey, List<String> serviceKeys, List<String> instanceKeys, String sourceProcessIdKey, String destProcessIdKey, String componentKey) {
         Preconditions.checkArgument(serviceKeys.size() > 0);
         Preconditions.checkArgument(instanceKeys.size() > 0);
-        ExpressionParsingContext.get().ifPresent(ctx -> {
+        Preconditions.checkArgument(StringUtil.isNotEmpty(sourceProcessIdKey));
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1571,38 +1505,26 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
-                                 Layer layer, Closure<Map<String, String>> propertiesExtractor) {
+    public SampleFamily processRelation(String detectPointKey, List<String> serviceKeys, List<String> instanceKeys, String sourceProcessIdKey, String destProcessIdKey, String componentKey) {
         Preconditions.checkArgument(serviceKeys.size() > 0);
         Preconditions.checkArgument(instanceKeys.size() > 0);
+        Preconditions.checkArgument(StringUtil.isNotEmpty(sourceProcessIdKey));
+        Preconditions.checkArgument(StringUtil.isNotEmpty(destProcessIdKey));
+```
+
+### SizeReplaceableByIsEmpty
+`labelKeys.size() > 0` can be replaced with '!labelKeys.isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+
+    public SampleFamily service(List<String> labelKeys, Layer layer) {
+        Preconditions.checkArgument(labelKeys.size() > 0);
         ExpressionParsingContext.get().ifPresent(ctx -> {
-            ctx.scopeType = ScopeType.SERVICE_INSTANCE;
+            ctx.scopeType = ScopeType.SERVICE;
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder propsBuilder` can be replaced with 'String'
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/ShardingRulesOperator.java`
-#### Snippet
-```java
-                                       String shardingColumn,
-                                       int dsCount) {
-        StringBuilder propsBuilder = new StringBuilder();
-        propsBuilder.append("\"algorithm-expression\"=\"ds_${")
-                  .append(shardingColumn)
-```
-
-### StringBufferReplaceableByString
-`StringBuilder propsBuilder` can be replaced with 'String'
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/ShardingRulesOperator.java`
-#### Snippet
-```java
-                                              String algorithmExpression
-                                                                          ) {
-        StringBuilder propsBuilder = new StringBuilder();
-        propsBuilder.append("\"allow-range-query-with-inline-sharding\"=\"true\",")
-                    .append("\"algorithm-expression\"=\"")
-```
-
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
 in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
@@ -1615,31 +1537,127 @@ in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apach
                                                    .append(instance.hashCode())
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCNetworkAddressAliasDAO.java`
+#### Snippet
+```java
+
+        for (final var table : tables) {
+            final var sql = new StringBuilder()
+                .append("select * from ").append(table)
+                .append(" where ")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
+#### Snippet
+```java
+        final var tables = tableHelper.getTablesWithinTTL(ProfileTaskRecord.INDEX_NAME);
+        for (String table : tables) {
+            final StringBuilder sql = new StringBuilder();
+            final ArrayList<Object> condition = new ArrayList<>(1);
+            sql.append("select * from ").append(table)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+
+    protected ArrayList<String> querySegments(String taskId, String table) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select ")
+           .append(ProfileThreadSnapshotRecord.SEGMENT_ID)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+
+        for (String table : tables) {
+            StringBuilder sql = new StringBuilder();
+            sql.append("select ")
+               .append(aggType)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+
+        for (String table : tables) {
+            StringBuilder sql = new StringBuilder();
+            sql.append("select * from ").append(table).append(" where ");
+            sql.append(JDBCTableInstaller.TABLE_COLUMN).append(" = ? ");
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
+#### Snippet
+```java
+
+        for (String table : tables) {
+            final StringBuilder sql = new StringBuilder();
+            final ArrayList<Object> condition = new ArrayList<>(1);
+            sql.append("select * from ").append(table).append(" where ")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingTaskDAO.java`
+#### Snippet
+```java
+        final var tables = tableHelper.getTablesWithinTTL(EBPFProfilingTaskRecord.INDEX_NAME);
+        for (final var table : tables) {
+            final var sql = new StringBuilder();
+            sql.append("select * from ").append(table)
+               .append(" where ").append(JDBCTableInstaller.TABLE_COLUMN).append(" = ?")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCServiceLabelQueryDAO.java`
+#### Snippet
+```java
+
+        for (String table : tables) {
+            final StringBuilder sql = new StringBuilder();
+            List<Object> condition = new ArrayList<>(1);
+            sql.append("select " + ServiceLabelRecord.LABEL + " from ")
+```
+
+### StringBufferReplaceableByString
+`StringBuilder serviceIdMatchSql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
+#### Snippet
+```java
+                sourceServiceId
+            };
+            StringBuilder serviceIdMatchSql = new StringBuilder("and ((").append(sourceCName)
+                                                                         .append("=? and ")
+                                                                         .append(descCName)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sql` can be replaced with 'String'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+
+        for (String table : tables) {
+            StringBuilder sql = new StringBuilder();
+            sql.append("select ").append(ZipkinServiceTraffic.SERVICE_NAME).append(" from ").append(table)
+                .append(" where ")
+```
+
 ## RuleId[id=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/logging/LoggingConfigWatcher.java`
-#### Snippet
-```java
-        try {
-            if (!reconfigure(newValue)) {
-                return;
-            }
-        } catch (Throwable t) {
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/logging/LoggingConfigWatcher.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            log.error("failed to apply configuration to log4j", t);
-            return;
-        }
-    }
-```
-
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
@@ -1664,31 +1682,31 @@ in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java
                 if (printWriter != null) {
 ```
 
-## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterSystem.java`
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/logging/LoggingConfigWatcher.java`
 #### Snippet
 ```java
         try {
-            metricsClass.addMethod(CtNewMethod.make(
-                ""
-                    + "public org.apache.skywalking.oap.server.core.analysis.meter.function.AcceptableValue createNew() {"
-                    + "    org.apache.skywalking.oap.server.core.analysis.meter.function.AcceptableValue meterVar = new " + METER_CLASS_PACKAGE + className + "();"
+            if (!reconfigure(newValue)) {
+                return;
+            }
+        } catch (Throwable t) {
 ```
 
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/TimeSeriesUtils.java`
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/logging/LoggingConfigWatcher.java`
 #### Snippet
 ```java
-    static long compressTimeBucket(long timeBucket, int dayStep) {
-        if (dayStep > 1) {
-            DateTime time = TIME_BUCKET_FORMATTER.parseDateTime("" + timeBucket);
-            int days = Days.daysBetween(DAY_ONE, time).getDays();
-            int groupBucketOffset = days % dayStep;
+        } catch (Throwable t) {
+            log.error("failed to apply configuration to log4j", t);
+            return;
+        }
+    }
 ```
 
+## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/TimeSeriesUtils.java`
@@ -1715,6 +1733,30 @@ in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/TimeSeriesUtils.java`
+#### Snippet
+```java
+    static long compressTimeBucket(long timeBucket, int dayStep) {
+        if (dayStep > 1) {
+            DateTime time = TIME_BUCKET_FORMATTER.parseDateTime("" + timeBucket);
+            int days = Days.daysBetween(DAY_ONE, time).getDays();
+            int groupBucketOffset = days % dayStep;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterSystem.java`
+#### Snippet
+```java
+        try {
+            metricsClass.addMethod(CtNewMethod.make(
+                ""
+                    + "public org.apache.skywalking.oap.server.core.analysis.meter.function.AcceptableValue createNew() {"
+                    + "    org.apache.skywalking.oap.server.core.analysis.meter.function.AcceptableValue meterVar = new " + METER_CLASS_PACKAGE + className + "();"
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/RunningRule.java`
 #### Snippet
 ```java
@@ -1737,90 +1779,389 @@ in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/sta
             if (valueString.trim().length() == 0) {
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `MinDoubleMetrics` has no concrete subclass
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/MinDoubleMetrics.java`
-#### Snippet
-```java
-
-@MetricsFunction(functionName = "minDouble")
-public abstract class MinDoubleMetrics extends Metrics implements DoubleValueHolder {
-
-    protected static final String VALUE = "value";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DoubleAvgMetrics` has no concrete subclass
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/DoubleAvgMetrics.java`
-#### Snippet
-```java
-
-@MetricsFunction(functionName = "doubleAvg")
-public abstract class DoubleAvgMetrics extends Metrics implements DoubleValueHolder {
-
-    protected static final String SUMMATION = "double_summation";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `MaxDoubleMetrics` has no concrete subclass
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/MaxDoubleMetrics.java`
-#### Snippet
-```java
-
-@MetricsFunction(functionName = "maxDouble")
-public abstract class MaxDoubleMetrics extends Metrics implements DoubleValueHolder {
-
-    protected static final String VALUE = "value";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RateMetrics` has no concrete subclass
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/RateMetrics.java`
-#### Snippet
-```java
-
-@MetricsFunction(functionName = "rate")
-public abstract class RateMetrics extends Metrics implements IntValueHolder {
-    protected static final String DENOMINATOR = "denominator";
-    protected static final String NUMERATOR = "numerator";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SumMetrics` has no concrete subclass
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/SumMetrics.java`
-#### Snippet
-```java
-
-@MetricsFunction(functionName = "sum")
-public abstract class SumMetrics extends Metrics implements LongValueHolder {
-
-    protected static final String VALUE = "value";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GRPCClientConfig` has no concrete subclass
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/grpc/GRPCClientConfig.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.library.client.grpc;
-
-public abstract class GRPCClientConfig {
-
-    private String host;
-```
-
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Process`
-in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProfilingServiceHandler.java`
+Can generalize to `? extends KeyValue`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBAggregationQueryDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public List<SelectedRecord> sortMetrics(TopNCondition condition, String valueColumnName, Duration duration, List<KeyValue> additionalConditions) throws IOException {
+        final String modelName = condition.getName();
+        final TimestampRange timestampRange = new TimestampRange(duration.getStartTimestamp(), duration.getEndTimestamp());
+```
+
+### BoundedWildcard
+Can generalize to `? extends PrepareRequest`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public CompletableFuture<Void> flush(List<PrepareRequest> prepareRequests) {
+        if (CollectionUtils.isNotEmpty(prepareRequests)) {
+            return CompletableFuture.allOf(prepareRequests.stream().map((Function<PrepareRequest, CompletableFuture<Void>>) r -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super NoneStream`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBNoneStreamDAO.java`
+#### Snippet
+```java
+    private final StorageBuilder<NoneStream> storageBuilder;
+
+    public BanyanDBNoneStreamDAO(BanyanDBStorageClient client, StorageBuilder<NoneStream> storageBuilder) {
+        super(client);
+        this.storageBuilder = storageBuilder;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tag`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBTraceQueryDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public TraceBrief queryBasicTraces(Duration duration, long minDuration, long maxDuration, String serviceId, String serviceInstanceId, String endpointId, String traceId, int limit, int from, TraceState traceState, QueryOrder queryOrder, List<Tag> tags) throws IOException {
+        long startSecondTB = 0;
+        long endSecondTB = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tag`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBAlarmQueryDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public Alarms getAlarm(Integer scopeId, String keyword, int limit, int from, Duration duration, List<Tag> tags) throws IOException {
+        long startTB = duration.getStartTimeBucketInSec();
+        long endTB = duration.getEndTimeBucketInSec();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+     * @since 9.2.0
+     */
+    public Optional<Documents> ids(Map<String, List<String>> indexIds) {
+        Map<String, List<String>> map = new HashMap<>();
+        indexIds.forEach((indexName, ids) -> {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+                               String user,
+                               String password,
+                               Function<String, String> indexNameConverter,
+                               int connectTimeout,
+                               int socketTimeout,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tag`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBLogQueryDAO.java`
+#### Snippet
+```java
+    public Logs queryLogs(String serviceId, String serviceInstanceId, String endpointId,
+                          TraceScopeCondition relatedTrace, Order queryOrder, int from, int limit,
+                          Duration duration, List<Tag> tags, List<String> keywordsOfContent,
+                          List<String> excludingKeywordsOfContent) throws IOException {
+        long startTB = 0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModelColumn`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+#### Snippet
+```java
+     * @return a list of column names in strict order
+     */
+    List<String> parseEntityNames(Map<String, ModelColumn> modelColumnMap) {
+        List<ModelColumn> shardingColumns = new ArrayList<>();
+        for (final ModelColumn col : modelColumnMap.values()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TagMetadata`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+#### Snippet
+```java
+        }
+
+        private List<TagFamilySpec> extractTagFamilySpec(List<TagMetadata> tagMetadataList, boolean shouldAddID) {
+            final String indexFamily = SchemaMetadata.this.indexFamily();
+            final String nonIndexFamily = SchemaMetadata.this.nonIndexFamily();
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
 #### Snippet
 ```java
     }
 
-    private List<EBPFProfilingTaskCommand> buildProfilingCommands(EBPFProfilingTask task, List<Process> processes) {
-        if (EBPFProfilingTargetType.NETWORK.equals(task.getTargetType())) {
-            final List<String> processIdList = processes.stream().filter(p -> Objects.equals(p.getInstanceId(), task.getServiceInstanceId())).map(Process::getId).collect(Collectors.toList());
+    private AnalyticalResult analyze(Metrics m, String tsCol, Map<String, List<String>> seriesIDColumns) {
+        StorageID id = m.id();
+        List<StorageID.Fragment> fragments = id.read();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Metrics`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Metrics> multiGet(Model model, List<Metrics> metrics) throws IOException {
+        log.info("multiGet {} from BanyanDB", model.getName());
+        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(model);
+```
+
+### BoundedWildcard
+Can generalize to `? extends EventQueryCondition`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBEventQueryDAO.java`
+#### Snippet
+```java
+    }
+
+    public QueryBuilder<MeasureQuery> buildQuery(final List<EventQueryCondition> conditionList) {
+        EventQueryCondition condition = conditionList.get(0);
+        final Order queryOrder = isNull(condition.getOrder()) ? Order.DES : condition.getOrder();
+```
+
+### BoundedWildcard
+Can generalize to `? extends MeterConfig`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/meter/process/MeterProcessService.java`
+#### Snippet
+```java
+    }
+
+    public void start(List<MeterConfig> configs) {
+        final MeterSystem meterSystem = manager.find(CoreModule.NAME).provider().getService(MeterSystem.class);
+        this.metricConverts = configs.stream().map(c -> new MetricConvert(c, meterSystem)).collect(Collectors.toList());
+```
+
+### BoundedWildcard
+Can generalize to `? super Source`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualMQProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    public void emitTo(final Consumer<Source> consumer) {
+        sourceList.forEach(consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Source`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualCacheProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    public void emitTo(Consumer<Source> consumer) {
+        sourceList.forEach(consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Source`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualDatabaseProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    public void emitTo(Consumer<Source> consumer) {
+        recordList.forEach(consumer);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleProvider`
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
+#### Snippet
+```java
+     */
+    void prepare(ModuleManager moduleManager, ApplicationConfiguration.ModuleConfiguration configuration,
+                 ServiceLoader<ModuleProvider> moduleProviderLoader) throws ProviderNotFoundException, ServiceNotProvidedException, ModuleConfigException, ModuleStartException {
+        for (ModuleProvider provider : moduleProviderLoader) {
+            if (!configuration.has(provider.name())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModuleDefine`
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/BootstrapFlow.java`
+#### Snippet
+```java
+    private List<ModuleProvider> startupSequence;
+
+    BootstrapFlow(Map<String, ModuleDefine> loadedModules) throws CycleDependencyException, ModuleNotFoundException {
+        this.loadedModules = loadedModules;
+        startupSequence = new ArrayList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/ArrayBlockingQueueBuffer.java`
+#### Snippet
+```java
+
+    @Override
+    public void obtain(List<T> consumeList) {
+        queue.drainTo(consumeList);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Channels.java`
+#### Snippet
+```java
+    private final long size;
+
+    public Channels(int channelSize, int bufferSize, IDataPartitioner<T> partitioner, BufferStrategy strategy) {
+        this.dataPartitioner = partitioner;
+        this.strategy = strategy;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Channels.java`
+#### Snippet
+```java
+    }
+
+    public void setPartitioner(IDataPartitioner<T> dataPartitioner) {
+        this.dataPartitioner = dataPartitioner;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Buffer.java`
+#### Snippet
+```java
+    }
+
+    void obtain(List<T> consumeList, int start, int end) {
+        for (int i = start; i < end; i++) {
+            if (buffer[i] != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConsumerPool`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/ConsumerPoolFactory.java`
+#### Snippet
+```java
+    }
+
+    public synchronized boolean createIfAbsent(String poolName, Callable<ConsumerPool> creator) throws Exception {
+        if (pools.containsKey(poolName)) {
+            return false;
+```
+
+### BoundedWildcard
+Can generalize to `? super StreamQuery`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+
+    protected StreamQueryResponse query(String streamModelName, Set<String> tags, TimestampRange timestampRange,
+                                        QueryBuilder<StreamQuery> builder) throws IOException {
+        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findRecordMetadata(streamModelName);
+        if (schema == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super MeasureQuery`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+
+    protected MeasureQueryResponse query(MetadataRegistry.Schema schema, Set<String> tags, Set<String> fields,
+                                         TimestampRange timestampRange, QueryBuilder<MeasureQuery> builder) throws IOException {
+        final MeasureQuery query;
+        if (timestampRange == null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
+#### Snippet
+```java
+
+    protected String parseStringValue(String value, PlaceholderResolver placeholderResolver,
+                                      Set<String> visitedPlaceholders) {
+
+        StringBuilder result = new StringBuilder(value);
+```
+
+### BoundedWildcard
+Can generalize to `? super NoneStream`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/NoneStreamEsDAO.java`
+#### Snippet
+```java
+
+    public NoneStreamEsDAO(ElasticSearchClient client,
+                           StorageBuilder<NoneStream> storageBuilder) {
+        super(client);
+        this.storageBuilder = storageBuilder;
+```
+
+### BoundedWildcard
+Can generalize to `? super ManagementData`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/ManagementEsDAO.java`
+#### Snippet
+```java
+
+    public ManagementEsDAO(ElasticSearchClient client,
+                           StorageBuilder<ManagementData> storageBuilder) {
+        super(client);
+        this.storageBuilder = storageBuilder;
+```
+
+### BoundedWildcard
+Can generalize to `? super Record`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RecordEsDAO.java`
+#### Snippet
+```java
+
+    public RecordEsDAO(ElasticSearchClient client,
+                       StorageBuilder<Record> storageBuilder) {
+        super(client);
+        this.storageBuilder = storageBuilder;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Metrics`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/MetricsEsDAO.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Metrics> multiGet(Model model, List<Metrics> metrics) {
+        Map<String, List<Metrics>> groupIndices = new HashMap<>();
+        List<Metrics> result = new ArrayList<>(metrics.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends KeyValue`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/AggregationQueryEsDAO.java`
+#### Snippet
+```java
+                                            final String valueColumnName,
+                                            final Duration duration,
+                                            final List<KeyValue> additionalConditions) {
+        final String realValueColumn = IndexController.LogicIndicesRegister.getPhysicalColumnName(condition.getName(), valueColumnName);
+        final RangeQueryBuilder basicQuery = Query.range(Metrics.TIME_BUCKET)
 ```
 
 ### BoundedWildcard
@@ -1842,9 +2183,45 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/C
 ```java
     }
 
+    private void addProfileService(List<Class> classes) {
+        classes.add(ProfileTaskMutationService.class);
+        classes.add(ProfileTaskQueryService.class);
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
+#### Snippet
+```java
+    }
+
+    private void addManagementService(List<Class> classes) {
+        classes.add(UITemplateManagementService.class);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
+#### Snippet
+```java
+    }
+
     private void addCacheService(List<Class> classes) {
         classes.add(NetworkAddressAliasCache.class);
     }
+```
+
+### BoundedWildcard
+Can generalize to `? super Class`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
+#### Snippet
+```java
+    }
+
+    private void addEBPFProfilingService(List<Class> classes) {
+        classes.add(EBPFProfilingMutationService.class);
+        classes.add(EBPFProfilingQueryService.class);
 ```
 
 ### BoundedWildcard
@@ -1878,9 +2255,9 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/C
 ```java
     }
 
-    private void addManagementService(List<Class> classes) {
-        classes.add(UITemplateManagementService.class);
-    }
+    private void addInsideService(List<Class> classes) {
+        classes.add(ModelCreator.class);
+        classes.add(IModelManager.class);
 ```
 
 ### BoundedWildcard
@@ -1896,39 +2273,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/C
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Class`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
+Can generalize to `? extends EventQueryCondition`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ESEventQueryDAO.java`
 #### Snippet
 ```java
     }
 
-    private void addProfileService(List<Class> classes) {
-        classes.add(ProfileTaskMutationService.class);
-        classes.add(ProfileTaskQueryService.class);
-```
+    protected SearchBuilder buildQuery(final List<EventQueryCondition> conditionList) {
+        final BoolQueryBuilder query = Query.bool();
 
-### BoundedWildcard
-Can generalize to `? super Class`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
-#### Snippet
-```java
-    }
-
-    private void addInsideService(List<Class> classes) {
-        classes.add(ModelCreator.class);
-        classes.add(IModelManager.class);
-```
-
-### BoundedWildcard
-Can generalize to `? super Class`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModule.java`
-#### Snippet
-```java
-    }
-
-    private void addEBPFProfilingService(List<Class> classes) {
-        classes.add(EBPFProfilingMutationService.class);
-        classes.add(EBPFProfilingQueryService.class);
 ```
 
 ### BoundedWildcard
@@ -1944,18 +2297,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/alarm/AlarmStandardPersistence.java`
-#### Snippet
-```java
-
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessage) {
-        alarmMessage.forEach(message -> {
-            if (LOGGER.isDebugEnabled()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Tag`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/alarm/AlarmStandardPersistence.java`
 #### Snippet
@@ -1968,15 +2309,27 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Call.CallDetail`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/ServiceTopologyBuilder.java`
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/alarm/AlarmStandardPersistence.java`
+#### Snippet
+```java
+
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessage) {
+        alarmMessage.forEach(message -> {
+            if (LOGGER.isDebugEnabled()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
 #### Snippet
 ```java
     }
 
-    Topology build(List<Call.CallDetail> serviceRelationClientCalls, List<Call.CallDetail> serviceRelationServerCalls) {
-
-        Map<String, Node> nodes = new HashMap<>();
+    private void buildTraces(SearchResponse response, Map<String, List<Span>> groupedByTraceId) {
+        for (SearchHit searchHit : response.getHits()) {
+            Map<String, Object> sourceAsMap = searchHit.getSource();
 ```
 
 ### BoundedWildcard
@@ -1992,39 +2345,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Span`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
+Can generalize to `? extends Call.CallDetail`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/ServiceTopologyBuilder.java`
 #### Snippet
 ```java
     }
 
-    private void findChildren(List<Span> spans, Span parentSpan, List<Span> childrenSpan) {
-        spans.forEach(span -> {
-            if (span.getSegmentParentSpanId().equals(parentSpan.getSegmentSpanId())) {
-```
+    Topology build(List<Call.CallDetail> serviceRelationClientCalls, List<Call.CallDetail> serviceRelationServerCalls) {
 
-### BoundedWildcard
-Can generalize to `? super Span`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
-#### Snippet
-```java
-    }
-
-    private void findChildren(List<Span> spans, Span parentSpan, List<Span> childrenSpan) {
-        spans.forEach(span -> {
-            if (span.getSegmentParentSpanId().equals(parentSpan.getSegmentSpanId())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Span`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
-#### Snippet
-```java
-    }
-
-    private List<Span> findRoot(List<Span> spans) {
-        List<Span> rootSpans = new ArrayList<>();
-        spans.forEach(span -> {
+        Map<String, Node> nodes = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -2064,6 +2393,42 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Span`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
+#### Snippet
+```java
+    }
+
+    private void findChildren(List<Span> spans, Span parentSpan, List<Span> childrenSpan) {
+        spans.forEach(span -> {
+            if (span.getSegmentParentSpanId().equals(parentSpan.getSegmentSpanId())) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Span`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
+#### Snippet
+```java
+    }
+
+    private void findChildren(List<Span> spans, Span parentSpan, List<Span> childrenSpan) {
+        spans.forEach(span -> {
+            if (span.getSegmentParentSpanId().equals(parentSpan.getSegmentSpanId())) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Span`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
+#### Snippet
+```java
+    }
+
+    private List<Span> findRoot(List<Span> spans) {
+        List<Span> rootSpans = new ArrayList<>();
+        spans.forEach(span -> {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Call.CallDetail`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/ProcessTopologyBuilder.java`
 #### Snippet
@@ -2071,7 +2436,7 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
     }
 
     ProcessTopology build(List<Call.CallDetail> clientCalls,
-                          List<Call.CallDetail> serverCalls) throws IOException {
+                          List<Call.CallDetail> serverCalls) throws Exception {
         List<Call> calls = new LinkedList<>();
 ```
 
@@ -2082,7 +2447,7 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
 ```java
 
     ProcessTopology build(List<Call.CallDetail> clientCalls,
-                          List<Call.CallDetail> serverCalls) throws IOException {
+                          List<Call.CallDetail> serverCalls) throws Exception {
         List<Call> calls = new LinkedList<>();
         HashMap<String, Call> callMap = new HashMap<>();
 ```
@@ -2328,6 +2693,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends EBPFNetworkSamplingRule`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+    }
+
+    private String validateSamplingRules(List<EBPFNetworkSamplingRule> rules) {
+        if (CollectionUtils.isEmpty(rules)) {
+            return null;
+```
+
+### BoundedWildcard
 Can generalize to `? super Tuple2`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/analyze/EBPFProfilingStackNode.java`
 #### Snippet
@@ -2349,6 +2726,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
     private List<ProfileTaskLog> findMatchedLogs(final String taskID, final List<ProfileTaskLog> allLogs) {
         return allLogs.stream()
                 .filter(l -> Objects.equal(l.getTaskId(), taskID))
+```
+
+### BoundedWildcard
+Can generalize to `? super Pair`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileStackNode.java`
+#### Snippet
+```java
+     */
+    private void combineChildrenNodes(ProfileStackNode targetNode, ProfileStackNode beingMergedNode,
+        Consumer<Pair<ProfileStackNode, ProfileStackNode>> continueChildrenMerging) {
+        if (beingMergedNode.children.isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -2376,27 +2765,27 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends EBPFNetworkSamplingRule`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+Can generalize to `? extends SQLExecutor`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/SQLExecutor.java`
 #### Snippet
 ```java
     }
 
-    private String validateSamplingRules(List<EBPFNetworkSamplingRule> rules) {
-        if (CollectionUtils.isEmpty(rules)) {
-            return null;
+    public void appendAdditionalSQLs(List<SQLExecutor> sqlExecutors) {
+        if (additionalSQLs == null) {
+            additionalSQLs = new ArrayList<>();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Pair`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileStackNode.java`
+Can generalize to `? extends Process`
+in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProfilingServiceHandler.java`
 #### Snippet
 ```java
-     */
-    private void combineChildrenNodes(ProfileStackNode targetNode, ProfileStackNode beingMergedNode,
-        Consumer<Pair<ProfileStackNode, ProfileStackNode>> continueChildrenMerging) {
-        if (beingMergedNode.children.isEmpty()) {
-            return;
+    }
+
+    private List<EBPFProfilingTaskCommand> buildProfilingCommands(EBPFProfilingTask task, List<Process> processes) {
+        if (EBPFProfilingTargetType.NETWORK.equals(task.getTargetType())) {
+            final List<String> processIdList = processes.stream().filter(p -> Objects.equals(p.getInstanceId(), task.getServiceInstanceId())).map(Process::getId).collect(Collectors.toList());
 ```
 
 ### BoundedWildcard
@@ -2424,507 +2813,51 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Query`
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/search/BoolQuery.java`
-#### Snippet
-```java
-
-        private void writeArray(final JsonGenerator gen, final String name,
-                                final List<Query> array) throws IOException {
-            if (array == null || array.isEmpty()) {
-                return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v6/V6DocumentFactory.java`
-#### Snippet
-```java
-    @SneakyThrows
-    @Override
-    public HttpRequest mget(final String type, final Map<String, List<String>> indexIds) {
-        checkArgument(!isNullOrEmpty(type), "type cannot be null or empty");
-        checkArgument(indexIds != null && !indexIds.isEmpty(), "ids cannot be null or empty");
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/V7DocumentFactory.java`
-#### Snippet
-```java
-    @SneakyThrows
-    @Override
-    public HttpRequest mget(final String type, final Map<String, List<String>> indexIds) {
-        checkArgument(!isNullOrEmpty(type), "type cannot be null or empty");
-        checkArgument(indexIds != null && !indexIds.isEmpty(), "ids cannot be null or empty");
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
-#### Snippet
-```java
-
-    protected String parseStringValue(String value, PlaceholderResolver placeholderResolver,
-                                      Set<String> visitedPlaceholders) {
-
-        StringBuilder result = new StringBuilder(value);
-```
-
-### BoundedWildcard
-Can generalize to `? extends KeyValue`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBAggregationQueryDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public List<SelectedRecord> sortMetrics(TopNCondition condition, String valueColumnName, Duration duration, List<KeyValue> additionalConditions) throws IOException {
-        final String modelName = condition.getName();
-        final TimestampRange timestampRange = new TimestampRange(duration.getStartTimestamp(), duration.getEndTimestamp());
-```
-
-### BoundedWildcard
-Can generalize to `? extends PrepareRequest`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public CompletableFuture<Void> flush(List<PrepareRequest> prepareRequests) {
-        if (CollectionUtils.isNotEmpty(prepareRequests)) {
-            return CompletableFuture.allOf(prepareRequests.stream().map((Function<PrepareRequest, CompletableFuture<Void>>) r -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super NoneStream`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBNoneStreamDAO.java`
-#### Snippet
-```java
-    private final StorageBuilder<NoneStream> storageBuilder;
-
-    public BanyanDBNoneStreamDAO(BanyanDBStorageClient client, StorageBuilder<NoneStream> storageBuilder) {
-        super(client);
-        this.storageBuilder = storageBuilder;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBTraceQueryDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public TraceBrief queryBasicTraces(Duration duration, long minDuration, long maxDuration, String serviceId, String serviceInstanceId, String endpointId, String traceId, int limit, int from, TraceState traceState, QueryOrder queryOrder, List<Tag> tags) throws IOException {
-        long startSecondTB = 0;
-        long endSecondTB = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBAlarmQueryDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public Alarms getAlarm(Integer scopeId, String keyword, int limit, int from, Duration duration, List<Tag> tags) throws IOException {
-        long startTB = duration.getStartTimeBucketInSec();
-        long endTB = duration.getEndTimeBucketInSec();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBLogQueryDAO.java`
-#### Snippet
-```java
-    public Logs queryLogs(String serviceId, String serviceInstanceId, String endpointId,
-                          TraceScopeCondition relatedTrace, Order queryOrder, int from, int limit,
-                          Duration duration, List<Tag> tags, List<String> keywordsOfContent,
-                          List<String> excludingKeywordsOfContent) throws IOException {
-        long startTB = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TagMetadata`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
-#### Snippet
-```java
-        }
-
-        private List<TagFamilySpec> extractTagFamilySpec(List<TagMetadata> tagMetadataList, boolean shouldAddID) {
-            final String indexFamily = SchemaMetadata.this.indexFamily();
-            final String nonIndexFamily = SchemaMetadata.this.nonIndexFamily();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
-#### Snippet
-```java
-     * @return a list of column names in strict order
-     */
-    List<String> parseEntityNames(Map<String, ModelColumn> modelColumnMap) {
-        List<ModelColumn> shardingColumns = new ArrayList<>();
-        for (final ModelColumn col : modelColumnMap.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventQueryCondition`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBEventQueryDAO.java`
-#### Snippet
-```java
-    }
-
-    public QueryBuilder<MeasureQuery> buildQuery(final List<EventQueryCondition> conditionList) {
-        EventQueryCondition condition = conditionList.get(0);
-        final Order queryOrder = isNull(condition.getOrder()) ? Order.DES : condition.getOrder();
-```
-
-### BoundedWildcard
-Can generalize to `? super NoneStream`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/NoneStreamEsDAO.java`
-#### Snippet
-```java
-
-    public NoneStreamEsDAO(ElasticSearchClient client,
-                           StorageBuilder<NoneStream> storageBuilder) {
-        super(client);
-        this.storageBuilder = storageBuilder;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
-#### Snippet
-```java
-    }
-
-    private AnalyticalResult analyze(Metrics m, String tsCol, Map<String, List<String>> seriesIDColumns) {
-        StorageID id = m.id();
-        List<StorageID.Fragment> fragments = id.read();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Metrics`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Metrics> multiGet(Model model, List<Metrics> metrics) throws IOException {
-        log.info("multiGet {} from BanyanDB", model.getName());
-        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(model);
-```
-
-### BoundedWildcard
-Can generalize to `? super ManagementData`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/ManagementEsDAO.java`
-#### Snippet
-```java
-
-    public ManagementEsDAO(ElasticSearchClient client,
-                           StorageBuilder<ManagementData> storageBuilder) {
-        super(client);
-        this.storageBuilder = storageBuilder;
-```
-
-### BoundedWildcard
-Can generalize to `? super Record`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RecordEsDAO.java`
-#### Snippet
-```java
-
-    public RecordEsDAO(ElasticSearchClient client,
-                       StorageBuilder<Record> storageBuilder) {
-        super(client);
-        this.storageBuilder = storageBuilder;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Metrics`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/MetricsEsDAO.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Metrics> multiGet(Model model, List<Metrics> metrics) {
-        Map<String, List<Metrics>> groupIndices = new HashMap<>();
-        List<Metrics> result = new ArrayList<>(metrics.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends KeyValue`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/AggregationQueryEsDAO.java`
-#### Snippet
-```java
-                                            final String valueColumnName,
-                                            final Duration duration,
-                                            final List<KeyValue> additionalConditions) {
-        final String realValueColumn = IndexController.LogicIndicesRegister.getPhysicalColumnName(condition.getName(), valueColumnName);
-        final RangeQueryBuilder basicQuery = Query.range(Metrics.TIME_BUCKET)
-```
-
-### BoundedWildcard
-Can generalize to `? extends EventQueryCondition`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ESEventQueryDAO.java`
-#### Snippet
-```java
-    }
-
-    protected SearchBuilder buildQuery(final List<EventQueryCondition> conditionList) {
-        final BoolQueryBuilder query = Query.bool();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
-#### Snippet
-```java
-    }
-
-    private void buildTraces(SearchResponse response, Map<String, List<Span>> groupedByTraceId) {
-        for (SearchHit searchHit : response.getHits()) {
-            Map<String, Object> sourceAsMap = searchHit.getSource();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MeterConfig`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/meter/process/MeterProcessService.java`
-#### Snippet
-```java
-    }
-
-    public void start(List<MeterConfig> configs) {
-        final MeterSystem meterSystem = manager.find(CoreModule.NAME).provider().getService(MeterSystem.class);
-        this.metricConverts = configs.stream().map(c -> new MetricConvert(c, meterSystem)).collect(Collectors.toList());
-```
-
-### BoundedWildcard
-Can generalize to `? super StreamQuery`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-
-    protected StreamQueryResponse query(String streamModelName, Set<String> tags, TimestampRange timestampRange,
-                                        QueryBuilder<StreamQuery> builder) throws IOException {
-        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findRecordMetadata(streamModelName);
-        if (schema == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super MeasureQuery`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-
-    protected MeasureQueryResponse query(MetadataRegistry.Schema schema, Set<String> tags, Set<String> fields,
-                                         TimestampRange timestampRange, QueryBuilder<MeasureQuery> builder) throws IOException {
-        final MeasureQuery query;
-        if (timestampRange == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Source`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualDatabaseProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    public void emitTo(Consumer<Source> consumer) {
-        recordList.forEach(consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Source`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualCacheProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    public void emitTo(Consumer<Source> consumer) {
-        sourceList.forEach(consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Source`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/vservice/VirtualMQProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    public void emitTo(final Consumer<Source> consumer) {
-        sourceList.forEach(consumer);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmCallback`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmCore.java`
-#### Snippet
-```java
-    }
-
-    public void start(List<AlarmCallback> allCallbacks) {
-        LocalDateTime now = LocalDateTime.now();
-        lastExecuteTime = now;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/wechat/WechatHookCallback.java`
-#### Snippet
-```java
-
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getWechatSettings() == null || alarmRulesWatcher.getWechatSettings().getWebhooks().isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/discord/DiscordHookCallback.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        final var discordSettings = alarmRulesWatcher.getDiscordSettings();
-        if (discordSettings == null || discordSettings.getWebhooks().isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/feishu/FeishuHookCallback.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getFeishuSettings() == null || alarmRulesWatcher.getFeishuSettings().getWebhooks().isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/slack/SlackhookCallback.java`
-#### Snippet
-```java
-
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getSlackSettings() == null || alarmRulesWatcher.getSlackSettings().getWebhooks().isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompositeAlarmRule`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/CompositeRuleEvaluator.java`
-#### Snippet
-```java
-     * @return
-     */
-    public List<AlarmMessage> evaluate(List<CompositeAlarmRule> compositeAlarmRules, List<AlarmMessage> alarmMessages) {
-        final List<AlarmMessage> compositeRuleMessages = new ArrayList<>();
-        ImmutableListMultimap<String, AlarmMessage> messageMap = Multimaps.index(alarmMessages, alarmMessage ->
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/dingtalk/DingtalkHookCallback.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getDingtalkSettings() == null || alarmRulesWatcher.getDingtalkSettings().getWebhooks().isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/pagerduty/PagerDutyHookCallback.java`
-#### Snippet
-```java
-
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getPagerDutySettings() == null || alarmRulesWatcher.getPagerDutySettings().getIntegrationKeys().isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AlarmMessage`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/welink/WeLinkHookCallback.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
-        if (alarmRulesWatcher.getWeLinkSettings() == null
-                || alarmRulesWatcher.getWeLinkSettings().getWebhooks().isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SQLExecutor`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/SQLExecutor.java`
-#### Snippet
-```java
-    }
-
-    public void appendAdditionalSQLs(List<SQLExecutor> sqlExecutors) {
-        if (additionalSQLs == null) {
-            additionalSQLs = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Metrics`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/RunningRule.java`
-#### Snippet
-```java
-    }
-
-    private LinkedList<TraceLogMetric> transformValues(final LinkedList<Metrics> values) {
-        LinkedList<TraceLogMetric> r = new LinkedList<>();
-        values.forEach(m -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/h2/H2TableInstaller.java`
-#### Snippet
-```java
-    public void createTable(JDBCHikariCPClient client,
-                            Connection connection,
-                            String tableName, List<ModelColumn> columns, boolean additionalTable) throws JDBCClientException {
-        SQLBuilder tableCreateSQL = new SQLBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
-        tableCreateSQL.appendLine(ID_COLUMN).appendLine(" VARCHAR(512) ");
-```
-
-### BoundedWildcard
 Can generalize to `? extends Metrics`
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsDAO.java`
 #### Snippet
 ```java
 
     @Override
-    public List<Metrics> multiGet(Model model, List<Metrics> metrics) throws IOException {
-        String[] ids = metrics.stream().map(m -> m.id().build()).collect(Collectors.toList()).toArray(new String[] {});
-        List<StorageData> storageDataList = getByIDs(jdbcClient, model.getName(), ids, storageBuilder);
+    public List<Metrics> multiGet(Model model, List<Metrics> metrics) throws Exception {
+        final var ids = metrics.stream().map(m -> TableHelper.generateId(model, m.id().build())).collect(toList());
+        final var storageDataList = getByIDs(jdbcClient, model.getName(), ids, storageBuilder);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/mysql/MySQLTableInstaller.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/JDBCTableInstaller.java`
 #### Snippet
 ```java
-        Connection connection,
-        String tableName,
-        List<ModelColumn> columns,
-        boolean additionalTable) throws JDBCClientException {
-        SQLBuilder tableCreateSQL =
+    }
+
+    private void createTable(String table, List<ModelColumn> columns, boolean isAdditionalTable) throws SQLException {
+        final var columnDefinitions = new ArrayList<String>();
+        columnDefinitions.add(ID_COLUMN + " VARCHAR(512)" + (!isAdditionalTable ? " PRIMARY KEY" : ""));
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModelColumn`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/JDBCTableInstaller.java`
+#### Snippet
+```java
+    }
+
+    public void createOrUpdateTableIndexes(String table, List<ModelColumn> columns,
+                                           boolean isAdditionalTable) throws SQLException {
+        final var jdbcClient = (JDBCClient) client;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ModelColumn`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/JDBCTableInstaller.java`
+#### Snippet
+```java
+    }
+
+    private void updateTable(String table, List<ModelColumn> columns) throws SQLException {
+        final var alterSqls =
+            columns
 ```
 
 ### BoundedWildcard
@@ -2935,68 +2868,8 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 
     @Override
     public Events queryEvents(List<EventQueryCondition> conditions) throws Exception {
-        final List<Tuple2<Stream<String>, Stream<Object>>> conditionsParametersPair = conditions.stream()
-                                                                                                .map(this::buildQuery)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
-#### Snippet
-```java
-    @Override
-    public Alarms getAlarm(Integer scopeId, String keyword, int limit, int from,
-                           Duration duration, final List<Tag> tags) throws IOException {
-        long startTB = 0;
-        long endTB = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
-#### Snippet
-```java
-                                       TraceState traceState,
-                                       QueryOrder queryOrder,
-                                       final List<Tag> tags) throws IOException {
-        long startSecondTB = 0;
-        long endSecondTB = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-    protected <T extends StorageData> SQLExecutor getInsertExecutor(String modelName, T metrics,
-                                                                    StorageBuilder<T> storageBuilder,
-                                                                    Convert2Storage<Map<String, Object>> converter,
-                                                                    SessionCacheCallback callback) throws IOException {
-        Model model = TableMetaInfo.get(modelName);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-
-    private <T extends StorageData> SQLExecutor buildInsertExecutor(String tableName,
-                                                                    List<ModelColumn> columns,
-                                                                    T metrics,
-                                                                    Map<String, Object> objectMap,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-
-    private <T extends StorageData> List<SQLExecutor> buildAdditionalInsertExecutor(String tableName,
-                                                                                    List<ModelColumn> columns,
-                                                                                    T metrics,
-                                                                                    Map<String, Object> objectMap,
+        final var conditionsParametersPair = conditions.stream()
+                                                       .map(this::buildQuery)
 ```
 
 ### BoundedWildcard
@@ -3012,27 +2885,39 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KeyValue`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAggregationQueryDAO.java`
+Can generalize to `? extends Map`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
 #### Snippet
 ```java
-                                            final String valueColumnName,
-                                            final Duration duration,
-                                            List<KeyValue> additionalConditions) throws IOException {
-        List<Object> conditions = new ArrayList<>(10);
-        StringBuilder sql = buildMetricsValueSql(valueColumnName, metrics.getName());
+                                                                    long timeBucket,
+                                                                    StorageBuilder<T> storageBuilder,
+                                                                    Convert2Storage<Map<String, Object>> converter,
+                                                                    SessionCacheCallback callback) throws IOException {
+        storageBuilder.entity2Storage(metrics, converter);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends ModelColumn`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/postgresql/PostgreSQLTableInstaller.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
 #### Snippet
 ```java
-        Connection connection,
-        String tableName,
-        List<ModelColumn> columns,
-        boolean additionalTable) throws JDBCClientException {
-        // Additional table's id follow the main table can not be primary key
+
+    private <T extends StorageData> List<SQLExecutor> buildAdditionalInsertExecutor(Model model, String tableName,
+                                                                                    List<ModelColumn> columns,
+                                                                                    T metrics,
+                                                                                    long timeBucket,
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tag`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                                       TraceState traceState,
+                                       QueryOrder queryOrder,
+                                       final List<Tag> tags) throws IOException {
+        if (searchableTagKeys == null) {
+            final ConfigService configService = manager.find(CoreModule.NAME)
 ```
 
 ### BoundedWildcard
@@ -3043,18 +2928,6 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
     }
 
     private void buildProcessCalls(ResultSet resultSet, List<Call.CallDetail> calls,
-                                    DetectPoint detectPoint) throws SQLException {
-        while (resultSet.next()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Call.CallDetail`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
-#### Snippet
-```java
-    }
-
-    private void buildInstanceCalls(ResultSet resultSet, List<Call.CallDetail> calls,
                                     DetectPoint detectPoint) throws SQLException {
         while (resultSet.next()) {
 ```
@@ -3084,15 +2957,39 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Tag`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCLogQueryDAO.java`
+Can generalize to `? super Call.CallDetail`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
 #### Snippet
 ```java
-                          int limit,
-                          final Duration duration,
-                          final List<Tag> tags,
-                          final List<String> keywordsOfContent,
-                          final List<String> excludingKeywordsOfContent) throws IOException {
+    }
+
+    private void buildInstanceCalls(ResultSet resultSet, List<Call.CallDetail> calls,
+                                    DetectPoint detectPoint) throws SQLException {
+        while (resultSet.next()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends KeyValue`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAggregationQueryDAO.java`
+#### Snippet
+```java
+        final String valueColumnName,
+        final Duration duration,
+        final List<KeyValue> queries,
+        final String table) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends Query`
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/search/BoolQuery.java`
+#### Snippet
+```java
+
+        private void writeArray(final JsonGenerator gen, final String name,
+                                final List<Query> array) throws IOException {
+            if (array == null || array.isEmpty()) {
+                return;
 ```
 
 ### BoundedWildcard
@@ -3117,6 +3014,30 @@ in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/
     private byte[] encodeTraces(List<List<Span>> traces) {
         if (CollectionUtils.isEmpty(traces)) {
             return new byte[] {
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v6/V6DocumentFactory.java`
+#### Snippet
+```java
+    @SneakyThrows
+    @Override
+    public HttpRequest mget(final String type, final Map<String, List<String>> indexIds) {
+        checkArgument(!isNullOrEmpty(type), "type cannot be null or empty");
+        checkArgument(indexIds != null && !indexIds.isEmpty(), "ids cannot be null or empty");
+```
+
+### BoundedWildcard
+Can generalize to `? extends List`
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/V7DocumentFactory.java`
+#### Snippet
+```java
+    @SneakyThrows
+    @Override
+    public HttpRequest mget(final String type, final Map<String, List<String>> indexIds) {
+        checkArgument(!isNullOrEmpty(type), "type cannot be null or empty");
+        checkArgument(indexIds != null && !indexIds.isEmpty(), "ids cannot be null or empty");
 ```
 
 ### BoundedWildcard
@@ -3216,75 +3137,123 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Channels.java`
+Can generalize to `? extends AlarmCallback`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmCore.java`
 #### Snippet
 ```java
     }
 
-    public void setPartitioner(IDataPartitioner<T> dataPartitioner) {
-        this.dataPartitioner = dataPartitioner;
-    }
+    public void start(List<AlarmCallback> allCallbacks) {
+        LocalDateTime now = LocalDateTime.now();
+        lastExecuteTime = now;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Channels.java`
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/feishu/FeishuHookCallback.java`
 #### Snippet
 ```java
-    private final long size;
-
-    public Channels(int channelSize, int bufferSize, IDataPartitioner<T> partitioner, BufferStrategy strategy) {
-        this.dataPartitioner = partitioner;
-        this.strategy = strategy;
+     */
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getFeishuSettings() == null || alarmRulesWatcher.getFeishuSettings().getWebhooks().isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/ArrayBlockingQueueBuffer.java`
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/wechat/WechatHookCallback.java`
 #### Snippet
 ```java
 
     @Override
-    public void obtain(List<T> consumeList) {
-        queue.drainTo(consumeList);
-    }
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getWechatSettings() == null || alarmRulesWatcher.getWechatSettings().getWebhooks().isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/buffer/Buffer.java`
+Can generalize to `? extends CompositeAlarmRule`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/CompositeRuleEvaluator.java`
+#### Snippet
+```java
+     * @return
+     */
+    public List<AlarmMessage> evaluate(List<CompositeAlarmRule> compositeAlarmRules, List<AlarmMessage> alarmMessages) {
+        final List<AlarmMessage> compositeRuleMessages = new ArrayList<>();
+        ImmutableListMultimap<String, AlarmMessage> messageMap = Multimaps.index(alarmMessages, alarmMessage ->
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/discord/DiscordHookCallback.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        final var discordSettings = alarmRulesWatcher.getDiscordSettings();
+        if (discordSettings == null || discordSettings.getWebhooks().isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/welink/WeLinkHookCallback.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getWeLinkSettings() == null
+                || alarmRulesWatcher.getWeLinkSettings().getWebhooks().isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/slack/SlackhookCallback.java`
+#### Snippet
+```java
+
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getSlackSettings() == null || alarmRulesWatcher.getSlackSettings().getWebhooks().isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/dingtalk/DingtalkHookCallback.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getDingtalkSettings() == null || alarmRulesWatcher.getDingtalkSettings().getWebhooks().isEmpty()) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Metrics`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/RunningRule.java`
 #### Snippet
 ```java
     }
 
-    void obtain(List<T> consumeList, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (buffer[i] != null) {
+    private LinkedList<TraceLogMetric> transformValues(final LinkedList<Metrics> values) {
+        LinkedList<TraceLogMetric> r = new LinkedList<>();
+        values.forEach(m -> {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConsumerPool`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/ConsumerPoolFactory.java`
+Can generalize to `? extends AlarmMessage`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/pagerduty/PagerDutyHookCallback.java`
 #### Snippet
 ```java
-    }
 
-    public synchronized boolean createIfAbsent(String poolName, Callable<ConsumerPool> creator) throws Exception {
-        if (pools.containsKey(poolName)) {
-            return false;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/Analyzer.java`
-#### Snippet
-```java
-    }
-
-    private String composeGroup(ImmutableMap<String, String> labels, Predicate<String> filter) {
-        return labels.keySet().stream().filter(filter).sorted().map(labels::get)
-                     .collect(Collectors.joining("-"));
+    @Override
+    public void doAlarm(List<AlarmMessage> alarmMessages) throws Exception {
+        if (alarmRulesWatcher.getPagerDutySettings() == null || alarmRulesWatcher.getPagerDutySettings().getIntegrationKeys().isEmpty()) {
+            return;
 ```
 
 ### BoundedWildcard
@@ -3300,6 +3269,18 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/Analyzer.java`
+#### Snippet
+```java
+    }
+
+    private String composeGroup(ImmutableMap<String, String> labels, Predicate<String> filter) {
+        return labels.keySet().stream().filter(filter).sorted().map(labels::get)
+                     .collect(Collectors.joining("-"));
+```
+
+### BoundedWildcard
 Can generalize to `? extends Metric`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/prometheus/PrometheusMetricConverter.java`
 #### Snippet
@@ -3309,42 +3290,6 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
     public ImmutableMap<String, SampleFamily> convertPromMetricToSampleFamily(Stream<Metric> metricStream) {
         return metricStream
             .peek(metric -> log.debug("Prom metric to be convert to SampleFamily: {}", metric))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleProvider`
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
-#### Snippet
-```java
-     */
-    void prepare(ModuleManager moduleManager, ApplicationConfiguration.ModuleConfiguration configuration,
-                 ServiceLoader<ModuleProvider> moduleProviderLoader) throws ProviderNotFoundException, ServiceNotProvidedException, ModuleConfigException, ModuleStartException {
-        for (ModuleProvider provider : moduleProviderLoader) {
-            if (!configuration.has(provider.name())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ModuleDefine`
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/BootstrapFlow.java`
-#### Snippet
-```java
-    private List<ModuleProvider> startupSequence;
-
-    BootstrapFlow(Map<String, ModuleDefine> loadedModules) throws CycleDependencyException, ModuleNotFoundException {
-        this.loadedModules = loadedModules;
-        startupSequence = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ZabbixConfig`
-in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/ZabbixMetrics.java`
-#### Snippet
-```java
-    private List<InstanceGroup> allServices = new ArrayList<>();
-
-    public ZabbixMetrics(List<ZabbixConfig> originalConfigs, MeterSystem meterSystem) {
-        this.originalConfigs = originalConfigs;
-        initConfigs(meterSystem);
 ```
 
 ### BoundedWildcard
@@ -3360,75 +3305,39 @@ in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+Can generalize to `? extends ZabbixConfig`
+in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/ZabbixMetrics.java`
 #### Snippet
 ```java
-                               String user,
-                               String password,
-                               Function<String, String> indexNameConverter,
-                               int connectTimeout,
-                               int socketTimeout,
+    private List<InstanceGroup> allServices = new ArrayList<>();
+
+    public ZabbixMetrics(List<ZabbixConfig> originalConfigs, MeterSystem meterSystem) {
+        this.originalConfigs = originalConfigs;
+        initConfigs(meterSystem);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-     * @since 9.2.0
-     */
-    public Optional<Documents> ids(Map<String, List<String>> indexIds) {
-        Map<String, List<String>> map = new HashMap<>();
-        indexIds.forEach((indexName, ids) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sample`
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-        }
-
-        private static String dim(List<Sample> samples, List<String> labelKeys, String delimiter) {
-            String name = labelKeys.stream()
-                                   .map(k -> samples.get(0).labels.getOrDefault(k, ""))
-```
-
-### BoundedWildcard
-Can generalize to `? extends Sample`
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
-#### Snippet
-```java
-    private static class InternalOps {
-
-        private static Sample[] left(List<Sample> samples, List<String> labelKeys) {
-            return samples.stream().map(s -> {
-                ImmutableMap<String, String> ll = ImmutableMap.<String, String>builder()
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? super Double`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
     }
 
-    private SampleFamily match(String[] labels, Function2<String, String, Boolean> op) {
-        Preconditions.checkArgument(labels.length % 2 == 0);
-        Map<String, String> ll = new HashMap<>(labels.length / 2);
+    private SampleFamily newValue(SampleFamily another, Function2<Double, Double, Double> transform) {
+        Sample[] ss = Arrays.stream(samples)
+                            .flatMap(cs -> io.vavr.collection.Stream.of(another.samples)
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? super Double`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
     }
 
-    private SampleFamily match(String[] labels, Function2<String, String, Boolean> op) {
-        Preconditions.checkArgument(labels.length % 2 == 0);
-        Map<String, String> ll = new HashMap<>(labels.length / 2);
+    private SampleFamily newValue(SampleFamily another, Function2<Double, Double, Double> transform) {
+        Sample[] ss = Arrays.stream(samples)
+                            .flatMap(cs -> io.vavr.collection.Stream.of(another.samples)
 ```
 
 ### BoundedWildcard
@@ -3468,30 +3377,224 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Double`
+Can generalize to `? extends Sample`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
-    }
+    private static class InternalOps {
 
-    private SampleFamily newValue(SampleFamily another, Function2<Double, Double, Double> transform) {
-        Sample[] ss = Arrays.stream(samples)
-                            .flatMap(cs -> io.vavr.collection.Stream.of(another.samples)
+        private static Sample[] left(List<Sample> samples, List<String> labelKeys) {
+            return samples.stream().map(s -> {
+                ImmutableMap<String, String> ll = ImmutableMap.<String, String>builder()
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Double`
+Can generalize to `? extends Sample`
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+        }
+
+        private static String dim(List<Sample> samples, List<String> labelKeys, String delimiter) {
+            String name = labelKeys.stream()
+                                   .map(k -> samples.get(0).labels.getOrDefault(k, ""))
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
 ```java
     }
 
-    private SampleFamily newValue(SampleFamily another, Function2<Double, Double, Double> transform) {
-        Sample[] ss = Arrays.stream(samples)
-                            .flatMap(cs -> io.vavr.collection.Stream.of(another.samples)
+    private SampleFamily match(String[] labels, Function2<String, String, Boolean> op) {
+        Preconditions.checkArgument(labels.length % 2 == 0);
+        Map<String, String> ll = new HashMap<>(labels.length / 2);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
+#### Snippet
+```java
+    }
+
+    private SampleFamily match(String[] labels, Function2<String, String, Boolean> op) {
+        Preconditions.checkArgument(labels.length % 2 == 0);
+        Map<String, String> ll = new HashMap<>(labels.length / 2);
+```
+
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `GRPCClientConfig` has no concrete subclass
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/grpc/GRPCClientConfig.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.library.client.grpc;
+
+public abstract class GRPCClientConfig {
+
+    private String host;
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MinDoubleMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/MinDoubleMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "minDouble")
+public abstract class MinDoubleMetrics extends Metrics implements DoubleValueHolder {
+
+    protected static final String VALUE = "value";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MaxDoubleMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/MaxDoubleMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "maxDouble")
+public abstract class MaxDoubleMetrics extends Metrics implements DoubleValueHolder {
+
+    protected static final String VALUE = "value";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DoubleAvgMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/DoubleAvgMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "doubleAvg")
+public abstract class DoubleAvgMetrics extends Metrics implements DoubleValueHolder {
+
+    protected static final String SUMMATION = "double_summation";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RateMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/RateMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "rate")
+public abstract class RateMetrics extends Metrics implements IntValueHolder {
+    protected static final String DENOMINATOR = "denominator";
+    protected static final String NUMERATOR = "numerator";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `CPMMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/CPMMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "cpm")
+public abstract class CPMMetrics extends Metrics implements LongValueHolder {
+
+    protected static final String VALUE = "value";
+```
+
+### AbstractClassNeverImplemented
+Abstract class `SumMetrics` has no concrete subclass
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/SumMetrics.java`
+#### Snippet
+```java
+
+@MetricsFunction(functionName = "sum")
+public abstract class SumMetrics extends Metrics implements LongValueHolder {
+
+    protected static final String VALUE = "value";
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/SQLAndParameters.java`
+#### Snippet
+```java
+    @Getter
+    private final String sql;
+    @NonNull
+    private final List<Object> parameters;
+
 ```
 
 ## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `synchronized public`
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
+#### Snippet
+```java
+
+    @Override
+    synchronized public void registerConfigChangeWatcher(ConfigChangeWatcher watcher) {
+        if (isStarted) {
+            throw new IllegalStateException("Config Register has been started. Can't register new watcher.");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBZipkinQueryDAO.java`
+#### Snippet
+```java
+
+public class BanyanDBZipkinQueryDAO extends AbstractBanyanDBDAO implements IZipkinQueryDAO {
+    private final static int QUERY_MAX_SIZE = Integer.MAX_VALUE;
+    private static final Set<String> SERVICE_TRAFFIC_TAGS = ImmutableSet.of(ZipkinServiceTraffic.SERVICE_NAME);
+    private static final Set<String> REMOTE_SERVICE_TRAFFIC_TAGS = ImmutableSet.of(
+```
+
+### MissortedModifiers
+Missorted modifiers `public @SuppressWarnings("unchecked")`
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleProvider.java`
+#### Snippet
+```java
+
+    @Override
+    public @SuppressWarnings("unchecked")
+    <T extends Service> T getService(Class<T> serviceType) throws ServiceNotProvidedException {
+        Service serviceImpl = services.get(serviceType);
+```
+
+### MissortedModifiers
+Missorted modifiers `synchronized public`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
+#### Snippet
+```java
+
+    @Override
+    synchronized public void add(String name, Channels channels, IConsumer consumer) {
+        MultipleChannelsConsumer multipleChannelsConsumer = getLowestPayload();
+        multipleChannelsConsumer.addNewTarget(channels, consumer);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
+#### Snippet
+```java
+public class ZipkinQueryEsDAO extends EsDAO implements IZipkinQueryDAO {
+    private final static int NAME_QUERY_MAX_SIZE = 10000;
+    private final static int SCROLLING_BATCH_SIZE = 5000;
+
+    public ZipkinQueryEsDAO(ElasticSearchClient client) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
+#### Snippet
+```java
+
+public class ZipkinQueryEsDAO extends EsDAO implements IZipkinQueryDAO {
+    private final static int NAME_QUERY_MAX_SIZE = 10000;
+    private final static int SCROLLING_BATCH_SIZE = 5000;
+
+```
+
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
@@ -3542,18 +3645,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsStreamProcessor.java`
-#### Snippet
-```java
-     * Singleton instance.
-     */
-    private final static MetricsStreamProcessor PROCESSOR = new MetricsStreamProcessor();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/RecordStreamProcessor.java`
 #### Snippet
 ```java
@@ -3566,49 +3657,25 @@ public class RecordStreamProcessor implements StreamProcessor<Record> {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBZipkinQueryDAO.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsStreamProcessor.java`
 #### Snippet
 ```java
+     * Singleton instance.
+     */
+    private final static MetricsStreamProcessor PROCESSOR = new MetricsStreamProcessor();
 
-public class BanyanDBZipkinQueryDAO extends AbstractBanyanDBDAO implements IZipkinQueryDAO {
-    private final static int QUERY_MAX_SIZE = Integer.MAX_VALUE;
-    private static final Set<String> SERVICE_TRAFFIC_TAGS = ImmutableSet.of(ZipkinServiceTraffic.SERVICE_NAME);
-    private static final Set<String> REMOTE_SERVICE_TRAFFIC_TAGS = ImmutableSet.of(
-```
-
-### MissortedModifiers
-Missorted modifiers `synchronized public`
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-
-    @Override
-    synchronized public void registerConfigChangeWatcher(ConfigChangeWatcher watcher) {
-        if (isStarted) {
-            throw new IllegalStateException("Config Register has been started. Can't register new watcher.");
+    /**
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
 #### Snippet
 ```java
-public class ZipkinQueryEsDAO extends EsDAO implements IZipkinQueryDAO {
-    private final static int NAME_QUERY_MAX_SIZE = 10000;
-    private final static int SCROLLING_BATCH_SIZE = 5000;
-
-    public ZipkinQueryEsDAO(ElasticSearchClient client) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/zipkin/ZipkinQueryEsDAO.java`
-#### Snippet
-```java
-
-public class ZipkinQueryEsDAO extends EsDAO implements IZipkinQueryDAO {
-    private final static int NAME_QUERY_MAX_SIZE = 10000;
-    private final static int SCROLLING_BATCH_SIZE = 5000;
+@RequiredArgsConstructor
+public class JDBCZipkinQueryDAO implements IZipkinQueryDAO {
+    private final static int NAME_QUERY_MAX_SIZE = Integer.MAX_VALUE;
+    private static final Gson GSON = new Gson();
 
 ```
 
@@ -3622,18 +3689,6 @@ in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/g
     default public void reset() {
     }
 }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-@RequiredArgsConstructor
-public class JDBCZipkinQueryDAO implements IZipkinQueryDAO {
-    private final static int NAME_QUERY_MAX_SIZE = Integer.MAX_VALUE;
-    private static final Gson GSON = new Gson();
-
 ```
 
 ### MissortedModifiers
@@ -3660,43 +3715,20 @@ public class K8sInfoRegistry {
     private final LoadingCache<String/* podIP */, ObjectID /* Pod */> ipPodMap;
 ```
 
-### MissortedModifiers
-Missorted modifiers `synchronized public`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
+## RuleId[id=IfStatementMissingBreakInLoop]
+### IfStatementMissingBreakInLoop
+Loop can be terminated after condition is met
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/type/HeatMap.java`
 #### Snippet
 ```java
-
-    @Override
-    synchronized public void add(String name, Channels channels, IConsumer consumer) {
-        MultipleChannelsConsumer multipleChannelsConsumer = getLowestPayload();
-        multipleChannelsConsumer.addNewTarget(channels, consumer);
-```
-
-### MissortedModifiers
-Missorted modifiers `public @SuppressWarnings("unchecked")`
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleProvider.java`
-#### Snippet
-```java
-
-    @Override
-    public @SuppressWarnings("unchecked")
-    <T extends Service> T getService(Class<T> serviceType) throws ServiceNotProvidedException {
-        Service serviceImpl = services.get(serviceType);
+            boolean found = false;
+            for (final HeatMapColumn value : values) {
+                if (expectedId.equals(value.id)) {
+                    found = true;
+                }
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
-#### Snippet
-```java
-                }
-            }
-            folder.mkdirs();
-        }
-    }
-```
-
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
@@ -3735,6 +3767,18 @@ in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+#### Snippet
+```java
+                }
+            }
+            folder.mkdirs();
+        }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
 in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ExporterConfig.java`
 #### Snippet
 ```java
@@ -3743,94 +3787,6 @@ in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src
             dist.mkdirs();
             return;
         }
-```
-
-## RuleId[id=IfStatementMissingBreakInLoop]
-### IfStatementMissingBreakInLoop
-Loop can be terminated after condition is met
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/type/HeatMap.java`
-#### Snippet
-```java
-            boolean found = false;
-            for (final HeatMapColumn value : values) {
-                if (expectedId.equals(value.id)) {
-                    found = true;
-                }
-```
-
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
-#### Snippet
-```java
-        if (Objects.nonNull(scopeId)) {
-            sql.append(" and ").append(AlarmRecord.SCOPE).append(" = ?");
-            parameters.add(scopeId.intValue());
-        }
-        if (startTB != 0 && endTB != 0) {
-```
-
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `createTableIndexes()` is identical to its super method
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/mysql/MySQLTableInstaller.java`
-#### Snippet
-```java
-
-    @Override
-    public void createTableIndexes(
-        JDBCHikariCPClient client,
-        Connection connection,
-```
-
-### RedundantMethodOverride
-Method `module()` is identical to its super method
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/MockCoreModuleProvider.java`
-#### Snippet
-```java
-
-    @Override
-    public Class<? extends ModuleDefine> module() {
-        return CoreModule.class;
-    }
-```
-
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Builder` is the same as one of its superclass' names
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/log/LogRecord.java`
-#### Snippet
-```java
-    }
-
-    public static class Builder extends AbstractLogRecord.Builder<LogRecord> {
-        @Override
-        public LogRecord storage2Entity(final Convert2Entity converter) {
-```
-
-### ClassNameSameAsAncestorName
-Class name `Factory` is the same as one of its superclass' names
-in `oap-server/analyzer/event-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/event/listener/EventRecordAnalyzerListener.java`
-#### Snippet
-```java
-    }
-
-    public static class Factory implements EventAnalyzerListener.Factory {
-        private final NamingControl namingControl;
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Binding` is the same as one of its superclass' names
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
-#### Snippet
-```java
- * groovy.lang.Binding#getProperty(java.lang.String)}.
- */
-public class Binding extends groovy.lang.Binding {
-    public static final String KEY_LOG = "log";
-
 ```
 
 ## RuleId[id=DefaultAnnotationParam]
@@ -3906,6 +3862,56 @@ in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/g
 @JsonSubTypes({
 ```
 
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `module()` is identical to its super method
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/MockCoreModuleProvider.java`
+#### Snippet
+```java
+
+    @Override
+    public Class<? extends ModuleDefine> module() {
+        return CoreModule.class;
+    }
+```
+
+## RuleId[id=ClassNameSameAsAncestorName]
+### ClassNameSameAsAncestorName
+Class name `Binding` is the same as one of its superclass' names
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
+#### Snippet
+```java
+ * groovy.lang.Binding#getProperty(java.lang.String)}.
+ */
+public class Binding extends groovy.lang.Binding {
+    public static final String KEY_LOG = "log";
+
+```
+
+### ClassNameSameAsAncestorName
+Class name `Builder` is the same as one of its superclass' names
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/log/LogRecord.java`
+#### Snippet
+```java
+    }
+
+    public static class Builder extends AbstractLogRecord.Builder<LogRecord> {
+        @Override
+        public LogRecord storage2Entity(final Convert2Entity converter) {
+```
+
+### ClassNameSameAsAncestorName
+Class name `Factory` is the same as one of its superclass' names
+in `oap-server/analyzer/event-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/event/listener/EventRecordAnalyzerListener.java`
+#### Snippet
+```java
+    }
+
+    public static class Factory implements EventAnalyzerListener.Factory {
+        private final NamingControl namingControl;
+
+```
+
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
 msg.getPeriod() \* 60 \* 1000: integer multiplication implicitly cast to long
@@ -3917,6 +3923,115 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
                 .setStartTime(now - (msg.getPeriod() * 60 * 1000))
                 .setMessage(msg.getAlarmMessage())
                 .setType(Type.Error)
+```
+
+## RuleId[id=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
+#### Snippet
+```java
+            String metricName = ctx.metricName().getText();
+            Optional<ValueColumnMetadata.ValueColumn> valueColumn = getValueColumn(metricName);
+            if (!valueColumn.isPresent()) {
+                result.setErrorType(ErrorType.BAD_DATA);
+                result.setErrorInfo("Metric: [" + metricName + "] dose not exist.");
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+            public ServiceMetaInfo load(String ip) throws Exception {
+                final Optional<V1Pod> pod = KubernetesPods.INSTANCE.findByIP(ip);
+                if (!pod.isPresent()) {
+                    log.debug("No corresponding Pod for IP: {}", ip);
+                    return config.serviceMetaInfoFactory().unknown();
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+                        .filter(Objects::nonNull)
+                        .findFirst();
+                if (!serviceID.isPresent()) {
+                    log.debug("No corresponding endpoint for IP: {}", ip);
+                    return config.serviceMetaInfoFactory().unknown();
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+                final Optional<V1Service> service =
+                    KubernetesServices.INSTANCE.findByID(serviceID.get());
+                if (!service.isPresent()) {
+                    log.debug("No service for namespace and name: {}", serviceID.get());
+                    return config.serviceMetaInfoFactory().unknown();
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetricsQueryEsDAO.java`
+#### Snippet
+```java
+
+        Optional<Documents> response = getClient().ids(indexIdsGroup);
+        if (!response.isPresent()) {
+            return heatMap;
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/Expression.java`
+#### Snippet
+```java
+                return sampleFamilies.get(metricName);
+            }
+            if (!ExpressionParsingContext.get().isPresent()) {
+                log.warn("{} referred by \"{}\" doesn't exist in {}", metricName, literal, sampleFamilies.keySet());
+            }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/Expression.java`
+#### Snippet
+```java
+            SampleFamily sf = (SampleFamily) expression.run();
+            if (sf == SampleFamily.EMPTY) {
+                if (!ExpressionParsingContext.get().isPresent()) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("result of {} is empty by \"{}\"", sampleFamilies, literal);
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/k8s/K8sInfoRegistry.java`
+#### Snippet
+```java
+                            .build());
+
+                if (!pod.isPresent()
+                    || pod.get().getMetadata() == null
+                    || pod.get().getMetadata().getLabels() == null) {
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/k8s/K8sInfoRegistry.java`
+#### Snippet
+```java
+                    })
+                    .findFirst();
+                if (!service.isPresent()) {
+                    return ObjectID.EMPTY;
+                }
 ```
 
 ## RuleId[id=UnnecessarySuperQualifier]
@@ -3980,140 +4095,7 @@ in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/
             "KafkaTraceExporter", "KafkaTraceExporter", setting.getBufferChannelNum(), setting.getBufferChannelSize(),
 ```
 
-## RuleId[id=SimplifyOptionalCallChains]
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/StorageModels.java`
-#### Snippet
-```java
-
-        // For the annotation need to be declared on the superclass, the other annotation should be declared on the subclass.
-        if (!sqlDBModelExtension.getSharding().isPresent() && clazz.isAnnotationPresent(SQLDatabase.Sharding.class)) {
-            SQLDatabase.Sharding sharding = clazz.getAnnotation(SQLDatabase.Sharding.class);
-            sqlDBModelExtension.setSharding(
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetricsQueryEsDAO.java`
-#### Snippet
-```java
-
-        Optional<Documents> response = getClient().ids(indexIdsGroup);
-        if (!response.isPresent()) {
-            return heatMap;
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-            public ServiceMetaInfo load(String ip) throws Exception {
-                final Optional<V1Pod> pod = KubernetesPods.INSTANCE.findByIP(ip);
-                if (!pod.isPresent()) {
-                    log.debug("No corresponding Pod for IP: {}", ip);
-                    return config.serviceMetaInfoFactory().unknown();
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-                        .filter(Objects::nonNull)
-                        .findFirst();
-                if (!serviceID.isPresent()) {
-                    log.debug("No corresponding endpoint for IP: {}", ip);
-                    return config.serviceMetaInfoFactory().unknown();
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-                final Optional<V1Service> service =
-                    KubernetesServices.INSTANCE.findByID(serviceID.get());
-                if (!service.isPresent()) {
-                    log.debug("No service for namespace and name: {}", serviceID.get());
-                    return config.serviceMetaInfoFactory().unknown();
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/Expression.java`
-#### Snippet
-```java
-                return sampleFamilies.get(metricName);
-            }
-            if (!ExpressionParsingContext.get().isPresent()) {
-                log.warn("{} referred by \"{}\" doesn't exist in {}", metricName, literal, sampleFamilies.keySet());
-            }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/Expression.java`
-#### Snippet
-```java
-            SampleFamily sf = (SampleFamily) expression.run();
-            if (sf == SampleFamily.EMPTY) {
-                if (!ExpressionParsingContext.get().isPresent()) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("result of {} is empty by \"{}\"", sampleFamilies, literal);
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/k8s/K8sInfoRegistry.java`
-#### Snippet
-```java
-                            .build());
-
-                if (!pod.isPresent()
-                    || pod.get().getMetadata() == null
-                    || pod.get().getMetadata().getLabels() == null) {
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/k8s/K8sInfoRegistry.java`
-#### Snippet
-```java
-                    })
-                    .findFirst();
-                if (!service.isPresent()) {
-                    return ObjectID.EMPTY;
-                }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
-#### Snippet
-```java
-            String metricName = ctx.metricName().getText();
-            Optional<ValueColumnMetadata.ValueColumn> valueColumn = getValueColumn(metricName);
-            if (!valueColumn.isPresent()) {
-                result.setErrorType(ErrorType.BAD_DATA);
-                result.setErrorInfo("Metric: [" + metricName + "] dose not exist.");
-```
-
 ## RuleId[id=SlowListContainsAll]
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProfilingServiceHandler.java`
-#### Snippet
-```java
-            // If the task doesn't require a label or the process match all labels in task
-            if (CollectionUtils.isEmpty(task.getProcessLabels())
-                    || process.getLabels().containsAll(task.getProcessLabels())) {
-                commands.add(commandService.newEBPFProfilingTaskCommand(task, Collections.singletonList(process.getId())));
-            }
-```
-
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
@@ -4140,295 +4122,17 @@ in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org
 
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/mysql/MySQLTableInstaller.java`
+in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProfilingServiceHandler.java`
 #### Snippet
 ```java
-                final String[] multiColumns = index.getColumns();
-                // Create MultiColumnsIndex on the additional table only when it contains all need columns.
-                if (additionalTable && !columnList.containsAll(Arrays.asList(multiColumns))) {
-                    continue;
-                }
-```
-
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/postgresql/PostgreSQLTableInstaller.java`
-#### Snippet
-```java
-                final String[] multiColumns = index.getColumns();
-                //Create MultiColumnsIndex on the additional table only when it contains all need columns.
-                if (additionalTable && !columnList.containsAll(Arrays.asList(multiColumns))) {
-                    continue;
-                }
-```
-
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`index = index + this.placeholderSuffix.length()` could be simplified to 'index += this.placeholderSuffix.length()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
-#### Snippet
-```java
-                if (withinNestedPlaceholder > 0) {
-                    withinNestedPlaceholder--;
-                    index = index + this.placeholderSuffix.length();
-                } else {
-                    return index;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`index = index + this.simplePrefix.length()` could be simplified to 'index += this.simplePrefix.length()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
-#### Snippet
-```java
-            } else if (StringUtil.substringMatch(buf, index, this.simplePrefix)) {
-                withinNestedPlaceholder++;
-                index = index + this.simplePrefix.length();
-            } else {
-                index++;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.value = this.value + m.value()` could be simplified to 'this.value += m.value()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Counter.java`
-#### Snippet
-```java
-
-    @Override public Metric sum(Metric m) {
-        this.value = this.value + m.value();
-        return this;
-    }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.sampleCount = this.sampleCount + s.getSampleCount()` could be simplified to 'this.sampleCount += s.getSampleCount()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
-#### Snippet
-```java
-    @Override public Metric sum(Metric m) {
-        Summary s = (Summary) m;
-        this.sampleCount =  this.sampleCount + s.getSampleCount();
-        this.sampleSum = this.sampleSum + s.getSampleSum();
-        return this;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.sampleSum = this.sampleSum + s.getSampleSum()` could be simplified to 'this.sampleSum += s.getSampleSum()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
-#### Snippet
-```java
-        Summary s = (Summary) m;
-        this.sampleCount =  this.sampleCount + s.getSampleCount();
-        this.sampleSum = this.sampleSum + s.getSampleSum();
-        return this;
-    }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.value = this.value + m.value()` could be simplified to 'this.value += m.value()'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Gauge.java`
-#### Snippet
-```java
-
-    @Override public Metric sum(Metric m) {
-        this.value = this.value + m.value();
-        return this;
-    }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.sampleSum = this.sampleSum + h.sampleSum` could be simplified to 'this.sampleSum += h.sampleSum'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
-#### Snippet
-```java
-        this.buckets = Stream.concat(getBuckets().entrySet().stream(), h.getBuckets().entrySet().stream())
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum, TreeMap::new));
-        this.sampleSum = this.sampleSum + h.sampleSum;
-        this.sampleCount = this.sampleCount + h.sampleCount;
-        return this;
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`this.sampleCount = this.sampleCount + h.sampleCount` could be simplified to 'this.sampleCount += h.sampleCount'
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
-#### Snippet
-```java
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum, TreeMap::new));
-        this.sampleSum = this.sampleSum + h.sampleSum;
-        this.sampleCount = this.sampleCount + h.sampleCount;
-        return this;
-    }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`metricShardNum = metricShardNum * config.getSuperDatasetShardsFactor()` could be simplified to 'metricShardNum \*= config.getSuperDatasetShardsFactor()'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
-#### Snippet
-```java
-            blockIntervalHrs = config.getSuperDatasetBlockIntervalHours();
-            segmentIntervalDays = config.getSuperDatasetSegmentIntervalDays();
-            metricShardNum = metricShardNum * config.getSuperDatasetShardsFactor();
-        } else {
-            // Solution: 2 * TTL < T * (1 + 0.8)
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`timeFloor = timeFloor * 100` could be simplified to 'timeFloor \*= 100'
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
-#### Snippet
-```java
-                return YYYYMMDD.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd");
-            case HOUR:
-                timeFloor = timeFloor * 100;
-                return YYYYMMDDHH.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd HH");
-            case MINUTE:
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`timeFloor = timeFloor * 100 * 100` could be simplified to 'timeFloor \*= 100 \* 100'
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
-#### Snippet
-```java
-                return YYYYMMDDHH.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd HH");
-            case MINUTE:
-                timeFloor = timeFloor * 100 * 100;
-                return YYYYMMDDHHMM.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd HHmm");
-            case SECOND:
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`timeFloor = timeFloor * 100 * 100 * 100` could be simplified to 'timeFloor \*= 100 \* 100 \* 100'
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
-#### Snippet
-```java
-                return YYYYMMDDHHMM.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd HHmm");
-            case SECOND:
-                timeFloor = timeFloor * 100 * 100 * 100;
-                return YYYYMMDDHHMMSS.parseDateTime(String.valueOf(Math.max(timeFloor, startDate))).toString("yyyy-MM-dd HHmmss");
-        }
-```
-
-## RuleId[id=InfiniteLoopStatement]
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
-in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apache/skywalking/oap/server/analyzer/agent/kafka/KafkaFetcherHandlerRegister.java`
-#### Snippet
-```java
-
-    private void runTask(final KafkaConsumer<String, Bytes> consumer) {
-        while (true) {
-            try {
-                ConsumerRecords<String, Bytes> consumerRecords = consumer.poll(Duration.ofMillis(500L));
-```
-
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
-in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/kafka/KafkaHandler.java`
-#### Snippet
-```java
-            log.debug("Start Consume zipkin trace records from kafka.");
-        }
-        while (true) {
-            try {
-                ConsumerRecords<byte[], byte[]> consumerRecords = consumer.poll(Duration.ofMillis(1000L));
+            // If the task doesn't require a label or the process match all labels in task
+            if (CollectionUtils.isEmpty(task.getProcessLabels())
+                    || process.getLabels().containsAll(task.getProcessLabels())) {
+                commands.add(commandService.newEBPFProfilingTaskCommand(task, Collections.singletonList(process.getId())));
+            }
 ```
 
 ## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/FirehoseHTTPHandler.java`
-#### Snippet
-```java
-                    Base64.getDecoder().decode(record.getData()));
-                ExportMetricsServiceRequest request;
-                while ((request = ExportMetricsServiceRequest.parseDelimitedFrom(byteArrayInputStream)) != null) {
-                    openTelemetryMetricRequestProcessor.processMetricsRequest(
-                        OtelMetricsConvertor.convertExportMetricsRequest(request));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/ColumnName.java`
-#### Snippet
-```java
-
-    public ColumnName(Column column) {
-        storageName = name = column.name();
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-        }
-
-        if (StringUtil.isNotEmpty(err = validateSamplingRules(request.getSamplings()))) {
-            return err;
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            }
-
-            if (StringUtil.isNotEmpty(error = validateSingleSampleRule(rule))) {
-                return error;
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
-#### Snippet
-```java
-        source = firstLetterUpper(source);
-        int idx;
-        while ((idx = source.indexOf("_")) > -1) {
-            source = source.substring(0, idx) + firstLetterUpper(source.substring(idx + 1));
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
-#### Snippet
-```java
-            ThreadSnapshot snapshot;
-            final ArrayList<ThreadSnapshot> data = new ArrayList<>();
-            while ((snapshot = ThreadSnapshot.parseDelimitedFrom(fileInputStream)) != null) {
-                ThreadSnapshot finalSnapshot = snapshot;
-                if (timeRanges.stream().filter(t -> finalSnapshot.getTime() >= t.getStart() && finalSnapshot.getTime() <= t.getEnd()).findFirst().isPresent()) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
-#### Snippet
-```java
-                        ByteArrayOutputStream os = new ByteArrayOutputStream();
-                        int c;
-                        while ((c = fileInputStream.read(b)) != -1) {
-                            os.write(b, 0, c);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/SequenceGenerator.java`
-#### Snippet
-```java
-        }
-
-        return last = next;
-    }
-
-```
-
 ### NestedAssignment
 Result of assignment expression used
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/core/profiling/ebpf/EBPFProfilingAnalyzerBenchmark.java`
@@ -4489,7 +4193,273 @@ in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log
             }
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
+#### Snippet
+```java
+        source = firstLetterUpper(source);
+        int idx;
+        while ((idx = source.indexOf("_")) > -1) {
+            source = source.substring(0, idx) + firstLetterUpper(source.substring(idx + 1));
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
+#### Snippet
+```java
+                        ByteArrayOutputStream os = new ByteArrayOutputStream();
+                        int c;
+                        while ((c = fileInputStream.read(b)) != -1) {
+                            os.write(b, 0, c);
+                        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/ColumnName.java`
+#### Snippet
+```java
+
+    public ColumnName(Column column) {
+        storageName = name = column.name();
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+        }
+
+        if (StringUtil.isNotEmpty(err = validateSamplingRules(request.getSamplings()))) {
+            return err;
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            }
+
+            if (StringUtil.isNotEmpty(error = validateSingleSampleRule(rule))) {
+                return error;
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/FirehoseHTTPHandler.java`
+#### Snippet
+```java
+                    Base64.getDecoder().decode(record.getData()));
+                ExportMetricsServiceRequest request;
+                while ((request = ExportMetricsServiceRequest.parseDelimitedFrom(byteArrayInputStream)) != null) {
+                    openTelemetryMetricRequestProcessor.processMetricsRequest(
+                        OtelMetricsConvertor.convertExportMetricsRequest(request));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+            h2Client.executeQuery(sql.toString(), resultSet -> {
+                StorageData storageData;
+                while ((storageData = toStorageData(resultSet, modelName, storageBuilder)) != null) {
+                    storageDataList.add(storageData);
+                }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/generator/SequenceGenerator.java`
+#### Snippet
+```java
+        }
+
+        return last = next;
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
+#### Snippet
+```java
+            ThreadSnapshot snapshot;
+            final ArrayList<ThreadSnapshot> data = new ArrayList<>();
+            while ((snapshot = ThreadSnapshot.parseDelimitedFrom(fileInputStream)) != null) {
+                ThreadSnapshot finalSnapshot = snapshot;
+                if (timeRanges.stream().filter(t -> finalSnapshot.getTime() >= t.getStart() && finalSnapshot.getTime() <= t.getEnd()).findFirst().isPresent()) {
+```
+
+## RuleId[id=InfiniteLoopStatement]
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
+in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apache/skywalking/oap/server/analyzer/agent/kafka/KafkaFetcherHandlerRegister.java`
+#### Snippet
+```java
+
+    private void runTask(final KafkaConsumer<String, Bytes> consumer) {
+        while (true) {
+            try {
+                ConsumerRecords<String, Bytes> consumerRecords = consumer.poll(Duration.ofMillis(500L));
+```
+
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
+in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/kafka/KafkaHandler.java`
+#### Snippet
+```java
+            log.debug("Start Consume zipkin trace records from kafka.");
+        }
+        while (true) {
+            try {
+                ConsumerRecords<byte[], byte[]> consumerRecords = consumer.poll(Duration.ofMillis(1000L));
+```
+
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`metricShardNum = metricShardNum * config.getSuperDatasetShardsFactor()` could be simplified to 'metricShardNum \*= config.getSuperDatasetShardsFactor()'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+#### Snippet
+```java
+            blockIntervalHrs = config.getSuperDatasetBlockIntervalHours();
+            segmentIntervalDays = config.getSuperDatasetSegmentIntervalDays();
+            metricShardNum = metricShardNum * config.getSuperDatasetShardsFactor();
+        } else {
+            // Solution: 2 * TTL < T * (1 + 0.8)
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`index = index + this.placeholderSuffix.length()` could be simplified to 'index += this.placeholderSuffix.length()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
+#### Snippet
+```java
+                if (withinNestedPlaceholder > 0) {
+                    withinNestedPlaceholder--;
+                    index = index + this.placeholderSuffix.length();
+                } else {
+                    return index;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`index = index + this.simplePrefix.length()` could be simplified to 'index += this.simplePrefix.length()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PropertyPlaceholderHelper.java`
+#### Snippet
+```java
+            } else if (StringUtil.substringMatch(buf, index, this.simplePrefix)) {
+                withinNestedPlaceholder++;
+                index = index + this.simplePrefix.length();
+            } else {
+                index++;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.value = this.value + m.value()` could be simplified to 'this.value += m.value()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Gauge.java`
+#### Snippet
+```java
+
+    @Override public Metric sum(Metric m) {
+        this.value = this.value + m.value();
+        return this;
+    }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.value = this.value + m.value()` could be simplified to 'this.value += m.value()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Counter.java`
+#### Snippet
+```java
+
+    @Override public Metric sum(Metric m) {
+        this.value = this.value + m.value();
+        return this;
+    }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.sampleCount = this.sampleCount + s.getSampleCount()` could be simplified to 'this.sampleCount += s.getSampleCount()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
+#### Snippet
+```java
+    @Override public Metric sum(Metric m) {
+        Summary s = (Summary) m;
+        this.sampleCount =  this.sampleCount + s.getSampleCount();
+        this.sampleSum = this.sampleSum + s.getSampleSum();
+        return this;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.sampleSum = this.sampleSum + s.getSampleSum()` could be simplified to 'this.sampleSum += s.getSampleSum()'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
+#### Snippet
+```java
+        Summary s = (Summary) m;
+        this.sampleCount =  this.sampleCount + s.getSampleCount();
+        this.sampleSum = this.sampleSum + s.getSampleSum();
+        return this;
+    }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.sampleSum = this.sampleSum + h.sampleSum` could be simplified to 'this.sampleSum += h.sampleSum'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
+#### Snippet
+```java
+        this.buckets = Stream.concat(getBuckets().entrySet().stream(), h.getBuckets().entrySet().stream())
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum, TreeMap::new));
+        this.sampleSum = this.sampleSum + h.sampleSum;
+        this.sampleCount = this.sampleCount + h.sampleCount;
+        return this;
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`this.sampleCount = this.sampleCount + h.sampleCount` could be simplified to 'this.sampleCount += h.sampleCount'
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
+#### Snippet
+```java
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum, TreeMap::new));
+        this.sampleSum = this.sampleSum + h.sampleSum;
+        this.sampleCount = this.sampleCount + h.sampleCount;
+        return this;
+    }
+```
+
 ## RuleId[id=Lombok]
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
+#### Snippet
+```java
+import org.apache.skywalking.oap.server.library.module.ModuleConfig;
+
+@Data
+public class ClusterModuleEtcdConfig extends ModuleConfig {
+    private String serviceName;
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/entity/MetricRangeData.java`
+#### Snippet
+```java
+import lombok.Data;
+
+@Data
+public class MetricRangeData extends MetricData {
+    private List<TimeValuePair> values;
+```
+
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apache/skywalking/oap/server/analyzer/agent/kafka/module/KafkaFetcherConfig.java`
@@ -4525,8 +4495,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/z
     "serviceName",
     "spanName"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ZipkinServiceSpanTraffic extends Metrics {
+
 ```
 
 ### Lombok
@@ -4539,8 +4509,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/z
 @EqualsAndHashCode(of = {
     "serviceName"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ZipkinServiceTraffic extends Metrics {
+    public static final String INDEX_NAME = "zipkin_service_traffic";
 ```
 
 ### Lombok
@@ -4554,8 +4524,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/z
     "serviceName",
     "remoteServiceName"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ZipkinServiceRelationTraffic extends Metrics {
+
 ```
 
 ### Lombok
@@ -4569,8 +4539,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
         "serviceId",
         "label"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ServiceLabelRecord extends Metrics {
+
 ```
 
 ### Lombok
@@ -4584,8 +4554,20 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
     "name",
     "layer"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ServiceTraffic extends Metrics {
+    public static final String INDEX_NAME = "service_traffic";
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
+#### Snippet
+```java
+    builder = EndpointTraffic.Builder.class, processor = MetricsStreamProcessor.class)
+@MetricsExtension(supportDownSampling = false, supportUpdate = false)
+@EqualsAndHashCode
+public class EndpointTraffic extends Metrics {
+
 ```
 
 ### Lombok
@@ -4599,35 +4581,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
     "instanceId",
     "name",
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 @BanyanDB.StoreIDAsTag
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
-#### Snippet
-```java
-    builder = EndpointTraffic.Builder.class, processor = MetricsStreamProcessor.class)
-@MetricsExtension(supportDownSampling = false, supportUpdate = false)
-@EqualsAndHashCode
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.TIME_MIN_RANGE_SHARDING_ALGORITHM, tableShardingColumn = TIME_BUCKET, dataSourceShardingColumn = ID)
-public class EndpointTraffic extends Metrics {
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
-#### Snippet
-```java
-    builder = InstanceTraffic.Builder.class, processor = MetricsStreamProcessor.class)
-@MetricsExtension(supportDownSampling = false, supportUpdate = true)
-@EqualsAndHashCode(of = {
-    "serviceId",
-    "name"
-})
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
-public class InstanceTraffic extends Metrics {
+public class ProcessTraffic extends Metrics {
 ```
 
 ### Lombok
@@ -4641,8 +4596,23 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
     "entityId",
     "component_id"
 }, callSuper = true)
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class ProcessRelationClientSideMetrics extends Metrics {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
+#### Snippet
+```java
+    builder = InstanceTraffic.Builder.class, processor = MetricsStreamProcessor.class)
+@MetricsExtension(supportDownSampling = false, supportUpdate = true)
+@EqualsAndHashCode(of = {
+    "serviceId",
+    "name"
+})
+public class InstanceTraffic extends Metrics {
+    public static final String INDEX_NAME = "instance_traffic";
 ```
 
 ### Lombok
@@ -4657,8 +4627,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
     "tagValue",
     "tagType"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class TagAutocompleteData extends Metrics {
+    public static final String INDEX_NAME = "tag_autocomplete";
 ```
 
 ### Lombok
@@ -4671,8 +4641,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 @EqualsAndHashCode(of = {
     "address"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class NetworkAddressAlias extends Metrics {
+    public static final String INDEX_NAME = "network_address_alias";
 ```
 
 ### Lombok
@@ -4685,8 +4655,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 @EqualsAndHashCode(of = {
     "timeBucket"
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.TIME_RELATIVE_ID_SHARDING_ALGORITHM, tableShardingColumn = ID, dataSourceShardingColumn = ENTITY_ID)
 public abstract class Metrics extends StreamData implements StorageData {
+    public static final String ENTITY_ID = "entity_id";
 ```
 
 ### Lombok
@@ -4703,18 +4673,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
-#### Snippet
-```java
- * eBPF profiling reported data from the eBPF agent side
- */
-@Data
-@Stream(name = EBPFProfilingDataRecord.INDEX_NAME, scopeId = EBPF_PROFILING_DATA,
-    builder = EBPFProfilingDataRecord.Builder.class, processor = RecordStreamProcessor.class)
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
 #### Snippet
 ```java
@@ -4723,6 +4681,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 @Data
 @ScopeDeclaration(id = EBPF_PROFILING_TASK, name = "EBPFProfilingTask")
 @Stream(name = EBPFProfilingTaskRecord.INDEX_NAME, scopeId = EBPF_PROFILING_TASK,
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+#### Snippet
+```java
+ * eBPF profiling reported data from the eBPF agent side
+ */
+@Data
+@Stream(name = EBPFProfilingDataRecord.INDEX_NAME, scopeId = EBPF_PROFILING_DATA,
+    builder = EBPFProfilingDataRecord.Builder.class, processor = RecordStreamProcessor.class)
 ```
 
 ### Lombok
@@ -4737,8 +4707,8 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
     "processId",
     "startTime",
 })
-@SQLDatabase.Sharding(shardingAlgorithm = ShardingAlgorithm.NO_SHARDING)
 public class EBPFProfilingScheduleRecord extends Metrics {
+
 ```
 
 ### Lombok
@@ -4753,31 +4723,91 @@ in `oap-server/server-receiver-plugin/skywalking-browser-receiver-plugin/src/mai
     private BrowserErrorCategory errorCategory;
 ```
 
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/entity/MetricRangeData.java`
-#### Snippet
-```java
-import lombok.Data;
-
-@Data
-public class MetricRangeData extends MetricData {
-    private List<TimeValuePair> values;
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
-#### Snippet
-```java
-import org.apache.skywalking.oap.server.library.module.ModuleConfig;
-
-@Data
-public class ClusterModuleEtcdConfig extends ModuleConfig {
-    private String serviceName;
-```
-
 ## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/entity/LabelName.java`
+#### Snippet
+```java
+
+    static {
+        Arrays.stream(LabelName.values()).forEach(l -> {
+            DICTIONARY.put(l.label, l);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        switch (LabelName.labelOf(labelName)) {
+            case NAME:
+                metricsQuery.listMetrics("").forEach(definition -> {
+                    response.getData().add(definition.getName());
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+                List<Service> services = metadataQuery.listServices(
+                    parseResult.getLabelMap().get(LabelName.LAYER));
+                services.forEach(service -> {
+                    response.getData().add(buildMetricInfoFromTraffic(metricName, service));
+                });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+            List<ServiceInstance> instances = metadataQuery.listInstances(
+                duration, IDManager.ServiceID.buildId(serviceName, Layer.valueOf(layer).isNormal()));
+            instances.forEach(instance -> {
+                response.getData().add(buildMetricInfoFromTraffic(metricName, instance));
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+                Integer.parseInt(limit)
+            );
+            endpoints.forEach(endpoint -> {
+                response.getData().add(buildMetricInfoFromTraffic(metricName, endpoint));
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+            }
+        } else {
+            Arrays.stream(LabelName.values()).forEach(label -> {
+                response.getData().add(label);
+            });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+    public Optional<Documents> ids(Map<String, List<String>> indexIds) {
+        Map<String, List<String>> map = new HashMap<>();
+        indexIds.forEach((indexName, ids) -> {
+            map.put(indexNameConverter.apply(indexName), ids);
+        });
+```
+
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
 in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/jvm/provider/handler/JVMMetricReportServiceHandler.java`
@@ -4792,13 +4822,121 @@ in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/ja
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/ReceiverGRPCHandlerRegister.java`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
 #### Snippet
 ```java
-            grpcHandlerRegister.addHandler(handler);
-        } else {
-            interceptors.forEach(interceptor -> {
-                grpcHandlerRegister.addHandler(handlerInterceptorBind(handler, interceptor));
+            .ofNullable(sourceService)
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addSourceInstanceProperties(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addSourceInstanceProperties(
+                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .ofNullable(targetService)
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addDestInstanceProperties(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addDestInstanceProperties(
+                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .ofNullable(sourceService)
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addSourceInstanceProperties(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addSourceInstanceProperties(
+                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .ofNullable(targetService)
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addDestInstanceProperties(
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
+#### Snippet
+```java
+            .map(ServiceMetaInfo::getTags)
+            .ifPresent(tags -> {
+                tags.forEach(p -> {
+                    builder.addDestInstanceProperties(
+                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+#### Snippet
+```java
+        }
+
+        oalScripts.getDisableCollection().getAllDisableSources().forEach(disable -> {
+            DisableRegister.INSTANCE.add(disable);
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
+#### Snippet
+```java
+        if (isChanged) {
+            List<byte[]> contents = new ArrayList<>(watchedFiles.size());
+            watchedFiles.forEach(file -> {
+                contents.add(file.fileContent);
             });
 ```
 
@@ -4888,18 +5026,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/PersistenceTimer.java`
-#### Snippet
-```java
-        final CompletableFuture<Void> future =
-            CompletableFuture.allOf(workers.stream().map(worker -> {
-                return CompletableFuture.runAsync(() -> {
-                    List<PrepareRequest> innerPrepareRequests;
-                    // Prepare stage
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/command/CommandService.java`
 #### Snippet
 ```java
@@ -4908,6 +5034,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
             return EBPFProfilingTaskExtensionConfig.NetworkSamplingRule.builder()
                     .uriRegex(s.getUriRegex())
                     .minDuration(s.getMinDuration())
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/PersistenceTimer.java`
+#### Snippet
+```java
+        final CompletableFuture<Void> future =
+            CompletableFuture.allOf(workers.stream().map(worker -> {
+                return CompletableFuture.runAsync(() -> {
+                    List<PrepareRequest> innerPrepareRequests;
+                    // Prepare stage
 ```
 
 ### CodeBlock2Expr
@@ -4927,11 +5065,11 @@ Statement lambda can be replaced with expression lambda
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/StorageModels.java`
 #### Snippet
 ```java
-                }
 
-                indexDefinitions.forEach(indexDefinition -> {
-                    sqlDatabaseExtension.appendIndex(new SQLDatabaseExtension.MultiColumnsIndex(
-                        column.name(),
+    private void followColumnNameRules(Model model) {
+        columnNameOverrideRule.forEach((oldName, newName) -> {
+            model.getColumns().forEach(column -> {
+                log.debug("Override model column name: [{}] {} -> {}.", model.getName(), oldName, newName);
 ```
 
 ### CodeBlock2Expr
@@ -4939,11 +5077,11 @@ Statement lambda can be replaced with expression lambda
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/StorageModels.java`
 #### Snippet
 ```java
+                }
 
-    private void followColumnNameRules(Model model) {
-        columnNameOverrideRule.forEach((oldName, newName) -> {
-            model.getColumns().forEach(column -> {
-                log.debug("Override model column name: [{}] {} -> {}.", model.getName(), oldName, newName);
+                indexDefinitions.forEach(indexDefinition -> {
+                    sqlDatabaseExtension.appendIndex(new SQLDatabaseExtension.MultiColumnsIndex(
+                        column.name(),
 ```
 
 ### CodeBlock2Expr
@@ -4960,14 +5098,26 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
 #### Snippet
 ```java
-        }
-
-        oalScripts.getDisableCollection().getAllDisableSources().forEach(disable -> {
-            DisableRegister.INSTANCE.add(disable);
+        //build main table sql
+        Map<String, Object> mainEntity = new HashMap<>();
+        model.getColumns().forEach(column -> {
+            mainEntity.put(column.getColumnName().getName(), objectMap.get(column.getColumnName().getName()));
         });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+        for (final var additionalTable : model.getSqlDBModelExtension().getAdditionalTables().values()) {
+            Map<String, Object> additionalEntity = new HashMap<>();
+            additionalTable.getColumns().forEach(column -> {
+                additionalEntity.put(column.getColumnName().getName(), objectMap.get(column.getColumnName().getName()));
+            });
 ```
 
 ### CodeBlock2Expr
@@ -4996,18 +5146,6 @@ in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apa
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
-#### Snippet
-```java
-        if (isChanged) {
-            List<byte[]> contents = new ArrayList<>(watchedFiles.size());
-            watchedFiles.forEach(file -> {
-                contents.add(file.fileContent);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/RulesReader.java`
 #### Snippet
 ```java
@@ -5016,222 +5154,6 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
             webhooks.forEach(url -> {
                 rules.getWebhooks().add((String) url);
             });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-        List<String> ids = new ArrayList<>(pointOfTimes.size());
-        final String entityId = condition.getEntity().buildId();
-        pointOfTimes.forEach(pointOfTime -> {
-            ids.add(pointOfTime.id(entityId));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-        List<String> ids = new ArrayList<>(pointOfTimes.size());
-        final String entityId = condition.getEntity().buildId();
-        pointOfTimes.forEach(pointOfTime -> {
-            ids.add(pointOfTime.id(entityId));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-        List<String> ids = new ArrayList<>(pointOfTimes.size());
-        final String entityId = condition.getEntity().buildId();
-        pointOfTimes.forEach(pointOfTime -> {
-            ids.add(pointOfTime.id(entityId));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-        List<String> ids = new ArrayList<>(pointOfTimes.size());
-        final String entityId = condition.getEntity().buildId();
-        pointOfTimes.forEach(pointOfTime -> {
-            ids.add(pointOfTime.id(entityId));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-        //build main table sql
-        Map<String, Object> mainEntity = new HashMap<>();
-        model.getColumns().forEach(column -> {
-            mainEntity.put(column.getColumnName().getName(), objectMap.get(column.getColumnName().getName()));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-                                                                              .values()) {
-            Map<String, Object> additionalEntity = new HashMap<>();
-            additionalTable.getColumns().forEach(column -> {
-                additionalEntity.put(column.getColumnName().getName(), objectMap.get(column.getColumnName().getName()));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/dao/ShardingMetricsQueryDAO.java`
-#### Snippet
-```java
-        List<String> ids = new ArrayList<>(pointOfTimes.size());
-        final String entityId = condition.getEntity().buildId();
-        pointOfTimes.forEach(pointOfTime -> {
-            ids.add(pointOfTime.id(entityId));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/ShardingRulesOperator.java`
-#### Snippet
-```java
-            timeRanges.add(startDateTime.plusDays(i));
-        }
-        dataSources.forEach(dataSource -> {
-            timeRanges.forEach(dateTime -> {
-                nodesBuilder.append("\"")
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/ShardingRulesOperator.java`
-#### Snippet
-```java
-        }
-        dataSources.forEach(dataSource -> {
-            timeRanges.forEach(dateTime -> {
-                nodesBuilder.append("\"")
-                            .append(dataSource)
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .ofNullable(sourceService)
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addSourceInstanceProperties(
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addSourceInstanceProperties(
-                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .ofNullable(targetService)
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addDestInstanceProperties(
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/LogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addDestInstanceProperties(
-                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .ofNullable(sourceService)
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addSourceInstanceProperties(
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addSourceInstanceProperties(
-                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .ofNullable(targetService)
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addDestInstanceProperties(
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/tcp/TCPLogEntry2MetricsAdapter.java`
-#### Snippet
-```java
-            .map(ServiceMetaInfo::getTags)
-            .ifPresent(tags -> {
-                tags.forEach(p -> {
-                    builder.addDestInstanceProperties(
-                        KeyStringValuePair.newBuilder().setKey(p.getKey()).setValue(p.getValue()));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/entity/LabelName.java`
-#### Snippet
-```java
-
-    static {
-        Arrays.stream(LabelName.values()).forEach(l -> {
-            DICTIONARY.put(l.label, l);
-        });
 ```
 
 ### CodeBlock2Expr
@@ -5248,97 +5170,25 @@ in `oap-server/server-configuration/grpc-configuration-sync/src/main/java/org/ap
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/ReceiverGRPCHandlerRegister.java`
 #### Snippet
 ```java
-            }
+            grpcHandlerRegister.addHandler(handler);
         } else {
-            Arrays.stream(LabelName.values()).forEach(label -> {
-                response.getData().add(label);
+            interceptors.forEach(interceptor -> {
+                grpcHandlerRegister.addHandler(handlerInterceptorBind(handler, interceptor));
             });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        switch (LabelName.labelOf(labelName)) {
-            case NAME:
-                metricsQuery.listMetrics("").forEach(definition -> {
-                    response.getData().add(definition.getName());
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-                List<Service> services = metadataQuery.listServices(
-                    parseResult.getLabelMap().get(LabelName.LAYER));
-                services.forEach(service -> {
-                    response.getData().add(buildMetricInfoFromTraffic(metricName, service));
-                });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-            List<ServiceInstance> instances = metadataQuery.listInstances(
-                duration, IDManager.ServiceID.buildId(serviceName, Layer.valueOf(layer).isNormal()));
-            instances.forEach(instance -> {
-                response.getData().add(buildMetricInfoFromTraffic(metricName, instance));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-                Integer.parseInt(limit)
-            );
-            endpoints.forEach(endpoint -> {
-                response.getData().add(buildMetricInfoFromTraffic(metricName, endpoint));
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-    public Optional<Documents> ids(Map<String, List<String>> indexIds) {
-        Map<String, List<String>> map = new HashMap<>();
-        indexIds.forEach((indexName, ids) -> {
-            map.put(indexNameConverter.apply(indexName), ids);
-        });
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `condition` are queried, but never updated
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskLogQueryDAO.java`
-#### Snippet
-```java
-    public List<ProfileTaskLog> getTaskLogList() throws IOException {
-        final StringBuilder sql = new StringBuilder();
-        final ArrayList<Object> condition = new ArrayList<>(1);
-        sql.append("select * from ").append(ProfileTaskLogRecord.INDEX_NAME).append(" where 1=1 ");
-
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `consumerList` are updated, but never queried
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
 #### Snippet
 ```java
     @Benchmark
-    public void testArrayStart1() {
-        List<SampleData> consumerList = new ArrayList<SampleData>(1);
+    public void testArrayStart40000() {
+        List<SampleData> consumerList = new ArrayList<SampleData>(40000);
         for (int pos = 0; pos < 40000; pos++) {
             consumerList.add(new SampleData());
 ```
@@ -5356,54 +5206,6 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `list` are updated, but never queried
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
-#### Snippet
-```java
-    @Benchmark
-    public void testLinkedCap40000() {
-        LinkedList<SampleData> list = new LinkedList<SampleData>();
-        for (int i = 0; i < 40000; i++) {
-            list.add(new SampleData());
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `consumerList` are updated, but never queried
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
-#### Snippet
-```java
-    @Benchmark
-    public void testReusedArray() {
-        List<SampleData> consumerList = new ArrayList<SampleData>();
-        for (int times = 0; times < 1000; times++) {
-            for (int pos = 0; pos < 40000; pos++) {
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `list` are updated, but never queried
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
-#### Snippet
-```java
-    public void testLinked200K() {
-        for (int times = 0; times < 1000; times++) {
-            LinkedList<SampleData> list = new LinkedList<SampleData>();
-            for (int pos = 0; pos < 200000; pos++) {
-                list.add(new SampleData());
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `list` are updated, but never queried
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
-#### Snippet
-```java
-    @Benchmark
-    public void testArrayCap40000() {
-        ArrayList<SampleData> list = new ArrayList<SampleData>();
-        for (int i = 0; i < 40000; i++) {
-            list.add(new SampleData());
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `consumerList` are updated, but never queried
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
 #### Snippet
@@ -5416,15 +5218,15 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `consumerList` are updated, but never queried
+Contents of collection `list` are updated, but never queried
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
 #### Snippet
 ```java
     @Benchmark
-    public void testArrayStart10() {
-        List<SampleData> consumerList = new ArrayList<SampleData>(10);
-        for (int pos = 0; pos < 40000; pos++) {
-            consumerList.add(new SampleData());
+    public void testReusedLinked200K() {
+        LinkedList<SampleData> list = new LinkedList<SampleData>();
+        for (int times = 0; times < 1000; times++) {
+            for (int pos = 0; pos < 200000; pos++) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -5445,10 +5247,22 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
 #### Snippet
 ```java
     @Benchmark
-    public void testReusedLinked200K() {
-        LinkedList<SampleData> list = new LinkedList<SampleData>();
+    public void testArrayCap40000() {
+        ArrayList<SampleData> list = new ArrayList<SampleData>();
+        for (int i = 0; i < 40000; i++) {
+            list.add(new SampleData());
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `consumerList` are updated, but never queried
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
+#### Snippet
+```java
+    @Benchmark
+    public void testReusedArray() {
+        List<SampleData> consumerList = new ArrayList<SampleData>();
         for (int times = 0; times < 1000; times++) {
-            for (int pos = 0; pos < 200000; pos++) {
+            for (int pos = 0; pos < 40000; pos++) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -5464,18 +5278,6 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `consumerList` are updated, but never queried
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
-#### Snippet
-```java
-    @Benchmark
-    public void testArrayStart40000() {
-        List<SampleData> consumerList = new ArrayList<SampleData>(40000);
-        for (int pos = 0; pos < 40000; pos++) {
-            consumerList.add(new SampleData());
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `list` are updated, but never queried
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
 #### Snippet
@@ -5485,6 +5287,18 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
         LinkedList<SampleData> list = new LinkedList<SampleData>();
         for (int i = 0; i < 1000; i++) {
             list.add(new SampleData());
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `list` are updated, but never queried
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
+#### Snippet
+```java
+    public void testLinked200K() {
+        for (int times = 0; times < 1000; times++) {
+            LinkedList<SampleData> list = new LinkedList<SampleData>();
+            for (int pos = 0; pos < 200000; pos++) {
+                list.add(new SampleData());
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -5499,7 +5313,79 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
 
 ```
 
+### MismatchedCollectionQueryUpdate
+Contents of collection `consumerList` are updated, but never queried
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
+#### Snippet
+```java
+    @Benchmark
+    public void testArrayStart10() {
+        List<SampleData> consumerList = new ArrayList<SampleData>(10);
+        for (int pos = 0; pos < 40000; pos++) {
+            consumerList.add(new SampleData());
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `list` are updated, but never queried
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
+#### Snippet
+```java
+    @Benchmark
+    public void testLinkedCap40000() {
+        LinkedList<SampleData> list = new LinkedList<SampleData>();
+        for (int i = 0; i < 40000; i++) {
+            list.add(new SampleData());
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `consumerList` are updated, but never queried
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
+#### Snippet
+```java
+    @Benchmark
+    public void testArrayStart1() {
+        List<SampleData> consumerList = new ArrayList<SampleData>(1);
+        for (int pos = 0; pos < 40000; pos++) {
+            consumerList.add(new SampleData());
+```
+
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `streamBulkWriteProcessor` is accessed in both synchronized and unsynchronized contexts
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
+#### Snippet
+```java
+    private static final Object STREAM_SYNCHRONIZER = new Object();
+    private static final Object MEASURE_SYNCHRONIZER = new Object();
+    private StreamBulkWriteProcessor streamBulkWriteProcessor;
+
+    private MeasureBulkWriteProcessor measureBulkWriteProcessor;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `measureBulkWriteProcessor` is accessed in both synchronized and unsynchronized contexts
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
+#### Snippet
+```java
+    private StreamBulkWriteProcessor streamBulkWriteProcessor;
+
+    private MeasureBulkWriteProcessor measureBulkWriteProcessor;
+
+    private final int maxBulkSize;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `allConsumers` is accessed in both synchronized and unsynchronized contexts
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
+#### Snippet
+```java
+ */
+public class BulkConsumePool implements ConsumerPool {
+    private List<MultipleChannelsConsumer> allConsumers;
+    private volatile boolean isStarted = false;
+
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `workerInstanceGetter` is accessed in both synchronized and unsynchronized contexts
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/RemoteServiceHandler.java`
@@ -5561,42 +5447,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `ALL_METRICS` is accessed in both synchronized and unsynchronized contexts
-in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/BaseMetrics.java`
-#### Snippet
-```java
- */
-public abstract class BaseMetrics<T extends SimpleCollector, C> {
-    private static Map<String, Object> ALL_METRICS = new HashMap<>();
-
-    private volatile C metricsInstance;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `measureBulkWriteProcessor` is accessed in both synchronized and unsynchronized contexts
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
-#### Snippet
-```java
-    private StreamBulkWriteProcessor streamBulkWriteProcessor;
-
-    private MeasureBulkWriteProcessor measureBulkWriteProcessor;
-
-    private final int maxBulkSize;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `streamBulkWriteProcessor` is accessed in both synchronized and unsynchronized contexts
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBBatchDAO.java`
-#### Snippet
-```java
-    private static final Object STREAM_SYNCHRONIZER = new Object();
-    private static final Object MEASURE_SYNCHRONIZER = new Object();
-    private StreamBulkWriteProcessor streamBulkWriteProcessor;
-
-    private MeasureBulkWriteProcessor measureBulkWriteProcessor;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `factory` is accessed in both synchronized and unsynchronized contexts
 in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/NamespacedPodListInformer.java`
 #### Snippet
@@ -5621,30 +5471,18 @@ in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `allConsumers` is accessed in both synchronized and unsynchronized contexts
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
+Field `ALL_METRICS` is accessed in both synchronized and unsynchronized contexts
+in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/BaseMetrics.java`
 #### Snippet
 ```java
  */
-public class BulkConsumePool implements ConsumerPool {
-    private List<MultipleChannelsConsumer> allConsumers;
-    private volatile boolean isStarted = false;
+public abstract class BaseMetrics<T extends SimpleCollector, C> {
+    private static Map<String, Object> ALL_METRICS = new HashMap<>();
 
+    private volatile C metricsInstance;
 ```
 
 ## RuleId[id=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
-#### Snippet
-```java
-            return;
-        }
-        Object originValue = providerSettings.get(settingKey);
-        Class<?> type = originValue.getClass();
-        if (type.equals(int.class) || type.equals(Integer.class))
-```
-
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.get()` on properties object
 in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
@@ -5655,6 +5493,18 @@ in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking
                 field.set(dest, src.get(propertyName));
             } catch (NoSuchFieldException e) {
                 LOGGER.warn(
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
+#### Snippet
+```java
+            return;
+        }
+        Object originValue = providerSettings.get(settingKey);
+        Class<?> type = originValue.getClass();
+        if (type.equals(int.class) || type.equals(Integer.class))
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -5683,18 +5533,78 @@ in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/ScriptPa
 ```
 
 ### EmptyMethod
-Empty method overrides empty method
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/mysql/MySQLTableInstaller.java`
+The method is empty
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public void createTableIndexes(
-        JDBCHikariCPClient client,
-        Connection connection,
+    protected void buildShardingCondition(StringBuilder sql, List<String> parameters, String entityId) {
+    }
+}
+```
+
+### EmptyMethod
+The method is empty
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+    }
+
+    protected void buildShardingCondition(StringBuilder sql, List<Object> parameters, long startTimeMillis, long endTimeMillis) {
+    }
+}
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/PromQLConfig.java`
+#### Snippet
+```java
+    private int restMaxThreads = 200;
+    private long restIdleTimeOut = 30000;
+    private int restAcceptQueueSize = 0;
+}
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/result/ParseResult.java`
+#### Snippet
+```java
+    private ParseTree parseTree;
+    private ParseResultType resultType;
+    private boolean rangeExpression = false;
+    private ErrorType errorType;
+    private String errorInfo;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/TelemetryRelatedContext.java`
+#### Snippet
+```java
+    INSTANCE;
+
+    private volatile String id = null;
+
+    TelemetryRelatedContext() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
+#### Snippet
+```java
+    @Getter
+    private final Register groupConfigChangeWatcherRegister = new Register();
+    private volatile boolean isStarted = false;
+    private final long syncPeriod;
+
+```
+
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking/oap/server/library/server/http/HTTPServerConfig.java`
@@ -5720,51 +5630,291 @@ in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/SharingServerConfig.java`
+Field initialization to `null` is redundant
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
 #### Snippet
 ```java
-    private int gRPCThreadPoolQueueSize;
-    private String authentication;
-    private boolean gRPCSslEnabled = false;
-    private String gRPCSslKeyPath;
-    private String gRPCSslCertChainPath;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleDefine.class);
+
+    private ModuleProvider loadedProvider = null;
+
+    private final String name;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/SharingServerConfig.java`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/partition/SimpleRollingPartitioner.java`
 #### Snippet
 ```java
-    private int restMaxThreads = 200;
-    private long restIdleTimeOut = 30000;
-    private int restAcceptQueueSize = 0;
+public class SimpleRollingPartitioner<T> implements IDataPartitioner<T> {
+    @SuppressWarnings("NonAtomicVolatileUpdate")
+    private volatile int i = 0;
 
-    private String gRPCHost;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/AWSFirehoseReceiverModuleConfig.java`
-#### Snippet
-```java
-    private int maxThreads = 200;
-    private long idleTimeOut = 30000;
-    private int acceptQueueSize = 0;
-    private int maxRequestHeaderSize = 8192;
-    private String firehoseAccessKey;
+    @Override
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModuleConfig.java`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
 #### Snippet
 ```java
-     * tool, such as Kibana-&gt;ES, to query the data by themselves.
-     */
-    private boolean activeExtraModelColumns = false;
+public class BulkConsumePool implements ConsumerPool {
+    private List<MultipleChannelsConsumer> allConsumers;
+    private volatile boolean isStarted = false;
+
+    public BulkConsumePool(String name, int size, long consumeCycle) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/spec/sink/sampler/RateLimitingSampler.java`
+#### Snippet
+```java
+        private volatile ScheduledFuture<?> future;
+
+        private volatile boolean started = false;
+
+        private synchronized void start(final Sampler sampler) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/ClusterModuleZookeeperConfig.java`
+#### Snippet
+```java
+    @Setter
+    @Getter
+    private boolean enableACL = false;
+    @Setter
+    @Getter
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+#### Snippet
+```java
+    private List<ConditionExpression> funcConditionExpressions;
+
+    private int funcConditionExpressionGetIdx = 0;
+
+    private List<Argument> funcArgs;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+#### Snippet
+```java
+    private List<Argument> funcArgs;
+
+    private int argGetIdx = 0;
+
+    private String nextArgCast = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+#### Snippet
+```java
+    private int argGetIdx = 0;
+
+    private String nextArgCast = null;
+
+    public void addFuncConditionExpression(ConditionExpression conditionExpression) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/EnvoyMetricReceiverConfig.java`
+#### Snippet
+```java
+public class EnvoyMetricReceiverConfig extends ModuleConfig {
+    @Getter
+    private boolean acceptMetricsService = false;
+    private String alsHTTPAnalysis;
+    private String alsTCPAnalysis;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/MetricsHolder.java`
+#### Snippet
+```java
+public class MetricsHolder {
+    private static final Map<String, Class<? extends Metrics>> REGISTER = new HashMap<>();
+    private static volatile boolean INITIALIZED = false;
+
+    private static void init() throws IOException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+#### Snippet
+```java
+        "storage2Entity"
+    };
+    private static boolean IS_RT_TEMP_FOLDER_INIT_COMPLETED = false;
+
+    private final OALDefine oalDefine;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/GRPCStreamStatus.java`
+#### Snippet
+```java
+public class GRPCStreamStatus {
+
+    private volatile boolean done = false;
+
+    public void done() {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/FieldsHelper.java`
+#### Snippet
+```java
+    SINGLETON;
+
+    private boolean initialized = false;
+
     /**
-     * The max length of the service name.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
+#### Snippet
+```java
+         * The last modify time of the {@link #filePath}
+         */
+        private long lastModifiedTimestamp = 0;
+        /**
+         * File content at the latest status.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
+#### Snippet
+```java
+     * The timestamp when last time do status checked.
+     */
+    private long lastCheckTimestamp = 0;
+    /**
+     * The period of watching thread checking the file status. Unit is the second.
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/Context.java`
+#### Snippet
+```java
+    public String name = "";
+    public String help = "";
+    public MetricType type = null;
+    public List<String> allowedNames = new ArrayList<>();
+    public List<TextSample> samples = new ArrayList<>();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
+#### Snippet
+```java
+     * @since 9.2.0
+     */
+    private boolean logicSharding = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
+#### Snippet
+```java
+     * if enabled, custom routing values will be used, to reduce the number of shards that need to be searched.
+     */
+    private boolean enableCustomRouting = false;
+}
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
+#### Snippet
+```java
+     * @since 8.2.0, the replicas number is for super size dataset record replicas number
+     */
+    private int superDatasetIndexReplicasNumber = 0;
+    private int superDatasetIndexShardsFactor = 5;
+    private int indexRefreshInterval = 2;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
+#### Snippet
+```java
+     * @since 8.7.0 The order of index template.
+     */
+    private int indexTemplateOrder = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
+#### Snippet
+```java
+     */
+    private int dayStep = 1;
+    private int indexReplicasNumber = 0;
+    private int indexShardsNumber = 1;
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
+#### Snippet
+```java
+    @Setter
+    @Getter
+    private boolean logicSharding = false;
+
+    @Setter
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
+#### Snippet
+```java
+    @Setter
+    @Getter
+    private boolean enableCustomRouting = false;
+
+    public String getTableName(Model model) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
+#### Snippet
+```java
+    private final int scrollingBatchSize;
+    private String endpointTrafficNameAlias;
+    private boolean aliasNameInit = false;
+    private final int layerSize;
+
 ```
 
 ### RedundantFieldInitialization
@@ -5777,6 +5927,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/C
     private boolean gRPCSslEnabled = false;
     private String gRPCSslKeyPath;
     private String gRPCSslCertChainPath;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/CoreModuleConfig.java`
+#### Snippet
+```java
+     * tool, such as Kibana-&gt;ES, to query the data by themselves.
+     */
+    private boolean activeExtraModelColumns = false;
+    /**
+     * The max length of the service name.
 ```
 
 ### RedundantFieldInitialization
@@ -5808,11 +5970,11 @@ Field initialization to `false` is redundant
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/DownSamplingConfigService.java`
 #### Snippet
 ```java
-public class DownSamplingConfigService implements Service {
 
     private boolean shouldToHour = false;
     private boolean shouldToDay = false;
 
+    public DownSamplingConfigService(List<String> downsampling) {
 ```
 
 ### RedundantFieldInitialization
@@ -5820,11 +5982,11 @@ Field initialization to `false` is redundant
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/DownSamplingConfigService.java`
 #### Snippet
 ```java
+public class DownSamplingConfigService implements Service {
 
     private boolean shouldToHour = false;
     private boolean shouldToDay = false;
 
-    public DownSamplingConfigService(List<String> downsampling) {
 ```
 
 ### RedundantFieldInitialization
@@ -5913,18 +6075,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/s
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/PersistenceTimer.java`
-#### Snippet
-```java
-    INSTANCE;
-    @VisibleForTesting
-    boolean isStarted = false;
-    private CounterMetrics errorCounter;
-    private HistogramMetrics prepareLatency;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/StorageID.java`
 #### Snippet
 ```java
@@ -5945,6 +6095,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/s
         private boolean hasListColumn = false;
 
         public void appendColumn(ModelColumn column) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/PersistenceTimer.java`
+#### Snippet
+```java
+    INSTANCE;
+    @VisibleForTesting
+    boolean isStarted = false;
+    private CounterMetrics errorCounter;
+    private HistogramMetrics prepareLatency;
 ```
 
 ### RedundantFieldInitialization
@@ -6045,50 +6207,50 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/AWSFirehoseReceiverModuleConfig.java`
 #### Snippet
 ```java
-    private List<Argument> funcArgs;
-
-    private int argGetIdx = 0;
-
-    private String nextArgCast = null;
+    private int maxThreads = 200;
+    private long idleTimeOut = 30000;
+    private int acceptQueueSize = 0;
+    private int maxRequestHeaderSize = 8192;
+    private String firehoseAccessKey;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/skywalking/oap/query/zipkin/ZipkinQueryConfig.java`
 #### Snippet
 ```java
-    private List<ConditionExpression> funcConditionExpressions;
-
-    private int funcConditionExpressionGetIdx = 0;
-
-    private List<Argument> funcArgs;
+    private int restMaxThreads = 200;
+    private long restIdleTimeOut = 30000;
+    private int restAcceptQueueSize = 0;
+    private long lookback = 86400000L;
+    private int namesMaxAge = 300;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/AggregationFuncStmt.java`
+Field initialization to `0` is redundant
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
 #### Snippet
 ```java
-    private int argGetIdx = 0;
+    private final Semaphore semaphore;
+    private final long flushInternalInMillis;
+    private volatile long lastFlushTS = 0;
+    private final int batchOfBytes;
 
-    private String nextArgCast = null;
-
-    public void addFuncConditionExpression(ConditionExpression conditionExpression) {
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/MetricsHolder.java`
+in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/GraphQLQueryConfig.java`
 #### Snippet
 ```java
-public class MetricsHolder {
-    private static final Map<String, Class<? extends Metrics>> REGISTER = new HashMap<>();
-    private static volatile boolean INITIALIZED = false;
+    private int maxQueryComplexity = 1000;
+    private boolean enableUpdateUITemplate = false;
+    private boolean enableOnDemandPodLog = false;
+}
 
-    private static void init() throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -6101,30 +6263,6 @@ in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache
     private boolean enableUpdateUITemplate = false;
     private boolean enableOnDemandPodLog = false;
 }
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/GraphQLQueryConfig.java`
-#### Snippet
-```java
-    private int maxQueryComplexity = 1000;
-    private boolean enableUpdateUITemplate = false;
-    private boolean enableOnDemandPodLog = false;
-}
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
-#### Snippet
-```java
-        "storage2Entity"
-    };
-    private static boolean IS_RT_TEMP_FOLDER_INIT_COMPLETED = false;
-
-    private final OALDefine oalDefine;
 ```
 
 ### RedundantFieldInitialization
@@ -6152,27 +6290,111 @@ in `oap-server/server-receiver-plugin/configuration-discovery-receiver-plugin/sr
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
+Field initialization to `false` is redundant
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
 #### Snippet
 ```java
-    private final Semaphore semaphore;
-    private final long flushInternalInMillis;
-    private volatile long lastFlushTS = 0;
-    private final int batchOfBytes;
+
+    //kafka
+    private boolean enableKafkaTrace = false;
+    private boolean enableKafkaLog = false;
+    private String kafkaBootstrapServers;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
+#### Snippet
+```java
+@Getter
+public class ExporterSetting extends ModuleConfig {
+    private boolean enableGRPCMetrics = false;
+    private String gRPCTargetHost;
+    private int gRPCTargetPort;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
+#### Snippet
+```java
+    //kafka
+    private boolean enableKafkaTrace = false;
+    private boolean enableKafkaLog = false;
+    private String kafkaBootstrapServers;
+    private String kafkaProducerConfig;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
+#### Snippet
+```java
+    private ReentrantLock fetchListLock;
+    private volatile List<SubscriptionMetric> subscriptionList;
+    private volatile long lastFetchTimestamp = 0;
+
+    public GRPCMetricsExporter(ExporterSetting setting) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `oap-server/server-configuration/grpc-configuration-sync/src/main/java/org/apache/skywalking/oap/server/configuration/grpc/GRPCConfigWatcherRegister.java`
+#### Snippet
+```java
+    private RemoteEndpointSettings settings;
+    private ConfigurationServiceGrpc.ConfigurationServiceBlockingStub stub;
+    private String uuid = null;
+    private String groupUuid = null;
 
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/TelemetryRelatedContext.java`
+in `oap-server/server-configuration/grpc-configuration-sync/src/main/java/org/apache/skywalking/oap/server/configuration/grpc/GRPCConfigWatcherRegister.java`
 #### Snippet
 ```java
-    INSTANCE;
+    private ConfigurationServiceGrpc.ConfigurationServiceBlockingStub stub;
+    private String uuid = null;
+    private String groupUuid = null;
 
-    private volatile String id = null;
+    public GRPCConfigWatcherRegister(RemoteEndpointSettings settings) {
+```
 
-    TelemetryRelatedContext() {
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusConfig.java`
+#### Snippet
+```java
+    private String host = "0.0.0.0";
+    private int port = 1234;
+    private boolean sslEnabled = false;
+    private String sslKeyPath;
+    private String sslCertChainPath;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/SharingServerConfig.java`
+#### Snippet
+```java
+    private int restMaxThreads = 200;
+    private long restIdleTimeOut = 30000;
+    private int restAcceptQueueSize = 0;
+
+    private String gRPCHost;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `oap-server/server-receiver-plugin/skywalking-sharing-server-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/sharing/server/SharingServerConfig.java`
+#### Snippet
+```java
+    private int gRPCThreadPoolQueueSize;
+    private String authentication;
+    private boolean gRPCSslEnabled = false;
+    private String gRPCSslKeyPath;
+    private String gRPCSslCertChainPath;
 ```
 
 ### RedundantFieldInitialization
@@ -6199,367 +6421,43 @@ in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/a
     private int sampleRate = 10000;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusConfig.java`
-#### Snippet
-```java
-    private String host = "0.0.0.0";
-    private int port = 1234;
-    private boolean sslEnabled = false;
-    private String sslKeyPath;
-    private String sslCertChainPath;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/GRPCStreamStatus.java`
-#### Snippet
-```java
-public class GRPCStreamStatus {
-
-    private volatile boolean done = false;
-
-    public void done() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
-#### Snippet
-```java
-     * The timestamp when last time do status checked.
-     */
-    private long lastCheckTimestamp = 0;
-    /**
-     * The period of watching thread checking the file status. Unit is the second.
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/MultipleFilesChangeMonitor.java`
-#### Snippet
-```java
-         * The last modify time of the {@link #filePath}
-         */
-        private long lastModifiedTimestamp = 0;
-        /**
-         * File content at the latest status.
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/Context.java`
-#### Snippet
-```java
-    public String name = "";
-    public String help = "";
-    public MetricType type = null;
-    public List<String> allowedNames = new ArrayList<>();
-    public List<TextSample> samples = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
-#### Snippet
-```java
-     * if enabled, custom routing values will be used, to reduce the number of shards that need to be searched.
-     */
-    private boolean enableCustomRouting = false;
-}
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
-#### Snippet
-```java
-     */
-    private int dayStep = 1;
-    private int indexReplicasNumber = 0;
-    private int indexShardsNumber = 1;
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
-#### Snippet
-```java
-     * @since 9.2.0
-     */
-    private boolean logicSharding = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
-#### Snippet
-```java
-     * @since 8.2.0, the replicas number is for super size dataset record replicas number
-     */
-    private int superDatasetIndexReplicasNumber = 0;
-    private int superDatasetIndexShardsFactor = 5;
-    private int indexRefreshInterval = 2;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/StorageModuleElasticsearchConfig.java`
-#### Snippet
-```java
-     * @since 8.7.0 The order of index template.
-     */
-    private int indexTemplateOrder = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
-#### Snippet
-```java
-    @Setter
-    @Getter
-    private boolean logicSharding = false;
-
-    @Setter
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
-#### Snippet
-```java
-    @Setter
-    @Getter
-    private boolean enableCustomRouting = false;
-
-    public String getTableName(Model model) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
-#### Snippet
-```java
-    private final int scrollingBatchSize;
-    private String endpointTrafficNameAlias;
-    private boolean aliasNameInit = false;
-    private final int layerSize;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
-#### Snippet
-```java
-    //kafka
-    private boolean enableKafkaTrace = false;
-    private boolean enableKafkaLog = false;
-    private String kafkaBootstrapServers;
-    private String kafkaProducerConfig;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
-#### Snippet
-```java
-@Getter
-public class ExporterSetting extends ModuleConfig {
-    private boolean enableGRPCMetrics = false;
-    private String gRPCTargetHost;
-    private int gRPCTargetPort;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/ExporterSetting.java`
-#### Snippet
-```java
-
-    //kafka
-    private boolean enableKafkaTrace = false;
-    private boolean enableKafkaLog = false;
-    private String kafkaBootstrapServers;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-    @Getter
-    private final Register groupConfigChangeWatcherRegister = new Register();
-    private volatile boolean isStarted = false;
-    private final long syncPeriod;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
-#### Snippet
-```java
-    private ReentrantLock fetchListLock;
-    private volatile List<SubscriptionMetric> subscriptionList;
-    private volatile long lastFetchTimestamp = 0;
-
-    public GRPCMetricsExporter(ExporterSetting setting) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/skywalking/oap/query/zipkin/ZipkinQueryConfig.java`
-#### Snippet
-```java
-    private int restMaxThreads = 200;
-    private long restIdleTimeOut = 30000;
-    private int restAcceptQueueSize = 0;
-    private long lookback = 86400000L;
-    private int namesMaxAge = 300;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/EnvoyMetricReceiverConfig.java`
-#### Snippet
-```java
-public class EnvoyMetricReceiverConfig extends ModuleConfig {
-    @Getter
-    private boolean acceptMetricsService = false;
-    private String alsHTTPAnalysis;
-    private String alsTCPAnalysis;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/FieldsHelper.java`
-#### Snippet
-```java
-    SINGLETON;
-
-    private boolean initialized = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/partition/SimpleRollingPartitioner.java`
-#### Snippet
-```java
-public class SimpleRollingPartitioner<T> implements IDataPartitioner<T> {
-    @SuppressWarnings("NonAtomicVolatileUpdate")
-    private volatile int i = 0;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
-#### Snippet
-```java
-public class BulkConsumePool implements ConsumerPool {
-    private List<MultipleChannelsConsumer> allConsumers;
-    private volatile boolean isStarted = false;
-
-    public BulkConsumePool(String name, int size, long consumeCycle) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/spec/sink/sampler/RateLimitingSampler.java`
-#### Snippet
-```java
-        private volatile ScheduledFuture<?> future;
-
-        private volatile boolean started = false;
-
-        private synchronized void start(final Sampler sampler) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/PromQLConfig.java`
-#### Snippet
-```java
-    private int restMaxThreads = 200;
-    private long restIdleTimeOut = 30000;
-    private int restAcceptQueueSize = 0;
-}
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/result/ParseResult.java`
-#### Snippet
-```java
-    private ParseTree parseTree;
-    private ParseResultType resultType;
-    private boolean rangeExpression = false;
-    private ErrorType errorType;
-    private String errorInfo;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/ClusterModuleZookeeperConfig.java`
-#### Snippet
-```java
-    @Setter
-    @Getter
-    private boolean enableACL = false;
-    @Setter
-    @Getter
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `oap-server/server-configuration/grpc-configuration-sync/src/main/java/org/apache/skywalking/oap/server/configuration/grpc/GRPCConfigWatcherRegister.java`
-#### Snippet
-```java
-    private ConfigurationServiceGrpc.ConfigurationServiceBlockingStub stub;
-    private String uuid = null;
-    private String groupUuid = null;
-
-    public GRPCConfigWatcherRegister(RemoteEndpointSettings settings) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `oap-server/server-configuration/grpc-configuration-sync/src/main/java/org/apache/skywalking/oap/server/configuration/grpc/GRPCConfigWatcherRegister.java`
-#### Snippet
-```java
-    private RemoteEndpointSettings settings;
-    private ConfigurationServiceGrpc.ConfigurationServiceBlockingStub stub;
-    private String uuid = null;
-    private String groupUuid = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleDefine.class);
-
-    private ModuleProvider loadedProvider = null;
-
-    private final String name;
-```
-
 ## RuleId[id=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/common/AtomicRangeIntegerV1.java`
+#### Snippet
+```java
+ * This is moved from SkyWalking 6.1
+ */
+public class AtomicRangeIntegerV1 extends Number implements Serializable {
+
+    private static final long serialVersionUID = -4099792402691141643L;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/common/AtomicRangeIntegerV2.java`
+#### Snippet
+```java
+ * This comes from PR#2874
+ */
+public class AtomicRangeIntegerV2 extends Number implements Serializable {
+    private static final long serialVersionUID = -4099792402691141643L;
+    private AtomicInteger value;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/common/AtomicRangeInteger.java`
+#### Snippet
+```java
+import java.util.concurrent.atomic.AtomicIntegerArray;
+
+public class AtomicRangeInteger extends Number implements Serializable {
+    private static final long serialVersionUID = -4099792402691141643L;
+    private AtomicIntegerArray values;
+```
+
 ### RedundantImplements
 Redundant interface declaration `SourceDispatcher`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/browser/manual/service/BrowserAppTrafficDispatcher.java`
@@ -6598,18 +6496,6 @@ public class BrowserAppSingleVersionTrafficDispatcher extends BrowserAppTrafficS
 
 ### RedundantImplements
 Redundant interface declaration `Service`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/exporter/LogExportService.java`
-#### Snippet
-```java
- * Export the log from metrics through this service.
- */
-public interface LogExportService extends Service, ExporterService<LogRecord> {
-
-    void export(LogRecord logRecord);
-```
-
-### RedundantImplements
-Redundant interface declaration `Service`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/exporter/MetricValuesExportService.java`
 #### Snippet
 ```java
@@ -6622,6 +6508,18 @@ public interface MetricValuesExportService extends Service, ExporterService<Expo
 
 ### RedundantImplements
 Redundant interface declaration `Service`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/exporter/LogExportService.java`
+#### Snippet
+```java
+ * Export the log from metrics through this service.
+ */
+public interface LogExportService extends Service, ExporterService<LogRecord> {
+
+    void export(LogRecord logRecord);
+```
+
+### RedundantImplements
+Redundant interface declaration `Service`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/exporter/TraceExportService.java`
 #### Snippet
 ```java
@@ -6630,55 +6528,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/e
 public interface TraceExportService extends Service, ExporterService<SegmentRecord> {
 
     void export(SegmentRecord segmentRecord);
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/common/AtomicRangeIntegerV1.java`
-#### Snippet
-```java
- * This is moved from SkyWalking 6.1
- */
-public class AtomicRangeIntegerV1 extends Number implements Serializable {
-
-    private static final long serialVersionUID = -4099792402691141643L;
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/common/AtomicRangeIntegerV2.java`
-#### Snippet
-```java
- * This comes from PR#2874
- */
-public class AtomicRangeIntegerV2 extends Number implements Serializable {
-    private static final long serialVersionUID = -4099792402691141643L;
-    private AtomicInteger value;
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/common/AtomicRangeInteger.java`
-#### Snippet
-```java
-import java.util.concurrent.atomic.AtomicIntegerArray;
-
-public class AtomicRangeInteger extends Number implements Serializable {
-    private static final long serialVersionUID = -4099792402691141643L;
-    private AtomicIntegerArray values;
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-11-35-36.190.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
@@ -6721,6 +6570,30 @@ in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/jav
 
 ## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/BatchProcessEsDAO.java`
+#### Snippet
+```java
+    public void insert(InsertRequest insertRequest) {
+        if (bulkProcessor == null) {
+            synchronized (this) {
+                if (bulkProcessor == null) {
+                    this.bulkProcessor = getClient().createBulkProcessor(
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/BatchProcessEsDAO.java`
+#### Snippet
+```java
+    public CompletableFuture<Void> flush(List<PrepareRequest> prepareRequests) {
+        if (bulkProcessor == null) {
+            synchronized (this) {
+                if (bulkProcessor == null) {
+                    this.bulkProcessor = getClient().createBulkProcessor(
+```
+
+### SynchronizeOnThis
 Lock operations on a class may have unforeseen side-effects
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/RemoteServiceHandler.java`
 #### Snippet
@@ -6756,34 +6629,10 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/r
                     this.carrier = new DataCarrier<>("GRPCRemoteClient", channelSize, bufferSize);
 ```
 
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/BatchProcessEsDAO.java`
-#### Snippet
-```java
-    public void insert(InsertRequest insertRequest) {
-        if (bulkProcessor == null) {
-            synchronized (this) {
-                if (bulkProcessor == null) {
-                    this.bulkProcessor = getClient().createBulkProcessor(
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/BatchProcessEsDAO.java`
-#### Snippet
-```java
-    public CompletableFuture<Void> flush(List<PrepareRequest> prepareRequests) {
-        if (bulkProcessor == null) {
-            synchronized (this) {
-                if (bulkProcessor == null) {
-                    this.bulkProcessor = getClient().createBulkProcessor(
-```
-
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/module/EBPFReceiverModule.java`
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/PromQLModule.java`
 #### Snippet
 ```java
     @Override
@@ -6795,36 +6644,60 @@ in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/j
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/jvm/module/JVMModule.java`
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/AbstractConfigurationProvider.java`
 #### Snippet
 ```java
     @Override
-    public Class[] services() {
-        return new Class[0];
+    public String[] requiredModules() {
+        return new String[0];
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/NoneConfigurationProvider.java`
+#### Snippet
+```java
+    @Override
+    public String[] requiredModules() {
+        return new String[0];
     }
 }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-log-recevier-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/log/module/LogModule.java`
+in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
 #### Snippet
 ```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
+
+        public Keys() {
+            this.keys = new String[0];
+        }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-event-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/event/EventModule.java`
+in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
+#### Snippet
+```java
+
+        public Values(Keys keys) {
+            this.values = new String[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/none/NoneTelemetryProvider.java`
 #### Snippet
 ```java
     @Override
-    public Class<?>[] services() {
-        return new Class<?>[0];
+    public String[] requiredModules() {
+        return new String[0];
     }
 }
 ```
@@ -6843,7 +6716,7 @@ in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apac
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/AWSFirehoseReceiverModule.java`
+in `oap-server/server-receiver-plugin/skywalking-meter-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/meter/module/MeterReceiverModule.java`
 #### Snippet
 ```java
     @Override
@@ -6851,6 +6724,102 @@ in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/ap
         return new Class[0];
     }
 }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ApplicationConfiguration.java`
+#### Snippet
+```java
+
+    public String[] moduleList() {
+        return modules.keySet().toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-management-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/register/module/RegisterModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-clr-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/clr/module/CLRModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-cluster-plugin/cluster-standalone-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/standalone/ClusterModuleStandaloneProvider.java`
+#### Snippet
+```java
+    @Override
+    public String[] requiredModules() {
+        return new String[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/jvm/module/JVMModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/EnvoyMetricReceiverModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-trace-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/trace/module/TraceModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[] {};
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/ElasticSearchConverter.java`
+#### Snippet
+```java
+            final String value = (String) source.get(getPhysicalColumnName(modelName, fieldName));
+            if (StringUtil.isEmpty(value)) {
+                return new byte[] {};
+            }
+            return Base64.getDecoder().decode(value);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -6891,7 +6860,19 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/s
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-meter-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/meter/module/MeterReceiverModule.java`
+in `oap-server/server-receiver-plugin/skywalking-event-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/event/EventModule.java`
+#### Snippet
+```java
+    @Override
+    public Class<?>[] services() {
+        return new Class<?>[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/module/EBPFReceiverModule.java`
 #### Snippet
 ```java
     @Override
@@ -6903,19 +6884,7 @@ in `oap-server/server-receiver-plugin/skywalking-meter-receiver-plugin/src/main/
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/GraphQLQueryProvider.java`
-#### Snippet
-```java
-    @Override
-    public String[] requiredModules() {
-        return new String[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-clr-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/clr/module/CLRModule.java`
+in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/AWSFirehoseReceiverModule.java`
 #### Snippet
 ```java
     @Override
@@ -6927,79 +6896,127 @@ in `oap-server/server-receiver-plugin/skywalking-clr-receiver-plugin/src/main/ja
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/configuration-discovery-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/configuration/discovery/ConfigurationDiscoveryModule.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
 #### Snippet
 ```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
+                        return tasks;
+                    },
+                    condition.toArray(new Object[0]))
+            );
+        }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
 #### Snippet
 ```java
-                bufferOfBytes += bytes.length + 1;
-                if (bufferOfBytes >= batchOfBytes) {
-                    final ByteBuf content = Unpooled.wrappedBuffer(bs.toArray(new byte[0][]));
-                    byteBufList.add(content);
-                    bs.clear();
+                    return null;
+                },
+                condition.toArray(new Object[0]));
+            if (r != null) {
+                return r;
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
 #### Snippet
 ```java
-            }
-            if (CollectionUtils.isNotEmpty(bs)) {
-                final ByteBuf content = Unpooled.wrappedBuffer(bs.toArray(new byte[0][]));
-                byteBufList.add(content);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
-#### Snippet
-```java
-
-        public Values(Keys keys) {
-            this.values = new String[0];
+                while (uiTemplate != null);
+                return null;
+            }, condition.toArray(new Object[0]));
         }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
 #### Snippet
 ```java
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+            if (result != null) {
+                return result;
+```
 
-        public Keys() {
-            this.keys = new String[0];
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                    return null;
+                },
+                ids.toArray(new Object[0]));
         }
 
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/none/NoneTelemetryProvider.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
 #### Snippet
 ```java
-    @Override
-    public String[] requiredModules() {
-        return new String[0];
-    }
-}
+                    return null;
+                },
+                ids.toArray(new Object[0]));
+        }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/ZipkinReceiverModule.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                    return null;
+                },
+                ids.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                    return (long) defaultValue;
+                },
+                parameters.toArray(new Object[0])
+            ));
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                    return null;
+                },
+                parameters.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCServiceLabelQueryDAO.java`
+#### Snippet
+```java
+                    sql.toString(),
+                    this::parseLabels,
+                    condition.toArray(new Object[0])
+                )
+            );
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-log-recevier-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/log/module/LogModule.java`
 #### Snippet
 ```java
     @Override
@@ -7011,31 +7028,139 @@ in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/a
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusTelemetryProvider.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
 #### Snippet
 ```java
-    @Override
-    public String[] requiredModules() {
-        return new String[0];
-    }
-}
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/ElasticSearchConverter.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
 #### Snippet
 ```java
-            final String value = (String) source.get(getPhysicalColumnName(modelName, fieldName));
-            if (StringUtil.isEmpty(value)) {
-                return new byte[] {};
-            }
-            return Base64.getDecoder().decode(value);
+
+            traces.addAll(
+                h2Client.executeQuery(sql.toString(), this::buildTraces, condition.toArray(new Object[0]))
+            );
+        }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-mesh-receiver-plugin/src/main/java/org/apache/skywalking/aop/server/receiver/mesh/MeshReceiverModule.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+        return trace;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                }
+                return resultSet.getLong("total");
+            }, condition.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                    return processes.size() > 0 ? processes.get(0) : null;
+                },
+                condition.toArray(new Object[0]));
+            if (result != null) {
+                return result;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                }
+                return resultSet.getLong("total");
+            }, condition.toArray(new Object[0]));
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+
+            results.addAll(
+                jdbcClient.executeQuery(sql.toString(), this::buildProcesses, condition.toArray(new Object[0]))
+            );
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                final List<ServiceInstance> instances = buildInstances(resultSet);
+                return instances.size() > 0 ? instances.get(0) : null;
+            }, condition.toArray(new Object[0]));
+            if (result != null) {
+                return result;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                        }
+                        return endpoints;
+                    }, condition.toArray(new Object[0])));
+        }
+        return results.stream().limit(limit).collect(toList());
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/skywalking/oap/query/zipkin/ZipkinQueryModule.java`
 #### Snippet
 ```java
     @Override
@@ -7047,36 +7172,12 @@ in `oap-server/server-receiver-plugin/skywalking-mesh-receiver-plugin/src/main/j
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/AbstractConfigurationProvider.java`
+in `oap-server/server-receiver-plugin/skywalking-telegraf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/telegraf/module/TelegrafReceiverModule.java`
 #### Snippet
 ```java
     @Override
-    public String[] requiredModules() {
-        return new String[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/NoneConfigurationProvider.java`
-#### Snippet
-```java
-    @Override
-    public String[] requiredModules() {
-        return new String[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-cluster-plugin/cluster-standalone-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/standalone/ClusterModuleStandaloneProvider.java`
-#### Snippet
-```java
-    @Override
-    public String[] requiredModules() {
-        return new String[0];
+    public Class[] services() {
+        return new Class[0];
     }
 }
 ```
@@ -7107,6 +7208,66 @@ in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/m
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-telegraf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/telegraf/provider/handler/TelegrafServiceHandler.java`
+#### Snippet
+```java
+                    .collect(Collectors.groupingBy(Sample::getName));
+            sampleFamilyByName.forEach((k, v) ->
+                    builder.put(k, SampleFamilyBuilder.newBuilder(v.toArray(new Sample[0])).build()));
+            res.add(builder.build());
+        }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
+#### Snippet
+```java
+                bufferOfBytes += bytes.length + 1;
+                if (bufferOfBytes >= batchOfBytes) {
+                    final ByteBuf content = Unpooled.wrappedBuffer(bs.toArray(new byte[0][]));
+                    byteBufList.add(content);
+                    bs.clear();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/bulk/BulkProcessor.java`
+#### Snippet
+```java
+            }
+            if (CollectionUtils.isNotEmpty(bs)) {
+                final ByteBuf content = Unpooled.wrappedBuffer(bs.toArray(new byte[0][]));
+                byteBufList.add(content);
+            }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/GraphQLQueryProvider.java`
+#### Snippet
+```java
+    @Override
+    public String[] requiredModules() {
+        return new String[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/configuration-discovery-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/configuration/discovery/ConfigurationDiscoveryModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/RunningRule.java`
 #### Snippet
 ```java
@@ -7131,355 +7292,7 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCBrowserLogQueryDAO.java`
-#### Snippet
-```java
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, "select " + BrowserErrorLogRecord.DATA_BINARY + " " + sql.toString(),
-                parameters.toArray(new Object[0])
-            )) {
-                while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsDAO.java`
-#### Snippet
-```java
-    @Override
-    public List<Metrics> multiGet(Model model, List<Metrics> metrics) throws IOException {
-        String[] ids = metrics.stream().map(m -> m.id().build()).collect(Collectors.toList()).toArray(new String[] {});
-        List<StorageData> storageDataList = getByIDs(jdbcClient, model.getName(), ids, storageBuilder);
-        List<Metrics> result = new ArrayList<>(storageDataList.size());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCRecordsQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    Record record = new Record();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskLogQueryDAO.java`
-#### Snippet
-```java
-
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]))) {
-                final List<ProfileTaskLog> tasks = new ArrayList<>();
-                while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTagAutoCompleteQueryDAO.java`
-#### Snippet
-```java
-
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            Set<String> tagValues = new HashSet<>();
-            while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTagAutoCompleteQueryDAO.java`
-#### Snippet
-```java
-        sql.append(" limit ").append(limit);
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            Set<String> tagKeys = new HashSet<>();
-            while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                if (resultSet.next()) {
-                    return parseTask(resultSet);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                final LinkedList<ProfileTask> tasks = new LinkedList<>();
-                while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
-#### Snippet
-```java
-            this.buildLimit(sql, from, limit);
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(connection, "select * " + sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    AlarmMessage message = new AlarmMessage();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSpanAttachedEventQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                    connection, sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    SpanAttachedEventRecord record = new SpanAttachedEventRecord();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
-#### Snippet
-```java
-                    SegmentRecord.LATENCY + ", " +
-                    SegmentRecord.IS_ERROR + ", " +
-                    SegmentRecord.TRACE_ID + " " + sql, parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    BasicTrace basicTrace = new BasicTrace();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-            HeatMap heatMap = new HeatMap();
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), parameters.toArray(new Object[0]))) {
-
-                while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-                connection,
-                sql.toString(),
-                parameters.toArray(new Object[0])
-            )) {
-                if (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    String id = resultSet.getString("id");
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    KVInt kv = new KVInt();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-        try (Connection connection = h2Client.getConnection()) {
-            try (ResultSet resultSet = h2Client.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                final List<DashboardConfiguration> configs = new ArrayList<>();
-                final UITemplate.Builder builder = new UITemplate.Builder();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-        try (Connection connection = h2Client.getConnection()) {
-            try (ResultSet rs = h2Client.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                final UITemplate.Builder builder = new UITemplate.Builder();
-                UITemplate uiTemplate = (UITemplate) toStorageData(rs, UITemplate.INDEX_NAME, builder);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-            }
-            sql.append(")");
-            try (ResultSet rs = h2Client.executeQuery(connection, sql.toString(), parameters.toArray(new Object[0]))) {
-                StorageData storageData;
-                List<StorageData> storageDataList = new ArrayList<>();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-        Set<String> traceIds = new HashSet<>();
-        try (Connection connection = h2Client.getConnection()) {
-            ResultSet resultSet = h2Client.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            while (resultSet.next()) {
-                traceIds.add(resultSet.getString(ZipkinSpanRecord.TRACE_ID));
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-        condition.add(traceId);
-        try (Connection connection = h2Client.getConnection()) {
-            ResultSet resultSet = h2Client.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            List<Span> trace = new ArrayList<>();
-            while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-        condition.add(serviceName);
-        try (Connection connection = h2Client.getConnection()) {
-            ResultSet resultSet = h2Client.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            List<String> remoteServices = new ArrayList<>();
-            while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-        condition.add(serviceName);
-        try (Connection connection = h2Client.getConnection()) {
-            ResultSet resultSet = h2Client.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            List<String> spanNames = new ArrayList<>();
-            while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-
-        try (Connection connection = h2Client.getConnection()) {
-            ResultSet resultSet = h2Client.executeQuery(connection, sql.toString(), condition.toArray(new Object[0]));
-            return buildTraces(resultSet);
-        } catch (SQLException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingScheduleDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                    connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildSchedules(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCServiceLabelQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                    connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return parseLabels(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingTaskDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildTasks(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingTaskDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildTasks(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAggregationQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection();
-             ResultSet resultSet = jdbcClient.executeQuery(
-                 connection, sql.toString(), conditions.toArray(new Object[0]))) {
-            while (resultSet.next()) {
-                SelectedRecord topNEntity = new SelectedRecord();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingDataDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                    connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildDataList(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/skywalking/oap/query/zipkin/ZipkinQueryModule.java`
+in `oap-server/server-receiver-plugin/skywalking-mesh-receiver-plugin/src/main/java/org/apache/skywalking/aop/server/receiver/mesh/MeshReceiverModule.java`
 #### Snippet
 ```java
     @Override
@@ -7487,239 +7300,11 @@ in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/
         return new Class[0];
     }
 }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-telegraf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/telegraf/module/TelegrafReceiverModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildServices(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                if (!resultSet.next()) {
-                    return 0;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildProcesses(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]));
-            return buildInstances(resultSet);
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]));
-            return buildServices(resultSet);
-        } catch (SQLException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-
-                while (resultSet.next()) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                if (!resultSet.next()) {
-                    return 0;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(
-                    connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<Process> processes = buildProcesses(resultSet);
-            return processes.size() > 0 ? processes.get(0) : null;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<ServiceInstance> instances = buildInstances(resultSet);
-            return instances.size() > 0 ? instances.get(0) : null;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildProcesses(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcClient.getConnection()) {
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), condition.toArray(new Object[0]))) {
-                return buildProcesses(resultSet);
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-telegraf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/telegraf/provider/handler/TelegrafServiceHandler.java`
-#### Snippet
-```java
-                    .collect(Collectors.groupingBy(Sample::getName));
-            sampleFamilyByName.forEach((k, v) ->
-                    builder.put(k, SampleFamilyBuilder.newBuilder(v.toArray(new Sample[0])).build()));
-            res.add(builder.build());
-        }
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `oap-server/server-receiver-plugin/skywalking-profile-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/profile/module/ProfileModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-browser-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/browser/module/BrowserModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCLogQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, "select * " + sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    Log log = new Log();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-management-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/register/module/RegisterModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/EnvoyMetricReceiverModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[0];
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-receiver-plugin/skywalking-trace-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/trace/module/TraceModule.java`
-#### Snippet
-```java
-    @Override
-    public Class[] services() {
-        return new Class[] {};
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/PromQLModule.java`
 #### Snippet
 ```java
     @Override
@@ -7743,6 +7328,30 @@ in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
+in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusTelemetryProvider.java`
+#### Snippet
+```java
+    @Override
+    public String[] requiredModules() {
+        return new String[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `oap-server/server-receiver-plugin/skywalking-browser-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/browser/module/BrowserModule.java`
+#### Snippet
+```java
+    @Override
+    public Class[] services() {
+        return new Class[0];
+    }
+}
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/prometheus/PrometheusMetricConverter.java`
 #### Snippet
 ```java
@@ -7755,14 +7364,14 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ApplicationConfiguration.java`
+in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/ZipkinReceiverModule.java`
 #### Snippet
 ```java
-
-    public String[] moduleList() {
-        return modules.keySet().toArray(new String[0]);
+    @Override
+    public Class[] services() {
+        return new Class[0];
     }
-
+}
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
@@ -7776,19 +7385,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
     private final Map<String, String> requestMethodsMap = new HashMap<String, String>() {
         {
             put("get", "GET");
-```
-
-## RuleId[id=NullArgumentToVariableArgMethod]
-### NullArgumentToVariableArgMethod
-Confusing argument `segments.toArray(new String[segments.size()])`, unclear if a varargs or non-varargs call is desired
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, sql.toString(), segments.toArray(new String[segments.size()]))) {
-                while (resultSet.next()) {
-                    BasicTrace basicTrace = new BasicTrace();
 ```
 
 ## RuleId[id=CastConflictsWithInstanceof]
@@ -7831,6 +7427,30 @@ in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/o
 ```
 
 ## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `config` initializer `null` is redundant
+in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
+#### Snippet
+```java
+            GroupConfigTable.GroupConfigItems groupConfigItems = new GroupConfigTable.GroupConfigItems(key);
+            groupConfigTable.addGroupConfigItems(groupConfigItems);
+            String config = null;
+            try {
+                config = configService.getConfig(key, settings.getGroup(), 1000);
+```
+
+### UnusedAssignment
+Variable `parentMetricsClass` initializer `null` is redundant
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+#### Snippet
+```java
+    private Class generateMetricsClass(AnalysisResult metricsStmt) throws OALCompileException {
+        String className = metricsClassName(metricsStmt, false);
+        CtClass parentMetricsClass = null;
+        try {
+            parentMetricsClass = classPool.get(METRICS_FUNCTION_PACKAGE + metricsStmt.getMetricsClassName());
+```
+
 ### UnusedAssignment
 Variable `agentJarFile` initializer `null` is redundant
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/WorkPath.java`
@@ -7892,15 +7512,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 ```
 
 ### UnusedAssignment
-Variable `parentMetricsClass` initializer `null` is redundant
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
+Variable `uiTemplate` initializer `null` is redundant
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
 #### Snippet
 ```java
-    private Class generateMetricsClass(AnalysisResult metricsStmt) throws OALCompileException {
-        String className = metricsClassName(metricsStmt, false);
-        CtClass parentMetricsClass = null;
-        try {
-            parentMetricsClass = classPool.get(METRICS_FUNCTION_PACKAGE + metricsStmt.getMetricsClassName());
+            h2Client.executeQuery(sql.toString(), resultSet -> {
+                final UITemplate.Builder builder = new UITemplate.Builder();
+                UITemplate uiTemplate = null;
+                do {
+                    uiTemplate = (UITemplate) toStorageData(resultSet, UITemplate.INDEX_NAME, builder);
 ```
 
 ### UnusedAssignment
@@ -7925,42 +7545,6 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
         boolean match = false;
         int idx = 0;
         do {
-```
-
-### UnusedAssignment
-Variable `uiTemplate` initializer `null` is redundant
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-                final List<DashboardConfiguration> configs = new ArrayList<>();
-                final UITemplate.Builder builder = new UITemplate.Builder();
-                UITemplate uiTemplate = null;
-                do {
-                    uiTemplate = (UITemplate) toStorageData(resultSet, UITemplate.INDEX_NAME, builder);
-```
-
-### UnusedAssignment
-Variable `isRuleExecuted` initializer `false` is redundant
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/dao/ShardingHistoryDeleteDAO.java`
-#### Snippet
-```java
-        //If it's a sharding table drop expired tables
-        if (model.getSqlDBModelExtension().isShardingTable()) {
-            boolean isRuleExecuted = false;
-            Long latestSuccessDeadline = this.tableLatestSuccess.get(model.getName());
-            if (latestSuccessDeadline != null && deadline <= latestSuccessDeadline) {
-```
-
-### UnusedAssignment
-Variable `config` initializer `null` is redundant
-in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
-#### Snippet
-```java
-            GroupConfigTable.GroupConfigItems groupConfigItems = new GroupConfigTable.GroupConfigItems(key);
-            groupConfigTable.addGroupConfigItems(groupConfigItems);
-            String config = null;
-            try {
-                config = configService.getConfig(key, settings.getGroup(), 1000);
 ```
 
 ### UnusedAssignment
@@ -8002,6 +7586,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Value `includingDisabled` is always 'false'
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
+#### Snippet
+```java
+            boolQuery.must(Query.term(
+                UITemplate.DISABLED,
+                BooleanUtils.booleanToValue(includingDisabled)
+            ));
+        }
+```
+
+### ConstantValue
 Condition `componentId != null` is always `true`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/ServiceTopologyBuilder.java`
 #### Snippet
@@ -8042,6 +7638,18 @@ Value `err` is always 'null'
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
 #### Snippet
 ```java
+    private String checkCreateRequest(EBPFProfilingNetworkTaskRequest request) throws IOException {
+        String err = null;
+        err = requiredNotEmpty(err, "instance", request.getInstanceId());
+        if (StringUtil.isNotEmpty(err)) {
+            return err;
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
         String err = null;
 
         err = requiredNotEmpty(err, "service", request.getServiceId());
@@ -8050,15 +7658,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 ```
 
 ### ConstantValue
-Value `err` is always 'null'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+Value `includingDisabled` is always 'false'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
 #### Snippet
 ```java
-    private String checkCreateRequest(EBPFProfilingNetworkTaskRequest request) throws IOException {
-        String err = null;
-        err = requiredNotEmpty(err, "instance", request.getInstanceId());
-        if (StringUtil.isNotEmpty(err)) {
-            return err;
+            if (!includingDisabled) {
+                sql.append(" and ").append(UITemplate.DISABLED).append("=?");
+                condition.add(BooleanUtils.booleanToValue(includingDisabled));
+            }
+
 ```
 
 ### ConstantValue
@@ -8071,30 +7679,6 @@ in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src
         for (int i = 1; i <= QUERY_PROFILE_SNAPSHOT_RETRY_COUNT; i++) {
             try {
                 return threadSnapshotQueryDAO.queryRecords(segmentId, sequenceRange.getMin(), sequenceRange.getMax());
-```
-
-### ConstantValue
-Value `includingDisabled` is always 'false'
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
-#### Snippet
-```java
-            boolQuery.must(Query.term(
-                UITemplate.DISABLED,
-                BooleanUtils.booleanToValue(includingDisabled)
-            ));
-        }
-```
-
-### ConstantValue
-Value `includingDisabled` is always 'false'
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-        if (!includingDisabled) {
-            sql.append(" and ").append(UITemplate.DISABLED).append("=?");
-            condition.add(BooleanUtils.booleanToValue(includingDisabled));
-        }
-
 ```
 
 ### ConstantValue
@@ -8116,10 +7700,10 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 #### Snippet
 ```java
             for (int i = 0; i < tags.size(); i++) {
-                sql.append(" inner join ").append(AlarmRecord.ADDITIONAL_TAG_TABLE).append(" ");
-                sql.append(AlarmRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(AlarmRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(AlarmRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                sql.append(" inner join ").append(tagTable).append(" ");
+                sql.append(tagTable + i);
+                sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8127,9 +7711,9 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
 #### Snippet
 ```java
-                sql.append(AlarmRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(AlarmRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(AlarmRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                sql.append(tagTable + i);
+                sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
             }
         }
 ```
@@ -8139,23 +7723,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
 #### Snippet
 ```java
-                final int foundIdx = searchableTagKeys.indexOf(tags.get(i).getKey());
-                if (foundIdx > -1) {
-                    sql.append(" and ").append(AlarmRecord.ADDITIONAL_TAG_TABLE + i).append(".");
-                    sql.append(AlarmRecord.TAGS).append(" = ?");
-                    parameters.add(tags.get(i).toString());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
-#### Snippet
-```java
+        if (CollectionUtils.isNotEmpty(tags)) {
             for (int i = 0; i < tags.size(); i++) {
-                sql.append(" inner join ").append(SegmentRecord.ADDITIONAL_TAG_TABLE).append(" ");
-                sql.append(SegmentRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(SegmentRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(SegmentRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                sql.append(" and ").append(tagTable + i).append(".");
+                sql.append(AlarmRecord.TAGS).append(" = ?");
+                parameters.add(tags.get(i).toString());
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8163,11 +7735,23 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
 #### Snippet
 ```java
-                sql.append(SegmentRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(SegmentRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(SegmentRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                for (int i = 0; i < tags.size(); i++) {
+                    sql.append(" inner join ").append(tagTable).append(" ");
+                    sql.append(tagTable + i);
+                    sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                    sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                    sql.append(tagTable + i);
+                    sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                    sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
+                }
             }
-        }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8175,35 +7759,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
 #### Snippet
 ```java
-                final int foundIdx = searchableTagKeys.indexOf(tags.get(i).getKey());
-                if (foundIdx > -1) {
-                    sql.append(" and ").append(SegmentRecord.ADDITIONAL_TAG_TABLE + i).append(".");
+            if (CollectionUtils.isNotEmpty(tags)) {
+                for (int i = 0; i < tags.size(); i++) {
+                    sql.append(" and ").append(tagTable + i).append(".");
                     sql.append(SegmentRecord.TAGS).append(" = ?");
                     parameters.add(tags.get(i).toString());
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-            for (int i = 0; i < annotations.size(); i++) {
-                sql.append(" inner join ").append(ZipkinSpanRecord.ADDITIONAL_QUERY_TABLE).append(" ");
-                sql.append(ZipkinSpanRecord.ADDITIONAL_QUERY_TABLE + i);
-                sql.append(" on ").append(ZipkinSpanRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(ZipkinSpanRecord.ADDITIONAL_QUERY_TABLE + i).append(".").append(ID_COLUMN);
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
-#### Snippet
-```java
-                sql.append(ZipkinSpanRecord.ADDITIONAL_QUERY_TABLE + i);
-                sql.append(" on ").append(ZipkinSpanRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(ZipkinSpanRecord.ADDITIONAL_QUERY_TABLE + i).append(".").append(ID_COLUMN);
-            }
-        }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8211,11 +7771,35 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
 #### Snippet
 ```java
-            serviceIdMatchSql.append("and (");
-            for (int i = 0; i < serviceIds.size(); i++) {
-                serviceIdMatchSql.append(sourceCName + "=? or " + destCName + "=? ");
-                conditions[i * 2 + 2] = serviceIds.get(i);
-                conditions[i * 2 + 1 + 2] = serviceIds.get(i);
+                serviceIdMatchSql.append("and (");
+                for (int i = 0; i < serviceIds.size(); i++) {
+                    serviceIdMatchSql.append(sourceCName + "=? or " + destCName + "=? ");
+                    conditions[i * 2 + 3] = serviceIds.get(i);
+                    conditions[i * 2 + 1 + 3] = serviceIds.get(i);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                for (int i = 0; i < annotations.size(); i++) {
+                    sql.append(" inner join ").append(tagTable).append(" ");
+                    sql.append(tagTable + i);
+                    sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                    sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    sql.append(tagTable + i);
+                    sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                    sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
+                }
+            }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8224,10 +7808,10 @@ in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/
 #### Snippet
 ```java
             for (int i = 0; i < tags.size(); i++) {
-                sql.append(" inner join ").append(AbstractLogRecord.ADDITIONAL_TAG_TABLE).append(" ");
-                sql.append(AbstractLogRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(LogRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(AbstractLogRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                sql.append(" inner join ").append(tagTable).append(" ");
+                sql.append(tagTable + i);
+                sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -8235,9 +7819,9 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCLogQueryDAO.java`
 #### Snippet
 ```java
-                sql.append(AbstractLogRecord.ADDITIONAL_TAG_TABLE + i);
-                sql.append(" on ").append(LogRecord.INDEX_NAME).append(".").append(ID_COLUMN).append(" = ");
-                sql.append(AbstractLogRecord.ADDITIONAL_TAG_TABLE + i).append(".").append(ID_COLUMN);
+                sql.append(tagTable + i);
+                sql.append(" on ").append(table).append(".").append(JDBCTableInstaller.ID_COLUMN).append(" = ");
+                sql.append(tagTable + i).append(".").append(JDBCTableInstaller.ID_COLUMN);
             }
         }
 ```
@@ -8247,11 +7831,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCLogQueryDAO.java`
 #### Snippet
 ```java
-                final int foundIdx = searchableTagKeys.indexOf(tags.get(i).getKey());
-                if (foundIdx > -1) {
-                    sql.append(" and ").append(AbstractLogRecord.ADDITIONAL_TAG_TABLE + i).append(".");
-                    sql.append(AbstractLogRecord.TAGS).append(" = ?");
-                    parameters.add(tags.get(i).toString());
+        if (CollectionUtils.isNotEmpty(tags)) {
+            for (int i = 0; i < tags.size(); i++) {
+                sql.append(" and ").append(tagTable + i).append(".");
+                sql.append(AbstractLogRecord.TAGS).append(" = ?");
+                parameters.add(tags.get(i).toString());
 ```
 
 ## RuleId[id=IOResource]
@@ -8269,18 +7853,6 @@ in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/a
 
 ## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
-Field `count` may be 'static'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/browser/source/BrowserAppTrafficSource.java`
-#### Snippet
-```java
-    protected final Layer layer = Layer.BROWSER;
-
-    private final int count = 1;
-
-    private BrowserAppTrafficCategory trafficCategory;
-```
-
-### FieldMayBeStatic
 Field `configPath` may be 'static'
 in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/AnalyzerModuleConfig.java`
 #### Snippet
@@ -8292,7 +7864,31 @@ in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/s
     /**
 ```
 
+### FieldMayBeStatic
+Field `count` may be 'static'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/browser/source/BrowserAppTrafficSource.java`
+#### Snippet
+```java
+    protected final Layer layer = Layer.BROWSER;
+
+    private final int count = 1;
+
+    private BrowserAppTrafficCategory trafficCategory;
+```
+
 ## RuleId[id=Java8MapForEach]
+### Java8MapForEach
+Can be replaced with 'Map.forEach()'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
+#### Snippet
+```java
+                @Override
+            protected void apply(MeasureQuery query) {
+                seriesIDColumns.entrySet().forEach(entry -> {
+                    if (!entry.getValue().isEmpty()) {
+                        query.or(in(entry.getKey(), entry.getValue()));
+```
+
 ### Java8MapForEach
 Can be replaced with 'Map.forEach()'
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRule4Openapi.java`
@@ -8317,31 +7913,7 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
         });
 ```
 
-### Java8MapForEach
-Can be replaced with 'Map.forEach()'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
-#### Snippet
-```java
-                @Override
-            protected void apply(MeasureQuery query) {
-                seriesIDColumns.entrySet().forEach(entry -> {
-                    if (!entry.getValue().isEmpty()) {
-                        query.or(in(entry.getKey(), entry.getValue()));
-```
-
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking/oap/server/library/server/ssl/PrivateKeyUtil.java`
-#### Snippet
-```java
- * Util intends to parse PKCS#1 and PKCS#8 at same time.
- */
-public class PrivateKeyUtil {
-    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
-    private static final String PKCS_1_PEM_FOOTER = "-----END RSA PRIVATE KEY-----";
-```
-
 ### UtilityClassWithoutPrivateConstructor
 Class `ProfileSnapshotExporter` has only 'static' members, and lacks a 'private' constructor
 in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-exporter/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotExporter.java`
@@ -8355,14 +7927,314 @@ public class ProfileSnapshotExporter {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TLS_MODE` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/Const.java`
+Class `PromOpUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromOpUtils.java`
 #### Snippet
 ```java
-    public static final String BLANK_ENTITY_NAME = "_blank";
+import org.joda.time.format.PeriodFormatterBuilder;
 
-    public static final class TLS_MODE {
-        public static final String NON_TLS = "NONE";
+public class PromOpUtils {
+    //Adopt skywalking time step.
+    public static Duration timestamp2Duration(long startTS, long endTS) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MetricsTag` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
+#### Snippet
+```java
+ * The tag values should be set in putting value phase.
+ */
+public class MetricsTag {
+    public static final Keys EMPTY_KEY = new Keys();
+    public static final Values EMPTY_VALUE = new Values();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ApplicationStartUp` has only 'static' members, and lacks a 'private' constructor
+in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/ApplicationStartUp.java`
+#### Snippet
+```java
+import com.linecorp.armeria.server.healthcheck.HealthCheckService;
+
+public class ApplicationStartUp {
+    public static void main(String[] args) throws Exception {
+        final Yaml yaml = new Yaml(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BanyanDBConverter` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class BanyanDBConverter {
+
+    public static final String ID = "id";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ByteUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/util/ByteUtil.java`
+#### Snippet
+```java
+import io.netty.buffer.Unpooled;
+
+public class ByteUtil {
+    private static final ThreadLocal<ByteBuf> BYTE_BUFFER = ThreadLocal.withInitial(() -> Unpooled.buffer(8));
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PrivateKeyUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking/oap/server/library/server/ssl/PrivateKeyUtil.java`
+#### Snippet
+```java
+ * Util intends to parse PKCS#1 and PKCS#8 at same time.
+ */
+public class PrivateKeyUtil {
+    private static final String PKCS_1_PEM_HEADER = "-----BEGIN RSA PRIVATE KEY-----";
+    private static final String PKCS_1_PEM_FOOTER = "-----END RSA PRIVATE KEY-----";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MeterConfigs` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/meter/config/MeterConfigs.java`
+#### Snippet
+```java
+ */
+@Slf4j
+public class MeterConfigs {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SpanTags` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/SpanTags.java`
+#### Snippet
+```java
+ * Reserved keys of the span. The backend analysis the metrics according the existed tags.
+ */
+public class SpanTags {
+    public static final String HTTP_RESPONSE_STATUS_CODE = "http.status_code";
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `EnvUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/EnvUtil.java`
+#### Snippet
+```java
+ * Read value from system env.
+ */
+public class EnvUtil {
+    public static int getInt(String envName, int defaultValue) {
+        int value = defaultValue;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NodeNameBuilder` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/NodeNameBuilder.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.cluster.plugin.zookeeper;
+
+public class NodeNameBuilder {
+
+    public static String build(String moduleName, String providerName) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TypeCastUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/util/TypeCastUtil.java`
+#### Snippet
+```java
+package org.apache.skywalking.oal.rt.util;
+
+public class TypeCastUtil {
+    /**
+     * @param castType           to change the value of given original expression.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SourceColumnsFactory` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/SourceColumnsFactory.java`
+#### Snippet
+```java
+import org.apache.skywalking.oap.server.core.source.ScopeDefaultColumn;
+
+public class SourceColumnsFactory {
+    public static List<SourceColumn> getColumns(String source) {
+        List<SourceColumn> sourceColumns = new ArrayList<>();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClassMethodUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/util/ClassMethodUtil.java`
+#### Snippet
+```java
+import java.util.List;
+
+public class ClassMethodUtil {
+    public static String toGetMethod(String attribute) {
+        return "get" + attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `MetricsHolder` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/MetricsHolder.java`
+#### Snippet
+```java
+
+@SuppressWarnings("UnstableApiUsage")
+public class MetricsHolder {
+    private static final Map<String, Class<? extends Metrics>> REGISTER = new HashMap<>();
+    private static volatile boolean INITIALIZED = false;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Addresses` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/Addresses.java`
+#### Snippet
+```java
+import static org.apache.skywalking.oap.server.library.util.StringUtil.isNotBlank;
+
+public class Addresses {
+    public static boolean isValid(final Address address) {
+        return nonNull(address)
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PlaceholderConfigurerSupport` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PlaceholderConfigurerSupport.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.library.util;
+
+public class PlaceholderConfigurerSupport {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/CollectionUtils.java`
+#### Snippet
+```java
+import java.util.Set;
+
+public class CollectionUtils {
+
+    public static boolean isEmpty(Map map) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResourceUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ResourceUtils.java`
+#### Snippet
+```java
+import java.util.Objects;
+
+public class ResourceUtils {
+
+    public static Reader read(String fileName) throws FileNotFoundException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BooleanUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/BooleanUtils.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.library.util;
+
+public class BooleanUtils {
+
+    public static final int TRUE = 1;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Parsers` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/Parsers.java`
+#### Snippet
+```java
+import org.apache.skywalking.oap.server.library.util.prometheus.parser.TextParser;
+
+public class Parsers {
+    public static Parser text(final InputStream stream) {
+        return new TextParser(stream);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.library.util;
+
+public final class StringUtil {
+    public static boolean isEmpty(String str) {
+        return str == null || str.length() == 0;
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProtoBufJsonUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ProtoBufJsonUtils.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+public class ProtoBufJsonUtils {
+
+    public static String toJSON(Message sourceMessage) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TimeSeriesUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/TimeSeriesUtils.java`
+#### Snippet
+```java
+ * TimeSeriesUtils sets up and splits the time suffix of index name.
+ */
+public class TimeSeriesUtils {
+    private static DateTimeFormatter TIME_BUCKET_FORMATTER = DateTimeFormat.forPattern("yyyyMMdd");
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `LogicIndicesRegister` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
+#### Snippet
+```java
+    }
+
+    public static class LogicIndicesRegister {
+
+        /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `RoutingUtils` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RoutingUtils.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+public class RoutingUtils {
+
+    public static void addRoutingValueToSearchParam(SearchParams searchParams, String routingValue) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `WorkPath` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/WorkPath.java`
+#### Snippet
+```java
+ * Locate the base work path of OAP backend.
+ */
+public class WorkPath {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WorkPath.class);
 
 ```
 
@@ -8379,6 +8251,18 @@ public class Const {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `TLS_MODE` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/Const.java`
+#### Snippet
+```java
+    public static final String BLANK_ENTITY_NAME = "_blank";
+
+    public static final class TLS_MODE {
+        public static final String NON_TLS = "NONE";
+
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ComponentLibraryCatalogUtil` has only 'static' members, and lacks a 'private' constructor
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/ComponentLibraryCatalogUtil.java`
 #### Snippet
@@ -8387,30 +8271,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/C
  */
 public class ComponentLibraryCatalogUtil {
     private static ComponentLibraryCatalogService REF;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OtelMetricsConvertor` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/OtelMetricsConvertor.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-public class OtelMetricsConvertor {
-
-    public static io.opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest convertExportMetricsRequest(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WorkPath` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/WorkPath.java`
-#### Snippet
-```java
- * Locate the base work path of OAP backend.
- */
-public class WorkPath {
-    private static final Logger LOGGER = LoggerFactory.getLogger(WorkPath.class);
 
 ```
 
@@ -8463,25 +8323,13 @@ public class TimeBucket {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ProcessID` has only 'static' members, and lacks a 'private' constructor
+Class `EndpointID` has only 'static' members, and lacks a 'private' constructor
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
 #### Snippet
 ```java
-     * Process ID related functions.
+     * Endpoint ID related functions.
      */
-    public static class ProcessID {
-        /**
-         * @param instanceId built by {@link ServiceInstanceID#buildId(String, String)}
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceInstanceID` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
-#### Snippet
-```java
-     * Service Instance ID related functions.
-     */
-    public static class ServiceInstanceID {
+    public static class EndpointID {
         /**
          * @param serviceId built by {@link ServiceID#buildId(String, boolean)}
 ```
@@ -8499,15 +8347,27 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EndpointID` has only 'static' members, and lacks a 'private' constructor
+Class `ServiceInstanceID` has only 'static' members, and lacks a 'private' constructor
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
 #### Snippet
 ```java
-     * Endpoint ID related functions.
+     * Service Instance ID related functions.
      */
-    public static class EndpointID {
+    public static class ServiceInstanceID {
         /**
          * @param serviceId built by {@link ServiceID#buildId(String, boolean)}
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ProcessID` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
+#### Snippet
+```java
+     * Process ID related functions.
+     */
+    public static class ProcessID {
+        /**
+         * @param instanceId built by {@link ServiceInstanceID#buildId(String, String)}
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8559,267 +8419,39 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TypeCastUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/util/TypeCastUtil.java`
-#### Snippet
-```java
-package org.apache.skywalking.oal.rt.util;
-
-public class TypeCastUtil {
-    /**
-     * @param castType           to change the value of given original expression.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SourceColumnsFactory` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/SourceColumnsFactory.java`
-#### Snippet
-```java
-import org.apache.skywalking.oap.server.core.source.ScopeDefaultColumn;
-
-public class SourceColumnsFactory {
-    public static List<SourceColumn> getColumns(String source) {
-        List<SourceColumn> sourceColumns = new ArrayList<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsHolder` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/MetricsHolder.java`
-#### Snippet
-```java
-
-@SuppressWarnings("UnstableApiUsage")
-public class MetricsHolder {
-    private static final Map<String, Class<? extends Metrics>> REGISTER = new HashMap<>();
-    private static volatile boolean INITIALIZED = false;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ClassMethodUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/util/ClassMethodUtil.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class ClassMethodUtil {
-    public static String toGetMethod(String attribute) {
-        return "get" + attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CommandDeserializer` has only 'static' members, and lacks a 'private' constructor
-in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/oap/server/network/trace/component/command/CommandDeserializer.java`
-#### Snippet
-```java
-import org.apache.skywalking.apm.network.common.v3.Command;
-
-public class CommandDeserializer {
-
-    public static BaseCommand deserialize(final Command command) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProfileConstants` has only 'static' members, and lacks a 'private' constructor
-in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/oap/server/network/constants/ProfileConstants.java`
-#### Snippet
-```java
- * profile task limit constants
- */
-public class ProfileConstants {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsTag` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalking/oap/server/telemetry/api/MetricsTag.java`
-#### Snippet
-```java
- * The tag values should be set in putting value phase.
- */
-public class MetricsTag {
-    public static final Keys EMPTY_KEY = new Keys();
-    public static final Values EMPTY_VALUE = new Values();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SpanEncode` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/handler/SpanEncode.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.receiver.zipkin.handler;
-
-public class SpanEncode {
-    public static final int PROTO3 = 1;
-    public static final int JSON_V2 = 2;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProfileSnapshotExporterBootstrap` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotExporterBootstrap.java`
-#### Snippet
-```java
-
-@Slf4j
-public class ProfileSnapshotExporterBootstrap {
-    public static void export(String[] args) {
-        ApplicationConfigLoader configLoader = new ApplicationConfigLoader();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProfileSnapshotDumper` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
-#### Snippet
-```java
-
-@Slf4j
-public class ProfileSnapshotDumper {
-
-    public static final int QUERY_PROFILE_SNAPSHOT_RETRY_COUNT = 3;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PlaceholderConfigurerSupport` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/PlaceholderConfigurerSupport.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.library.util;
-
-public class PlaceholderConfigurerSupport {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CollectionUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/CollectionUtils.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class CollectionUtils {
-
-    public static boolean isEmpty(Map map) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.library.util;
-
-public final class StringUtil {
-    public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ResourceUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ResourceUtils.java`
-#### Snippet
-```java
-import java.util.Objects;
-
-public class ResourceUtils {
-
-    public static Reader read(String fileName) throws FileNotFoundException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BooleanUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/BooleanUtils.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.library.util;
-
-public class BooleanUtils {
-
-    public static final int TRUE = 1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProtoBufJsonUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ProtoBufJsonUtils.java`
-#### Snippet
-```java
-import java.io.IOException;
-
-public class ProtoBufJsonUtils {
-
-    public static String toJSON(Message sourceMessage) throws IOException {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Parsers` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/Parsers.java`
-#### Snippet
-```java
-import org.apache.skywalking.oap.server.library.util.prometheus.parser.TextParser;
-
-public class Parsers {
-    public static Parser text(final InputStream stream) {
-        return new TextParser(stream);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ByteUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/util/ByteUtil.java`
-#### Snippet
-```java
-import io.netty.buffer.Unpooled;
-
-public class ByteUtil {
-    private static final ThreadLocal<ByteBuf> BYTE_BUFFER = ThreadLocal.withInitial(() -> Unpooled.buffer(8));
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BanyanDBConverter` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/BanyanDBConverter.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class BanyanDBConverter {
-
-    public static final String ID = "id";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TimeSeriesUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/TimeSeriesUtils.java`
-#### Snippet
-```java
- * TimeSeriesUtils sets up and splits the time suffix of index name.
- */
-public class TimeSeriesUtils {
-    private static DateTimeFormatter TIME_BUCKET_FORMATTER = DateTimeFormat.forPattern("yyyyMMdd");
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LogicIndicesRegister` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
-#### Snippet
-```java
-    }
-
-    public static class LogicIndicesRegister {
-
-        /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RoutingUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RoutingUtils.java`
+Class `OtelMetricsConvertor` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-receiver-plugin/aws-firehose-receiver/src/main/java/org/apache/skywalking/oap/server/receiver/aws/firehose/OtelMetricsConvertor.java`
 #### Snippet
 ```java
 import java.util.Optional;
 
-public class RoutingUtils {
+public class OtelMetricsConvertor {
 
-    public static void addRoutingValueToSearchParam(SearchParams searchParams, String routingValue) {
+    public static io.opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest convertExportMetricsRequest(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TableMetaInfo` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/TableMetaInfo.java`
+#### Snippet
+```java
+ * should get model from here.
+ */
+public class TableMetaInfo {
+    private static final Map<String, Model> TABLES = new HashMap<>();
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JDBCEntityConverters` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/JDBCEntityConverters.java`
+#### Snippet
+```java
+import java.sql.ResultSet;
+
+public class JDBCEntityConverters {
+    public static Convert2Entity toEntity(ResultSet resultSet) {
+        return new Convert2Entity() {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8832,78 +8464,6 @@ import org.apache.skywalking.oap.server.starter.OAPServerBootstrap;
 public class DataGeneratorStartUp {
     public static void main(String[] args) {
         OAPServerBootstrap.start();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MeterConfigs` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/meter/config/MeterConfigs.java`
-#### Snippet
-```java
- */
-@Slf4j
-public class MeterConfigs {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SpanTags` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/SpanTags.java`
-#### Snippet
-```java
- * Reserved keys of the span. The backend analysis the metrics according the existed tags.
- */
-public class SpanTags {
-    public static final String HTTP_RESPONSE_STATUS_CODE = "http.status_code";
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TableMetaInfo` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/TableMetaInfo.java`
-#### Snippet
-```java
- * should get model from here.
- */
-public class TableMetaInfo {
-    private static Map<String, Model> TABLES = new HashMap<>();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OAPServerStartUp` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/OAPServerStartUp.java`
-#### Snippet
-```java
-package org.apache.skywalking.oap.server.starter;
-
-public class OAPServerStartUp {
-    public static void main(String[] args) {
-        OAPServerBootstrap.start();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OAPServerBootstrap` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/OAPServerBootstrap.java`
-#### Snippet
-```java
- */
-@Slf4j
-public class OAPServerBootstrap {
-    public static void start() {
-        String mode = System.getProperty("mode");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Addresses` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/Addresses.java`
-#### Snippet
-```java
-import static org.apache.skywalking.oap.server.library.util.StringUtil.isNotBlank;
-
-public class Addresses {
-    public static boolean isValid(final Address address) {
-        return nonNull(address)
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -8931,18 +8491,6 @@ public class ProcessRegistry {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `EnvUtil` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/EnvUtil.java`
-#### Snippet
-```java
- * Read value from system env.
- */
-public class EnvUtil {
-    public static int getInt(String envName, int defaultValue) {
-        int value = defaultValue;
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Rules` has only 'static' members, and lacks a 'private' constructor
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/prometheus/rule/Rules.java`
 #### Snippet
@@ -8955,39 +8503,27 @@ public class Rules {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ApplicationStartUp` has only 'static' members, and lacks a 'private' constructor
-in `apm-webapp/src/main/java/org/apache/skywalking/oap/server/webapp/ApplicationStartUp.java`
+Class `ProfileSnapshotExporterBootstrap` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotExporterBootstrap.java`
 #### Snippet
 ```java
-import com.linecorp.armeria.server.healthcheck.HealthCheckService;
 
-public class ApplicationStartUp {
-    public static void main(String[] args) throws Exception {
-        final Yaml yaml = new Yaml(
+@Slf4j
+public class ProfileSnapshotExporterBootstrap {
+    public static void export(String[] args) {
+        ApplicationConfigLoader configLoader = new ApplicationConfigLoader();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NodeNameBuilder` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/NodeNameBuilder.java`
+Class `ProfileSnapshotDumper` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
 #### Snippet
 ```java
-package org.apache.skywalking.oap.server.cluster.plugin.zookeeper;
 
-public class NodeNameBuilder {
+@Slf4j
+public class ProfileSnapshotDumper {
 
-    public static String build(String moduleName, String providerName) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PromOpUtils` has only 'static' members, and lacks a 'private' constructor
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromOpUtils.java`
-#### Snippet
-```java
-import org.joda.time.format.PeriodFormatterBuilder;
-
-public class PromOpUtils {
-    //Adopt skywalking time step.
-    public static Duration timestamp2Duration(long startTS, long endTS) {
+    public static final int QUERY_PROFILE_SNAPSHOT_RETRY_COUNT = 3;
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9002,44 +8538,115 @@ public class ZabbixConfigs {
     public static List<ZabbixConfig> loadConfigs(String path, List<String> fileNames) throws ModuleStartException {
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/annotation/BanyanDB.java`
+### UtilityClassWithoutPrivateConstructor
+Class `ProfileConstants` has only 'static' members, and lacks a 'private' constructor
+in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/oap/server/network/constants/ProfileConstants.java`
 #### Snippet
 ```java
-             * In these cases, it saves much memory space.
-             */
-            TREE;
-        }
-    }
+ * profile task limit constants
+ */
+public class ProfileConstants {
+
+    /**
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+### UtilityClassWithoutPrivateConstructor
+Class `CommandDeserializer` has only 'static' members, and lacks a 'private' constructor
+in `apm-protocol/apm-network/src/main/java/org/apache/skywalking/oap/server/network/trace/component/command/CommandDeserializer.java`
 #### Snippet
 ```java
+import org.apache.skywalking.apm.network.common.v3.Command;
 
-    public enum Kind {
-        MEASURE, STREAM;
-    }
+public class CommandDeserializer {
 
+    public static BaseCommand deserialize(final Command command) {
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+### UtilityClassWithoutPrivateConstructor
+Class `OAPServerStartUp` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/OAPServerStartUp.java`
 #### Snippet
 ```java
+package org.apache.skywalking.oap.server.starter;
 
-    public enum ColumnType {
-        TAG, FIELD;
-    }
+public class OAPServerStartUp {
+    public static void main(String[] args) {
+        OAPServerBootstrap.start();
+```
 
+### UtilityClassWithoutPrivateConstructor
+Class `OAPServerBootstrap` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/OAPServerBootstrap.java`
+#### Snippet
+```java
+ */
+@Slf4j
+public class OAPServerBootstrap {
+    public static void start() {
+        String mode = System.getProperty("mode");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SpanEncode` has only 'static' members, and lacks a 'private' constructor
+in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/handler/SpanEncode.java`
+#### Snippet
+```java
+package org.apache.skywalking.oap.server.receiver.zipkin.handler;
+
+public class SpanEncode {
+    public static final int PROTO3 = 1;
+    public static final int JSON_V2 = 2;
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Switch label `LOGIC_ENDPOINT` is unreachable
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/RPCAnalysisListener.java`
+#### Snippet
+```java
+        span.getTagsList().forEach(tag -> {
+            switch (tag.getKey()) {
+                case LOGIC_ENDPOINT:
+                    final JsonObject tagValue = gson.fromJson(tag.getValue(), JsonObject.class);
+                    final boolean isLocalSpan = SpanType.Local.equals(span.getSpanType());
+```
+
+### DataFlowIssue
+Method invocation `getName` may produce `NullPointerException`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+        }
+        serviceMetaInfo.setServiceInstanceName(
+            String.format("%s.%s", podMetadata.getName(), podMetadata.getNamespace()));
+        serviceMetaInfo.setTags(transformLabelsToTags(podMetadata));
+
+```
+
+### DataFlowIssue
+Method reference invocation `V1NodeStatus::getAddresses` may produce `NullPointerException`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+                    .stream()
+                    .map(V1Node::getStatus)
+                    .map(V1NodeStatus::getAddresses)
+                    .flatMap(it -> it.stream().map(V1NodeAddress::getAddress)
+                        .filter(StringUtil::isNotBlank))
+```
+
+### DataFlowIssue
+Method invocation `stream` may produce `NullPointerException`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+                    .map(V1Node::getStatus)
+                    .map(V1NodeStatus::getAddresses)
+                    .flatMap(it -> it.stream().map(V1NodeAddress::getAddress)
+                        .filter(StringUtil::isNotBlank))
+                    .collect(toSet());
+```
+
 ### DataFlowIssue
 Variable is already assigned to this value
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/type/HeatMap.java`
@@ -9053,30 +8660,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
 ```
 
 ### DataFlowIssue
-Method invocation `labelNames` may produce `NullPointerException`
-in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusHistogramMetrics.java`
-#### Snippet
-```java
-                builder = builder.buckets(buckets);
-            }
-            return builder.labelNames(labelNames).register();
-        }
-    }
-```
-
-### DataFlowIssue
-Dereference of `records` may produce `NullPointerException`
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
-#### Snippet
-```java
-            for (int i = 0; i < rangeCount; i++) {
-                List<ProfileThreadSnapshotRecord> records = querySnapshot(segmentId, snapshotQueryDAO, sequenceRanges.get(i));
-                for (ProfileThreadSnapshotRecord record : records) {
-                    // transform to proto data and save it
-                    ThreadSnapshot.newBuilder()
-```
-
-### DataFlowIssue
 Method invocation `getPhase` may produce `NullPointerException`
 in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/NamespacedPodListInformer.java`
 #### Snippet
@@ -9086,6 +8669,30 @@ in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org
                                                       item -> "Running".equalsIgnoreCase(item.getStatus().getPhase()))
                                                   .collect(Collectors.toList())
                                        : null);
+```
+
+### DataFlowIssue
+Method invocation `setUid` may produce `NullPointerException`
+in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/KubernetesCoordinator.java`
+#### Snippet
+```java
+        v1Pod.setMetadata(new V1ObjectMeta());
+        v1Pod.setStatus(new V1PodStatus());
+        v1Pod.getMetadata().setUid(uid);
+        v1Pod.getStatus().setPodIP("127.0.0.1");
+        return Collections.singletonList(v1Pod);
+```
+
+### DataFlowIssue
+Method invocation `setPodIP` may produce `NullPointerException`
+in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/KubernetesCoordinator.java`
+#### Snippet
+```java
+        v1Pod.setStatus(new V1PodStatus());
+        v1Pod.getMetadata().setUid(uid);
+        v1Pod.getStatus().setPodIP("127.0.0.1");
+        return Collections.singletonList(v1Pod);
+    }
 ```
 
 ### DataFlowIssue
@@ -9173,78 +8780,6 @@ in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org
 ```
 
 ### DataFlowIssue
-Method invocation `setUid` may produce `NullPointerException`
-in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/KubernetesCoordinator.java`
-#### Snippet
-```java
-        v1Pod.setMetadata(new V1ObjectMeta());
-        v1Pod.setStatus(new V1PodStatus());
-        v1Pod.getMetadata().setUid(uid);
-        v1Pod.getStatus().setPodIP("127.0.0.1");
-        return Collections.singletonList(v1Pod);
-```
-
-### DataFlowIssue
-Method invocation `setPodIP` may produce `NullPointerException`
-in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/KubernetesCoordinator.java`
-#### Snippet
-```java
-        v1Pod.setStatus(new V1PodStatus());
-        v1Pod.getMetadata().setUid(uid);
-        v1Pod.getStatus().setPodIP("127.0.0.1");
-        return Collections.singletonList(v1Pod);
-    }
-```
-
-### DataFlowIssue
-Switch label `LOGIC_ENDPOINT` is unreachable
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/RPCAnalysisListener.java`
-#### Snippet
-```java
-        span.getTagsList().forEach(tag -> {
-            switch (tag.getKey()) {
-                case LOGIC_ENDPOINT:
-                    final JsonObject tagValue = gson.fromJson(tag.getValue(), JsonObject.class);
-                    final boolean isLocalSpan = SpanType.Local.equals(span.getSpanType());
-```
-
-### DataFlowIssue
-Method reference invocation `V1NodeStatus::getAddresses` may produce `NullPointerException`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-                    .stream()
-                    .map(V1Node::getStatus)
-                    .map(V1NodeStatus::getAddresses)
-                    .flatMap(it -> it.stream().map(V1NodeAddress::getAddress)
-                        .filter(StringUtil::isNotBlank))
-```
-
-### DataFlowIssue
-Method invocation `stream` may produce `NullPointerException`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-                    .map(V1Node::getStatus)
-                    .map(V1NodeStatus::getAddresses)
-                    .flatMap(it -> it.stream().map(V1NodeAddress::getAddress)
-                        .filter(StringUtil::isNotBlank))
-                    .collect(toSet());
-```
-
-### DataFlowIssue
-Method invocation `getName` may produce `NullPointerException`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-        }
-        serviceMetaInfo.setServiceInstanceName(
-            String.format("%s.%s", podMetadata.getName(), podMetadata.getNamespace()));
-        serviceMetaInfo.setTags(transformLabelsToTags(podMetadata));
-
-```
-
-### DataFlowIssue
 Dereference of `peek` may produce `NullPointerException`
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/counter/CounterWindow.java`
 #### Snippet
@@ -9305,6 +8840,30 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ### DataFlowIssue
+Dereference of `records` may produce `NullPointerException`
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
+#### Snippet
+```java
+            for (int i = 0; i < rangeCount; i++) {
+                List<ProfileThreadSnapshotRecord> records = querySnapshot(segmentId, snapshotQueryDAO, sequenceRanges.get(i));
+                for (ProfileThreadSnapshotRecord record : records) {
+                    // transform to proto data and save it
+                    ThreadSnapshot.newBuilder()
+```
+
+### DataFlowIssue
+Method invocation `labelNames` may produce `NullPointerException`
+in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/PrometheusHistogramMetrics.java`
+#### Snippet
+```java
+                builder = builder.buckets(buckets);
+            }
+            return builder.labelNames(labelNames).register();
+        }
+    }
+```
+
+### DataFlowIssue
 Argument `s.labels.get(le)` might be null
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/SampleFamily.java`
 #### Snippet
@@ -9328,19 +8887,44 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
                           return InternalOps.newSample(s.name, ll, s.timestamp, r);
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProcessServiceHandler.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
 #### Snippet
 ```java
-        // report process and downstream the process id data
-        final EBPFReportProcessDownstream.Builder builder = EBPFReportProcessDownstream.newBuilder();
-        processes.stream().forEach(e -> {
-            sourceReceiver.receive(e._1);
-            builder.addProcesses(e._2);
+
+    public enum ColumnType {
+        TAG, FIELD;
+    }
+
 ```
 
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/MetadataRegistry.java`
+#### Snippet
+```java
+
+    public enum Kind {
+        MEASURE, STREAM;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/annotation/BanyanDB.java`
+#### Snippet
+```java
+             * In these cases, it saves much memory space.
+             */
+            TREE;
+        }
+    }
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/cache/CacheUpdateTimer.java`
@@ -9363,6 +8947,30 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
             return buffer.values().stream().collect(Collectors.toList());
         } finally {
             buffer.clear();
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/handler/EBPFProcessServiceHandler.java`
+#### Snippet
+```java
+        // report process and downstream the process id data
+        final EBPFReportProcessDownstream.Builder builder = EBPFReportProcessDownstream.newBuilder();
+        processes.stream().forEach(e -> {
+            sourceReceiver.receive(e._1);
+            builder.addProcesses(e._2);
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'String.join'
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+            }
+        }
+        sqlBuilder.append(queries.stream().collect(Collectors.joining(", ")));
+        sqlBuilder.append(" WHERE id = ?");
+        param.add(TableHelper.generateId(model, metrics.id().build()));
 ```
 
 ### SimplifyStreamApiCallChains
@@ -9416,6 +9024,30 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'STATUS_CODE' is still used
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/SpanTags.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String STATUS_CODE = "status_code";
+
+    public static final String RPC_RESPONSE_STATUS_CODE = "rpc.status_code";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getPhysicalColumnName' is still used
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
+#### Snippet
+```java
+         */
+        @Deprecated
+        public static String getPhysicalColumnName(String modelName, String columnName) {
+            if (!IndexController.INSTANCE.logicSharding) {
+                return columnName;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'AggregationQuery' is still used
 in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/resolver/AggregationQuery.java`
 #### Snippet
@@ -9463,43 +9095,7 @@ public class MetricQuery implements GraphQLQueryResolver {
 
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'getPhysicalColumnName' is still used
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexController.java`
-#### Snippet
-```java
-         */
-        @Deprecated
-        public static String getPhysicalColumnName(String modelName, String columnName) {
-            if (!IndexController.INSTANCE.logicSharding) {
-                return columnName;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'STATUS_CODE' is still used
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/SpanTags.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String STATUS_CODE = "status_code";
-
-    public static final String RPC_RESPONSE_STATUS_CODE = "rpc.status_code";
-```
-
 ## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `String[]`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/StorageID.java`
-#### Snippet
-```java
-        private final Object value;
-
-        public Optional<String[]> getName() {
-            return Optional.ofNullable(name);
-        }
-```
-
 ### OptionalContainsCollection
 'Optional' contains array `String[]`
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetricsDAO.java`
@@ -9510,18 +9106,6 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
             Optional<String[]> cols = f.getName();
             if (cols.isPresent()) {
                 result.cols.add(cols.get());
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `List`
-in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/NamespacedPodListInformer.java`
-#### Snippet
-```java
-    }
-
-    public Optional<List<V1Pod>> listPods() {
-        if (isNull(podLister)) {
-            return Optional.empty();
 ```
 
 ### OptionalContainsCollection
@@ -9546,6 +9130,30 @@ in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log
         final Optional<List<SampleFamily>> possibleMetricsContainer = BINDING.get().metricsContainer();
 
         if (possibleMetricsContainer.isPresent()) {
+```
+
+### OptionalContainsCollection
+'Optional' contains array `String[]`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/StorageID.java`
+#### Snippet
+```java
+        private final Object value;
+
+        public Optional<String[]> getName() {
+            return Optional.ofNullable(name);
+        }
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `List`
+in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/kubernetes/NamespacedPodListInformer.java`
+#### Snippet
+```java
+    }
+
+    public Optional<List<V1Pod>> listPods() {
+        if (isNull(podLister)) {
+            return Optional.empty();
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -9585,32 +9193,7 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
             }
 ```
 
-## RuleId[id=RedundantCollectionOperation]
-### RedundantCollectionOperation
-Unnecessary 'contains()' check
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexStructures.java`
-#### Snippet
-```java
-            excludes.addAll(inputExcludes);
-            fields.properties.keySet().forEach(p -> {
-                if (!inputExcludes.contains(p) && excludes.contains(p)) {
-                    excludes.remove(p);
-                }
-```
-
 ## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'moduleManager' in a Serializable class
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/ttl/DataTTLKeeperTimer.java`
-#### Snippet
-```java
-    INSTANCE;
-
-    private ModuleManager moduleManager;
-    private ClusterNodesQuery clusterNodesQuery;
-    private CoreModuleConfig moduleConfig;
-```
-
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'moduleConfig' in a Serializable class
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/ttl/DataTTLKeeperTimer.java`
@@ -9621,6 +9204,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/s
     private CoreModuleConfig moduleConfig;
 
     public void start(ModuleManager moduleManager, CoreModuleConfig moduleConfig) {
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'moduleManager' in a Serializable class
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/ttl/DataTTLKeeperTimer.java`
+#### Snippet
+```java
+    INSTANCE;
+
+    private ModuleManager moduleManager;
+    private ClusterNodesQuery clusterNodesQuery;
+    private CoreModuleConfig moduleConfig;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -9647,16 +9242,17 @@ in `oap-server/server-cluster-plugin/cluster-kubernetes-plugin/src/main/java/org
     private SharedInformerFactory factory;
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'configService' in a Serializable class
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
+## RuleId[id=RedundantCollectionOperation]
+### RedundantCollectionOperation
+Unnecessary 'contains()' check
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/IndexStructures.java`
 #### Snippet
 ```java
-
-    @Setter
-    private ConfigService configService;
-
-    /**
+            excludes.addAll(inputExcludes);
+            fields.properties.keySet().forEach(p -> {
+                if (!inputExcludes.contains(p) && excludes.contains(p)) {
+                    excludes.remove(p);
+                }
 ```
 
 ## RuleId[id=AbstractMethodCallInConstructor]
@@ -9684,43 +9280,20 @@ in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking
             10,
 ```
 
+## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/annotation/SQLDatabase.java`
+#### Snippet
+```java
+
+        /**
+         * @return list of other column should be add into the unified index.
+         */
+        String[] withColumns();
+```
+
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterSystem.java`
-#### Snippet
-```java
-            log.info("Metric {} is already defined, so skip the metric creation.", metricsName);
-            return;
-        } catch (NotFoundException e) {
-        }
-
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
-#### Snippet
-```java
-                    try {
-                        printWriter.close();
-                    } catch (IOException e) {
-
-                    }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
-#### Snippet
-```java
-                sleepTime += cycle;
-                Thread.sleep(cycle);
-            } catch (InterruptedException e) {
-            }
-
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/EnvUtil.java`
@@ -9771,39 +9344,38 @@ in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/jdbc/hikaricp/JDBCHikariCPClient.java`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/OALRuntime.java`
 #### Snippet
 ```java
-                try {
-                    statement.close();
-                } catch (SQLException e1) {
-                }
-            }
+                    try {
+                        printWriter.close();
+                    } catch (IOException e) {
+
+                    }
 ```
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/jdbc/hikaricp/JDBCHikariCPClient.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterSystem.java`
 #### Snippet
 ```java
-                try {
-                    statement.close();
-                } catch (SQLException e1) {
-                }
-            }
+            log.info("Metric {} is already defined, so skip the metric creation.", metricsName);
+            return;
+        } catch (NotFoundException e) {
+        }
+
 ```
 
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/annotation/SQLDatabase.java`
+### CatchMayIgnoreException
+Empty `catch` block
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
 #### Snippet
 ```java
+                sleepTime += cycle;
+                Thread.sleep(cycle);
+            } catch (InterruptedException e) {
+            }
 
-        /**
-         * @return list of other column should be add into the unified index.
-         */
-        String[] withColumns();
 ```
 
 ## RuleId[id=ProtectedMemberInFinalClass]
@@ -9847,36 +9419,12 @@ in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterEntity.java`
-#### Snippet
-```java
-                ));
-            default:
-                throw new UnexpectedException("Unexpected scope type of entity " + this.toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
 #### Snippet
 ```java
             if (log.isTraceEnabled()) {
                 log.trace(
                     "Current configurations after the sync." + LINE_SEPARATOR + groupConfigChangeWatcherRegister.toString());
-            }
-        });
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-            if (log.isTraceEnabled()) {
-                log.trace(
-                    "Current configurations after the sync." + LINE_SEPARATOR + singleConfigChangeWatcherRegister.toString());
             }
         });
 ```
@@ -9907,86 +9455,14 @@ in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/s
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/SQLBuilder.java`
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
 #### Snippet
 ```java
-
-    public String toStringInNewLine() {
-        return LINE_END + toString();
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCBrowserLogQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, "select " + BrowserErrorLogRecord.DATA_BINARY + " " + sql.toString(),
-                parameters.toArray(new Object[0])
-            )) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
-#### Snippet
-```java
-            this.buildLimit(sql, from, limit);
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(connection, "select * " + sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    AlarmMessage message = new AlarmMessage();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
-#### Snippet
-```java
-                    + " from " + tableName + " where " + Metrics.TIME_BUCKET + ">= ? and "
-                    + Metrics.TIME_BUCKET + "<=? " + serviceIdMatchSql
-                    .toString() +
-                    " group by " + Metrics.ENTITY_ID + "," + ServiceRelationServerSideMetrics.COMPONENT_IDS, conditions
-            )) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
-#### Snippet
-```java
-                "select " + Metrics.ENTITY_ID
-                    + " from " + tableName + " where " + Metrics.TIME_BUCKET + ">= ? and " + Metrics.TIME_BUCKET + "<=? " + serviceIdMatchSql
-                    .toString() + " group by " + Metrics.ENTITY_ID,
-                conditions
-            )) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCLogQueryDAO.java`
-#### Snippet
-```java
-
-            try (ResultSet resultSet = jdbcClient.executeQuery(
-                connection, "select * " + sql.toString(), parameters.toArray(new Object[0]))) {
-                while (resultSet.next()) {
-                    Log log = new Log();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
-#### Snippet
-```java
-                        providerName,
-                        propertyName,
-                        replaceValue.toString()
-                    );
-                }
+            if (log.isTraceEnabled()) {
+                log.trace(
+                    "Current configurations after the sync." + LINE_SEPARATOR + singleConfigChangeWatcherRegister.toString());
+            }
+        });
 ```
 
 ### UnnecessaryToStringCall
@@ -10001,31 +9477,31 @@ in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking
 
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/meter/MeterEntity.java`
+#### Snippet
+```java
+                ));
+            default:
+                throw new UnexpectedException("Unexpected scope type of entity " + this.toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `oap-server/server-starter/src/main/java/org/apache/skywalking/oap/server/starter/config/ApplicationConfigLoader.java`
+#### Snippet
+```java
+                        providerName,
+                        propertyName,
+                        replaceValue.toString()
+                    );
+                }
+```
+
 ## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `AnnotationListenerCache` may be 'static'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/annotation/AnnotationScan.java`
-#### Snippet
-```java
-    }
-
-    private class AnnotationListenerCache {
-        private AnnotationListener listener;
-        private List<Class<?>> matchedClass;
-```
-
-### InnerClassMayBeStatic
-Inner class `H2BatchConsumer` may be 'static'
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCBatchDAO.java`
-#### Snippet
-```java
-    }
-
-    private class H2BatchConsumer implements IConsumer<PrepareRequest> {
-
-        private final JDBCBatchDAO h2BatchDAO;
-```
-
 ### InnerClassMayBeStatic
 Inner class `SampleData` may be 'static'
 in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/library/datacarrier/LinkedArrayBenchmark.java`
@@ -10036,6 +9512,18 @@ in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbe
     public class SampleData {
 
         private int intValue;
+```
+
+### InnerClassMayBeStatic
+Inner class `AnnotationListenerCache` may be 'static'
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/annotation/AnnotationScan.java`
+#### Snippet
+```java
+    }
+
+    private class AnnotationListenerCache {
+        private AnnotationListener listener;
+        private List<Class<?>> matchedClass;
 ```
 
 ## RuleId[id=SwitchStatementWithConfusingDeclaration]
@@ -10175,15 +9663,207 @@ in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/sk
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sharding'
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/model/SQLDatabaseModelExtension.java`
+`Optional` used as type for parameter 'routing'
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/IndexRequestWrapper.java`
 #### Snippet
 ```java
 
-    @Setter
-    private Optional<Sharding> sharding = Optional.empty();
+    public IndexRequestWrapper(String index, String type, String id,
+                               Optional<String> routing,
+                               Map<String, ?> source) {
+        request = IndexRequest.builder()
+```
 
-    public void appendAdditionalTable(String tableName, ModelColumn column) {
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'match'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    public HttpResponse labelValues(
+        @Param("label_name") String labelName,
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'start'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("label_name") String labelName,
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+        LabelValuesQueryRsp response = new LabelValuesQueryRsp();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'end'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+        LabelValuesQueryRsp response = new LabelValuesQueryRsp();
+        response.setStatus(ResultStatus.SUCCESS);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'time'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    public HttpResponse query(
+        @Param("query") String query,
+        @Param("time") Optional<String> time,
+        @Param("timeout") Optional<String> timeout) throws IOException {
+        long endTS = System.currentTimeMillis();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeout'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("query") String query,
+        @Param("time") Optional<String> time,
+        @Param("timeout") Optional<String> timeout) throws IOException {
+        long endTS = System.currentTimeMillis();
+        if (time.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'step'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("start") String start,
+        @Param("end") String end,
+        @Param("step") Optional<String> step,
+        @Param("timeout") Optional<String> timeout) throws IOException {
+        long startTS = formatTimestamp2Millis(start);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeout'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("end") String end,
+        @Param("step") Optional<String> step,
+        @Param("timeout") Optional<String> timeout) throws IOException {
+        long startTS = formatTimestamp2Millis(start);
+        long endTS = formatTimestamp2Millis(end);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'limit'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    @Path("/api/v1/metadata")
+    public HttpResponse metadata(
+        @Param("limit") Optional<Integer> limit,
+        @Param("metric") Optional<String> metric) throws JsonProcessingException {
+        MetadataQueryRsp response = new MetadataQueryRsp();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'metric'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    public HttpResponse metadata(
+        @Param("limit") Optional<Integer> limit,
+        @Param("metric") Optional<String> metric) throws JsonProcessingException {
+        MetadataQueryRsp response = new MetadataQueryRsp();
+        response.setStatus(ResultStatus.SUCCESS);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'match'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    @Path("/api/v1/labels")
+    public HttpResponse labels(
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'start'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+    public HttpResponse labels(
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+        LabelsQueryRsp response = new LabelsQueryRsp();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'end'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
+#### Snippet
+```java
+        @Param("match[]") Optional<String> match,
+        @Param("start") Optional<String> start,
+        @Param("end") Optional<String> end) throws IOException {
+        LabelsQueryRsp response = new LabelsQueryRsp();
+        if (match.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'valueLabel'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
+#### Snippet
+```java
+                                       Scope scope,
+                                       Map<LabelName, String> labelMap,
+                                       Optional<String> valueLabel,
+                                       Optional<String> topNEntityName,
+                                       Optional<String> recordName) throws IllegalExpressionException {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'topNEntityName'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
+#### Snippet
+```java
+                                       Map<LabelName, String> labelMap,
+                                       Optional<String> valueLabel,
+                                       Optional<String> topNEntityName,
+                                       Optional<String> recordName) throws IllegalExpressionException {
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'recordName'
+in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
+#### Snippet
+```java
+                                       Optional<String> valueLabel,
+                                       Optional<String> topNEntityName,
+                                       Optional<String> recordName) throws IllegalExpressionException {
+
+        MetricInfo metricInfo = new MetricInfo(metricName);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'routingValue'
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+    }
+
+    public IndexRequestWrapper prepareInsert(String indexName, String id, Optional<String> routingValue,
+                                             Map<String, Object> source) {
+        indexName = indexNameConverter.apply(indexName);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10211,15 +9891,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'transWorker'
+`Optional`> used as type for field 'nextAlarmWorker'
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
 #### Snippet
 ```java
+    private final MetricsSessionCache sessionCache;
+    private final IMetricsDAO metricsDAO;
+    private final Optional<AbstractWorker<Metrics>> nextAlarmWorker;
     private final Optional<AbstractWorker<ExportEvent>> nextExportWorker;
     private final DataCarrier<Metrics> dataCarrier;
-    private final Optional<MetricsTransWorker> transWorker;
-    private final boolean supportUpdate;
-    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10235,15 +9915,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'nextAlarmWorker'
+`Optional` used as type for field 'transWorker'
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
 #### Snippet
 ```java
-    private final MetricsSessionCache sessionCache;
-    private final IMetricsDAO metricsDAO;
-    private final Optional<AbstractWorker<Metrics>> nextAlarmWorker;
     private final Optional<AbstractWorker<ExportEvent>> nextExportWorker;
     private final DataCarrier<Metrics> dataCarrier;
+    private final Optional<MetricsTransWorker> transWorker;
+    private final boolean supportUpdate;
+    /**
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -10354,211 +10034,31 @@ in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/
         QueryRequest queryRequest =
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'routing'
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/IndexRequestWrapper.java`
-#### Snippet
-```java
-
-    public IndexRequestWrapper(String index, String type, String id,
-                               Optional<String> routing,
-                               Map<String, ?> source) {
-        request = IndexRequest.builder()
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'step'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("start") String start,
-        @Param("end") String end,
-        @Param("step") Optional<String> step,
-        @Param("timeout") Optional<String> timeout) throws IOException {
-        long startTS = formatTimestamp2Millis(start);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeout'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("end") String end,
-        @Param("step") Optional<String> step,
-        @Param("timeout") Optional<String> timeout) throws IOException {
-        long startTS = formatTimestamp2Millis(start);
-        long endTS = formatTimestamp2Millis(end);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'match'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    @Path("/api/v1/labels")
-    public HttpResponse labels(
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'start'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    public HttpResponse labels(
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-        LabelsQueryRsp response = new LabelsQueryRsp();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'end'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-        LabelsQueryRsp response = new LabelsQueryRsp();
-        if (match.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'match'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    public HttpResponse labelValues(
-        @Param("label_name") String labelName,
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'start'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("label_name") String labelName,
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-        LabelValuesQueryRsp response = new LabelValuesQueryRsp();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'end'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("match[]") Optional<String> match,
-        @Param("start") Optional<String> start,
-        @Param("end") Optional<String> end) throws IOException {
-        LabelValuesQueryRsp response = new LabelValuesQueryRsp();
-        response.setStatus(ResultStatus.SUCCESS);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'time'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    public HttpResponse query(
-        @Param("query") String query,
-        @Param("time") Optional<String> time,
-        @Param("timeout") Optional<String> timeout) throws IOException {
-        long endTS = System.currentTimeMillis();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeout'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-        @Param("query") String query,
-        @Param("time") Optional<String> time,
-        @Param("timeout") Optional<String> timeout) throws IOException {
-        long endTS = System.currentTimeMillis();
-        if (time.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'limit'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    @Path("/api/v1/metadata")
-    public HttpResponse metadata(
-        @Param("limit") Optional<Integer> limit,
-        @Param("metric") Optional<String> metric) throws JsonProcessingException {
-        MetadataQueryRsp response = new MetadataQueryRsp();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'metric'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/handler/PromQLApiHandler.java`
-#### Snippet
-```java
-    public HttpResponse metadata(
-        @Param("limit") Optional<Integer> limit,
-        @Param("metric") Optional<String> metric) throws JsonProcessingException {
-        MetadataQueryRsp response = new MetadataQueryRsp();
-        response.setStatus(ResultStatus.SUCCESS);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'valueLabel'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
-#### Snippet
-```java
-                                       Scope scope,
-                                       Map<LabelName, String> labelMap,
-                                       Optional<String> valueLabel,
-                                       Optional<String> topNEntityName,
-                                       Optional<String> recordName) throws IllegalExpressionException {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'topNEntityName'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
-#### Snippet
-```java
-                                       Map<LabelName, String> labelMap,
-                                       Optional<String> valueLabel,
-                                       Optional<String> topNEntityName,
-                                       Optional<String> recordName) throws IllegalExpressionException {
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'recordName'
-in `oap-server/server-query-plugin/promql-plugin/src/main/java/org/apache/skywalking/oap/query/promql/rt/PromQLExprQueryVisitor.java`
-#### Snippet
-```java
-                                       Optional<String> valueLabel,
-                                       Optional<String> topNEntityName,
-                                       Optional<String> recordName) throws IllegalExpressionException {
-
-        MetricInfo metricInfo = new MetricInfo(metricName);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'routingValue'
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-    }
-
-    public IndexRequestWrapper prepareInsert(String indexName, String id, Optional<String> routingValue,
-                                             Map<String, Object> source) {
-        indexName = indexNameConverter.apply(indexName);
-```
-
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
+#### Snippet
+```java
+
+    public String[] getEndpointArray() {
+        return Arrays.stream(endpoints.split("\\s*,\\s*")).toArray(String[]::new);
+
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
+#### Snippet
+```java
+                config = configService.getConfig(key, settings.getGroup(), 1000);
+                if (StringUtil.isNotEmpty(config)) {
+                    String[] itemNames = config.split("\\n|\\r\\n");
+                    Arrays.stream(itemNames).map(String::trim).forEach(itemName -> {
+                        String itemValue = null;
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdServerSettings.java`
@@ -10569,6 +10069,30 @@ in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/
         return Arrays.stream(endpoints.split("\\s*,\\s*")).toArray(String[]::new);
     }
 }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/FieldsHelper.java`
+#### Snippet
+```java
+                            tokenBuffer.append(".").append(token);
+                            if (token.endsWith("\"")) {
+                                candidateFields.add(tokenBuffer.toString().replaceAll("\"", ""));
+                                tokenBuffer.setLength(0);
+                            }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/TextParser.java`
+#### Snippet
+```java
+        }
+        if (line.charAt(0) == '#') {
+            String[] parts = line.split("[ \t]+", 4);
+            if (parts.length < 3) {
+                return false;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10632,30 +10156,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
-#### Snippet
-```java
-
-    private String replaceTemplateVars(String template, String pathString, String requstMathod) {
-        return template.replaceAll("\\$\\{METHOD}", requstMathod)
-                       .replaceAll("\\$\\{PATH}", pathString);
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
-#### Snippet
-```java
-    private String replaceTemplateVars(String template, String pathString, String requstMathod) {
-        return template.replaceAll("\\$\\{METHOD}", requstMathod)
-                       .replaceAll("\\$\\{PATH}", pathString);
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
 #### Snippet
@@ -10663,6 +10163,30 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 
     private boolean isTemplatePath(String pathString) {
         return pathString.matches("(.*)\\{(.+?)}(.*)");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
+#### Snippet
+```java
+
+    private String replaceTemplateVars(String template, String pathString, String requstMathod) {
+        return template.replaceAll("\\$\\{METHOD}", requstMathod)
+                       .replaceAll("\\$\\{PATH}", pathString);
+    }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/config/group/openapi/EndpointGroupingRuleReader4Openapi.java`
+#### Snippet
+```java
+    private String replaceTemplateVars(String template, String pathString, String requstMathod) {
+        return template.replaceAll("\\$\\{METHOD}", requstMathod)
+                       .replaceAll("\\$\\{PATH}", pathString);
     }
 
 ```
@@ -10681,38 +10205,26 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/c
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/type/LogAdapter.java`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/TableHelper.java`
 #### Snippet
 ```java
-            .splitToList(log.line());
-        if (timeAndContent.size() == 2) {
-            String timeStr = timeAndContent.get(0).replaceAll("\\.\\d+Z", "Z");
-            try {
-                TemporalAccessor t = rfc3339Formatter.parse(timeStr);
+
+    public static String getTableName(Model model) {
+        final var aggFuncName = FunctionCategory.uniqueFunctionName(model.getStreamClass()).replaceAll("-", "_");
+        return StringUtil.isNotBlank(aggFuncName) ? aggFuncName : model.getName();
+    }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/TextParser.java`
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCHistoryDeleteDAO.java`
 #### Snippet
 ```java
-        }
-        if (line.charAt(0) == '#') {
-            String[] parts = line.split("[ \t]+", 4);
-            if (parts.length < 3) {
-                return false;
-```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/ShardingRulesOperator.java`
-#### Snippet
-```java
-            shardingRule = builder.build();
-            shardingRuleSQL = shardingRule.toShardingRuleSQL();
-            if (existRule.toShardingRuleSQL().equals(shardingRuleSQL.replaceAll("\"", ""))) {
-                return false;
-            }
+        ttlTables.forEach(tablesToDrop::remove);
+        tablesToDrop.removeIf(it -> !it.matches(".*_\\d{8}$"));
+        for (final var table : tablesToDrop) {
+            final var dropSql = new SQLBuilder("drop table if exists ").append(table);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10728,15 +10240,15 @@ in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `oap-server/server-query-plugin/query-graphql-plugin/src/main/java/org/apache/skywalking/oap/query/graphql/type/LogAdapter.java`
 #### Snippet
 ```java
-                config = configService.getConfig(key, settings.getGroup(), 1000);
-                if (StringUtil.isNotEmpty(config)) {
-                    String[] itemNames = config.split("\\n|\\r\\n");
-                    Arrays.stream(itemNames).map(String::trim).forEach(itemName -> {
-                        String itemValue = null;
+            .splitToList(log.line());
+        if (timeAndContent.size() == 2) {
+            String timeStr = timeAndContent.get(0).replaceAll("\\.\\d+Z", "Z");
+            try {
+                TemporalAccessor t = rfc3339Formatter.parse(timeStr);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -10753,30 +10265,6 @@ in `oap-server/server-receiver-plugin/otel-receiver-plugin/src/main/java/org/apa
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/FieldsHelper.java`
-#### Snippet
-```java
-                            tokenBuffer.append(".").append(token);
-                            if (token.endsWith("\"")) {
-                                candidateFields.add(tokenBuffer.toString().replaceAll("\"", ""));
-                                tokenBuffer.setLength(0);
-                            }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
-#### Snippet
-```java
-
-    public String[] getEndpointArray() {
-        return Arrays.stream(endpoints.split("\\s*,\\s*")).toArray(String[]::new);
-
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/ZabbixMetrics.java`
 #### Snippet
 ```java
@@ -10788,114 +10276,6 @@ in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/StorageBuilderFactory.java`
-#### Snippet
-```java
- * of {@link StorageBuilder}.
- *
- * Typically, the storage needs to provide a more native format rather than {@link java.util.HashMap}.
- */
-public interface StorageBuilderFactory extends Service {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.skywalking.oap.server.core.storage.type` is unnecessary and can be removed
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/Stream.java`
-#### Snippet
-```java
-    /**
-     * @return the converter type between entity and storage record persistence. The converter could be override by the
-     * storage implementation if necessary. Default, return {@link org.apache.skywalking.oap.server.core.storage.type.StorageBuilder}
-     * for general suitable.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.skywalking.oap.server.core.analysis` is unnecessary and can be removed
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/DispatcherManager.java`
-#### Snippet
-```java
-     * Scan all classes under `org.apache.skywalking` package,
-     * <p>
-     * If it implement {@link org.apache.skywalking.oap.server.core.analysis.SourceDispatcher}, then, it will be added
-     * into this DispatcherManager based on the Source definition.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary and can be removed
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringFormatGroup.java`
-#### Snippet
-```java
-
-/**
- * Group patterns use {@link java.util.regex.Pattern} as core, could group the input strings to matched group or return
- * original string.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `lombok` is unnecessary, and can be replaced with an import
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Counter.java`
-#### Snippet
-```java
-    private double value;
-
-    @lombok.Builder
-    public Counter(String name, @Singular Map<String, String> labels, double value, long timestamp) {
-        super(name, labels, timestamp);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `lombok` is unnecessary, and can be replaced with an import
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
-#### Snippet
-```java
-    private final Map<Double, Double> quantiles;
-
-    @lombok.Builder
-    public Summary(String name, @Singular Map<String, String> labels, long sampleCount, double sampleSum,
-        @Singular Map<Double, Double> quantiles, long timestamp) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `lombok` is unnecessary, and can be replaced with an import
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Gauge.java`
-#### Snippet
-```java
-    private double value;
-
-    @lombok.Builder
-    public Gauge(String name, @Singular Map<String, String> labels, double value, long timestamp) {
-        super(name, labels, timestamp);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `lombok` is unnecessary, and can be replaced with an import
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
-#### Snippet
-```java
-    private Map<Double, Long> buckets;
-
-    @lombok.Builder
-    public Histogram(String name, @Singular Map<String, String> labels, long sampleCount, double sampleSum,
-        @Singular Map<Double, Long> buckets, long timestamp) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.skywalking.oap.server.core.browser.manual.errorlog` is unnecessary and can be removed
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBBrowserLogQueryDAO.java`
-#### Snippet
-```java
-
-/**
- * {@link org.apache.skywalking.oap.server.core.browser.manual.errorlog.BrowserErrorLogRecord} is a stream
- */
-public class BanyanDBBrowserLogQueryDAO extends AbstractBanyanDBDAO implements IBrowserLogQueryDAO {
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.skywalking.oap.server.core.alarm` is unnecessary and can be removed
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBAlarmQueryDAO.java`
@@ -10933,6 +10313,18 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.skywalking.oap.server.core.browser.manual.errorlog` is unnecessary and can be removed
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBBrowserLogQueryDAO.java`
+#### Snippet
+```java
+
+/**
+ * {@link org.apache.skywalking.oap.server.core.browser.manual.errorlog.BrowserErrorLogRecord} is a stream
+ */
+public class BanyanDBBrowserLogQueryDAO extends AbstractBanyanDBDAO implements IBrowserLogQueryDAO {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.skywalking.oap.server.core.analysis.manual.log` is unnecessary and can be removed
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBLogQueryDAO.java`
 #### Snippet
@@ -10942,54 +10334,6 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
  * {@link org.apache.skywalking.oap.server.core.analysis.manual.log.LogRecord} is a stream
  */
 public class BanyanDBLogQueryDAO extends AbstractBanyanDBDAO implements ILogQueryDAO {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-    }
-
-    protected abstract static class QueryBuilder<T extends AbstractQuery<? extends com.google.protobuf.GeneratedMessageV3>> {
-        protected abstract void apply(final T query);
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.base` is unnecessary and can be removed
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
-#### Snippet
-```java
-                    message.setScopeId(resultSet.getInt(AlarmRecord.SCOPE));
-                    String dataBinaryBase64 = resultSet.getString(AlarmRecord.TAGS_RAW_DATA);
-                    if (!com.google.common.base.Strings.isNullOrEmpty(dataBinaryBase64)) {
-                        parserDataBinaryBase64(dataBinaryBase64, message.getTags());
-                    }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.protobuf` is unnecessary and can be removed
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/ServiceMetaInfoAdapter.java`
-#### Snippet
-```java
-
-    /**
-     * The same functionality with {@link ServiceMetaInfoAdapter#ServiceMetaInfoAdapter(com.google.protobuf.ByteString)}.
-     *
-     * @param any {@link Any any object} to adapt from.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.protobuf` is unnecessary and can be removed
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/ServiceMetaInfoAdapter.java`
-#### Snippet
-```java
-
-    /**
-     * The same functionality with {@link ServiceMetaInfoAdapter#ServiceMetaInfoAdapter(com.google.protobuf.ByteString)}.
-     *
-     * @param metadata the {@link Struct struct} to adapt from.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11029,6 +10373,138 @@ public class Binding extends groovy.lang.Binding {
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `com.google.protobuf` is unnecessary, and can be replaced with an import
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+    }
+
+    protected abstract static class QueryBuilder<T extends AbstractQuery<? extends com.google.protobuf.GeneratedMessageV3>> {
+        protected abstract void apply(final T query);
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.protobuf` is unnecessary and can be removed
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/ServiceMetaInfoAdapter.java`
+#### Snippet
+```java
+
+    /**
+     * The same functionality with {@link ServiceMetaInfoAdapter#ServiceMetaInfoAdapter(com.google.protobuf.ByteString)}.
+     *
+     * @param any {@link Any any object} to adapt from.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.protobuf` is unnecessary and can be removed
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/mx/ServiceMetaInfoAdapter.java`
+#### Snippet
+```java
+
+    /**
+     * The same functionality with {@link ServiceMetaInfoAdapter#ServiceMetaInfoAdapter(com.google.protobuf.ByteString)}.
+     *
+     * @param metadata the {@link Struct struct} to adapt from.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.regex` is unnecessary and can be removed
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringFormatGroup.java`
+#### Snippet
+```java
+
+/**
+ * Group patterns use {@link java.util.regex.Pattern} as core, could group the input strings to matched group or return
+ * original string.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `lombok` is unnecessary, and can be replaced with an import
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Gauge.java`
+#### Snippet
+```java
+    private double value;
+
+    @lombok.Builder
+    public Gauge(String name, @Singular Map<String, String> labels, double value, long timestamp) {
+        super(name, labels, timestamp);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `lombok` is unnecessary, and can be replaced with an import
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Counter.java`
+#### Snippet
+```java
+    private double value;
+
+    @lombok.Builder
+    public Counter(String name, @Singular Map<String, String> labels, double value, long timestamp) {
+        super(name, labels, timestamp);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `lombok` is unnecessary, and can be replaced with an import
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Summary.java`
+#### Snippet
+```java
+    private final Map<Double, Double> quantiles;
+
+    @lombok.Builder
+    public Summary(String name, @Singular Map<String, String> labels, long sampleCount, double sampleSum,
+        @Singular Map<Double, Double> quantiles, long timestamp) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `lombok` is unnecessary, and can be replaced with an import
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/metrics/Histogram.java`
+#### Snippet
+```java
+    private Map<Double, Long> buckets;
+
+    @lombok.Builder
+    public Histogram(String name, @Singular Map<String, String> labels, long sampleCount, double sampleSum,
+        @Singular Map<Double, Long> buckets, long timestamp) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/storage/StorageBuilderFactory.java`
+#### Snippet
+```java
+ * of {@link StorageBuilder}.
+ *
+ * Typically, the storage needs to provide a more native format rather than {@link java.util.HashMap}.
+ */
+public interface StorageBuilderFactory extends Service {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.skywalking.oap.server.core.storage.type` is unnecessary and can be removed
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/Stream.java`
+#### Snippet
+```java
+    /**
+     * @return the converter type between entity and storage record persistence. The converter could be override by the
+     * storage implementation if necessary. Default, return {@link org.apache.skywalking.oap.server.core.storage.type.StorageBuilder}
+     * for general suitable.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.skywalking.oap.server.core.analysis` is unnecessary and can be removed
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/DispatcherManager.java`
+#### Snippet
+```java
+     * Scan all classes under `org.apache.skywalking` package,
+     * <p>
+     * If it implement {@link org.apache.skywalking.oap.server.core.analysis.SourceDispatcher}, then, it will be added
+     * into this DispatcherManager based on the Source definition.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.base` is unnecessary and can be removed
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/Analyzer.java`
 #### Snippet
@@ -11053,6 +10529,54 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ## RuleId[id=ReplaceNullCheck]
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBProfileTaskQueryDAO.java`
+#### Snippet
+```java
+                        }
+
+                        if (limit != null) {
+                            query.setLimit(limit);
+                        } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+        }
+        final StreamQuery query;
+        if (timestampRange == null) {
+            query = new StreamQuery(schema.getMetadata().getGroup(), schema.getMetadata().name(), LARGEST_TIME_RANGE, tags);
+        } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+                                         TimestampRange timestampRange, QueryBuilder<MeasureQuery> builder) throws IOException {
+        final MeasureQuery query;
+        if (timestampRange == null) {
+            query = new MeasureQuery(schema.getMetadata().getGroup(), schema.getMetadata().name(), LARGEST_TIME_RANGE, tags, fields);
+        } else {
+```
+
+### ReplaceNullCheck
+'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
+#### Snippet
+```java
+        final SearchBuilder search = Search.builder().query(query);
+
+        if (limit != null) {
+            search.size(limit);
+        } else {
+```
+
 ### ReplaceNullCheck
 'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/service/ServiceTraffic.java`
@@ -11089,55 +10613,55 @@ in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apa
         }
 ```
 
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/BanyanDBProfileTaskQueryDAO.java`
-#### Snippet
-```java
-                        }
-
-                        if (limit != null) {
-                            query.setLimit(limit);
-                        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
-#### Snippet
-```java
-        final SearchBuilder search = Search.builder().query(query);
-
-        if (limit != null) {
-            search.size(limit);
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-        }
-        final StreamQuery query;
-        if (timestampRange == null) {
-            query = new StreamQuery(schema.getMetadata().getGroup(), schema.getMetadata().name(), LARGEST_TIME_RANGE, tags);
-        } else {
-```
-
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElse()'
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-                                         TimestampRange timestampRange, QueryBuilder<MeasureQuery> builder) throws IOException {
-        final MeasureQuery query;
-        if (timestampRange == null) {
-            query = new MeasureQuery(schema.getMetadata().getGroup(), schema.getMetadata().name(), LARGEST_TIME_RANGE, tags, fields);
-        } else {
-```
-
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `ConfigChangeWatcher()` of an abstract class should not be declared 'public'
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigChangeWatcher.java`
+#### Snippet
+```java
+    protected WatchType watchType;
+
+    public ConfigChangeWatcher(String module, ModuleProvider provider, String itemName) {
+        this.module = module;
+        this.provider = provider;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GroupConfigChangeWatcher()` of an abstract class should not be declared 'public'
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/GroupConfigChangeWatcher.java`
+#### Snippet
+```java
+
+public abstract class GroupConfigChangeWatcher extends ConfigChangeWatcher {
+    public GroupConfigChangeWatcher(final String module,
+                                    final ModuleProvider provider,
+                                    final String itemName) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ConfigWatcherRegister()` of an abstract class should not be declared 'public'
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
+#### Snippet
+```java
+    }
+
+    public ConfigWatcherRegister(long syncPeriod) {
+        this.syncPeriod = syncPeriod;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ConfigWatcherRegister()` of an abstract class should not be declared 'public'
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
+#### Snippet
+```java
+    private final long syncPeriod;
+
+    public ConfigWatcherRegister() {
+        this(60);
+    }
+```
+
 ### NonProtectedConstructorInAbstractClass
 Constructor `ServerException()` of an abstract class should not be declared 'public'
 in `oap-server/server-library/library-server/src/main/java/org/apache/skywalking/oap/server/library/server/ServerException.java`
@@ -11171,6 +10695,42 @@ in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apac
 
     public AbstractKafkaHandler(ModuleManager manager, KafkaFetcherConfig config) {
         this.config = config;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ModuleProvider()` of an abstract class should not be declared 'public'
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleProvider.java`
+#### Snippet
+```java
+    private final Map<Class<? extends Service>, Service> services = new HashMap<>();
+
+    public ModuleProvider() {
+    }
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ModuleDefine()` of an abstract class should not be declared 'public'
+in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
+#### Snippet
+```java
+    private final String name;
+
+    public ModuleDefine(String name) {
+        this.name = name;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `EsDAO()` of an abstract class should not be declared 'public'
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/EsDAO.java`
+#### Snippet
+```java
+    protected static final Duration SCROLL_CONTEXT_RETENTION = Duration.ofSeconds(30);
+
+    public EsDAO(ElasticSearchClient client) {
+        super(client);
     }
 ```
 
@@ -11211,78 +10771,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `BaseMetrics()` of an abstract class should not be declared 'public'
-in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/BaseMetrics.java`
-#### Snippet
-```java
-    private ReentrantLock lock = new ReentrantLock();
-
-    public BaseMetrics(String name, String tips, MetricsTag.Keys labels, MetricsTag.Values values) {
-        this.name = name;
-        this.tips = tips;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `EsDAO()` of an abstract class should not be declared 'public'
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/EsDAO.java`
-#### Snippet
-```java
-    protected static final Duration SCROLL_CONTEXT_RETENTION = Duration.ofSeconds(30);
-
-    public EsDAO(ElasticSearchClient client) {
-        super(client);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ConfigChangeWatcher()` of an abstract class should not be declared 'public'
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigChangeWatcher.java`
-#### Snippet
-```java
-    protected WatchType watchType;
-
-    public ConfigChangeWatcher(String module, ModuleProvider provider, String itemName) {
-        this.module = module;
-        this.provider = provider;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `GroupConfigChangeWatcher()` of an abstract class should not be declared 'public'
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/GroupConfigChangeWatcher.java`
-#### Snippet
-```java
-
-public abstract class GroupConfigChangeWatcher extends ConfigChangeWatcher {
-    public GroupConfigChangeWatcher(final String module,
-                                    final ModuleProvider provider,
-                                    final String itemName) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ConfigWatcherRegister()` of an abstract class should not be declared 'public'
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-    private final long syncPeriod;
-
-    public ConfigWatcherRegister() {
-        this(60);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ConfigWatcherRegister()` of an abstract class should not be declared 'public'
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/ConfigWatcherRegister.java`
-#### Snippet
-```java
-    }
-
-    public ConfigWatcherRegister(long syncPeriod) {
-        this.syncPeriod = syncPeriod;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `KafkaExportProducer()` of an abstract class should not be declared 'public'
 in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/kafka/KafkaExportProducer.java`
 #### Snippet
@@ -11295,40 +10783,28 @@ in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `ModuleDefine()` of an abstract class should not be declared 'public'
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleDefine.java`
+Constructor `BaseMetrics()` of an abstract class should not be declared 'public'
+in `oap-server/server-telemetry/telemetry-prometheus/src/main/java/org/apache/skywalking/oap/server/telemetry/prometheus/BaseMetrics.java`
 #### Snippet
 ```java
-    private final String name;
+    private ReentrantLock lock = new ReentrantLock();
 
-    public ModuleDefine(String name) {
+    public BaseMetrics(String name, String tips, MetricsTag.Keys labels, MetricsTag.Values values) {
         this.name = name;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ModuleProvider()` of an abstract class should not be declared 'public'
-in `oap-server/server-library/library-module/src/main/java/org/apache/skywalking/oap/server/library/module/ModuleProvider.java`
-#### Snippet
-```java
-    private final Map<Class<? extends Service>, Service> services = new HashMap<>();
-
-    public ModuleProvider() {
-    }
-
+        this.tips = tips;
 ```
 
 ## RuleId[id=Java8MapApi]
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/data/LimitedSizeBufferedData.java`
+in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/core/profiling/ebpf/EBPFProfilingAnalyzerBenchmark.java`
 #### Snippet
 ```java
-        final StorageID id = data.id();
-        LinkedList<STORAGE_DATA> storageDataList = this.data.get(id);
-        if (storageDataList == null) {
-            storageDataList = new LinkedList<>();
-            this.data.put(id, storageDataList);
+        public String generate(int depth) {
+            List<String> symbols = existingSymbolMap.get(depth);
+            if (symbols == null) {
+                existingSymbolMap.put(depth, symbols = new ArrayList<>());
+            }
 ```
 
 ### Java8MapApi
@@ -11345,27 +10821,447 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### Java8MapApi
 Can be replaced with single 'Map.computeIfAbsent' method call
-in `oap-server/microbench/src/main/java/org/apache/skywalking/oap/server/microbench/core/profiling/ebpf/EBPFProfilingAnalyzerBenchmark.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/data/LimitedSizeBufferedData.java`
 #### Snippet
 ```java
-        public String generate(int depth) {
-            List<String> symbols = existingSymbolMap.get(depth);
-            if (symbols == null) {
-                existingSymbolMap.put(depth, symbols = new ArrayList<>());
-            }
+        final StorageID id = data.id();
+        LinkedList<STORAGE_DATA> storageDataList = this.data.get(id);
+        if (storageDataList == null) {
+            storageDataList = new LinkedList<>();
+            this.data.put(id, storageDataList);
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `taskList`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/cache/ProfileTaskCache.java`
+Assignment to method parameter `remoteInstance`
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
 #### Snippet
 ```java
-    public void saveTaskList(String serviceId, List<ProfileTask> taskList) {
-        if (taskList == null) {
-            taskList = Collections.emptyList();
+    public void registerRemote(RemoteInstance remoteInstance) throws ServiceRegisterException {
+        if (needUsingInternalAddr()) {
+            remoteInstance = new RemoteInstance(
+                new Address(config.getInternalComHost(), config.getInternalComPort(), true));
         }
+```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+            return Optional.empty();
+        }
+        indexName = indexNameConverter.apply(indexName);
+        return es.get().index().get(indexName);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public SearchResponse search(String indexName, Search search, SearchParams params) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().search(search, params, indexName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public Optional<Document> get(String indexName, String id) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().documents().get(indexName, TYPE, id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public boolean isExistsTemplate(String indexName) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().templates().exists(indexName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public boolean updateIndexMapping(String indexName, Mappings mapping) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().index().putMapping(indexName, TYPE, mapping);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+    public IndexRequestWrapper prepareInsert(String indexName, String id, Optional<String> routingValue,
+                                             Map<String, Object> source) {
+        indexName = indexNameConverter.apply(indexName);
+        return new IndexRequestWrapper(indexName, TYPE, id, routingValue, source);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public boolean existDoc(String indexName, String id) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().documents().exists(indexName, TYPE, id);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public boolean deleteTemplate(String indexName) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().templates().delete(indexName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public SearchResponse search(String indexName, Search search) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().search(search, indexName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+     */
+    public SearchResponse searchIDs(String indexName, Iterable<String> ids) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().search(Search.builder()
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public Optional<IndexTemplate> getTemplate(String name) {
+        name = indexNameConverter.apply(name);
+
+        return es.get().templates().get(name);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public boolean isExistsIndex(String indexName) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().index().exists(indexName);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+    public UpdateRequestWrapper prepareUpdate(String indexName, String id,
+                                              Map<String, Object> source) {
+        indexName = indexNameConverter.apply(indexName);
+        return new UpdateRequestWrapper(indexName, TYPE, id, source);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+                               Mappings mappings,
+                               Map<String, ?> settings) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().index().create(indexName, mappings, settings);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `indexName`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+    public boolean createOrUpdateTemplate(String indexName, Map<String, Object> settings,
+                                          Mappings mapping, int order) {
+        indexName = indexNameConverter.apply(indexName);
+
+        return es.get().templates().createOrUpdate(indexName, settings, mapping, order);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `alias`
+in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
+#### Snippet
+```java
+
+    public Collection<String> retrievalIndexByAliases(String alias) {
+        alias = indexNameConverter.apply(alias);
+
+        return es.get().alias().indices(alias).keySet();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `remoteInstance`
+in `oap-server/server-cluster-plugin/cluster-nacos-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/nacos/NacosCoordinator.java`
+#### Snippet
+```java
+    public void registerRemote(RemoteInstance remoteInstance) throws ServiceRegisterException {
+        if (needUsingInternalAddr()) {
+            remoteInstance = new RemoteInstance(new Address(config.getInternalComHost(), config.getInternalComPort(), true));
+        }
+        this.selfAddress = remoteInstance.getAddress();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/CacheWriteLatencyThresholdsAndWatcher.java`
+#### Snippet
+```java
+
+    public int getThreshold(String type) {
+        type = type.toLowerCase();
+        if (thresholds.get().containsKey(type)) {
+            return thresholds.get().get(type);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/DBLatencyThresholdsAndWatcher.java`
+#### Snippet
+```java
+
+    public int getThreshold(String type) {
+        type = type.toLowerCase();
+        if (thresholds.get().containsKey(type)) {
+            return thresholds.get().get(type);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/CacheReadLatencyThresholdsAndWatcher.java`
+#### Snippet
+```java
+
+    public int getThreshold(String type) {
+        type = type.toLowerCase();
+        if (thresholds.get().containsKey(type)) {
+            return thresholds.get().get(type);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `size`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
+#### Snippet
+```java
+
+    public BulkConsumePool(String name, int size, long consumeCycle) {
+        size = EnvUtil.getInt(name + "_THREAD", size);
+        allConsumers = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bufferSize`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/DataCarrier.java`
+#### Snippet
+```java
+    public DataCarrier(String name, String envPrefix, int channelSize, int bufferSize, BufferStrategy strategy) {
+        this.name = name;
+        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
+        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
+        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `channelSize`
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/DataCarrier.java`
+#### Snippet
+```java
+        this.name = name;
+        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
+        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
+        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+#### Snippet
+```java
+    private void addArg(Class<?> parameterType, int type, String expression) {
+        if (parameterType.equals(int.class)) {
+            expression = "(int)(" + expression + ")";
+        } else if (parameterType.equals(long.class)) {
+            expression = "(long)(" + expression + ")";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+#### Snippet
+```java
+            expression = "(int)(" + expression + ")";
+        } else if (parameterType.equals(long.class)) {
+            expression = "(long)(" + expression + ")";
+        } else if (parameterType.equals(double.class)) {
+            expression = "(double)(" + expression + ")";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+#### Snippet
+```java
+            expression = "(long)(" + expression + ")";
+        } else if (parameterType.equals(double.class)) {
+            expression = "(double)(" + expression + ")";
+        } else if (parameterType.equals(float.class)) {
+            expression = "(float)(" + expression + ")";
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `expression`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+#### Snippet
+```java
+            expression = "(double)(" + expression + ")";
+        } else if (parameterType.equals(float.class)) {
+            expression = "(float)(" + expression + ")";
+        }
+        argTypes.add(type);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeName`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/SourceColumn.java`
+#### Snippet
+```java
+            case "String":
+                this.type = String.class;
+                typeName = "String";
+                break;
+            default:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `remoteInstance`
+in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/ZookeeperCoordinator.java`
+#### Snippet
+```java
+        try {
+            if (needUsingInternalAddr()) {
+                remoteInstance = new RemoteInstance(new Address(config.getInternalComHost(), config.getInternalComPort(), true));
+            }
+            this.selfAddress = remoteInstance.getAddress();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `source`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
+#### Snippet
+```java
+
+    private String metricsNameFormat(String source) {
+        source = firstLetterUpper(source);
+        int idx;
+        while ((idx = source.indexOf("_")) > -1) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `source`
+in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
+#### Snippet
+```java
+        int idx;
+        while ((idx = source.indexOf("_")) > -1) {
+            source = source.substring(0, idx) + firstLetterUpper(source.substring(idx + 1));
+        }
+        return source;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `rule`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/ServiceNameFormatter.java`
+#### Snippet
+```java
+
+    public ServiceNameFormatter(String rule) {
+        rule = StringUtils.defaultIfBlank(rule, "${pod.metadata.labels.(service.istio.io/canonical-name),pod.metadata.labels.(app.kubernetes.io/name),pod.metadata.labels.app)}");
+
+        this.properties = new ArrayList<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `maxDepth`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ResourceUtils.java`
+#### Snippet
+```java
+            return fileList;
+        }
+        maxDepth--;
+        File file = new File(directoryPath);
+        if (file.isDirectory()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `connectString`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ConnectUtils.java`
+#### Snippet
+```java
+
+    public static List<Address> parse(String connectString) throws ConnectStringParseException {
+        connectString = connectString == null ? "" : connectString.trim();
+        connectString = connectString.startsWith(",") ? connectString.replace(",", "") : connectString;
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `connectString`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ConnectUtils.java`
+#### Snippet
+```java
+    public static List<Address> parse(String connectString) throws ConnectStringParseException {
+        connectString = connectString == null ? "" : connectString.trim();
+        connectString = connectString.startsWith(",") ? connectString.replace(",", "") : connectString;
+
+        if (Strings.isNullOrEmpty(connectString)) {
 ```
 
 ### AssignmentToMethodParameter
@@ -11390,6 +11286,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/q
         dateStr = dateStr.replaceAll(Const.SPACE, Const.EMPTY_STRING);
         return Long.parseLong(dateStr);
     }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `taskList`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/cache/ProfileTaskCache.java`
+#### Snippet
+```java
+    public void saveTaskList(String serviceId, List<ProfileTask> taskList) {
+        if (taskList == null) {
+            taskList = Collections.emptyList();
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -11477,13 +11385,13 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `endpointName`
+Assignment to method parameter `instanceName`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
 #### Snippet
 ```java
-        public static String buildId(String serviceId, String endpointName) {
-            if (StringUtil.isBlank(endpointName)) {
-                endpointName = Const.BLANK_ENTITY_NAME;
+        public static String buildId(String serviceId, String instanceName) {
+            if (StringUtil.isBlank(instanceName)) {
+                instanceName = Const.BLANK_ENTITY_NAME;
             }
             return serviceId
 ```
@@ -11513,13 +11421,13 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `instanceName`
+Assignment to method parameter `endpointName`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/IDManager.java`
 #### Snippet
 ```java
-        public static String buildId(String serviceId, String instanceName) {
-            if (StringUtil.isBlank(instanceName)) {
-                instanceName = Const.BLANK_ENTITY_NAME;
+        public static String buildId(String serviceId, String endpointName) {
+            if (StringUtil.isBlank(endpointName)) {
+                endpointName = Const.BLANK_ENTITY_NAME;
             }
             return serviceId
 ```
@@ -11562,6 +11470,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `right`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/expression/LikeMatch.java`
+#### Snippet
+```java
+        }
+        if (right.startsWith("\"") && right.endsWith("\"")) {
+            right = right.substring(1, right.length() - 1);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `right`
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/expression/NotContainMatch.java`
 #### Snippet
 ```java
@@ -11573,15 +11493,15 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `right`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/expression/LikeMatch.java`
+Assignment to method parameter `targets`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingQueryService.java`
 #### Snippet
 ```java
+    public List<EBPFProfilingTask> queryEBPFProfilingTasks(String serviceId, String serviceInstanceId, List<EBPFProfilingTargetType> targets) throws IOException {
+        if (CollectionUtils.isEmpty(targets)) {
+            targets = Arrays.asList(EBPFProfilingTargetType.values());
         }
-        if (right.startsWith("\"") && right.endsWith("\"")) {
-            right = right.substring(1, right.length() - 1);
-        }
-
+        final List<EBPFProfilingTask> tasks = getTaskDAO().queryTasksByTargets(serviceId, serviceInstanceId, targets, 0, 0);
 ```
 
 ### AssignmentToMethodParameter
@@ -11609,255 +11529,51 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `targets`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingQueryService.java`
+Assignment to method parameter `timeBucketStart`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/TableHelper.java`
 #### Snippet
 ```java
-    public List<EBPFProfilingTask> queryEBPFProfilingTasks(String serviceId, String serviceInstanceId, List<EBPFProfilingTargetType> targets) throws IOException {
-        if (CollectionUtils.isEmpty(targets)) {
-            targets = Arrays.asList(EBPFProfilingTargetType.values());
         }
-        final List<EBPFProfilingTask> tasks = getTaskDAO().queryTasksByTargets(serviceId, serviceInstanceId, targets, 0, 0);
+
+        timeBucketStart = TimeBucket.getTimeBucket(TimeBucket.getTimestamp(timeBucketStart), DownSampling.Day);
+        timeBucketEnd = TimeBucket.getTimeBucket(TimeBucket.getTimestamp(timeBucketEnd), DownSampling.Day);
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+Assignment to method parameter `timeBucketEnd`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/TableHelper.java`
 #### Snippet
 ```java
-    private void addArg(Class<?> parameterType, int type, String expression) {
-        if (parameterType.equals(int.class)) {
-            expression = "(int)(" + expression + ")";
-        } else if (parameterType.equals(long.class)) {
-            expression = "(long)(" + expression + ")";
+
+        timeBucketStart = TimeBucket.getTimeBucket(TimeBucket.getTimestamp(timeBucketStart), DownSampling.Day);
+        timeBucketEnd = TimeBucket.getTimeBucket(TimeBucket.getTimestamp(timeBucketEnd), DownSampling.Day);
+
+        final var ttlTimeBucketRange = getTTLTimeBucketRange(model);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
+Assignment to method parameter `timeBucket`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/TableHelper.java`
 #### Snippet
 ```java
-            expression = "(int)(" + expression + ")";
-        } else if (parameterType.equals(long.class)) {
-            expression = "(long)(" + expression + ")";
-        } else if (parameterType.equals(double.class)) {
-            expression = "(double)(" + expression + ")";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
-#### Snippet
-```java
-            expression = "(long)(" + expression + ")";
-        } else if (parameterType.equals(double.class)) {
-            expression = "(double)(" + expression + ")";
-        } else if (parameterType.equals(float.class)) {
-            expression = "(float)(" + expression + ")";
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `expression`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/EntryMethod.java`
-#### Snippet
-```java
-            expression = "(double)(" + expression + ")";
-        } else if (parameterType.equals(float.class)) {
-            expression = "(float)(" + expression + ")";
+    public static String getTable(String rawTableName, long timeBucket) {
+        if (timeBucket == 0) {
+            timeBucket = TimeBucket.getTimeBucket(System.currentTimeMillis(), DownSampling.Day);
         }
-        argTypes.add(type);
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `typeName`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/SourceColumn.java`
+Assignment to method parameter `timeBucket`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/TableHelper.java`
 #### Snippet
 ```java
-            case "String":
-                this.type = String.class;
-                typeName = "String";
-                break;
-            default:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `source`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
-#### Snippet
-```java
-
-    private String metricsNameFormat(String source) {
-        source = firstLetterUpper(source);
-        int idx;
-        while ((idx = source.indexOf("_")) > -1) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `source`
-in `oap-server/oal-rt/src/main/java/org/apache/skywalking/oal/rt/parser/OALListener.java`
-#### Snippet
-```java
-        int idx;
-        while ((idx = source.indexOf("_")) > -1) {
-            source = source.substring(0, idx) + firstLetterUpper(source.substring(idx + 1));
+        final var tableName = getTableName(model);
+        if (timeBucket == 0) {
+            timeBucket = TimeBucket.getTimeBucket(System.currentTimeMillis(), DownSampling.Day);
         }
-        return source;
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `remoteInstance`
-in `oap-server/server-cluster-plugin/cluster-nacos-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/nacos/NacosCoordinator.java`
-#### Snippet
-```java
-    public void registerRemote(RemoteInstance remoteInstance) throws ServiceRegisterException {
-        if (needUsingInternalAddr()) {
-            remoteInstance = new RemoteInstance(new Address(config.getInternalComHost(), config.getInternalComPort(), true));
-        }
-        this.selfAddress = remoteInstance.getAddress();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `maxDepth`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ResourceUtils.java`
-#### Snippet
-```java
-            return fileList;
-        }
-        maxDepth--;
-        File file = new File(directoryPath);
-        if (file.isDirectory()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `connectString`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ConnectUtils.java`
-#### Snippet
-```java
-
-    public static List<Address> parse(String connectString) throws ConnectStringParseException {
-        connectString = connectString == null ? "" : connectString.trim();
-        connectString = connectString.startsWith(",") ? connectString.replace(",", "") : connectString;
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `connectString`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/ConnectUtils.java`
-#### Snippet
-```java
-    public static List<Address> parse(String connectString) throws ConnectStringParseException {
-        connectString = connectString == null ? "" : connectString.trim();
-        connectString = connectString.startsWith(",") ? connectString.replace(",", "") : connectString;
-
-        if (Strings.isNullOrEmpty(connectString)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/CacheWriteLatencyThresholdsAndWatcher.java`
-#### Snippet
-```java
-
-    public int getThreshold(String type) {
-        type = type.toLowerCase();
-        if (thresholds.get().containsKey(type)) {
-            return thresholds.get().get(type);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/DBLatencyThresholdsAndWatcher.java`
-#### Snippet
-```java
-
-    public int getThreshold(String type) {
-        type = type.toLowerCase();
-        if (thresholds.get().containsKey(type)) {
-            return thresholds.get().get(type);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/CacheReadLatencyThresholdsAndWatcher.java`
-#### Snippet
-```java
-
-    public int getThreshold(String type) {
-        type = type.toLowerCase();
-        if (thresholds.get().containsKey(type)) {
-            return thresholds.get().get(type);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `format`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmMessageFormatter.java`
-#### Snippet
-```java
-    public AlarmMessageFormatter(String format) {
-        if (format == null) {
-            format = "";
-        }
-        formatSegments = new ArrayList<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `model`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/h2/H2TableInstaller.java`
-#### Snippet
-```java
-        try (Connection connection = jdbcHikariCPClient.getConnection()) {
-            //Consider there additional table columns need to remove from model columns.
-            model = TableMetaInfo.get(model.getName());
-            createTable(jdbcHikariCPClient, connection, model.getName(), model.getColumns(), false);
-            createTableIndexes(jdbcHikariCPClient, connection, model.getName(), model.getColumns(), false);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rule`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/ServiceNameFormatter.java`
-#### Snippet
-```java
-
-    public ServiceNameFormatter(String rule) {
-        rule = StringUtils.defaultIfBlank(rule, "${pod.metadata.labels.(service.istio.io/canonical-name),pod.metadata.labels.(app.kubernetes.io/name),pod.metadata.labels.app)}");
-
-        this.properties = new ArrayList<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bufferSize`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/DataCarrier.java`
-#### Snippet
-```java
-    public DataCarrier(String name, String envPrefix, int channelSize, int bufferSize, BufferStrategy strategy) {
-        this.name = name;
-        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
-        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
-        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `channelSize`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/DataCarrier.java`
-#### Snippet
-```java
-        this.name = name;
-        bufferSize = EnvUtil.getInt(envPrefix + "_BUFFER_SIZE", bufferSize);
-        channelSize = EnvUtil.getInt(envPrefix + "_CHANNEL_SIZE", channelSize);
-        channels = new Channels<>(channelSize, bufferSize, new SimpleRollingPartitioner<T>(), strategy);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `size`
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/BulkConsumePool.java`
-#### Snippet
-```java
-
-    public BulkConsumePool(String name, int size, long consumeCycle) {
-        size = EnvUtil.getInt(name + "_THREAD", size);
-        allConsumers = new ArrayList<>(size);
-        for (int i = 0; i < size; i++) {
 ```
 
 ### AssignmentToMethodParameter
@@ -11873,219 +11589,15 @@ in `oap-server/server-cluster-plugin/cluster-consul-plugin/src/main/java/org/apa
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `remoteInstance`
-in `oap-server/server-cluster-plugin/cluster-zookeeper-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/zookeeper/ZookeeperCoordinator.java`
+Assignment to method parameter `format`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmMessageFormatter.java`
 #### Snippet
 ```java
-        try {
-            if (needUsingInternalAddr()) {
-                remoteInstance = new RemoteInstance(new Address(config.getInternalComHost(), config.getInternalComPort(), true));
-            }
-            this.selfAddress = remoteInstance.getAddress();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `remoteInstance`
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-    public void registerRemote(RemoteInstance remoteInstance) throws ServiceRegisterException {
-        if (needUsingInternalAddr()) {
-            remoteInstance = new RemoteInstance(
-                new Address(config.getInternalComHost(), config.getInternalComPort(), true));
+    public AlarmMessageFormatter(String format) {
+        if (format == null) {
+            format = "";
         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public SearchResponse search(String indexName, Search search) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().search(search, indexName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `alias`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public Collection<String> retrievalIndexByAliases(String alias) {
-        alias = indexNameConverter.apply(alias);
-
-        return es.get().alias().indices(alias).keySet();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public Optional<IndexTemplate> getTemplate(String name) {
-        name = indexNameConverter.apply(name);
-
-        return es.get().templates().get(name);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-            return Optional.empty();
-        }
-        indexName = indexNameConverter.apply(indexName);
-        return es.get().index().get(indexName);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-    public boolean createOrUpdateTemplate(String indexName, Map<String, Object> settings,
-                                          Mappings mapping, int order) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().templates().createOrUpdate(indexName, settings, mapping, order);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public boolean existDoc(String indexName, String id) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().documents().exists(indexName, TYPE, id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-    public IndexRequestWrapper prepareInsert(String indexName, String id, Optional<String> routingValue,
-                                             Map<String, Object> source) {
-        indexName = indexNameConverter.apply(indexName);
-        return new IndexRequestWrapper(indexName, TYPE, id, routingValue, source);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-     */
-    public SearchResponse searchIDs(String indexName, Iterable<String> ids) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().search(Search.builder()
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public SearchResponse search(String indexName, Search search, SearchParams params) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().search(search, params, indexName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public boolean updateIndexMapping(String indexName, Mappings mapping) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().index().putMapping(indexName, TYPE, mapping);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-                               Mappings mappings,
-                               Map<String, ?> settings) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().index().create(indexName, mappings, settings);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public Optional<Document> get(String indexName, String id) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().documents().get(indexName, TYPE, id);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public boolean isExistsIndex(String indexName) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().index().exists(indexName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public boolean deleteTemplate(String indexName) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().templates().delete(indexName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-
-    public boolean isExistsTemplate(String indexName) {
-        indexName = indexNameConverter.apply(indexName);
-
-        return es.get().templates().exists(indexName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `indexName`
-in `oap-server/server-library/library-client/src/main/java/org/apache/skywalking/oap/server/library/client/elasticsearch/ElasticSearchClient.java`
-#### Snippet
-```java
-    public UpdateRequestWrapper prepareUpdate(String indexName, String id,
-                                              Map<String, Object> source) {
-        indexName = indexNameConverter.apply(indexName);
-        return new UpdateRequestWrapper(indexName, TYPE, id, source);
-    }
+        formatSegments = new ArrayList<>();
 ```
 
 ### AssignmentToMethodParameter
@@ -12103,43 +11615,7 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/EBPFReceiverProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/jvm/provider/JVMModuleProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-log-recevier-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/log/provider/LogModuleProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdServerSettings.java`
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
 #### Snippet
 ```java
     public String getNamespace() {
@@ -12151,7 +11627,19 @@ in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-event-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/event/EventModuleProvider.java`
+in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
+#### Snippet
+```java
+                    @Override
+                    public Executor getExecutor() {
+                        return null;
+                    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/NoneConfigurationProvider.java`
 #### Snippet
 ```java
     @Override
@@ -12159,690 +11647,6 @@ in `oap-server/server-receiver-plugin/skywalking-event-receiver-plugin/src/main/
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apache/skywalking/oap/server/analyzer/agent/kafka/KafkaFetcherHandlerRegister.java`
-#### Snippet
-```java
-                                                  try {
-                                                      entry.getValue().get();
-                                                      return null;
-                                                  } catch (InterruptedException | ExecutionException ignore) {
-                                                  }
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
-#### Snippet
-```java
-    public Service getService(final String serviceId) throws IOException {
-        final List<Service> services = this.combineServices(getMetadataQueryDAO().getServices(serviceId));
-        return services.size() > 0 ? services.get(0) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
-#### Snippet
-```java
-    public Process getProcess(String processId) throws IOException {
-        if (StringUtils.isEmpty(processId)) {
-            return null;
-        }
-        return getMetadataQueryDAO().getProcess(processId);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/input/Entity.java`
-#### Snippet
-```java
-            case All:
-                // This is unnecessary. Just for making core clear.
-                return null;
-            case Service:
-                return IDManager.ServiceID.buildId(serviceName, normal);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/input/Entity.java`
-#### Snippet
-```java
-                );
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceSpanTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceSpanTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceRelationTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceRelationTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/command/CommandService.java`
-#### Snippet
-```java
-        EBPFProfilingTaskExtension extensionConfig = task.getExtensionConfig();
-        if (extensionConfig == null || CollectionUtils.isEmpty(extensionConfig.getNetworkSamplings())) {
-            return null;
-        }
-        EBPFProfilingTaskExtensionConfig config = new EBPFProfilingTaskExtensionConfig();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/FunctionCategory.java`
-#### Snippet
-```java
-    private static Annotation doGetAnnotation(Class<?> clazz, Class<? extends Annotation> annotationClass) {
-        if (clazz.equals(Object.class)) {
-            return null;
-        }
-        Annotation[] annotations = clazz.getAnnotations();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ServiceLabelRecord.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ServiceLabelRecord.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/service/ServiceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/service/ServiceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ProcessTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ProcessTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationClientSideMetrics.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationClientSideMetrics.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationServerSideMetrics.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationServerSideMetrics.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/searchtag/TagAutocompleteData.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/searchtag/TagAutocompleteData.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/networkalias/NetworkAddressAlias.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/networkalias/NetworkAddressAlias.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/Event.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/Event.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
-#### Snippet
-```java
-        // Policy, always try load from the database when miss in the cache.
-        if (!model.isTimeRelativeID()) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingScheduleRecord.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toDay() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingScheduleRecord.java`
-#### Snippet
-```java
-    @Override
-    public Metrics toHour() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/ProfileTaskMutationService.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/management/ui/template/UITemplateManagementService.java`
-#### Snippet
-```java
-        DashboardConfiguration configuration = getUITemplateManagementDAO().getTemplate(id);
-        if (configuration.isDisabled()) {
-            return null;
-        }
-        return configuration;
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/ProfileTaskQueryService.java`
-#### Snippet
-```java
-        SegmentRecord segmentRecord = getProfileThreadSnapshotQueryDAO().getProfiledSegment(segmentId);
-        if (segmentRecord == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/analyze/EBPFProfilingAnalyzer.java`
-#### Snippet
-```java
-    protected List<TimeRange> buildTimeRanges(long start, long end) {
-        if (start >= end) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/analyze/EBPFProfilingAnalyzer.java`
-#### Snippet
-```java
-            } catch (Exception ex) {
-                log.warn("could not deserialize the stack", ex);
-                return null;
-            }
-        }).filter(Objects::nonNull).distinct();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            return error;
-        }
-        return StringUtil.isNotEmpty(data) ? null : String.format("%s could not be empty", type);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            return "the profiling target could not be null";
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            return "the fixed time duration must be greater than or equals " + FIXED_TIME_MIN_DURATION + "s";
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-    private String validateSamplingRules(List<EBPFNetworkSamplingRule> rules) {
-        if (CollectionUtils.isEmpty(rules)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
-#### Snippet
-```java
-            return "the max response size must bigger than zero";
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
-#### Snippet
-```java
-        // data not found
-        if (maxSequence <= 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
-#### Snippet
-```java
-    protected List<ProfileStackTree> analyze(List<ProfileStack> stacks) {
-        if (CollectionUtils.isEmpty(stacks)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
-#### Snippet
-```java
-            } catch (IOException e) {
-                LOGGER.warn(e.getMessage(), e);
-                return null;
-            }
-        }).filter(Objects::nonNull).collect(Collectors.toList());
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-meter-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/meter/provider/MeterReceiverProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-clr-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/clr/provider/CLRModuleProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/codec/V7MappingsDeserializer.java`
-#### Snippet
-```java
-            return mappings;
-        }
-        return null;
-    }
-}
 ```
 
 ### ReturnNull
@@ -12854,66 +11658,6 @@ in `oap-server/server-telemetry/telemetry-api/src/main/java/org/apache/skywalkin
     public ConfigCreator newConfigCreator() {
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/handler/ZipkinSpanHTTPHandler.java`
-#### Snippet
-```java
-            }
-            timer.close();
-            return null;
-        });
-        return response;
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
-#### Snippet
-```java
-    public static String trim(final String str, final char ch) {
-        if (isEmpty(str)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
-#### Snippet
-```java
-    public static String join(final char delimiter, final String... strings) {
-        if (strings.length == 0) {
-            return null;
-        }
-        if (strings.length == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/TextParser.java`
-#### Snippet
-```java
-        }
-        if (line == null) {
-            return null;
-        }
 
 ```
 
@@ -12982,9 +11726,9 @@ Return of `null`
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetadataQueryDAO.java`
 #### Snippet
 ```java
-        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(ProcessTraffic.INDEX_NAME, DownSampling.Minute);
-
-        return resp.size() > 0 ? buildProcess(resp.getDataPoints().get(0), schema) : null;
+                });
+        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(InstanceTraffic.INDEX_NAME, DownSampling.Minute);
+        return resp.size() > 0 ? buildInstance(resp.getDataPoints().get(0), schema) : null;
     }
 
 ```
@@ -12994,9 +11738,9 @@ Return of `null`
 in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/measure/BanyanDBMetadataQueryDAO.java`
 #### Snippet
 ```java
-                });
-        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(InstanceTraffic.INDEX_NAME, DownSampling.Minute);
-        return resp.size() > 0 ? buildInstance(resp.getDataPoints().get(0), schema) : null;
+        MetadataRegistry.Schema schema = MetadataRegistry.INSTANCE.findMetadata(ProcessTraffic.INDEX_NAME, DownSampling.Minute);
+
+        return resp.size() > 0 ? buildProcess(resp.getDataPoints().get(0), schema) : null;
     }
 
 ```
@@ -13015,174 +11759,6 @@ in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/a
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RoutingUtils.java`
-#### Snippet
-```java
-        Object value = toStorage.get(routingField);
-        if (value == null) {
-            return null;
-        }
-        return value.toString();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
-#### Snippet
-```java
-    public DashboardConfiguration getTemplate(final String id) {
-        if (StringUtil.isEmpty(id)) {
-            return null;
-        }
-        final String index =
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
-#### Snippet
-```java
-                builder.storage2Entity(new ElasticSearchConverter.ToEntity(UITemplate.INDEX_NAME, data.getSource())));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/EBPFProfilingTaskEsDAO.java`
-#### Snippet
-```java
-        final List<EBPFProfilingTask> tasks = response.getHits().getHits().stream().map(this::parseTask).collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(tasks)) {
-            return null;
-        }
-        EBPFProfilingTask result = tasks.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
-#### Snippet
-```java
-    public ProfileTask getById(String id) throws IOException {
-        if (StringUtil.isEmpty(id)) {
-            return null;
-        }
-        final String index =
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileThreadSnapshotQueryEsDAO.java`
-#### Snippet
-```java
-
-        if (response.getHits().getHits().isEmpty()) {
-            return null;
-        }
-        final SearchHit searchHit = response.getHits().iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-mesh-receiver-plugin/src/main/java/org/apache/skywalking/aop/server/receiver/mesh/MeshReceiverProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
-#### Snippet
-```java
-        final SearchResponse response = getClient().search(index, search.build());
-        final List<ServiceInstance> instances = buildInstances(response);
-        return instances.size() > 0 ? instances.get(0) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
-#### Snippet
-```java
-        final SearchResponse response = getClient().search(index, search.build());
-        final List<Process> processes = buildProcesses(response);
-        return processes.isEmpty() ? null : processes.get(0);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-configuration/configuration-api/src/main/java/org/apache/skywalking/oap/server/configuration/api/NoneConfigurationProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-cluster-plugin/cluster-standalone-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/standalone/ClusterModuleStandaloneProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/MetricFormatter.java`
-#### Snippet
-```java
-            return "";
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/module/DataGeneratorModuleProvider.java`
-#### Snippet
-```java
-    @Override
-    public ConfigCreator newConfigCreator() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/AnalyzerModuleConfig.java`
 #### Snippet
 ```java
@@ -13191,6 +11767,18 @@ in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/s
             return null;
         }
         return Splitter.on(",").splitToList(this.meterAnalyzerActiveFiles);
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-fetcher-plugin/kafka-fetcher-plugin/src/main/java/org/apache/skywalking/oap/server/analyzer/agent/kafka/KafkaFetcherHandlerRegister.java`
+#### Snippet
+```java
+                                                  try {
+                                                      entry.getValue().get();
+                                                      return null;
+                                                  } catch (InterruptedException | ExecutionException ignore) {
+                                                  }
 ```
 
 ### ReturnNull
@@ -13231,30 +11819,6 @@ in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/s
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-        protected AbstractCriteria and(List<? extends AbstractCriteria> conditions) {
-            if (conditions.isEmpty()) {
-                return null;
-            }
-            if (conditions.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
-#### Snippet
-```java
-        protected AbstractCriteria or(List<? extends AbstractCriteria> conditions) {
-            if (conditions.isEmpty()) {
-                return null;
-            }
-            if (conditions.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
 in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/provider/trace/parser/listener/RPCTrafficSourceBuilder.java`
 #### Snippet
 ```java
@@ -13279,7 +11843,7 @@ in `oap-server/analyzer/agent-analyzer/src/main/java/org/apache/skywalking/oap/s
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmModuleProvider.java`
+in `oap-server/server-receiver-plugin/skywalking-meter-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/meter/provider/MeterReceiverProvider.java`
 #### Snippet
 ```java
     @Override
@@ -13291,103 +11855,7 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/expression/Expression.java`
-#### Snippet
-```java
-        } catch (Throwable e) {
-            log.error("eval expression {} error", expression, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
-#### Snippet
-```java
-    public ProfileTask getById(String id) throws IOException {
-        if (StringUtil.isEmpty(id)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
-#### Snippet
-```java
-            throw new IOException(e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-    public DashboardConfiguration getTemplate(final String id) throws IOException {
-        if (StringUtil.isEmpty(id)) {
-            return null;
-        }
-        final StringBuilder sql = new StringBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
-#### Snippet
-```java
-            throw new IOException(e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
-#### Snippet
-```java
-            return storageBuilder.storage2Entity(new HashMapConverter.ToEntity(data));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingTaskDAO.java`
-#### Snippet
-```java
-                final List<EBPFProfilingTask> tasks = buildTasks(resultSet);
-                if (CollectionUtils.isEmpty(tasks)) {
-                    return null;
-                }
-                EBPFProfilingTask result = tasks.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/analyzer/event-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/event/EventAnalyzerModuleProvider.java`
+in `oap-server/server-receiver-plugin/skywalking-management-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/register/provider/RegisterModuleProvider.java`
 #### Snippet
 ```java
     @Override
@@ -13399,74 +11867,146 @@ in `oap-server/analyzer/event-analyzer/src/main/java/org/apache/skywalking/oap/s
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdServerSettings.java`
 #### Snippet
 ```java
-                    connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<Process> processes = buildProcesses(resultSet);
-            return processes.size() > 0 ? processes.get(0) : null;
-        } catch (SQLException e) {
-            throw new IOException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
-#### Snippet
-```java
-                connection, sql.toString(), condition.toArray(new Object[0]));
-            final List<ServiceInstance> instances = buildInstances(resultSet);
-            return instances.size() > 0 ? instances.get(0) : null;
-        } catch (SQLException e) {
-            throw new IOException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
-#### Snippet
-```java
-    public Duration getRecordDurationWithinTTL(final Duration duration) {
-        if (duration == null) {
+    public String getNamespace() {
+        if (Strings.isNullOrEmpty(namespace)) {
             return null;
         }
-        Duration durationWithinTTL = new Duration();
+        if (!namespace.endsWith("/")) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/DurationWithinTTL.java`
-#### Snippet
-```java
-    public Duration getMetricDurationWithinTTL(final Duration duration) {
-        if (duration == null) {
-            return null;
-        }
-        Duration durationWithinTTL = new Duration();
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/mysql/MySQLShardingStorageConfig.java`
-#### Snippet
-```java
-    public Set<String> getDataSources() {
-        if (StringUtils.isEmpty(this.dataSources)) {
-            return null;
-        }
-        return new HashSet<>(Splitter.on(",").splitToList(this.dataSources));
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/mock/MockComponentLibraryCatalogService.java`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/spec/LALDelegatingScript.java`
 #### Snippet
 ```java
     @Override
-    public String getComponentName(int componentId) {
+    public Object run() {
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/LALConfigs.java`
+#### Snippet
+```java
+                                 log.debug("Failed to read file {}", f, e);
+                             }
+                             return null;
+                         })
+                         .filter(Objects::nonNull)
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
+#### Snippet
+```java
+                return result;
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
+#### Snippet
+```java
+            } catch (MissingPropertyException ignored) {
+            }
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-clr-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/clr/provider/CLRModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/log/listener/LogFilterListener.java`
+#### Snippet
+```java
+        public LogAnalysisListener create(Layer layer) {
+            if (layer == null) {
+                return null;
+            }
+            final Map<String, DSL> dsl = dsls.get(layer);
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/log/listener/LogFilterListener.java`
+#### Snippet
+```java
+            final Map<String, DSL> dsl = dsls.get(layer);
+            if (dsl == null) {
+                return null;
+            }
+            return new LogFilterListener(dsl.values());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-cluster-plugin/cluster-standalone-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/standalone/ClusterModuleStandaloneProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-jvm-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/jvm/provider/JVMModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+        protected AbstractCriteria or(List<? extends AbstractCriteria> conditions) {
+            if (conditions.isEmpty()) {
+                return null;
+            }
+            if (conditions.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-banyandb-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/banyandb/stream/AbstractBanyanDBDAO.java`
+#### Snippet
+```java
+        protected AbstractCriteria and(List<? extends AbstractCriteria> conditions) {
+            if (conditions.isEmpty()) {
+                return null;
+            }
+            if (conditions.size() == 1) {
 ```
 
 ### ReturnNull
@@ -13483,14 +12023,26 @@ in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/s
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/mock/MockWorkerInstancesService.java`
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/mock/MockComponentLibraryCatalogService.java`
 #### Snippet
 ```java
     @Override
-    public RemoteHandleWorker get(String nextWorkerName) {
+    public String getComponentName(int componentId) {
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/ServiceNameFormatter.java`
+#### Snippet
+```java
+                                               return PropertyUtils.getProperty(context, it);
+                                           } catch (Exception e) {
+                                               return null;
+                                           }
+                                       })
 ```
 
 ### ReturnNull
@@ -13507,7 +12059,31 @@ in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/s
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-profile-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/profile/provider/ProfileModuleProvider.java`
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/mock/MockWorkerInstancesService.java`
+#### Snippet
+```java
+    @Override
+    public RemoteHandleWorker get(String nextWorkerName) {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
+#### Snippet
+```java
+                                    .build();
+                            }
+                            return null;
+                        })
+                        .filter(Objects::nonNull)
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/MockCoreModuleProvider.java`
 #### Snippet
 ```java
     @Override
@@ -13519,7 +12095,1363 @@ in `oap-server/server-receiver-plugin/skywalking-profile-receiver-plugin/src/mai
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-server-mock/src/main/java/org/apache/skywalking/oap/server/tool/profile/core/MockCoreModuleProvider.java`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
+#### Snippet
+```java
+    public static String join(final char delimiter, final String... strings) {
+        if (strings.length == 0) {
+            return null;
+        }
+        if (strings.length == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/StringUtil.java`
+#### Snippet
+```java
+    public static String trim(final String str, final char ch) {
+        if (isEmpty(str)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-library/library-util/src/main/java/org/apache/skywalking/oap/server/library/util/prometheus/parser/TextParser.java`
+#### Snippet
+```java
+        }
+        if (line == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-trace-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/trace/provider/TraceModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
+#### Snippet
+```java
+    public DashboardConfiguration getTemplate(final String id) {
+        if (StringUtil.isEmpty(id)) {
+            return null;
+        }
+        final String index =
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/UITemplateManagementEsDAO.java`
+#### Snippet
+```java
+                builder.storage2Entity(new ElasticSearchConverter.ToEntity(UITemplate.INDEX_NAME, data.getSource())));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/base/RoutingUtils.java`
+#### Snippet
+```java
+        Object value = toStorage.get(routingField);
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
+#### Snippet
+```java
+    public ProfileTask getById(String id) throws IOException {
+        if (StringUtil.isEmpty(id)) {
+            return null;
+        }
+        final String index =
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileTaskQueryEsDAO.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/EBPFProfilingTaskEsDAO.java`
+#### Snippet
+```java
+        final List<EBPFProfilingTask> tasks = response.getHits().getHits().stream().map(this::parseTask).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(tasks)) {
+            return null;
+        }
+        EBPFProfilingTask result = tasks.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/ProfileThreadSnapshotQueryEsDAO.java`
+#### Snippet
+```java
+
+        if (response.getHits().getHits().isEmpty()) {
+            return null;
+        }
+        final SearchHit searchHit = response.getHits().iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
+#### Snippet
+```java
+        final SearchResponse response = getClient().search(index, search.build());
+        final List<Process> processes = buildProcesses(response);
+        return processes.isEmpty() ? null : processes.get(0);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-elasticsearch-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/elasticsearch/query/MetadataQueryEsDAO.java`
+#### Snippet
+```java
+        final SearchResponse response = getClient().search(index, search.build());
+        final List<ServiceInstance> instances = buildInstances(response);
+        return instances.size() > 0 ? instances.get(0) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
+#### Snippet
+```java
+    public Service getService(final String serviceId) throws IOException {
+        final List<Service> services = this.combineServices(getMetadataQueryDAO().getServices(serviceId));
+        return services.size() > 0 ? services.get(0) : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/MetadataQueryService.java`
+#### Snippet
+```java
+    public Process getProcess(String processId) throws IOException {
+        if (StringUtils.isEmpty(processId)) {
+            return null;
+        }
+        return getMetadataQueryDAO().getProcess(processId);
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/TraceQueryService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/input/Entity.java`
+#### Snippet
+```java
+            case All:
+                // This is unnecessary. Just for making core clear.
+                return null;
+            case Service:
+                return IDManager.ServiceID.buildId(serviceName, normal);
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/input/Entity.java`
+#### Snippet
+```java
+                );
+            default:
+                return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceSpanTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceSpanTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceRelationTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/zipkin/ZipkinServiceRelationTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/command/CommandService.java`
+#### Snippet
+```java
+        EBPFProfilingTaskExtension extensionConfig = task.getExtensionConfig();
+        if (extensionConfig == null || CollectionUtils.isEmpty(extensionConfig.getNetworkSamplings())) {
+            return null;
+        }
+        EBPFProfilingTaskExtensionConfig config = new EBPFProfilingTaskExtensionConfig();
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/FunctionCategory.java`
+#### Snippet
+```java
+    private static Annotation doGetAnnotation(Class<?> clazz, Class<? extends Annotation> annotationClass) {
+        if (clazz.equals(Object.class)) {
+            return null;
+        }
+        Annotation[] annotations = clazz.getAnnotations();
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ServiceLabelRecord.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ServiceLabelRecord.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/service/ServiceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/service/ServiceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/endpoint/EndpointTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ProcessTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/process/ProcessTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationServerSideMetrics.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationServerSideMetrics.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationClientSideMetrics.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/relation/process/ProcessRelationClientSideMetrics.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/instance/InstanceTraffic.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/searchtag/TagAutocompleteData.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/searchtag/TagAutocompleteData.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/networkalias/NetworkAddressAlias.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/manual/networkalias/NetworkAddressAlias.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/Event.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/metrics/Event.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+#### Snippet
+```java
+        // Policy, always try load from the database when miss in the cache.
+        if (!model.isTimeRelativeID()) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/analysis/worker/MetricsPersistentWorker.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            return error;
+        }
+        return StringUtil.isNotEmpty(data) ? null : String.format("%s could not be empty", type);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+    private String validateSamplingRules(List<EBPFNetworkSamplingRule> rules) {
+        if (CollectionUtils.isEmpty(rules)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            return "the profiling target could not be null";
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            return "the fixed time duration must be greater than or equals " + FIXED_TIME_MIN_DURATION + "s";
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/EBPFProfilingMutationService.java`
+#### Snippet
+```java
+            return "the max response size must bigger than zero";
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingScheduleRecord.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toDay() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingScheduleRecord.java`
+#### Snippet
+```java
+    @Override
+    public Metrics toHour() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/ProfileTaskMutationService.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/management/ui/template/UITemplateManagementService.java`
+#### Snippet
+```java
+        DashboardConfiguration configuration = getUITemplateManagementDAO().getTemplate(id);
+        if (configuration.isDisabled()) {
+            return null;
+        }
+        return configuration;
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-event-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/event/EventModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/ProfileTaskQueryService.java`
+#### Snippet
+```java
+        SegmentRecord segmentRecord = getProfileThreadSnapshotQueryDAO().getProfiledSegment(segmentId);
+        if (segmentRecord == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-ebpf-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/ebpf/provider/EBPFReceiverProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/analyze/EBPFProfilingAnalyzer.java`
+#### Snippet
+```java
+            } catch (Exception ex) {
+                log.warn("could not deserialize the stack", ex);
+                return null;
+            }
+        }).filter(Objects::nonNull).distinct();
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/analyze/EBPFProfilingAnalyzer.java`
+#### Snippet
+```java
+    protected List<TimeRange> buildTimeRanges(long start, long end) {
+        if (start >= end) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/analyzer/event-analyzer/src/main/java/org/apache/skywalking/oap/server/analyzer/event/EventAnalyzerModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
+#### Snippet
+```java
+    protected List<ProfileStackTree> analyze(List<ProfileStack> stacks) {
+        if (CollectionUtils.isEmpty(stacks)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
+#### Snippet
+```java
+        // data not found
+        if (maxSequence <= 0) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/trace/analyze/ProfileAnalyzer.java`
+#### Snippet
+```java
+            } catch (IOException e) {
+                LOGGER.warn(e.getMessage(), e);
+                return null;
+            }
+        }).filter(Objects::nonNull).collect(Collectors.toList());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCBrowserLogQueryDAO.java`
+#### Snippet
+```java
+                    }
+
+                    return null;
+                },
+                sqlAndParameters.parameters()
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCRecordsQueryDAO.java`
+#### Snippet
+```java
+                        results.add(record);
+                    }
+                    return null;
+                },
+                sqlAndParameters.parameters());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEventQueryDAO.java`
+#### Snippet
+```java
+                }
+
+                return null;
+            }, parameters);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEventQueryDAO.java`
+#### Snippet
+```java
+                    events.add(parseResultSet(resultSet));
+                }
+                return null;
+            }, parameters);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTagAutoCompleteQueryDAO.java`
+#### Snippet
+```java
+                        results.add(resultSet.getString(TagAutocompleteData.TAG_VALUE));
+                    }
+                    return null;
+                },
+                sqlAndParameters.parameters()
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTagAutoCompleteQueryDAO.java`
+#### Snippet
+```java
+                        results.add(resultSet.getString(TagAutocompleteData.TAG_KEY));
+                    }
+                    return null;
+                },
+                sqlAndParameters.parameters());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAlarmQueryDAO.java`
+#### Snippet
+```java
+                    alarmMsgs.add(message);
+                }
+                return null;
+            }, sqlAndParameters.parameters());
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
+#### Snippet
+```java
+    public ProfileTask getById(String id) {
+        if (StringUtil.isEmpty(id)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
+#### Snippet
+```java
+                        return parseTask(resultSet);
+                    }
+                    return null;
+                },
+                condition.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileTaskQueryDAO.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+                    result.add(resultSet.getInt(1));
+                }
+                return null;
+            }, params);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+                        return segmentRecord;
+                    }
+                    return null;
+                },
+                SegmentRecord.INDEX_NAME, segmentId
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+                    results.add(record);
+                }
+                return null;
+            }, params);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCProfileThreadSnapshotQueryDAO.java`
+#### Snippet
+```java
+                        results.add(basicTrace);
+                    }
+                    return null;
+                },
+                sqlAndParameters.parameters());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSpanAttachedEventQueryDAO.java`
+#### Snippet
+```java
+                    }
+
+                    return null;
+                },
+                sqlAndParameters.parameters());
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
+#### Snippet
+```java
+                }
+                while (uiTemplate != null);
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
+#### Snippet
+```java
+    public DashboardConfiguration getTemplate(final String id) {
+        if (StringUtil.isEmpty(id)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
+#### Snippet
+```java
+                    return new DashboardConfiguration().fromEntity(uiTemplate);
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+            if (result != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCUITemplateManagementDAO.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCEBPFProfilingTaskDAO.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                        intValues.addKVInt(kv);
+                    }
+                    return null;
+                },
+                ids.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                        idMap.put(id, multipleValues);
+                    }
+                    return null;
+                },
+                ids.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetricsQueryDAO.java`
+#### Snippet
+```java
+                    heatMap.fixMissingColumns(ids, defaultValue);
+
+                    return null;
+                },
+                ids.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+            return storageBuilder.storage2Entity(new HashMapConverter.ToEntity(data));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+                }
+
+                return null;
+            }, ids.toArray());
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCSQLExecutor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                        segmentRecords.add(segmentRecord);
+                    }
+                    return null;
+                },
+                SegmentRecord.INDEX_NAME, traceId
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTraceQueryDAO.java`
+#### Snippet
+```java
+                        traces.add(basicTrace);
+                    }
+                    return null;
+                },
+                parameters.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
+#### Snippet
+```java
+                resultSet -> {
+                    buildServiceCalls(resultSet, calls, detectPoint);
+                    return null;
+                },
+                conditions
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
+#### Snippet
+```java
+                resultSet -> {
+                    buildProcessCalls(resultSet, calls, detectPoint);
+                    return null;
+                },
+                conditions
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
+#### Snippet
+```java
+                resultSet -> {
+                    buildInstanceCalls(resultSet, calls, detectPoint);
+                    return null;
+                },
+                conditions
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCTopologyQueryDAO.java`
+#### Snippet
+```java
+                resultSet -> {
+                    buildEndpointCalls(resultSet, calls, DetectPoint.SERVER);
+                    return null;
+                },
+                conditions
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-log-recevier-plugin/src/main/java/org/apache/skywalking/oap/server/recevier/log/provider/LogModuleProvider.java`
+#### Snippet
+```java
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCAggregationQueryDAO.java`
+#### Snippet
+```java
+                    results.add(topNEntity);
+                }
+                return null;
+            }, sqlAndParameters.parameters());
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    services.add(resultSet.getString(ZipkinServiceTraffic.SERVICE_NAME));
+                }
+                return null;
+            }, ZipkinServiceTraffic.INDEX_NAME);
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    spanNames.add(resultSet.getString(ZipkinServiceSpanTraffic.SPAN_NAME));
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    traceIds.add(resultSet.getString(ZipkinSpanRecord.TRACE_ID));
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    trace.add(buildSpan(resultSet));
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCZipkinQueryDAO.java`
+#### Snippet
+```java
+                    remoteServices.add(resultSet.getString(ZipkinServiceRelationTraffic.REMOTE_SERVICE_NAME));
+                }
+                return null;
+            }, condition.toArray(new Object[0]));
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+                resultSet -> {
+                    final List<Process> processes = buildProcesses(resultSet);
+                    return processes.size() > 0 ? processes.get(0) : null;
+                },
+                condition.toArray(new Object[0]));
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+            final var result = jdbcClient.executeQuery(sql.toString(), resultSet -> {
+                final List<ServiceInstance> instances = buildInstances(resultSet);
+                return instances.size() > 0 ? instances.get(0) : null;
+            }, condition.toArray(new Object[0]));
+            if (result != null) {
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-storage-plugin/storage-jdbc-hikaricp-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/common/dao/JDBCMetadataQueryDAO.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-tools/data-generator/src/main/java/org/apache/skywalking/module/DataGeneratorModuleProvider.java`
 #### Snippet
 ```java
     @Override
@@ -13543,55 +13475,19 @@ in `oap-server/server-query-plugin/zipkin-query-plugin/src/main/java/org/apache/
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-management-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/register/provider/RegisterModuleProvider.java`
+in `oap-server/server-library/library-elasticsearch-client/src/main/java/org/apache/skywalking/library/elasticsearch/requests/factory/v7plus/codec/V7MappingsDeserializer.java`
 #### Snippet
 ```java
-    @Override
-    public ConfigCreator newConfigCreator() {
+            return mappings;
+        }
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-configuration/configuration-nacos/src/main/java/org/apache/skywalking/oap/server/configuration/nacos/NacosConfigWatcherRegister.java`
-#### Snippet
-```java
-                    @Override
-                    public Executor getExecutor() {
-                        return null;
-                    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/K8SServiceRegistry.java`
-#### Snippet
-```java
-                                    .build();
-                            }
-                            return null;
-                        })
-                        .filter(Objects::nonNull)
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/envoy-metrics-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/envoy/als/k8s/ServiceNameFormatter.java`
-#### Snippet
-```java
-                                               return PropertyUtils.getProperty(context, it);
-                                           } catch (Exception e) {
-                                               return null;
-                                           }
-                                       })
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-trace-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/trace/provider/TraceModuleProvider.java`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmModuleProvider.java`
 #### Snippet
 ```java
     @Override
@@ -13627,11 +13523,35 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 
 ### ReturnNull
 Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/spec/LALDelegatingScript.java`
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/expression/Expression.java`
+#### Snippet
+```java
+        } catch (Throwable e) {
+            log.error("eval expression {} error", expression, e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/MetricFormatter.java`
+#### Snippet
+```java
+            return "";
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-mesh-receiver-plugin/src/main/java/org/apache/skywalking/aop/server/receiver/mesh/MeshReceiverProvider.java`
 #### Snippet
 ```java
     @Override
-    public Object run() {
+    public ConfigCreator newConfigCreator() {
         return null;
     }
 
@@ -13639,74 +13559,26 @@ in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log
 
 ### ReturnNull
 Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
+in `oap-server/server-receiver-plugin/skywalking-profile-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/profile/provider/ProfileModuleProvider.java`
 #### Snippet
 ```java
-            } catch (MissingPropertyException ignored) {
-            }
-            return null;
-        }
+    @Override
+    public ConfigCreator newConfigCreator() {
+        return null;
     }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/dsl/Binding.java`
+in `oap-server/server-tools/profile-exporter/tool-profile-snapshot-bootstrap/src/main/java/org/apache/skywalking/oap/server/tool/profile/exporter/ProfileSnapshotDumper.java`
 #### Snippet
 ```java
-                return result;
             }
-            return null;
         }
+        return null;
+    }
 
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/log/listener/LogFilterListener.java`
-#### Snippet
-```java
-        public LogAnalysisListener create(Layer layer) {
-            if (layer == null) {
-                return null;
-            }
-            final Map<String, DSL> dsl = dsls.get(layer);
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/log/listener/LogFilterListener.java`
-#### Snippet
-```java
-            final Map<String, DSL> dsl = dsls.get(layer);
-            if (dsl == null) {
-                return null;
-            }
-            return new LogFilterListener(dsl.values());
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/analyzer/log-analyzer/src/main/java/org/apache/skywalking/oap/log/analyzer/provider/LALConfigs.java`
-#### Snippet
-```java
-                                 log.debug("Failed to read file {}", f, e);
-                             }
-                             return null;
-                         })
-                         .filter(Objects::nonNull)
-```
-
-### ReturnNull
-Return of `null`
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/ClusterModuleEtcdConfig.java`
-#### Snippet
-```java
-    public String getNamespace() {
-        if (Strings.isNullOrEmpty(namespace)) {
-            return null;
-        }
-        if (!namespace.endsWith("/")) {
 ```
 
 ### ReturnNull
@@ -13735,18 +13607,6 @@ in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main
 
 ### ReturnNull
 Return of `null`
-in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/protocol/bean/ZabbixProtocolType.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
 in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/config/ZabbixConfigs.java`
 #### Snippet
 ```java
@@ -13767,6 +13627,30 @@ in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main
                 return null;
             })
             .filter(Objects::nonNull)
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/skywalking-zabbix-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zabbix/provider/protocol/bean/ZabbixProtocolType.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `oap-server/server-receiver-plugin/zipkin-receiver-plugin/src/main/java/org/apache/skywalking/oap/server/receiver/zipkin/handler/ZipkinSpanHTTPHandler.java`
+#### Snippet
+```java
+            }
+            timer.close();
+            return null;
+        });
+        return response;
 ```
 
 ### ReturnNull
@@ -13832,42 +13716,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/m
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `now` is redundant
-in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmCore.java`
-#### Snippet
-```java
-
-    public void start(List<AlarmCallback> allCallbacks) {
-        LocalDateTime now = LocalDateTime.now();
-        lastExecuteTime = now;
-        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
-```
-
-### UnnecessaryLocalVariable
-Local variable `dropSQL` is redundant
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/dao/ShardingHistoryDeleteDAO.java`
-#### Snippet
-```java
-
-    private String getDropSQL(String dataSource, String table) {
-        String dropSQL = "/* ShardingSphere hint: dataSourceName=" + dataSource + "*/\n" +
-            "drop table if exists " + table;
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `dsList` is redundant
-in `oap-server/server-storage-plugin/storage-shardingsphere-plugin/src/main/java/org/apache/skywalking/oap/server/storage/plugin/jdbc/shardingsphere/dao/ShardingHistoryDeleteDAO.java`
-#### Snippet
-```java
-
-            try (Connection connection = client.getConnection()) {
-                Set<String> dsList = dataSources;
-                for (String prepareDeleteTable : prepareDeleteTables) {
-                    for (String ds : dsList) {
-```
-
-### UnnecessaryLocalVariable
 Local variable `samples` is redundant
 in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/meter/analyzer/dsl/tagOpt/K8sRetagType.java`
 #### Snippet
@@ -13877,6 +13725,18 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
             Sample[] samples = Arrays.stream(ss).map(sample -> {
                 String podName = sample.getLabels().get(existingLabelName);
                 String namespace = sample.getLabels().get(namespaceLabelName);
+```
+
+### UnnecessaryLocalVariable
+Local variable `now` is redundant
+in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/AlarmCore.java`
+#### Snippet
+```java
+
+    public void start(List<AlarmCallback> allCallbacks) {
+        LocalDateTime now = LocalDateTime.now();
+        lastExecuteTime = now;
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
 ```
 
 ### UnnecessaryLocalVariable
@@ -13892,6 +13752,30 @@ in `oap-server/analyzer/meter-analyzer/src/main/java/org/apache/skywalking/oap/m
 ```
 
 ## RuleId[id=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/MultipleChannelsConsumer.java`
+#### Snippet
+```java
+            if (!hasData) {
+                try {
+                    Thread.sleep(consumeCycle);
+                } catch (InterruptedException e) {
+                }
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/ConsumerThread.java`
+#### Snippet
+```java
+            if (!consume(consumeList)) {
+                try {
+                    Thread.sleep(consumeCycle);
+                } catch (InterruptedException e) {
+                }
+```
+
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/remote/client/GRPCRemoteClient.java`
@@ -13918,18 +13802,6 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/s
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
-#### Snippet
-```java
-            try {
-                sleepTime += cycle;
-                Thread.sleep(cycle);
-            } catch (InterruptedException e) {
-            }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/server/core/alarm/provider/grpc/GRPCCallback.java`
 #### Snippet
 ```java
@@ -13942,29 +13814,29 @@ in `oap-server/server-alarm-plugin/src/main/java/org/apache/skywalking/oap/serve
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/MultipleChannelsConsumer.java`
+in `oap-server/exporter/src/main/java/org/apache/skywalking/oap/server/exporter/provider/grpc/GRPCMetricsExporter.java`
 #### Snippet
 ```java
-            if (!hasData) {
-                try {
-                    Thread.sleep(consumeCycle);
-                } catch (InterruptedException e) {
-                }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/ConsumerThread.java`
-#### Snippet
-```java
-            if (!consume(consumeList)) {
-                try {
-                    Thread.sleep(consumeCycle);
-                } catch (InterruptedException e) {
-                }
+            try {
+                sleepTime += cycle;
+                Thread.sleep(cycle);
+            } catch (InterruptedException e) {
+            }
 ```
 
 ## RuleId[id=UseBulkOperation]
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/MultipleChannelsConsumer.java`
+#### Snippet
+```java
+        ArrayList<Group> newList = new ArrayList<>();
+        for (Group target : consumeTargets) {
+            newList.add(target);
+        }
+        newList.add(group);
+```
+
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Map.putAll()' call
 in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/query/enumeration/ProfilingSupportStatus.java`
@@ -13985,6 +13857,18 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/a
 
     static {
         Arrays.stream(ProcessDetectType.values()).collect(Collectors.toMap(ProcessDetectType::value, type -> type)).forEach(DICTIONARY::put);
+    }
+
+```
+
+### UseBulkOperation
+Iteration can be replaced with bulk 'Map.putAll()' call
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTriggerType.java`
+#### Snippet
+```java
+
+    static {
+        Arrays.stream(EBPFProfilingTriggerType.values()).collect(Collectors.toMap(EBPFProfilingTriggerType::value, type -> type)).forEach(DICTIONARY::put);
     }
 
 ```
@@ -14013,53 +13897,65 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 
 ```
 
-### UseBulkOperation
-Iteration can be replaced with bulk 'Map.putAll()' call
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTriggerType.java`
-#### Snippet
-```java
-
-    static {
-        Arrays.stream(EBPFProfilingTriggerType.values()).collect(Collectors.toMap(EBPFProfilingTriggerType::value, type -> type)).forEach(DICTIONARY::put);
-    }
-
-```
-
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `oap-server/server-library/library-datacarrier-queue/src/main/java/org/apache/skywalking/oap/server/library/datacarrier/consumer/MultipleChannelsConsumer.java`
-#### Snippet
-```java
-        ArrayList<Group> newList = new ArrayList<>();
-        for (Group target : consumeTargets) {
-            newList.add(target);
-        }
-        newList.add(group);
-```
-
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdConfigWatcherRegister.java`
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
 #### Snippet
 ```java
-        keys.forEach(e -> {
-            try {
-                GetResponse response = client.get(ByteSequence.from(e, Charset.defaultCharset())).get();
 
-                if (0 == response.getCount()) {
+            ByteSequence instance = ByteSequence.from(GSON.toJson(endpoint), Charset.defaultCharset());
+            client.getKVClient()
+                  .put(
+                      buildKey(serviceName, selfAddress, remoteInstance),
+```
+
+### UnstableApiUsage
+'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.PutOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
+#### Snippet
+```java
+            ByteSequence instance = ByteSequence.from(GSON.toJson(endpoint), Charset.defaultCharset());
+            client.getKVClient()
+                  .put(
+                      buildKey(serviceName, selfAddress, remoteInstance),
+                      instance,
+```
+
+### UnstableApiUsage
+'io.etcd.jetcd.KV' is marked unstable with @Beta
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
+#### Snippet
+```java
+        List<RemoteInstance> remoteInstances = new ArrayList<>();
+        try {
+            final KV kvClient = client.getKVClient();
+            final GetResponse response = kvClient.get(
+                serviceNameBS,
 ```
 
 ### UnstableApiUsage
 'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdConfigWatcherRegister.java`
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
 #### Snippet
 ```java
-                   .password(ByteSequence.from(setting.getPassword(), Charset.defaultCharset()));
-        }
-        client = builder.build().getKVClient();
-    }
+        List<RemoteInstance> remoteInstances = new ArrayList<>();
+        try {
+            final KV kvClient = client.getKVClient();
+            final GetResponse response = kvClient.get(
+                serviceNameBS,
+```
 
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
+#### Snippet
+```java
+        try {
+            final KV kvClient = client.getKVClient();
+            final GetResponse response = kvClient.get(
+                serviceNameBS,
+                GetOption.newBuilder().withPrefix(serviceNameBS).build()
 ```
 
 ### UnstableApiUsage
@@ -14084,6 +13980,30 @@ in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/
                 GetResponse response = client.get(ByteSequence.from(groupKey, Charset.defaultCharset()), option).get();
                 if (0 != response.getCount()) {
                     List<KeyValue> groupItemKeys = response.getKvs();
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdConfigWatcherRegister.java`
+#### Snippet
+```java
+        keys.forEach(e -> {
+            try {
+                GetResponse response = client.get(ByteSequence.from(e, Charset.defaultCharset())).get();
+
+                if (0 == response.getCount()) {
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `oap-server/server-configuration/configuration-etcd/src/main/java/org/apache/skywalking/oap/server/configuration/etcd/EtcdConfigWatcherRegister.java`
+#### Snippet
+```java
+                   .password(ByteSequence.from(setting.getPassword(), Charset.defaultCharset()));
+        }
+        client = builder.build().getKVClient();
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -14196,59 +14116,47 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 
 ### UnstableApiUsage
 'newHasher()' is unstable because its signature references unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
 #### Snippet
 ```java
-                UPLOAD_TIME
+                CREATE_TIME
             },
             Hashing.sha256().newHasher()
-                   .putString(scheduleId, Charsets.UTF_8)
-                   .putString(stackIdList, Charsets.UTF_8)
+                   .putString(logicalId, Charsets.UTF_8)
+                   .putLong(createTime)
 ```
 
 ### UnstableApiUsage
 'putString(java.lang.CharSequence, java.nio.charset.Charset)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
 #### Snippet
 ```java
             },
             Hashing.sha256().newHasher()
-                   .putString(scheduleId, Charsets.UTF_8)
-                   .putString(stackIdList, Charsets.UTF_8)
-                   .putLong(uploadTime)
-```
-
-### UnstableApiUsage
-'putString(java.lang.CharSequence, java.nio.charset.Charset)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
-#### Snippet
-```java
-            Hashing.sha256().newHasher()
-                   .putString(scheduleId, Charsets.UTF_8)
-                   .putString(stackIdList, Charsets.UTF_8)
-                   .putLong(uploadTime)
+                   .putString(logicalId, Charsets.UTF_8)
+                   .putLong(createTime)
                    .hash().toString()
 ```
 
 ### UnstableApiUsage
 'putLong(long)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
 #### Snippet
 ```java
-                   .putString(scheduleId, Charsets.UTF_8)
-                   .putString(stackIdList, Charsets.UTF_8)
-                   .putLong(uploadTime)
+            Hashing.sha256().newHasher()
+                   .putString(logicalId, Charsets.UTF_8)
+                   .putLong(createTime)
                    .hash().toString()
         );
 ```
 
 ### UnstableApiUsage
 'hash()' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
 #### Snippet
 ```java
-                   .putString(stackIdList, Charsets.UTF_8)
-                   .putLong(uploadTime)
+                   .putString(logicalId, Charsets.UTF_8)
+                   .putLong(createTime)
                    .hash().toString()
         );
     }
@@ -14316,109 +14224,61 @@ in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/p
 
 ### UnstableApiUsage
 'newHasher()' is unstable because its signature references unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
 #### Snippet
 ```java
-                CREATE_TIME
+                UPLOAD_TIME
             },
             Hashing.sha256().newHasher()
-                   .putString(logicalId, Charsets.UTF_8)
-                   .putLong(createTime)
+                   .putString(scheduleId, Charsets.UTF_8)
+                   .putString(stackIdList, Charsets.UTF_8)
 ```
 
 ### UnstableApiUsage
 'putString(java.lang.CharSequence, java.nio.charset.Charset)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
 #### Snippet
 ```java
             },
             Hashing.sha256().newHasher()
-                   .putString(logicalId, Charsets.UTF_8)
-                   .putLong(createTime)
+                   .putString(scheduleId, Charsets.UTF_8)
+                   .putString(stackIdList, Charsets.UTF_8)
+                   .putLong(uploadTime)
+```
+
+### UnstableApiUsage
+'putString(java.lang.CharSequence, java.nio.charset.Charset)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
+#### Snippet
+```java
+            Hashing.sha256().newHasher()
+                   .putString(scheduleId, Charsets.UTF_8)
+                   .putString(stackIdList, Charsets.UTF_8)
+                   .putLong(uploadTime)
                    .hash().toString()
 ```
 
 ### UnstableApiUsage
 'putLong(long)' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
 #### Snippet
 ```java
-            Hashing.sha256().newHasher()
-                   .putString(logicalId, Charsets.UTF_8)
-                   .putLong(createTime)
+                   .putString(scheduleId, Charsets.UTF_8)
+                   .putString(stackIdList, Charsets.UTF_8)
+                   .putLong(uploadTime)
                    .hash().toString()
         );
 ```
 
 ### UnstableApiUsage
 'hash()' is declared in unstable interface 'com.google.common.hash.Hasher' marked with @Beta
-in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingTaskRecord.java`
+in `oap-server/server-core/src/main/java/org/apache/skywalking/oap/server/core/profiling/ebpf/storage/EBPFProfilingDataRecord.java`
 #### Snippet
 ```java
-                   .putString(logicalId, Charsets.UTF_8)
-                   .putLong(createTime)
+                   .putString(stackIdList, Charsets.UTF_8)
+                   .putLong(uploadTime)
                    .hash().toString()
         );
     }
-```
-
-### UnstableApiUsage
-'io.etcd.jetcd.KV' is marked unstable with @Beta
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-        List<RemoteInstance> remoteInstances = new ArrayList<>();
-        try {
-            final KV kvClient = client.getKVClient();
-            final GetResponse response = kvClient.get(
-                serviceNameBS,
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-        List<RemoteInstance> remoteInstances = new ArrayList<>();
-        try {
-            final KV kvClient = client.getKVClient();
-            final GetResponse response = kvClient.get(
-                serviceNameBS,
-```
-
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-        try {
-            final KV kvClient = client.getKVClient();
-            final GetResponse response = kvClient.get(
-                serviceNameBS,
-                GetOption.newBuilder().withPrefix(serviceNameBS).build()
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-
-            ByteSequence instance = ByteSequence.from(GSON.toJson(endpoint), Charset.defaultCharset());
-            client.getKVClient()
-                  .put(
-                      buildKey(serviceName, selfAddress, remoteInstance),
-```
-
-### UnstableApiUsage
-'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.PutOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `oap-server/server-cluster-plugin/cluster-etcd-plugin/src/main/java/org/apache/skywalking/oap/server/cluster/plugin/etcd/EtcdCoordinator.java`
-#### Snippet
-```java
-            ByteSequence instance = ByteSequence.from(GSON.toJson(endpoint), Charset.defaultCharset());
-            client.getKVClient()
-                  .put(
-                      buildKey(serviceName, selfAddress, remoteInstance),
-                      instance,
 ```
 
