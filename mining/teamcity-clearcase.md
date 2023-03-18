@@ -1,7 +1,7 @@
 # teamcity-clearcase 
  
 # Bad smells
-I found 498 bad smells with 158 repairable:
+I found 497 bad smells with 158 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | MissortedModifiers | 110 | false |
@@ -49,7 +49,6 @@ I found 498 bad smells with 158 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | InstanceofCatchParameter | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | DoubleBraceInitialization | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
 | FieldMayBeStatic | 1 | false |
@@ -60,18 +59,6 @@ I found 498 bad smells with 158 repairable:
 | ThrowableNotThrown | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new CCSnapshotView\[out.size()\]'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCRegion.java`
-#### Snippet
-```java
-        out.add(new CCSnapshotView(viewDescriptor));
-      }
-      return out.toArray(new CCSnapshotView[out.size()]);
-
-    } catch (Exception e) {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new CCStorage\[out.size()\]'
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCRegion.java`
 #### Snippet
@@ -79,6 +66,18 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCRegion.java`
         out.add(new CCStorage(result.getServerHost(), result.getType(), result.getTag(), result.getGlobalPath()));
       }
       return out.toArray(new CCStorage[out.size()]);
+
+    } catch (Exception e) {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new CCSnapshotView\[out.size()\]'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCRegion.java`
+#### Snippet
+```java
+        out.add(new CCSnapshotView(viewDescriptor));
+      }
+      return out.toArray(new CCSnapshotView[out.size()]);
 
     } catch (Exception e) {
 ```
@@ -93,6 +92,30 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCRegion.java`
       return out.toArray(new CCVob[out.size()]);
 
     } catch (Exception e) {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new File\[links.size()\]'
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+        }
+      }
+      return links.toArray(new File[links.size()]);
+
+    } catch (IOException e) {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new File\[linksBuffer.size()\]'
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+      LOG.info(String.format("Could not create initial structure: path \"%s\" does not exist", viewSourceRoot));
+    }
+    return linksBuffer.toArray(new File[linksBuffer.size()]);
+  }
+
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -120,27 +143,27 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new File\[linksBuffer.size()\]'
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+Call to `toArray()` with pre-sized array argument 'new Pattern\[patterns.size()\]'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
-      LOG.info(String.format("Could not create initial structure: path \"%s\" does not exist", viewSourceRoot));
+      }
     }
-    return linksBuffer.toArray(new File[linksBuffer.size()]);
+    return patterns.toArray(new Pattern[patterns.size()]);
   }
-
+}
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new File\[links.size()\]'
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+Call to `toArray()` with pre-sized array argument 'new String\[out.size()\]'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
-        }
       }
-      return links.toArray(new File[links.size()]);
+    }
+    return out.toArray(new String[out.size()]);
+  }
 
-    } catch (IOException e) {
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -153,18 +176,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
     return buffer.toArray(new HistoryParser[buffer.size()]);
 
   }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ChangeParser\[out.size()\]'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-        }
-      }
-      return out.toArray(new ChangeParser[out.size()]);
-    } finally {
-      reader.close();
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -199,30 +210,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
       out.add(new ViewParser(buffer.toArray(new String[buffer.size()])));
     }
     return out.toArray(new ViewParser[out.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[out.size()\]'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-    }
-    Collections.addAll(out, extraEnvp);
-    return out.toArray(new String[out.size()]);
-  }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[out.size()\]'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-      }
-    }
-    return out.toArray(new String[out.size()]);
   }
 
 ```
@@ -300,15 +287,27 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Pattern\[patterns.size()\]'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+Call to `toArray()` with pre-sized array argument 'new String\[out.size()\]'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
-      }
     }
-    return patterns.toArray(new Pattern[patterns.size()]);
+    Collections.addAll(out, extraEnvp);
+    return out.toArray(new String[out.size()]);
   }
-}
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new ChangeParser\[out.size()\]'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+        }
+      }
+      return out.toArray(new ChangeParser[out.size()]);
+    } finally {
+      reader.close();
 ```
 
 ## RuleId[id=Finalize]
@@ -330,11 +329,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
   @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
   @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -342,11 +341,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
   @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
   @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -354,11 +353,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
   @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
   @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -366,11 +365,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
   @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
+
   @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -378,11 +377,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
   @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
+
   @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -390,47 +389,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
   @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-  @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-```
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
-  @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
-  @NonNls
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
-  @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
-  @NonNls
-  public static final String TYPE = "TYPE"; //$NON-NLS-1$
-  @NonNls
-  public static final String UCM = "UCM"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -474,11 +437,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -486,11 +449,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -498,11 +461,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -510,11 +473,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
   @NonNls
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -522,11 +485,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
   @NonNls
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -534,11 +497,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
   @NonNls
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -546,11 +509,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String UCM = "UCM"; //$NON-NLS-1$
   @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
+  public static final String BASE = "BASE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -558,11 +521,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String UCM = "UCM"; //$NON-NLS-1$
   @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
+  public static final String BASE = "BASE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -570,11 +533,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  public static final String TYPE = "TYPE"; //$NON-NLS-1$
   @NonNls
-  public static final String MAIN = "main"; //$NON-NLS-1$
+  public static final String UCM = "UCM"; //$NON-NLS-1$
   @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
+  public static final String BASE = "BASE"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -606,191 +569,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-
-  @NonNls
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
   public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
   public static final String TYPE = "TYPE"; //$NON-NLS-1$
+  @NonNls
+  public static final String UCM = "UCM"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -798,11 +581,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
   public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
   public static final String TYPE = "TYPE"; //$NON-NLS-1$
+  @NonNls
+  public static final String UCM = "UCM"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -810,191 +593,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
   public static final String BRANCHES = "branches"; //$NON-NLS-1$
   @NonNls
   public static final String TYPE = "TYPE"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
   @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCHES = "branches"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
-  @NonNls
-  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
-  @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
-  @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
-  @NonNls
-  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
+  public static final String UCM = "UCM"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -1038,83 +641,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-  @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-  @NonNls
   public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
   @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-  @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-  @NonNls
-  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String MAIN = "main"; //$NON-NLS-1$
-  @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String MAIN = "main"; //$NON-NLS-1$
-  @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String MAIN = "main"; //$NON-NLS-1$
-  @NonNls
-  public static final String EMPTY = ""; //$NON-NLS-1$
-
-  @NonNls
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
   public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
   @NonNls
   public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -1122,11 +653,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
+  @NonNls
   public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
   @NonNls
   public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -1134,83 +665,11 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
+  @NonNls
   public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
   @NonNls
   public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
-  @NonNls
-  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-  @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-  @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String NAME = "clearcase";
-  @NonNls
-  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
-  @NonNls
-  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-  @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-  @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
-#### Snippet
-```java
-  public static final String UCM = "UCM"; //$NON-NLS-1$
-  @NonNls
-  public static final String BASE = "BASE"; //$NON-NLS-1$
-  @NonNls
-  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -1254,6 +713,330 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+
+  @NonNls
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String UCM = "UCM"; //$NON-NLS-1$
+  @NonNls
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String UCM = "UCM"; //$NON-NLS-1$
+  @NonNls
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String UCM = "UCM"; //$NON-NLS-1$
+  @NonNls
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+  @NonNls
+  public static final String EMPTY = ""; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_CUSTOM = "custom"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCHES = "branches"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
+  @NonNls
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
+  @NonNls
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+
+  @NonNls
+  public static final String AGENT_CONFIGSPECS_SYS_PROP_PATTERN = "vcs.clearcase.configspec.%s"; //$NON-NLS-1$
+  @NonNls
+  public static final String AGENT_SOURCE_VIEW_TAG_PROP_PATTERN = "vcs.clearcase.view.tag.%s"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
   public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
   @NonNls
   public static final String CC_VIEW_PATH = "cc-view-path"; //$NON-NLS-1$
@@ -1290,11 +1073,11 @@ Modifier `public` is redundant for interface members
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
 ```
 
 ### UnnecessaryModifier
@@ -1302,11 +1085,11 @@ Modifier `static` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
-  @NonNls
-  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
 ```
 
 ### UnnecessaryModifier
@@ -1314,35 +1097,227 @@ Modifier `final` is redundant for interface fields
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_DEFAULT_OPTIONS = "clearcase.lshistory.options.default"; //$NON-NLS-1$
+  @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_VCS_ROOT_OPTIONS_BY_ID = "clearcase.lshistory.options.vcsRoot{%d}"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  @NonNls
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  @NonNls
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String VOBS_NAME_ONLY = "vobs"; //$NON-NLS-1$
+  @NonNls
+  public static final String VOBS = "vobs/"; //$NON-NLS-1$
+  @NonNls
+  public static final String MAIN = "main"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String BASE = "BASE"; //$NON-NLS-1$
+  @NonNls
+  public static final String GLOBAL_LABELS_VOB = "global-labels-vob"; //$NON-NLS-1$
+  @NonNls
+  public static final String USE_GLOBAL_LABEL = "use-global-label"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String NAME = "clearcase";
+  @NonNls
+  public static final String VIEW_TAG = "view-tag"; //$NON-NLS-1$  
+  @NonNls
+  public static final String VIEW_PATH = "view-path"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_IGNORE_ERROR_PATTERN = "clearcase.ignore.error.pattern"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
   @NonNls
   public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/InteractiveProcess.java`
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  }
-
-  protected static interface ILineFilter {
-    @NotNull
-    String apply(@NotNull final String line);
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/ClearCaseInteractiveProcessPool.java`
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
 #### Snippet
 ```java
-  }
-  
-  public static interface ProcessRunnable {
-    void run(@NotNull ClearCaseInteractiveProcess process) throws IOException, VcsException;
-  }
+  public static final String TEAMCITY_PROPERTY_LSHISTORY_UCM_DELAY = "clearcase.lshistory.ucm.delay.seconds"; //$NON-NLS-1$
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_AGENT_DISABLE_VALIDATION_ERRORS = "clearcase.agent.checkout.disable.validation.errors"; //$NON-NLS-1$  
+  @NonNls
+  public static final String TEAMCITY_PROPERTY_DO_NOT_TREAT_MAIN_AS_VERSION_IDENTIFIER = "clearcase.do.not.treat.main.as.version.identifier"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Constants.java`
+#### Snippet
+```java
+  public static final String RELATIVE_PATH = "rel-path"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER = "branch-provider"; //$NON-NLS-1$
+  @NonNls
+  public static final String BRANCH_PROVIDER_AUTO = "auto"; //$NON-NLS-1$
 ```
 
 ### UnnecessaryModifier
@@ -1359,6 +1334,30 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/ClearCaseInteractiveProcessPool.java`
+#### Snippet
+```java
+  }
+  
+  public static interface ProcessRunnable {
+    void run(@NotNull ClearCaseInteractiveProcess process) throws IOException, VcsException;
+  }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/InteractiveProcess.java`
+#### Snippet
+```java
+  }
+
+  protected static interface ILineFilter {
+    @NotNull
+    String apply(@NotNull final String line);
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ChangesInverter.java`
 #### Snippet
 ```java
@@ -1366,6 +1365,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Chang
 
   private static interface Change {
     void process() throws IOException, VcsException;
+  }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
+  }
+
+  public static interface ConnectionProcessor {
+    void process(@NotNull ClearCaseConnection connection) throws VcsException, IOException;
   }
 ```
 
@@ -1379,18 +1390,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
   public static interface ICommandExecutor {
     String[] execAndWait(@NotNull String command) throws IOException;
     String[] execAndWait(@NotNull String command, @NotNull File workingDirectory) throws IOException;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
-#### Snippet
-```java
-  }
-
-  public static interface ConnectionProcessor {
-    void process(@NotNull ClearCaseConnection connection) throws VcsException, IOException;
-  }
 ```
 
 ## RuleId[id=ConditionalBreakInInfiniteLoop]
@@ -1470,18 +1469,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-       */
-      // "-overwrite" does not support by 2003 final String command =
-      // String.format("cleartool setcs -overwrite \"%s\"",
-      // cffile.getAbsolutePath());
-      final String command = String.format(CMD_SETCS, getCleartoolExecutable(), cffile.getAbsolutePath());
-```
-
-### CommentedOutCode
 Commented out code (13 lines)
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
@@ -1494,18 +1481,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyyMMddHHmmss");
-
-    //    static final String OUTPUT_FORMAT = "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%Nc#--#%[activity]p\\n";
-    //    static final String OUTPUT_FORMAT =                "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%Nc#--#%[activity]p\\n";    
-    static final String OUTPUT_FORMAT_WITHOUT_COMMENTS = "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%[activity]p\\n";
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
@@ -1515,6 +1490,30 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
     //private static Pattern PATTERN = Pattern.compile("(\\d*)\\.(\\d*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)");
     //    private static Pattern PATTERN = Pattern.compile("(\\d*)\\.(\\d*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)#--#(.*?)");    
     //    private static Pattern ACTIVITY_PATTERN = Pattern.compile("(.*)#--#(.*)");
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+       */
+      // "-overwrite" does not support by 2003 final String command =
+      // String.format("cleartool setcs -overwrite \"%s\"",
+      // cffile.getAbsolutePath());
+      final String command = String.format(CMD_SETCS, getCleartoolExecutable(), cffile.getAbsolutePath());
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyyMMddHHmmss");
+
+    //    static final String OUTPUT_FORMAT = "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%Nc#--#%[activity]p\\n";
+    //    static final String OUTPUT_FORMAT =                "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%Nc#--#%[activity]p\\n";    
+    static final String OUTPUT_FORMAT_WITHOUT_COMMENTS = "%Nd#--#%En#--#%m#--#%Vn#--#%o#--#%e#--#%[activity]p\\n";
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -1549,9 +1548,9 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  private String createRelPath(final Stack<ReadCacheItem> readDirs) {
+  private String createFullPath(final Stack<ReadCacheItem> readDirs, final ClearCaseConnection connection) {
     StringBuilder result = new StringBuilder();
-    for (ReadCacheItem readDir : readDirs) {
+    if (connection != null) {
 ```
 
 ### ObsoleteCollection
@@ -1597,9 +1596,33 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  private String createFullPath(final Stack<ReadCacheItem> readDirs, final ClearCaseConnection connection) {
+  private String createRelPath(final Stack<ReadCacheItem> readDirs) {
     StringBuilder result = new StringBuilder();
-    if (connection != null) {
+    for (ReadCacheItem readDir : readDirs) {
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecImpl.java`
+#### Snippet
+```java
+
+  private boolean rightVersionExists(final ConfigSpecStandardRule rule, final Branch rootBranch) {
+    final Stack<Branch> stack = new Stack<Branch>();
+    stack.push(rootBranch);
+
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecImpl.java`
+#### Snippet
+```java
+
+  private boolean rightVersionExists(final ConfigSpecStandardRule rule, final Branch rootBranch) {
+    final Stack<Branch> stack = new Stack<Branch>();
+    stack.push(rootBranch);
+
 ```
 
 ### ObsoleteCollection
@@ -1623,30 +1646,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
     myWriteProcessor = writeProcessor;
     myIgnoreStack = new Stack<String>();
   }
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecImpl.java`
-#### Snippet
-```java
-
-  private boolean rightVersionExists(final ConfigSpecStandardRule rule, final Branch rootBranch) {
-    final Stack<Branch> stack = new Stack<Branch>();
-    stack.push(rootBranch);
-
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecImpl.java`
-#### Snippet
-```java
-
-  private boolean rightVersionExists(final ConfigSpecStandardRule rule, final Branch rootBranch) {
-    final Stack<Branch> stack = new Stack<Branch>();
-    stack.push(rootBranch);
 
 ```
 
@@ -1706,18 +1705,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Comme
 #### Snippet
 ```java
 
-  public void addComment(String str) {
-    if (str != null && str.length() > 0) {
-      if (!myDescriptions.contains(str)) {
-        myComments.add(str);
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() > 0` can be replaced with '!str.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CommentHolder.java`
-#### Snippet
-```java
-
   public void addDescription(String str) {
     if (str != null && str.length() > 0) {
       myDescriptions.add(str);
@@ -1730,10 +1717,34 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Comme
 #### Snippet
 ```java
 
+  public void addComment(String str) {
+    if (str != null && str.length() > 0) {
+      if (!myDescriptions.contains(str)) {
+        myComments.add(str);
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() > 0` can be replaced with '!str.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CommentHolder.java`
+#### Snippet
+```java
+
   public void addActivity(String str) {
     if (str != null && str.length() > 0) {
       myActivities.add(str);
     }
+```
+
+### SizeReplaceableByIsEmpty
+`s.length() > 0` can be replaced with '!s.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+#### Snippet
+```java
+    for (int i = 0; i < versions.size() - 1; i++) {
+      String s = versions.get(i);
+      if (s.length() > 0) {
+        branches.add(s);
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1761,14 +1772,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versi
 ```
 
 ### SizeReplaceableByIsEmpty
-`s.length() > 0` can be replaced with '!s.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+`trimmedLine.length() != 0` can be replaced with '!trimmedLine.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecParseUtil.java`
 #### Snippet
 ```java
-    for (int i = 0; i < versions.size() - 1; i++) {
-      String s = versions.get(i);
-      if (s.length() > 0) {
-        branches.add(s);
+    for (String aLine : lines) {
+      final String trimmedLine = aLine.trim();
+      if (trimmedLine.length() != 0) {
+        result = doProcessLine(processor, trimmedLine, false, inputConfigSpecFile, outputConfigSpecFile, result);
       }
 ```
 
@@ -1782,18 +1793,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
         if (errorMesage.trim().length() > 0) {
           throw new VcsException(errorMesage);
         }
-```
-
-### SizeReplaceableByIsEmpty
-`trimmedLine.length() != 0` can be replaced with '!trimmedLine.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecParseUtil.java`
-#### Snippet
-```java
-    for (String aLine : lines) {
-      final String trimmedLine = aLine.trim();
-      if (trimmedLine.length() != 0) {
-        result = doProcessLine(processor, trimmedLine, false, inputConfigSpecFile, outputConfigSpecFile, result);
-      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1845,66 +1844,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
 ```
 
 ### SizeReplaceableByIsEmpty
-`trim.length() > 0` can be replaced with '!trim.isEmpty()'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-    for (String line : stdOut) {
-      final String trim = line.trim();
-      if (trim.length() > 0) {
-        if (trim.startsWith(ViewParser.TAG_TOKEN) && !buffer.isEmpty()) {
-          // reach the next section
-```
-
-### SizeReplaceableByIsEmpty
-`activityStr.length() > 0` can be replaced with '!activityStr.isEmpty()'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-          //activity
-          final String activityStr = matcher.group(8/*9*/);
-          activity = activityStr.length() > 0 ? activityStr : null;
-
-          //          // event
-```
-
-### SizeReplaceableByIsEmpty
-`elements[3].trim().length() > 0` can be replaced with '!elements\[3\].trim().isEmpty()'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-        }
-        // labels
-        if (elements.length > 3 && elements[3].trim().length() > 0) {
-          String labels = elements[3].trim();
-          labels = labels.substring(1, labels.length() - 1);// extract brackets
-```
-
-### SizeReplaceableByIsEmpty
-`response[0].trim().length() == 0` can be replaced with 'response\[0\].trim().isEmpty()'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-    }
-    final String[] response = getCommandExecutor().execAndWait(String.format(cmd, getCleartoolExecutable(), file.getAbsolutePath()), root);
-    return !(response.length == 0 || (response.length == 1 && response[0].trim().length() == 0));
-  }
-
-```
-
-### SizeReplaceableByIsEmpty
-`trim.length() > 0` can be replaced with '!trim.isEmpty()'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-    for (String line : stdOut) {
-      final String trim = line.trim();
-      if (trim.length() > 0) {
-        if (trim.startsWith(VobParser.TAG_TOKEN) && !buffer.isEmpty()) {
-          // reach the next section
-```
-
-### SizeReplaceableByIsEmpty
 `describe.trim().length() > 0` can be replaced with '!describe.trim().isEmpty()'
 in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
 #### Snippet
@@ -1917,15 +1856,51 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSource
 ```
 
 ### SizeReplaceableByIsEmpty
-`line.trim().length() > 0` can be replaced with '!line.trim().isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+`pathElements.size() > 0` can be replaced with '!pathElements.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
 #### Snippet
 ```java
-      String line;
-      while ((line = reader.readLine()) != null) {
-        if (line.trim().length() > 0) {
-          String elementVersion = readVersion(line);
-          versionTree.addVersion(elementVersion);
+    final List<String> viewPathElements = StringUtil.split(viewPath, false, File.separatorChar);
+
+    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
+      if (viewPathElements.size() > 0) {
+        viewPathElements.set(0, "");
+```
+
+### SizeReplaceableByIsEmpty
+`pathElements.get(0).getPathElement().length() == 0` can be replaced with 'pathElements.get(0).getPathElement().isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+    final List<String> viewPathElements = StringUtil.split(viewPath, false, File.separatorChar);
+
+    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
+      if (viewPathElements.size() > 0) {
+        viewPathElements.set(0, "");
+```
+
+### SizeReplaceableByIsEmpty
+`viewPathElements.size() > 0` can be replaced with '!viewPathElements.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+
+    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
+      if (viewPathElements.size() > 0) {
+        viewPathElements.set(0, "");
+      }
+```
+
+### SizeReplaceableByIsEmpty
+`viewPathElements.size() > 0` can be replaced with '!viewPathElements.isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+      String currentViewPath = null;
+
+      if (viewPathElements.size() > 0) {
+        currentViewPath = viewPathElements.remove(0);
+      }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1965,6 +1940,30 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### SizeReplaceableByIsEmpty
+`line.trim().length() > 0` can be replaced with '!line.trim().isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+#### Snippet
+```java
+      String line;
+      while ((line = reader.readLine()) != null) {
+        if (line.trim().length() > 0) {
+          String elementVersion = readVersion(line);
+          versionTree.addVersion(elementVersion);
+```
+
+### SizeReplaceableByIsEmpty
+`trim(viewPath).length() != 0` can be replaced with '!trim(viewPath).isEmpty()'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
+  public static ViewPath getViewPath(@NotNull final VcsRoot vcsRoot) throws VcsException, IOException {
+    final String viewPath = vcsRoot.getProperty(Constants.VIEW_PATH);
+    if (viewPath != null && trim(viewPath).length() != 0) {
+      return getViewPath(viewPath);
+    }
+```
+
+### SizeReplaceableByIsEmpty
 `prop.trim().length() > 0` can be replaced with '!prop.trim().isEmpty()'
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
@@ -1989,15 +1988,63 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### SizeReplaceableByIsEmpty
-`trim(viewPath).length() != 0` can be replaced with '!trim(viewPath).isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+`activityStr.length() > 0` can be replaced with '!activityStr.isEmpty()'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
-  public static ViewPath getViewPath(@NotNull final VcsRoot vcsRoot) throws VcsException, IOException {
-    final String viewPath = vcsRoot.getProperty(Constants.VIEW_PATH);
-    if (viewPath != null && trim(viewPath).length() != 0) {
-      return getViewPath(viewPath);
+          //activity
+          final String activityStr = matcher.group(8/*9*/);
+          activity = activityStr.length() > 0 ? activityStr : null;
+
+          //          // event
+```
+
+### SizeReplaceableByIsEmpty
+`elements[3].trim().length() > 0` can be replaced with '!elements\[3\].trim().isEmpty()'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+        }
+        // labels
+        if (elements.length > 3 && elements[3].trim().length() > 0) {
+          String labels = elements[3].trim();
+          labels = labels.substring(1, labels.length() - 1);// extract brackets
+```
+
+### SizeReplaceableByIsEmpty
+`trim.length() > 0` can be replaced with '!trim.isEmpty()'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+    for (String line : stdOut) {
+      final String trim = line.trim();
+      if (trim.length() > 0) {
+        if (trim.startsWith(ViewParser.TAG_TOKEN) && !buffer.isEmpty()) {
+          // reach the next section
+```
+
+### SizeReplaceableByIsEmpty
+`trim.length() > 0` can be replaced with '!trim.isEmpty()'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+    for (String line : stdOut) {
+      final String trim = line.trim();
+      if (trim.length() > 0) {
+        if (trim.startsWith(VobParser.TAG_TOKEN) && !buffer.isEmpty()) {
+          // reach the next section
+```
+
+### SizeReplaceableByIsEmpty
+`response[0].trim().length() == 0` can be replaced with 'response\[0\].trim().isEmpty()'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
     }
+    final String[] response = getCommandExecutor().execAndWait(String.format(cmd, getCleartoolExecutable(), file.getAbsolutePath()), root);
+    return !(response.length == 0 || (response.length == 1 && response[0].trim().length() == 0));
+  }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2022,54 +2069,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
         if (globalLabelsVOB == null || trim(globalLabelsVOB).length() == 0) { //$NON-NLS-1$
           result.add(new InvalidProperty(Constants.GLOBAL_LABELS_VOB, Messages.getString("ClearCaseValidation.global_label_vob_lost_error_message"))); //$NON-NLS-1$
           debug(String.format(DOUBLLE_PARAM_VALIDATION_FAILED, useGlobalLabel, globalLabelsVOB));
-```
-
-### SizeReplaceableByIsEmpty
-`viewPathElements.size() > 0` can be replaced with '!viewPathElements.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-      String currentViewPath = null;
-
-      if (viewPathElements.size() > 0) {
-        currentViewPath = viewPathElements.remove(0);
-      }
-```
-
-### SizeReplaceableByIsEmpty
-`pathElements.size() > 0` can be replaced with '!pathElements.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-    final List<String> viewPathElements = StringUtil.split(viewPath, false, File.separatorChar);
-
-    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
-      if (viewPathElements.size() > 0) {
-        viewPathElements.set(0, "");
-```
-
-### SizeReplaceableByIsEmpty
-`pathElements.get(0).getPathElement().length() == 0` can be replaced with 'pathElements.get(0).getPathElement().isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-    final List<String> viewPathElements = StringUtil.split(viewPath, false, File.separatorChar);
-
-    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
-      if (viewPathElements.size() > 0) {
-        viewPathElements.set(0, "");
-```
-
-### SizeReplaceableByIsEmpty
-`viewPathElements.size() > 0` can be replaced with '!viewPathElements.isEmpty()'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-
-    if (pathElements.size() > 0 && pathElements.get(0).getPathElement().length() == 0) {
-      if (viewPathElements.size() > 0) {
-        viewPathElements.set(0, "");
-      }
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -2112,18 +2111,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
 
 ### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-          isValid = true;
-          // date
-          final String dateStr = new StringBuilder(matcher.group(1)).append(matcher.group(2)).toString();
-          date = DATE_FORMATTER.parse(dateStr);
-          // relative path(object)
-```
-
-### StringBufferReplaceableByString
-`StringBuilder` can be replaced with 'String'
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
 #### Snippet
 ```java
@@ -2134,6 +2121,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPat
 }
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder` can be replaced with 'String'
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+          isValid = true;
+          // date
+          final String dateStr = new StringBuilder(matcher.group(1)).append(matcher.group(2)).toString();
+          date = DATE_FORMATTER.parse(dateStr);
+          // relative path(object)
+```
+
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends ReadCacheItem`
@@ -2142,9 +2141,9 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  private String createRelPath(final Stack<ReadCacheItem> readDirs) {
+  private String createFullPath(final Stack<ReadCacheItem> readDirs, final ClearCaseConnection connection) {
     StringBuilder result = new StringBuilder();
-    for (ReadCacheItem readDir : readDirs) {
+    if (connection != null) {
 ```
 
 ### BoundedWildcard
@@ -2166,9 +2165,9 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  private String createFullPath(final Stack<ReadCacheItem> readDirs, final ClearCaseConnection connection) {
+  private String createRelPath(final Stack<ReadCacheItem> readDirs) {
     StringBuilder result = new StringBuilder();
-    if (connection != null) {
+    for (ReadCacheItem readDir : readDirs) {
 ```
 
 ### BoundedWildcard
@@ -2181,6 +2180,18 @@ in `clearcase-common/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Revis
     public void appendLSHistoryOptions(@NotNull final List<String> optionList) {
       optionList.add("-since");
       optionList.add(getDateString());
+```
+
+### BoundedWildcard
+Can generalize to `? extends SimpleDirectoryChildElement`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCParseUtil.java`
+#### Snippet
+```java
+
+  @NotNull
+  private static Map<String, SimpleDirectoryChildElement> collectMap(@NotNull final List<SimpleDirectoryChildElement> elementsBefore) {
+    final HashMap<String, SimpleDirectoryChildElement> result = new HashMap<String, SimpleDirectoryChildElement>();
+    for (final SimpleDirectoryChildElement element : elementsBefore) {
 ```
 
 ### BoundedWildcard
@@ -2226,6 +2237,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
 ```java
 
   @Nullable
+  private Version findVersionByNumber(final Collection<Branch> branches, final int versionNumber, final String fullFileName) throws VcsException {
+    Collection<Version> versions = new HashSet<Version>();
+    for (Branch branch : branches) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Branch`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
+#### Snippet
+```java
+
+  @Nullable
   private Version getLastVersion(final Collection<Branch> branches, final String fullFileName) throws VcsException {
     Collection<Version> versions = new HashSet<Version>();
     for (Branch branch : branches) {
@@ -2241,42 +2264,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
   private Version findVersionWithComment(final Collection<Branch> branches, final String labelName, final String fullFileName) throws VcsException {
     Collection<Version> versions = new HashSet<Version>();
     for (Branch branch : branches) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Branch`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
-#### Snippet
-```java
-
-  @Nullable
-  private Version findVersionByNumber(final Collection<Branch> branches, final int versionNumber, final String fullFileName) throws VcsException {
-    Collection<Version> versions = new HashSet<Version>();
-    for (Branch branch : branches) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SimpleDirectoryChildElement`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCParseUtil.java`
-#### Snippet
-```java
-
-  @NotNull
-  private static Map<String, SimpleDirectoryChildElement> collectMap(@NotNull final List<SimpleDirectoryChildElement> elementsBefore) {
-    final HashMap<String, SimpleDirectoryChildElement> result = new HashMap<String, SimpleDirectoryChildElement>();
-    for (final SimpleDirectoryChildElement element : elementsBefore) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CCPathElement`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-  }
-
-  public static String createPath(final List<CCPathElement> ccPathElements, final int startIndex, final int endIndex, final boolean appentVersion) {
-    StringBuffer result = new StringBuffer();
-    boolean first = true;
 ```
 
 ### BoundedWildcard
@@ -2301,6 +2288,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPat
   public static String createRelativePathWithVersions(final List<CCPathElement> pathElementList) {
     StringBuffer result = new StringBuffer();
     for (CCPathElement pathElement : pathElementList) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CCPathElement`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+  }
+
+  public static String createPath(final List<CCPathElement> ccPathElements, final int startIndex, final int endIndex, final boolean appentVersion) {
+    StringBuffer result = new StringBuffer();
+    boolean first = true;
 ```
 
 ## RuleId[id=MissortedModifiers]
@@ -2365,159 +2364,15 @@ interface ISourceProvider extends UpdateByCheckoutRules2 {
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-  }
-
-  public void cleanup(final @NotNull VcsRoot root) {
-    final File cacheDir = getCacheDir(root);
-    if (cacheDir == null) return;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
-    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
-    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
-    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
-    File baseDir = createCacheBaseDir(path, vcsRoot);
-    File[] cacheFiles = baseDir.listFiles();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
-    File baseDir = createCacheBaseDir(path, vcsRoot);
-    File[] cacheFiles = baseDir.listFiles();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
-    File baseDir = createCacheBaseDir(path, vcsRoot);
-    File[] cacheFiles = baseDir.listFiles();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
-    File baseDir = createCacheBaseDir(path, vcsRoot);
-    File[] cacheFiles = baseDir.listFiles();
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-  }
-
-  public void clearCaches(final @NotNull VcsRoot root) {
-    final File dir = getCacheDir(root);
-    if (dir != null) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  private File createCacheBaseDir(final @NotNull String path, final @NotNull VcsRoot vcsRoot) {
-    return new File(getCacheDir(vcsRoot), String.valueOf(Hash.calc(path)));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-
-  @Nullable
-  private File createCacheBaseDir(final @NotNull String path, final @NotNull VcsRoot vcsRoot) {
-    return new File(getCacheDir(vcsRoot), String.valueOf(Hash.calc(path)));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
-#### Snippet
-```java
-  }
-
-  private void cleanupFolder(final @NotNull File dir, final boolean keepLastCache) {
-    File[] subDirs = dir.listFiles();
-    if (subDirs != null) {
-```
-
-### MissortedModifiers
 Missorted modifiers `private final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
 #### Snippet
 ```java
+
 public class ClearCaseStructureCache {
   private final @NotNull File myBaseDir;
   private final @NotNull ClearCaseSupport myParentSupport;
 
-  public ClearCaseStructureCache(final @NotNull File baseDir, final @NotNull ClearCaseSupport support) {
 ```
 
 ### MissortedModifiers
@@ -2527,9 +2382,21 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  private void cleanupSubFolder(final @NotNull File subDir, final boolean keepLastCache) {
-    File[] versCaches = subDir.listFiles();
-    if (versCaches == null) return;
+  public void register(final @NotNull SBuildServer server, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
+    server.registerExtension(AfterBuildsCleanupExtension.class, ClearCaseStructureCache.class.getName(), new ClearcaseCacheGeneralDataCleaner());
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+  }
+
+  public void register(final @NotNull SBuildServer server, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
+    server.registerExtension(AfterBuildsCleanupExtension.class, ClearCaseStructureCache.class.getName(), new ClearcaseCacheGeneralDataCleaner());
+
 ```
 
 ### MissortedModifiers
@@ -2573,11 +2440,35 @@ Missorted modifiers `final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
 #### Snippet
 ```java
+
+  @Nullable
+  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
+    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
   }
+```
 
-  public void register(final @NotNull SBuildServer server, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
-    server.registerExtension(AfterBuildsCleanupExtension.class, ClearCaseStructureCache.class.getName(), new ClearcaseCacheGeneralDataCleaner());
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
 
+  @Nullable
+  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
+    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  private File createCacheFile(final @NotNull Date version, final @NotNull String path, final @NotNull VcsRoot root) {
+    return new File(createCacheBaseDir(path, root), String.valueOf(version.getTime()));
+  }
 ```
 
 ### MissortedModifiers
@@ -2587,9 +2478,105 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 ```java
   }
 
-  public void register(final @NotNull SBuildServer server, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
-    server.registerExtension(AfterBuildsCleanupExtension.class, ClearCaseStructureCache.class.getName(), new ClearcaseCacheGeneralDataCleaner());
+  public void clearCaches(final @NotNull VcsRoot root) {
+    final File dir = getCacheDir(root);
+    if (dir != null) {
+```
 
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
+    File baseDir = createCacheBaseDir(path, vcsRoot);
+    File[] cacheFiles = baseDir.listFiles();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
+    File baseDir = createCacheBaseDir(path, vcsRoot);
+    File[] cacheFiles = baseDir.listFiles();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
+    File baseDir = createCacheBaseDir(path, vcsRoot);
+    File[] cacheFiles = baseDir.listFiles();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  public CacheElement getNearestExistingCache(final @NotNull DateRevision version, final @NotNull String path, final @NotNull IncludeRule includeRule, final @NotNull VcsRoot vcsRoot) {
+    File baseDir = createCacheBaseDir(path, vcsRoot);
+    File[] cacheFiles = baseDir.listFiles();
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  private File createCacheBaseDir(final @NotNull String path, final @NotNull VcsRoot vcsRoot) {
+    return new File(getCacheDir(vcsRoot), String.valueOf(Hash.calc(path)));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+
+  @Nullable
+  private File createCacheBaseDir(final @NotNull String path, final @NotNull VcsRoot vcsRoot) {
+    return new File(getCacheDir(vcsRoot), String.valueOf(Hash.calc(path)));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+  }
+
+  private void cleanupFolder(final @NotNull File dir, final boolean keepLastCache) {
+    File[] subDirs = dir.listFiles();
+    if (subDirs != null) {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+  }
+
+  private void cleanupSubFolder(final @NotNull File subDir, final boolean keepLastCache) {
+    File[] versCaches = subDir.listFiles();
+    if (versCaches == null) return;
 ```
 
 ### MissortedModifiers
@@ -2597,71 +2584,23 @@ Missorted modifiers `private final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
 #### Snippet
 ```java
-
 public class ClearCaseStructureCache {
   private final @NotNull File myBaseDir;
   private final @NotNull ClearCaseSupport myParentSupport;
 
+  public ClearCaseStructureCache(final @NotNull File baseDir, final @NotNull ClearCaseSupport support) {
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
 #### Snippet
 ```java
+  }
 
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
-    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
-    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
-    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
-    //use temporary for build
-    final File ccCheckoutRoot = getCCRootDirectory(build, root, checkoutRoot, rules);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
-    //use temporary for build
-    final File ccCheckoutRoot = getCCRootDirectory(build, root, checkoutRoot, rules);
+  public void cleanup(final @NotNull VcsRoot root) {
+    final File cacheDir = getCacheDir(root);
+    if (cacheDir == null) return;
 ```
 
 ### MissortedModifiers
@@ -2681,6 +2620,18 @@ Missorted modifiers `private final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/DirectoryChildElement.java`
 #### Snippet
 ```java
+
+public class DirectoryChildElement extends SimpleDirectoryChildElement {
+  private final @NotNull String myPath;
+  private final int myVersion;
+  private final @NotNull String myFullPath;
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/DirectoryChildElement.java`
+#### Snippet
+```java
   private final @NotNull String myPath;
   private final int myVersion;
   private final @NotNull String myFullPath;
@@ -2689,15 +2640,111 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Direc
 ```
 
 ### MissortedModifiers
-Missorted modifiers `private final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/DirectoryChildElement.java`
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
 #### Snippet
 ```java
 
-public class DirectoryChildElement extends SimpleDirectoryChildElement {
-  private final @NotNull String myPath;
-  private final int myVersion;
-  private final @NotNull String myFullPath;
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
+    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
+    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    final File pathWithinAView = getRelativePathWithinAView(vcsRoot);
+    LOG.debug(String.format("Relative Path within a View: '%s'", pathWithinAView)); //$NON-NLS-1$    
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+    //use temporary for build
+    final File ccCheckoutRoot = getCCRootDirectory(build, root, checkoutRoot, rules);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/CheckoutDirectoryBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+    //use temporary for build
+    final File ccCheckoutRoot = getCCRootDirectory(build, root, checkoutRoot, rules);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
+    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
+  }
 ```
 
 ### MissortedModifiers
@@ -2755,90 +2802,6 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourc
 ```java
   }
 
-  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
-    //VCS & Runner settings:
-    //Checkout directory: dev/views
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
-    //VCS & Runner settings:
-    //Checkout directory: dev/views
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
-    //VCS & Runner settings:
-    //Checkout directory: dev/views
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
-    return getRelativeClearCaseVievRootDirectory(vcsRoot, checkoutRoot, rules.getIncludeRules().get(0));
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
-#### Snippet
-```java
-  }
-
   public void validate(final @NotNull File checkoutRoot/*final @NotNull AgentRunningBuild build*/, final @NotNull VcsRoot vcsRoot, final @NotNull CheckoutRules rules) throws VcsValidationException {
     LOG.debug(String.format("Validating Checkout Rules '%s'", rules.toString().trim()));
     final List<IncludeRule> includeRules = rules.getIncludeRules();
@@ -2869,147 +2832,39 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourc
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
 #### Snippet
 ```java
-  public static final @NonNls String BLOCK_RULE_END = "end";
+  }
 
-  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
-  public static final @NonNls String LATEST = "LATEST";
-
+  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
+    //VCS & Runner settings:
+    //Checkout directory: dev/views
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
 #### Snippet
 ```java
-  public static final @NonNls String FILE_INCLUSION = "include";
-  public static final @NonNls String CREATE_BRANCH = "mkbranch";
-  public static final @NonNls String STANDARD = "element";
+  }
 
-  public static final @NonNls String STANDARD_FILE = "-file";
+  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
+    //VCS & Runner settings:
+    //Checkout directory: dev/views
 ```
 
 ### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/RuleBasedSourceProvider.java`
 #### Snippet
 ```java
-  public static final @NonNls String LATEST = "LATEST";
+  }
 
-  public static final @NonNls String MKBRANCH_OPTION = "-mkbranch";
-}
-
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-
-public class ConfigSpecRuleTokens {
-  public static final @NonNls String LOAD = "load";
-  public static final @NonNls String TIME = "time";
-  public static final @NonNls String FILE_INCLUSION = "include";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-
-  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
-  public static final @NonNls String LATEST = "LATEST";
-
-  public static final @NonNls String MKBRANCH_OPTION = "-mkbranch";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-  public static final @NonNls String LOAD = "load";
-  public static final @NonNls String TIME = "time";
-  public static final @NonNls String FILE_INCLUSION = "include";
-  public static final @NonNls String CREATE_BRANCH = "mkbranch";
-  public static final @NonNls String STANDARD = "element";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-  public static final @NonNls String STANDARD = "element";
-
-  public static final @NonNls String STANDARD_FILE = "-file";
-  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
-  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-  public static final @NonNls String STANDARD_FILE = "-file";
-  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
-  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
-
-  public static final @NonNls String BLOCK_RULE_END = "end";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-  public static final @NonNls String TIME = "time";
-  public static final @NonNls String FILE_INCLUSION = "include";
-  public static final @NonNls String CREATE_BRANCH = "mkbranch";
-  public static final @NonNls String STANDARD = "element";
-
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
-
-  public static final @NonNls String BLOCK_RULE_END = "end";
-
-  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-public class ConfigSpecRuleTokens {
-  public static final @NonNls String LOAD = "load";
-  public static final @NonNls String TIME = "time";
-  public static final @NonNls String FILE_INCLUSION = "include";
-  public static final @NonNls String CREATE_BRANCH = "mkbranch";
-```
-
-### MissortedModifiers
-Missorted modifiers `public static final @NonNls`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
-#### Snippet
-```java
-
-  public static final @NonNls String STANDARD_FILE = "-file";
-  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
-  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
-
+  protected File getRelativeClearCaseVievRootDirectory(/*final @NotNull AgentRunningBuild build, */final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull IncludeRule includeRule) throws VcsValidationException {
+    //VCS & Runner settings:
+    //Checkout directory: dev/views
 ```
 
 ### MissortedModifiers
@@ -3049,6 +2904,150 @@ public class ConfigSpecBuilder implements ConfigSpecRulesProcessor {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+
+  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
+  public static final @NonNls String LATEST = "LATEST";
+
+  public static final @NonNls String MKBRANCH_OPTION = "-mkbranch";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String FILE_INCLUSION = "include";
+  public static final @NonNls String CREATE_BRANCH = "mkbranch";
+  public static final @NonNls String STANDARD = "element";
+
+  public static final @NonNls String STANDARD_FILE = "-file";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String LOAD = "load";
+  public static final @NonNls String TIME = "time";
+  public static final @NonNls String FILE_INCLUSION = "include";
+  public static final @NonNls String CREATE_BRANCH = "mkbranch";
+  public static final @NonNls String STANDARD = "element";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String STANDARD = "element";
+
+  public static final @NonNls String STANDARD_FILE = "-file";
+  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
+  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String TIME = "time";
+  public static final @NonNls String FILE_INCLUSION = "include";
+  public static final @NonNls String CREATE_BRANCH = "mkbranch";
+  public static final @NonNls String STANDARD = "element";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+public class ConfigSpecRuleTokens {
+  public static final @NonNls String LOAD = "load";
+  public static final @NonNls String TIME = "time";
+  public static final @NonNls String FILE_INCLUSION = "include";
+  public static final @NonNls String CREATE_BRANCH = "mkbranch";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+
+public class ConfigSpecRuleTokens {
+  public static final @NonNls String LOAD = "load";
+  public static final @NonNls String TIME = "time";
+  public static final @NonNls String FILE_INCLUSION = "include";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String LATEST = "LATEST";
+
+  public static final @NonNls String MKBRANCH_OPTION = "-mkbranch";
+}
+
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String STANDARD_FILE = "-file";
+  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
+  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
+
+  public static final @NonNls String BLOCK_RULE_END = "end";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+
+  public static final @NonNls String STANDARD_FILE = "-file";
+  public static final @NonNls String STANDARD_DIRECTORY = "-directory";
+  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String STANDARD_ELTYPE = "-eltype";
+
+  public static final @NonNls String BLOCK_RULE_END = "end";
+
+  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
+```
+
+### MissortedModifiers
+Missorted modifiers `public static final @NonNls`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecRuleTokens.java`
+#### Snippet
+```java
+  public static final @NonNls String BLOCK_RULE_END = "end";
+
+  public static final @NonNls String CHECKEDOUT = "CHECKEDOUT";
+  public static final @NonNls String LATEST = "LATEST";
+
+```
+
+### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/ClearCaseInteractiveProcess.java`
 #### Snippet
@@ -3082,6 +3081,42 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
     public String apply(final @NotNull String line) {
       for (final Pattern pattern : myIgnoreErrorPatterns) {
         final Matcher matcher = pattern.matcher(line);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
+    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
+    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+
+  @Override
+  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
+    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
+  }
 ```
 
 ### MissortedModifiers
@@ -3126,10 +3161,10 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
 #### Snippet
 ```java
   }
-  
-  CCSnapshotView(final @NotNull ViewParser parser) {
-    this(parser.getRegion(), parser.getServerHost(), parser.getTag(), parser.getGlobalPath(),
-         parser.getAttributes() != null && parser.getAttributes().contains(ViewParser.ATTRIBUTE_UCM), parser.getOwner());
+
+  public boolean isCheckedout(final @NotNull File file) throws CCException {
+    try {
+      return CTool.isCheckedout(myLocalPath, file);
 ```
 
 ### MissortedModifiers
@@ -3151,18 +3186,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
 ```java
   }
 
-  public boolean isCheckedout(final @NotNull File file) throws CCException {
-    try {
-      return CTool.isCheckedout(myLocalPath, file);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-  }
-
   public void drop(final @NotNull File folder, final @NotNull File[] files, String reason) throws CCException {
     try {
       CTool.rmelem(folder/*myLocalPath*/, files, reason);
@@ -3182,122 +3205,14 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
-    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
-    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
-#### Snippet
-```java
-
-  @Override
-  protected File getCCRootDirectory(AgentRunningBuild build, final @NotNull VcsRoot vcsRoot, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) {
-    return new File(build.getAgentTempDirectory(), build.getBuildTypeId());
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
 #### Snippet
 ```java
   }
   
-  public static void setCommandExecutor(final @NotNull ICommandExecutor executor) {
-    ourCommandExecutor = executor;
-  }
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-  }
-
-  static StreamParser lsStream(final @NotNull String viewTag) throws IOException, InterruptedException {
-    final String command = String.format(CMD_LSSTREAM, getCleartoolExecutable(), viewTag);
-    return new StreamParser(getCommandExecutor().execAndWait(command));
-```
-
-### MissortedModifiers
-Missorted modifiers `static abstract`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-  }
-
-  static abstract class AbstractCCParser implements ICCOutputParser {
-
-    private final String[] myStdOut;
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
-
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
-
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
-
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-  }
-
-  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
-
-  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+  CCSnapshotView(final @NotNull ViewParser parser) {
+    this(parser.getRegion(), parser.getServerHost(), parser.getTag(), parser.getGlobalPath(),
+         parser.getAttributes() != null && parser.getAttributes().contains(ViewParser.ATTRIBUTE_UCM), parser.getOwner());
 ```
 
 ### MissortedModifiers
@@ -3410,14 +3325,62 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSource
 
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
 #### Snippet
 ```java
   }
 
-  private static boolean isUCMView(final @NotNull VcsRoot root) {
-    return root.getProperty(Constants.TYPE, Constants.BASE).equals(Constants.UCM);
+  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
+
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+#### Snippet
+```java
   }
+
+  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
+
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+#### Snippet
+```java
+  }
+
+  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
+
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+#### Snippet
+```java
+  }
+
+  protected abstract File getCCRootDirectory(final @NotNull AgentRunningBuild build, final @NotNull VcsRoot root, final @NotNull File checkoutRoot, final @NotNull CheckoutRules rules) throws VcsValidationException;
+
+  protected CCSnapshotView getView(AgentRunningBuild build, VcsRoot root, File checkoutRoot, final @NotNull CheckoutRules rules, BuildProgressLogger logger) throws VcsValidationException, CCException {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+#### Snippet
+```java
+  }
+  
+  static String testConnection(final @NotNull VcsRoot vcsRoot) throws IOException, VcsException {
+    final String viewPath = ClearCaseSupport.getViewPath(vcsRoot).getWholePath();
+    return ClearCaseInteractiveProcessPool.doWithProcess(viewPath, new ClearCaseInteractiveProcessPool.ProcessComputable<String>() {
 ```
 
 ### MissortedModifiers
@@ -3438,10 +3401,10 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 #### Snippet
 ```java
   }
-  
-  static String testConnection(final @NotNull VcsRoot vcsRoot) throws IOException, VcsException {
-    final String viewPath = ClearCaseSupport.getViewPath(vcsRoot).getWholePath();
-    return ClearCaseInteractiveProcessPool.doWithProcess(viewPath, new ClearCaseInteractiveProcessPool.ProcessComputable<String>() {
+
+  private static boolean isUCMView(final @NotNull VcsRoot root) {
+    return root.getProperty(Constants.TYPE, Constants.BASE).equals(Constants.UCM);
+  }
 ```
 
 ### MissortedModifiers
@@ -3461,47 +3424,47 @@ Missorted modifiers `final @NotNull`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
-
-  @Autowired
-  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
-    this();
-    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
-#### Snippet
-```java
-
-  @Autowired
-  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
-    this();
-    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
-#### Snippet
-```java
-
-  @Autowired
-  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
-    this();
-    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
-#### Snippet
-```java
   }
 
   public String testConnection(final @NotNull VcsRoot vcsRoot) throws VcsException {
     final String[] validationResult = new String[] { "Passed" };
     //validate in general
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
+
+  @Autowired
+  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
+    this();
+    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
+
+  @Autowired
+  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
+    this();
+    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
+
+  @Autowired
+  public ClearCaseSupport(final @NotNull SBuildServer server, final @NotNull ServerPaths serverPaths, final @NotNull EventDispatcher<BuildServerListener> dispatcher) {
+    this();
+    File cachesRootDir = new File(new File(serverPaths.getCachesDir()), "clearCase");
 ```
 
 ### MissortedModifiers
@@ -3517,87 +3480,39 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-
-      public final static String FILE_PROPERTY = "file";
-      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
-      public final static String STATE_PROPERTY = "state";
-
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
   }
 
-  public static String[] makeArguments(final @NotNull String command) {
-    return ParametersList.parse(command);
-  }
+  static StreamParser lsStream(final @NotNull String viewTag) throws IOException, InterruptedException {
+    final String command = String.format(CMD_LSSTREAM, getCleartoolExecutable(), viewTag);
+    return new StreamParser(getCommandExecutor().execAndWait(command));
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-      public final static String FILE_PROPERTY = "file";
-      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
-      public final static String STATE_PROPERTY = "state";
-
-      public enum State {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+Missorted modifiers `static abstract`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
   }
 
-  public static boolean isExecutableNotFoundException(final @NotNull Exception e) {
-    return EXE_NOT_FOUND_PATTERN.matcher(e.getMessage().trim()).matches();
+  static abstract class AbstractCCParser implements ICCOutputParser {
+
+    private final String[] myStdOut;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
   }
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-    public static class FileCopier {
-
-      public final static String FILE_PROPERTY = "file";
-      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
-      public final static String STATE_PROPERTY = "state";
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-    }
-
-    public ExecutableNotFoundException(final @NotNull String command, final @NotNull String message) {
-      super(message);
-      myExecutable = extractExecutable(command);
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-    }
-
-    public ExecutableNotFoundException(final @NotNull String command, final @NotNull String message) {
-      super(message);
-      myExecutable = extractExecutable(command);
+  
+  public static void setCommandExecutor(final @NotNull ICommandExecutor executor) {
+    ourCommandExecutor = executor;
+  }
 ```
 
 ### MissortedModifiers
@@ -3617,11 +3532,95 @@ Missorted modifiers `final static`
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
+      public final static String FILE_PROPERTY = "file";
+      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
+      public final static String STATE_PROPERTY = "state";
+
+      public enum State {
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+    }
+
+    public ExecutableNotFoundException(final @NotNull String command, final @NotNull String message) {
+      super(message);
+      myExecutable = extractExecutable(command);
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+    }
+
+    public ExecutableNotFoundException(final @NotNull String command, final @NotNull String message) {
+      super(message);
+      myExecutable = extractExecutable(command);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+    public static class FileCopier {
+
+      public final static String FILE_PROPERTY = "file";
+      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
+      public final static String STATE_PROPERTY = "state";
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+  }
+
+  public static String[] makeArguments(final @NotNull String command) {
+    return ParametersList.parse(command);
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
       private long oldCopiedBytes;
       private long copiedBytes;
       private final static NumberFormat NUMBER_FORMAT = NumberFormat.getInstance();
       private long position;
       private long sourceLength;
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+  }
+
+  public static boolean isExecutableNotFoundException(final @NotNull Exception e) {
+    return EXE_NOT_FOUND_PATTERN.matcher(e.getMessage().trim()).matches();
+  }
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+
+      public final static String FILE_PROPERTY = "file";
+      public final static String BYTE_COUNTER_PROPERTY = "byte_counter";
+      public final static String STATE_PROPERTY = "state";
+
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
@@ -3664,18 +3663,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-    try {
-      if (!getLocalPath().exists()) {
-        getLocalPath().mkdirs();
-      }
-      final ViewParser parser = CTool.lsView(getTag());
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
 #### Snippet
 ```java
@@ -3699,15 +3686,15 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourc
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+Result of `File.mkdirs()` is ignored
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
 #### Snippet
 ```java
-      return parseUpdateOut(new FileInputStream(file));
-    } finally {
-      file.delete();
-    }
-  }
+    try {
+      if (!getLocalPath().exists()) {
+        getLocalPath().mkdirs();
+      }
+      final ViewParser parser = CTool.lsView(getTag());
 ```
 
 ### IgnoreResultOfCall
@@ -3747,6 +3734,30 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+      return parseUpdateOut(new FileInputStream(file));
+    } finally {
+      file.delete();
+    }
+  }
+```
+
+### IgnoreResultOfCall
+Result of `String.substring()` is ignored
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+      }
+      if (nextQuotePos != -1) {
+        command.substring(1, nextQuotePos);
+        return command.substring(1, nextQuotePos);
+      }
+```
+
+### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
@@ -3768,18 +3779,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
             destination.createNewFile();
           }
         }
-```
-
-### IgnoreResultOfCall
-Result of `String.substring()` is ignored
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-      }
-      if (nextQuotePos != -1) {
-        command.substring(1, nextQuotePos);
-        return command.substring(1, nextQuotePos);
-      }
 ```
 
 ## RuleId[id=MalformedFormatString]
@@ -3874,18 +3873,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/InteractiveProcess.java`
-#### Snippet
-```java
-    final StringBuilder buffer = new StringBuilder();
-    String line;
-    while ((line = reader.readLine()) != null) {
-      if (isEndOfCommandOutput(line, params)) {
-        final String theRest = getLastOutput();
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecParseUtil.java`
 #### Snippet
 ```java
@@ -3894,6 +3881,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
       while ((line = reader.readLine()) != null) {
         if (writer != null) {
           writer.write(line);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/InteractiveProcess.java`
+#### Snippet
+```java
+    final StringBuilder buffer = new StringBuilder();
+    String line;
+    while ((line = reader.readLine()) != null) {
+      if (isEndOfCommandOutput(line, params)) {
+        final String theRest = getLastOutput();
 ```
 
 ### NestedAssignment
@@ -3910,14 +3909,26 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 
 ### NestedAssignment
 Result of assignment expression used
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
 #### Snippet
 ```java
-      final ArrayList<ChangeParser> out = new ArrayList<ChangeParser>();
+    try {
       String line;
       while ((line = reader.readLine()) != null) {
-        if (ChangeParser.accept(line)) {
-          out.add(new ChangeParser(line));
+        if (line.equals(label)) {
+          return true;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+#### Snippet
+```java
+        try {
+          String line;
+          while ((line = reader.readLine()) != null) {
+            result.append(line).append('\n');
+          }
 ```
 
 ### NestedAssignment
@@ -3946,26 +3957,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 
 ### NestedAssignment
 Result of assignment expression used
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
-        try {
-          String line;
-          while ((line = reader.readLine()) != null) {
-            result.append(line).append('\n');
-          }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
-#### Snippet
-```java
-    try {
+      final ArrayList<ChangeParser> out = new ArrayList<ChangeParser>();
       String line;
       while ((line = reader.readLine()) != null) {
-        if (line.equals(label)) {
-          return true;
+        if (ChangeParser.accept(line)) {
+          out.add(new ChangeParser(line));
 ```
 
 ### NestedAssignment
@@ -4092,19 +4091,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
       }
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-15-15-25-49.490.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer result` may be declared as 'StringBuilder'
@@ -4180,6 +4166,18 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSource
 
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer result` may be declared as 'StringBuilder'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+
+  public static String createPath(final List<CCPathElement> ccPathElements, final int startIndex, final int endIndex, final boolean appentVersion) {
+    StringBuffer result = new StringBuffer();
+    boolean first = true;
+    for (int i = startIndex; i < endIndex; i++) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer result` may be declared as 'StringBuilder'
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
 #### Snippet
 ```java
@@ -4214,16 +4212,77 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
                 specsBuffer.append(spec).append("\n");
 ```
 
-### StringBufferReplaceableByStringBuilder
-`StringBuffer result` may be declared as 'StringBuilder'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+## RuleId[id=RedundantStringFormatCall]
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/ClearCaseAgentSupport.java`
 #### Snippet
 ```java
 
-  public static String createPath(final List<CCPathElement> ccPathElements, final int startIndex, final int endIndex, final boolean appentVersion) {
-    StringBuffer result = new StringBuffer();
-    boolean first = true;
-    for (int i = startIndex; i < endIndex; i++) {
+  private void dumpEnvironment() {
+    LOG.debug(String.format("ClearCase Agent Support environment:"));    
+    LOG.debug(String.format("Running user: %s", System.getProperty("user.name")));
+    LOG.debug(String.format("Environment variables: %s", System.getenv()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
+#### Snippet
+```java
+    StringBuffer margin = new StringBuffer();
+    while (parent != null) {
+      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
+      for (File file : parent.listFiles()) {
+        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
+#### Snippet
+```java
+      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
+      for (File file : parent.listFiles()) {
+        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
+      }
+      parent = parent.getParentFile();
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+#### Snippet
+```java
+      if (CCStorage.View.equals(storage.getType())) {
+        hasViewsStorageLocation = true;
+        LOG.debug(String.format("create:: a \"Server Storage Location\" exists for a view")); //$NON-NLS-1$
+        break;
+      }
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+#### Snippet
+```java
+
+    //try to find and use original view location as base 
+    LOG.debug(String.format("create:: preparing target location for the snapshot view storage directory")); //$NON-NLS-1$
+    final String ccOriginalViewTag = getSourceViewTag(build, root);
+    LOG.debug(String.format("create:: found source view tag: \"%s\"", ccOriginalViewTag)); //$NON-NLS-1$
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+      ourCleartoolExecutable = executable.trim();
+    } else {
+      LOG.warn(String.format("Could not set CleartoolExecutable to \"null\""));
+    }
+  }
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -4285,79 +4344,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
     private IValidation[] myValidators = new IValidation[0];
 
     ValidationComposite(IValidation... validators) {
-```
-
-## RuleId[id=RedundantStringFormatCall]
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/ClearCaseAgentSupport.java`
-#### Snippet
-```java
-
-  private void dumpEnvironment() {
-    LOG.debug(String.format("ClearCase Agent Support environment:"));    
-    LOG.debug(String.format("Running user: %s", System.getProperty("user.name")));
-    LOG.debug(String.format("Environment variables: %s", System.getenv()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-    StringBuffer margin = new StringBuffer();
-    while (parent != null) {
-      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
-      for (File file : parent.listFiles()) {
-        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
-      for (File file : parent.listFiles()) {
-        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
-      }
-      parent = parent.getParentFile();
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-      ourCleartoolExecutable = executable.trim();
-    } else {
-      LOG.warn(String.format("Could not set CleartoolExecutable to \"null\""));
-    }
-  }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-      if (CCStorage.View.equals(storage.getType())) {
-        hasViewsStorageLocation = true;
-        LOG.debug(String.format("create:: a \"Server Storage Location\" exists for a view")); //$NON-NLS-1$
-        break;
-      }
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
-#### Snippet
-```java
-
-    //try to find and use original view location as base 
-    LOG.debug(String.format("create:: preparing target location for the snapshot view storage directory")); //$NON-NLS-1$
-    final String ccOriginalViewTag = getSourceViewTag(build, root);
-    LOG.debug(String.format("create:: found source view tag: \"%s\"", ccOriginalViewTag)); //$NON-NLS-1$
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
@@ -4509,18 +4495,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### ConstantValue
-Value `isFile` is always 'true'
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
-#### Snippet
-```java
-  public Version getLastVersion(@NotNull final String path, final boolean isFile) throws VcsException {
-    if (isFile) {
-      return doGetLastVersion(path, isFile);
-    }
-    if (!myDirectoryVersionCache.containsKey(path)) {
-```
-
-### ConstantValue
 Value `appentVersion` is always 'true'
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
 #### Snippet
@@ -4533,15 +4507,27 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### ConstantValue
-Condition `parser != null` is always `true`
+Value `isFile` is always 'true'
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+#### Snippet
+```java
+  public Version getLastVersion(@NotNull final String path, final boolean isFile) throws VcsException {
+    if (isFile) {
+      return doGetLastVersion(path, isFile);
+    }
+    if (!myDirectoryVersionCache.containsKey(path)) {
+```
+
+### ConstantValue
+Condition `errBuffer != null` is always `true` when reached
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
-      try{
-        final ViewParser parser = CTool.lsView(viewTag);
-        if(parser != null){
-          return new CCSnapshotView(parser);
-        }
+        LOG.debug(String.format("Command stdout:\n%s", outBuffer.toString()));
+      }
+      if (result != 0 || (errBuffer != null && errBuffer.length() > 0)) {
+        LOG.debug(String.format("Command stderr:\n%s", errBuffer.toString()));
+        throw new IOException(String.format("%s: command: {\"%s\" in: \"%s\"}", errBuffer.toString().trim(), command.trim(), dir.getAbsolutePath()));
 ```
 
 ### ConstantValue
@@ -4557,15 +4543,15 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 ```
 
 ### ConstantValue
-Condition `errBuffer != null` is always `true` when reached
+Condition `parser != null` is always `true`
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
-        LOG.debug(String.format("Command stdout:\n%s", outBuffer.toString()));
-      }
-      if (result != 0 || (errBuffer != null && errBuffer.length() > 0)) {
-        LOG.debug(String.format("Command stderr:\n%s", errBuffer.toString()));
-        throw new IOException(String.format("%s: command: {\"%s\" in: \"%s\"}", errBuffer.toString().trim(), command.trim(), dir.getAbsolutePath()));
+      try{
+        final ViewParser parser = CTool.lsView(viewTag);
+        if(parser != null){
+          return new CCSnapshotView(parser);
+        }
 ```
 
 ### ConstantValue
@@ -4620,18 +4606,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `ClearCaseInteractiveProcessPool` has only 'static' members, and lacks a 'private' constructor
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/ClearCaseInteractiveProcessPool.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.TestOnly;
-
-public class ClearCaseInteractiveProcessPool {
-  @NotNull private static ClearCaseFacade ourProcessExecutor = new ClearCaseFacade() {
-    @NotNull
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ConfigSpecParseUtil` has only 'static' members, and lacks a 'private' constructor
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecParseUtil.java`
 #### Snippet
@@ -4641,6 +4615,18 @@ import org.jetbrains.annotations.Nullable;
 public class ConfigSpecParseUtil {
   public static ConfigSpec getAndSaveConfigSpec(final ViewPath viewPath, final File outputConfigSpecFile, final ClearCaseInteractiveProcess process) throws VcsException, IOException {
     clearOldSavedVersion(outputConfigSpecFile);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ClearCaseInteractiveProcessPool` has only 'static' members, and lacks a 'private' constructor
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/process/ClearCaseInteractiveProcessPool.java`
+#### Snippet
+```java
+import org.jetbrains.annotations.TestOnly;
+
+public class ClearCaseInteractiveProcessPool {
+  @NotNull private static ClearCaseFacade ourProcessExecutor = new ClearCaseFacade() {
+    @NotNull
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -4705,18 +4691,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versi
 ```
 
 ### DataFlowIssue
-Dereference of `parent.listFiles()` may produce `NullPointerException`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-    while (parent != null) {
-      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
-      for (File file : parent.listFiles()) {
-        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
-      }
-```
-
-### DataFlowIssue
 Dereference of `absoluteLinkSource.listFiles()` may produce `NullPointerException`
 in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
 #### Snippet
@@ -4737,6 +4711,18 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourc
     if (viewSourceRoot.exists()) {
       for (final File viewSourceEntry : viewSourceRoot.listFiles()) {// it's wrong
         createLinks(ccview, viewSourceEntry, publishTo, linksBuffer);
+      }
+```
+
+### DataFlowIssue
+Dereference of `parent.listFiles()` may produce `NullPointerException`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
+#### Snippet
+```java
+    while (parent != null) {
+      System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
+      for (File file : parent.listFiles()) {
+        System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
       }
 ```
 
@@ -4796,6 +4782,18 @@ Unnecessary `toString()` call
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
 #### Snippet
 ```java
+    final String globalPath = getGlobalPath();
+    if(globalPath == null){
+      throw new CCException(String.format("Cannot drop view: Global Path lost '%s'", this.toString()));
+    }
+    try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
+#### Snippet
+```java
     StringBuffer margin = new StringBuffer();
     while (parent != null) {
       System.err.println(String.format("%sdir(%s)", margin.toString(), parent.getPath()));
@@ -4813,18 +4811,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
         System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
       }
       parent = parent.getParentFile();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
-#### Snippet
-```java
-    final String globalPath = getGlobalPath();
-    if(globalPath == null){
-      throw new CCException(String.format("Cannot drop view: Global Path lost '%s'", this.toString()));
-    }
-    try {
 ```
 
 ### UnnecessaryToStringCall
@@ -5013,6 +4999,18 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Histo
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
+#### Snippet
+```java
+      if (getCCRootsCount(build) == scheduledRequests.size()) {
+        try {
+          System.err.println("the last");
+          //          createLinks(ccview, absoluteLinkSource, linkTargetOwnerDirectory, linkBuffer);
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
 #### Snippet
 ```java
@@ -5033,18 +5031,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
         System.err.println(String.format("%s%s", margin.toString(), file.getPath()));
       }
       parent = parent.getParentFile();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/LinkBasedSourceProvider.java`
-#### Snippet
-```java
-      if (getCCRootsCount(build) == scheduledRequests.size()) {
-        try {
-          System.err.println("the last");
-          //          createLinks(ccview, absoluteLinkSource, linkTargetOwnerDirectory, linkBuffer);
-
 ```
 
 ### SystemOutErr
@@ -5135,42 +5121,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
 
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-        final String trim = line.trim();
-        if (trim.startsWith(TAG_TOKEN)) {
-          final String[] split = trim.split(" +");
-          myTag = getRest(String.format("%s %s", split[0], split[1]), TAG_TOKEN);// as far as cleartool put the comment next to the tag
-        } else if (trim.startsWith(GLOBAL_PATH_TOKEN)) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-      if (versionBeforStartIdx != -1) {
-        String versionsPart = line.substring(versionBeforStartIdx + 1).trim();
-        final String[] versions = versionsPart.split("[ +]");
-        if (versions.length > 0) {
-          myVersionAfter = versions[0];
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
-#### Snippet
-```java
-          String labels = elements[3].trim();
-          labels = labels.substring(1, labels.length() - 1);// extract brackets
-          myLabels = labels.split(", ");
-        }
-      }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
 #### Snippet
 ```java
@@ -5203,6 +5153,42 @@ in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSource
     String nancestor = ancestor.getPath().replace("\\", "/"); //$NON-NLS-1$ //$NON-NLS-2$
     return nparent.endsWith(nancestor);
   }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+      if (versionBeforStartIdx != -1) {
+        String versionsPart = line.substring(versionBeforStartIdx + 1).trim();
+        final String[] versions = versionsPart.split("[ +]");
+        if (versions.length > 0) {
+          myVersionAfter = versions[0];
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+          String labels = elements[3].trim();
+          labels = labels.substring(1, labels.length() - 1);// extract brackets
+          myLabels = labels.split(", ");
+        }
+      }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
+        final String trim = line.trim();
+        if (trim.startsWith(TAG_TOKEN)) {
+          final String[] split = trim.split(" +");
+          myTag = getRest(String.format("%s %s", split[0], split[1]), TAG_TOKEN);// as far as cleartool put the comment next to the tag
+        } else if (trim.startsWith(GLOBAL_PATH_TOKEN)) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -5298,6 +5284,18 @@ Anonymous new Comparator() can be replaced with lambda
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
+  @NotNull
+  public Comparator<String> getVersionComparator() {
+    return new Comparator<String>() {
+      public int compare(@NotNull final String versionString1, @NotNull final String versionString2) {
+        try {
+```
+
+### Convert2Lambda
+Anonymous new Comparator() can be replaced with lambda
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+#### Snippet
+```java
       }
 
       Collections.sort(list, new Comparator<ModificationData>() {
@@ -5306,14 +5304,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
+Anonymous new Runnable() can be replaced with lambda
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
-  @NotNull
-  public Comparator<String> getVersionComparator() {
-    return new Comparator<String>() {
-      public int compare(@NotNull final String versionString1, @NotNull final String versionString2) {
+
+  private static Thread pipe(final InputStream inStream, final PrintStream outStream, final StringBuffer out) {
+    Thread reader = new Thread(new Runnable() {
+      public void run() {
         try {
 ```
 
@@ -5329,29 +5327,53 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
           public void run() {
 ```
 
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-
-  private static Thread pipe(final InputStream inStream, final PrintStream outStream, final StringBuffer out) {
-    Thread reader = new Thread(new Runnable() {
-      public void run() {
-        try {
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `line`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+Assignment to method parameter `checkoutDirectory`
+in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
 #### Snippet
 ```java
+      if (!checkoutDirectory.isAbsolute()) {
+        final String relativeCheckoutPath = checkoutDirectory.getPath();
+        checkoutDirectory = new File(build.getAgentConfiguration().getWorkDirectory(), relativeCheckoutPath);
+        LOG.debug(String.format("Relative Checkout path '%s' was expanded to '%s'", relativeCheckoutPath, checkoutDirectory));
       }
-      // extract token
-      line = line.substring(tokenLength).trim();
-      // get local path
-      int versionBeforStartIdx = 0;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+
+  private static int processVersion(final CCPathElement currentPair, int i, final List<String> subNames) {
+    for (i += 1; i < subNames.size(); i++) {
+      currentPair.appendVersion(subNames.get(i));
+      try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
+#### Snippet
+```java
+
+  private static int processVersion(final CCPathElement currentPair, int i, final List<String> subNames) {
+    for (i += 1; i < subNames.size(); i++) {
+      currentPair.appendVersion(subNames.get(i));
+      try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `version`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+#### Snippet
+```java
+  private static String normalizeVersion(String version) {
+    if (version.startsWith(File.separator)) {
+      version = version.substring(1);
+    }
+    return version;
 ```
 
 ### AssignmentToMethodParameter
@@ -5371,6 +5393,18 @@ Assignment to method parameter `line`
 in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 #### Snippet
 ```java
+      }
+      // extract token
+      line = line.substring(tokenLength).trim();
+      // get local path
+      int versionBeforStartIdx = 0;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `line`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
+#### Snippet
+```java
 
     static boolean accept(String line) {
       line = line.trim();
@@ -5379,27 +5413,27 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CTool.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `checkoutDirectory`
-in `clearcase-agent/src/jetbrains/buildServer/vcs/clearcase/agent/AbstractSourceProvider.java`
+Assignment to method parameter `childCandidatePath`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
-      if (!checkoutDirectory.isAbsolute()) {
-        final String relativeCheckoutPath = checkoutDirectory.getPath();
-        checkoutDirectory = new File(build.getAgentConfiguration().getWorkDirectory(), relativeCheckoutPath);
-        LOG.debug(String.format("Relative Checkout path '%s' was expanded to '%s'", relativeCheckoutPath, checkoutDirectory));
-      }
+
+  public static boolean isUnderPath(@NotNull String childCandidatePath, @NotNull String patentCandidatePath) {
+    childCandidatePath = trimLastSeparator(childCandidatePath);
+    patentCandidatePath = trimLastSeparator(patentCandidatePath);
+    return patentCandidatePath.equals(childCandidatePath)
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `version`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseConnection.java`
+Assignment to method parameter `patentCandidatePath`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
 #### Snippet
 ```java
-  private static String normalizeVersion(String version) {
-    if (version.startsWith(File.separator)) {
-      version = version.substring(1);
-    }
-    return version;
+  public static boolean isUnderPath(@NotNull String childCandidatePath, @NotNull String patentCandidatePath) {
+    childCandidatePath = trimLastSeparator(childCandidatePath);
+    patentCandidatePath = trimLastSeparator(patentCandidatePath);
+    return patentCandidatePath.equals(childCandidatePath)
+        || (patentCandidatePath.length() < childCandidatePath.length() && childCandidatePath.startsWith(patentCandidatePath) && (childCandidatePath.charAt(patentCandidatePath.length()) == '\\' || childCandidatePath.charAt(patentCandidatePath.length()) == '/'));
 ```
 
 ### AssignmentToMethodParameter
@@ -5438,54 +5472,6 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
     return path;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `childCandidatePath`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-
-  public static boolean isUnderPath(@NotNull String childCandidatePath, @NotNull String patentCandidatePath) {
-    childCandidatePath = trimLastSeparator(childCandidatePath);
-    patentCandidatePath = trimLastSeparator(patentCandidatePath);
-    return patentCandidatePath.equals(childCandidatePath)
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `patentCandidatePath`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-  public static boolean isUnderPath(@NotNull String childCandidatePath, @NotNull String patentCandidatePath) {
-    childCandidatePath = trimLastSeparator(childCandidatePath);
-    patentCandidatePath = trimLastSeparator(patentCandidatePath);
-    return patentCandidatePath.equals(childCandidatePath)
-        || (patentCandidatePath.length() < childCandidatePath.length() && childCandidatePath.startsWith(patentCandidatePath) && (childCandidatePath.charAt(patentCandidatePath.length()) == '\\' || childCandidatePath.charAt(patentCandidatePath.length()) == '/'));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-
-  private static int processVersion(final CCPathElement currentPair, int i, final List<String> subNames) {
-    for (i += 1; i < subNames.size(); i++) {
-      currentPair.appendVersion(subNames.get(i));
-      try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCPathElement.java`
-#### Snippet
-```java
-
-  private static int processVersion(final CCPathElement currentPair, int i, final List<String> subNames) {
-    for (i += 1; i < subNames.size(); i++) {
-      currentPair.appendVersion(subNames.get(i));
-      try {
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -5497,6 +5483,66 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versi
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+#### Snippet
+```java
+      if (branch.equals(topBranch.getName())) return topBranch;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+#### Snippet
+```java
+      intVersion = Integer.parseInt(lastVers);
+    } catch (NumberFormatException e) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
+#### Snippet
+```java
+      }
+
+      if (currentBranch == null) return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+#### Snippet
+```java
+    final File cacheDir = new File(myBaseDir, String.valueOf(root.getId()));
+
+    if (createDirs && !cacheDir.exists() && !cacheDir.mkdirs()) return null;
+
+    return cacheDir;
 ```
 
 ### ReturnNull
@@ -5513,14 +5559,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/struc
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/structure/ClearCaseStructureCache.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElement.java`
 #### Snippet
 ```java
-    final File cacheDir = new File(myBaseDir, String.valueOf(root.getId()));
+      return comment.substring(firstPos + 1, lastPos);
+    }
+    return null;
+  }
 
-    if (createDirs && !cacheDir.exists() && !cacheDir.mkdirs()) return null;
-
-    return cacheDir;
 ```
 
 ### ReturnNull
@@ -5561,90 +5607,6 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Histo
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElement.java`
-#### Snippet
-```java
-      return comment.substring(firstPos + 1, lastPos);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElementProvider.java`
-#### Snippet
-```java
-    }
-    catch (final ParseException e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElementMerger.java`
-#### Snippet
-```java
-  @Nullable
-  private HistoryElement readNext(@NotNull final HistoryElementIterator iterator) throws IOException {
-    return iterator.hasNext() ? iterator.next() : null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
-#### Snippet
-```java
-      if (branch.equals(topBranch.getName())) return topBranch;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
-#### Snippet
-```java
-      intVersion = Integer.parseInt(lastVers);
-    } catch (NumberFormatException e) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/VersionTree.java`
-#### Snippet
-```java
-      }
-
-      if (currentBranch == null) return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Branch.java`
 #### Snippet
 ```java
@@ -5665,6 +5627,30 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versi
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Branch.java`
+#### Snippet
+```java
+    }
+
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Branch.java`
+#### Snippet
+```java
+      version = version.getNextVersion();
+    }
+    return null;
+
+  }
 ```
 
 ### ReturnNull
@@ -5693,25 +5679,25 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versi
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Branch.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElementMerger.java`
 #### Snippet
 ```java
-    }
-
-    return null;
+  @Nullable
+  private HistoryElement readNext(@NotNull final HistoryElementIterator iterator) throws IOException {
+    return iterator.hasNext() ? iterator.next() : null;
   }
-
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Branch.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/HistoryElementProvider.java`
 #### Snippet
 ```java
-      version = version.getNextVersion();
     }
-    return null;
-
+    catch (final ParseException e) {
+      return null;
+    }
   }
 ```
 
@@ -5724,6 +5710,30 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/proce
   protected String getLastOutput() {
     return null;
   }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Version.java`
+#### Snippet
+```java
+      if (brancheName.equals(inheritedBranche.getName())) return inheritedBranche;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-common/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Revision.java`
+#### Snippet
+```java
+    @Override
+    public DateRevision getDateRevision() {
+      return null;
+    }
 
 ```
 
@@ -5744,18 +5754,6 @@ Return of `null`
 in `clearcase-common/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Revision.java`
 #### Snippet
 ```java
-    @Override
-    public DateRevision getDateRevision() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-common/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Revision.java`
-#### Snippet
-```java
   @Nullable
   public static Revision fromString(@Nullable final String stringRevision) throws ParseException {
     return stringRevision == null ? null : fromNotNullString(stringRevision);
@@ -5765,14 +5763,14 @@ in `clearcase-common/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Revis
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/versionTree/Version.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCParseUtil.java`
 #### Snippet
 ```java
-      if (brancheName.equals(inheritedBranche.getName())) return inheritedBranche;
     }
+
     return null;
   }
-
+}
 ```
 
 ### ReturnNull
@@ -5804,18 +5802,6 @@ Return of `null`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
 #### Snippet
 ```java
-  private Version processVersions(final Collection<Version> versions, final String fullFileName) throws VcsException {
-    if (versions.size() == 0) {
-      return null;
-    }
-    if (versions.size() > 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
-#### Snippet
-```java
     final Collection<Branch> branches = findBranches(versionTree);
     if (branches == null) {
       return null;
@@ -5840,11 +5826,11 @@ Return of `null`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
 #### Snippet
 ```java
-      if (ConfigSpecRuleTokens.MKBRANCH_OPTION.equalsIgnoreCase(trimmedWord)) wordShouldBeReturned = true;      
+  private Version processVersions(final Collection<Version> versions, final String fullFileName) throws VcsException {
+    if (versions.size() == 0) {
+      return null;
     }
-    return null;
-  }
-
+    if (versions.size() > 1) {
 ```
 
 ### ReturnNull
@@ -5861,14 +5847,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/confi
 
 ### ReturnNull
 Return of `null`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/configSpec/ConfigSpecStandardRule.java`
 #### Snippet
 ```java
-      CTool.rmname(myLocalPath, file, reason);
-      //      CTool.checkin(myLocalPath, file.getParentFile(), reason);
-      return null;
-    } catch (Exception e) {
-      throw new CCException(e);
+      if (ConfigSpecRuleTokens.MKBRANCH_OPTION.equalsIgnoreCase(trimmedWord)) wordShouldBeReturned = true;      
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -5897,14 +5883,14 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java
 
 ### ReturnNull
 Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/CCParseUtil.java`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/CCSnapshotView.java`
 #### Snippet
 ```java
-    }
-
-    return null;
-  }
-}
+      CTool.rmname(myLocalPath, file, reason);
+      //      CTool.checkin(myLocalPath, file.getParentFile(), reason);
+      return null;
+    } catch (Exception e) {
+      throw new CCException(e);
 ```
 
 ### ReturnNull
@@ -5948,11 +5934,11 @@ Return of `null`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
+        return key;
+    }
+    return null;
+  }
 
-    if (file == null)
-      return null;
-
-    return sb.toString();
 ```
 
 ### ReturnNull
@@ -5984,18 +5970,6 @@ Return of `null`
 in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
-        return key;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
-#### Snippet
-```java
     final File file = new File(filePath);
     String relativePath = isAbsolute(file) ? getRelativePathIfAncestor(clearCaseViewPathFile, file) : file.getPath();
     if (relativePath == null) return null;
@@ -6005,26 +5979,14 @@ in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/Clear
 
 ### ReturnNull
 Return of `null`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+in `clearcase-server/src/jetbrains/buildServer/buildTriggers/vcs/clearcase/ClearCaseSupport.java`
 #### Snippet
 ```java
-        }
-      } catch (Exception e) {
-        return null;
-      }
-      return null;
-```
 
-### ReturnNull
-Return of `null`
-in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
-#### Snippet
-```java
-        return null;
-      }
+    if (file == null)
       return null;
-    }
-  }
+
+    return sb.toString();
 ```
 
 ### ReturnNull
@@ -6061,6 +6023,30 @@ in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
           return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+        }
+      } catch (Exception e) {
+        return null;
+      }
+      return null;
+```
+
+### ReturnNull
+Return of `null`
+in `clearcase-common/src/jetbrains/buildServer/vcs/clearcase/Util.java`
+#### Snippet
+```java
+        return null;
+      }
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
