@@ -9,7 +9,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProjectConfigRepositoryImpl implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {
+public class MongoProjectConfigRepository implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {
 
     private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
 
