@@ -2,6 +2,7 @@ package xyz.keksdose.spoon.code_solver.regressionTests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzerResult;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.ProtectedMemberInFinalClass;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 

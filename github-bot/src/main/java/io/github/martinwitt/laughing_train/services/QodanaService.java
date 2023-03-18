@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.health.api.AsyncHealthCheck;
@@ -32,7 +33,6 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 
 @ApplicationScoped
 public class QodanaService {

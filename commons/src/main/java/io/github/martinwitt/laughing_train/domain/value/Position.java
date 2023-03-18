@@ -1,4 +1,4 @@
-package xyz.keksdose.spoon.code_solver.api.analyzer;
+package io.github.martinwitt.laughing_train.domain.value;
 
 import java.io.Serializable;
 

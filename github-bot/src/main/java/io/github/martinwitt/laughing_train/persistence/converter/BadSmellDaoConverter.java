@@ -1,10 +1,10 @@
 package io.github.martinwitt.laughing_train.persistence.converter;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.dao.BadSmellDao;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 public class BadSmellDaoConverter implements DaoConverter<BadSmell, BadSmellDao> {
 

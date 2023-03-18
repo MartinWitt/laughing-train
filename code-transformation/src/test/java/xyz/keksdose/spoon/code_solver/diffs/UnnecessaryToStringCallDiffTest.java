@@ -1,5 +1,6 @@
 package xyz.keksdose.spoon.code_solver.diffs;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -11,7 +12,6 @@ import spoon.Launcher;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UnusedLabel;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.transformations.TestAnalyzerResult;
 

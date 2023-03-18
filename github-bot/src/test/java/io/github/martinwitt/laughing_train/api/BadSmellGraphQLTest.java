@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
@@ -23,7 +24,6 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @QuarkusTest
 public class BadSmellGraphQLTest {

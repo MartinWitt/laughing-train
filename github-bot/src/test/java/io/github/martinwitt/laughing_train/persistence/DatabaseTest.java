@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.javafaker.Faker;
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.impl.BadSmellRepositoryImpl;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
@@ -13,7 +14,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import java.util.Random;
 import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @QuarkusTest
 class DatabaseTest {

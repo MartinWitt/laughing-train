@@ -1,10 +1,10 @@
 package xyz.keksdose.spoon.code_solver.history;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.util.List;
 import java.util.Objects;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.api.analyzer.AnalyzerResult;
 import xyz.keksdose.spoon.code_solver.diffs.DiffCleanModes;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 

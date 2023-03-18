@@ -1,9 +1,9 @@
 package io.github.martinwitt.laughing_train.api.graphql.dto;
 
+import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import java.util.List;
 import org.eclipse.microprofile.graphql.Name;
-import xyz.keksdose.spoon.code_solver.api.analyzer.Position;
 
 @Name("BadSmell")
 public class BadSmellGraphQLDto {
