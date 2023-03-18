@@ -78,7 +78,7 @@ in `src/main/java/org/assertj/guava/api/Assertions.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-08-47-19.108.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-20-05-15.787.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -140,18 +140,6 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheLowerBound.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.assertj.guava.error` is unnecessary and can be removed
 in `src/main/java/org/assertj/guava/error/ShouldHaveSize.java`
 #### Snippet
@@ -161,6 +149,18 @@ in `src/main/java/org/assertj/guava/error/ShouldHaveSize.java`
    * Creates a new <code>{@link org.assertj.guava.error.ShouldHaveSize}</code>.
    * @param actual the actual value in the failed assertion.
    * @param actualSize the size of {@code actual}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheLowerBound.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -185,90 +185,6 @@ in `src/main/java/org/assertj/guava/api/ByteSourceAssert.java`
    * @throws IOException    if {@link com.google.common.io.ByteSource#size()} throws one.
    * @throws AssertionError if the actual {@link ByteSource} is {@code null}.
    * @throws AssertionError if the number of values of the actual {@link ByteSource} is not equal to the given one.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.Range} lower endpoint is equal to the given value.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * assertThat(range).hasLowerEndpointEqualTo(10);</code></pre>
-   *
-   * @param value {@link com.google.common.collect.Range} expected lower bound value.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @param value {@link com.google.common.collect.Range} expected lower bound value.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have lower endpoint equal to
-   *           the given values.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have lower endpoint equal to
-   *           the given values.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.Range} lower bound is opened.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   *
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} lower bound is closed.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} lower bound is closed.
-   */
-  public RangeAssert<T> hasOpenedLowerBound() throws AssertionError {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -314,7 +230,7 @@ in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.Range} is empty.<br>
+   * Verifies that the actual {@link com.google.common.collect.Range} upper endpoint is equal to the given value.<br>
    * <p>
    * Example :
 ```
@@ -324,179 +240,35 @@ Qualifier `com.google.common.collect` is unnecessary and can be removed
 in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
+   * assertThat(range).hasUpperEndpointEqualTo(12);</code></pre>
    *
+   * @param value {@link com.google.common.collect.Range} expected upper bound value.
    * @return this {@link RangeAssert} for assertions chaining.
    * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is not empty.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @param value {@link com.google.common.collect.Range} expected upper bound value.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have upper endpoint equal to
+   *           the given values.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have upper endpoint equal to
+   *           the given values.
    */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/error/RangeShouldHaveLowerEndpointEqual.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheUpperBound.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is not empty.
-   */
-  public RangeAssert<T> isEmpty() throws AssertionError {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.Range} contains the given values.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * assertThat(range).contains(10, 11, 12);</code></pre>
-   *
-   * @param values the values to look for in actual {@link com.google.common.collect.Range}.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @param values the values to look for in actual {@link com.google.common.collect.Range}.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not contain the given values.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not contain the given values.
-   */
-  public RangeAssert<T> contains(@SuppressWarnings("unchecked") final T... values) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.Range} upper bound is closed.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   *
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} upper bound is opened.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} upper bound is opened.
-   */
-  public RangeAssert<T> hasClosedUpperBound() throws AssertionError {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.Range} does not contain the given values.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * assertThat(range).doesNotContain(13);</code></pre>
-   *
-   * @param values the values that should not be present in actual {@link com.google.common.collect.Range}.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @param values the values that should not be present in actual {@link com.google.common.collect.Range}.
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} contains the given values.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeAssert} for assertions chaining.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} contains the given values.
-   */
-  public RangeAssert<T> doesNotContain(@SuppressWarnings("unchecked") final T... values) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -578,7 +350,7 @@ in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.Range} upper endpoint is equal to the given value.<br>
+   * Verifies that the actual {@link com.google.common.collect.Range} lower endpoint is equal to the given value.<br>
    * <p>
    * Example :
 ```
@@ -588,9 +360,9 @@ Qualifier `com.google.common.collect` is unnecessary and can be removed
 in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
-   * assertThat(range).hasUpperEndpointEqualTo(12);</code></pre>
+   * assertThat(range).hasLowerEndpointEqualTo(10);</code></pre>
    *
-   * @param value {@link com.google.common.collect.Range} expected upper bound value.
+   * @param value {@link com.google.common.collect.Range} expected lower bound value.
    * @return this {@link RangeAssert} for assertions chaining.
    * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
 ```
@@ -600,10 +372,10 @@ Qualifier `com.google.common.collect` is unnecessary and can be removed
 in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
-   * @param value {@link com.google.common.collect.Range} expected upper bound value.
+   * @param value {@link com.google.common.collect.Range} expected lower bound value.
    * @return this {@link RangeAssert} for assertions chaining.
    * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have upper endpoint equal to
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have lower endpoint equal to
    *           the given values.
 ```
 
@@ -614,9 +386,177 @@ in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 ```java
    * @return this {@link RangeAssert} for assertions chaining.
    * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have upper endpoint equal to
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not have lower endpoint equal to
    *           the given values.
    */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.Range} upper bound is closed.<br>
+   * <p>
+   * Example :
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   *
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} upper bound is opened.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} upper bound is opened.
+   */
+  public RangeAssert<T> hasClosedUpperBound() throws AssertionError {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.Range} contains the given values.<br>
+   * <p>
+   * Example :
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * assertThat(range).contains(10, 11, 12);</code></pre>
+   *
+   * @param values the values to look for in actual {@link com.google.common.collect.Range}.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @param values the values to look for in actual {@link com.google.common.collect.Range}.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not contain the given values.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} does not contain the given values.
+   */
+  public RangeAssert<T> contains(@SuppressWarnings("unchecked") final T... values) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.Range} does not contain the given values.<br>
+   * <p>
+   * Example :
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * assertThat(range).doesNotContain(13);</code></pre>
+   *
+   * @param values the values that should not be present in actual {@link com.google.common.collect.Range}.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @param values the values that should not be present in actual {@link com.google.common.collect.Range}.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} contains the given values.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} contains the given values.
+   */
+  public RangeAssert<T> doesNotContain(@SuppressWarnings("unchecked") final T... values) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.Range} is empty.<br>
+   * <p>
+   * Example :
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   *
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is not empty.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is not empty.
+   */
+  public RangeAssert<T> isEmpty() throws AssertionError {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -657,182 +597,86 @@ in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given entries.<br>
-   * <p>
-   * Example :
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.data` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * spectralColors.put(Range.closedOpen(620, 750), "red");
-   *
-   * // entry can be statically imported from {@link org.assertj.core.data.MapEntry}
-   * assertThat(spectralColors).contains(entry("400", "violet"), entry("650", "red"));</code></pre>
-   *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * <p>
-   *
-   * @param entries the entries to look for in actual {@link com.google.common.collect.RangeMap}.
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param entries have been set.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param entries have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if no param entries have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
-   */
-  @SafeVarargs
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
-   *
-   * <p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
-   */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
-   */
-  public RangeMapAssert<K, V> isNotEmpty() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for guava {@link com.google.common.collect.RangeMap}.
- * <p>
- * To create an instance of this class, invoke <code>{@link
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.guava.api` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
- * <p>
- * To create an instance of this class, invoke <code>{@link
- * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
- * <p>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
- * <p>
- * To create an instance of this class, invoke <code>{@link
- * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
- * <p>
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given keys.<br>
+   * Verifies that the actual {@link com.google.common.collect.Range} lower bound is opened.<br>
    * <p>
    * Example :
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
-   * <p>
    *
-   * @param keys the keys to look for in actual {@link com.google.common.collect.RangeMap}.
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param keys have been set.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param keys have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} lower bound is closed.
    */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `com.google.common.collect` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/RangeAssert.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if no param keys have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   * @return this {@link RangeAssert} for assertions chaining.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.Range} lower bound is closed.
    */
-  public RangeMapAssert<K, V> containsKeys(@SuppressWarnings("unchecked") K... keys) {
+  public RangeAssert<T> hasOpenedLowerBound() throws AssertionError {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/error/RangeShouldHaveLowerEndpointEqual.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheUpperBound.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/error/RangeShouldBeClosedInTheUpperBound.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.error` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/error/RangeShouldHaveUpperEndpointEqual.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -968,54 +812,186 @@ in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/error/RangeShouldHaveUpperEndpointEqual.java`
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given keys.<br>
+   * <p>
+   * Example :
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.assertj.core.error` is unnecessary and can be removed
-in `src/main/java/org/assertj/guava/error/RangeShouldBeClosedInTheUpperBound.java`
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * <p>
+   *
+   * @param keys the keys to look for in actual {@link com.google.common.collect.RangeMap}.
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param keys have been set.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param keys have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if no param keys have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   */
+  public RangeMapAssert<K, V> containsKeys(@SuppressWarnings("unchecked") K... keys) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for guava {@link com.google.common.collect.RangeMap}.
+ * <p>
+ * To create an instance of this class, invoke <code>{@link
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.guava.api` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+ * <p>
+ * To create an instance of this class, invoke <code>{@link
+ * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
+ * <p>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+ * <p>
+ * To create an instance of this class, invoke <code>{@link
+ * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
+ * <p>
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
    *
-   * @param format the format string.
+   * <p>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
+   */
+  public RangeMapAssert<K, V> isNotEmpty() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given entries.<br>
+   * <p>
+   * Example :
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.assertj.core.data` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * spectralColors.put(Range.closedOpen(620, 750), "red");
+   *
+   * // entry can be statically imported from {@link org.assertj.core.data.MapEntry}
+   * assertThat(spectralColors).contains(entry("400", "violet"), entry("650", "red"));</code></pre>
+   *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * <p>
+   *
+   * @param entries the entries to look for in actual {@link com.google.common.collect.RangeMap}.
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param entries have been set.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param entries have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
+   */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `com.google.common.collect` is unnecessary and can be removed
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if no param entries have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
+   */
+  @SafeVarargs
 ```
 
 ## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/assertj/guava/api/Assertions.java`
-#### Snippet
-```java
-  }
-
-  public static <T> MultisetAssert<T> assertThat(final Multiset<T> actual) {
-    return new MultisetAssert<>(actual);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `src/main/java/org/assertj/guava/api/Assertions.java`
-#### Snippet
-```java
-  }
-
-  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
-    return new RangeSetAssert<>(actual);
-  }
-```
-
 ### BoundedWildcard
 Can generalize to `? super K`
 in `src/main/java/org/assertj/guava/api/Assertions.java`
@@ -1041,6 +1017,42 @@ in `src/main/java/org/assertj/guava/api/Assertions.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `src/main/java/org/assertj/guava/api/Assertions.java`
+#### Snippet
+```java
+  }
+
+  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
+    return new RangeSetAssert<>(actual);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/assertj/guava/api/Assertions.java`
+#### Snippet
+```java
+  }
+
+  public static <T> MultisetAssert<T> assertThat(final Multiset<T> actual) {
+    return new MultisetAssert<>(actual);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  }
+
+  private void assertContainsAll(Iterable<T> values) {
+    requireNonNull(values, shouldNotBeNull("values")::create);
+    if (actual.isEmpty() && !values.iterator().hasNext()) return;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
@@ -1060,18 +1072,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
   }
 
   private void assertContainsAnyRangesOf(Iterable<T> values) {
-    requireNonNull(values, shouldNotBeNull("values")::create);
-    if (actual.isEmpty() && !values.iterator().hasNext()) return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  }
-
-  private void assertContainsAll(Iterable<T> values) {
     requireNonNull(values, shouldNotBeNull("values")::create);
     if (actual.isEmpty() && !values.iterator().hasNext()) return;
 ```
@@ -1103,26 +1103,14 @@ public class RangeSetShouldIntersect extends BasicErrorMessageFactory {
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeMap'
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
-
-  protected RangeMapAssert(final RangeMap<K, V> actual) {
-    super(actual, RangeMapAssert.class);
-  }
-```
-
-### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeMap'
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-
-  // visible for test
-  protected RangeMap<K, V> getActual() {
-    return actual;
-  }
+   */
+  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
+  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
+                                                                                                       Class<V> valueType) {
+    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1139,25 +1127,25 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeMap'
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
-   */
-  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
-  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
-                                                                                                       Class<V> valueType) {
-    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
+
+  // visible for test
+  protected RangeMap<K, V> getActual() {
+    return actual;
+  }
 ```
 
 ### UnstableTypeUsedInSignature
-Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeSet'
-in `src/main/java/org/assertj/guava/api/Assertions.java`
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeMap'
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
-  }
+public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
 
-  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
-    return new RangeSetAssert<>(actual);
+  protected RangeMapAssert(final RangeMap<K, V> actual) {
+    super(actual, RangeMapAssert.class);
   }
 ```
 
@@ -1175,14 +1163,14 @@ in `src/main/java/org/assertj/guava/api/Assertions.java`
 
 ### UnstableTypeUsedInSignature
 Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeSet'
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+in `src/main/java/org/assertj/guava/api/Assertions.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if range set is empty while actual is not empty.
-   */
-  public RangeSetAssert<T> intersectsAnyRangesOf(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertIntersectsAnyRangesOf(rangeSet);
+  }
+
+  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
+    return new RangeSetAssert<>(actual);
+  }
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1190,11 +1178,11 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if range set is empty.
+   * @throws IllegalArgumentException if range set is empty while actual is not empty.
    */
-  public RangeSetAssert<T> doesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
     isNotNull();
-    assertDoesNotIntersectAnyRangeFrom(rangeSet);
+    assertEnclosesAll(rangeSet);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1216,9 +1204,9 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```java
    * @throws IllegalArgumentException if range set is empty while actual is not empty.
    */
-  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
     isNotNull();
-    assertEnclosesAll(rangeSet);
+    assertIntersectsAll(rangeSet);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1226,11 +1214,11 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   * @throws IllegalArgumentException if range set is empty.
    */
-  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> doesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
     isNotNull();
-    assertIntersectsAll(rangeSet);
+    assertDoesNotIntersectAnyRangeFrom(rangeSet);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1243,6 +1231,18 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
   public RangeSetAssert<T> enclosesAnyRangesOf(RangeSet<T> rangeSet) {
     isNotNull();
     assertEnclosesAnyRangesOf(rangeSet);
+```
+
+### UnstableTypeUsedInSignature
+Method must be marked with '@com.google.common.annotations.Beta' annotation because its signature references unstable type 'com.google.common.collect.RangeSet'
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   */
+  public RangeSetAssert<T> intersectsAnyRangesOf(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertIntersectsAnyRangesOf(rangeSet);
 ```
 
 ### UnstableTypeUsedInSignature
@@ -1421,11 +1421,11 @@ in `src/main/java/org/assertj/guava/api/TableAssert.java`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 #### Snippet
 ```java
-   * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
-   *
-   * @param actual actual {@link com.google.common.collect.RangeSet}.
-   * @param expected expected range to intersect.
-   */
+public class RangeSetShouldIntersectAnyOf extends BasicErrorMessageFactory {
+
+  public static ErrorMessageFactory shouldIntersectAnyOf(RangeSet<?> actual, Object expected) {
+    return new RangeSetShouldIntersectAnyOf(actual, expected);
+  }
 ```
 
 ### UnstableApiUsage
@@ -1433,11 +1433,11 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 #### Snippet
 ```java
-public class RangeSetShouldIntersectAnyOf extends BasicErrorMessageFactory {
-
-  public static ErrorMessageFactory shouldIntersectAnyOf(RangeSet<?> actual, Object expected) {
-    return new RangeSetShouldIntersectAnyOf(actual, expected);
-  }
+   * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
+   *
+   * @param actual actual {@link com.google.common.collect.RangeSet}.
+   * @param expected expected range to intersect.
+   */
 ```
 
 ### UnstableApiUsage
@@ -1550,218 +1550,74 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldEnclose.java`
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given entries.<br>
-   * <p>
-   * Example :
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * <p>
+   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
    *
-   * @param entries the entries to look for in actual {@link com.google.common.collect.RangeMap}.
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param entries have been set.
+   * @param <K>       the {@code RangeMap} key type.
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param entries have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
    */
+  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
+  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
+                                                                                                       Class<V> valueType) {
+    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if no param entries have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
-   */
-  @SafeVarargs
+  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
+                                                                                                       Class<V> valueType) {
+    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
+  }
+
 ```
 
 ### UnstableApiUsage
-'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-    List<MapEntry<K, V>> entriesNotFound = newArrayList();
-    for (MapEntry<K, V> entry : entries) {
-      final V value = actual.get(entry.key);
-      if (value == null || !value.equals(entry.value)) {
-        entriesNotFound.add(entry);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
+   * {@link InstanceOfAssertFactory} for a {@link RangeSet}.
    *
-   * <p>
+   * @param comparableType the comparable type instance.
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
    */
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
-   */
-  public RangeMapAssert<K, V> isNotEmpty() {
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-  public RangeMapAssert<K, V> isNotEmpty() {
-    isNotNull();
-    if (actual.asMapOfRanges().isEmpty()) {
-      throw assertionError(shouldNotBeEmpty());
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertions for guava {@link com.google.common.collect.RangeMap}.
- * <p>
- * To create an instance of this class, invoke <code>{@link
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
- * <p>
- * To create an instance of this class, invoke <code>{@link
- * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
- * <p>
- *
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
- * @author Marcin Kwaczyński
- */
-public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
-
-  protected RangeMapAssert(final RangeMap<K, V> actual) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
-
-  protected RangeMapAssert(final RangeMap<K, V> actual) {
-    super(actual, RangeMapAssert.class);
+  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
+  static <T extends Comparable<T>> InstanceOfAssertFactory<RangeSet, RangeSetAssert<T>> rangeSet(Class<T> comparableType) {
+    return new InstanceOfAssertFactory<>(RangeSet.class, Assertions::<T> assertThat);
   }
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
+  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
+  static <T extends Comparable<T>> InstanceOfAssertFactory<RangeSet, RangeSetAssert<T>> rangeSet(Class<T> comparableType) {
+    return new InstanceOfAssertFactory<>(RangeSet.class, Assertions::<T> assertThat);
+  }
 
-  /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given keys.<br>
-   * <p>
-   * Example :
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * <p>
-   *
-   * @param keys the keys to look for in actual {@link com.google.common.collect.RangeMap}.
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param keys have been set.
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   * @throws IllegalArgumentException if no param keys have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
-   */
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if no param keys have been set.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
-   */
-  public RangeMapAssert<K, V> containsKeys(@SuppressWarnings("unchecked") K... keys) {
-```
-
-### UnstableApiUsage
-'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
-#### Snippet
-```java
-    Set<K> keysNotFound = newLinkedHashSet();
-    for (K key : keys) {
-      if (actual.get(key) == null) {
-        keysNotFound.add(key);
-      }
 ```
 
 ### UnstableApiUsage
@@ -1945,87 +1801,219 @@ in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link RangeSet}.
-   *
-   * @param comparableType the comparable type instance.
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
-  static <T extends Comparable<T>> InstanceOfAssertFactory<RangeSet, RangeSetAssert<T>> rangeSet(Class<T> comparableType) {
-    return new InstanceOfAssertFactory<>(RangeSet.class, Assertions::<T> assertThat);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
-#### Snippet
-```java
-  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
-  static <T extends Comparable<T>> InstanceOfAssertFactory<RangeSet, RangeSetAssert<T>> rangeSet(Class<T> comparableType) {
-    return new InstanceOfAssertFactory<>(RangeSet.class, Assertions::<T> assertThat);
-  }
-
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given keys.<br>
+   * <p>
+   * Example :
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * <p>
+   *
+   * @param keys the keys to look for in actual {@link com.google.common.collect.RangeMap}.
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param keys have been set.
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param keys have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   */
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if no param keys have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given keys.
+   */
+  public RangeMapAssert<K, V> containsKeys(@SuppressWarnings("unchecked") K... keys) {
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+    Set<K> keysNotFound = newLinkedHashSet();
+    for (K key : keys) {
+      if (actual.get(key) == null) {
+        keysNotFound.add(key);
+      }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertions for guava {@link com.google.common.collect.RangeMap}.
+ * <p>
+ * To create an instance of this class, invoke <code>{@link
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+ * <p>
+ * To create an instance of this class, invoke <code>{@link
+ * org.assertj.guava.api.Assertions#assertThat(com.google.common.collect.RangeMap)}</code>
+ * <p>
+ *
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+ * @author Marcin Kwaczyński
+ */
+public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
+
+  protected RangeMapAssert(final RangeMap<K, V> actual) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
+
+  protected RangeMapAssert(final RangeMap<K, V> actual) {
+    super(actual, RangeMapAssert.class);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
    *
-   * @param <K>       the {@code RangeMap} key type.
+   * <p>
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
    */
-  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
-  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
-                                                                                                       Class<V> valueType) {
-    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
-  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
-                                                                                                       Class<V> valueType) {
-    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
-  }
-
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
+   */
+  public RangeMapAssert<K, V> isNotEmpty() {
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/Assertions.java`
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
-  }
+  public RangeMapAssert<K, V> isNotEmpty() {
+    isNotNull();
+    if (actual.asMapOfRanges().isEmpty()) {
+      throw assertionError(shouldNotBeEmpty());
+    }
+```
 
-  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
-    return new RangeSetAssert<>(actual);
-  }
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given entries.<br>
+   * <p>
+   * Example :
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * <p>
+   *
+   * @param entries the entries to look for in actual {@link com.google.common.collect.RangeMap}.
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param entries have been set.
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   * @throws IllegalArgumentException if no param entries have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
+   */
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if no param entries have been set.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} does not contain the given entries.
+   */
+  @SafeVarargs
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+    List<MapEntry<K, V>> entriesNotFound = newArrayList();
+    for (MapEntry<K, V> entry : entries) {
+      final V value = actual.get(entry.key);
+      if (value == null || !value.equals(entry.value)) {
+        entriesNotFound.add(entry);
 ```
 
 ### UnstableApiUsage
@@ -2042,14 +2030,206 @@ in `src/main/java/org/assertj/guava/api/Assertions.java`
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/Assertions.java`
+#### Snippet
+```java
+  }
+
+  public static <T extends Comparable<T>> RangeSetAssert<T> assertThat(final RangeSet<T> actual) {
+    return new RangeSetAssert<>(actual);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+/**
+ * Assertion for guava {@link RangeSet}.
+ * <p>
+ * To create an instance of this class, invoke <code>{@link Assertions#assertThat(RangeSet)}</code>.
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+ * Assertion for guava {@link RangeSet}.
+ * <p>
+ * To create an instance of this class, invoke <code>{@link Assertions#assertThat(RangeSet)}</code>.
+ * <p>
+ *
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+ * @author Ilya Koshaleu
+ */
+public class RangeSetAssert<T extends Comparable<T>> extends AbstractAssert<RangeSetAssert<T>, RangeSet<T>> {
+
+  protected RangeSetAssert(RangeSet<T> actual) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private void assertEnclosesAll(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAll(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAll(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
    * @throws IllegalArgumentException if range set is empty while actual is not empty.
    */
-  public RangeSetAssert<T> intersectsAnyRangesOf(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
     isNotNull();
-    assertIntersectsAnyRangesOf(rangeSet);
+    assertIntersectsAll(rangeSet);
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if range set is empty.
+   */
+  public RangeSetAssert<T> doesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertDoesNotIntersectAnyRangeFrom(rangeSet);
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private void assertDoesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+    assertRangeSetDoesNotEncloseGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  }
+
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertIntersectsAnyRangesOf(Iterable<Range<T>> ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetIntersectsAnyOfGivenValues(toArray(ranges, Range.class));
 ```
 
 ### UnstableApiUsage
@@ -2077,78 +2257,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-public class RangeSetAssert<T extends Comparable<T>> extends AbstractAssert<RangeSetAssert<T>, RangeSet<T>> {
-
-  protected RangeSetAssert(RangeSet<T> actual) {
-    super(actual, RangeSetAssert.class);
-  }
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertContainsAll(Iterable<T> values) {
-    requireNonNull(values, shouldNotBeNull("values")::create);
-    if (actual.isEmpty() && !values.iterator().hasNext()) return;
-    failIfEmpty(values, "values");
-    assertRangeSetContainsGivenValues(actual, toArray(values, Comparable.class));
-```
-
-### UnstableApiUsage
-'intersects(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private void assertRangeSetDoesNotIntersectGivenValues(Range<T>[] ranges) {
-    List<?> intersected = stream(ranges).filter(actual::intersects).collect(toList());
-    if (!intersected.isEmpty()) throwAssertionError(shouldNotIntersect(actual, ranges, intersected));
-  }
-```
-
-### UnstableApiUsage
-'intersects(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private void assertRangeSetIntersectsAnyOfGivenValues(Range<T>[] ranges) {
-    boolean intersects = stream(ranges).anyMatch(actual::intersects);
-    if (!intersects) throwAssertionError(shouldIntersectAnyOf(actual, ranges));
-  }
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private void assertEmpty() {
-    if (!actual.isEmpty()) throwAssertionError(shouldBeEmpty(actual));
-  }
-
-```
-
-### UnstableApiUsage
-'encloses(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private void assertRangeSetDoesNotEncloseGivenValues(Range<T>[] ranges) {
-    List<?> enclosed = stream(ranges).filter(actual::encloses).collect(toList());
-    if (!enclosed.isEmpty()) throwAssertionError(shouldNotEnclose(actual, ranges, enclosed));
-  }
-```
-
-### UnstableApiUsage
 'encloses(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
@@ -2158,6 +2266,30 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
     boolean match = stream(ranges).anyMatch(actual::encloses);
     if (!match) throwAssertionError(shouldEncloseAnyOf(actual, ranges));
   }
+```
+
+### UnstableApiUsage
+'encloses(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertRangeSetEnclosesGivenValues(Range<T>[] ranges) {
+    List<?> notEnclosed = stream(ranges).filter(range -> !actual.encloses(range)).collect(toList());
+    if (!notEnclosed.isEmpty()) throwAssertionError(shouldEnclose(actual, ranges, notEnclosed));
+  }
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertNotEmpty() {
+    if (actual.isEmpty()) throwAssertionError(shouldNotBeEmpty());
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -2213,11 +2345,23 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
+  private void assertIntersectsAll(Iterable<Range<T>> ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetIntersectsGivenValues(toArray(ranges, Range.class));
+```
 
-  private void assertNotEmpty() {
-    if (actual.isEmpty()) throwAssertionError(shouldNotBeEmpty());
-  }
-
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertContains(T[] values) {
+    requireNonNull(values, shouldNotBeNull("values")::create);
+    if (actual.isEmpty() && values.length == 0) return;
+    failIfEmpty(values, "values");
+    assertRangeSetContainsGivenValues(actual, values);
 ```
 
 ### UnstableApiUsage
@@ -2269,54 +2413,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```
 
 ### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertEncloses(Range<T>[] ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && ranges.length == 0) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetEnclosesGivenValues(ranges);
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertIntersectsAnyRangesOf(Iterable<Range<T>> ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetIntersectsAnyOfGivenValues(toArray(ranges, Range.class));
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertIntersects(Range<T>[] ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && ranges.length == 0) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetIntersectsGivenValues(ranges);
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertIntersectsAll(Iterable<Range<T>> ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetIntersectsGivenValues(toArray(ranges, Range.class));
-```
-
-### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
@@ -2345,11 +2441,11 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
+  }
 
-  @SuppressWarnings("unchecked")
-  private void assertEnclosesAll(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+  private static <T> void failIfEmpty(RangeSet<?> rangeSet) {
+    if (rangeSet.isEmpty()) throw new IllegalArgumentException("Expecting rangeSet not to be empty");
+  }
 ```
 
 ### UnstableApiUsage
@@ -2357,33 +2453,9 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-  private void assertEnclosesAll(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
 
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertEnclosesAll(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  private static <T> void failIfEmpty(RangeSet<?> rangeSet) {
+    if (rangeSet.isEmpty()) throw new IllegalArgumentException("Expecting rangeSet not to be empty");
   }
 
 ```
@@ -2393,11 +2465,59 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
+   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   */
+  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertEnclosesAll(rangeSet);
+```
 
-  @SuppressWarnings("unchecked")
-  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+### UnstableApiUsage
+'intersects(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertRangeSetIntersectsAnyOfGivenValues(Range<T>[] ranges) {
+    boolean intersects = stream(ranges).anyMatch(actual::intersects);
+    if (!intersects) throwAssertionError(shouldIntersectAnyOf(actual, ranges));
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private void assertRangeSetContainsGivenValues(RangeSet actual, Comparable[] values) {
+    List<?> elementsNotFound = stream(values).filter(value -> !actual.contains(value)).collect(toList());
+    if (!elementsNotFound.isEmpty()) throwAssertionError(shouldContain(actual, values, elementsNotFound));
+```
+
+### UnstableApiUsage
+'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private void assertRangeSetContainsGivenValues(RangeSet actual, Comparable[] values) {
+    List<?> elementsNotFound = stream(values).filter(value -> !actual.contains(value)).collect(toList());
+    if (!elementsNotFound.isEmpty()) throwAssertionError(shouldContain(actual, values, elementsNotFound));
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+public class RangeSetAssert<T extends Comparable<T>> extends AbstractAssert<RangeSetAssert<T>, RangeSet<T>> {
+
+  protected RangeSetAssert(RangeSet<T> actual) {
+    super(actual, RangeSetAssert.class);
+  }
 ```
 
 ### UnstableApiUsage
@@ -2405,47 +2525,11 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
 
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  private void assertNullOrEmpty() {
+    if (actual != null && !actual.isEmpty()) throwAssertionError(shouldBeNullOrEmpty(actual));
   }
 
-```
-
-### UnstableApiUsage
-'encloses(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private void assertRangeSetEnclosesGivenValues(Range<T>[] ranges) {
-    List<?> notEnclosed = stream(ranges).filter(range -> !actual.encloses(range)).collect(toList());
-    if (!notEnclosed.isEmpty()) throwAssertionError(shouldEnclose(actual, ranges, notEnclosed));
-  }
 ```
 
 ### UnstableApiUsage
@@ -2477,138 +2561,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-
-  private void assertNullOrEmpty() {
-    if (actual != null && !actual.isEmpty()) throwAssertionError(shouldBeNullOrEmpty(actual));
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if range set is empty.
-   */
-  public RangeSetAssert<T> doesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertDoesNotIntersectAnyRangeFrom(rangeSet);
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertContains(T[] values) {
-    requireNonNull(values, shouldNotBeNull("values")::create);
-    if (actual.isEmpty() && values.length == 0) return;
-    failIfEmpty(values, "values");
-    assertRangeSetContainsGivenValues(actual, values);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  }
-
-  private static <T> void failIfEmpty(RangeSet<?> rangeSet) {
-    if (rangeSet.isEmpty()) throw new IllegalArgumentException("Expecting rangeSet not to be empty");
-  }
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  private static <T> void failIfEmpty(RangeSet<?> rangeSet) {
-    if (rangeSet.isEmpty()) throw new IllegalArgumentException("Expecting rangeSet not to be empty");
-  }
-
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertIntersectsAnyOf(Range<T>[] ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && ranges.length == 0) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetIntersectsAnyOfGivenValues(ranges);
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertEnclosesAll(Iterable<Range<T>> ranges) {
-    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
-    failIfEmpty(ranges, "ranges");
-    assertRangeSetEnclosesGivenValues(toArray(ranges, Range.class));
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if range set is empty while actual is not empty.
-   */
-  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertIntersectsAll(rangeSet);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-/**
- * Assertion for guava {@link RangeSet}.
- * <p>
- * To create an instance of this class, invoke <code>{@link Assertions#assertThat(RangeSet)}</code>.
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
- * Assertion for guava {@link RangeSet}.
- * <p>
- * To create an instance of this class, invoke <code>{@link Assertions#assertThat(RangeSet)}</code>.
- * <p>
- *
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
- * @author Ilya Koshaleu
- */
-public class RangeSetAssert<T extends Comparable<T>> extends AbstractAssert<RangeSetAssert<T>, RangeSet<T>> {
-
-  protected RangeSetAssert(RangeSet<T> actual) {
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
   private void assertEnclosesAnyRangesOf(Iterable<Range<T>> ranges) {
     requireNonNull(ranges, shouldNotBeNull("ranges")::create);
     if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
@@ -2621,47 +2573,11 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-  private void assertEnclosesAnyOf(Range<T>[] ranges) {
+  private void assertEnclosesAll(Iterable<Range<T>> ranges) {
     requireNonNull(ranges, shouldNotBeNull("ranges")::create);
-    if (actual.isEmpty() && ranges.length == 0) return;
+    if (actual.isEmpty() && !ranges.iterator().hasNext()) return;
     failIfEmpty(ranges, "ranges");
-    assertRangeSetEnclosesAnyOfGivenValues(ranges);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private void assertDoesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    failIfEmpty(rangeSet);
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    failIfEmpty(rangeSet);
-    assertRangeSetDoesNotEncloseGivenValues(toArray(rangeSet.asRanges(), Range.class));
-  }
-
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertContainsAnyRangesOf(Iterable<T> values) {
-    requireNonNull(values, shouldNotBeNull("values")::create);
-    if (actual.isEmpty() && !values.iterator().hasNext()) return;
-    failIfEmpty(values, "values");
-    assertRangeSetContainsAnyGivenValues(actual, toArray(values, Comparable.class));
+    assertRangeSetEnclosesGivenValues(toArray(ranges, Range.class));
 ```
 
 ### UnstableApiUsage
@@ -2681,47 +2597,11 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   * @throws IllegalArgumentException if range set is empty.
    */
-  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> doesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
     isNotNull();
-    assertEnclosesAll(rangeSet);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  private void assertRangeSetContainsGivenValues(RangeSet actual, Comparable[] values) {
-    List<?> elementsNotFound = stream(values).filter(value -> !actual.contains(value)).collect(toList());
-    if (!elementsNotFound.isEmpty()) throwAssertionError(shouldContain(actual, values, elementsNotFound));
-```
-
-### UnstableApiUsage
-'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  private void assertRangeSetContainsGivenValues(RangeSet actual, Comparable[] values) {
-    List<?> elementsNotFound = stream(values).filter(value -> !actual.contains(value)).collect(toList());
-    if (!elementsNotFound.isEmpty()) throwAssertionError(shouldContain(actual, values, elementsNotFound));
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the given {@link RangeSet} intersects at least one of the given ranges.
-   * <p>
-   * Example:
+    assertDoesNotEncloseAnyRangesOf(rangeSet);
 ```
 
 ### UnstableApiUsage
@@ -2737,18 +2617,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if range set is empty.
-   */
-  public RangeSetAssert<T> doesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertDoesNotEncloseAnyRangesOf(rangeSet);
-```
-
-### UnstableApiUsage
 'intersects(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
@@ -2758,6 +2626,138 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
     List<?> notIntersected = stream(ranges).filter(range -> !actual.intersects(range)).collect(toList());
     if (!notIntersected.isEmpty()) throwAssertionError(shouldIntersect(actual, ranges, notIntersected));
   }
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertEmpty() {
+    if (!actual.isEmpty()) throwAssertionError(shouldBeEmpty(actual));
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the given {@link RangeSet} intersects at least one of the given ranges.
+   * <p>
+   * Example:
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertIntersects(Range<T>[] ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && ranges.length == 0) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetIntersectsGivenValues(ranges);
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEncloses(Range<T>[] ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && ranges.length == 0) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetEnclosesGivenValues(ranges);
+```
+
+### UnstableApiUsage
+'intersects(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertRangeSetDoesNotIntersectGivenValues(Range<T>[] ranges) {
+    List<?> intersected = stream(ranges).filter(actual::intersects).collect(toList());
+    if (!intersected.isEmpty()) throwAssertionError(shouldNotIntersect(actual, ranges, intersected));
+  }
+```
+
+### UnstableApiUsage
+'encloses(com.google.common.collect.Range)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  private void assertRangeSetDoesNotEncloseGivenValues(Range<T>[] ranges) {
+    List<?> enclosed = stream(ranges).filter(actual::encloses).collect(toList());
+    if (!enclosed.isEmpty()) throwAssertionError(shouldNotEnclose(actual, ranges, enclosed));
+  }
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAnyOf(Range<T>[] ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && ranges.length == 0) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetEnclosesAnyOfGivenValues(ranges);
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertIntersectsAnyOf(Range<T>[] ranges) {
+    requireNonNull(ranges, shouldNotBeNull("ranges")::create);
+    if (actual.isEmpty() && ranges.length == 0) return;
+    failIfEmpty(ranges, "ranges");
+    assertRangeSetIntersectsAnyOfGivenValues(ranges);
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertContainsAll(Iterable<T> values) {
+    requireNonNull(values, shouldNotBeNull("values")::create);
+    if (actual.isEmpty() && !values.iterator().hasNext()) return;
+    failIfEmpty(values, "values");
+    assertRangeSetContainsGivenValues(actual, toArray(values, Comparable.class));
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   */
+  public RangeSetAssert<T> intersectsAnyRangesOf(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertIntersectsAnyRangesOf(rangeSet);
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertContainsAnyRangesOf(Iterable<T> values) {
+    requireNonNull(values, shouldNotBeNull("values")::create);
+    if (actual.isEmpty() && !values.iterator().hasNext()) return;
+    failIfEmpty(values, "values");
+    assertRangeSetContainsAnyGivenValues(actual, toArray(values, Comparable.class));
 ```
 
 ### UnstableApiUsage
