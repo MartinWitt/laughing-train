@@ -231,30 +231,6 @@ public abstract class AnalysisResult {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `AnalysisResults` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableAnalysisResults.class)
-public abstract class AnalysisResults {
-    private static final ObjectMapper OBJECT_MAPPER =
-            new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
-#### Snippet
-```java
-@Value.Immutable
-@ImmutableStyle
-abstract class RevapiConfig {
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `PerProjectAcceptedBreaks` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/PerProjectAcceptedBreaks.java`
 #### Snippet
@@ -267,6 +243,18 @@ abstract class PerProjectAcceptedBreaks {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AnalysisResults` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/AnalysisResults.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutableAnalysisResults.class)
+public abstract class AnalysisResults {
+    private static final ObjectMapper OBJECT_MAPPER =
+            new ObjectMapper().enable(JsonReadFeature.ALLOW_TRAILING_COMMA.mappedFeature());
+```
+
+### AbstractClassNeverImplemented
 Abstract class `GradleRevapiConfig` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 #### Snippet
@@ -276,6 +264,18 @@ in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
 public abstract class GradleRevapiConfig {
     @Value.NaturalOrder
     protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `RevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
+#### Snippet
+```java
+@Value.Immutable
+@ImmutableStyle
+abstract class RevapiConfig {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
+
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
