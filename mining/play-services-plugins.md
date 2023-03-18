@@ -8,6 +8,18 @@ I found 10 bad smells with 0 repairable:
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
+in `oss-licenses-plugin/build.gradle`
+#### Snippet
+```java
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `google-services-plugin/build.gradle`
 #### Snippet
 ```java
@@ -32,41 +44,6 @@ project.ext.pomDesc = 'Gradle plug-in to build Firebase applications.'
 
 ### GroovyUnusedAssignment
 Assignment is not used
-in `google-services-plugin/build.gradle`
-#### Snippet
-```java
-apply from: 'publish.gradle'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `google-services-plugin/build.gradle`
-#### Snippet
-```java
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
-in `oss-licenses-plugin/build.gradle`
-#### Snippet
-```java
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `oss-licenses-plugin/build.gradle`
 #### Snippet
 ```java
@@ -79,6 +56,18 @@ dependencies {
 
 ### GroovyUnusedAssignment
 Assignment is not used
+in `google-services-plugin/build.gradle`
+#### Snippet
+```java
+apply from: 'publish.gradle'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
 in `oss-licenses-plugin/build.gradle`
 #### Snippet
 ```java
@@ -86,6 +75,17 @@ in `oss-licenses-plugin/build.gradle`
 
 group = 'com.google.android.gms'
 version = '0.10.6'
+
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `google-services-plugin/build.gradle`
+#### Snippet
+```java
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 ```
 
