@@ -32,24 +32,24 @@ I found 54 bad smells with 9 repairable:
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/gumtree/spoon/builder/jsonsupport/NodePainter.java`
-#### Snippet
-```java
-public interface NodePainter {
-
-	public void paint(Tree tree, JsonObject jsontree);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/gumtree/spoon/diff/Diff.java`
 #### Snippet
 ```java
 	 * returns the mappings between the compared elements
 	 */
 	public MappingStore getMappingsComp();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/gumtree/spoon/builder/jsonsupport/NodePainter.java`
+#### Snippet
+```java
+public interface NodePainter {
+
+	public void paint(Tree tree, JsonObject jsontree);
 }
 
 ```
@@ -121,11 +121,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -133,11 +133,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -269,18 +269,6 @@ in `src/main/java/gumtree/spoon/builder/jsonsupport/OperationNodePainter.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends NodePainter`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-
-	@SuppressWarnings("unused")
-	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
-
-		JsonObject o = new JsonObject();
-```
-
-### BoundedWildcard
 Can generalize to `? extends SourcePosition`
 in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 #### Snippet
@@ -317,15 +305,27 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operation`
+Can generalize to `? extends NodePainter`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	@SuppressWarnings("unused")
+	public JsonObject getJSONwithCustorLabels(TreeContext context, Tree tree, Collection<NodePainter> nodePainters) {
+
+		JsonObject o = new JsonObject();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
 	}
 
-	private String toDebugString(List<Operation> ops) {
-		String result = "";
-		for (Operation operation : ops) {
+	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
+		List<Operation> collect = actions.stream().map(action -> {
+
 ```
 
 ### BoundedWildcard
@@ -365,15 +365,15 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Action`
+Can generalize to `? extends Operation`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
 	}
 
-	private List<Operation> convertToSpoon(List<Action> actions, MappingStore mappings) {
-		List<Operation> collect = actions.stream().map(action -> {
-
+	private String toDebugString(List<Operation> ops) {
+		String result = "";
+		for (Operation operation : ops) {
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
@@ -544,18 +544,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 ## RuleId[id=EqualsAndHashcode]
 ### EqualsAndHashcode
 Class has `equals()` defined but does not define `hashCode()`
-in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
-#### Snippet
-```java
- * 
- */
-public class CtWrapper<L> extends CtElementImpl {
-
-	/**
-```
-
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
 in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 #### Snippet
 ```java
@@ -566,10 +554,22 @@ public class CtVirtualElement extends CtWrapper<String> {
 	protected Collection<?> children;
 ```
 
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
+#### Snippet
+```java
+ * 
+ */
+public class CtWrapper<L> extends CtElementImpl {
+
+	/**
+```
+
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-06-52-44.907.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-17-15-45.195.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -606,18 +606,6 @@ in `src/main/java/gumtree/spoon/builder/CtWrapper.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
-#### Snippet
-```java
-	/** returns the new version of the node (only for update) */
-	public CtElement getDstNode() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/gumtree/spoon/AstComparator.java`
 #### Snippet
 ```java
@@ -625,6 +613,18 @@ in `src/main/java/gumtree/spoon/AstComparator.java`
 		if (factory.Type().getAll().size() == 0) {
 			return null;
 		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
+#### Snippet
+```java
+	/** returns the new version of the node (only for update) */
+	public CtElement getDstNode() {
+		return null;
+	}
 
 ```
 
