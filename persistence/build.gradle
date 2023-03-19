@@ -19,7 +19,6 @@ dependencies {
 
 	implementation project(":application")
 	implementation project(":commons")
-	testImplementation(testFixtures(project(":commons")))
 }
 
 group 'io.github.martinwitt'
