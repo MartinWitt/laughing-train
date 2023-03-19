@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-13-16-10.203.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-17-07-51.504.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -55,18 +55,6 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    checkResolution(childRes);
-
-    long result = h3Api.cellToCenterChild(h3, childRes);
-
-    return result;
-```
-
-### UnnecessaryLocalVariable
 Local variable `out` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -76,6 +64,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
     return out;
   }
+```
+
+### UnnecessaryLocalVariable
+Local variable `result` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    checkResolution(childRes);
+
+    long result = h3Api.cellToCenterChild(h3, childRes);
+
+    return result;
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -116,19 +116,6 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
-```
-
 ## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
@@ -152,6 +139,19 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
   static final String detectArch(String osArch) {
     if (osArch.equals("amd64") || osArch.equals("x86_64")) {
       return ARCH_X64;
+```
+
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
 ```
 
 ## RuleId[id=BoundedWildcard]
