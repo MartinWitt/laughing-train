@@ -7,8 +7,8 @@ I found 16 bad smells with 2 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 7 | false |
 | AbstractClassNeverImplemented | 2 | false |
 | EmptyMethod | 1 | false |
-| ReturnNull | 1 | false |
 | RegExpSimplifiable | 1 | false |
+| ReturnNull | 1 | false |
 | CallToStringConcatCanBeReplacedByOperator | 1 | false |
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
@@ -26,19 +26,6 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/api/PostmanI
     @JsonProperty
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-            public JsonNode visitUnion(UnionDefinition value) {
-                if (value.getUnion().isEmpty()) {
-                    return null;
-                } else {
-                    if (seenTypeStack.contains(value.getTypeName())) {
-```
-
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[\"]` can be simplified to '"'
@@ -50,6 +37,19 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
             key = keyTemplate.toString().replaceAll("[\"]", "");
         }
         return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+```
+
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
+            public JsonNode visitUnion(UnionDefinition value) {
+                if (value.getUnion().isEmpty()) {
+                    return null;
+                } else {
+                    if (seenTypeStack.contains(value.getTypeName())) {
 ```
 
 ## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
@@ -132,11 +132,11 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanReque
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
 #### Snippet
 ```java
-        String key = "{{KEY}}";
-        if (keyTemplate instanceof TextNode) {
-            key = keyTemplate.toString().replaceAll("[\"]", "");
+        if (wrapped instanceof TextNode) {
+            return new TextNode(
+                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
         }
-        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
+        return wrapped;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -144,11 +144,11 @@ in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/Temp
 in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
 #### Snippet
 ```java
-        if (wrapped instanceof TextNode) {
-            return new TextNode(
-                    String.format("{{ Optional<%s> }}", wrapped.toString().replaceAll("[\"{}]", "")));
+        String key = "{{KEY}}";
+        if (keyTemplate instanceof TextNode) {
+            key = keyTemplate.toString().replaceAll("[\"]", "");
         }
-        return wrapped;
+        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
