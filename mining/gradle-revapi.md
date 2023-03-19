@@ -182,18 +182,6 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiAnalyzeTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
-#### Snippet
-```java
-        private transient T savedValue;
-
-        MemoizingSupplier(Supplier<T> delegate) {
-            this.delegate = delegate;
-        }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Throwable`
 in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
 #### Snippet
@@ -203,6 +191,18 @@ in `src/main/java/com/palantir/gradle/revapi/OldApiConfigurations.java`
         CouldNotResolveOldApiException(Version version, List<Throwable> resolutionFailures) {
             this.version = version;
             this.resolutionFailures = resolutionFailures;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/com/palantir/gradle/revapi/GradleUtils.java`
+#### Snippet
+```java
+        private transient T savedValue;
+
+        MemoizingSupplier(Supplier<T> delegate) {
+            this.delegate = delegate;
+        }
 ```
 
 ### BoundedWildcard
@@ -255,18 +255,6 @@ public abstract class AnalysisResults {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleRevapiConfig` has no concrete subclass
-in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
-#### Snippet
-```java
-@ImmutableStyle
-@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
-public abstract class GradleRevapiConfig {
-    @Value.NaturalOrder
-    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `RevapiConfig` has no concrete subclass
 in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
 #### Snippet
@@ -276,6 +264,18 @@ in `src/main/java/com/palantir/gradle/revapi/RevapiConfig.java`
 abstract class RevapiConfig {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().registerModule(new Jdk8Module());
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GradleRevapiConfig` has no concrete subclass
+in `src/main/java/com/palantir/gradle/revapi/config/GradleRevapiConfig.java`
+#### Snippet
+```java
+@ImmutableStyle
+@JsonDeserialize(as = ImmutableGradleRevapiConfig.class)
+public abstract class GradleRevapiConfig {
+    @Value.NaturalOrder
+    protected abstract SortedMap<GroupNameVersion, String> versionOverrides();
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
