@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
+import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
@@ -58,13 +59,6 @@ public class ChangelogPrinter {
                         "## " + v.getName().asText() + "\n")
                 .append(v.getDescription().asMarkdown())
                 .append("\n"));
-        for (var fix : changes) {
-            if (fix.getAnalyzerResult() != null) {
-                sb.append("<!-- fingerprint:")
-                        .append(fix.getAnalyzerResult().hashCode())
-                        .append(" -->\n");
-            }
-        }
         return sb.toString();
     }
 
@@ -150,5 +144,13 @@ public class ChangelogPrinter {
     private String generateTableLine(Set<RuleId> ruleIds, Entry<RuleId, ? extends List<AnalyzerResult>> result) {
         return "| " + result.getKey() + " | " + result.getValue().size() + " | "
                 + result.getValue().stream().anyMatch(v -> ruleIds.contains(v.ruleID())) + " |\n";
+    }
+
+    public String printBadSmellFingerPrints(List<? extends BadSmell> badSmells) {
+        StringBuilder sb = new StringBuilder();
+        for (BadSmell badSmell : badSmells) {
+            sb.append("<!-- fingerprint:").append(badSmell.getIdentifier()).append(" -->\n");
+        }
+        return sb.toString();
     }
 }
