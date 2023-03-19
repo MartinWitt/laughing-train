@@ -350,18 +350,6 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `TcsConfig` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
-#### Snippet
-```java
-/** Data models for TCS server configs. */
-@AutoValue
-public abstract class TcsConfig {
-  public abstract CommonConfig commonConfig();
-  public abstract StorageConfig storageConfig();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `CommonConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/CommonConfig.java`
 #### Snippet
@@ -371,6 +359,18 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/CommonC
 public abstract class CommonConfig {
   public abstract String domain();
   public abstract String externalIp();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TcsConfig` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
+#### Snippet
+```java
+/** Data models for TCS server configs. */
+@AutoValue
+public abstract class TcsConfig {
+  public abstract CommonConfig commonConfig();
+  public abstract StorageConfig storageConfig();
 ```
 
 ### AbstractClassNeverImplemented
@@ -434,18 +434,6 @@ public abstract class DnsRecordingServerConfig {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `RedisStorageConfig` has no concrete subclass
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
-#### Snippet
-```java
-/** Data model for the Redis storage configuration. */
-@AutoValue
-public abstract class RedisStorageConfig {
-  public abstract Duration interactionTtl();
-  public abstract String readEndpointHost();
-```
-
-### AbstractClassNeverImplemented
 Abstract class `RecordingServerConfig` has no concrete subclass
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RecordingServerConfig.java`
 #### Snippet
@@ -457,19 +445,19 @@ public abstract class RecordingServerConfig {
   public abstract Optional<DnsRecordingServerConfig> dnsRecordingServerConfig();
 ```
 
-## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'newReader(java.io.File, java.nio.charset.Charset)' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
+### AbstractClassNeverImplemented
+Abstract class `RedisStorageConfig` has no concrete subclass
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/RedisStorageConfig.java`
 #### Snippet
 ```java
-  public static TcsConfig fromYamlFile(String configFile) throws FileNotFoundException {
-    Yaml yaml = new Yaml(new SafeConstructor());
-    Map<String, Object> rawYamlData = yaml.load(Files.newReader(new File(configFile), UTF_8));
-    return fromRawData(rawYamlData);
-  }
+/** Data model for the Redis storage configuration. */
+@AutoValue
+public abstract class RedisStorageConfig {
+  public abstract Duration interactionTtl();
+  public abstract String readEndpointHost();
 ```
 
+## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `common/src/main/java/com/google/tsunami/callbackserver/common/config/CommonConfig.java`
@@ -495,75 +483,15 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/CommonC
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.InternetDomainName' is marked unstable with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+'newReader(java.io.File, java.nio.charset.Charset)' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
 #### Snippet
 ```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'com.google.common.net.InternetDomainName' is marked unstable with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
+  public static TcsConfig fromYamlFile(String configFile) throws FileNotFoundException {
+    Yaml yaml = new Yaml(new SafeConstructor());
+    Map<String, Object> rawYamlData = yaml.load(Files.newReader(new File(configFile), UTF_8));
+    return fromRawData(rawYamlData);
+  }
 ```
 
 ### UnstableApiUsage
@@ -588,6 +516,78 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
     InetAddress answerIpAddr = InetAddresses.forString(answerIp);
     if (answerIpAddr instanceof Inet4Address) {
       return new DefaultDnsRawRecord(
+```
+
+### UnstableApiUsage
+'com.google.common.net.InternetDomainName' is marked unstable with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'com.google.common.net.InternetDomainName' is marked unstable with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
 ```
 
 ### UnstableApiUsage
