@@ -22,6 +22,18 @@ I found 33 bad smells with 1 repairable:
 in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
 #### Snippet
 ```java
+            String namespace,
+            MetricNamespace metrics,
+            Optional<String> libraryName,
+            String packageName,
+            ImplementationVisibility visibility) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
             String namespaceName,
             String metricName,
             Optional<String> libraryName,
@@ -37,20 +49,8 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
-            MetricNamespace metricNamespace,
             MetricDefinition definition,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            MetricNamespace metrics,
-            Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
+            MetricNamespace metricNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -61,8 +61,8 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             String namespace,
             String metricName,
             Optional<String> libraryName,
+            MetricNamespace metricNamespace,
             MetricDefinition definition,
-            MetricNamespace metricNamespace) {
 ```
 
 ## RuleId[id=IOResource]
@@ -269,18 +269,6 @@ Can generalize to `? extends Directory`
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
 #### Snippet
 ```java
-
-    private static void configureIdea(
-            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
-        project.getPluginManager().withPlugin("idea", _plugin -> {
-            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Directory`
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
-#### Snippet
-```java
     private static void createManifestTask(
             Project project,
             Provider<Directory> metricSchemaDir,
@@ -298,6 +286,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricS
             TaskProvider<CompileMetricSchemaTask> compileSchemaTask) {
         Provider<RegularFile> manifestFile = metricSchemaDir.map(dir -> dir.file("manifest.json"));
         Configuration runtimeClasspath = project.getConfigurations().getByName("runtimeClasspath");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Directory`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/MetricSchemaPlugin.java`
+#### Snippet
+```java
+
+    private static void configureIdea(
+            Project project, TaskProvider<? extends Task> generateMetrics, Provider<Directory> outputDir) {
+        project.getPluginManager().withPlugin("idea", _plugin -> {
+            project.getTasks().named("ideaModule").configure(task -> task.dependsOn(generateMetrics));
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -321,9 +321,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
-        if (!artifact.getFile().exists()) {
-            log.debug("Artifact did not exist: {}", artifact.getFile());
+    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
+        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
+            return Optional.empty();
 ```
 
 ### OptionalContainsCollection
@@ -333,9 +333,9 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CreateM
 ```java
     }
 
-    private static Optional<List<MetricSchema>> inferProjectDependencyMetrics(Project dependencyProject) {
-        if (!dependencyProject.getPlugins().hasPlugin(MetricSchemaPlugin.class)) {
-            return Optional.empty();
+    private static Optional<List<MetricSchema>> getExternalMetrics(ComponentIdentifier id, ResolvedArtifact artifact) {
+        if (!artifact.getFile().exists()) {
+            log.debug("Artifact did not exist: {}", artifact.getFile());
 ```
 
 ## RuleId[id=UnstableApiUsage]
