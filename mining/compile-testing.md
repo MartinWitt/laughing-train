@@ -1,7 +1,7 @@
 # compile-testing 
  
 # Bad smells
-I found 67 bad smells with 15 repairable:
+I found 68 bad smells with 15 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryModifier | 11 | true |
@@ -26,6 +26,7 @@ I found 67 bad smells with 15 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | RedundantImplements | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | TypeParameterExtendsObject | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
@@ -48,11 +49,107 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/google/testing/compile/CompileTester.java`
 #### Snippet
 ```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface GeneratedPredicateClause<T> {
+    /**
+     * Checks that a source file with an equivalent
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface CompilationWithNotesClause<T> {
+    /**
+     * Checks that a note exists that contains the given fragment in the
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the clause type returned by {@link ChainingClause#and()}
+   */
+  public interface ColumnClause<T> extends ChainingClause<T> {
+    @CanIgnoreReturnValue
+    ChainingClause<T> atColumn(long columnNumber);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+
+  /** The clause in the fluent API for further tests on successful compilations. */
+  public interface SuccessfulCompilationClause
+      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
+          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the non-generic clause type implementing this interface
+   */
+  public interface SuccessfulFileClause<T> extends ChainingClause<GeneratedPredicateClause<T>> {
+    /**
+     * Checks that the contents of the generated file match the contents of the specified
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
 
   /** The clause in the fluent API for further tests on unsuccessful compilations. */
   public interface UnsuccessfulCompilationClause
       extends CompilationWithWarningsClause<UnsuccessfulCompilationClause> {
     /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the clause type returned by {@link #and()}
+   */
+  public interface ChainingClause<T> {
+    T and();
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/google/testing/compile/CompileTester.java`
+#### Snippet
+```java
+   * @param T the clause type returned by {@link ChainingClause#and()}
+   */
+  public interface FileClause<T> extends ChainingClause<T> {
+    @CanIgnoreReturnValue
+    LineClause<T> in(JavaFileObject file);
 ```
 
 ### UnnecessaryModifier
@@ -77,102 +174,6 @@ in `src/main/java/com/google/testing/compile/CompileTester.java`
   public interface LineClause<T> extends ChainingClause<T> {
     @CanIgnoreReturnValue
     ColumnClause<T> onLine(long lineNumber);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface CompilationWithNotesClause<T> {
-    /**
-     * Checks that a note exists that contains the given fragment in the
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface SuccessfulFileClause<T> extends ChainingClause<GeneratedPredicateClause<T>> {
-    /**
-     * Checks that the contents of the generated file match the contents of the specified
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-
-  /** The clause in the fluent API for further tests on successful compilations. */
-  public interface SuccessfulCompilationClause
-      extends CompilationWithWarningsClause<SuccessfulCompilationClause>,
-          ChainingClause<GeneratedPredicateClause<SuccessfulCompilationClause>> {}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the clause type returned by {@link ChainingClause#and()}
-   */
-  public interface ColumnClause<T> extends ChainingClause<T> {
-    @CanIgnoreReturnValue
-    ChainingClause<T> atColumn(long columnNumber);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface CompilationWithWarningsClause<T> extends CompilationWithNotesClause<T> {
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the clause type returned by {@link #and()}
-   */
-  public interface ChainingClause<T> {
-    T and();
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the non-generic clause type implementing this interface
-   */
-  public interface GeneratedPredicateClause<T> {
-    /**
-     * Checks that a source file with an equivalent
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/google/testing/compile/CompileTester.java`
-#### Snippet
-```java
-   * @param T the clause type returned by {@link ChainingClause#and()}
-   */
-  public interface FileClause<T> extends ChainingClause<T> {
-    @CanIgnoreReturnValue
-    LineClause<T> in(JavaFileObject file);
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -243,30 +244,6 @@ in `src/main/java/com/google/testing/compile/CompilationSubject.java`
 in `src/main/java/com/google/testing/compile/Compiler.java`
 #### Snippet
 ```java
-      ImmutableList<Processor> processors,
-      ImmutableList<String> options,
-      Optional<ImmutableList<File>> classPath,
-      Optional<ImmutableList<File>> annotationProcessorPath) {
-    return new AutoValue_Compiler(
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `ImmutableList`
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-      ImmutableList<String> options,
-      Optional<ImmutableList<File>> classPath,
-      Optional<ImmutableList<File>> annotationProcessorPath) {
-    return new AutoValue_Compiler(
-        javaCompiler(), processors, options, classPath, annotationProcessorPath);
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `ImmutableList`
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
 
   /** The compilation class path. If not present, the system class path is used. */
   public abstract Optional<ImmutableList<File>> classPath();
@@ -284,6 +261,30 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
   public abstract Optional<ImmutableList<File>> annotationProcessorPath();
 
   /**
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `ImmutableList`
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+      ImmutableList<Processor> processors,
+      ImmutableList<String> options,
+      Optional<ImmutableList<File>> classPath,
+      Optional<ImmutableList<File>> annotationProcessorPath) {
+    return new AutoValue_Compiler(
+```
+
+### OptionalContainsCollection
+'Optional' contains collection `ImmutableList`
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+      ImmutableList<String> options,
+      Optional<ImmutableList<File>> classPath,
+      Optional<ImmutableList<File>> annotationProcessorPath) {
+    return new AutoValue_Compiler(
+        javaCompiler(), processors, options, classPath, annotationProcessorPath);
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -389,44 +390,19 @@ in `src/main/java/com/google/testing/compile/JavaFileObjects.java`
       checkArgument(parts.size() == 2,
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `Compiler` has no concrete subclass
+## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends File`
 in `src/main/java/com/google/testing/compile/Compiler.java`
 #### Snippet
 ```java
-// clashes with java.lang.Compiler (which is deprecated for removal in 9)
-@SuppressWarnings("JavaLangClash")
-public abstract class Compiler {
 
-  /** Returns the {@code javac} compiler. */
+  private static void setLocation(
+      InMemoryJavaFileManager fileManager, StandardLocation location, ImmutableList<File> path) {
+    try {
+      fileManager.setLocation(location, path);
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `MethodSignature` has no concrete subclass
-in `src/main/java/com/google/testing/compile/TreeDiffer.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class MethodSignature {
-    abstract String name();
-    abstract ImmutableList<Equivalence.Wrapper<TypeMirror>> parameterTypes();
-```
-
-### AbstractClassNeverImplemented
-Abstract class `TypedCompilationUnit` has no concrete subclass
-in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
-#### Snippet
-```java
-
-  @AutoValue
-  abstract static class TypedCompilationUnit {
-    abstract CompilationUnitTree tree();
-
-```
-
-## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends File`
 in `src/main/java/com/google/testing/compile/Compiler.java`
@@ -449,18 +425,6 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
   public final Compiler withClasspath(Iterable<File> classPath) {
     return copy(
         processors(),
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `src/main/java/com/google/testing/compile/Compiler.java`
-#### Snippet
-```java
-
-  private static void setLocation(
-      InMemoryJavaFileManager fileManager, StandardLocation location, ImmutableList<File> path) {
-    try {
-      fileManager.setLocation(location, path);
 ```
 
 ### BoundedWildcard
@@ -499,6 +463,43 @@ in `src/main/java/com/google/testing/compile/CompilationSubject.java`
       // TODO(b/132162475): Use Facts if it becomes public API.
 ```
 
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `Compiler` has no concrete subclass
+in `src/main/java/com/google/testing/compile/Compiler.java`
+#### Snippet
+```java
+// clashes with java.lang.Compiler (which is deprecated for removal in 9)
+@SuppressWarnings("JavaLangClash")
+public abstract class Compiler {
+
+  /** Returns the {@code javac} compiler. */
+```
+
+### AbstractClassNeverImplemented
+Abstract class `MethodSignature` has no concrete subclass
+in `src/main/java/com/google/testing/compile/TreeDiffer.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class MethodSignature {
+    abstract String name();
+    abstract ImmutableList<Equivalence.Wrapper<TypeMirror>> parameterTypes();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `TypedCompilationUnit` has no concrete subclass
+in `src/main/java/com/google/testing/compile/JavaSourcesSubject.java`
+#### Snippet
+```java
+
+  @AutoValue
+  abstract static class TypedCompilationUnit {
+    abstract CompilationUnitTree tree();
+
+```
+
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'data'
@@ -510,6 +511,30 @@ in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
     private Optional<ByteSource> data = Optional.empty();
 
     InMemoryJavaFileObject(URI uri) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'idValue'
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+     * and kind sought.
+     */
+    private boolean isMatch(Tree node, Optional<Object> idValue) {
+      boolean idsMatch;
+      if (!identifier.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'identifier'
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+    private final Tree.Kind kindSought;
+
+    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
+      this.kindSought = kindSought;
+      this.identifier = identifier;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -525,15 +550,15 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'idValue'
+`Optional` used as type for field 'identifier'
 in `src/main/java/com/google/testing/compile/MoreTrees.java`
 #### Snippet
 ```java
-     * and kind sought.
-     */
-    private boolean isMatch(Tree node, Optional<Object> idValue) {
-      boolean idsMatch;
-      if (!identifier.isPresent()) {
+  /** A {@link TreePathScanner} to power the subtree searches in this class */
+  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
+    private final Optional<String> identifier;
+    private final Tree.Kind kindSought;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -558,30 +583,6 @@ in `src/main/java/com/google/testing/compile/MoreTrees.java`
     public Optional<TreePath> reduce(Optional<TreePath> t1, Optional<TreePath> t2) {
       return t1.isPresent() ? t1 : t2;
     }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'identifier'
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-  /** A {@link TreePathScanner} to power the subtree searches in this class */
-  static final class SearchScanner extends TreePathScanner<Optional<TreePath>, @Nullable Void> {
-    private final Optional<String> identifier;
-    private final Tree.Kind kindSought;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'identifier'
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-    private final Tree.Kind kindSought;
-
-    public SearchScanner(Tree.Kind kindSought, Optional<String> identifier) {
-      this.kindSought = kindSought;
-      this.identifier = identifier;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -722,6 +723,19 @@ in `src/main/java/com/google/testing/compile/InMemoryJavaFileManager.java`
     private Optional<ByteSource> data = Optional.empty();
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-17-01-53.727.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
@@ -746,6 +760,19 @@ in `src/main/java/com/google/testing/compile/Compiler.java`
   public final Compiler withOptions(Iterable<? extends Object> options) {
     return copy(
         processors(),
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/google/testing/compile/MoreTrees.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(res.isPresent(), "Couldn't find any subtree matching the given "
+        + "criteria. Root: %s, Class: %s, Identifier: %s", root, treeKind, identifier);
+    return res.get();
+  }
+
 ```
 
 ## RuleId[id=ConstantValue]
@@ -843,18 +870,5 @@ in `src/main/java/com/google/testing/compile/TreeDiffer.java`
       } else if (actual != null && expected != null) {
         pushPathAndAccept(expected, actual);
       }
-```
-
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/google/testing/compile/MoreTrees.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(res.isPresent(), "Couldn't find any subtree matching the given "
-        + "criteria. Root: %s, Class: %s, Identifier: %s", root, treeKind, identifier);
-    return res.get();
-  }
-
 ```
 
