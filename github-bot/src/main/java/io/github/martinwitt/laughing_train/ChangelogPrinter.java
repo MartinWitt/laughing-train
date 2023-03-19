@@ -151,6 +151,6 @@ public class ChangelogPrinter {
         for (BadSmell badSmell : badSmells) {
             sb.append("<!-- fingerprint:").append(badSmell.getIdentifier()).append(" -->\n");
         }
-        return null;
+        return sb.toString();
     }
 }
