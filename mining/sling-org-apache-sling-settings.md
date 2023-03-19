@@ -16,7 +16,7 @@ I found 35 bad smells with 6 repairable:
 | BoundedWildcard | 1 | false |
 | UnusedAssignment | 1 | false |
 | ObsoleteCollection | 1 | false |
-## RuleId[ruleID=CharsetObjectCanBeUsed]
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.ISO_8859_1 can be used instead
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
@@ -41,7 +41,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
                 // roundtrip to ensure correct format of UUID value
 ```
 
-## RuleId[ruleID=UnnecessaryModifier]
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
@@ -54,7 +54,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
         String sling_name();
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
@@ -67,7 +67,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `prop.trim().length() > 0` can be replaced with '!prop.trim().isEmpty()'
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
@@ -104,7 +104,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
             final String[] options = propOptions.trim().split("\\|");
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `SlingIdUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
@@ -117,7 +117,7 @@ public class SlingIdUtil {
     /**
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
 in `src/main/java/org/apache/sling/settings/package-info.java`
@@ -143,15 +143,87 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 #### Snippet
 ```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
+    @Override
+    public String getSlingHomePath() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+
     /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
      */
-    public void printConfiguration(PrintWriter pw) {
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
+    @Override
+    public URL getSlingHome() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
+    @Override
+    public String getAbsolutePathWithinSlingHome(final String relativePath) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
+    @Override
+    public Set<String> getRunModes() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
+    @Override
+    public String getSlingId() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.sling.settings` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+#### Snippet
+```java
+    }
+
+    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
+    @Override
+    public String getSlingDescription() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -179,87 +251,27 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
 ```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingDescription() */
-    @Override
-    public String getSlingDescription() {
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHome() */
-    @Override
-    public URL getSlingHome() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
+Qualifier `org.apache.felix.shell` is unnecessary and can be removed
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 #### Snippet
 ```java
 
     /**
-     * @see org.apache.sling.settings.SlingSettingsService#getSlingName()
+     * @see org.apache.felix.shell.Command#getName()
      */
     @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getRunModes() */
-    @Override
-    public Set<String> getRunModes() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingHomePath() */
-    @Override
-    public String getSlingHomePath() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getAbsolutePathWithinSlingHome(String) */
-    @Override
-    public String getAbsolutePathWithinSlingHome(final String relativePath) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.sling.settings` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    /** @see org.apache.sling.settings.SlingSettingsService#getSlingId() */
-    @Override
-    public String getSlingId() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -329,24 +341,12 @@ in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
 ```java
 
     /**
-     * @see org.apache.felix.shell.Command#getName()
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.felix.shell` is unnecessary and can be removed
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
      * @see org.apache.felix.shell.Command#getShortDescription()
      */
     @Override
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
@@ -359,7 +359,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
             pw.println();
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
@@ -372,7 +372,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
         if (propOptions != null && propOptions.trim().length() > 0) {
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `contents` initializer `null` is redundant
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
@@ -385,7 +385,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
                 final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 ```
 
-## RuleId[ruleID=ObsoleteCollection]
+## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
 Obsolete collection type `Hashtable<>` used
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
@@ -398,7 +398,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
         serviceProps.put("felix.webconsole.title", "Sling Properties");
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
@@ -423,19 +423,7 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
         try {
 ```
 
-## RuleId[ruleID=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
-#### Snippet
-```java
-            pw.print( key );
-            pw.print(" = ");
-            final Object value = props.get(key);
-            if ( value != null ) {
-                pw.print(value.toString());
-```
-
+## RuleId[id=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
@@ -446,5 +434,17 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
                         tmp.put(key, value);
                     }
                 }
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
+#### Snippet
+```java
+            pw.print( key );
+            pw.print(" = ");
+            final Object value = props.get(key);
+            if ( value != null ) {
+                pw.print(value.toString());
 ```
 
