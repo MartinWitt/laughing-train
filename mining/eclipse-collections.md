@@ -84,9 +84,9 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/ListEqualTest.java`
 #### Snippet
 ```java
-    public void jdk()
+    public void ec()
     {
-        if (!this.integersJDK1.equals(this.integersJDK1))
+        if (!this.integersEC1.equals(this.integersEC1))
         {
             throw new AssertionError();
 ```
@@ -96,9 +96,9 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/ListEqualTest.java`
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/ListEqualTest.java`
 #### Snippet
 ```java
-    public void ec()
+    public void jdk()
     {
-        if (!this.integersEC1.equals(this.integersEC1))
+        if (!this.integersJDK1.equals(this.integersJDK1))
         {
             throw new AssertionError();
 ```
@@ -165,18 +165,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutabl
 ```
 
 ### SuspiciousSystemArraycopy
-Source parameter type 'T\[\]' is not assignable to destination parameter `array` of type 'E\[\]'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
-#### Snippet
-```java
-    public <E> E[] toArray(E[] array, int sourceFromIndex, int sourceToIndex, int destinationIndex)
-    {
-        System.arraycopy(this.items, sourceFromIndex, array, destinationIndex, sourceToIndex - sourceFromIndex + 1);
-        return array;
-    }
-```
-
-### SuspiciousSystemArraycopy
 Source parameter type 'java.lang.Object\[\]' is not assignable to destination parameter `this.items` of type 'T\[\]'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
 #### Snippet
@@ -200,7 +188,31 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
         {
 ```
 
+### SuspiciousSystemArraycopy
+Source parameter type 'T\[\]' is not assignable to destination parameter `array` of type 'E\[\]'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
+#### Snippet
+```java
+    public <E> E[] toArray(E[] array, int sourceFromIndex, int sourceToIndex, int destinationIndex)
+    {
+        System.arraycopy(this.items, sourceFromIndex, array, destinationIndex, sourceToIndex - sourceFromIndex + 1);
+        return array;
+    }
+```
+
 ## RuleId[id=WhileCanBeForeach]
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        {
+            Iterator<? extends Entry<? extends K, ? extends V>> iterator = this.getEntrySetFrom(map).iterator();
+            while (iterator.hasNext())
+            {
+                Entry<? extends K, ? extends V> entry = iterator.next();
+```
+
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
@@ -223,18 +235,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
         while (i.hasNext())
         {
             Map.Entry<K, V> e = i.next();
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        {
-            Iterator<? extends Entry<? extends K, ? extends V>> iterator = this.getEntrySetFrom(map).iterator();
-            while (iterator.hasNext())
-            {
-                Entry<? extends K, ? extends V> entry = iterator.next();
 ```
 
 ### WhileCanBeForeach
@@ -312,18 +312,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/sorted/mu
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/mutable/UnmodifiableTreeMap.java`
-#### Snippet
-```java
-
-    @Override
-    public MutableSortedMap<K, V> clone()
-    {
-        return this;
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/mutable/SynchronizedSortedMap.java`
 #### Snippet
 ```java
@@ -360,6 +348,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/U
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/mutable/UnmodifiableTreeMap.java`
+#### Snippet
+```java
+
+    @Override
+    public MutableSortedMap<K, V> clone()
+    {
+        return this;
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/SingletonSet.java`
 #### Snippet
 ```java
@@ -368,6 +368,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/Sin
     public SingletonSet<T> clone()
     {
         return new SingletonSet<>(this.element1);
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/QuadrupletonSet.java`
+#### Snippet
+```java
+    // Weird implementation of clone() is ok on final classes
+    @Override
+    public QuadrupletonSet<T> clone()
+    {
+        return new QuadrupletonSet<>(this.element1, this.element2, this.element3, this.element4);
 ```
 
 ### RefusedBequest
@@ -392,18 +404,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/Tri
     public TripletonSet<T> clone()
     {
         return new TripletonSet<>(this.element1, this.element2, this.element3);
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/QuadrupletonSet.java`
-#### Snippet
-```java
-    // Weird implementation of clone() is ok on final classes
-    @Override
-    public QuadrupletonSet<T> clone()
-    {
-        return new QuadrupletonSet<>(this.element1, this.element2, this.element3, this.element4);
 ```
 
 ### RefusedBequest
@@ -468,18 +468,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/S
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnmodifiableMutableSet.java`
-#### Snippet
-```java
-
-    @Override
-    public UnmodifiableMutableSet<T> clone()
-    {
-        return this;
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/SetAdapter.java`
 #### Snippet
 ```java
@@ -492,14 +480,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/S
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/MultiReaderUnifiedSet.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnmodifiableMutableSet.java`
 #### Snippet
 ```java
 
     @Override
-    public MultiReaderSet<T> clone()
+    public UnmodifiableMutableSet<T> clone()
     {
-        try (LockWrapper wrapper = this.lockWrapper.acquireReadLock())
+        return this;
 ```
 
 ### RefusedBequest
@@ -512,6 +500,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/M
         public MutableSet<T> clone()
         {
             return this.getDelegate().clone();
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/MultiReaderUnifiedSet.java`
+#### Snippet
+```java
+
+    @Override
+    public MultiReaderSet<T> clone()
+    {
+        try (LockWrapper wrapper = this.lockWrapper.acquireReadLock())
 ```
 
 ### RefusedBequest
@@ -540,18 +540,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/Tr
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/QuadrupletonList.java`
-#### Snippet
-```java
-
-    @Override
-    public QuadrupletonList<T> clone()
-    {
-        return new QuadrupletonList<>(this.element1, this.element2, this.element3, this.element4);
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/SingletonList.java`
 #### Snippet
 ```java
@@ -560,30 +548,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/Si
     public SingletonList<T> clone()
     {
         return new SingletonList<>(this.element1);
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/SextupletonList.java`
-#### Snippet
-```java
-
-    @Override
-    public SextupletonList<T> clone()
-    {
-        return new SextupletonList<>(
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/ArrayAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public ArrayAdapter<T> clone()
-    {
-        return new ArrayAdapter<>(this.items.clone());
 ```
 
 ### RefusedBequest
@@ -600,6 +564,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/Qu
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/QuadrupletonList.java`
+#### Snippet
+```java
+
+    @Override
+    public QuadrupletonList<T> clone()
+    {
+        return new QuadrupletonList<>(this.element1, this.element2, this.element3, this.element4);
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/ArrayAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public ArrayAdapter<T> clone()
+    {
+        return new ArrayAdapter<>(this.items.clone());
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/DoubletonList.java`
 #### Snippet
 ```java
@@ -608,6 +596,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/Do
     public DoubletonList<T> clone()
     {
         return new DoubletonList<>(this.element1, this.element2);
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/SextupletonList.java`
+#### Snippet
+```java
+
+    @Override
+    public SextupletonList<T> clone()
+    {
+        return new SextupletonList<>(
 ```
 
 ### RefusedBequest
@@ -684,14 +684,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/MultiReaderFastList.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
 #### Snippet
 ```java
 
         @Override
         public MutableList<T> clone()
         {
-            return this.getDelegate().clone();
+            return new FastList<>(this);
 ```
 
 ### RefusedBequest
@@ -708,14 +708,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/MultiReaderFastList.java`
 #### Snippet
 ```java
 
         @Override
         public MutableList<T> clone()
         {
-            return new FastList<>(this);
+            return this.getDelegate().clone();
 ```
 
 ### RefusedBequest
@@ -769,126 +769,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 
 ## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= this.remove(o)`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                for (Object o : col)
-                {
-                    removed |= this.remove(o);
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    if (col.contains(itr.next()))
-                    {
-                        removed |= itr.removeByKeyValue();
-                    }
-                }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                if (col.contains(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                if (filter.test(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                if (filter.test(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                if (col.contains(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= this.remove(o)`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                for (Object o : col)
-                {
-                    removed |= this.remove(o);
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    if (col.contains(itr.next()))
-                    {
-                        removed |= itr.removeByKeyValue();
-                    }
-                }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                if (filter.test(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                if (filter.test(itr.next()))
-                {
-                    removed |= itr.removeByKeyValue();
-                }
-            }
-```
-
-### NonShortCircuitBoolean
 Non-short-circuit boolean expression `changed |= this.remove(each)`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/AbstractUnifiedSet.java`
 #### Snippet
@@ -901,6 +781,126 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/AbstractU
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                if (filter.test(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                if (col.contains(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                if (filter.test(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= this.remove(o)`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                for (Object o : col)
+                {
+                    removed |= this.remove(o);
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    if (col.contains(itr.next()))
+                    {
+                        removed |= itr.removeByKeyValue();
+                    }
+                }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                if (col.contains(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                if (filter.test(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= this.remove(o)`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                for (Object o : col)
+                {
+                    removed |= this.remove(o);
+                }
+            }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    if (col.contains(itr.next()))
+                    {
+                        removed |= itr.removeByKeyValue();
+                    }
+                }
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `removed |= itr.removeByKeyValue()`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                if (filter.test(itr.next()))
+                {
+                    removed |= itr.removeByKeyValue();
+                }
+            }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `changed |= this.copyChain((ChainedBucket) cur)`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
@@ -973,6 +973,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `changed |= this.copyChain((ChainedBucket) cur)`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (cur instanceof ChainedBucket)
+            {
+                changed |= this.copyChain((ChainedBucket) cur);
+            }
+            else if (cur != null)
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `changed |= this.add(this.nonSentinel(cur))`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            else if (cur != null)
+            {
+                changed |= this.add(this.nonSentinel(cur));
+            }
+        }
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `changed |= this.add(this.nonSentinel(bucket.zero))`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
@@ -1021,25 +1045,13 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= this.copyChain((ChainedBucket) cur)`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+Non-short-circuit boolean expression `this.changed |= AbstractMutableMultimap.this.putAll(each.getOne(), each.getTwo())`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
 #### Snippet
 ```java
-            if (cur instanceof ChainedBucket)
+            public void value(Pair<KK, RichIterable<VV>> each)
             {
-                changed |= this.copyChain((ChainedBucket) cur);
-            }
-            else if (cur != null)
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= this.add(this.nonSentinel(cur))`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            else if (cur != null)
-            {
-                changed |= this.add(this.nonSentinel(cur));
+                this.changed |= AbstractMutableMultimap.this.putAll(each.getOne(), each.getTwo());
             }
         }
 ```
@@ -1052,18 +1064,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/Abst
             public void value(KK key, MutableCollection<VV> value)
             {
                 this.changed |= AbstractMutableMultimap.this.putAll(key, value);
-            }
-        }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `this.changed |= AbstractMutableMultimap.this.putAll(each.getOne(), each.getTwo())`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
-#### Snippet
-```java
-            public void value(Pair<KK, RichIterable<VV>> each)
-            {
-                this.changed |= AbstractMutableMultimap.this.putAll(each.getOne(), each.getTwo());
             }
         }
 ```
@@ -1191,6 +1191,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/Tri
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableSortedMapSerializationProxy.java`
+#### Snippet
+```java
+    }
+
+    ImmutableSortedMapSerializationProxy(ImmutableSortedMap<K, V> map)
+    {
+        this.map = map;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableSortedMapSerializationProxy.java`
+#### Snippet
+```java
+    }
+
+    ImmutableSortedMapSerializationProxy(ImmutableSortedMap<K, V> map)
+    {
+        this.map = map;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/mutable/MultiReaderHashBag.java`
 #### Snippet
@@ -1216,30 +1240,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/mutable/M
 
 ### BoundedWildcard
 Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableSortedMapSerializationProxy.java`
-#### Snippet
-```java
-    }
-
-    ImmutableSortedMapSerializationProxy(ImmutableSortedMap<K, V> map)
-    {
-        this.map = map;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableSortedMapSerializationProxy.java`
-#### Snippet
-```java
-    }
-
-    ImmutableSortedMapSerializationProxy(ImmutableSortedMap<K, V> map)
-    {
-        this.map = map;
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/immutable/ImmutableMapWithHashingStrategySerializationProxy.java`
 #### Snippet
 ```java
@@ -1260,6 +1260,66 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
     ImmutableMapWithHashingStrategySerializationProxy(ImmutableMap<K, V> map, HashingStrategy<? super K> hashingStrategy)
     {
         this.map = map;
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
+        private void putIfFoundFromChain(Object[] chain, K key, Map<K, V> other)
+        {
+            for (int i = 0; i < chain.length; i += 2)
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
+        private void putIfFoundFromChain(Object[] chain, K key, Map<K, V> other)
+        {
+            for (int i = 0; i < chain.length; i += 2)
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> UnifiedMap<K, V> newMapWith(Iterable<Pair<K, V>> inputIterable)
+    {
+        UnifiedMap<K, V> outputMap = UnifiedMap.newMap();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
+        private void chainedAddToList(Object[] chain, FastList<V> replace)
+        {
+            for (int i = 0; i < chain.length; i += 2)
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
+        private void chainedAddToSet(Object[] chain, UnifiedSet<K> replace)
+        {
+            for (int i = 0; i < chain.length; i += 2)
 ```
 
 ### BoundedWildcard
@@ -1311,6 +1371,78 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
+#### Snippet
+```java
+
+    @Override
+    public <K2, V2> ImmutableMap<K2, V2> collect(Function2<? super K, ? super V, Pair<K2, V2>> function)
+    {
+        Pair<K2, V2> pair1 = function.value(this.key1, this.value1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
+#### Snippet
+```java
+
+    @Override
+    public <K2, V2> ImmutableMap<K2, V2> collect(Function2<? super K, ? super V, Pair<K2, V2>> function)
+    {
+        Pair<K2, V2> pair1 = function.value(this.key1, this.value1);
+```
+
+### BoundedWildcard
+Can generalize to `? extends NK`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+    }
+
+    public static <NK, NV> ConcurrentMutableHashMap<NK, NV> newMap(Map<NK, NV> map)
+    {
+        return new ConcurrentMutableHashMap<>(new ConcurrentHashMap<>(map));
+```
+
+### BoundedWildcard
+Can generalize to `? extends NV`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+    }
+
+    public static <NK, NV> ConcurrentMutableHashMap<NK, NV> newMap(Map<NK, NV> map)
+    {
+        return new ConcurrentMutableHashMap<>(new ConcurrentHashMap<>(map));
+```
+
+### BoundedWildcard
+Can generalize to `? extends NK`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+    }
+
+    public static <NK, NV> ConcurrentHashMap<NK, NV> newMap(Map<NK, NV> map)
+    {
+        ConcurrentHashMap<NK, NV> result = new ConcurrentHashMap<>(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends NV`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+    }
+
+    public static <NK, NV> ConcurrentHashMap<NK, NV> newMap(Map<NK, NV> map)
+    {
+        ConcurrentHashMap<NK, NV> result = new ConcurrentHashMap<>(map.size());
+```
+
+### BoundedWildcard
 Can generalize to `? super V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
 #### Snippet
@@ -1347,39 +1479,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends NK`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+Can generalize to `? extends Procedure2`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
     }
 
-    public static <NK, NV> ConcurrentHashMap<NK, NV> newMap(Map<NK, NV> map)
+    public void parallelForEachKeyValue(List<Procedure2<K, V>> blocks, Executor executor)
     {
-        ConcurrentHashMap<NK, NV> result = new ConcurrentHashMap<>(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends NV`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-    }
-
-    public static <NK, NV> ConcurrentHashMap<NK, NV> newMap(Map<NK, NV> map)
-    {
-        ConcurrentHashMap<NK, NV> result = new ConcurrentHashMap<>(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
-#### Snippet
-```java
-
-    @Override
-    public <K2, V2> ImmutableMap<K2, V2> collect(Function2<? super K, ? super V, Pair<K2, V2>> function)
-    {
-        Pair<K2, V2> pair1 = function.value(this.key1, this.value1);
+        Object[] currentArray = this.table;
 ```
 
 ### BoundedWildcard
@@ -1419,90 +1527,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Procedure2`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-    }
-
-    public void parallelForEachKeyValue(List<Procedure2<K, V>> blocks, Executor executor)
-    {
-        Object[] currentArray = this.table;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
-#### Snippet
-```java
-
-    @Override
-    public <K2, V2> ImmutableMap<K2, V2> collect(Function2<? super K, ? super V, Pair<K2, V2>> function)
-    {
-        Pair<K2, V2> pair1 = function.value(this.key1, this.value1);
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
-        private void putIfFoundFromChain(Object[] chain, K key, Map<K, V> other)
-        {
-            for (int i = 0; i < chain.length; i += 2)
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
-        private void putIfFoundFromChain(Object[] chain, K key, Map<K, V> other)
-        {
-            for (int i = 0; i < chain.length; i += 2)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> UnifiedMap<K, V> newMapWith(Iterable<Pair<K, V>> inputIterable)
-    {
-        UnifiedMap<K, V> outputMap = UnifiedMap.newMap();
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
-        private void chainedAddToSet(Object[] chain, UnifiedSet<K> replace)
-        {
-            for (int i = 0; i < chain.length; i += 2)
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
-        private void chainedAddToList(Object[] chain, FastList<V> replace)
-        {
-            for (int i = 0; i < chain.length; i += 2)
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/immutable/ImmutableSortedSetFactoryImpl.java`
 #### Snippet
@@ -1527,42 +1551,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/im
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends NK`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
-#### Snippet
-```java
-    }
-
-    public static <NK, NV> ConcurrentMutableHashMap<NK, NV> newMap(Map<NK, NV> map)
-    {
-        return new ConcurrentMutableHashMap<>(new ConcurrentHashMap<>(map));
-```
-
-### BoundedWildcard
-Can generalize to `? extends NV`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
-#### Snippet
-```java
-    }
-
-    public static <NK, NV> ConcurrentMutableHashMap<NK, NV> newMap(Map<NK, NV> map)
-    {
-        return new ConcurrentMutableHashMap<>(new ConcurrentHashMap<>(map));
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
-        }
-
-        private void chainedAddToList(Object[] chain, FastList<V> replace)
-        {
-            for (int i = 0; i < chain.length; i += 2)
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
@@ -1587,15 +1575,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
+Can generalize to `? super K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public static <K, V> UnifiedMapWithHashingStrategy<K, V> newMap(UnifiedMapWithHashingStrategy<K, V> map)
-    {
-        return new UnifiedMapWithHashingStrategy<>(map.hashingStrategy, map);
+        private void chainedAddToSet(Object[] chain, UnifiedSetWithHashingStrategy<K> replace)
+        {
+            for (int i = 0; i < chain.length; i += 2)
 ```
 
 ### BoundedWildcard
@@ -1611,15 +1599,27 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
+Can generalize to `? super V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
         }
 
-        private void chainedAddToSet(Object[] chain, UnifiedSetWithHashingStrategy<K> replace)
+        private void chainedAddToList(Object[] chain, FastList<V> replace)
         {
             for (int i = 0; i < chain.length; i += 2)
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> UnifiedMapWithHashingStrategy<K, V> newMap(UnifiedMapWithHashingStrategy<K, V> map)
+    {
+        return new UnifiedMapWithHashingStrategy<>(map.hashingStrategy, map);
 ```
 
 ### BoundedWildcard
@@ -1672,14 +1672,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/FlatColl
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/MultiReaderUnifiedSet.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/TapIterator.java`
 #### Snippet
 ```java
-        private Iterator<T> delegate;
+    }
 
-        private UntouchableIterator(Iterator<T> newDelegate)
-        {
-            this.delegate = newDelegate;
+    public TapIterator(Iterator<T> iterator, Procedure<? super T> procedure)
+    {
+        this.iterator = iterator;
 ```
 
 ### BoundedWildcard
@@ -1696,18 +1696,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/M
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/TapIterator.java`
-#### Snippet
-```java
-    }
-
-    public TapIterator(Iterator<T> iterator, Procedure<? super T> procedure)
-    {
-        this.iterator = iterator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/TakeIterator.java`
 #### Snippet
 ```java
@@ -1716,6 +1704,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator
     public TakeIterator(Iterator<T> iterator, int count)
     {
         this.iterator = iterator;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/MultiReaderUnifiedSet.java`
+#### Snippet
+```java
+        private Iterator<T> delegate;
+
+        private UntouchableIterator(Iterator<T> newDelegate)
+        {
+            this.delegate = newDelegate;
 ```
 
 ### BoundedWildcard
@@ -1732,6 +1732,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator
 
 ### BoundedWildcard
 Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/FlatCollectIterator.java`
+#### Snippet
+```java
+
+    public FlatCollectIterator(
+            Iterator<T> newIterator,
+            Function<? super T, ? extends Iterable<V>> newFunction)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/DistinctIterator.java`
 #### Snippet
 ```java
@@ -1743,27 +1755,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/TakeWhileIterator.java`
 #### Snippet
 ```java
     }
 
-    private void addIfFoundFromChain(ChainedBucket bucket, T key, UnifiedSet<T> other)
+    public TakeWhileIterator(Iterator<T> iterator, Predicate<? super T> predicate)
     {
-        do
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/FlatCollectIterator.java`
-#### Snippet
-```java
-
-    public FlatCollectIterator(
-            Iterator<T> newIterator,
-            Function<? super T, ? extends Iterable<V>> newFunction)
-    {
+        this.iterator = iterator;
 ```
 
 ### BoundedWildcard
@@ -1791,15 +1791,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/TakeWhileIterator.java`
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
     }
 
-    public TakeWhileIterator(Iterator<T> iterator, Predicate<? super T> predicate)
+    private void addIfFoundFromChain(ChainedBucket bucket, T key, UnifiedSet<T> other)
     {
-        this.iterator = iterator;
+        do
 ```
 
 ### BoundedWildcard
@@ -1840,14 +1840,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/SelectUnsortedSetBatch.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/ParallelCollectIterable.java`
 #### Snippet
 ```java
-    private final Predicate<? super T> predicate;
+    private final Function<? super T, ? extends V> function;
 
-    public SelectUnsortedSetBatch(UnsortedSetBatch<T> unsortedSetBatch, Predicate<? super T> predicate)
+    public ParallelCollectIterable(AbstractParallelIterable<T, ? extends Batch<T>> delegate, Function<? super T, ? extends V> function)
     {
-        this.unsortedSetBatch = unsortedSetBatch;
+        this.delegate = delegate;
 ```
 
 ### BoundedWildcard
@@ -1864,14 +1864,14 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/ParallelFlatCollectIterable.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/SelectUnsortedSetBatch.java`
 #### Snippet
 ```java
-    private final Function<? super T, ? extends Iterable<V>> function;
+    private final Predicate<? super T> predicate;
 
-    public ParallelFlatCollectIterable(AbstractParallelIterable<T, ? extends Batch<T>> delegate, Function<? super T, ? extends Iterable<V>> function)
+    public SelectUnsortedSetBatch(UnsortedSetBatch<T> unsortedSetBatch, Predicate<? super T> predicate)
     {
-        this.delegate = delegate;
+        this.unsortedSetBatch = unsortedSetBatch;
 ```
 
 ### BoundedWildcard
@@ -1888,12 +1888,12 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/ParallelCollectIterable.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/set/ParallelFlatCollectIterable.java`
 #### Snippet
 ```java
-    private final Function<? super T, ? extends V> function;
+    private final Function<? super T, ? extends Iterable<V>> function;
 
-    public ParallelCollectIterable(AbstractParallelIterable<T, ? extends Batch<T>> delegate, Function<? super T, ? extends V> function)
+    public ParallelFlatCollectIterable(AbstractParallelIterable<T, ? extends Batch<T>> delegate, Function<? super T, ? extends Iterable<V>> function)
     {
         this.delegate = delegate;
 ```
@@ -1932,6 +1932,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
     public CollectListBatch(Batch<T> batch, Function<? super T, ? extends V> function)
     {
         this.batch = batch;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/list/ParallelCollectListIterable.java`
+#### Snippet
+```java
+    private final Function<? super T, ? extends V> function;
+
+    public ParallelCollectListIterable(AbstractParallelIterable<T, ? extends OrderedBatch<T>> parallelIterable, Function<? super T, ? extends V> function)
+    {
+        this.parallelIterable = parallelIterable;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/list/SelectListBatch.java`
+#### Snippet
+```java
+    private final Predicate<? super T> predicate;
+
+    public SelectListBatch(ListBatch<T> listBatch, Predicate<? super T> predicate)
+    {
+        this.listBatch = listBatch;
 ```
 
 ### BoundedWildcard
@@ -1984,30 +2008,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/list/ParallelCollectListIterable.java`
-#### Snippet
-```java
-    private final Function<? super T, ? extends V> function;
-
-    public ParallelCollectListIterable(AbstractParallelIterable<T, ? extends OrderedBatch<T>> parallelIterable, Function<? super T, ? extends V> function)
-    {
-        this.parallelIterable = parallelIterable;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/list/SelectListBatch.java`
-#### Snippet
-```java
-    private final Predicate<? super T> predicate;
-
-    public SelectListBatch(ListBatch<T> listBatch, Predicate<? super T> predicate)
-    {
-        this.listBatch = listBatch;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/list/ListIterableBatch.java`
 #### Snippet
 ```java
@@ -2043,18 +2043,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-    }
-
-    private void addIfFoundFromChain(ChainedBucket bucket, T key, UnifiedSetWithHashingStrategy<T> other)
-    {
-        do
-```
-
-### BoundedWildcard
 Can generalize to `? super Integer`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
 #### Snippet
@@ -2064,6 +2052,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval
     public <R> R reverseInjectInto(R injectValue, Function2<? super R, Integer, ? extends R> function)
     {
         return this.reverseThis().injectInto(injectValue, function);
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+    }
+
+    private void addIfFoundFromChain(ChainedBucket bucket, T key, UnifiedSetWithHashingStrategy<T> other)
+    {
+        do
 ```
 
 ### BoundedWildcard
@@ -2109,66 +2109,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 ```java
     }
 
-    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
-    {
-        LazyIterable<? extends Batch<T>> chunks = this.split();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
-#### Snippet
-```java
-    }
-
-    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
-    {
-        LazyIterable<? extends Batch<T>> chunks = this.split();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
-#### Snippet
-```java
-    }
-
-    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
-    {
-        LazyIterable<? extends Batch<T>> chunks = this.split();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
-#### Snippet
-```java
-    }
-
-    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
-    {
-        LazyIterable<? extends Batch<T>> chunks = this.split();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
-#### Snippet
-```java
-    }
-
-    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
-    {
-        LazyIterable<? extends Batch<T>> chunks = this.split();
-```
-
-### BoundedWildcard
-Can generalize to `? super Batch`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
-#### Snippet
-```java
-    }
-
     private T collectReduceOrdered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
     {
         LazyIterable<? extends Batch<T>> chunks = this.split();
@@ -2229,31 +2169,55 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 ```java
     }
 
-    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
     {
         LazyIterable<? extends Batch<T>> chunks = this.split();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
+Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
 #### Snippet
 ```java
     }
 
-    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
     {
         LazyIterable<? extends Batch<T>> chunks = this.split();
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
+Can generalize to `? super T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
 #### Snippet
 ```java
     }
 
-    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
+    {
+        LazyIterable<? extends Batch<T>> chunks = this.split();
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
+#### Snippet
+```java
+    }
+
+    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
+    {
+        LazyIterable<? extends Batch<T>> chunks = this.split();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
+#### Snippet
+```java
+    }
+
+    private T collectReduceUnordered(Function<Batch<T>, T> map, Function2<T, T, T> function2)
     {
         LazyIterable<? extends Batch<T>> chunks = this.split();
 ```
@@ -2295,15 +2259,39 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/MultiReaderFastList.java`
+Can generalize to `? super Batch`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
 #### Snippet
 ```java
-        private Iterator<T> delegate;
+    }
 
-        private UntouchableListIterator(Iterator<T> newDelegate)
-        {
-            this.delegate = newDelegate;
+    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    {
+        LazyIterable<? extends Batch<T>> chunks = this.split();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
+#### Snippet
+```java
+    }
+
+    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    {
+        LazyIterable<? extends Batch<T>> chunks = this.split();
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractParallelIterable.java`
+#### Snippet
+```java
+    }
+
+    private <S, V> void collectCombineOrdered(Function<Batch<T>, V> function, Procedure2<S, V> combineProcedure, S state)
+    {
+        LazyIterable<? extends Batch<T>> chunks = this.split();
 ```
 
 ### BoundedWildcard
@@ -2319,27 +2307,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutabl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/immutable/ImmutableBiMapSerializationProxy.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/MultiReaderFastList.java`
 #### Snippet
 ```java
-    }
+        private Iterator<T> delegate;
 
-    ImmutableBiMapSerializationProxy(ImmutableBiMap<K, V> biMap)
-    {
-        this.biMap = biMap;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/immutable/ImmutableBiMapSerializationProxy.java`
-#### Snippet
-```java
-    }
-
-    ImmutableBiMapSerializationProxy(ImmutableBiMap<K, V> biMap)
-    {
-        this.biMap = biMap;
+        private UntouchableListIterator(Iterator<T> newDelegate)
+        {
+            this.delegate = newDelegate;
 ```
 
 ### BoundedWildcard
@@ -2367,6 +2343,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/immutable/ImmutableBiMapSerializationProxy.java`
+#### Snippet
+```java
+    }
+
+    ImmutableBiMapSerializationProxy(ImmutableBiMap<K, V> biMap)
+    {
+        this.biMap = biMap;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/immutable/ImmutableBiMapSerializationProxy.java`
+#### Snippet
+```java
+    }
+
+    ImmutableBiMapSerializationProxy(ImmutableBiMap<K, V> biMap)
+    {
+        this.biMap = biMap;
+```
+
+### BoundedWildcard
 Can generalize to `? super K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/MultimapFunctions.java`
 #### Snippet
@@ -2379,30 +2379,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions0.java`
-#### Snippet
-```java
-        private final ThrowingFunction0<T> throwingFunction0;
-
-        private ThrowingFunction0Adapter(ThrowingFunction0<T> throwingFunction0)
-        {
-            this.throwingFunction0 = throwingFunction0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions0.java`
-#### Snippet
-```java
-     */
-    public static <T> Function0<T> throwing(
-            ThrowingFunction0<T> throwingFunction0,
-            Function<? super Throwable, ? extends RuntimeException> rethrow)
-    {
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Procedures.java`
 #### Snippet
@@ -2412,6 +2388,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
         private ThrowingProcedureAdapter(ThrowingProcedure<T> throwingProcedure)
         {
             this.throwingProcedure = throwingProcedure;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Procedures.java`
+#### Snippet
+```java
+        private final Procedure<T> procedure;
+
+        private SynchronizedProcedure(Procedure<T> procedure)
+        {
+            this.procedure = procedure;
 ```
 
 ### BoundedWildcard
@@ -2439,15 +2427,27 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Procedures.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions0.java`
 #### Snippet
 ```java
-        private final Procedure<T> procedure;
+        private final ThrowingFunction0<T> throwingFunction0;
 
-        private SynchronizedProcedure(Procedure<T> procedure)
+        private ThrowingFunction0Adapter(ThrowingFunction0<T> throwingFunction0)
         {
-            this.procedure = procedure;
+            this.throwingFunction0 = throwingFunction0;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions0.java`
+#### Snippet
+```java
+     */
+    public static <T> Function0<T> throwing(
+            ThrowingFunction0<T> throwingFunction0,
+            Function<? super Throwable, ? extends RuntimeException> rethrow)
+    {
 ```
 
 ### BoundedWildcard
@@ -2631,6 +2631,54 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+#### Snippet
+```java
+        private final Predicate2<T, P> predicate;
+
+        private Not(Predicate2<T, P> predicate)
+        {
+            this.predicate = predicate;
+```
+
+### BoundedWildcard
+Can generalize to `? super P`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+#### Snippet
+```java
+        private final Predicate2<T, P> predicate;
+
+        private Not(Predicate2<T, P> predicate)
+        {
+            this.predicate = predicate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+#### Snippet
+```java
+        private final ThrowingPredicate2<T, P> throwingPredicate2;
+
+        private ThrowingPredicate2Adapter(ThrowingPredicate2<T, P> throwingPredicate2)
+        {
+            this.throwingPredicate2 = throwingPredicate2;
+```
+
+### BoundedWildcard
+Can generalize to `? super P`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+#### Snippet
+```java
+        private final ThrowingPredicate2<T, P> throwingPredicate2;
+
+        private ThrowingPredicate2Adapter(ThrowingPredicate2<T, P> throwingPredicate2)
+        {
+            this.throwingPredicate2 = throwingPredicate2;
+```
+
+### BoundedWildcard
 Can generalize to `? super T1`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
 #### Snippet
@@ -2680,50 +2728,38 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
 #### Snippet
 ```java
-        private final Predicate2<T, P> predicate;
+        private final Comparator<T> notNullSafeComparator;
 
-        private Not(Predicate2<T, P> predicate)
+        private SafeNullsLowComparator(Comparator<T> newNotNullSafeComparator)
         {
-            this.predicate = predicate;
-```
-
-### BoundedWildcard
-Can generalize to `? super P`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
-#### Snippet
-```java
-        private final Predicate2<T, P> predicate;
-
-        private Not(Predicate2<T, P> predicate)
-        {
-            this.predicate = predicate;
+            this.notNullSafeComparator = newNotNullSafeComparator;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
 #### Snippet
 ```java
-        private final ThrowingPredicate2<T, P> throwingPredicate2;
+        private final Comparator<T> notNullSafeComparator;
 
-        private ThrowingPredicate2Adapter(ThrowingPredicate2<T, P> throwingPredicate2)
+        private SafeNullsHighComparator(Comparator<T> newNotNullSafeComparator)
         {
-            this.throwingPredicate2 = throwingPredicate2;
+            this.notNullSafeComparator = newNotNullSafeComparator;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super P`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates2.java`
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
 #### Snippet
 ```java
-        private final ThrowingPredicate2<T, P> throwingPredicate2;
+        private final Comparator<T> comparator;
 
-        private ThrowingPredicate2Adapter(ThrowingPredicate2<T, P> throwingPredicate2)
+        private ReverseComparator(Comparator<T> comparator)
         {
-            this.throwingPredicate2 = throwingPredicate2;
+            this.comparator = comparator;
 ```
 
 ### BoundedWildcard
@@ -2811,42 +2847,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedu
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
-#### Snippet
-```java
-        private final Comparator<T> notNullSafeComparator;
-
-        private SafeNullsLowComparator(Comparator<T> newNotNullSafeComparator)
-        {
-            this.notNullSafeComparator = newNotNullSafeComparator;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
-#### Snippet
-```java
-        private final Comparator<T> comparator;
-
-        private ReverseComparator(Comparator<T> comparator)
-        {
-            this.comparator = comparator;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
-#### Snippet
-```java
-        private final Comparator<T> notNullSafeComparator;
-
-        private SafeNullsHighComparator(Comparator<T> newNotNullSafeComparator)
-        {
-            this.notNullSafeComparator = newNotNullSafeComparator;
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MultimapEachPutProcedure.java`
 #### Snippet
@@ -2868,102 +2868,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedu
             MutableMultimap<K, V> multimap,
             Function<? super V, ? extends Iterable<K>> keyFunction)
     {
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MapPutProcedure.java`
-#### Snippet
-```java
-    private final Map<K, V> newMap;
-
-    public MapPutProcedure(Map<K, V> newMap)
-    {
-        this.newMap = newMap;
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MapPutProcedure.java`
-#### Snippet
-```java
-    private final Map<K, V> newMap;
-
-    public MapPutProcedure(Map<K, V> newMap)
-    {
-        this.newMap = newMap;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-        private final Predicate<T> predicate;
-
-        private NotPredicate(Predicate<T> newPredicate)
-        {
-            this.predicate = newPredicate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-        private final ThrowingPredicate<T> throwingPredicate;
-
-        private ThrowingPredicateAdapter(ThrowingPredicate<T> throwingPredicate)
-        {
-            this.throwingPredicate = throwingPredicate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-        private final Predicate<T> predicate;
-
-        private SynchronizedPredicate(Predicate<T> predicate)
-        {
-            this.predicate = predicate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-        private final Predicate<T> predicate;
-
-        private PredicateAdapter(Predicate<T> newPredicate)
-        {
-            this.predicate = newPredicate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-     */
-    public static <T> Predicate<T> throwing(
-            ThrowingPredicate<T> throwingPredicate,
-            Function2<T, ? super Throwable, ? extends RuntimeException> rethrow)
-    {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-    public static <T> Predicate<T> throwing(
-            ThrowingPredicate<T> throwingPredicate,
-            Function2<T, ? super Throwable, ? extends RuntimeException> rethrow)
-    {
-        return each ->
 ```
 
 ### BoundedWildcard
@@ -2992,26 +2896,26 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedu
 
 ### BoundedWildcard
 Can generalize to `? super K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MultimapKeyValuePutProcedure.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MapPutProcedure.java`
 #### Snippet
 ```java
-    private final Function<? super T, ? extends V> valueFunction;
+    private final Map<K, V> newMap;
 
-    public MultimapKeyValuePutProcedure(MutableMultimap<K, V> mutableMultimap, Function<? super T, ? extends K> keyFunction, Function<? super T, ? extends V> valueFunction)
+    public MapPutProcedure(Map<K, V> newMap)
     {
-        this.mutableMultimap = mutableMultimap;
+        this.newMap = newMap;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MultimapKeyValuePutProcedure.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MapPutProcedure.java`
 #### Snippet
 ```java
-    private final Function<? super T, ? extends V> valueFunction;
+    private final Map<K, V> newMap;
 
-    public MultimapKeyValuePutProcedure(MutableMultimap<K, V> mutableMultimap, Function<? super T, ? extends K> keyFunction, Function<? super T, ? extends V> valueFunction)
+    public MapPutProcedure(Map<K, V> newMap)
     {
-        this.mutableMultimap = mutableMultimap;
+        this.newMap = newMap;
 ```
 
 ### BoundedWildcard
@@ -3039,18 +2943,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedu
 ```
 
 ### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/comparator/FunctionComparator.java`
-#### Snippet
-```java
-    private final Comparator<V> comparator;
-
-    public FunctionComparator(Function<? super T, ? extends V> function, Comparator<V> comparator)
-    {
-        this.function = function;
-```
-
-### BoundedWildcard
 Can generalize to `? super K`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MapCollectProcedure.java`
 #### Snippet
@@ -3075,6 +2967,42 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedu
 ```
 
 ### BoundedWildcard
+Can generalize to `? super K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MultimapKeyValuePutProcedure.java`
+#### Snippet
+```java
+    private final Function<? super T, ? extends V> valueFunction;
+
+    public MultimapKeyValuePutProcedure(MutableMultimap<K, V> mutableMultimap, Function<? super T, ? extends K> keyFunction, Function<? super T, ? extends V> valueFunction)
+    {
+        this.mutableMultimap = mutableMultimap;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/procedure/MultimapKeyValuePutProcedure.java`
+#### Snippet
+```java
+    private final Function<? super T, ? extends V> valueFunction;
+
+    public MultimapKeyValuePutProcedure(MutableMultimap<K, V> mutableMultimap, Function<? super T, ? extends K> keyFunction, Function<? super T, ? extends V> valueFunction)
+    {
+        this.mutableMultimap = mutableMultimap;
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/comparator/FunctionComparator.java`
+#### Snippet
+```java
+    private final Comparator<V> comparator;
+
+    public FunctionComparator(Function<? super T, ? extends V> function, Comparator<V> comparator)
+    {
+        this.function = function;
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableStackIterator.java`
 #### Snippet
@@ -3084,6 +3012,78 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutab
     ImmutableStackIterator(ImmutableStack<T> immutableStack)
     {
         this.immutableStack = immutableStack;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+     */
+    public static <T> Predicate<T> throwing(
+            ThrowingPredicate<T> throwingPredicate,
+            Function2<T, ? super Throwable, ? extends RuntimeException> rethrow)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+    public static <T> Predicate<T> throwing(
+            ThrowingPredicate<T> throwingPredicate,
+            Function2<T, ? super Throwable, ? extends RuntimeException> rethrow)
+    {
+        return each ->
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+        private final Predicate<T> predicate;
+
+        private SynchronizedPredicate(Predicate<T> predicate)
+        {
+            this.predicate = predicate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+        private final ThrowingPredicate<T> throwingPredicate;
+
+        private ThrowingPredicateAdapter(ThrowingPredicate<T> throwingPredicate)
+        {
+            this.throwingPredicate = throwingPredicate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+        private final Predicate<T> predicate;
+
+        private NotPredicate(Predicate<T> newPredicate)
+        {
+            this.predicate = newPredicate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+        private final Predicate<T> predicate;
+
+        private PredicateAdapter(Predicate<T> newPredicate)
+        {
+            this.predicate = newPredicate;
 ```
 
 ### BoundedWildcard
@@ -3111,6 +3111,102 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutab
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends S`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable/ArrayStack.java`
+#### Snippet
+```java
+
+    @Override
+    public <S> ArrayStack<S> selectInstancesOf(Class<S> clazz)
+    {
+        return ArrayStack.newStackFromTopToBottom(this.delegate.asReversed().selectInstancesOf(clazz).toList());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> FixedSizeList<T> pairToFixedSizeList(Pair<T, T> pair)
+    {
+        return Lists.fixedSize.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> FixedSizeList<T> pairToFixedSizeList(Pair<T, T> pair)
+    {
+        return Lists.fixedSize.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> ImmutableList<T> pairToImmutableList(Pair<T, T> pair)
+    {
+        return Lists.immutable.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> ImmutableList<T> pairToImmutableList(Pair<T, T> pair)
+    {
+        return Lists.immutable.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> MutableList<T> pairToList(Pair<T, T> pair)
+    {
+        return Lists.mutable.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> MutableList<T> pairToList(Pair<T, T> pair)
+    {
+        return Lists.mutable.with(pair.getOne(), pair.getTwo());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> FixedSizeList<T> tripleToFixedSizeList(Triple<T, T, T> triple)
+    {
+        return Lists.fixedSize.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
 #### Snippet
@@ -3141,9 +3237,69 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.
 ```java
      * @since 11.0
      */
-    public static <T> FixedSizeList<T> tripleToFixedSizeList(Triple<T, T, T> triple)
+    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
     {
-        return Lists.fixedSize.with(triple.getOne(), triple.getTwo(), triple.getThree());
+        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
+    {
+        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
+    {
+        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
+    {
+        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
+    {
+        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
+#### Snippet
+```java
+     * @since 11.0
+     */
+    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
+    {
+        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
 ```
 
 ### BoundedWildcard
@@ -3171,195 +3327,51 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
-    {
-        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
-    {
-        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> MutableList<T> tripleToList(Triple<T, T, T> triple)
-    {
-        return Lists.mutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> MutableList<T> pairToList(Pair<T, T> pair)
-    {
-        return Lists.mutable.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> MutableList<T> pairToList(Pair<T, T> pair)
-    {
-        return Lists.mutable.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> ImmutableList<T> pairToImmutableList(Pair<T, T> pair)
-    {
-        return Lists.immutable.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> ImmutableList<T> pairToImmutableList(Pair<T, T> pair)
-    {
-        return Lists.immutable.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
-    {
-        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
-    {
-        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> ImmutableList<T> tripleToImmutableList(Triple<T, T, T> triple)
-    {
-        return Lists.immutable.with(triple.getOne(), triple.getTwo(), triple.getThree());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> FixedSizeList<T> pairToFixedSizeList(Pair<T, T> pair)
-    {
-        return Lists.fixedSize.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Tuples.java`
-#### Snippet
-```java
-     * @since 11.0
-     */
-    public static <T> FixedSizeList<T> pairToFixedSizeList(Pair<T, T> pair)
-    {
-        return Lists.fixedSize.with(pair.getOne(), pair.getTwo());
-```
-
-### BoundedWildcard
 Can generalize to `? extends S`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable/ArrayStack.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
 #### Snippet
 ```java
 
     @Override
-    public <S> ArrayStack<S> selectInstancesOf(Class<S> clazz)
+    public <S> ImmutableStack<S> selectInstancesOf(Class<S> clazz)
     {
-        return ArrayStack.newStackFromTopToBottom(this.delegate.asReversed().selectInstancesOf(clazz).toList());
+        return ImmutableArrayStack.newStackFromTopToBottom(this.delegate.asReversed().selectInstancesOf(clazz).toList());
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T3`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
 #### Snippet
 ```java
-        private final Function<? super T1, T2> function;
+        }
 
-        private BindProcedure2(Procedure2<? super T2, T3> delegate, Function<? super T1, T2> function)
+        protected ImmutableStackSerializationProxy(StackIterable<T> stack)
         {
-            this.delegate = delegate;
+            this.stack = stack;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T2`
+Can generalize to `? super T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
 #### Snippet
 ```java
-        private final Function<? super T1, T2> function;
+        private final ThrowingFunction<T, V> throwingFunction;
 
-        private BindProcedure2(Procedure2<? super T2, T3> delegate, Function<? super T1, T2> function)
+        private ThrowingFunctionAdapter(ThrowingFunction<T, V> throwingFunction)
         {
-            this.delegate = delegate;
+            this.throwingFunction = throwingFunction;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T2`
+Can generalize to `? extends V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
 #### Snippet
 ```java
-        private final Function<? super T1, T2> function;
+        private final ThrowingFunction<T, V> throwingFunction;
 
-        private BindProcedure(Procedure<? super T2> delegate, Function<? super T1, T2> function)
+        private ThrowingFunctionAdapter(ThrowingFunction<T, V> throwingFunction)
         {
-            this.delegate = delegate;
+            this.throwingFunction = throwingFunction;
 ```
 
 ### BoundedWildcard
@@ -3396,6 +3408,90 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
             Function2<T, ? super Throwable, ? extends RuntimeException> rethrow)
     {
         return each ->
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+        private final Function<T, V> function;
+
+        private SynchronizedFunction(Function<T, V> function)
+        {
+            this.function = function;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+        private final Function<T, V> function;
+
+        private SynchronizedFunction(Function<T, V> function)
+        {
+            this.function = function;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T2`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+        private final Function<? super T1, T2> function;
+
+        private BindProcedure(Procedure<? super T2> delegate, Function<? super T1, T2> function)
+        {
+            this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T3`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+        private final Function<? super T1, T2> function;
+
+        private BindProcedure2(Procedure2<? super T2, T3> delegate, Function<? super T1, T2> function)
+        {
+            this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T2`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+        private final Function<? super T1, T2> function;
+
+        private BindProcedure2(Procedure2<? super T2, T3> delegate, Function<? super T1, T2> function)
+        {
+            this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V1`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+
+    public static <T, V1, V2> Function<T, Pair<V1, V2>> pair(
+            Function<? super T, V1> function1,
+            Function<? super T, V2> function2)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V2`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+#### Snippet
+```java
+    public static <T, V1, V2> Function<T, Pair<V1, V2>> pair(
+            Function<? super T, V1> function1,
+            Function<? super T, V2> function2)
+    {
+        return t -> Tuples.pair(function1.valueOf(t), function2.valueOf(t));
 ```
 
 ### BoundedWildcard
@@ -3435,75 +3531,39 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V1`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
 #### Snippet
 ```java
+    }
 
-    public static <T, V1, V2> Function<T, Pair<V1, V2>> pair(
-            Function<? super T, V1> function1,
-            Function<? super T, V2> function2)
+    public static <T> MutableSet<MutableSet<T>> powerSet(Set<T> set)
     {
+        MutableSet<MutableSet<T>> seed = UnifiedSet.newSetWith(UnifiedSet.newSet());
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V2`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+Can generalize to `? extends A`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
 #### Snippet
 ```java
-    public static <T, V1, V2> Function<T, Pair<V1, V2>> pair(
-            Function<? super T, V1> function1,
-            Function<? super T, V2> function2)
+    }
+
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Set<A> set1, Set<B> set2)
     {
-        return t -> Tuples.pair(function1.valueOf(t), function2.valueOf(t));
+        return Sets.cartesianProduct(set1, set2, Tuples::pair);
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
+Can generalize to `? extends B`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
 #### Snippet
 ```java
-        private final Function<T, V> function;
+    }
 
-        private SynchronizedFunction(Function<T, V> function)
-        {
-            this.function = function;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
-#### Snippet
-```java
-        private final Function<T, V> function;
-
-        private SynchronizedFunction(Function<T, V> function)
-        {
-            this.function = function;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
-#### Snippet
-```java
-        private final ThrowingFunction<T, V> throwingFunction;
-
-        private ThrowingFunctionAdapter(ThrowingFunction<T, V> throwingFunction)
-        {
-            this.throwingFunction = throwingFunction;
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Functions.java`
-#### Snippet
-```java
-        private final ThrowingFunction<T, V> throwingFunction;
-
-        private ThrowingFunctionAdapter(ThrowingFunction<T, V> throwingFunction)
-        {
-            this.throwingFunction = throwingFunction;
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Set<A> set1, Set<B> set2)
+    {
+        return Sets.cartesianProduct(set1, set2, Tuples::pair);
 ```
 
 ### BoundedWildcard
@@ -3531,99 +3591,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends A`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Set<A> set1, Set<B> set2)
-    {
-        return Sets.cartesianProduct(set1, set2, Tuples::pair);
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Set<A> set1, Set<B> set2)
-    {
-        return Sets.cartesianProduct(set1, set2, Tuples::pair);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.java`
-#### Snippet
-```java
-    }
-
-    public static <T> MutableSet<MutableSet<T>> powerSet(Set<T> set)
-    {
-        MutableSet<MutableSet<T>> seed = UnifiedSet.newSetWith(UnifiedSet.newSet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends S`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
-#### Snippet
-```java
-
-    @Override
-    public <S> ImmutableStack<S> selectInstancesOf(Class<S> clazz)
-    {
-        return ImmutableArrayStack.newStackFromTopToBottom(this.delegate.asReversed().selectInstancesOf(clazz).toList());
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
-#### Snippet
-```java
-        }
-
-        protected ImmutableStackSerializationProxy(StackIterable<T> stack)
-        {
-            this.stack = stack;
-```
-
-### BoundedWildcard
-Can generalize to `? extends A`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/LazyIterate.java`
-#### Snippet
-```java
-     * @since 10.0
-     */
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Iterable<A> iterable1, Iterable<B> iterable2)
-    {
-        return LazyIterate.cartesianProduct(iterable1, iterable2, Tuples::pair);
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/LazyIterate.java`
-#### Snippet
-```java
-     * @since 10.0
-     */
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Iterable<A> iterable1, Iterable<B> iterable2)
-    {
-        return LazyIterate.cartesianProduct(iterable1, iterable2, Tuples::pair);
-```
-
-### BoundedWildcard
 Can generalize to `? super V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Multimaps.java`
 #### Snippet
 ```java
             }
 
-            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator)
+            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator, K key1, V value1, K key2, V value2)
             {
-                return TreeSortedSetMultimap.newMultimap(comparator);
+                TreeSortedSetMultimap<K, V> treeSortedSetMultimap = TreeSortedSetMultimap.newMultimap(comparator);
 ```
 
 ### BoundedWildcard
@@ -3645,7 +3621,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Multi
 ```java
             }
 
-            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator, K key1, V value1, K key2, V value2)
+            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator, K key, V value)
             {
                 TreeSortedSetMultimap<K, V> treeSortedSetMultimap = TreeSortedSetMultimap.newMultimap(comparator);
 ```
@@ -3657,501 +3633,45 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Multi
 ```java
             }
 
-            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator, K key, V value)
+            public <K, V> MutableSortedSetMultimap<K, V> with(Comparator<V> comparator)
             {
-                TreeSortedSetMultimap<K, V> treeSortedSetMultimap = TreeSortedSetMultimap.newMultimap(comparator);
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
-#### Snippet
-```java
-     * @since 6.0
-     */
-    public static <T> BigInteger sumOfBigInteger(T[] array, Function<? super T, BigInteger> function)
-    {
-        BigInteger result = BigInteger.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
-#### Snippet
-```java
-     * @since 6.0
-     */
-    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(T[] array, Function<? super T, ? extends V> groupBy, Function<? super T, BigInteger> function)
-    {
-        MutableMap<V, BigInteger> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
-#### Snippet
-```java
-     * @since 6.0
-     */
-    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(T[] array, Function<? super T, ? extends V> groupBy, Function<? super T, BigDecimal> function)
-    {
-        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
-#### Snippet
-```java
-     * @since 6.0
-     */
-    public static <T> BigDecimal sumOfBigDecimal(T[] array, Function<? super T, BigDecimal> function)
-    {
-        BigDecimal result = BigDecimal.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchGroupBy(T[] array, int start, int end, MultimapPutProcedure<?, T> castProcedure)
-    {
-        for (int i = start; i < end; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchFastListCollectIf(T[] array, int start, int end, FastListCollectIfProcedure<T, ?> castProcedure)
-    {
-        for (int i = start; i < end; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * @since 8.0
-     */
-    public static <R, T> R reduceInPlace(T[] items, int size, Supplier<R> supplier, BiConsumer<R, ? super T> accumulator)
-    {
-        R mutableResult = supplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * @since 8.0
-     */
-    public static <R, T> R reduceInPlace(T[] items, int size, Supplier<R> supplier, BiConsumer<R, ? super T> accumulator)
-    {
-        R mutableResult = supplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchCount(T[] array, int start, int end, CountProcedure<T> castProcedure)
-    {
-        for (int i = start; i < end; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-
-    public static <T> void appendString(
-            ListIterable<T> iterable,
-            T[] array,
-            int size,
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchFastListSelect(T[] array, int start, int end, FastListSelectProcedure<T> castProcedure)
-    {
-        for (int i = start; i < end; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchFastListCollect(T[] array, int start, int end, FastListCollectProcedure<T, ?> castProcedure)
-    {
-        for (int i = start; i < end; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-     * Implemented to avoid megamorphic call on castProcedure.
-     */
-    private static <T> void batchReject(T[] array, int start, int end, FastListRejectProcedure<T> castProcedure)
-    {
-        for (int i = start; i < end; i++)
+                return TreeSortedSetMultimap.newMultimap(comparator);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends A`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/LazyIterate.java`
 #### Snippet
 ```java
-    }
-
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2)
+     * @since 10.0
+     */
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Iterable<A> iterable1, Iterable<B> iterable2)
     {
-        return SetIterables.cartesianProduct(set1, set2, Tuples::pair);
+        return LazyIterate.cartesianProduct(iterable1, iterable2, Tuples::pair);
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends B`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/LazyIterate.java`
 #### Snippet
 ```java
-    }
-
-    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2)
-    {
-        return SetIterables.cartesianProduct(set1, set2, Tuples::pair);
-```
-
-### BoundedWildcard
-Can generalize to `? extends A`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
-    {
-        return LazyIterate.cartesianProduct(set1, set2, function);
-```
-
-### BoundedWildcard
-Can generalize to `? extends B`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
-    {
-        return LazyIterate.cartesianProduct(set1, set2, function);
-```
-
-### BoundedWildcard
-Can generalize to `? super A`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
-    {
-        return LazyIterate.cartesianProduct(set1, set2, function);
-```
-
-### BoundedWildcard
-Can generalize to `? super B`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
-    {
-        return LazyIterate.cartesianProduct(set1, set2, function);
-```
-
-### BoundedWildcard
-Can generalize to `? extends C`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
-    {
-        return LazyIterate.cartesianProduct(set1, set2, function);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
-#### Snippet
-```java
-    }
-
-    private static <T> MutableSet<MutableSet<T>> powerSetWithSeed(Set<T> set, MutableSet<MutableSet<T>> seed)
-    {
-        return Iterate.injectInto(seed, set, (accumulator, element) -> SetIterables.union(accumulator, accumulator.collect(innerSet -> innerSet.clone().with(element))));
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/ImmutableMultimapSerializationProxy.java`
-#### Snippet
-```java
-    }
-
-    protected ImmutableMultimapSerializationProxy(ImmutableMap<K, R> immutableMap)
-    {
-        this.mapToWrite = immutableMap;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     * @see Iterate#chunk(Iterable, int)
+     * @since 10.0
      */
-    public static <T> RichIterable<RichIterable<T>> chunk(Iterator<T> iterator, int size)
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(Iterable<A> iterable1, Iterable<B> iterable2)
     {
-        if (size <= 0)
+        return LazyIterate.cartesianProduct(iterable1, iterable2, Tuples::pair);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+Can generalize to `? super String`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
 #### Snippet
 ```java
+     * {@link Procedure}.
      */
-    public static <T, P> PartitionMutableList<T> partitionWith(
-            Iterator<T> iterator,
-            Predicate2<? super T, ? super P> predicate,
-            P parameter)
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> BigInteger sumOfBigInteger(Iterator<T> iterator, Function<? super T, BigInteger> function)
+    public static void forEachTrimmedToken(String string, String separator, Procedure<String> procedure)
     {
-        BigInteger result = BigInteger.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     * @since 7.0.
-     */
-    public static <T> MutableList<T> distinct(Iterator<T> iterator, HashingStrategy<? super T> hashingStrategy)
-    {
-        Set<T> seenSoFar = UnifiedSetWithHashingStrategy.newSet(hashingStrategy);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     * @see Iterate#partition(Iterable, Predicate)
-     */
-    public static <T> PartitionMutableList<T> partition(Iterator<T> iterator, Predicate<? super T> predicate)
-    {
-        PartitionMutableList<T> result = new PartitionFastList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-            Iterator<T> iterator,
-            Function<? super T, ? extends V> groupBy,
-            Function<? super T, BigDecimal> function)
-    {
-        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     * @see Iterate#detectOptional(Iterable, Predicate)
-     */
-    public static <T> Optional<T> detectOptional(Iterator<T> iterator, Predicate<? super T> predicate)
-    {
-        while (iterator.hasNext())
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> BigDecimal sumOfBigDecimal(Iterator<T> iterator, Function<? super T, BigDecimal> function)
-    {
-        BigDecimal result = BigDecimal.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     */
-    public static <T, P> Twin<MutableList<T>> selectAndRejectWith(
-            Iterator<T> iterator,
-            Predicate2<? super T, ? super P> predicate,
-            P parameter)
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-            Iterator<T> iterator,
-            Function<? super T, ? extends V> groupBy,
-            Function<? super T, BigInteger> function)
-    {
-        MutableMap<V, BigInteger> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
-#### Snippet
-```java
-     * @see Iterate#detectWithOptional(Iterable, Predicate2, Object)
-     */
-    public static <T, P> Optional<T> detectWithOptional(Iterator<T> iterator, Predicate2<? super T, ? super P> predicate, P parameter)
-    {
-        while (iterator.hasNext())
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
-#### Snippet
-```java
-     * @param inputIterable the mappings to initialize the multimap.
-     */
-    protected AbstractMutableMultimap(Iterable<Pair<K, V>> inputIterable)
-    {
-        this();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMultimap.java`
-#### Snippet
-```java
-
-    @Override
-    public <K2, V2, R extends MutableMultimap<K2, V2>> R collectKeysValues(Function2<? super K, ? super V, Pair<K2, V2>> function, R target)
-    {
-        this.getMap().forEachKeyValue((key, collection) -> collection.each(value -> target.add(function.value(key, value))));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/bag/strategy/HashBagMultimapWithHashingStrategy.java`
-#### Snippet
-```java
-    }
-
-    public HashBagMultimapWithHashingStrategy(HashingStrategy<? super K> hashingStrategy, Iterable<Pair<K, V>> inputIterable)
-    {
-        this(hashingStrategy);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/bag/strategy/HashBagMultimapWithHashingStrategy.java`
-#### Snippet
-```java
-    }
-
-    public HashBagMultimapWithHashingStrategy(HashBagMultimapWithHashingStrategy<K, V> multimap)
-    {
-        this(multimap.hashingStrategy, multimap);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
-#### Snippet
-```java
-     */
-    public static <T, IV> T detectWithIfNone(
-            ArrayList<T> list,
-            Predicate2<? super T, ? super IV> predicate,
-            IV injectedValue,
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
-#### Snippet
-```java
-     * @since 7.0.
-     */
-    public static <T> ArrayList<T> distinct(ArrayList<T> list, HashingStrategy<? super T> hashingStrategy)
-    {
-        int size = list.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
-#### Snippet
-```java
-     * @see Iterate#detectIfNone(Iterable, Predicate, Object)
-     */
-    public static <T> T detectIfNone(ArrayList<T> list, Predicate<? super T> predicate, T ifNone)
-    {
-        T result = ArrayListIterate.detect(list, predicate);
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> void toArray(ArrayList<T> list, T[] target, int startIndex, int sourceSize)
-    {
-        if (ArrayListIterate.canAccessInternalArray(list))
+        for (StringTokenizer stringTokenizer = new StringTokenizer(string, separator); stringTokenizer.hasMoreTokens(); )
 ```
 
 ### BoundedWildcard
@@ -4161,7 +3681,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```java
         private final MutableCollection<Character> characters;
 
-        private AddCharacterToCollection(MutableCollection<Character> characters)
+        private AddLowercaseCharacterToCollection(MutableCollection<Character> characters)
         {
             this.characters = characters;
 ```
@@ -4185,7 +3705,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```java
         private final MutableCollection<Character> characters;
 
-        private AddLowercaseCharacterToCollection(MutableCollection<Character> characters)
+        private AddUppercaseCharacterToCollection(MutableCollection<Character> characters)
         {
             this.characters = characters;
 ```
@@ -4257,429 +3777,453 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```java
         private final MutableCollection<Character> characters;
 
-        private AddUppercaseCharacterToCollection(MutableCollection<Character> characters)
+        private AddCharacterToCollection(MutableCollection<Character> characters)
         {
             this.characters = characters;
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
-     * {@link Procedure}.
+     * @since 6.0
      */
-    public static void forEachTrimmedToken(String string, String separator, Procedure<String> procedure)
+    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(T[] array, Function<? super T, ? extends V> groupBy, Function<? super T, BigInteger> function)
     {
-        for (StringTokenizer stringTokenizer = new StringTokenizer(string, separator); stringTokenizer.hasMoreTokens(); )
+        MutableMap<V, BigInteger> result = Maps.mutable.empty();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
-    }
-
-    public static <V, T> ObjectDoubleMap<V> sumByDouble(List<T> list, Function<T, V> groupBy, DoubleFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> ObjectDoubleMap<V> sumByDouble(List<T> list, Function<T, V> groupBy, DoubleFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-     * @see Iterate#detectIfNone(Iterable, Predicate, Object)
+     * @since 6.0
      */
-    public static <T> T detectIfNone(List<T> list, Predicate<? super T> predicate, T ifNone)
+    public static <T> BigDecimal sumOfBigDecimal(T[] array, Function<? super T, BigDecimal> function)
     {
-        T result = ListIterate.detect(list, predicate);
+        BigDecimal result = BigDecimal.ZERO;
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
-    }
-
-    public static <V, T> ObjectDoubleMap<V> sumByFloat(List<T> list, Function<T, V> groupBy, FloatFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> ObjectDoubleMap<V> sumByFloat(List<T> list, Function<T, V> groupBy, FloatFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> ObjectLongMap<V> sumByLong(List<T> list, Function<T, V> groupBy, LongFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> ObjectLongMap<V> sumByLong(List<T> list, Function<T, V> groupBy, LongFunction<? super T> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
-    {
-        if (list instanceof RandomAccess)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-     * @see Iterate#detectWithIfNone(Iterable, Predicate2, Object, Object)
+     * @since 6.0
      */
-    public static <T, IV> T detectWithIfNone(List<T> list, Predicate2<? super T, ? super IV> predicate, IV injectedValue, T ifNone)
+    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(T[] array, Function<? super T, ? extends V> groupBy, Function<? super T, BigDecimal> function)
     {
-        T result = ListIterate.detectWith(list, predicate, injectedValue);
+        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
-    }
-
-    public static <V, T> ObjectLongMap<V> sumByInt(List<T> list, Function<T, V> groupBy, IntFunction<? super T> function)
+     * @since 6.0
+     */
+    public static <T> BigInteger sumOfBigInteger(T[] array, Function<? super T, BigInteger> function)
     {
-        if (list instanceof RandomAccess)
+        BigInteger result = BigInteger.ZERO;
 ```
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchFastListCollectIf(T[] array, int start, int end, FastListCollectIfProcedure<T, ?> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchCount(T[] array, int start, int end, CountProcedure<T> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchReject(T[] array, int start, int end, FastListRejectProcedure<T> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchGroupBy(T[] array, int start, int end, MultimapPutProcedure<?, T> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchFastListCollect(T[] array, int start, int end, FastListCollectProcedure<T, ?> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+
+    public static <T> void appendString(
+            ListIterable<T> iterable,
+            T[] array,
+            int size,
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * Implemented to avoid megamorphic call on castProcedure.
+     */
+    private static <T> void batchFastListSelect(T[] array, int start, int end, FastListSelectProcedure<T> castProcedure)
+    {
+        for (int i = start; i < end; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * @since 8.0
+     */
+    public static <R, T> R reduceInPlace(T[] items, int size, Supplier<R> supplier, BiConsumer<R, ? super T> accumulator)
+    {
+        R mutableResult = supplier.get();
+```
+
+### BoundedWildcard
+Can generalize to `? super R`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+     * @since 8.0
+     */
+    public static <R, T> R reduceInPlace(T[] items, int size, Supplier<R> supplier, BiConsumer<R, ? super T> accumulator)
+    {
+        R mutableResult = supplier.get();
+```
+
+### BoundedWildcard
+Can generalize to `? extends A`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
 #### Snippet
 ```java
     }
 
-    public static <V, T> ObjectLongMap<V> sumByInt(List<T> list, Function<T, V> groupBy, IntFunction<? super T> function)
+    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
     {
-        if (list instanceof RandomAccess)
+        return LazyIterate.cartesianProduct(set1, set2, function);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+Can generalize to `? extends B`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
 #### Snippet
 ```java
-     * @see MapIterable#flipUniqueValues()
-     */
-    public static <K, V> MutableMap<V, K> flipUniqueValues(MapIterable<K, V> mapIterable)
+    }
+
+    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
     {
-        MutableMap<V, K> result = Maps.mutable.empty();
+        return LazyIterate.cartesianProduct(set1, set2, function);
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+Can generalize to `? super A`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
 #### Snippet
 ```java
-     * @see MapIterable#flipUniqueValues()
-     */
-    public static <K, V> MutableMap<V, K> flipUniqueValues(MapIterable<K, V> mapIterable)
+    }
+
+    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
     {
-        MutableMap<V, K> result = Maps.mutable.empty();
+        return LazyIterate.cartesianProduct(set1, set2, function);
+```
+
+### BoundedWildcard
+Can generalize to `? super B`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+#### Snippet
+```java
+    }
+
+    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
+    {
+        return LazyIterate.cartesianProduct(set1, set2, function);
+```
+
+### BoundedWildcard
+Can generalize to `? extends C`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+#### Snippet
+```java
+    }
+
+    public static <A, B, C> LazyIterable<C> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2, Function2<A, B, C> function)
+    {
+        return LazyIterate.cartesianProduct(set1, set2, function);
+```
+
+### BoundedWildcard
+Can generalize to `? extends A`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+#### Snippet
+```java
+    }
+
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2)
+    {
+        return SetIterables.cartesianProduct(set1, set2, Tuples::pair);
+```
+
+### BoundedWildcard
+Can generalize to `? extends B`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+#### Snippet
+```java
+    }
+
+    public static <A, B> LazyIterable<Pair<A, B>> cartesianProduct(SetIterable<A> set1, SetIterable<B> set2)
+    {
+        return SetIterables.cartesianProduct(set1, set2, Tuples::pair);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/SetIterables.java`
+#### Snippet
+```java
+    }
+
+    private static <T> MutableSet<MutableSet<T>> powerSetWithSeed(Set<T> set, MutableSet<MutableSet<T>> seed)
+    {
+        return Iterate.injectInto(seed, set, (accumulator, element) -> SetIterables.union(accumulator, accumulator.collect(innerSet -> innerSet.clone().with(element))));
+```
+
+### BoundedWildcard
+Can generalize to `? extends R`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/ImmutableMultimapSerializationProxy.java`
+#### Snippet
+```java
+    }
+
+    protected ImmutableMultimapSerializationProxy(ImmutableMap<K, R> immutableMap)
+    {
+        this.mapToWrite = immutableMap;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMultimap.java`
 #### Snippet
 ```java
-    public static <K1, V1, K2, V2> MutableMap<K2, V2> collectIf(
-            Map<K1, V1> map,
-            Function2<? super K1, ? super V1, Pair<K2, V2>> function,
-            Predicate2<? super K1, ? super V1> predicate,
-            Map<K2, V2> target)
-```
 
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * Adds all the <em>values</em> from map to the specified targetCollection.
-     */
-    public static <K, V> Collection<V> addAllValuesTo(Map<K, V> map, Collection<V> targetCollection)
+    @Override
+    public <K2, V2, R extends MutableMultimap<K2, V2>> R collectKeysValues(Function2<? super K, ? super V, Pair<K2, V2>> function, R target)
     {
-        MapIterate.forEachValue(map, CollectionAddProcedure.on(targetCollection));
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> MutableSortedSetMultimap<V, K> flip(SortedMapIterable<K, V> iMap)
-    {
-        MutableSortedSetMultimap<V, K> result = new TreeSortedSetMultimap<>(iMap.comparator());
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * in that the last entry applied wins (the order of application is undefined).
-     */
-    public static <K, V> MutableMap<V, K> reverseMapping(Map<K, V> map)
-    {
-        MutableMap<V, K> reverseMap = UnifiedMap.newMap(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * in that the last entry applied wins (the order of application is undefined).
-     */
-    public static <K, V> MutableMap<V, K> reverseMapping(Map<K, V> map)
-    {
-        MutableMap<V, K> reverseMap = UnifiedMap.newMap(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * The result map is returned containing all entries in the source map that evaluated to true.
-     */
-    public static <K, V> MutableMap<K, V> selectMapOnValue(Map<K, V> map, Predicate<? super V> predicate)
-    {
-        MutableMap<K, V> resultMap = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * The result map is returned containing all entries in the source map that evaluated to true.
-     */
-    public static <K, V> MutableMap<K, V> selectMapOnValue(Map<K, V> map, Predicate<? super V> predicate)
-    {
-        MutableMap<K, V> resultMap = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * The result map is returned containing all entries in the source map that evaluated to true.
-     */
-    public static <K, V> MutableMap<K, V> selectMapOnKey(Map<K, V> map, Predicate<? super K> predicate)
-    {
-        MutableMap<K, V> resultMap = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * The result map is returned containing all entries in the source map that evaluated to true.
-     */
-    public static <K, V> MutableMap<K, V> selectMapOnKey(Map<K, V> map, Predicate<? super K> predicate)
-    {
-        MutableMap<K, V> resultMap = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * and return the results as a List.
-     */
-    public static <K, V> MutableList<Pair<K, V>> toListOfPairs(Map<K, V> map)
-    {
-        MutableList<Pair<K, V>> pairs = Lists.mutable.withInitialCapacity(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * and return the results as a List.
-     */
-    public static <K, V> MutableList<Pair<K, V>> toListOfPairs(Map<K, V> map)
-    {
-        MutableList<Pair<K, V>> pairs = Lists.mutable.withInitialCapacity(map.size());
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> MutableSetMultimap<V, K> flip(MapIterable<K, V> iMap)
-    {
-        MutableSetMultimap<V, K> result = Multimaps.mutable.set.with();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> MutableSetMultimap<V, K> flip(MapIterable<K, V> iMap)
-    {
-        MutableSetMultimap<V, K> result = Multimaps.mutable.set.with();
+        this.getMap().forEachKeyValue((key, collection) -> collection.each(value -> target.add(function.value(key, value))));
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Pair`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
 #### Snippet
 ```java
-    public static <K1, V1, K2, V2, R extends Map<K2, V2>> R collect(
-            Map<K1, V1> map,
-            Function2<? super K1, ? super V1, Pair<K2, V2>> function,
-            R target)
-    {
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-     * Adds all the <em>keys</em> from map to the specified targetCollection.
+     * @param inputIterable the mappings to initialize the multimap.
      */
-    public static <K, V> Collection<K> addAllKeysTo(Map<K, V> map, Collection<K> targetCollection)
+    protected AbstractMutableMultimap(Iterable<Pair<K, V>> inputIterable)
     {
-        MapIterate.forEachKey(map, CollectionAddProcedure.on(targetCollection));
+        this();
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Combiner.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
 #### Snippet
 ```java
-public interface Combiner<T> extends Serializable
-{
-    default void combineAll(Iterable<T> thingsToCombine)
+     * @see Iterate#chunk(Iterable, int)
+     */
+    public static <T> RichIterable<RichIterable<T>> chunk(Iterator<T> iterator, int size)
     {
-        Iterate.forEach(thingsToCombine, this::combineOne);
+        if (size <= 0)
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> BigDecimal sumOfBigDecimal(Iterator<T> iterator, Function<? super T, BigDecimal> function)
+    {
+        BigDecimal result = BigDecimal.ZERO;
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+            Iterator<T> iterator,
+            Function<? super T, ? extends V> groupBy,
+            Function<? super T, BigDecimal> function)
+    {
+        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> BigInteger sumOfBigInteger(Iterator<T> iterator, Function<? super T, BigInteger> function)
+    {
+        BigInteger result = BigInteger.ZERO;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     */
+    public static <T, P> PartitionMutableList<T> partitionWith(
+            Iterator<T> iterator,
+            Predicate2<? super T, ? super P> predicate,
+            P parameter)
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+            Iterator<T> iterator,
+            Function<? super T, ? extends V> groupBy,
+            Function<? super T, BigInteger> function)
+    {
+        MutableMap<V, BigInteger> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     * @since 7.0.
+     */
+    public static <T> MutableList<T> distinct(Iterator<T> iterator, HashingStrategy<? super T> hashingStrategy)
+    {
+        Set<T> seenSoFar = UnifiedSetWithHashingStrategy.newSet(hashingStrategy);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     * @see Iterate#detectWithOptional(Iterable, Predicate2, Object)
+     */
+    public static <T, P> Optional<T> detectWithOptional(Iterator<T> iterator, Predicate2<? super T, ? super P> predicate, P parameter)
+    {
+        while (iterator.hasNext())
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     * @see Iterate#detectOptional(Iterable, Predicate)
+     */
+    public static <T> Optional<T> detectOptional(Iterator<T> iterator, Predicate<? super T> predicate)
+    {
+        while (iterator.hasNext())
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     * @see Iterate#partition(Iterable, Predicate)
+     */
+    public static <T> PartitionMutableList<T> partition(Iterator<T> iterator, Predicate<? super T> predicate)
+    {
+        PartitionMutableList<T> result = new PartitionFastList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/IteratorIterate.java`
+#### Snippet
+```java
+     */
+    public static <T, P> Twin<MutableList<T>> selectAndRejectWith(
+            Iterator<T> iterator,
+            Predicate2<? super T, ? super P> predicate,
+            P parameter)
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/bag/strategy/HashBagMultimapWithHashingStrategy.java`
+#### Snippet
+```java
+    }
+
+    public HashBagMultimapWithHashingStrategy(HashBagMultimapWithHashingStrategy<K, V> multimap)
+    {
+        this(multimap.hashingStrategy, multimap);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/bag/strategy/HashBagMultimapWithHashingStrategy.java`
+#### Snippet
+```java
+    }
+
+    public HashBagMultimapWithHashingStrategy(HashingStrategy<? super K> hashingStrategy, Iterable<Pair<K, V>> inputIterable)
+    {
+        this(hashingStrategy);
 ```
 
 ### BoundedWildcard
@@ -4707,6 +4251,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/set/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Combiner.java`
+#### Snippet
+```java
+public interface Combiner<T> extends Serializable
+{
+    default void combineAll(Iterable<T> thingsToCombine)
+    {
+        Iterate.forEach(thingsToCombine, this::combineOne);
+```
+
+### BoundedWildcard
 Can generalize to `? super BT`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ArrayProcedureFJTaskRunner.java`
 #### Snippet
@@ -4731,174 +4287,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Arra
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> MutableList<T> dropWhile(List<T> list, Predicate<? super T> predicate)
-    {
-        MutableList<T> result = FastList.newList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-            List<T> list,
-            Function<? super T, ? extends V> groupBy,
-            Function<? super T, BigInteger> function)
-    {
-        MutableMap<V, BigInteger> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> PartitionMutableList<T> partition(List<T> list, Predicate<? super T> predicate)
-    {
-        PartitionMutableList<T> partitionMutableList = new PartitionFastList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T, P> Optional<T> detectWithOptional(List<T> list, Predicate2<? super T, ? super P> predicate, P parameter)
-    {
-        int size = list.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> Optional<T> detectOptional(List<T> list, Predicate<? super T> predicate)
-    {
-        int size = list.size();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> void toArray(List<T> list, T[] target, int startIndex, int sourceSize)
-    {
-        for (int i = 0; i < sourceSize; i++)
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-            List<T> list,
-            Function<? super T, ? extends V> groupBy,
-            Function<? super T, BigDecimal> function)
-    {
-        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> MutableList<T> takeWhile(List<T> list, Predicate<? super T> predicate)
-    {
-        MutableList<T> result = FastList.newList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T, P> PartitionMutableList<T> partitionWith(List<T> list, Predicate2<? super T, ? super P> predicate, P parameter)
-    {
-        PartitionMutableList<T> partitionMutableList = new PartitionFastList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> PartitionMutableList<T> partitionWhile(List<T> list, Predicate<? super T> predicate)
-    {
-        PartitionMutableList<T> result = new PartitionFastList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> BigInteger sumOfBigInteger(List<T> list, Function<? super T, BigInteger> function)
-    {
-        BigInteger result = BigInteger.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-     * @since 7.0.
-     */
-    public static <T> MutableList<T> distinct(List<T> list, HashingStrategy<? super T> hashingStrategy)
-    {
-        MutableSet<T> seenSoFar = UnifiedSetWithHashingStrategy.newSet(hashingStrategy);
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-    }
-
-    public static <T> BigDecimal sumOfBigDecimal(List<T> list, Function<? super T, BigDecimal> function)
-    {
-        BigDecimal result = BigDecimal.ZERO;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-
-    public static <T, IV> Twin<MutableList<T>> selectAndRejectWith(
-            List<T> list,
-            Predicate2<? super T, ? super IV> predicate,
-            IV injectedValue)
-```
-
-### BoundedWildcard
 Can generalize to `? extends V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/CollectIfProcedureFactory.java`
 #### Snippet
@@ -4908,42 +4296,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Coll
             Function<? super T, V> function,
             Predicate<? super T> predicate,
             int newTaskSize)
-```
-
-### BoundedWildcard
-Can generalize to `? super BT`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ProcedureFJTaskRunner.java`
-#### Snippet
-```java
-    private final CountDownLatch latch;
-
-    public ProcedureFJTaskRunner(Combiner<BT> newCombiner, int taskCount)
-    {
-        this.combiner = newCombiner;
-```
-
-### BoundedWildcard
-Can generalize to `? extends BT`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ProcedureFJTaskRunner.java`
-#### Snippet
-```java
-    }
-
-    public void taskCompleted(ProcedureFJTask<T, BT> task)
-    {
-        if (this.combiner.useCombineOne())
-```
-
-### BoundedWildcard
-Can generalize to `? extends BT`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/BatchIterableProcedureFJTaskRunner.java`
-#### Snippet
-```java
-    }
-
-    public void taskCompleted(BatchIterableProcedureFJTask<T, BT> task)
-    {
-        if (this.combiner.useCombineOne())
 ```
 
 ### BoundedWildcard
@@ -4959,6 +4311,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Batc
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends BT`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/BatchIterableProcedureFJTaskRunner.java`
+#### Snippet
+```java
+    }
+
+    public void taskCompleted(BatchIterableProcedureFJTask<T, BT> task)
+    {
+        if (this.combiner.useCombineOne())
+```
+
+### BoundedWildcard
 Can generalize to `? extends V`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/FastListCollectIfProcedureFactory.java`
 #### Snippet
@@ -4968,6 +4332,78 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Fast
             Function<? super T, V> function,
             Predicate<? super T> predicate,
             int newTaskSize)
+```
+
+### BoundedWildcard
+Can generalize to `? extends BT`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ProcedureFJTaskRunner.java`
+#### Snippet
+```java
+    }
+
+    public void taskCompleted(ProcedureFJTask<T, BT> task)
+    {
+        if (this.combiner.useCombineOne())
+```
+
+### BoundedWildcard
+Can generalize to `? super BT`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ProcedureFJTaskRunner.java`
+#### Snippet
+```java
+    private final CountDownLatch latch;
+
+    public ProcedureFJTaskRunner(Combiner<BT> newCombiner, int taskCount)
+    {
+        this.combiner = newCombiner;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> void toArray(ArrayList<T> list, T[] target, int startIndex, int sourceSize)
+    {
+        if (ArrayListIterate.canAccessInternalArray(list))
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
+#### Snippet
+```java
+     */
+    public static <T, IV> T detectWithIfNone(
+            ArrayList<T> list,
+            Predicate2<? super T, ? super IV> predicate,
+            IV injectedValue,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
+#### Snippet
+```java
+     * @see Iterate#detectIfNone(Iterable, Predicate, Object)
+     */
+    public static <T> T detectIfNone(ArrayList<T> list, Predicate<? super T> predicate, T ifNone)
+    {
+        T result = ArrayListIterate.detect(list, predicate);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
+#### Snippet
+```java
+     * @since 7.0.
+     */
+    public static <T> ArrayList<T> distinct(ArrayList<T> list, HashingStrategy<? super T> hashingStrategy)
+    {
+        int size = list.size();
 ```
 
 ### BoundedWildcard
@@ -4995,6 +4431,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Fast
 ```
 
 ### BoundedWildcard
+Can generalize to `? super BT`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
+#### Snippet
+```java
+    }
+
+    ObjectIntProcedureFJTaskRunner(Combiner<BT> newCombiner, int taskCount, BlockingQueue<BT> queue, CountDownLatch latch)
+    {
+        this.combiner = newCombiner;
+```
+
+### BoundedWildcard
 Can generalize to `? extends BT`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
 #### Snippet
@@ -5007,15 +4455,171 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Obje
 ```
 
 ### BoundedWildcard
-Can generalize to `? super BT`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
 #### Snippet
 ```java
     }
 
-    ObjectIntProcedureFJTaskRunner(Combiner<BT> newCombiner, int taskCount, BlockingQueue<BT> queue, CountDownLatch latch)
+    public static <T> MutableList<T> dropWhile(List<T> list, Predicate<? super T> predicate)
     {
-        this.combiner = newCombiner;
+        MutableList<T> result = FastList.newList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T, P> Optional<T> detectWithOptional(List<T> list, Predicate2<? super T, ? super P> predicate, P parameter)
+    {
+        int size = list.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> void toArray(List<T> list, T[] target, int startIndex, int sourceSize)
+    {
+        for (int i = 0; i < sourceSize; i++)
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+            List<T> list,
+            Function<? super T, ? extends V> groupBy,
+            Function<? super T, BigInteger> function)
+    {
+        MutableMap<V, BigInteger> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> PartitionMutableList<T> partitionWhile(List<T> list, Predicate<? super T> predicate)
+    {
+        PartitionMutableList<T> result = new PartitionFastList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> BigDecimal sumOfBigDecimal(List<T> list, Function<? super T, BigDecimal> function)
+    {
+        BigDecimal result = BigDecimal.ZERO;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> Optional<T> detectOptional(List<T> list, Predicate<? super T> predicate)
+    {
+        int size = list.size();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> MutableList<T> takeWhile(List<T> list, Predicate<? super T> predicate)
+    {
+        MutableList<T> result = FastList.newList();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> PartitionMutableList<T> partition(List<T> list, Predicate<? super T> predicate)
+    {
+        PartitionMutableList<T> partitionMutableList = new PartitionFastList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+
+    public static <T, IV> Twin<MutableList<T>> selectAndRejectWith(
+            List<T> list,
+            Predicate2<? super T, ? super IV> predicate,
+            IV injectedValue)
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+            List<T> list,
+            Function<? super T, ? extends V> groupBy,
+            Function<? super T, BigDecimal> function)
+    {
+        MutableMap<V, BigDecimal> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+     * @since 7.0.
+     */
+    public static <T> MutableList<T> distinct(List<T> list, HashingStrategy<? super T> hashingStrategy)
+    {
+        MutableSet<T> seenSoFar = UnifiedSetWithHashingStrategy.newSet(hashingStrategy);
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T> BigInteger sumOfBigInteger(List<T> list, Function<? super T, BigInteger> function)
+    {
+        BigInteger result = BigInteger.ZERO;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <T, P> PartitionMutableList<T> partitionWith(List<T> list, Predicate2<? super T, ? super P> predicate, P parameter)
+    {
+        PartitionMutableList<T> partitionMutableList = new PartitionFastList<>();
 ```
 
 ### BoundedWildcard
@@ -5043,6 +4647,402 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collection/mu
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> MutableSortedSetMultimap<V, K> flip(SortedMapIterable<K, V> iMap)
+    {
+        MutableSortedSetMultimap<V, K> result = new TreeSortedSetMultimap<>(iMap.comparator());
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * Adds all the <em>keys</em> from map to the specified targetCollection.
+     */
+    public static <K, V> Collection<K> addAllKeysTo(Map<K, V> map, Collection<K> targetCollection)
+    {
+        MapIterate.forEachKey(map, CollectionAddProcedure.on(targetCollection));
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * and return the results as a List.
+     */
+    public static <K, V> MutableList<Pair<K, V>> toListOfPairs(Map<K, V> map)
+    {
+        MutableList<Pair<K, V>> pairs = Lists.mutable.withInitialCapacity(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * and return the results as a List.
+     */
+    public static <K, V> MutableList<Pair<K, V>> toListOfPairs(Map<K, V> map)
+    {
+        MutableList<Pair<K, V>> pairs = Lists.mutable.withInitialCapacity(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * The result map is returned containing all entries in the source map that evaluated to true.
+     */
+    public static <K, V> MutableMap<K, V> selectMapOnKey(Map<K, V> map, Predicate<? super K> predicate)
+    {
+        MutableMap<K, V> resultMap = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * The result map is returned containing all entries in the source map that evaluated to true.
+     */
+    public static <K, V> MutableMap<K, V> selectMapOnKey(Map<K, V> map, Predicate<? super K> predicate)
+    {
+        MutableMap<K, V> resultMap = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+    public static <K1, V1, K2, V2, R extends Map<K2, V2>> R collect(
+            Map<K1, V1> map,
+            Function2<? super K1, ? super V1, Pair<K2, V2>> function,
+            R target)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * The result map is returned containing all entries in the source map that evaluated to true.
+     */
+    public static <K, V> MutableMap<K, V> selectMapOnValue(Map<K, V> map, Predicate<? super V> predicate)
+    {
+        MutableMap<K, V> resultMap = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * The result map is returned containing all entries in the source map that evaluated to true.
+     */
+    public static <K, V> MutableMap<K, V> selectMapOnValue(Map<K, V> map, Predicate<? super V> predicate)
+    {
+        MutableMap<K, V> resultMap = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * in that the last entry applied wins (the order of application is undefined).
+     */
+    public static <K, V> MutableMap<V, K> reverseMapping(Map<K, V> map)
+    {
+        MutableMap<V, K> reverseMap = UnifiedMap.newMap(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * in that the last entry applied wins (the order of application is undefined).
+     */
+    public static <K, V> MutableMap<V, K> reverseMapping(Map<K, V> map)
+    {
+        MutableMap<V, K> reverseMap = UnifiedMap.newMap(map.size());
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * Adds all the <em>values</em> from map to the specified targetCollection.
+     */
+    public static <K, V> Collection<V> addAllValuesTo(Map<K, V> map, Collection<V> targetCollection)
+    {
+        MapIterate.forEachValue(map, CollectionAddProcedure.on(targetCollection));
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * @see MapIterable#flipUniqueValues()
+     */
+    public static <K, V> MutableMap<V, K> flipUniqueValues(MapIterable<K, V> mapIterable)
+    {
+        MutableMap<V, K> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+     * @see MapIterable#flipUniqueValues()
+     */
+    public static <K, V> MutableMap<V, K> flipUniqueValues(MapIterable<K, V> mapIterable)
+    {
+        MutableMap<V, K> result = Maps.mutable.empty();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> MutableSetMultimap<V, K> flip(MapIterable<K, V> iMap)
+    {
+        MutableSetMultimap<V, K> result = Multimaps.mutable.set.with();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> MutableSetMultimap<V, K> flip(MapIterable<K, V> iMap)
+    {
+        MutableSetMultimap<V, K> result = Multimaps.mutable.set.with();
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+    public static <K1, V1, K2, V2> MutableMap<K2, V2> collectIf(
+            Map<K1, V1> map,
+            Function2<? super K1, ? super V1, Pair<K2, V2>> function,
+            Predicate2<? super K1, ? super V1> predicate,
+            Map<K2, V2> target)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigDecimal> sumByBigDecimal(List<T> list, Function<T, V> groupBy, Function<? super T, BigDecimal> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectDoubleMap<V> sumByFloat(List<T> list, Function<T, V> groupBy, FloatFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectDoubleMap<V> sumByFloat(List<T> list, Function<T, V> groupBy, FloatFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectDoubleMap<V> sumByDouble(List<T> list, Function<T, V> groupBy, DoubleFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectDoubleMap<V> sumByDouble(List<T> list, Function<T, V> groupBy, DoubleFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectLongMap<V> sumByInt(List<T> list, Function<T, V> groupBy, IntFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectLongMap<V> sumByInt(List<T> list, Function<T, V> groupBy, IntFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(List<T> list, Function<T, V> groupBy, Function<? super T, BigInteger> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectLongMap<V> sumByLong(List<T> list, Function<T, V> groupBy, LongFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    }
+
+    public static <V, T> ObjectLongMap<V> sumByLong(List<T> list, Function<T, V> groupBy, LongFunction<? super T> function)
+    {
+        if (list instanceof RandomAccess)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+     * @see Iterate#detectWithIfNone(Iterable, Predicate2, Object, Object)
+     */
+    public static <T, IV> T detectWithIfNone(List<T> list, Predicate2<? super T, ? super IV> predicate, IV injectedValue, T ifNone)
+    {
+        T result = ListIterate.detectWith(list, predicate, injectedValue);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+     * @see Iterate#detectIfNone(Iterable, Predicate, Object)
+     */
+    public static <T> T detectIfNone(List<T> list, Predicate<? super T> predicate, T ifNone)
+    {
+        T result = ListIterate.detect(list, predicate);
+```
+
+### BoundedWildcard
 Can generalize to `? super V`
 in `eclipse-collections-api/src/main/java/org/eclipse/collections/api/block/comparator/FunctionComparator.java`
 #### Snippet
@@ -5067,30 +5067,6 @@ in `eclipse-collections-api/src/main/java/org/eclipse/collections/api/block/fact
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
-#### Snippet
-```java
-     * @since 8.1
-     */
-    public static <T> Collector<T, ?, BigIntegerSummaryStatistics> summarizingBigInteger(Function<? super T, BigInteger> function)
-    {
-        return Collector.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigInteger`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
-#### Snippet
-```java
-     * @since 8.1
-     */
-    public static <T> Collector<T, ?, BigInteger> summingBigInteger(Function<? super T, BigInteger> function)
-    {
-        return Collectors.reducing(BigInteger.ZERO, function, BigInteger::add);
-```
-
-### BoundedWildcard
 Can generalize to `? extends BigDecimal`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
 #### Snippet
@@ -5098,18 +5074,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Col
     public static <T, V> Collector<T, ?, MutableMap<V, BigDecimal>> sumByBigDecimal(
             Function<? super T, ? extends V> groupBy,
             Function<? super T, BigDecimal> function)
-    {
-        return Collector.of(
-```
-
-### BoundedWildcard
-Can generalize to `? extends BigDecimal`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
-#### Snippet
-```java
-     * @since 8.1
-     */
-    public static <T> Collector<T, ?, BigDecimalSummaryStatistics> summarizingBigDecimal(Function<? super T, BigDecimal> function)
     {
         return Collector.of(
 ```
@@ -5139,6 +5103,42 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Col
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
+#### Snippet
+```java
+     * @since 8.1
+     */
+    public static <T> Collector<T, ?, BigInteger> summingBigInteger(Function<? super T, BigInteger> function)
+    {
+        return Collectors.reducing(BigInteger.ZERO, function, BigInteger::add);
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigDecimal`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
+#### Snippet
+```java
+     * @since 8.1
+     */
+    public static <T> Collector<T, ?, BigDecimalSummaryStatistics> summarizingBigDecimal(Function<? super T, BigDecimal> function)
+    {
+        return Collector.of(
+```
+
+### BoundedWildcard
+Can generalize to `? extends BigInteger`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collector/Collectors2.java`
+#### Snippet
+```java
+     * @since 8.1
+     */
+    public static <T> Collector<T, ?, BigIntegerSummaryStatistics> summarizingBigInteger(Function<? super T, BigInteger> function)
+    {
+        return Collector.of(
+```
+
+### BoundedWildcard
 Can generalize to `? extends PT`
 in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJBatchIterableProcedureTask.java`
 #### Snippet
@@ -5158,6 +5158,30 @@ in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/fork
     public FJBatchIterableProcedureTask(
             FJBatchIterableProcedureRunner<T, PT> newFJTaskRunner,
             ProcedureFactory<PT> newProcedureFactory, BatchIterable<T> iterable, int index, int count)
+    {
+        this.taskRunner = newFJTaskRunner;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PT`
+in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureTask.java`
+#### Snippet
+```java
+     */
+    public FJListProcedureTask(
+            FJListProcedureRunner<T, PT> newFJTaskRunner, ProcedureFactory<PT> newProcedureFactory,
+            List<T> list, int index, int sectionSize, boolean isLast)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureTask.java`
+#### Snippet
+```java
+    public FJListProcedureTask(
+            FJListProcedureRunner<T, PT> newFJTaskRunner, ProcedureFactory<PT> newProcedureFactory,
+            List<T> list, int index, int sectionSize, boolean isLast)
     {
         this.taskRunner = newFJTaskRunner;
 ```
@@ -5188,26 +5212,26 @@ in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/fork
 
 ### BoundedWildcard
 Can generalize to `? extends PT`
-in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureTask.java`
+in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureRunner.java`
 #### Snippet
 ```java
-     */
-    public FJListProcedureTask(
-            FJListProcedureRunner<T, PT> newFJTaskRunner, ProcedureFactory<PT> newProcedureFactory,
-            List<T> list, int index, int sectionSize, boolean isLast)
+    }
+
+    public void taskCompleted(ForkJoinTask<PT> task)
     {
+        if (this.combiner.useCombineOne())
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureTask.java`
+Can generalize to `? super PT`
+in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureRunner.java`
 #### Snippet
 ```java
-    public FJListProcedureTask(
-            FJListProcedureRunner<T, PT> newFJTaskRunner, ProcedureFactory<PT> newProcedureFactory,
-            List<T> list, int index, int sectionSize, boolean isLast)
+    private final BlockingQueue<PT> outputQueue;
+
+    public FJListProcedureRunner(Combiner<PT> newCombiner, int taskCount)
     {
-        this.taskRunner = newFJTaskRunner;
+        this.combiner = newCombiner;
 ```
 
 ### BoundedWildcard
@@ -5235,27 +5259,15 @@ in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/fork
 ```
 
 ### BoundedWildcard
-Can generalize to `? super PT`
-in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureRunner.java`
-#### Snippet
-```java
-    private final BlockingQueue<PT> outputQueue;
-
-    public FJListProcedureRunner(Combiner<PT> newCombiner, int taskCount)
-    {
-        this.combiner = newCombiner;
-```
-
-### BoundedWildcard
-Can generalize to `? extends PT`
-in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJListProcedureRunner.java`
+Can generalize to `? super T`
+in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
 #### Snippet
 ```java
     }
 
-    public void taskCompleted(ForkJoinTask<PT> task)
+    public static <T> void assertStartsWith(List<T> list, T... items)
     {
-        if (this.combiner.useCombineOne())
+        try
 ```
 
 ### BoundedWildcard
@@ -5266,6 +5278,30 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
     }
 
     public static <K, V> void assertSortedBagMultimapsEqual(String multimapName, SortedBagMultimap<K, V> expectedSortedBagMultimap, SortedBagMultimap<K, V> actualSortedBagMultimap)
+    {
+        try
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> void assertBagMultimapsEqual(String multimapName, BagMultimap<K, V> expectedBagMultimap, BagMultimap<K, V> actualBagMultimap)
+    {
+        try
+```
+
+### BoundedWildcard
+Can generalize to `? super K`
+in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
+#### Snippet
+```java
+    }
+
+    public static <K, V> void assertListMultimapsEqual(String multimapName, ListMultimap<K, V> expectedListMultimap, ListMultimap<K, V> actualListMultimap)
     {
         try
 ```
@@ -5295,42 +5331,6 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
 ```
 
 ### BoundedWildcard
-Can generalize to `? super K`
-in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> void assertListMultimapsEqual(String multimapName, ListMultimap<K, V> expectedListMultimap, ListMultimap<K, V> actualListMultimap)
-    {
-        try
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
-#### Snippet
-```java
-    }
-
-    public static <T> void assertStartsWith(List<T> list, T... items)
-    {
-        try
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
-#### Snippet
-```java
-    }
-
-    public static <K, V> void assertBagMultimapsEqual(String multimapName, BagMultimap<K, V> expectedBagMultimap, BagMultimap<K, V> actualBagMultimap)
-    {
-        try
-```
-
-### BoundedWildcard
 Can generalize to `? extends V`
 in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/forkjoin/FJIterate.java`
 #### Snippet
@@ -5340,54 +5340,6 @@ in `eclipse-collections-forkjoin/src/main/java/org/eclipse/collections/impl/fork
             Iterable<V> iterable,
             Function<? super V, ? extends K> function,
             R concurrentMultimap,
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> HashBagMultimap<V, K> flip(ListMultimap<K, V> listMultimap)
-    {
-        HashBagMultimap<V, K> result = new HashBagMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> HashBagMultimap<V, K> flip(ListMultimap<K, V> listMultimap)
-    {
-        HashBagMultimap<V, K> result = new HashBagMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * @since 6.0
-     */
-    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(Iterable<T> iterable, Function<T, V> groupBy, Function<? super T, BigInteger> function)
-    {
-        if (iterable instanceof List)
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     */
-    public static <T, K> MutableMap<K, T> toMap(
-            Iterable<T> iterable,
-            Function<? super T, ? extends K> keyFunction)
-    {
 ```
 
 ### BoundedWildcard
@@ -5407,78 +5359,6 @@ Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
-     * @see RichIterable#sumByInt(Function, IntFunction)
-     */
-    public static <T, V> ObjectLongMap<V> sumByInt(Iterable<T> iterable, Function<T, V> groupBy, IntFunction<? super T> function)
-    {
-        if (iterable instanceof RichIterable)
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> UnifiedSetMultimap<V, K> flip(SetMultimap<K, V> setMultimap)
-    {
-        UnifiedSetMultimap<V, K> result = new UnifiedSetMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> UnifiedSetMultimap<V, K> flip(SetMultimap<K, V> setMultimap)
-    {
-        UnifiedSetMultimap<V, K> result = new UnifiedSetMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * @see RichIterable#sumOfFloat(FloatFunction)
-     */
-    public static <T, V> ObjectDoubleMap<V> sumByFloat(Iterable<T> iterable, Function<T, V> groupBy, FloatFunction<? super T> function)
-    {
-        if (iterable instanceof RichIterable)
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> HashBagMultimap<V, K> flip(BagMultimap<K, V> bagMultimap)
-    {
-        HashBagMultimap<V, K> result = new HashBagMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-     * Flip the keys and values of the multimap.
-     */
-    public static <K, V> HashBagMultimap<V, K> flip(BagMultimap<K, V> bagMultimap)
-    {
-        HashBagMultimap<V, K> result = new HashBagMultimap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
      * result ifNone if no element evaluates to true.
      */
     public static <T> T detectIfNone(Iterable<T> iterable, Predicate<? super T> predicate, T ifNone)
@@ -5491,9 +5371,93 @@ Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
-     * @see RichIterable#sumOfDouble(DoubleFunction)
      */
-    public static <T, V> ObjectDoubleMap<V> sumByDouble(Iterable<T> iterable, Function<T, V> groupBy, DoubleFunction<? super T> function)
+    public static <T, K> MutableMap<K, T> toMap(
+            Iterable<T> iterable,
+            Function<? super T, ? extends K> keyFunction)
+    {
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> HashBagMultimap<V, K> flip(BagMultimap<K, V> bagMultimap)
+    {
+        HashBagMultimap<V, K> result = new HashBagMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> HashBagMultimap<V, K> flip(BagMultimap<K, V> bagMultimap)
+    {
+        HashBagMultimap<V, K> result = new HashBagMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> UnifiedSetMultimap<V, K> flip(SetMultimap<K, V> setMultimap)
+    {
+        UnifiedSetMultimap<V, K> result = new UnifiedSetMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> UnifiedSetMultimap<V, K> flip(SetMultimap<K, V> setMultimap)
+    {
+        UnifiedSetMultimap<V, K> result = new UnifiedSetMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> HashBagMultimap<V, K> flip(ListMultimap<K, V> listMultimap)
+    {
+        HashBagMultimap<V, K> result = new HashBagMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * Flip the keys and values of the multimap.
+     */
+    public static <K, V> HashBagMultimap<V, K> flip(ListMultimap<K, V> listMultimap)
+    {
+        HashBagMultimap<V, K> result = new HashBagMultimap<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * @see RichIterable#sumByInt(Function, IntFunction)
+     */
+    public static <T, V> ObjectLongMap<V> sumByInt(Iterable<T> iterable, Function<T, V> groupBy, IntFunction<? super T> function)
     {
         if (iterable instanceof RichIterable)
 ```
@@ -5515,35 +5479,47 @@ Can generalize to `? extends T`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
+     * @see RichIterable#sumOfDouble(DoubleFunction)
+     */
+    public static <T, V> ObjectDoubleMap<V> sumByDouble(Iterable<T> iterable, Function<T, V> groupBy, DoubleFunction<? super T> function)
+    {
+        if (iterable instanceof RichIterable)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * @see RichIterable#sumOfFloat(FloatFunction)
+     */
+    public static <T, V> ObjectDoubleMap<V> sumByFloat(Iterable<T> iterable, Function<T, V> groupBy, FloatFunction<? super T> function)
+    {
+        if (iterable instanceof RichIterable)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+     * @since 6.0
+     */
+    public static <V, T> MutableMap<V, BigInteger> sumByBigInteger(Iterable<T> iterable, Function<T, V> groupBy, Function<? super T, BigInteger> function)
+    {
+        if (iterable instanceof List)
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
      */
     public static <T, P> T detectWithIfNone(
             Iterable<T> iterable,
             Predicate2<? super T, ? super P> predicate,
             P parameter,
-```
-
-### BoundedWildcard
-Can generalize to `? super V`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ParallelIterate.java`
-#### Snippet
-```java
-        private final MutableMap<V, BigDecimal> result;
-
-        private SumByBigDecimalCombiner(MutableMap<V, BigDecimal> result)
-        {
-            super(true);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Collection`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ParallelIterate.java`
-#### Snippet
-```java
-    public static <T, V, R extends Collection<V>> R flatCollect(
-            Iterable<T> iterable,
-            Function<? super T, Collection<V>> function,
-            R target,
-            int batchSize,
 ```
 
 ### BoundedWildcard
@@ -5568,6 +5544,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/Para
             Iterable<V> iterable,
             Function<? super V, ? extends K> function,
             R concurrentMultimap,
+```
+
+### BoundedWildcard
+Can generalize to `? super V`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ParallelIterate.java`
+#### Snippet
+```java
+        private final MutableMap<V, BigDecimal> result;
+
+        private SumByBigDecimalCombiner(MutableMap<V, BigDecimal> result)
+        {
+            super(true);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Collection`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ParallelIterate.java`
+#### Snippet
+```java
+    public static <T, V, R extends Collection<V>> R flatCollect(
+            Iterable<T> iterable,
+            Function<? super T, Collection<V>> function,
+            R target,
+            int batchSize,
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -5615,7 +5615,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```java
         public boolean accept(Integer i)
         {
-            return i.intValue() < 0;
+            return i.intValue() % 2 != 0;
         }
     }
 ```
@@ -5639,7 +5639,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```java
         public boolean accept(Integer i)
         {
-            return i.intValue() % 2 != 0;
+            return i.intValue() < 0;
         }
     }
 ```
@@ -5699,6 +5699,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```java
         public boolean accept(Long l)
         {
+            return l.longValue() > 0;
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/LongPredicates.java`
+#### Snippet
+```java
+        public boolean accept(Long l)
+        {
             return l.longValue() == 0;
         }
     }
@@ -5718,12 +5730,24 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/LongPredicates.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MinFunction.java`
 #### Snippet
 ```java
-        public boolean accept(Long l)
-        {
-            return l.longValue() > 0;
+                return argument1;
+            }
+            return argument1.intValue() < argument2.intValue() ? argument1 : argument2;
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MinFunction.java`
+#### Snippet
+```java
+                return argument1;
+            }
+            return argument1.intValue() < argument2.intValue() ? argument1 : argument2;
         }
     }
 ```
@@ -5759,30 +5783,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/functio
 ```java
                 return argument1;
             }
-            return argument1.intValue() < argument2.intValue() ? argument1 : argument2;
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MinFunction.java`
-#### Snippet
-```java
-                return argument1;
-            }
-            return argument1.intValue() < argument2.intValue() ? argument1 : argument2;
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MinFunction.java`
-#### Snippet
-```java
-                return argument1;
-            }
             return argument1.longValue() < argument2.longValue() ? argument1 : argument2;
         }
     }
@@ -5796,6 +5796,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/functio
                 return argument1;
             }
             return argument1.longValue() < argument2.longValue() ? argument1 : argument2;
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MaxFunction.java`
+#### Snippet
+```java
+                return argument1;
+            }
+            return argument1.intValue() > argument2.intValue() ? argument1 : argument2;
+        }
+    }
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MaxFunction.java`
+#### Snippet
+```java
+                return argument1;
+            }
+            return argument1.intValue() > argument2.intValue() ? argument1 : argument2;
         }
     }
 ```
@@ -5844,30 +5868,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/functio
                 return argument1;
             }
             return argument1.doubleValue() > argument2.doubleValue() ? argument1 : argument2;
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MaxFunction.java`
-#### Snippet
-```java
-                return argument1;
-            }
-            return argument1.intValue() > argument2.intValue() ? argument1 : argument2;
-        }
-    }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/function/MaxFunction.java`
-#### Snippet
-```java
-                return argument1;
-            }
-            return argument1.intValue() > argument2.intValue() ? argument1 : argument2;
         }
     }
 ```
@@ -6074,7 +6074,7 @@ i \* 2: integer multiplication implicitly cast to long
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/IntListJMHTest.java`
 #### Snippet
 ```java
-                .parallel()
+        return IntStream.of(this.ints)
                 .filter(i -> i % 2 == 0)
                 .mapToLong(i -> (long) (i * 2))
                 .sum();
@@ -6086,7 +6086,7 @@ i \* 2: integer multiplication implicitly cast to long
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/IntListJMHTest.java`
 #### Snippet
 ```java
-        return IntStream.of(this.ints)
+                .parallel()
                 .filter(i -> i % 2 == 0)
                 .mapToLong(i -> (long) (i * 2))
                 .sum();
@@ -6159,11 +6159,11 @@ Result of assignment expression used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
-            }
-
-            if ((this.next = e.getNext()) == null)
+        {
+            Object k;
+            if ((k = e.key) == key || key.equals(k))
             {
-                this.findNext();
+                return e.value;
 ```
 
 ### NestedAssignment
@@ -6171,11 +6171,11 @@ Result of assignment expression used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
-        {
-            Object k;
-            if ((k = e.key) == key || key.equals(k))
+            }
+
+            if ((this.next = e.getNext()) == null)
             {
-                return e.value;
+                this.findNext();
 ```
 
 ### NestedAssignment
@@ -6267,9 +6267,9 @@ Result of assignment expression used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
 #### Snippet
 ```java
-        }
-        long[] finalBypass = result;
-        this.forEachWithIndex((each, index) -> finalBypass[index] = each);
+    {
+        long[] result = new long[this.size()];
+        this.forEachWithIndex((each, index) -> result[index] = each);
         return result;
     }
 ```
@@ -6279,9 +6279,9 @@ Result of assignment expression used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
 #### Snippet
 ```java
-    {
-        long[] result = new long[this.size()];
-        this.forEachWithIndex((each, index) -> result[index] = each);
+        }
+        long[] finalBypass = result;
+        this.forEachWithIndex((each, index) -> finalBypass[index] = each);
         return result;
     }
 ```
@@ -6848,7 +6848,7 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-12-13-39.618.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-18-06-09.286.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -7102,7 +7102,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.maxBy((List<T>) iterable, function);
+            return RandomAccessListIterate.noneSatisfy((List<T>) iterable, predicate);
         }
         if (iterable != null)
 ```
@@ -7112,11 +7112,23 @@ Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
-        else if (iterable instanceof RandomAccess)
+        if (iterable instanceof RandomAccess)
         {
-            RandomAccessListIterate.appendString((List<T>) iterable, appendable, start, separator, end);
+            return RandomAccessListIterate.detectWith((List<T>) iterable, predicate, parameter);
         }
-        else if (iterable != null)
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (xs instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.zip((List<X>) xs, ys, targetCollection);
+        }
+        if (xs != null)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7138,7 +7150,19 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.collectWith((List<T>) iterable, function, parameter, targetCollection);
+            return RandomAccessListIterate.drop((List<T>) iterable, count);
+        }
+        if (iterable instanceof Collection)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.collect((List<T>) iterable, function, targetCollection);
         }
         if (iterable != null)
 ```
@@ -7150,7 +7174,19 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.minBy((List<T>) iterable, function);
+            return RandomAccessListIterate.collect((List<T>) iterable, function);
+        }
+        if (iterable instanceof Collection)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.groupByEach((List<T>) iterable, function, targetCollection);
         }
         if (iterable != null)
 ```
@@ -7162,7 +7198,31 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
+            return RandomAccessListIterate.getLast((List<T>) iterable);
+        }
+        if (iterable instanceof SortedSet && !((SortedSet<T>) iterable).isEmpty())
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.take((List<T>) iterable, count);
+        }
+        if (iterable instanceof Collection)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.aggregateBy((List<T>) iterable, groupBy, zeroValueFactory, nonMutatingAggregator);
         }
         if (iterable != null)
 ```
@@ -7174,7 +7234,19 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.detectWith((List<T>) iterable, predicate, parameter);
+            return RandomAccessListIterate.injectIntoWith(injectValue, (List<T>) iterable, function, parameter);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.flatCollect((List<T>) iterable, function, targetCollection);
         }
         if (iterable != null)
 ```
@@ -7210,19 +7282,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.collect((List<T>) iterable, function);
-        }
-        if (iterable instanceof Collection)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
+            return RandomAccessListIterate.allSatisfy((List<T>) iterable, predicate);
         }
         if (iterable != null)
 ```
@@ -7232,35 +7292,11 @@ Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
-        if (iterable instanceof RandomAccess)
+        else if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
+            RandomAccessListIterate.appendString((List<T>) iterable, appendable, start, separator, end);
         }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.aggregateBy((List<T>) iterable, groupBy, zeroValueFactory, nonMutatingAggregator);
-        }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.injectIntoWith(injectValue, (List<T>) iterable, function, parameter);
-        }
-        if (iterable != null)
+        else if (iterable != null)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7282,7 +7318,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.groupBy((List<T>) iterable, function);
+            return RandomAccessListIterate.groupByEach((List<T>) iterable, function);
         }
         if (iterable instanceof Collection)
 ```
@@ -7292,11 +7328,11 @@ Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
 #### Snippet
 ```java
-        if (iterable instanceof RandomAccess)
+        if (xs instanceof RandomAccess)
         {
-            return RandomAccessListIterate.detectWithOptional((List<T>) iterable, predicate, parameter);
+            return RandomAccessListIterate.zip((List<X>) xs, ys);
         }
-        if (iterable != null)
+        if (xs != null)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7306,19 +7342,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.flatCollect((List<T>) iterable, function);
-        }
-        if (iterable instanceof Collection)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.zipWithIndex((List<T>) iterable, targetCollection);
+            return RandomAccessListIterate.detect((List<T>) iterable, predicate);
         }
         if (iterable != null)
 ```
@@ -7342,81 +7366,9 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.noneSatisfy((List<T>) iterable, predicate);
-        }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.collect((List<T>) iterable, function, targetCollection);
-        }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (xs instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.zip((List<X>) xs, ys);
-        }
-        if (xs != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.allSatisfy((List<T>) iterable, predicate);
-        }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
             return RandomAccessListIterate.anySatisfy((List<T>) iterable, predicate);
         }
         if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.detect((List<T>) iterable, predicate);
-        }
-        if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (xs instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.zip((List<X>) xs, ys, targetCollection);
-        }
-        if (xs != null)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7438,33 +7390,9 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.drop((List<T>) iterable, count);
+            return RandomAccessListIterate.zipWithIndex((List<T>) iterable, targetCollection);
         }
-        if (iterable instanceof Collection)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.take((List<T>) iterable, count);
-        }
-        if (iterable instanceof Collection)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.getLast((List<T>) iterable);
-        }
-        if (iterable instanceof SortedSet && !((SortedSet<T>) iterable).isEmpty())
+        if (iterable != null)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7475,6 +7403,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
         if (iterable instanceof RandomAccess)
         {
             return RandomAccessListIterate.rejectWith((List<T>) iterable, predicate, parameter, targetCollection);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.minBy((List<T>) iterable, function);
         }
         if (iterable != null)
 ```
@@ -7498,7 +7450,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.zipWithIndex((List<T>) iterable);
+            return RandomAccessListIterate.flatCollect((List<T>) iterable, function);
         }
         if (iterable instanceof Collection)
 ```
@@ -7510,9 +7462,69 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.groupByEach((List<T>) iterable, function, targetCollection);
+            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
         }
         if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.maxBy((List<T>) iterable, function);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.groupBy((List<T>) iterable, function);
+        }
+        if (iterable instanceof Collection)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.injectInto(injectValue, (List<T>) iterable, function);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.collectWith((List<T>) iterable, function, parameter, targetCollection);
+        }
+        if (iterable != null)
+```
+
+### CastConflictsWithInstanceof
+Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
+#### Snippet
+```java
+        if (iterable instanceof RandomAccess)
+        {
+            return RandomAccessListIterate.zipWithIndex((List<T>) iterable);
+        }
+        if (iterable instanceof Collection)
 ```
 
 ### CastConflictsWithInstanceof
@@ -7534,21 +7546,9 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Itera
 ```java
         if (iterable instanceof RandomAccess)
         {
-            return RandomAccessListIterate.flatCollect((List<T>) iterable, function, targetCollection);
+            return RandomAccessListIterate.detectWithOptional((List<T>) iterable, predicate, parameter);
         }
         if (iterable != null)
-```
-
-### CastConflictsWithInstanceof
-Cast to 'List' type conflicts with preceding 'instanceof RandomAccess' check
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Iterate.java`
-#### Snippet
-```java
-        if (iterable instanceof RandomAccess)
-        {
-            return RandomAccessListIterate.groupByEach((List<T>) iterable, function);
-        }
-        if (iterable instanceof Collection)
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -7562,6 +7562,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable
         private int remainingOccurrences = -1;
 
         private ArrayBagIterator()
+```
+
+### UnusedAssignment
+Variable `isDaemon` initializer `true` is redundant
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/CollectionsThreadFactory.java`
+#### Snippet
+```java
+    private final AtomicInteger threadNumber = new AtomicInteger(1);
+    private final String namePrefix;
+    private boolean isDaemon = true;
+
+    CollectionsThreadFactory(String poolPrefix, boolean useDaemonThreads)
 ```
 
 ### UnusedAssignment
@@ -7588,69 +7600,9 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Array
         {
 ```
 
-### UnusedAssignment
-Variable `isDaemon` initializer `true` is redundant
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/CollectionsThreadFactory.java`
-#### Snippet
-```java
-    private final AtomicInteger threadNumber = new AtomicInteger(1);
-    private final String namePrefix;
-    private boolean isDaemon = true;
-
-    CollectionsThreadFactory(String poolPrefix, boolean useDaemonThreads)
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Result of `e.isEmpty()` is always 'false'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-                .map(list -> list.size() + ": " + list)
-                .forEach(e -> Assert.assertFalse(e.isEmpty()));
-    }
-
-```
-
-### ConstantValue
-Result of `e.isEmpty()` is always 'false'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-                .map(list -> list.size() + ": " + list)
-                .forEach(e -> Assert.assertFalse(e.isEmpty()));
-    }
-
-```
-
-### ConstantValue
-Result of `e.isEmpty()` is always 'false'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-                .map(list -> list.size() + ": " + list)
-                .forEach(e -> Assert.assertFalse(e.isEmpty()));
-    }
-
-```
-
-### ConstantValue
-Result of `e.isEmpty()` is always 'false'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-                .map(list -> list.size() + ": " + list)
-                .forEach(e -> Assert.assertFalse(e.isEmpty()));
-    }
-
-```
-
-### ConstantValue
-Result of `e.isEmpty()` is always 'false'
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java`
 #### Snippet
 ```java
@@ -7691,6 +7643,54 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java
 #### Snippet
 ```java
                 .sorted(Comparator.<Set<String>>comparingInt(Set::size).reversed())
+                .map(list -> list.size() + ": " + list)
+                .forEach(e -> Assert.assertFalse(e.isEmpty()));
+    }
+
+```
+
+### ConstantValue
+Result of `e.isEmpty()` is always 'false'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
+#### Snippet
+```java
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
+                .map(list -> list.size() + ": " + list)
+                .forEach(e -> Assert.assertFalse(e.isEmpty()));
+    }
+
+```
+
+### ConstantValue
+Result of `e.isEmpty()` is always 'false'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
+#### Snippet
+```java
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
+                .map(list -> list.size() + ": " + list)
+                .forEach(e -> Assert.assertFalse(e.isEmpty()));
+    }
+
+```
+
+### ConstantValue
+Result of `e.isEmpty()` is always 'false'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
+#### Snippet
+```java
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
+                .map(list -> list.size() + ": " + list)
+                .forEach(e -> Assert.assertFalse(e.isEmpty()));
+    }
+
+```
+
+### ConstantValue
+Result of `e.isEmpty()` is always 'false'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
+#### Snippet
+```java
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
                 .map(list -> list.size() + ": " + list)
                 .forEach(e -> Assert.assertFalse(e.isEmpty()));
     }
@@ -8034,27 +8034,27 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immuta
 ```
 
 ### ConstantValue
-Result of `objectA.equals(null)` is always 'false'
+Condition `valuesSize != expectedSize` is always `false`
 in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
 #### Snippet
 ```java
             }
-
-            Assert.assertFalse("Neither item should equal null", objectA.equals(null));
-            Assert.assertFalse("Neither item should equal null", objectB.equals(null));
-            Assert.assertNotEquals("Neither item should equal new Object()", objectA.equals(new Object()));
+            int valuesSize = mutableMapIterable.values().size();
+            if (valuesSize != expectedSize)
+            {
+                Assert.fail("Incorrect size for " + mapName + ".values(); expected:<" + expectedSize + "> but was:<" + actualSize + '>');
 ```
 
 ### ConstantValue
-Result of `objectB.equals(null)` is always 'false'
+Condition `entrySetSize != expectedSize` is always `false`
 in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
 #### Snippet
 ```java
-
-            Assert.assertFalse("Neither item should equal null", objectA.equals(null));
-            Assert.assertFalse("Neither item should equal null", objectB.equals(null));
-            Assert.assertNotEquals("Neither item should equal new Object()", objectA.equals(new Object()));
-            Assert.assertNotEquals("Neither item should equal new Object()", objectB.equals(new Object()));
+            }
+            int entrySetSize = mutableMapIterable.entrySet().size();
+            if (entrySetSize != expectedSize)
+            {
+                Assert.fail("Incorrect size for " + mapName + ".entrySet(); expected:<" + expectedSize + "> but was:<" + actualSize + '>');
 ```
 
 ### ConstantValue
@@ -8103,30 +8103,6 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
             if (!actualMutableMapIterable.entrySet().isEmpty())
             {
                 Assert.fail(mutableMapIterableName + " should be empty; actual size:<" + actualMutableMapIterable.entrySet().size() + '>');
-```
-
-### ConstantValue
-Condition `valuesSize != expectedSize` is always `false`
-in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
-#### Snippet
-```java
-            }
-            int valuesSize = mutableMapIterable.values().size();
-            if (valuesSize != expectedSize)
-            {
-                Assert.fail("Incorrect size for " + mapName + ".values(); expected:<" + expectedSize + "> but was:<" + actualSize + '>');
-```
-
-### ConstantValue
-Condition `entrySetSize != expectedSize` is always `false`
-in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
-#### Snippet
-```java
-            }
-            int entrySetSize = mutableMapIterable.entrySet().size();
-            if (entrySetSize != expectedSize)
-            {
-                Assert.fail("Incorrect size for " + mapName + ".entrySet(); expected:<" + expectedSize + "> but was:<" + actualSize + '>');
 ```
 
 ### ConstantValue
@@ -8213,31 +8189,31 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
                 Assert.fail(mapName + " should be empty; actual size:<" + actualMap.entrySet().size() + '>');
 ```
 
+### ConstantValue
+Result of `objectA.equals(null)` is always 'false'
+in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
+#### Snippet
+```java
+            }
+
+            Assert.assertFalse("Neither item should equal null", objectA.equals(null));
+            Assert.assertFalse("Neither item should equal null", objectB.equals(null));
+            Assert.assertNotEquals("Neither item should equal new Object()", objectA.equals(new Object()));
+```
+
+### ConstantValue
+Result of `objectB.equals(null)` is always 'false'
+in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/test/Verify.java`
+#### Snippet
+```java
+
+            Assert.assertFalse("Neither item should equal null", objectA.equals(null));
+            Assert.assertFalse("Neither item should equal null", objectB.equals(null));
+            Assert.assertNotEquals("Neither item should equal new Object()", objectA.equals(new Object()));
+            Assert.assertNotEquals("Neither item should equal new Object()", objectB.equals(new Object()));
+```
+
 ## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_intstream_jdk()
-    {
-        return this.integersJDK.parallelStream().mapToInt(Integer::intValue).min().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_streams_ec()
-    {
-        return this.integersEC.parallelStream().min(Comparator.naturalOrder()).get();
-    }
-
-```
-
 ### OptionalGetWithoutIsPresent
 `OptionalInt.getAsInt()` without 'isPresent()' check
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
@@ -8255,33 +8231,9 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 #### Snippet
 ```java
-    public int serial_lazy_intstream_jdk()
+    public int parallel_lazy_intstream_streams_ec()
     {
-        return this.integersJDK.stream().mapToInt(Integer::intValue).min().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_reverse_streams_ec()
-    {
-        return this.integersEC.parallelStream().min(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_jdk()
-    {
-        return this.integersJDK.parallelStream().min(Comparator.naturalOrder()).get();
+        return this.integersEC.parallelStream().mapToInt(Integer::intValue).min().getAsInt();
     }
 
 ```
@@ -8294,6 +8246,18 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
     public int serial_lazy_reverse_jdk()
     {
         return this.integersJDK.stream().min(Comparator.reverseOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_reverse_streams_ec()
+    {
+        return this.integersEC.parallelStream().min(Comparator.reverseOrder()).get();
     }
 
 ```
@@ -8323,6 +8287,54 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 ```
 
 ### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+#### Snippet
+```java
+    public int serial_lazy_intstream_jdk()
+    {
+        return this.integersJDK.stream().mapToInt(Integer::intValue).min().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_streams_ec()
+    {
+        return this.integersEC.parallelStream().min(Comparator.naturalOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_intstream_jdk()
+    {
+        return this.integersJDK.parallelStream().mapToInt(Integer::intValue).min().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_jdk()
+    {
+        return this.integersJDK.parallelStream().min(Comparator.naturalOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 #### Snippet
@@ -8347,13 +8359,37 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 ```
 
 ### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 #### Snippet
 ```java
-    public int parallel_lazy_intstream_streams_ec()
     {
-        return this.integersEC.parallelStream().mapToInt(Integer::intValue).min().getAsInt();
+        return this.positions.getJdkPositions().parallelStream().max(
+                QUANTITY_COMPARATOR_LAMBDA).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().max(
+                QUANTITY_COMPARATOR_METHODREF).get();
     }
 
 ```
@@ -8366,6 +8402,18 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
     {
         return this.positions.getJdkPositions().stream().collect(
                 Collectors.maxBy(QUANTITY_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().stream().collect(
+                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
     }
 
 ```
@@ -8388,44 +8436,8 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 #### Snippet
 ```java
     {
-        return this.positions.getJdkPositions().parallelStream().max(
-                QUANTITY_COMPARATOR_METHODREF).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().stream().collect(
-                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
-#### Snippet
-```java
-    {
         return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().max(
-                QUANTITY_COMPARATOR_LAMBDA).get();
+                Collectors.maxBy(QUANTITY_COMPARATOR_METHODREF)).get();
     }
 
 ```
@@ -8444,36 +8456,12 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.maxBy(QUANTITY_COMPARATOR_METHODREF)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
 #### Snippet
 ```java
     {
         return this.positions.getJdkPositions().parallelStream().min(
-                MARKET_VALUE_COMPARATOR_METHODREF).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
-#### Snippet
-```java
-    public Position minByMarketValue_serial_lazy_direct_lambda_jdk()
-    {
-        return this.positions.getJdkPositions().stream().min(MARKET_VALUE_COMPARATOR_LAMBDA).get();
+                MARKET_VALUE_COMPARATOR_LAMBDA).get();
     }
 
 ```
@@ -8495,9 +8483,9 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.jav
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
 #### Snippet
 ```java
+    public Position minByMarketValue_serial_lazy_direct_lambda_jdk()
     {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.minBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+        return this.positions.getJdkPositions().stream().min(MARKET_VALUE_COMPARATOR_LAMBDA).get();
     }
 
 ```
@@ -8509,19 +8497,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.jav
 ```java
     {
         return this.positions.getJdkPositions().parallelStream().min(
-                MARKET_VALUE_COMPARATOR_LAMBDA).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().stream().collect(
-                Collectors.minBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
+                MARKET_VALUE_COMPARATOR_METHODREF).get();
     }
 
 ```
@@ -8551,181 +8527,25 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.jav
 ```
 
 ### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_intstream_jdk()
-    {
-        return this.integersJDK.parallelStream().mapToInt(Integer::intValue).max().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int serial_lazy_intstream_jdk()
-    {
-        return this.integersJDK.stream().mapToInt(Integer::intValue).max().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int serial_lazy_jdk()
-    {
-        return this.integersJDK.stream().max(Comparator.naturalOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_reverse_streams_ec()
-    {
-        return this.integersEC.parallelStream().max(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int serial_lazy_reverse_streams_ec()
-    {
-        return this.integersEC.stream().max(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int serial_lazy_reverse_jdk()
-    {
-        return this.integersJDK.stream().max(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_reverse_jdk()
-    {
-        return this.integersJDK.parallelStream().max(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int serial_lazy_intstream_streams_ec()
-    {
-        return this.integersEC.stream().mapToInt(Integer::intValue).max().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_intstream_streams_ec()
-    {
-        return this.integersEC.parallelStream().mapToInt(Integer::intValue).max().getAsInt();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_streams_ec()
-    {
-        return this.integersEC.parallelStream().max(Comparator.naturalOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
-    public int parallel_lazy_jdk()
-    {
-        return this.integersJDK.parallelStream().max(Comparator.naturalOrder()).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
 #### Snippet
 ```java
     {
         return this.positions.getJdkPositions().stream().collect(
-                Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+                Collectors.minBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
     }
 
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().max(
-                MARKET_VALUE_COMPARATOR_METHODREF).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
 #### Snippet
 ```java
     {
         return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.maxBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().max(
-                MARKET_VALUE_COMPARATOR_LAMBDA).get();
+                Collectors.minBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
     }
 
 ```
@@ -8738,18 +8558,6 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.jav
     {
         return this.positions.getJdkPositions().parallelStream().collect(
                 Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
-#### Snippet
-```java
-    public Position maxByMarketValue_serial_lazy_direct_methodref_jdk()
-    {
-        return this.positions.getJdkPositions().stream().max(MARKET_VALUE_COMPARATOR_METHODREF).get();
     }
 
 ```
@@ -8772,6 +8580,18 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.jav
 #### Snippet
 ```java
     {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.maxBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
+#### Snippet
+```java
+    {
         return this.positions.getJdkPositions().stream().collect(
                 Collectors.maxBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
     }
@@ -8780,24 +8600,180 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.jav
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
 #### Snippet
 ```java
-    public Position minByQuantity_serial_lazy_direct_lambda_jdk()
+    public Position maxByMarketValue_serial_lazy_direct_methodref_jdk()
     {
-        return this.positions.getJdkPositions().stream().min(QUANTITY_COMPARATOR_LAMBDA).get();
+        return this.positions.getJdkPositions().stream().max(MARKET_VALUE_COMPARATOR_METHODREF).get();
     }
 
 ```
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().max(
+                MARKET_VALUE_COMPARATOR_LAMBDA).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
 #### Snippet
 ```java
     {
         return this.positions.getJdkPositions().stream().collect(
-                Collectors.minBy(QUANTITY_COMPARATOR_LAMBDA)).get();
+                Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().max(
+                MARKET_VALUE_COMPARATOR_METHODREF).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_intstream_jdk()
+    {
+        return this.integersJDK.parallelStream().mapToInt(Integer::intValue).max().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_reverse_streams_ec()
+    {
+        return this.integersEC.parallelStream().max(Comparator.reverseOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int serial_lazy_intstream_streams_ec()
+    {
+        return this.integersEC.stream().mapToInt(Integer::intValue).max().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int serial_lazy_jdk()
+    {
+        return this.integersJDK.stream().max(Comparator.naturalOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int serial_lazy_reverse_jdk()
+    {
+        return this.integersJDK.stream().max(Comparator.reverseOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_intstream_streams_ec()
+    {
+        return this.integersEC.parallelStream().mapToInt(Integer::intValue).max().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_reverse_jdk()
+    {
+        return this.integersJDK.parallelStream().max(Comparator.reverseOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_streams_ec()
+    {
+        return this.integersEC.parallelStream().max(Comparator.naturalOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int serial_lazy_intstream_jdk()
+    {
+        return this.integersJDK.stream().mapToInt(Integer::intValue).max().getAsInt();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int parallel_lazy_jdk()
+    {
+        return this.integersJDK.parallelStream().max(Comparator.naturalOrder()).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
+#### Snippet
+```java
+    public int serial_lazy_reverse_streams_ec()
+    {
+        return this.integersEC.stream().max(Comparator.reverseOrder()).get();
     }
 
 ```
@@ -8810,30 +8786,6 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
     {
         return this.positions.getJdkPositions().parallelStream().collect(
                 Collectors.minBy(QUANTITY_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().min(
-                QUANTITY_COMPARATOR_LAMBDA).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
-#### Snippet
-```java
-    {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.minBy(QUANTITY_COMPARATOR_METHODREF)).get();
     }
 
 ```
@@ -8857,7 +8809,55 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
 ```java
     {
         return this.positions.getJdkPositions().stream().collect(
+                Collectors.minBy(QUANTITY_COMPARATOR_LAMBDA)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().stream().collect(
                 Collectors.minBy(QUANTITY_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.minBy(QUANTITY_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+#### Snippet
+```java
+    {
+        return this.positions.getJdkPositions().parallelStream().min(
+                QUANTITY_COMPARATOR_LAMBDA).get();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+#### Snippet
+```java
+    public Position minByQuantity_serial_lazy_direct_lambda_jdk()
+    {
+        return this.positions.getJdkPositions().stream().min(QUANTITY_COMPARATOR_LAMBDA).get();
     }
 
 ```
@@ -8917,9 +8917,9 @@ Manual array to collection copy
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
+            throw new IllegalArgumentException("Count must be greater than zero, but was: " + count);
         }
-        int end = Math.min(array.length, count);
-        for (int i = 0; i < end; i++)
+        for (int i = count; i < array.length; i++)
         {
             target.add(array[i]);
 ```
@@ -8929,11 +8929,23 @@ Manual array to collection copy
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
-            throw new IllegalArgumentException("Count must be greater than zero, but was: " + count);
         }
-        for (int i = count; i < array.length; i++)
+        int end = Math.min(array.length, count);
+        for (int i = 0; i < end; i++)
         {
             target.add(array[i]);
+```
+
+### ManualArrayToCollectionCopy
+Manual array to collection copy
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
+#### Snippet
+```java
+            T[] elements = ArrayListIterate.getInternalArray(list);
+
+            for (int i = count; i < size; i++)
+            {
+                targetList.add(elements[i]);
 ```
 
 ### ManualArrayToCollectionCopy
@@ -8956,18 +8968,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Array
 
             int end = Math.min(size, count);
             for (int i = 0; i < end; i++)
-            {
-                targetList.add(elements[i]);
-```
-
-### ManualArrayToCollectionCopy
-Manual array to collection copy
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayListIterate.java`
-#### Snippet
-```java
-            T[] elements = ArrayListIterate.getInternalArray(list);
-
-            for (int i = count; i < size; i++)
             {
                 targetList.add(elements[i]);
 ```
@@ -9142,30 +9142,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/primitiv
 ```
 
 ### DataFlowIssue
-Argument `this.nonSentinel(chainedDetect)` might be null
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                if (chainedDetect != null)
-                {
-                    return Optional.of(this.nonSentinel(chainedDetect));
-                }
-            }
-```
-
-### DataFlowIssue
-Argument `each` might be null
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                if (predicate.accept(each))
-                {
-                    return Optional.of(each);
-                }
-            }
-```
-
-### DataFlowIssue
 Array index is out of bounds
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
 #### Snippet
@@ -9187,6 +9163,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval
         this.forEachWithIndex((ObjectIntProcedure<Integer>) (each, index) -> result[index] = each);
         return result;
     }
+```
+
+### DataFlowIssue
+Argument `this.nonSentinel(chainedDetect)` might be null
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                if (chainedDetect != null)
+                {
+                    return Optional.of(this.nonSentinel(chainedDetect));
+                }
+            }
+```
+
+### DataFlowIssue
+Argument `each` might be null
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                if (predicate.accept(each))
+                {
+                    return Optional.of(each);
+                }
+            }
 ```
 
 ### DataFlowIssue
@@ -9230,9 +9230,9 @@ Array index is out of bounds
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
 #### Snippet
 ```java
-        }
-        long[] finalBypass = result;
-        this.forEachWithIndex((each, index) -> finalBypass[index] = each);
+    {
+        long[] result = new long[this.size()];
+        this.forEachWithIndex((each, index) -> result[index] = each);
         return result;
     }
 ```
@@ -9242,9 +9242,9 @@ Array index is out of bounds
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
 #### Snippet
 ```java
-    {
-        long[] result = new long[this.size()];
-        this.forEachWithIndex((each, index) -> result[index] = each);
+        }
+        long[] finalBypass = result;
+        this.forEachWithIndex((each, index) -> finalBypass[index] = each);
         return result;
     }
 ```
@@ -9286,18 +9286,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### DataFlowIssue
-Method invocation `toArray` will produce `NullPointerException`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immutable/CodePointList.java`
-#### Snippet
-```java
-            return new CodePointList((ImmutableIntList) iterable);
-        }
-        return new CodePointList(iterable.toArray());
-    }
-
-```
-
-### DataFlowIssue
 Method invocation `makeString` will produce `NullPointerException`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immutable/CharAdapter.java`
 #### Snippet
@@ -9305,6 +9293,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immuta
             return new CharAdapter(iterable.toString());
         }
         return new CharAdapter(iterable.makeString(""));
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `toArray` will produce `NullPointerException`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immutable/CodePointList.java`
+#### Snippet
+```java
+            return new CodePointList((ImmutableIntList) iterable);
+        }
+        return new CodePointList(iterable.toArray());
     }
 
 ```
@@ -9363,6 +9363,19 @@ in `jcstress-tests/src/main/java/org/eclipse/collections/impl/map/mutable/Concur
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 #### Snippet
 ```java
+    public Position maxByQuantity_parallel_lazy_collect_lambda_jdk()
+    {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(maxBy())' can be replaced with 'max()' (may change semantics)
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
+#### Snippet
+```java
     public Position maxByQuantity_serial_lazy_collect_methodref_jdk()
     {
         return this.positions.getJdkPositions().stream().collect(
@@ -9389,99 +9402,12 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
 #### Snippet
 ```java
-    public Position maxByQuantity_parallel_lazy_collect_lambda_jdk()
-    {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.maxBy(QUANTITY_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### SimplifyStreamApiCallChains
-'collect(maxBy())' can be replaced with 'max()' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByIntTest.java`
-#### Snippet
-```java
     public Position maxByQuantity_parallel_lazy_collect_methodref_jdk()
     {
         return this.positions.getJdkPositions().parallelStream().collect(
                 Collectors.maxBy(QUANTITY_COMPARATOR_METHODREF)).get();
     }
 
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-        groupBy.entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .filter(list -> list.size() >= SIZE_THRESHOLD)
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
-#### Snippet
-```java
-        groupBy.entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .filter(list -> list.size() >= SIZE_THRESHOLD)
-                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
-```
-
-### SimplifyStreamApiCallChains
-'collect(minBy())' can be replaced with 'min()' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
-#### Snippet
-```java
-    public Position minByMarketValue_parallel_lazy_collect_methodref_jdk()
-    {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.minBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
-    }
-
-```
-
-### SimplifyStreamApiCallChains
-'collect(minBy())' can be replaced with 'min()' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
-#### Snippet
-```java
-    public Position minByMarketValue_serial_lazy_collect_lambda_jdk()
-    {
-        return this.positions.getJdkPositions().stream().collect(
-                Collectors.minBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
-    }
-
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java`
-#### Snippet
-```java
-        groupBy.entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .filter(list -> list.size() >= SIZE_THRESHOLD)
-                .sorted(Comparator.<Set<String>>comparingInt(Set::size).reversed())
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java`
-#### Snippet
-```java
-        groupBy.entrySet()
-                .stream()
-                .map(Map.Entry::getValue)
-                .filter(list -> list.size() >= SIZE_THRESHOLD)
-                .sorted(Comparator.<Set<String>>comparingInt(Set::size).reversed())
 ```
 
 ### SimplifyStreamApiCallChains
@@ -9511,8 +9437,58 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.jav
 ```
 
 ### SimplifyStreamApiCallChains
+'collect(minBy())' can be replaced with 'min()' (may change semantics)
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
+#### Snippet
+```java
+    public Position minByMarketValue_serial_lazy_collect_lambda_jdk()
+    {
+        return this.positions.getJdkPositions().stream().collect(
+                Collectors.minBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(minBy())' can be replaced with 'min()' (may change semantics)
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByDoubleTest.java`
+#### Snippet
+```java
+    public Position minByMarketValue_parallel_lazy_collect_methodref_jdk()
+    {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.minBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### SimplifyStreamApiCallChains
 Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java`
+#### Snippet
+```java
+        groupBy.entrySet()
+                .stream()
+                .map(Map.Entry::getValue)
+                .filter(list -> list.size() >= SIZE_THRESHOLD)
+                .sorted(Comparator.<Set<String>>comparingInt(Set::size).reversed())
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramSetTest.java`
+#### Snippet
+```java
+        groupBy.entrySet()
+                .stream()
+                .map(Map.Entry::getValue)
+                .filter(list -> list.size() >= SIZE_THRESHOLD)
+                .sorted(Comparator.<Set<String>>comparingInt(Set::size).reversed())
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
 #### Snippet
 ```java
         groupBy.entrySet()
@@ -9524,7 +9500,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java
 
 ### SimplifyStreamApiCallChains
 Can be replaced with '.values().stream()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramListTest.java`
 #### Snippet
 ```java
         groupBy.entrySet()
@@ -9539,9 +9515,9 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
 #### Snippet
 ```java
-    public Position maxByMarketValue_serial_lazy_collect_methodref_jdk()
+    public Position maxByMarketValue_parallel_lazy_collect_methodref_jdk()
     {
-        return this.positions.getJdkPositions().stream().collect(
+        return this.positions.getJdkPositions().parallelStream().collect(
                 Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
     }
 
@@ -9565,10 +9541,10 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.jav
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
 #### Snippet
 ```java
-    public Position maxByMarketValue_parallel_lazy_collect_methodref_jdk()
+    public Position maxByMarketValue_serial_lazy_collect_lambda_jdk()
     {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+        return this.positions.getJdkPositions().stream().collect(
+                Collectors.maxBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
     }
 
 ```
@@ -9578,10 +9554,47 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.jav
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxByDoubleTest.java`
 #### Snippet
 ```java
-    public Position maxByMarketValue_serial_lazy_collect_lambda_jdk()
+    public Position maxByMarketValue_serial_lazy_collect_methodref_jdk()
     {
         return this.positions.getJdkPositions().stream().collect(
-                Collectors.maxBy(MARKET_VALUE_COMPARATOR_LAMBDA)).get();
+                Collectors.maxBy(MARKET_VALUE_COMPARATOR_METHODREF)).get();
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java`
+#### Snippet
+```java
+        groupBy.entrySet()
+                .stream()
+                .map(Map.Entry::getValue)
+                .filter(list -> list.size() >= SIZE_THRESHOLD)
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/AnagramBagTest.java`
+#### Snippet
+```java
+        groupBy.entrySet()
+                .stream()
+                .map(Map.Entry::getValue)
+                .filter(list -> list.size() >= SIZE_THRESHOLD)
+                .sorted(Comparator.<List<String>>comparingInt(List::size).reversed())
+```
+
+### SimplifyStreamApiCallChains
+'collect(minBy())' can be replaced with 'min()' (may change semantics)
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
+#### Snippet
+```java
+    public Position minByQuantity_parallel_lazy_collect_lambda_jdk()
+    {
+        return this.positions.getJdkPositions().parallelStream().collect(
+                Collectors.minBy(QUANTITY_COMPARATOR_LAMBDA)).get();
     }
 
 ```
@@ -9604,10 +9617,10 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
 #### Snippet
 ```java
-    public Position minByQuantity_parallel_lazy_collect_lambda_jdk()
+    public Position minByQuantity_serial_lazy_collect_methodref_jdk()
     {
-        return this.positions.getJdkPositions().parallelStream().collect(
-                Collectors.minBy(QUANTITY_COMPARATOR_LAMBDA)).get();
+        return this.positions.getJdkPositions().stream().collect(
+                Collectors.minBy(QUANTITY_COMPARATOR_METHODREF)).get();
     }
 
 ```
@@ -9626,21 +9639,8 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
 ```
 
 ### SimplifyStreamApiCallChains
-'collect(minBy())' can be replaced with 'min()' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinByIntTest.java`
-#### Snippet
-```java
-    public Position minByQuantity_serial_lazy_collect_methodref_jdk()
-    {
-        return this.positions.getJdkPositions().stream().collect(
-                Collectors.minBy(QUANTITY_COMPARATOR_METHODREF)).get();
-    }
-
-```
-
-### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 #### Snippet
 ```java
             this.integersEC.asParallel(this.executorService, BATCH_SIZE).forEach(new CountProcedure<>());
@@ -9652,7 +9652,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 #### Snippet
 ```java
 
@@ -9664,7 +9664,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 #### Snippet
 ```java
             this.integersEC.asParallel(this.executorService, BATCH_SIZE).forEach(new CountProcedure<>());
@@ -9676,7 +9676,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 #### Snippet
 ```java
 
@@ -9822,6 +9822,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/p
 
 ### TypeParameterHidesVisibleType
 Type parameter `K` hides type parameter 'K'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+
+    @Override
+    public <K, V> MutableMap<K, V> newEmpty(int capacity)
+    {
+        return ConcurrentMutableHashMap.newMap();
+```
+
+### TypeParameterHidesVisibleType
+Type parameter `V` hides type parameter 'V'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+
+    @Override
+    public <K, V> MutableMap<K, V> newEmpty(int capacity)
+    {
+        return ConcurrentMutableHashMap.newMap();
+```
+
+### TypeParameterHidesVisibleType
+Type parameter `K` hides type parameter 'K'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
 #### Snippet
 ```java
@@ -9866,30 +9890,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
     public <K, V> MutableMap<K, V> newEmpty(int capacity)
     {
         return ConcurrentHashMapUnsafe.newMap();
-```
-
-### TypeParameterHidesVisibleType
-Type parameter `K` hides type parameter 'K'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
-#### Snippet
-```java
-
-    @Override
-    public <K, V> MutableMap<K, V> newEmpty(int capacity)
-    {
-        return ConcurrentMutableHashMap.newMap();
-```
-
-### TypeParameterHidesVisibleType
-Type parameter `V` hides type parameter 'V'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
-#### Snippet
-```java
-
-    @Override
-    public <K, V> MutableMap<K, V> newEmpty(int capacity)
-    {
-        return ConcurrentMutableHashMap.newMap();
 ```
 
 ### TypeParameterHidesVisibleType
@@ -9942,18 +9942,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable
 
 ### TypeParameterHidesVisibleType
 Type parameter `T` hides type parameter 'T'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable/SynchronizedStack.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T[] toArray(T[] a)
-    {
-        synchronized (this.lock)
-```
-
-### TypeParameterHidesVisibleType
-Type parameter `T` hides type parameter 'T'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
 #### Snippet
 ```java
@@ -9962,6 +9950,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutab
     public <T> T[] toArray(T[] a)
     {
         return this.delegate.asReversed().toArray(a);
+```
+
+### TypeParameterHidesVisibleType
+Type parameter `T` hides type parameter 'T'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable/SynchronizedStack.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T[] toArray(T[] a)
+    {
+        synchronized (this.lock)
 ```
 
 ### TypeParameterHidesVisibleType
@@ -10014,18 +10014,6 @@ public final class DropIterator<T> implements Iterator<T>
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CharPredicate' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/predicate/primitive/CharPredicate.java`
-#### Snippet
-```java
-@FunctionalInterface
-@Deprecated
-public interface CharPredicate
-        extends Serializable
-{
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'originalReverseNaturalOrder' is still used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Comparators.java`
 #### Snippet
@@ -10074,15 +10062,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getKeyFunction' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/AbstractImmutableEntry.java`
+Deprecated member 'CharPredicate' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/predicate/primitive/CharPredicate.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static <K> Function<Map.Entry<K, ?>, K> getKeyFunction()
-    {
-        return Functions.getKeyFunction();
+@FunctionalInterface
+@Deprecated
+public interface CharPredicate
+        extends Serializable
+{
 ```
 
 ### DeprecatedIsStillUsed
@@ -10098,6 +10086,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/Abstrac
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getKeyFunction' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/tuple/AbstractImmutableEntry.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <K> Function<Map.Entry<K, ?>, K> getKeyFunction()
+    {
+        return Functions.getKeyFunction();
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'ImmutableArrayStack' is still used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableArrayStack.java`
 #### Snippet
@@ -10107,42 +10107,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutab
 final class ImmutableArrayStack<T> implements ImmutableStack<T>, Serializable
 {
     private static final long serialVersionUID = 1L;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'EMPTY_CLASS_ARRAY' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/ReflectionHelper.java`
-#### Snippet
-```java
-    @SuppressWarnings("rawtypes")
-    @Deprecated
-    public static final Class[] EMPTY_CLASS_ARRAY = {};
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'csvTokensToList' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MutableList<String> csvTokensToList(String string)
-    {
-        return StringIterate.tokensToList(string, ",");
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'csvTrimmedTokensToSortedList' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MutableList<String> csvTrimmedTokensToSortedList(String string)
-    {
-        return StringIterate.trimmedTokensToSortedList(string, ",");
 ```
 
 ### DeprecatedIsStillUsed
@@ -10158,18 +10122,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'csvTokensToSet' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static MutableSet<String> csvTokensToSet(String string)
-    {
-        return StringIterate.tokensToSet(string, ",");
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'csvTokensToReverseSortedList' is still used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
 #### Snippet
@@ -10179,6 +10131,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
     public static MutableList<String> csvTokensToReverseSortedList(String string)
     {
         return StringIterate.tokensToReverseSortedList(string, ",");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'csvTokensToList' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MutableList<String> csvTokensToList(String string)
+    {
+        return StringIterate.tokensToList(string, ",");
 ```
 
 ### DeprecatedIsStillUsed
@@ -10194,6 +10158,42 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'csvTrimmedTokensToList' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MutableList<String> csvTrimmedTokensToList(String string)
+    {
+        return StringIterate.trimmedTokensToList(string, ",");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'csvTrimmedTokensToSortedList' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MutableList<String> csvTrimmedTokensToSortedList(String string)
+    {
+        return StringIterate.trimmedTokensToSortedList(string, ",");
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'csvTokensToSet' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static MutableSet<String> csvTokensToSet(String string)
+    {
+        return StringIterate.tokensToSet(string, ",");
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'asUppercaseSet' is still used
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
 #### Snippet
@@ -10206,15 +10206,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Strin
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'csvTrimmedTokensToList' is still used
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+Deprecated member 'EMPTY_CLASS_ARRAY' is still used
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/ReflectionHelper.java`
 #### Snippet
 ```java
-     */
+    @SuppressWarnings("rawtypes")
     @Deprecated
-    public static MutableList<String> csvTrimmedTokensToList(String string)
-    {
-        return StringIterate.trimmedTokensToList(string, ",");
+    public static final Class[] EMPTY_CLASS_ARRAY = {};
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -10232,7 +10232,7 @@ in `eclipse-collections-testutils/src/main/java/org/eclipse/collections/impl/tes
 ## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 #### Snippet
 ```java
             Assert.assertEquals(
@@ -10244,7 +10244,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 #### Snippet
 ```java
             Assert.assertEquals(
@@ -10256,7 +10256,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 #### Snippet
 ```java
             Assert.assertEquals(
@@ -10268,7 +10268,7 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountTest.java`
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/CountSetTest.java`
 #### Snippet
 ```java
             Assert.assertEquals(
@@ -10333,9 +10333,9 @@ Comparator method can be simplified if 'min()' call is replaced with 'max()'
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 #### Snippet
 ```java
-    public int parallel_lazy_reverse_streams_ec()
+    public int serial_lazy_reverse_jdk()
     {
-        return this.integersEC.parallelStream().min(Comparator.reverseOrder()).get();
+        return this.integersJDK.stream().min(Comparator.reverseOrder()).get();
     }
 
 ```
@@ -10345,9 +10345,9 @@ Comparator method can be simplified if 'min()' call is replaced with 'max()'
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MinTest.java`
 #### Snippet
 ```java
-    public int serial_lazy_reverse_jdk()
+    public int parallel_lazy_reverse_streams_ec()
     {
-        return this.integersJDK.stream().min(Comparator.reverseOrder()).get();
+        return this.integersEC.parallelStream().min(Comparator.reverseOrder()).get();
     }
 
 ```
@@ -10393,18 +10393,6 @@ Comparator method can be simplified if 'max()' call is replaced with 'min()'
 in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
 #### Snippet
 ```java
-    public int serial_lazy_reverse_streams_ec()
-    {
-        return this.integersEC.stream().max(Comparator.reverseOrder()).get();
-    }
-
-```
-
-### RedundantComparatorComparing
-Comparator method can be simplified if 'max()' call is replaced with 'min()'
-in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
-#### Snippet
-```java
     public int serial_lazy_reverse_jdk()
     {
         return this.integersJDK.stream().max(Comparator.reverseOrder()).get();
@@ -10424,29 +10412,41 @@ in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
 
 ```
 
-## RuleId[id=ShiftOutOfRange]
-### ShiftOutOfRange
-Shift operation `<<` by out-of-bounds value {-128, 64..127}
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
+### RedundantComparatorComparing
+Comparator method can be simplified if 'max()' call is replaced with 'min()'
+in `jmh-tests/src/main/java/org/eclipse/collections/impl/jmh/MaxTest.java`
 #### Snippet
 ```java
-                byte value = (byte) Long.numberOfTrailingZeros(bitGroup1);
-                procedure.value((byte) ((value + 65) * -1));
-                bitGroup1 &= ~(1L << (byte) (value + 64));
-            }
+    public int serial_lazy_reverse_streams_ec()
+    {
+        return this.integersEC.stream().max(Comparator.reverseOrder()).get();
+    }
 
 ```
 
+## RuleId[id=ShiftOutOfRange]
 ### ShiftOutOfRange
-Shift operation `<<` by out-of-bounds value {-128, 64..127}
+Shift operation `>>>` by out-of-bounds value {64..127}
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
 #### Snippet
 ```java
-                byte value = (byte) Long.numberOfTrailingZeros(bitGroup4);
-                procedure.value((byte) (value + 64));
-                bitGroup4 &= ~(1L << (byte) (value + 64));
-            }
+        if (value <= MAX_BYTE_GROUP_1)
+        {
+            return ((this.bitGroup1 >>> (byte) ((value + 1) * -1)) & 1L) != 0;
         }
+        if (value <= MAX_BYTE_GROUP_2)
+```
+
+### ShiftOutOfRange
+Shift operation `>>>` by out-of-bounds value {64..127}
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
+#### Snippet
+```java
+        }
+
+        return ((this.bitGroup4 >>> value) & 1L) != 0;
+    }
+
 ```
 
 ### ShiftOutOfRange
@@ -10478,11 +10478,11 @@ Shift operation `<<` by out-of-bounds value {64..127}
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
 #### Snippet
 ```java
-        {
             long initial = this.bitGroup1;
-            this.bitGroup1 &= ~(1L << (byte) ((value + 1) * -1));
-            if (this.bitGroup1 == initial)
-            {
+
+            this.bitGroup1 |= 1L << (byte) ((element + 1) * -1);
+
+            if (this.bitGroup1 != initial)
 ```
 
 ### ShiftOutOfRange
@@ -10490,11 +10490,35 @@ Shift operation `<<` by out-of-bounds value {64..127}
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
 #### Snippet
 ```java
+            long initial = this.bitGroup4;
 
-        long initial = this.bitGroup4;
-        this.bitGroup4 &= ~(1L << value);
-        if (this.bitGroup4 == initial)
-        {
+            this.bitGroup4 |= 1L << element;
+
+            if (this.bitGroup4 != initial)
+```
+
+### ShiftOutOfRange
+Shift operation `<<` by out-of-bounds value {-128, 64..127}
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
+#### Snippet
+```java
+                byte value = (byte) Long.numberOfTrailingZeros(bitGroup1);
+                procedure.value((byte) ((value + 65) * -1));
+                bitGroup1 &= ~(1L << (byte) (value + 64));
+            }
+
+```
+
+### ShiftOutOfRange
+Shift operation `<<` by out-of-bounds value {-128, 64..127}
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
+#### Snippet
+```java
+                byte value = (byte) Long.numberOfTrailingZeros(bitGroup4);
+                procedure.value((byte) (value + 64));
+                bitGroup4 &= ~(1L << (byte) (value + 64));
+            }
+        }
 ```
 
 ### ShiftOutOfRange
@@ -10522,39 +10546,15 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/p
 ```
 
 ### ShiftOutOfRange
-Shift operation `>>>` by out-of-bounds value {64..127}
+Shift operation `<<` by out-of-bounds value {64..127}
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
 #### Snippet
 ```java
-        if (value <= MAX_BYTE_GROUP_1)
         {
-            return ((this.bitGroup1 >>> (byte) ((value + 1) * -1)) & 1L) != 0;
-        }
-        if (value <= MAX_BYTE_GROUP_2)
-```
-
-### ShiftOutOfRange
-Shift operation `>>>` by out-of-bounds value {64..127}
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
-#### Snippet
-```java
-        }
-
-        return ((this.bitGroup4 >>> value) & 1L) != 0;
-    }
-
-```
-
-### ShiftOutOfRange
-Shift operation `<<` by out-of-bounds value {64..127}
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
-#### Snippet
-```java
             long initial = this.bitGroup1;
-
-            this.bitGroup1 |= 1L << (byte) ((element + 1) * -1);
-
-            if (this.bitGroup1 != initial)
+            this.bitGroup1 &= ~(1L << (byte) ((value + 1) * -1));
+            if (this.bitGroup1 == initial)
+            {
 ```
 
 ### ShiftOutOfRange
@@ -10562,26 +10562,14 @@ Shift operation `<<` by out-of-bounds value {64..127}
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/ByteHashSet.java`
 #### Snippet
 ```java
-            long initial = this.bitGroup4;
 
-            this.bitGroup4 |= 1L << element;
-
-            if (this.bitGroup4 != initial)
+        long initial = this.bitGroup4;
+        this.bitGroup4 &= ~(1L << value);
+        if (this.bitGroup4 == initial)
+        {
 ```
 
 ## RuleId[id=AbstractMethodCallInConstructor]
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `createMapWithKeyCount()` during object construction
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
-#### Snippet
-```java
-    protected AbstractMutableMultimap(int size)
-    {
-        this.map = this.createMapWithKeyCount(size);
-    }
-
-```
-
 ### AbstractMethodCallInConstructor
 Call to 'abstract' method `createMap()` during object construction
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
@@ -10590,6 +10578,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/Abst
     protected AbstractMutableMultimap()
     {
         this.map = this.createMap();
+    }
+
+```
+
+### AbstractMethodCallInConstructor
+Call to 'abstract' method `createMapWithKeyCount()` during object construction
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractMutableMultimap.java`
+#### Snippet
+```java
+    protected AbstractMutableMultimap(int size)
+    {
+        this.map = this.createMapWithKeyCount(size);
     }
 
 ```
@@ -10657,6 +10657,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'twin' in a Serializable class
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+    {
+        private static final long serialVersionUID = 1L;
+        private final Object twin;
+
+        private NotIdentityPredicate(Object object)
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'twin' in a Serializable class
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
+#### Snippet
+```java
+    {
+        private static final long serialVersionUID = 1L;
+        private final Object twin;
+
+        private IdentityPredicate(Object object)
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'compareObject' in a Serializable class
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
 #### Snippet
@@ -10678,30 +10702,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
         private final Object compareObject;
 
         private NotEqualPredicate(Object newCompareObject)
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'twin' in a Serializable class
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-    {
-        private static final long serialVersionUID = 1L;
-        private final Object twin;
-
-        private IdentityPredicate(Object object)
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'twin' in a Serializable class
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/Predicates.java`
-#### Snippet
-```java
-    {
-        private static final long serialVersionUID = 1L;
-        private final Object twin;
-
-        private NotIdentityPredicate(Object object)
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -10754,30 +10754,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates2.java`
-#### Snippet
-```java
-
-    /**
-     * Returns true if a String specified on the predicate is contained within a String passed to the accept
-     * method.
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'false' but its return type is not boolean
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates2.java`
-#### Snippet
-```java
-
-    /**
-     * Returns false if a String passed to the accept method ends with the string specified on the predicate.
-     *
-     * @since 5.0
-```
-
-### MismatchedJavadocCode
 Method is specified to return 'false' but its return type is not boolean
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates2.java`
 #### Snippet
@@ -10798,7 +10774,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
     /**
      * Returns true if a String specified on the predicate is contained within a String passed to the accept
      * method.
-     *
+     */
 ```
 
 ### MismatchedJavadocCode
@@ -10815,14 +10791,26 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates2.java`
 #### Snippet
 ```java
 
     /**
      * Returns true if a String specified on the predicate is contained within a String passed to the accept
      * method.
-     */
+     *
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'false' but its return type is not boolean
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates2.java`
+#### Snippet
+```java
+
+    /**
+     * Returns false if a String passed to the accept method ends with the string specified on the predicate.
+     *
+     * @since 5.0
 ```
 
 ### MismatchedJavadocCode
@@ -10844,18 +10832,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```java
 
     /**
-     * Returns true if a String passed to the accept method ends with the string specified on the predicate.
-     */
-    public static Predicates<String> endsWith(String substring)
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates.java`
-#### Snippet
-```java
-
-    /**
      * Returns true if a String passed to the accept method starts with the string specified on the predicate.
      */
     public static Predicates<String> startsWith(String substring)
@@ -10868,9 +10844,33 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```java
 
     /**
+     * Returns true if a String passed to the accept method ends with the string specified on the predicate.
+     */
+    public static Predicates<String> endsWith(String substring)
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates.java`
+#### Snippet
+```java
+
+    /**
      * Returns true if a String specified on the predicate is contained within a String passed to the accept
      * method.
      *
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory/StringPredicates.java`
+#### Snippet
+```java
+
+    /**
+     * Returns true if a String specified on the predicate is contained within a String passed to the accept
+     * method.
+     */
 ```
 
 ## RuleId[id=AssignmentToForLoopParameter]
@@ -10891,6 +10891,18 @@ Assignment to for-loop parameter `i`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
 #### Snippet
 ```java
+            {
+                procedure.value(each);
+                list.remove(i--);
+                changed = true;
+            }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
             if (predicate.accept(each, parameter))
             {
                 list.remove(i--);
@@ -10903,32 +10915,20 @@ Assignment to for-loop parameter `i`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
 #### Snippet
 ```java
-            {
-                procedure.value(each);
-                list.remove(i--);
-                changed = true;
-            }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-            {
-                procedure.value(each);
-                list.remove(i--);
-                changed = true;
-            }
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
             if (predicate.accept(each))
             {
+                list.remove(i--);
+                changed = true;
+            }
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
+#### Snippet
+```java
+            {
+                procedure.value(each);
                 list.remove(i--);
                 changed = true;
             }
@@ -11846,11 +11846,11 @@ Assignment to method parameter `result`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/primitive/ObjectBooleanHashMap.java`
 #### Snippet
 ```java
-            if (result.length < size)
-            {
-                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
-            }
-            this.copyKeys(result);
+        if (result.length < this.size())
+        {
+            result = new boolean[this.size()];
+        }
+        int index = 0;
 ```
 
 ### AssignmentToMethodParameter
@@ -11858,11 +11858,11 @@ Assignment to method parameter `result`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/primitive/ObjectBooleanHashMap.java`
 #### Snippet
 ```java
-        if (result.length < this.size())
-        {
-            result = new boolean[this.size()];
-        }
-        int index = 0;
+            if (result.length < size)
+            {
+                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
+            }
+            this.copyKeys(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -11878,27 +11878,63 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/p
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+Assignment to method parameter `result`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
-            if (o == RESIZED || o == RESIZING)
+            if (result.length < size)
             {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
             }
-            else
+            this.copyKeys(result);
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
+Assignment to method parameter `result`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+            if (result.length < size)
+            {
+                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
+            }
+            this.copyValues(result);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+            if (result.length < size)
+            {
+                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
+            }
+            this.copyEntries(result);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+                return index;
+            }
+            objectIntProcedure.value((V) chain[i + 1], index++);
+        }
+        return index;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialCapacity`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
 #### Snippet
 ```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
+        if (initialCapacity > MAXIMUM_CAPACITY)
+        {
+            initialCapacity = MAXIMUM_CAPACITY;
+        }
+
 ```
 
 ### AssignmentToMethodParameter
@@ -11923,6 +11959,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
                     key = keyTransformer.value(key, newValue);
                 }
                 Entry<K, V> newEntry = new Entry<>(key, newValue, (Entry<K, V>) o);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
 ```
 
 ### AssignmentToMethodParameter
@@ -11962,8 +12010,56 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `initialCapacity`
+Assignment to method parameter `currentArray`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `initialCapacity`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
         if (initialCapacity > MAXIMUM_CAPACITY)
@@ -11971,54 +12067,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
             initialCapacity = MAXIMUM_CAPACITY;
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
 ```
 
 ### AssignmentToMethodParameter
@@ -12046,15 +12094,39 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `initialCapacity`
+Assignment to method parameter `currentArray`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
-        if (initialCapacity > MAXIMUM_CAPACITY)
-        {
-            initialCapacity = MAXIMUM_CAPACITY;
-        }
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `currentArray`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            if (o == RESIZED || o == RESIZING)
+            {
+                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
+            }
+            else
 ```
 
 ### AssignmentToMethodParameter
@@ -12094,78 +12166,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentArray`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            if (o == RESIZED || o == RESIZING)
-            {
-                currentArray = this.helpWithResizeWhileCurrentIndex(currentArray, index);
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-            if (result.length < size)
-            {
-                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
-            }
-            this.copyEntries(result);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-                return index;
-            }
-            objectIntProcedure.value((V) chain[i + 1], index++);
-        }
-        return index;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-            if (result.length < size)
-            {
-                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
-            }
-            this.copyValues(result);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-            if (result.length < size)
-            {
-                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
-            }
-            this.copyKeys(result);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `input`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/immutable/ImmutableTreeSet.java`
 #### Snippet
@@ -12186,7 +12186,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
             {
                 result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
             }
-            this.copyValues(result);
+            this.copyKeys(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -12198,19 +12198,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
             {
                 result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
             }
-            this.copyKeys(result);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
-                return index;
-            }
-            objectIntProcedure.value((V) chain[i + 1], index++);
-        }
-        return index;
+            this.copyValues(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -12226,6 +12214,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
+#### Snippet
+```java
+                return index;
+            }
+            objectIntProcedure.value((V) chain[i + 1], index++);
+        }
+        return index;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `target`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/primitive/BooleanHashSet.java`
 #### Snippet
@@ -12235,30 +12235,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/p
             target = new boolean[requiredSize];
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/primitive/ImmutableTrueFalseSet.java`
-#### Snippet
-```java
-        if (target.length < 2)
-        {
-            target = new boolean[]{false, true};
-        }
-        else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `target`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/primitive/ImmutableFalseSet.java`
-#### Snippet
-```java
-        if (target.length < 1)
-        {
-            target = new boolean[]{false};
-        }
-        else
 ```
 
 ### AssignmentToMethodParameter
@@ -12287,6 +12263,30 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/p
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `target`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/primitive/ImmutableTrueFalseSet.java`
+#### Snippet
+```java
+        if (target.length < 2)
+        {
+            target = new boolean[]{false, true};
+        }
+        else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/primitive/ImmutableFalseSet.java`
+#### Snippet
+```java
+        if (target.length < 1)
+        {
+            target = new boolean[]{false};
+        }
+        else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `target`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/primitive/ImmutableTrueSet.java`
 #### Snippet
 ```java
@@ -12310,85 +12310,49 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `count`
+Assignment to method parameter `oldBucket`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-        do
+            if (bucket.three instanceof ChainedBucket)
+            {
+                oldBucket = bucket;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+        while (bucket.three instanceof ChainedBucket)
         {
-            result[count++] = this.nonSentinel(bucket.zero);
-            if (bucket.one == null)
-            {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                break;
-            }
-            result[count++] = this.nonSentinel(bucket.one);
-            if (bucket.two == null)
-            {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                break;
-            }
-            result[count++] = this.nonSentinel(bucket.two);
-            if (bucket.three == null)
-            {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                continue;
-            }
-            result[count++] = this.nonSentinel(bucket.three);
-            break;
+            bucket = (ChainedBucket) bucket.three;
         }
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
+Assignment to method parameter `oldBucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                if (bucket.three instanceof ChainedBucket)
+                {
+                    oldBucket = bucket;
+                    continue;
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `oldBucket`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
             if (bucket.three instanceof ChainedBucket)
             {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
+                oldBucket = bucket;
                 continue;
             }
 ```
@@ -12410,23 +12374,11 @@ Assignment to method parameter `i`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-                        if (bucket.three instanceof ChainedBucket)
-                        {
-                            i -= 3;
-                            oldBucket = bucket;
-                            continue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                        {
-                            i -= 3;
-                            oldBucket = bucket;
-                            continue;
-                        }
+            {
+                bucket = (ChainedBucket) bucket.three;
+                i -= 3;
+            }
+            do
 ```
 
 ### AssignmentToMethodParameter
@@ -12437,20 +12389,8 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
                         if (bucket.three instanceof ChainedBucket)
                         {
                             i -= 3;
-                            oldBucket = bucket;
+                            bucket = (ChainedBucket) bucket.three;
                             continue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                        {
-                            i -= 3;
-                            oldBucket = bucket;
-                            continue;
-                        }
 ```
 
 ### AssignmentToMethodParameter
@@ -12514,39 +12454,27 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                if (bucket.three instanceof ChainedBucket)
-                {
-                    oldBucket = bucket;
-                    continue;
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                oldBucket = bucket;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `i`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-            {
-                bucket = (ChainedBucket) bucket.three;
-                i -= 3;
-            }
-            do
+                        if (bucket.three instanceof ChainedBucket)
+                        {
+                            i -= 3;
+                            oldBucket = bucket;
+                            continue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `oldBucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                        {
+                            i -= 3;
+                            oldBucket = bucket;
+                            continue;
+                        }
 ```
 
 ### AssignmentToMethodParameter
@@ -12557,8 +12485,20 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
                         if (bucket.three instanceof ChainedBucket)
                         {
                             i -= 3;
-                            bucket = (ChainedBucket) bucket.three;
+                            oldBucket = bucket;
                             continue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `oldBucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                        {
+                            i -= 3;
+                            oldBucket = bucket;
+                            continue;
+                        }
 ```
 
 ### AssignmentToMethodParameter
@@ -12658,30 +12598,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                oldBucket = bucket;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-        while (bucket.three instanceof ChainedBucket)
-        {
-            bucket = (ChainedBucket) bucket.three;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `bucket`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
@@ -12695,7 +12611,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
             if (bucket.three instanceof ChainedBucket)
@@ -12703,95 +12619,47 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
                 bucket = (ChainedBucket) bucket.three;
                 continue;
             }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                if (bucket.three instanceof ChainedBucket)
-                {
-                    oldBucket = bucket;
-                    continue;
-                }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-        while (bucket.three instanceof ChainedBucket)
-        {
-            bucket = (ChainedBucket) bucket.three;
-        }
-
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
         do
         {
-            procedure.value(this.nonSentinel(bucket.zero), count++);
+            result[count++] = this.nonSentinel(bucket.zero);
             if (bucket.one == null)
             {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-                return count;
+                break;
             }
-            procedure.value(this.nonSentinel(bucket.one), count++);
+            result[count++] = this.nonSentinel(bucket.one);
             if (bucket.two == null)
             {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-                return count;
+                break;
             }
-            procedure.value(this.nonSentinel(bucket.two), count++);
+            result[count++] = this.nonSentinel(bucket.two);
             if (bucket.three == null)
             {
 ```
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
             if (bucket.three instanceof ChainedBucket)
@@ -12803,13 +12671,121 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `count`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
                 continue;
             }
-            procedure.value(this.nonSentinel(bucket.three), count++);
-            return count;
+            result[count++] = this.nonSentinel(bucket.three);
+            break;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
         }
 ```
 
@@ -12826,18 +12802,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `i`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
@@ -12883,126 +12847,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
                             oldBucket = bucket;
                             continue;
                         }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `oldBucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                oldBucket = bucket;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            {
-                bucket = (ChainedBucket) bucket.three;
-                i -= 3;
-            }
-            do
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                        if (bucket.three instanceof ChainedBucket)
-                        {
-                            i -= 3;
-                            bucket = (ChainedBucket) bucket.three;
-                            continue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `bucket`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three instanceof ChainedBucket)
-            {
-                bucket = (ChainedBucket) bucket.three;
-                continue;
-            }
 ```
 
 ### AssignmentToMethodParameter
@@ -13090,6 +12934,126 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `oldBucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                if (bucket.three instanceof ChainedBucket)
+                {
+                    oldBucket = bucket;
+                    continue;
+                }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `oldBucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                oldBucket = bucket;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            {
+                bucket = (ChainedBucket) bucket.three;
+                i -= 3;
+            }
+            do
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `i`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                        if (bucket.three instanceof ChainedBucket)
+                        {
+                            i -= 3;
+                            bucket = (ChainedBucket) bucket.three;
+                            continue;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+        while (bucket.three instanceof ChainedBucket)
+        {
+            bucket = (ChainedBucket) bucket.three;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `size`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
@@ -13102,98 +13066,134 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            if (from < to)
+            if (bucket.three instanceof ChainedBucket)
             {
-                from++;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-            else
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            else
+            if (bucket.three instanceof ChainedBucket)
             {
-                from--;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            if (to > from)
+            if (bucket.three instanceof ChainedBucket)
             {
-                to--;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-            else
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            else
+            if (bucket.three instanceof ChainedBucket)
             {
-                to++;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            if (from < to)
+            if (bucket.three instanceof ChainedBucket)
             {
-                from++;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-            else
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            else
+            if (bucket.three instanceof ChainedBucket)
             {
-                from--;
+                bucket = (ChainedBucket) bucket.three;
+                continue;
             }
-        }
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `count`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            if (to > from)
+        do
+        {
+            procedure.value(this.nonSentinel(bucket.zero), count++);
+            if (bucket.one == null)
             {
-                to--;
-            }
-            else
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/Interval.java`
+Assignment to method parameter `count`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            else
-            {
-                to++;
+                return count;
             }
+            procedure.value(this.nonSentinel(bucket.one), count++);
+            if (bucket.two == null)
+            {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                return count;
+            }
+            procedure.value(this.nonSentinel(bucket.two), count++);
+            if (bucket.three == null)
+            {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `bucket`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three instanceof ChainedBucket)
+            {
+                bucket = (ChainedBucket) bucket.three;
+                continue;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `count`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                continue;
+            }
+            procedure.value(this.nonSentinel(bucket.three), count++);
+            return count;
         }
 ```
 
@@ -13246,6 +13246,102 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `result`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
 #### Snippet
@@ -13255,102 +13351,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitiv
             result = new long[this.size()];
         }
         long[] finalBypass = result;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            if (from < to)
-            {
-                from++;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            else
-            {
-                from--;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            if (to > from)
-            {
-                to--;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            else
-            {
-                to++;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            if (from < to)
-            {
-                from++;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            else
-            {
-                from--;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            if (to > from)
-            {
-                to--;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/LongInterval.java`
-#### Snippet
-```java
-            else
-            {
-                to++;
-            }
-        }
 ```
 
 ### AssignmentToMethodParameter
@@ -13366,114 +13366,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutabl
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `a`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutable/ImmutableArrayList.java`
-#### Snippet
-```java
-        if (a.length < size)
-        {
-            a = (E[]) Array.newInstance(a.getClass().getComponentType(), size);
-        }
-        System.arraycopy(this.items, 0, a, 0, size);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            if (from < to)
-            {
-                from++;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            else
-            {
-                from--;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            if (to > from)
-            {
-                to--;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            else
-            {
-                to++;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            if (from < to)
-            {
-                from++;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            else
-            {
-                from--;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            if (to > from)
-            {
-                to--;
-            }
-            else
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `to`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
-#### Snippet
-```java
-            else
-            {
-                to++;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `result`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
 #### Snippet
@@ -13486,6 +13378,114 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitiv
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            if (from < to)
+            {
+                from++;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            else
+            {
+                from--;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            if (to > from)
+            {
+                to--;
+            }
+            else
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `to`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/primitive/IntInterval.java`
+#### Snippet
+```java
+            else
+            {
+                to++;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `a`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutable/ImmutableArrayList.java`
+#### Snippet
+```java
+        if (a.length < size)
+        {
+            a = (E[]) Array.newInstance(a.getClass().getComponentType(), size);
+        }
+        System.arraycopy(this.items, 0, a, 0, size);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `array`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
 #### Snippet
@@ -13495,18 +13495,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/
             array = (E[]) Array.newInstance(array.getClass().getComponentType(), this.size);
         }
         System.arraycopy(this.items, 0, array, 0, this.size);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/mutable/AbstractMutableBiMap.java`
-#### Snippet
-```java
-            if (result.length < size)
-            {
-                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
-            }
-            this.copyEntries(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -13567,6 +13555,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutab
             count--;
         }
         return new ImmutableArrayStack<>(newDelegate);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `result`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/mutable/AbstractMutableBiMap.java`
+#### Snippet
+```java
+            if (result.length < size)
+            {
+                result = (T[]) Array.newInstance(result.getClass().getComponentType(), size);
+            }
+            this.copyEntries(result);
 ```
 
 ### AssignmentToMethodParameter
@@ -13679,18 +13679,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/block/factory
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `existingValues`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractSynchronizedPutMultimap.java`
-#### Snippet
-```java
-        {
-            C existingValues = this.getIfAbsentPutCollection(key);
-            synchronized (existingValues)
-            {
-                this.addAll(existingValues, values);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `collection`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractSynchronizedPutMultimap.java`
 #### Snippet
@@ -13700,6 +13688,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/Abst
         synchronized (collection)
         {
             if (collection.add(value))
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `existingValues`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/multimap/AbstractSynchronizedPutMultimap.java`
+#### Snippet
+```java
+        {
+            C existingValues = this.getIfAbsentPutCollection(key);
+            synchronized (existingValues)
+            {
+                this.addAll(existingValues, values);
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -13732,7 +13732,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/sorted/immutable/ImmutableEmptySortedBag.java`
 #### Snippet
 ```java
-    public T getFirst()
+    public T getLast()
     {
         return null;
     }
@@ -13744,7 +13744,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/sorted/immutable/ImmutableEmptySortedBag.java`
 #### Snippet
 ```java
-    public T getLast()
+    public T getFirst()
     {
         return null;
     }
@@ -13801,11 +13801,23 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/sorted/mu
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableArrayBag.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/AbstractMapIterable.java`
 #### Snippet
 ```java
-            }
-        }
+    {
+        V result = this.get(key);
+        return this.isAbsent(result, key) ? null : function.valueOf(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableEmptyBag.java`
+#### Snippet
+```java
+    public T getLast()
+    {
         return null;
     }
 
@@ -13817,30 +13829,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable
 #### Snippet
 ```java
     public T getFirst()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableEmptyBag.java`
-#### Snippet
-```java
-    public T detect(Predicate<? super T> predicate)
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableEmptyBag.java`
-#### Snippet
-```java
-    public T getLast()
     {
         return null;
     }
@@ -13864,7 +13852,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableEmptyBag.java`
 #### Snippet
 ```java
-    public T detectWithOccurrences(ObjectIntPredicate<? super T> predicate)
+    public T detect(Predicate<? super T> predicate)
     {
         return null;
     }
@@ -13873,12 +13861,12 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/AbstractMapIterable.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableEmptyBag.java`
 #### Snippet
 ```java
+    public T detectWithOccurrences(ObjectIntPredicate<? super T> predicate)
     {
-        V result = this.get(key);
-        return this.isAbsent(result, key) ? null : function.valueOf(result);
+        return null;
     }
 
 ```
@@ -13936,18 +13924,6 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableSingletonBag.java`
 #### Snippet
 ```java
-    public T detectWithOccurrences(ObjectIntPredicate<? super T> predicate)
-    {
-        return predicate.accept(this.value, 1) ? this.value : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableSingletonBag.java`
-#### Snippet
-```java
         return predicate.accept(this.value)
                 ? this.value
                 : null;
@@ -13957,10 +13933,22 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/DoubletonMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableSingletonBag.java`
 #### Snippet
 ```java
-            return this.value1;
+    public T detectWithOccurrences(ObjectIntPredicate<? super T> predicate)
+    {
+        return predicate.accept(this.value, 1) ? this.value : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bag/immutable/ImmutableArrayBag.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -13981,7 +13969,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/Dou
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/TripletonMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/DoubletonMap.java`
 #### Snippet
 ```java
             return this.value1;
@@ -14005,10 +13993,22 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/Tri
 
 ### ReturnNull
 Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/fixed/TripletonMap.java`
+#### Snippet
+```java
+            return this.value1;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableEmptySortedMap.java`
 #### Snippet
 ```java
-    public Pair<K, V> detect(Predicate2<? super K, ? super V> predicate)
+    public <A> A ifPresentApply(K key, Function<? super V, ? extends A> function)
     {
         return null;
     }
@@ -14032,7 +14032,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/immutable/ImmutableEmptySortedMap.java`
 #### Snippet
 ```java
-    public <A> A ifPresentApply(K key, Function<? super V, ? extends A> function)
+    public Pair<K, V> detect(Predicate2<? super K, ? super V> predicate)
     {
         return null;
     }
@@ -14080,18 +14080,6 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/immutable/ImmutableEmptyMapWithHashingStrategy.java`
 #### Snippet
 ```java
-    public <A> A ifPresentApply(K key, Function<? super V, ? extends A> function)
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/immutable/ImmutableEmptyMapWithHashingStrategy.java`
-#### Snippet
-```java
     public V get(Object key)
     {
         return null;
@@ -14113,455 +14101,11 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/immutable/ImmutableEmptyMapWithHashingStrategy.java`
 #### Snippet
 ```java
     public <A> A ifPresentApply(K key, Function<? super V, ? extends A> function)
     {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
-#### Snippet
-```java
-    public Pair<K, V> detect(Predicate2<? super K, ? super V> predicate)
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
-#### Snippet
-```java
-    public V get(Object key)
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableTripletonMap.java`
-#### Snippet
-```java
-            return Tuples.pair(this.key3, this.value3);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableTripletonMap.java`
-#### Snippet
-```java
-            return this.value1;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableSingletonMap.java`
-#### Snippet
-```java
-            return Tuples.pair(this.key1, this.value1);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableSingletonMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    if (newValue == null)
-                    {
-                        return null; // null value means no mapping is required
-                    }
-                    key = keyTransformer.value(key, newValue);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                {
-                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                {
-                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                {
-                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
-                    return null; // per the contract of putIfAbsent, we return null when the map didn't have this key before
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-            if (currentArray.compareAndSet(index, null, newEntry))
-            {
-                return null;
-            }
-            this.addToSize(-1);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-            e = e.getNext();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-        if (o == null)
-        {
-            return null;
-        }
-        return this.slowReplace(key, value, hash, currentArray);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-    {
-        V result = this.get(key);
-        return result == null ? null : function.valueOf(result);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
-#### Snippet
-```java
-            return Tuples.pair(this.key4, this.value4);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
-#### Snippet
-```java
-            return this.value1;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            e = e.getNext();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    if (newValue == null)
-                    {
-                        return null; // null value means no mapping is required
-                    }
-                    key = keyTransformer.value(key, newValue);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                {
-                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-    {
-        V result = this.get(key);
-        return result == null ? null : function.valueOf(result);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                    e = e.getNext();
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                {
-                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
-                    return null;
-                }
-            }
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
-#### Snippet
-```java
-            return Tuples.pair(this.key2, this.value2);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
-#### Snippet
-```java
-            return this.value1;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-            if (cur == null)
-            {
-                return null;
-            }
-            if (UnifiedMap.this.nonNullTableObjectEquals(cur, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
-#### Snippet
-```java
-        }
-
         return null;
     }
 
@@ -14596,8 +14140,32 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
-        }
+                        this.rehash(this.table.length);
+                    }
+                    return null;
+                }
+                if (this.nonNullTableObjectEquals(chain[i], key))
+```
 
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+                this.rehash(this.table.length);
+            }
+            return null;
+        }
+        Object[] newChain = new Object[4];
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+            this.rehash(this.table.length);
+        }
         return null;
     }
 
@@ -14608,10 +14176,10 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
-                return map.put(this.key, value);
             }
-            return null;
         }
+        return null;
+    }
 
 ```
 
@@ -14644,8 +14212,56 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
             }
         }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+                return map.put(this.key, value);
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+#### Snippet
+```java
+        }
+
         return null;
     }
 
@@ -14704,11 +14320,11 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
-                        this.rehash(this.table.length);
-                    }
-                    return null;
-                }
-                if (this.nonNullTableObjectEquals(chain[i], key))
+            if (cur == null)
+            {
+                return null;
+            }
+            if (UnifiedMap.this.nonNullTableObjectEquals(cur, key))
 ```
 
 ### ReturnNull
@@ -14716,19 +14332,19 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
 #### Snippet
 ```java
-                this.rehash(this.table.length);
+                }
             }
             return null;
         }
-        Object[] newChain = new Object[4];
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableTripletonMap.java`
 #### Snippet
 ```java
-            this.rehash(this.table.length);
+            return Tuples.pair(this.key3, this.value3);
         }
         return null;
     }
@@ -14737,11 +14353,299 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/U
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnifiedMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableTripletonMap.java`
+#### Snippet
+```java
+            return this.value1;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
+#### Snippet
+```java
+    public Pair<K, V> detect(Predicate2<? super K, ? super V> predicate)
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
+#### Snippet
+```java
+    public <A> A ifPresentApply(K key, Function<? super V, ? extends A> function)
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableEmptyMap.java`
+#### Snippet
+```java
+    public V get(Object key)
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableSingletonMap.java`
+#### Snippet
+```java
+            return Tuples.pair(this.key1, this.value1);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableSingletonMap.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
+#### Snippet
+```java
+            return this.value1;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableQuadrupletonMap.java`
+#### Snippet
+```java
+            return Tuples.pair(this.key4, this.value4);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
+#### Snippet
+```java
+            return Tuples.pair(this.key2, this.value2);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable/ImmutableDoubletonMap.java`
+#### Snippet
+```java
+            return this.value1;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+    {
+        V result = this.delegate.get(key);
+        return result == null ? null : function.valueOf(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+    {
+        V result = this.get(key);
+        return result == null ? null : function.valueOf(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+        if (o == null)
+        {
+            return null;
+        }
+        return this.slowReplace(key, value, hash, currentArray);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    if (newValue == null)
+                    {
+                        return null; // null value means no mapping is required
+                    }
+                    key = keyTransformer.value(key, newValue);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                {
+                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                {
+                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                {
+                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
+                    return null; // per the contract of putIfAbsent, we return null when the map didn't have this key before
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            if (currentArray.compareAndSet(index, null, newEntry))
+            {
+                return null;
+            }
+            this.addToSize(-1);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
 #### Snippet
 ```java
             }
         }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+            e = e.getNext();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/EmptySet.java`
+#### Snippet
+```java
+    public T getLast()
+    {
         return null;
     }
 
@@ -14761,14 +14665,122 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/Emp
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/fixed/EmptySet.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
-    public T getLast()
     {
+        V result = this.get(key);
+        return result == null ? null : function.valueOf(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            }
+        }
         return null;
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            e = e.getNext();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                {
+                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
+                    return null;
+                }
+            }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    e = e.getNext();
+                }
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                    if (newValue == null)
+                    {
+                        return null; // null value means no mapping is required
+                    }
+                    key = keyTransformer.value(key, newValue);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                {
+                    this.incrementSizeAndPossiblyResize(currentArray, length, o);
+                    return null;
+                }
+            }
 ```
 
 ### ReturnNull
@@ -14785,12 +14797,36 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/im
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
-    {
-        V result = this.delegate.get(key);
-        return result == null ? null : function.valueOf(result);
+                if (cur == null)
+                {
+                    return null;
+                }
+                if (UnifiedMapWithHashingStrategy.this.nonNullTableObjectEquals(cur, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
+#### Snippet
+```java
+                }
+            }
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
     }
 
 ```
@@ -14848,6 +14884,18 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
+            if (k == null)
+            {
+                return null;
+            }
+            if (this.nonNullTableObjectEquals(k, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
+#### Snippet
+```java
             }
         }
         return null;
@@ -14908,42 +14956,6 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
-    private K nonSentinel(Object key)
-    {
-        return key == NULL_KEY ? null : (K) key;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
-            if (k == null)
-            {
-                return null;
-            }
-            if (this.nonNullTableObjectEquals(k, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
                 return map.put(this.key, value);
             }
             return null;
@@ -14968,22 +14980,10 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
 #### Snippet
 ```java
-                if (cur == null)
-                {
-                    return null;
-                }
-                if (UnifiedMapWithHashingStrategy.this.nonNullTableObjectEquals(cur, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/strategy/mutable/UnifiedMapWithHashingStrategy.java`
-#### Snippet
-```java
-                }
-            }
-            return null;
-        }
+    private K nonSentinel(Object key)
+    {
+        return key == NULL_KEY ? null : (K) key;
+    }
 
 ```
 
@@ -15002,6 +15002,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
 ### ReturnNull
 Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/immutable/ImmutableEmptySetWithHashingStrategy.java`
+#### Snippet
+```java
+    public T getFirst()
+    {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/ImmutableEmptySet.java`
 #### Snippet
 ```java
     public T getFirst()
@@ -15028,32 +15040,8 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/ImmutableEmptySet.java`
 #### Snippet
 ```java
-    public T getFirst()
-    {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/immutable/ImmutableEmptySet.java`
-#### Snippet
-```java
     public T getLast()
     {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/CompositeIterable.java`
-#### Snippet
-```java
-            }
-        }
         return null;
     }
 
@@ -15093,6 +15081,294 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/CollectI
             return null;
         }
         return this.function.valueOf(Iterate.getFirst(this.adapted));
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/CompositeIterable.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
+#### Snippet
+```java
+        MinByProcedure<T, V> procedure = new MinByProcedure<>(function);
+        this.forEach(procedure);
+        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
+#### Snippet
+```java
+        MaxByProcedure<T, V> procedure = new MaxByProcedure<>(function);
+        this.forEach(procedure);
+        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
+#### Snippet
+```java
+        MaxComparatorProcedure<T> procedure = new MaxComparatorProcedure<>(comparator);
+        this.forEach(procedure);
+        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
+#### Snippet
+```java
+        MinComparatorProcedure<T> procedure = new MinComparatorProcedure<>(comparator);
+        this.forEach(procedure);
+        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.one == null)
+            {
+                return null;
+            }
+            if (predicate.accept(this.nonSentinel(bucket.one)))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.two == null)
+            {
+                return null;
+            }
+            if (predicate.accept(this.nonSentinel(bucket.two)))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.three == null)
+            {
+                return null;
+            }
+            if (bucket.three instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                return bucket.three;
+            }
+            return null;
+        }
+        while (true);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+        if (bucket.one == null)
+        {
+            return null;
+        }
+        if (this.nonNullTableObjectEquals(bucket.one, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+        if (bucket.two == null)
+        {
+            return null;
+        }
+        if (this.nonNullTableObjectEquals(bucket.two, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+        if (bucket.three == null)
+        {
+            return null;
+        }
+        if (bucket.three instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            return this.nonSentinel(result);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+    private T nonSentinel(Object key)
+    {
+        return key == NULL_KEY ? null : (T) key;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.one == null)
+            {
+                return null;
+            }
+            if (this.nonNullTableObjectEquals(bucket.one, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.two == null)
+            {
+                return null;
+            }
+            if (this.nonNullTableObjectEquals(bucket.two, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            if (bucket.three == null)
+            {
+                return null;
+            }
+            if (bucket.three instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                return this.nonSentinel(result);
+            }
+            return null;
+        }
+        while (true);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+        if (cur == null)
+        {
+            return null;
+        }
+        if (cur instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+            return this.nonSentinel(cur);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
+#### Snippet
+```java
+                        return bucket.three;
+                    case 4:
+                        return null; // this happens when a bucket is exactly full, and we're iterating
+                    default:
+                        throw new AssertionError();
 ```
 
 ### ReturnNull
@@ -15172,30 +15448,6 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
 #### Snippet
 ```java
-    private T nonSentinel(Object key)
-    {
-        return key == NULL_KEY ? null : (T) key;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
             if (bucket.one == null)
             {
                 return null;
@@ -15237,258 +15489,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/U
             return null;
         }
         while (true);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.one == null)
-            {
-                return null;
-            }
-            if (predicate.accept(this.nonSentinel(bucket.one)))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.two == null)
-            {
-                return null;
-            }
-            if (predicate.accept(this.nonSentinel(bucket.two)))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three == null)
-            {
-                return null;
-            }
-            if (bucket.three instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                return bucket.three;
-            }
-            return null;
-        }
-        while (true);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                        return bucket.three;
-                    case 4:
-                        return null; // this happens when a bucket is exactly full, and we're iterating
-                    default:
-                        throw new AssertionError();
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-        if (cur == null)
-        {
-            return null;
-        }
-        if (cur instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            return this.nonSentinel(cur);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.one == null)
-            {
-                return null;
-            }
-            if (this.nonNullTableObjectEquals(bucket.one, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.two == null)
-            {
-                return null;
-            }
-            if (this.nonNullTableObjectEquals(bucket.two, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            if (bucket.three == null)
-            {
-                return null;
-            }
-            if (bucket.three instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-                return this.nonSentinel(result);
-            }
-            return null;
-        }
-        while (true);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-        if (bucket.one == null)
-        {
-            return null;
-        }
-        if (this.nonNullTableObjectEquals(bucket.one, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-        if (bucket.two == null)
-        {
-            return null;
-        }
-        if (this.nonNullTableObjectEquals(bucket.two, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-        if (bucket.three == null)
-        {
-            return null;
-        }
-        if (bucket.three instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnifiedSet.java`
-#### Snippet
-```java
-            return this.nonSentinel(result);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
-#### Snippet
-```java
-        MaxByProcedure<T, V> procedure = new MaxByProcedure<>(function);
-        this.forEach(procedure);
-        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
-#### Snippet
-```java
-        MinComparatorProcedure<T> procedure = new MinComparatorProcedure<>(comparator);
-        this.forEach(procedure);
-        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
-#### Snippet
-```java
-        MinByProcedure<T, V> procedure = new MinByProcedure<>(function);
-        this.forEach(procedure);
-        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/parallel/AbstractBatch.java`
-#### Snippet
-```java
-        MaxComparatorProcedure<T> procedure = new MaxComparatorProcedure<>(comparator);
-        this.forEach(procedure);
-        return procedure.isVisitedAtLeastOnce() ? procedure.getResult() : null;
-    }
-
 ```
 
 ### ReturnNull
@@ -15544,7 +15544,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/EmptyList.java`
 #### Snippet
 ```java
-    public T getFirst()
+    public T getLast()
     {
         return null;
     }
@@ -15556,7 +15556,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/EmptyList.java`
 #### Snippet
 ```java
-    public T getLast()
+    public T getFirst()
     {
         return null;
     }
@@ -15568,11 +15568,11 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-                Object result = this.three;
-                this.three = null;
-                return cur == 3 ? null : result;
-            }
-            if (this.two != null)
+    private T nonSentinel(Object key)
+    {
+        return key == NULL_KEY ? null : (T) key;
+    }
+
 ```
 
 ### ReturnNull
@@ -15580,11 +15580,11 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-                Object result = this.two;
-                this.two = null;
-                return cur == 2 ? null : result;
-            }
-            if (this.one != null)
+                        return bucket.three;
+                    case 4:
+                        return null; // this happens when a bucket is exactly full, and we're iterating
+                    default:
+                        throw new AssertionError();
 ```
 
 ### ReturnNull
@@ -15592,11 +15592,11 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-                Object result = this.one;
-                this.one = null;
-                return cur == 1 ? null : result;
+            if (bucket.one == null)
+            {
+                return null;
             }
-            this.zero = null;
+            if (this.nonNullTableObjectEquals(bucket.one, key))
 ```
 
 ### ReturnNull
@@ -15604,10 +15604,46 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
+            if (bucket.two == null)
+            {
+                return null;
             }
-            this.zero = null;
+            if (this.nonNullTableObjectEquals(bucket.two, key))
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            if (bucket.three == null)
+            {
+                return null;
+            }
+            if (bucket.three instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                return this.nonSentinel(result);
+            }
             return null;
         }
+        while (true);
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
 
 ```
 
@@ -15700,67 +15736,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            if (bucket.one == null)
-            {
-                return null;
             }
-            if (this.nonNullTableObjectEquals(bucket.one, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.two == null)
-            {
-                return null;
-            }
-            if (this.nonNullTableObjectEquals(bucket.two, key))
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            if (bucket.three == null)
-            {
-                return null;
-            }
-            if (bucket.three instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                return this.nonSentinel(result);
-            }
-            return null;
-        }
-        while (true);
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-        if (cur == null)
-        {
-            return null;
-        }
-        if (cur instanceof ChainedBucket)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            return this.nonSentinel(cur);
         }
         return null;
     }
@@ -15820,6 +15796,54 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
+                Object result = this.three;
+                this.three = null;
+                return cur == 3 ? null : result;
+            }
+            if (this.two != null)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                Object result = this.two;
+                this.two = null;
+                return cur == 2 ? null : result;
+            }
+            if (this.one != null)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+                Object result = this.one;
+                this.one = null;
+                return cur == 1 ? null : result;
+            }
+            this.zero = null;
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            }
+            this.zero = null;
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
             if (bucket.one == null)
             {
                 return null;
@@ -15868,57 +15892,21 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
 #### Snippet
 ```java
-            }
+        if (cur == null)
+        {
+            return null;
+        }
+        if (cur instanceof ChainedBucket)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
+#### Snippet
+```java
+            return this.nonSentinel(cur);
         }
         return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-    private T nonSentinel(Object key)
-    {
-        return key == NULL_KEY ? null : (T) key;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-                        return bucket.three;
-                    case 4:
-                        return null; // this happens when a bucket is exactly full, and we're iterating
-                    default:
-                        throw new AssertionError();
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/mutable/UnifiedSetWithHashingStrategy.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/AbstractArrayAdapter.java`
-#### Snippet
-```java
-    public T getFirst()
-    {
-        return this.isEmpty() ? null : this.items[0];
     }
 
 ```
@@ -15931,6 +15919,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/Ab
     public T getLast()
     {
         return this.isEmpty() ? null : this.items[this.items.length - 1];
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/fixed/AbstractArrayAdapter.java`
+#### Snippet
+```java
+    public T getFirst()
+    {
+        return this.isEmpty() ? null : this.items[0];
     }
 
 ```
@@ -15964,7 +15964,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutable/ImmutableEmptyList.java`
 #### Snippet
 ```java
-    public T getLast()
+    public T getFirst()
     {
         return null;
     }
@@ -15976,10 +15976,34 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutable/ImmutableEmptyList.java`
 #### Snippet
 ```java
-    public T getFirst()
+    public T getLast()
     {
         return null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
+#### Snippet
+```java
+        public T getFirst()
+        {
+            return this.isEmpty() ? null : this.original.get(this.offset);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
+#### Snippet
+```java
+        public T getLast()
+        {
+            return this.isEmpty() ? null : this.original.get(this.offset + this.size - 1);
+        }
 
 ```
 
@@ -16033,30 +16057,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutabl
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
-#### Snippet
-```java
-        public T getFirst()
-        {
-            return this.isEmpty() ? null : this.original.get(this.offset);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/AbstractMutableList.java`
-#### Snippet
-```java
-        public T getLast()
-        {
-            return this.isEmpty() ? null : this.original.get(this.offset + this.size - 1);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/immutable/ImmutableArrayList.java`
 #### Snippet
 ```java
@@ -16084,9 +16084,9 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
 #### Snippet
 ```java
-    public T getLast()
+    public T getFirst()
     {
-        return this.isEmpty() ? null : this.items[this.size() - 1];
+        return this.isEmpty() ? null : this.items[0];
     }
 
 ```
@@ -16096,9 +16096,9 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/list/mutable/FastList.java`
 #### Snippet
 ```java
-    public T getFirst()
+    public T getLast()
     {
-        return this.isEmpty() ? null : this.items[0];
+        return this.isEmpty() ? null : this.items[this.size() - 1];
     }
 
 ```
@@ -16168,7 +16168,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableEmptyStack.java`
 #### Snippet
 ```java
-    public T detect(Predicate<? super T> predicate)
+    public <P> T detectWith(Predicate2<? super T, ? super P> predicate, P parameter)
     {
         return null;
     }
@@ -16180,7 +16180,7 @@ Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/immutable/ImmutableEmptyStack.java`
 #### Snippet
 ```java
-    public <P> T detectWith(Predicate2<? super T, ? super P> predicate, P parameter)
+    public T detect(Predicate<? super T> predicate)
     {
         return null;
     }
@@ -16249,6 +16249,42 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/factory/Sets.
 
 ### ReturnNull
 Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+            return value;
+        }
+        return value == null ? null : "";
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+#### Snippet
+```java
+            return value;
+        }
+        return value == null ? null : "";
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ArrayIterate.java`
 #### Snippet
 ```java
@@ -16273,31 +16309,31 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Array
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/ReflectionHelper.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/InternalArrayIterate.java`
 #### Snippet
 ```java
             }
@@ -16352,7 +16388,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Array
             }
             return null;
         }
-        return RandomAccessListIterate.detectWith(list, predicate, parameter);
+        return RandomAccessListIterate.detect(list, predicate);
 ```
 
 ### ReturnNull
@@ -16364,113 +16400,29 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/Array
             }
             return null;
         }
-        return RandomAccessListIterate.detect(list, predicate);
+        return RandomAccessListIterate.detectWith(list, predicate, parameter);
 ```
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
-#### Snippet
-```java
-            return value;
-        }
-        return value == null ? null : "";
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/StringIterate.java`
-#### Snippet
-```java
-            return value;
-        }
-        return value == null ? null : "";
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-    public static <T> T getFirst(List<T> collection)
+    private static <BT> CountDownLatch buildCountDownLatch(Combiner<BT> newCombiner, int taskCount)
     {
-        return Iterate.isEmpty(collection) ? null : collection.get(0);
+        return newCombiner.useCombineOne() ? null : new CountDownLatch(taskCount);
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
 #### Snippet
 ```java
-        if (list == null)
-        {
-            return null;
-        }
-        if (list instanceof RandomAccess)
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
-#### Snippet
-```java
-            return iterator.previous();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-        }
-        V result = map.get(key);
-        return MapIterate.isAbsent(result, map, key) ? null : function.valueOf(result);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
+    private static <BT> ArrayBlockingQueue<BT> buildQueue(Combiner<BT> newCombiner, int taskCount)
+    {
+        return newCombiner.useCombineOne() ? new ArrayBlockingQueue<>(taskCount) : null;
     }
 
 ```
@@ -16501,24 +16453,72 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/inter
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/internal/RandomAccessListIterate.java`
 #### Snippet
 ```java
-    private static <BT> ArrayBlockingQueue<BT> buildQueue(Combiner<BT> newCombiner, int taskCount)
-    {
-        return newCombiner.useCombineOne() ? new ArrayBlockingQueue<>(taskCount) : null;
+            }
+        }
+        return null;
     }
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/parallel/ObjectIntProcedureFJTaskRunner.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
 #### Snippet
 ```java
-    private static <BT> CountDownLatch buildCountDownLatch(Combiner<BT> newCombiner, int taskCount)
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/MapIterate.java`
+#### Snippet
+```java
+        }
+        V result = map.get(key);
+        return MapIterate.isAbsent(result, map, key) ? null : function.valueOf(result);
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+        if (list == null)
+        {
+            return null;
+        }
+        if (list instanceof RandomAccess)
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+            return iterator.previous();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/utility/ListIterate.java`
+#### Snippet
+```java
+    public static <T> T getFirst(List<T> collection)
     {
-        return newCombiner.useCombineOne() ? null : new CountDownLatch(taskCount);
+        return Iterate.isEmpty(collection) ? null : collection.get(0);
     }
 
 ```
@@ -16670,18 +16670,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/M
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/mutable/UnmodifiableTreeMap.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        return this.getMutableSortedMap().equals(obj);
-```
-
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/UnmodifiableMutableMap.java`
 #### Snippet
 ```java
@@ -16690,6 +16678,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/U
     public boolean equals(Object obj)
     {
         return this.getMutableMap().equals(obj);
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/sorted/mutable/UnmodifiableTreeMap.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        return this.getMutableSortedMap().equals(obj);
 ```
 
 ### EqualsWhichDoesntCheckParameterClass
@@ -16730,6 +16730,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/immutable
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(Object o)
+    {
+        return this.delegate.equals(o);
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/ordered/mutable/UnmodifiableMutableOrderedMap.java`
 #### Snippet
 ```java
@@ -16754,18 +16766,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/mu
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/mutable/SortedSetAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(Object obj)
-    {
-        if (obj == this)
-```
-
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/mutable/TreeSortedSet.java`
 #### Snippet
 ```java
@@ -16778,19 +16778,7 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/mu
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentMutableHashMap.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean equals(Object o)
-    {
-        return this.delegate.equals(o);
-```
-
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnmodifiableMutableSet.java`
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/sorted/mutable/SortedSetAdapter.java`
 #### Snippet
 ```java
 
@@ -16822,6 +16810,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/strategy/
     public boolean equals(Object other)
     {
         if (other == this)
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/set/mutable/UnmodifiableMutableSet.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
 ```
 
 ### EqualsWhichDoesntCheckParameterClass
@@ -16874,18 +16874,6 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/mutable
 
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/mutable/AbstractMutableBiMap.java`
-#### Snippet
-```java
-    {
-        @Override
-        public boolean equals(Object obj)
-        {
-            return AbstractMutableBiMap.this.delegate.keySet().equals(obj);
-```
-
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/string/immutable/CodePointList.java`
 #### Snippet
 ```java
@@ -16906,6 +16894,18 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/stack/mutable
     public boolean equals(Object obj)
     {
         return this.mutableStack.equals(obj);
+```
+
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/bimap/mutable/AbstractMutableBiMap.java`
+#### Snippet
+```java
+    {
+        @Override
+        public boolean equals(Object obj)
+        {
+            return AbstractMutableBiMap.this.delegate.keySet().equals(obj);
 ```
 
 ### EqualsWhichDoesntCheckParameterClass
@@ -16934,13 +16934,25 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/collection/mu
 
 ## RuleId[id=CastCanBeRemovedNarrowingVariableType]
 ### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'key' to 'K'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
+#### Snippet
+```java
+                Object key = e.getKey();
+                Object value = e.getValue();
+                block.value((K) key, (V) value);
+                e = e.getNext();
+            }
+```
+
+### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'value' to 'V'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
 #### Snippet
 ```java
-            {
+                Object key = e.getKey();
                 Object value = e.getValue();
-                block.value((V) value);
+                block.value((K) key, (V) value);
                 e = e.getNext();
             }
 ```
@@ -16970,56 +16982,8 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'key' to 'K'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                Object key = e.getKey();
-                Object value = e.getValue();
-                block.value((K) key, (V) value);
-                e = e.getNext();
-            }
-```
-
-### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'value' to 'V'
 in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMap.java`
-#### Snippet
-```java
-                Object key = e.getKey();
-                Object value = e.getValue();
-                block.value((K) key, (V) value);
-                e = e.getNext();
-            }
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'key' to 'K'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                Object key = e.getKey();
-                Object value = e.getValue();
-                block.value((K) key, (V) value);
-                e = e.getNext();
-            }
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'value' to 'V'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
-#### Snippet
-```java
-                Object key = e.getKey();
-                Object value = e.getValue();
-                block.value((K) key, (V) value);
-                e = e.getNext();
-            }
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'value' to 'V'
-in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
 #### Snippet
 ```java
             {
@@ -17049,6 +17013,42 @@ in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/C
                 Object key = e.getKey();
                 Object value = e.getValue();
                 this.put((K) key, (V) value);
+                e = e.getNext();
+            }
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'value' to 'V'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+            {
+                Object value = e.getValue();
+                block.value((V) value);
+                e = e.getNext();
+            }
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'key' to 'K'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                Object key = e.getKey();
+                Object value = e.getValue();
+                block.value((K) key, (V) value);
+                e = e.getNext();
+            }
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'value' to 'V'
+in `eclipse-collections/src/main/java/org/eclipse/collections/impl/map/mutable/ConcurrentHashMapUnsafe.java`
+#### Snippet
+```java
+                Object key = e.getKey();
+                Object value = e.getValue();
+                block.value((K) key, (V) value);
                 e = e.getNext();
             }
 ```
