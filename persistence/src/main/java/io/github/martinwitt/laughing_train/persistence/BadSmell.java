@@ -158,4 +158,8 @@ public class BadSmell implements AnalyzerResult {
                         position.charOffset(),
                         position.charLength());
     }
+
+    public BadSmell withProjectUrl(String projectUrl) {
+        return new BadSmell(this, projectName, projectUrl, commitHash);
+    }
 }

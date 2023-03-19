@@ -74,4 +74,8 @@ public class Project implements Serializable {
         }
         return false;
     }
+
+    public Project withProjectUrl(String projectUrl) {
+        return new Project(projectName, projectUrl);
+    }
 }

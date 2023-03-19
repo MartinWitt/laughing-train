@@ -230,6 +230,9 @@ public class QodanaAnalyzer {
             StringReader reader = new StringReader(Files.readString(resultPath));
             ObjectMapper mapper = new ObjectMapper();
             SarifSchema210 sarif = mapper.readValue(reader, SarifSchema210.class);
+            if (sarif.getRuns().get(0).getResults() == null) {
+                return List.of();
+            }
             for (Result result : sarif.getRuns().get(0).getResults()) {
                 results.add(new QodanaAnalyzerResult(result));
             }

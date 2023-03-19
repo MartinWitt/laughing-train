@@ -10,6 +10,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.BadSmellReposi
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.runtime.StartupEvent;
+import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import java.util.Collection;
 import java.util.List;
@@ -56,25 +57,26 @@ public class DataBaseMigration {
     public void checkPeriodic() {
         vertx.setPeriodic(
                 TimeUnit.MINUTES.toMillis(2),
-                TimeUnit.MINUTES.toMillis(10),
-                id -> vertx.executeBlocking(unused -> migrateDataBase()));
+                TimeUnit.MINUTES.toMillis(60),
+                id -> vertx.executeBlocking(promise -> migrateDataBase(promise)));
     }
 
-    private void migrateDataBase() {
+    private void migrateDataBase(Promise<Object> promise) {
         logger.atInfo().log("Migrating database");
         createConfigsIfMissing();
+        updateBadSmellsWithWrongProjectUrl();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
-        removeBadSmellsWithoutProjectHash();
-        removeBadSmellsWithWrongProjectUrl();
+        // removeBadSmellsWithoutProjectHash();
         logger.atInfo().log("Finished migrating database");
+        promise.complete();
     }
 
     private void removeProjectsWithOutHashes() {
+        logger.atInfo().log("Removing projects without commit hashes");
         long value = projectRepository.getAll().stream()
-                .filter(project -> project.getCommitHashes().isEmpty()
-                        || project.getProjectUrl().endsWith(".git"))
+                .filter(project -> project.getCommitHashes().isEmpty())
                 .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .count();
         logger.atInfo().log("Removed %d projects without commit hashes", value);
@@ -102,6 +104,7 @@ public class DataBaseMigration {
     }
 
     private void removeProjectHashesWithoutResults() {
+        logger.atInfo().log("Removing project hashes without results");
         for (Project project : projectRepository.getAll()) {
             List<String> commitHashes = project.getCommitHashes();
             for (String commitHash : commitHashes) {
@@ -112,6 +115,7 @@ public class DataBaseMigration {
             projectRepository.deleteByProjectUrl(project.getProjectUrl());
             projectRepository.save(project);
         }
+        logger.atInfo().log("Finished removing project hashes without results");
     }
 
     private void removeBadSmellsWithWrongIdentifier() {
@@ -121,6 +125,7 @@ public class DataBaseMigration {
     }
 
     private void removeDuplicatedProjects() {
+        logger.atInfo().log("Removing duplicated projects");
         projectRepository.getAll().stream().collect(Collectors.groupingBy(Project::getProjectUrl)).entrySet().stream()
                 .filter(entry -> entry.getValue().size() > 1)
                 .peek(entry -> logger.atInfo().log(
@@ -128,6 +133,7 @@ public class DataBaseMigration {
                 .map(Map.Entry::getValue)
                 .flatMap(Collection::stream)
                 .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
+        logger.atInfo().log("Finished removing duplicated projects");
     }
 
     private void removeBadSmellsWithoutProjectHash() {
@@ -145,18 +151,28 @@ public class DataBaseMigration {
     /**
      * Fixes some fuckup with the project urls.
      */
-    private void removeBadSmellsWithWrongProjectUrl() {
+    private void updateBadSmellsWithWrongProjectUrl() {
+        logger.atInfo().log("Updating bad smells with wrong project url");
         badSmellRepository
                 .getAll()
                 .filter(v -> v.getProjectUrl().endsWith(".git"))
-                .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
+                .map(badSmell -> {
+                    badSmellRepository.deleteByIdentifier(badSmell.getIdentifier());
+                    return badSmell;
+                })
+                .map(v -> v.withProjectUrl(
+                        v.getProjectUrl().substring(0, v.getProjectUrl().length() - 4)))
+                .forEach(badSmellRepository::save);
+        logger.atInfo().log("Finished updating bad smells with wrong project url");
         projectRepository.getAll().stream()
                 .filter(v -> v.getProjectUrl().endsWith(".git"))
-                .forEach(project -> {
-                    projectConfigRepository.deleteByProjectUrl(project.getProjectUrl());
-                    projectRepository.deleteByProjectName(project.getProjectName());
-                    var deleted = projectRepository.deleteByProjectUrl(project.getProjectUrl());
-                    logger.atInfo().log("Deleted %d project %s", deleted, project.getProjectUrl());
-                });
+                .map(project -> {
+                    projectRepository.deleteByProjectUrl(project.getProjectUrl());
+                    return project;
+                })
+                .map(project -> project.withProjectUrl(project.getProjectUrl()
+                        .substring(0, project.getProjectUrl().length() - 4)))
+                .forEach(projectRepository::save);
+        logger.atInfo().log("Finished updating projects with wrong project url");
     }
 }
