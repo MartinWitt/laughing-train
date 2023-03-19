@@ -144,7 +144,7 @@ public class RefactorService {
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
                 GitHubUtils.createLabelIfMissing(repository);
-                createSinglePullRequest(repository, success.project().folder().toPath(), log.getChanges());
+                createSinglePullRequest(repository, success.project().folder().toPath(), log.getChanges(), badSmells);
             } catch (Exception e) {
                 logger.atSevere().withCause(e).log("Failed to create pull request");
                 FileUtils.deleteQuietly(success.project().folder());
@@ -166,7 +166,8 @@ public class RefactorService {
         return repository;
     }
 
-    private void createSinglePullRequest(GHRepository repo, Path dir, List<? extends Change> changes)
+    private void createSinglePullRequest(
+            GHRepository repo, Path dir, List<? extends Change> changes, List<? extends BadSmell> badSmells)
             throws IOException {
         GHRef mainRef = repo.getRef("heads/" + repo.getDefaultBranch());
         logger.atInfo().log("Found changes for %s types", changes.size());
@@ -175,6 +176,7 @@ public class RefactorService {
                 repo.createRef("refs/heads/" + branchName, mainRef.getObject().getSha());
         StringBuilder body = new StringBuilder();
         body.append(changelogPrinter.printRepairedIssues(changes));
+        body.append(changelogPrinter.printBadSmellFingerPrints(badSmells));
         createCommit(repo, dir, changes, ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
         createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
