@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import org.bson.BsonString;
 
 /**
  * This class is used to migrate the database to the latest version.
@@ -80,17 +82,6 @@ public class DataBaseMigration {
                 .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
                 .count();
         logger.atInfo().log("Removed %d projects without commit hashes", value);
-    }
-
-    private void removeDuplicatedBadSmells() {
-        badSmellRepository.getAll().collect(Collectors.groupingBy(BadSmell::getIdentifier)).entrySet().stream()
-                .filter(entry -> entry.getValue().size() > 1)
-                .peek(entry -> logger.atInfo().log(
-                        "Found %d bad smells with identifier %s",
-                        entry.getValue().size(), entry.getKey()))
-                .map(Map.Entry::getValue)
-                .flatMap(Collection::stream)
-                .forEach(badSmell -> badSmellRepository.deleteByIdentifier(badSmell.getIdentifier()));
     }
 
     private void createConfigsIfMissing() {
@@ -153,26 +144,22 @@ public class DataBaseMigration {
      */
     private void updateBadSmellsWithWrongProjectUrl() {
         logger.atInfo().log("Updating bad smells with wrong project url");
-        badSmellRepository
-                .getAll()
-                .filter(v -> v.getProjectUrl().endsWith(".git"))
-                .map(badSmell -> {
-                    badSmellRepository.deleteByIdentifier(badSmell.getIdentifier());
-                    return badSmell;
-                })
-                .map(v -> v.withProjectUrl(
-                        v.getProjectUrl().substring(0, v.getProjectUrl().length() - 4)))
-                .forEach(badSmellRepository::save);
+        // mongodb bson filter get a field value as string
+        // so we need to use a regex to match the end of the string
+
+        // badSmellRepositoryImpl
+        //         .mongoCollection()
+        //         .updateMany(
+        //                 Filters.regex("projectUrl", Pattern.compile(".git$")),
+        //                 Updates.set("projectUrl", new BsonString("$projectUrl.substring(0, $projectUrl.length() -
+        // 4")));
         logger.atInfo().log("Finished updating bad smells with wrong project url");
-        projectRepository.getAll().stream()
-                .filter(v -> v.getProjectUrl().endsWith(".git"))
-                .map(project -> {
-                    projectRepository.deleteByProjectUrl(project.getProjectUrl());
-                    return project;
-                })
-                .map(project -> project.withProjectUrl(project.getProjectUrl()
-                        .substring(0, project.getProjectUrl().length() - 4)))
-                .forEach(projectRepository::save);
+        projectRepositoryImpl
+                .mongoCollection()
+                .updateMany(
+                        Filters.regex("projectUrl", Pattern.compile(".git$")),
+                        Updates.set(
+                                "projectUrl", new BsonString("$projectUrl.substring(0, $projectUrl.length() - 4)")));
         logger.atInfo().log("Finished updating projects with wrong project url");
     }
 }
