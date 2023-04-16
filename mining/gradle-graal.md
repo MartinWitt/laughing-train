@@ -213,15 +213,15 @@ in `src/main/java/com/palantir/gradle/graal/ExtractGraalTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
+Can generalize to `? extends List`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
 ```java
-     * @throws IOException If any problem while creating output directory
-     */
-    protected final void configureArgs(List<String> args) throws IOException {
-        args.add("-cp");
-        args.add(generateClasspathArgument());
+    }
+
+    public final void setOptions(Provider<List<String>> options) {
+        this.options.set(options);
+    }
 ```
 
 ### BoundedWildcard
@@ -237,15 +237,15 @@ in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends List`
+Can generalize to `? super String`
 in `src/main/java/com/palantir/gradle/graal/BaseGraalCompileTask.java`
 #### Snippet
 ```java
-    }
-
-    public final void setOptions(Provider<List<String>> options) {
-        this.options.set(options);
-    }
+     * @throws IOException If any problem while creating output directory
+     */
+    protected final void configureArgs(List<String> args) throws IOException {
+        args.add("-cp");
+        args.add(generateClasspathArgument());
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
