@@ -1,7 +1,7 @@
 # Dhalion 
  
 # Bad smells
-I found 54 bad smells with 17 repairable:
+I found 55 bad smells with 17 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
@@ -22,6 +22,7 @@ I found 54 bad smells with 17 repairable:
 | RedundantFieldInitialization | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
 | RedundantImplements | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | MissortedModifiers | 1 | false |
 | ConstantValue | 1 | false |
@@ -53,6 +54,18 @@ public class Utils {
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
+#### Snippet
+```java
+   */
+  public DiagnosisTable expire(Instant expiration) {
+    return new DiagnosisTable(super.expireBefore(expiration));
+  }
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
 #### Snippet
 ```java
@@ -71,18 +84,6 @@ in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
    */
   public ActionTable expire(Instant expiration) {
     return new ActionTable(super.expireBefore(expiration));
-  }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
-#### Snippet
-```java
-   */
-  public DiagnosisTable expire(Instant expiration) {
-    return new DiagnosisTable(super.expireBefore(expiration));
   }
 
 ```
@@ -113,20 +114,19 @@ in `src/main/java/com/microsoft/dhalion/examples/CSVMetricsProvider.java`
     return metrics;
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/microsoft/dhalion/examples/AlertResolver.java`
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `ResourceAvailabilityDetector()` of an abstract class should not be declared 'public'
+in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
 #### Snippet
 ```java
-  @Override
-  public Collection<Action> resolve(Collection<Diagnosis> diagnosis) {
-    diagnosis.forEach(d -> {
-      LOG.info("Alert " + d.toString());
-    });
+  }
+
+  public ResourceAvailabilityDetector(String freeMetric, String demandMetric, String symptomType) {
+    this.freeMetric = freeMetric;
+    this.demandMetric = demandMetric;
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `ResourceAvailabilityDetector()` of an abstract class should not be declared 'public'
 in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
@@ -139,16 +139,17 @@ in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.j
     this.demandMetric = (String) policyConf.getConfig(confPrefix + DEMAND_METRIC_NAME_KEY);
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `ResourceAvailabilityDetector()` of an abstract class should not be declared 'public'
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `src/main/java/com/microsoft/dhalion/examples/AlertResolver.java`
 #### Snippet
 ```java
-  }
-
-  public ResourceAvailabilityDetector(String freeMetric, String demandMetric, String symptomType) {
-    this.freeMetric = freeMetric;
-    this.demandMetric = demandMetric;
+  @Override
+  public Collection<Action> resolve(Collection<Diagnosis> diagnosis) {
+    diagnosis.forEach(d -> {
+      LOG.info("Alert " + d.toString());
+    });
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -253,6 +254,19 @@ in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-16-18-35-44.586.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[Z]` can be simplified to 'Z'
@@ -319,6 +333,18 @@ in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ExcessCpuDetector.java`
+#### Snippet
+```java
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_CPU.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
+    LOG.info("Detector created: " + this.toString());
+  }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
 #### Snippet
 ```java
@@ -367,36 +393,12 @@ in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.ja
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ExcessCpuDetector.java`
+in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 #### Snippet
 ```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_CPU.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
-#### Snippet
-```java
-    Symptom symptom = new Symptom(symptomType, now, assignments);
-    if (LOG.isLoggable(Level.FINE)) {
-      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
-    }
-    return Collections.singletonList(symptom);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
-    LOG.info("Detector created: " + this.toString());
+    outcomes.stream()
+        .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
+        .forEach(m -> LOG.warning(m.toString() + " is outside checkpoint window"));
   }
 
 ```
@@ -415,14 +417,26 @@ in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
+in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
 #### Snippet
 ```java
-    outcomes.stream()
-        .filter(m -> m.instant().isAfter(current) || m.instant().isBefore(previous))
-        .forEach(m -> LOG.warning(m.toString() + " is outside checkpoint window"));
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
+    LOG.info("Detector created: " + this.toString());
   }
 
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+#### Snippet
+```java
+    Symptom symptom = new Symptom(symptomType, now, assignments);
+    if (LOG.isLoggable(Level.FINE)) {
+      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
+    }
+    return Collections.singletonList(symptom);
 ```
 
 ## RuleId[id=BoundedWildcard]
@@ -451,15 +465,15 @@ in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Measurement`
-in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
+Can generalize to `? extends Diagnosis`
+in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
 #### Snippet
 ```java
-                 Instant instant,
-                 Collection<String> assignments,
-                 Collection<Measurement> measurements) {
-    super(symptomType, instant, assignments);
-    if (measurements != null) {
+  }
+
+  private void addAll(Collection<Diagnosis> diagnosis) {
+    diagnosis.forEach(this::add);
+  }
 ```
 
 ### BoundedWildcard
@@ -475,6 +489,18 @@ in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Measurement`
+in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
+#### Snippet
+```java
+                 Instant instant,
+                 Collection<String> assignments,
+                 Collection<Measurement> measurements) {
+    super(symptomType, instant, assignments);
+    if (measurements != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Symptom`
 in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
 #### Snippet
@@ -483,30 +509,6 @@ in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
 
   private void addAll(Collection<Symptom> symptoms) {
     symptoms.forEach(this::add);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
-#### Snippet
-```java
-  }
-
-  private void addAll(Collection<Action> actions) {
-    actions.forEach(this::add);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Diagnosis`
-in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
-#### Snippet
-```java
-  }
-
-  private void addAll(Collection<Diagnosis> diagnosis) {
-    diagnosis.forEach(this::add);
   }
 ```
 
@@ -535,6 +537,18 @@ in `src/main/java/com/microsoft/dhalion/core/Action.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
+#### Snippet
+```java
+  }
+
+  private void addAll(Collection<Action> actions) {
+    actions.forEach(this::add);
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends Measurement`
 in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
@@ -557,19 +571,6 @@ in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.j
   abstract protected boolean evaluate(String instance, double free, double used);
 
   @Override
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `matcher != null` is always `true`
-in `src/main/java/com/microsoft/dhalion/examples/AlertPolicy.java`
-#### Snippet
-```java
-
-    Matcher matcher = getDataMatcher("2018-01-08T01:34:36.934Z").get();
-    if (matcher != null) {
-      currentCheckPoint = getTimestamp(matcher).get();
-    }
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -619,6 +620,19 @@ in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
     if (matcher.group(metric) != null && getTimestamp(matcher).get().equals(instant)) {
       switch (metric) {
         case MEMORY_UTILIZATION:
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `matcher != null` is always `true`
+in `src/main/java/com/microsoft/dhalion/examples/AlertPolicy.java`
+#### Snippet
+```java
+
+    Matcher matcher = getDataMatcher("2018-01-08T01:34:36.934Z").get();
+    if (matcher != null) {
+      currentCheckPoint = getTimestamp(matcher).get();
+    }
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
