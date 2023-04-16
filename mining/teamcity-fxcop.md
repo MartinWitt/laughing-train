@@ -84,15 +84,15 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopVisualStudioSearch.ja
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`files.size() == 0` can be replaced with 'files.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
+`reportPath.length() > 0` can be replaced with '!reportPath.isEmpty()'
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
+        }
 
-    final List<String> result = new ArrayList<String>(files.size());
-    if (files.size() == 0) {
-      getLogger().logMessage(DefaultMessagesInfo.createTextMessage("  none"));
-    } else {
+        if (reportPath.length() > 0) {
+          inspectionFile += " :: " + reportPath + "|" + file;
+        } else {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -108,15 +108,15 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`reportPath.length() > 0` can be replaced with '!reportPath.isEmpty()'
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+`files.size() == 0` can be replaced with 'files.isEmpty()'
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopBuildService.java`
 #### Snippet
 ```java
-        }
 
-        if (reportPath.length() > 0) {
-          inspectionFile += " :: " + reportPath + "|" + file;
-        } else {
+    final List<String> result = new ArrayList<String>(files.size());
+    if (files.size() == 0) {
+      getLogger().logMessage(DefaultMessagesInfo.createTextMessage("  none"));
+    } else {
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -145,6 +145,30 @@ public class FxCopRequirementsUtil {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+        }
+
+        reportPath = reportPath.replace('/', '|').replace("\\", "|");
+        if (reportPath.startsWith("|")) {
+          reportPath = reportPath.substring(1);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+      case MEMBER:
+      case ACCESSOR:
+        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
+      default:
+        return "_unknown_/_unknown_";
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
@@ -179,30 +203,6 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
     return source.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
   }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-      case MEMBER:
-      case ACCESSOR:
-        return myCurrentTarget + "/" + myCurrentNamespace.replace(".", "/") + "/" + myCurrentType;
-      default:
-        return "_unknown_/_unknown_";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-        }
-
-        reportPath = reportPath.replace('/', '|').replace("\\", "|");
-        if (reportPath.startsWith("|")) {
-          reportPath = reportPath.substring(1);
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -287,30 +287,6 @@ Obsolete collection type `Stack` used
 in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
 #### Snippet
 ```java
-  }
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
-  }
-
-  private final Stack<String> myMessageInspectionId = new Stack<String>();
-  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
-  private String myCurrentTarget;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
-#### Snippet
-```java
 
   private final Stack<String> myMessageInspectionId = new Stack<String>();
   private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
@@ -328,6 +304,30 @@ in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
   private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
   private String myCurrentTarget;
   private String myCurrentResource;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+  }
+
+  private final Stack<String> myMessageInspectionId = new Stack<String>();
+  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
+  private String myCurrentTarget;
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `fxcop-agent/src/jetbrains/buildServer/fxcop/agent/FxCopFileProcessor.java`
+#### Snippet
+```java
+  }
+
+  private final Stack<String> myMessageInspectionId = new Stack<String>();
+  private final Stack<EntityType> myCurrentEntity = new Stack<EntityType>();
+  private String myCurrentTarget;
 ```
 
 ### ObsoleteCollection
