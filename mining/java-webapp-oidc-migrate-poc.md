@@ -42,18 +42,6 @@ in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `JSONHelper` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
- * 
- */
-public class JSONHelper {
-
-    private static Logger logger = Logger.getLogger(JSONHelper.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `HttpClientHelper` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
 #### Snippet
@@ -63,6 +51,18 @@ in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
 public class HttpClientHelper {
 
     public HttpClientHelper() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JSONHelper` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
+#### Snippet
+```java
+ * 
+ */
+public class JSONHelper {
+
+    private static Logger logger = Logger.getLogger(JSONHelper.class);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -133,18 +133,6 @@ Result of assignment expression used
 in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
 #### Snippet
 ```java
-        String line = "";
-        StringBuffer stringBuffer = new StringBuffer();
-        while ((line = br.readLine()) != null) {
-            stringBuffer.append(line);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
-#### Snippet
-```java
         int bytesRead = 0;
 
         while ((bytesRead = is.read(buff, 0, buff.length)) != -1) {
@@ -164,19 +152,19 @@ in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
         }
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/aad/oidcpoc/PropertyReading.java`
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
 #### Snippet
 ```java
-        	localProps.load(new FileInputStream(localPropPath));
-        } catch (final IOException e) {
-            e.printStackTrace();
+        String line = "";
+        StringBuffer stringBuffer = new StringBuffer();
+        while ((line = br.readLine()) != null) {
+            stringBuffer.append(line);
         }
-        
 ```
 
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/microsoft/aad/oidcpoc/AuthHelper.java`
@@ -218,35 +206,47 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
 #### Snippet
 ```java
-	    }
-	    catch (Exception e) {
-	            e.printStackTrace();
-	    }
-		return res;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
-#### Snippet
-```java
-	    }
-	    catch (Exception e) {
-	            e.printStackTrace();
-	    }
-		return res;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
-#### Snippet
-```java
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
+#### Snippet
+```java
+	    }
+	    catch (Exception e) {
+	            e.printStackTrace();
+	    }
+		return res;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
+#### Snippet
+```java
+	    }
+	    catch (Exception e) {
+	            e.printStackTrace();
+	    }
+		return res;
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/com/microsoft/aad/oidcpoc/PropertyReading.java`
+#### Snippet
+```java
+        	localProps.load(new FileInputStream(localPropPath));
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+        
 ```
 
 ### ThrowablePrintStackTrace
@@ -438,18 +438,6 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`param.length() == 0` can be replaced with 'param.isEmpty()'
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
-                String param = request.getParameter(fieldName);
-                if (allFieldStringList.contains(fieldName)) {
-                    if (param == null || param.length() == 0) {
-                        if (!fieldName.equalsIgnoreCase("password")) {
-                            obj.put(fieldName, JSONObject.NULL);
-```
-
-### SizeReplaceableByIsEmpty
 `deltaLink.length() == 0` can be replaced with 'deltaLink.isEmpty()'
 in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
 #### Snippet
@@ -461,19 +449,19 @@ in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
             logger.info("deltaLink empty, nextLink ->" + deltaLink);
 ```
 
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer stringBuffer` may be declared as 'StringBuilder'
-in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
+### SizeReplaceableByIsEmpty
+`param.length() == 0` can be replaced with 'param.isEmpty()'
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
 #### Snippet
 ```java
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String line = "";
-        StringBuffer stringBuffer = new StringBuffer();
-        while ((line = br.readLine()) != null) {
-            stringBuffer.append(line);
+                String param = request.getParameter(fieldName);
+                if (allFieldStringList.contains(fieldName)) {
+                    if (param == null || param.length() == 0) {
+                        if (!fieldName.equalsIgnoreCase("password")) {
+                            obj.put(fieldName, JSONObject.NULL);
 ```
 
+## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer stringBuffer` may be declared as 'StringBuilder'
 in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
@@ -484,6 +472,18 @@ in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
         StringBuffer stringBuffer = new StringBuffer();
         String line = "";
         while ((line = reader.readLine()) != null) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer stringBuffer` may be declared as 'StringBuilder'
+in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
+#### Snippet
+```java
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String line = "";
+        StringBuffer stringBuffer = new StringBuffer();
+        while ((line = br.readLine()) != null) {
+            stringBuffer.append(line);
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -552,30 +552,6 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `res` initializer `null` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/PropertyReading.java`
-#### Snippet
-```java
-        //Enumeration<String> name = ctx.getInitParameterNames();
-        
-        String res=null;
-        for (String prop : names)
-        {
-```
-
-### UnusedAssignment
-Variable `database` initializer `null` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/AuthHelper.java`
-#### Snippet
-```java
-    private static db GetDB(HttpServletRequest request) throws Exception {
-    	
-    	db database = null;
-    	String msiEndpoint = getSetting(request, "MSI_ENDPOINT");
-    	
-```
-
-### UnusedAssignment
 Variable `claims` initializer `null` is redundant
 in `src/main/java/com/microsoft/aad/oidcpoc/AuthHelper.java`
 #### Snippet
@@ -588,75 +564,15 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthHelper.java`
 ```
 
 ### UnusedAssignment
-Variable `url` initializer `String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCerti...` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
+Variable `database` initializer `null` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/AuthHelper.java`
 #### Snippet
 ```java
-    String user;
-    String password;
-    String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
-    Connection connection = null;
-    
-```
-
-### UnusedAssignment
-Variable `jsonArray` initializer `new JSONArray()` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
-     */
-    public static JSONArray fetchDirectoryObjectJSONArray(JSONObject jsonObject) throws Exception {
-        JSONArray jsonArray = new JSONArray();
-        jsonArray = jsonObject.optJSONObject("responseMsg").optJSONArray("value");
-        return jsonArray;
-```
-
-### UnusedAssignment
-Variable `deltaLink` initializer `""` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
-     */
-    public static String fetchDeltaLink(JSONObject jsonObject) throws Exception {
-        String deltaLink = "";
-        // Parse the skip token out of the string.
-        deltaLink = jsonObject.optJSONObject("responseMsg").optString("aad.deltaLink");
-```
-
-### UnusedAssignment
-Variable `jObj` initializer `new JSONObject()` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
-     */
-    public static JSONObject fetchDirectoryObjectJSONObject(JSONObject jsonObject) throws Exception {
-        JSONObject jObj = new JSONObject();
-        jObj = jsonObject.optJSONObject("responseMsg");
-        return jObj;
-```
-
-### UnusedAssignment
-Variable `skipToken` initializer `""` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
-#### Snippet
-```java
-     */
-    public static String fetchNextSkiptoken(JSONObject jsonObject) throws Exception {
-        String skipToken = "";
-        // Parse the skip token out of the string.
-        skipToken = jsonObject.optJSONObject("responseMsg").optString("odata.nextLink");
-```
-
-### UnusedAssignment
-Variable `line` initializer `""` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
-#### Snippet
-```java
-        // Get the message response from the server.
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String line = "";
-        StringBuffer stringBuffer = new StringBuffer();
-        while ((line = br.readLine()) != null) {
+    private static db GetDB(HttpServletRequest request) throws Exception {
+    	
+    	db database = null;
+    	String msiEndpoint = getSetting(request, "MSI_ENDPOINT");
+    	
 ```
 
 ### UnusedAssignment
@@ -696,6 +612,30 @@ in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
 ```
 
 ### UnusedAssignment
+Variable `line` initializer `""` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/HttpClientHelper.java`
+#### Snippet
+```java
+        // Get the message response from the server.
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String line = "";
+        StringBuffer stringBuffer = new StringBuffer();
+        while ((line = br.readLine()) != null) {
+```
+
+### UnusedAssignment
+Variable `url` initializer `String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCerti...` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
+#### Snippet
+```java
+    String user;
+    String password;
+    String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
+    Connection connection = null;
+    
+```
+
+### UnusedAssignment
 Variable `redirectUrl` initializer `null` is redundant
 in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 #### Snippet
@@ -708,15 +648,15 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 ```
 
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
+Variable `tenant` initializer `""` is redundant
 in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 #### Snippet
 ```java
-                clientSecret);
-        AuthenticationContext context;
-        AuthenticationResult result = null;
-        ExecutorService service = null;
-        try {
+    private String clientId = "";
+    private String clientSecret = "";
+    private String tenant = "";
+    private String authority;
+    public boolean is_b2c;
 ```
 
 ### UnusedAssignment
@@ -744,6 +684,18 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 ```
 
 ### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
+#### Snippet
+```java
+                clientSecret);
+        AuthenticationContext context;
+        AuthenticationResult result = null;
+        ExecutorService service = null;
+        try {
+```
+
+### UnusedAssignment
 Variable `clientId` initializer `""` is redundant
 in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 #### Snippet
@@ -768,18 +720,78 @@ in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
 ```
 
 ### UnusedAssignment
-Variable `tenant` initializer `""` is redundant
-in `src/main/java/com/microsoft/aad/oidcpoc/AuthFlow.java`
+Variable `res` initializer `null` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/PropertyReading.java`
 #### Snippet
 ```java
-    private String clientId = "";
-    private String clientSecret = "";
-    private String tenant = "";
-    private String authority;
-    public boolean is_b2c;
+        //Enumeration<String> name = ctx.getInitParameterNames();
+        
+        String res=null;
+        for (String prop : names)
+        {
+```
+
+### UnusedAssignment
+Variable `deltaLink` initializer `""` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
+#### Snippet
+```java
+     */
+    public static String fetchDeltaLink(JSONObject jsonObject) throws Exception {
+        String deltaLink = "";
+        // Parse the skip token out of the string.
+        deltaLink = jsonObject.optJSONObject("responseMsg").optString("aad.deltaLink");
+```
+
+### UnusedAssignment
+Variable `jsonArray` initializer `new JSONArray()` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
+#### Snippet
+```java
+     */
+    public static JSONArray fetchDirectoryObjectJSONArray(JSONObject jsonObject) throws Exception {
+        JSONArray jsonArray = new JSONArray();
+        jsonArray = jsonObject.optJSONObject("responseMsg").optJSONArray("value");
+        return jsonArray;
+```
+
+### UnusedAssignment
+Variable `skipToken` initializer `""` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
+#### Snippet
+```java
+     */
+    public static String fetchNextSkiptoken(JSONObject jsonObject) throws Exception {
+        String skipToken = "";
+        // Parse the skip token out of the string.
+        skipToken = jsonObject.optJSONObject("responseMsg").optString("odata.nextLink");
+```
+
+### UnusedAssignment
+Variable `jObj` initializer `new JSONObject()` is redundant
+in `src/main/java/com/microsoft/aad/oidcpoc/JSONHelper.java`
+#### Snippet
+```java
+     */
+    public static JSONObject fetchDirectoryObjectJSONObject(JSONObject jsonObject) throws Exception {
+        JSONObject jObj = new JSONObject();
+        jObj = jsonObject.optJSONObject("responseMsg");
+        return jObj;
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Value `request` is always 'null'
+in `src/main/java/com/microsoft/aad/oidcpoc/CoreFilter.java`
+#### Snippet
+```java
+            }
+        }
+        chain.doFilter(request, response);
+    }
+
+```
+
 ### ConstantValue
 Value `request` is always 'null'
 in `src/main/java/com/microsoft/aad/oidcpoc/BasicFilter.java`
@@ -838,18 +850,6 @@ in `src/main/java/com/microsoft/aad/oidcpoc/db.java`
     String url = String.format("jdbc:sqlserver://%s:1433;database=%s;user=%s;password=%s;encrypt=true;hostNameInCertificate=*.database.windows.net;loginTimeout=30;", hostName, dbName, user, password);
     Connection connection = null;
     
-```
-
-### ConstantValue
-Value `request` is always 'null'
-in `src/main/java/com/microsoft/aad/oidcpoc/CoreFilter.java`
-#### Snippet
-```java
-            }
-        }
-        chain.doFilter(request, response);
-    }
-
 ```
 
 ## RuleId[id=RedundantSuppression]
