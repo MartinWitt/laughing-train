@@ -1,7 +1,7 @@
 # teamcity-github-issues 
  
 # Bad smells
-I found 16 bad smells with 4 repairable:
+I found 15 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryToStringCall | 4 | true |
@@ -9,7 +9,6 @@ I found 16 bad smells with 4 repairable:
 | StaticCallOnSubclass | 2 | false |
 | RedundantFieldInitialization | 1 | false |
 | RegExpSimplifiable | 1 | false |
-| UNUSED_IMPORT | 1 | false |
 | DoubleBraceInitialization | 1 | false |
 | RegExpUnnecessaryNonCapturingGroup | 1 | false |
 | RedundantSuppression | 1 | false |
@@ -23,7 +22,7 @@ public class GitHubAuthenticator implements IssueFetcherAuthenticator {
 
   private Credentials myCredentials = null;
 
-  public GitHubAuthenticator(@NotNull final Map<String, String> properties) {
+  public GitHubAuthenticator(@NotNull final Map<String, String> properties, SProject project, OAuthTokensStorage tokenStorage) {
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -41,18 +40,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
-Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
-#### Snippet
-```java
-
-    private static String identity(String... parts) {
-        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
-    }
-}
-```
-
-### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
@@ -64,17 +51,16 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
         // oauth token
 ```
 
-## RuleId[id=UNUSED_IMPORT]
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.issueTracker.BasicIssueFetcherAuthenticator;`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/auth/GitHubAuthenticator.java`
+### StaticCallOnSubclass
+Static method `join()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/PasswordAuthReport.java`
 #### Snippet
 ```java
 
-import com.intellij.openapi.util.text.StringUtil;
-import jetbrains.buildServer.issueTracker.BasicIssueFetcherAuthenticator;
-import jetbrains.buildServer.issueTracker.IssueFetcherAuthenticator;
-import jetbrains.buildServer.util.HTTPRequestBuilder;
+    private static String identity(String... parts) {
+        return PasswordAuthReport.GITHUB_PASS_AUTH_CATEGORY.getId() + "_" + StringUtil.join(parts, "").hashCode();
+    }
+}
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
@@ -154,15 +140,15 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+Can generalize to `? super InvalidProperty`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
 #### Snippet
 ```java
-  }
 
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
+
+    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
+                                       @NotNull final Map<String, String> map,
+                                       @NotNull final String propertyName,
 ```
 
 ### BoundedWildcard
@@ -178,6 +164,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends SBuildType`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+  }
+
+  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
+  }
+```
+
+### BoundedWildcard
 Can generalize to `? extends List`
 in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
 #### Snippet
@@ -187,18 +185,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
   private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
     return stream.flatMap(List::stream)
                  .filter(it -> GIT_VCS_NAME.equals(it.getVcsName()))
-```
-
-### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/GitHubIssueProvider.java`
-#### Snippet
-```java
-
-
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
 ```
 
 ## RuleId[id=RedundantSuppression]
