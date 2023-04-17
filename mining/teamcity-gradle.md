@@ -295,11 +295,11 @@ Missorted modifiers `public static @NotNull`
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
 #### Snippet
 ```java
-public class ConfigurationParamsUtil
-{
-  public static @NotNull String getGradleHome(Map<String, String> runParameters)
+  }
+
+  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
 ```
 
 ### MissortedModifiers
@@ -321,18 +321,6 @@ in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/Configu
 ```java
   }
 
-  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
-  {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @NotNull`
-in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
-#### Snippet
-```java
-  }
-
   public static @NotNull List<String> getGradleParams(Map<String, String> runParameters)
   {
     return CommandLineArgumentsUtil.extractArguments(emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_PARAMS)));
@@ -343,11 +331,23 @@ Missorted modifiers `public static @NotNull`
 in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
 #### Snippet
 ```java
+public class ConfigurationParamsUtil
+{
+  public static @NotNull String getGradleHome(Map<String, String> runParameters)
+  {
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_HOME));
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @NotNull`
+in `gradle-runner-agent/src/main/java/jetbrains/buildServer/gradle/agent/ConfigurationParamsUtil.java`
+#### Snippet
+```java
   }
 
-  public static @NotNull String getGradleTasks(Map<String, String> runParameters)
+  public static @NotNull String getGradleInitScript(Map<String, String> runParameters)
   {
-    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_TASKS));
+    return emptyIfNull(runParameters.get(GradleRunnerConstants.GRADLE_INIT_SCRIPT));
 ```
 
 ## RuleId[id=Convert2MethodRef]
