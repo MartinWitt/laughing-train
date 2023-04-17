@@ -1,13 +1,13 @@
 # logging-log4j-tools 
  
 # Bad smells
-I found 34 bad smells with 0 repairable:
+I found 31 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| DynamicRegexReplaceableByCompiledPattern | 12 | false |
 | SystemOutErr | 11 | false |
-| DynamicRegexReplaceableByCompiledPattern | 11 | false |
-| NullableProblems | 6 | false |
 | BoundedWildcard | 3 | false |
+| NullableProblems | 2 | false |
 | ObsoleteCollection | 2 | false |
 | HtmlWrongAttributeValue | 1 | false |
 ## RuleId[id=SystemOutErr]
@@ -16,11 +16,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
-        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
-        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
-        System.out.format("using `%s` for the release date%n", releaseDate);
-
-        try {
+            throws IOException {
+        final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
+        System.out.format("writing release information to `%s`%n", releaseXmlFile);
+        final ChangelogRelease changelogRelease = new ChangelogRelease(releaseVersion, releaseDate);
+        Files.deleteIfExists(releaseXmlFile);
 ```
 
 ### SystemOutErr
@@ -28,35 +28,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
-        final Path targetFile = ChangelogFiles.releaseChangelogTemplateFile(releaseDirectory);
-        if (Files.exists(targetFile)) {
-            System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
-        } else {
-            final Path sourceFile = ChangelogFiles.releaseChangelogTemplateFile(unreleasedDirectory);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-        } else {
-            final Path sourceFile = ChangelogFiles.releaseChangelogTemplateFile(unreleasedDirectory);
-            System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
-            Files.move(sourceFile, targetFile);
+            throw new IllegalStateException(message);
         }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-                final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
-                final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
-                System.out.format(
-                        "moving changelog entry file `%s` to `%s`%n",
-                        unreleasedChangelogEntryFile, releasedChangelogEntryFile);
+        System.out.format("moving changelog directory `%s` to `%s`%n", unreleasedDirectory, releaseDirectory);
+        Files.move(unreleasedDirectory, releaseDirectory);
+        Files.createDirectories(unreleasedDirectory);
 ```
 
 ### SystemOutErr
@@ -88,11 +64,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
-            throw new IllegalStateException(message);
-        }
-        System.out.format("moving changelog directory `%s` to `%s`%n", unreleasedDirectory, releaseDirectory);
-        Files.move(unreleasedDirectory, releaseDirectory);
-        Files.createDirectories(unreleasedDirectory);
+                final String fileName = unreleasedChangelogEntryFile.getFileName().toString();
+                final Path releasedChangelogEntryFile = releaseDirectory.resolve(fileName);
+                System.out.format(
+                        "moving changelog entry file `%s` to `%s`%n",
+                        unreleasedChangelogEntryFile, releasedChangelogEntryFile);
 ```
 
 ### SystemOutErr
@@ -100,11 +76,35 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
-            throws IOException {
-        final Path releaseXmlFile = ChangelogFiles.releaseXmlFile(releaseDirectory);
-        System.out.format("writing release information to `%s`%n", releaseXmlFile);
-        final ChangelogRelease changelogRelease = new ChangelogRelease(releaseVersion, releaseDate);
-        Files.deleteIfExists(releaseXmlFile);
+            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
+            if (Files.exists(targetFile)) {
+                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+                Files.move(sourceFile, targetFile);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
+        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
+        System.out.format("using `%s` for the release date%n", releaseDate);
+
+        try {
 ```
 
 ### SystemOutErr
@@ -136,17 +136,17 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporter.java`
 #### Snippet
 ```java
-                    final Path upcomingReleaseChangelogTemplateFile =
-                            ChangelogFiles.releaseChangelogTemplateFile(upcomingReleaseDirectory);
+                            ChangelogFiles.unreleasedDirectory(args.changelogDirectory, upcomingReleaseVersionMajor);
+                    final ChangelogRelease upcomingRelease = upcomingRelease(upcomingReleaseVersionMajor);
                     System.out.format("exporting upcoming release directory: `%s`%n", upcomingReleaseDirectory);
                     final int changelogEntryCount = exportRelease(
-                            outputDirectory,
+                            args.outputDirectory,
 ```
 
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-08-20-24-11.528.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-06-14-13.091.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -159,18 +159,6 @@ in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-08-20-24-11.528.
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/VersionUtils.java`
-#### Snippet
-```java
-
-    public static void requireSemanticVersioning(final String version, final String name) {
-        if (!version.matches(VERSION_PATTERN)) {
-            final String message = String.format(
-                    "provided version in `%s` does not match the expected `<major>.<minor>.<patch>[-SNAPSHOT]` pattern: `%s`",
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/StringUtils.java`
 #### Snippet
 ```java
@@ -179,18 +167,6 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/String
         return input == null || input.matches("\\s*");
     }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChangesImporter.java`
-#### Snippet
-```java
-        // Create the `author`s
-        final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
-        for (final String authorId : action.dev.split("\\s*,\\s*")) {
-            if (!isBlank(authorId)) {
-                authors.add(new ChangelogEntry.Author(authorId, null));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -242,6 +218,18 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChangesImporter.java`
+#### Snippet
+```java
+        // Create the `author`s
+        final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
+        for (final String authorId : action.dev.split("\\s*,\\s*")) {
+            if (!isBlank(authorId)) {
+                authors.add(new ChangelogEntry.Author(authorId, null));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
 #### Snippet
@@ -263,6 +251,18 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
             if (!date.matches(datePattern)) {
                 throw XmlReader.failureAtXmlNode(element, "`date` doesn't match with the `%s` pattern: `%s`", datePattern, date);
             }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/VersionUtils.java`
+#### Snippet
+```java
+    static String requireSemanticVersioning(final String version, final String fieldName) {
+        Objects.requireNonNull(version, fieldName);
+        if (!version.matches(VERSION_PATTERN)) {
+            final String message = String.format(
+                    "provided version in `%s` does not match the expected `<major>.<minor>.<patch>[-SNAPSHOT]` pattern: `%s`",
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -289,19 +289,19 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWri
                         '<' + rootElementName + " (.+>" + LS + ")",
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super Stream`
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/FileUtils.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporter.java`
 #### Snippet
 ```java
-            final Path directory,
-            final boolean dotFilesSkipped,
-            final Function<Stream<Path>, V> consumer) {
-        try (final Stream<Path> paths = Files.walk(directory, 1)) {
-            final Stream<Path> filteredPaths = paths.filter(path -> {
+                final String changelogTemplateName = templateName(changelogDirectory, changelogTemplateSourceFile);
+                final String changelogTemplateTargetFileName =
+                        changelogTemplate.targetFileName.replaceAll("%v", release.version);
+                final Path changelogTemplateTargetFile = outputDirectory.resolve(changelogTemplateTargetFileName);
+                FreeMarkerUtils.render(
 ```
 
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super Document`
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWriter.java`
@@ -326,52 +326,28 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/XmlWri
 
 ```
 
+### BoundedWildcard
+Can generalize to `? super Stream`
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/FileUtils.java`
+#### Snippet
+```java
+            final Path directory,
+            final boolean dotFilesSkipped,
+            final Function<Stream<Path>, V> consumer) {
+        try (final Stream<Path> paths = Files.walk(directory, 1)) {
+            final Stream<Path> filteredPaths = paths.filter(path -> {
+```
+
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporterArgs.java`
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
 #### Snippet
 ```java
-    final Path templateFile;
+        final String dev;
 
-    @Nullable
-    final Path outputFile;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporterArgs.java`
-#### Snippet
-```java
-    final Path outputDirectory;
-
-    @Nullable
-    final String releaseVersion;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporterArgs.java`
-#### Snippet
-```java
-    final String releaseVersion;
-
-    @Nullable
-    final Path templateFile;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/ChangelogExporterArgs.java`
-#### Snippet
-```java
-    final Path changelogDirectory;
-
-    @Nullable
-    final Path outputDirectory;
+        @Nullable
+        final String dueTo;
 
 ```
 
@@ -384,18 +360,6 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
 
         @Nullable
         final String issue;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
-#### Snippet
-```java
-        final String dev;
-
-        @Nullable
-        final String dueTo;
 
 ```
 
