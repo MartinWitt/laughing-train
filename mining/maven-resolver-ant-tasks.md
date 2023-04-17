@@ -1,7 +1,7 @@
 # maven-resolver-ant-tasks 
  
 # Bad smells
-I found 80 bad smells with 27 repairable:
+I found 79 bad smells with 27 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 18 | false |
@@ -23,9 +23,8 @@ I found 80 bad smells with 27 repairable:
 | UnnecessaryStringEscape | 1 | true |
 | RegExpRedundantEscape | 1 | false |
 | RedundantFieldInitialization | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| StringBufferReplaceableByString | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
+| StringBufferReplaceableByString | 1 | false |
 | SynchronizeOnThis | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -55,6 +54,18 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/types/ModelValueExtract
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/Artifact.java`
+#### Snippet
+```java
+                throw new BuildException( "The artifact file " + file + " does not exist" );
+            }
+            if ( type == null || type.length() <= 0 )
+            {
+                throw new BuildException( "You must specify the 'type' for the artifact" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
 in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Layout.java`
 #### Snippet
 ```java
@@ -67,14 +78,26 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Layout.java`
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/Dependency.java`
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/RemoteRepository.java`
 #### Snippet
 ```java
-        version = m.group( 3 );
-        type = m.group( 6 );
-        if ( type == null || type.length() <= 0 )
+        else
         {
-            type = "jar";
+            if ( url == null || url.length() <= 0 )
+            {
+                throw new BuildException( "You must specify the 'url' for a remote repository" );
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/RemoteRepository.java`
+#### Snippet
+```java
+                throw new BuildException( "You must specify the 'url' for a remote repository" );
+            }
+            if ( id == null || id.length() <= 0 )
+            {
+                throw new BuildException( "You must specify the 'id' for a remote repository" );
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -115,38 +138,14 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/types/Dependency.java`
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/Artifact.java`
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/Dependency.java`
 #### Snippet
 ```java
-                throw new BuildException( "The artifact file " + file + " does not exist" );
-            }
-            if ( type == null || type.length() <= 0 )
-            {
-                throw new BuildException( "You must specify the 'type' for the artifact" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/RemoteRepository.java`
-#### Snippet
-```java
-        else
+        version = m.group( 3 );
+        type = m.group( 6 );
+        if ( type == null || type.length() <= 0 )
         {
-            if ( url == null || url.length() <= 0 )
-            {
-                throw new BuildException( "You must specify the 'url' for a remote repository" );
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/RemoteRepository.java`
-#### Snippet
-```java
-                throw new BuildException( "You must specify the 'url' for a remote repository" );
-            }
-            if ( id == null || id.length() <= 0 )
-            {
-                throw new BuildException( "You must specify the 'id' for a remote repository" );
+            type = "jar";
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -250,18 +249,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/AntModelResolver.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
-#### Snippet
-```java
-{
-
-    private static org.eclipse.aether.artifact.Artifact toArtifact( Dependency dependency, ArtifactTypeRegistry types )
-    {
-        ArtifactType type = types.get( dependency.getType() );
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
 in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
 #### Snippet
@@ -271,6 +258,18 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
         public boolean accept( org.eclipse.aether.graph.DependencyNode node, List<DependencyNode> parents )
         {
             return filter == null || filter.accept( node, parents );
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.artifact` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
+#### Snippet
+```java
+{
+
+    private static org.eclipse.aether.artifact.Artifact toArtifact( Dependency dependency, ArtifactTypeRegistry types )
+    {
+        ArtifactType type = types.get( dependency.getType() );
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -313,18 +312,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/RefTask.java`
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `remoteRepositories` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/Pom.java`
-#### Snippet
-```java
-    private String packaging = "jar";
-
-    private RemoteRepositories remoteRepositories;
-
-    private String coords;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `file` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/maven/resolver/internal/ant/types/Pom.java`
 #### Snippet
@@ -334,6 +321,18 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/types/Pom.java`
     private File file;
 
     private String groupId;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `remoteRepositories` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/Pom.java`
+#### Snippet
+```java
+    private String packaging = "jar";
+
+    private RemoteRepositories remoteRepositories;
+
+    private String coords;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -449,18 +448,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/ProjectWorkspaceReader.
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `props`
-in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
-#### Snippet
-```java
-        if ( props == null )
-        {
-            props = new Properties();
-        }
-        for ( Map.Entry<?, ?> entry : map.entrySet() )
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `enabled`
 in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
 #### Snippet
@@ -497,15 +484,27 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `remoteRepositories`
+Assignment to method parameter `props`
+in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
+#### Snippet
+```java
+        if ( props == null )
+        {
+            props = new Properties();
+        }
+        for ( Map.Entry<?, ?> entry : map.entrySet() )
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `props`
 in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
 #### Snippet
 ```java
-        RepositorySystemSession session = getSession( task, localRepository );
-
-        remoteRepositories =
-            remoteRepositories == null ? getMergedRepositories() : remoteRepositories;
-
+        if ( props == null )
+        {
+            props = new Properties();
+        }
+        boolean envCaseInsensitive = OS_WINDOWS;
 ```
 
 ### AssignmentToMethodParameter
@@ -533,28 +532,15 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `props`
+Assignment to method parameter `remoteRepositories`
 in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
 #### Snippet
 ```java
-        if ( props == null )
-        {
-            props = new Properties();
-        }
-        boolean envCaseInsensitive = OS_WINDOWS;
-```
+        RepositorySystemSession session = getSession( task, localRepository );
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-09-22-04.703.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
+        remoteRepositories =
+            remoteRepositories == null ? getMergedRepositories() : remoteRepositories;
+
 ```
 
 ## RuleId[id=ReturnNull]
@@ -635,42 +621,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
 #### Snippet
 ```java
-        if ( policy == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
-#### Snippet
-```java
-        if ( repo == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
-#### Snippet
-```java
-        if ( activation == null )
-        {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
-#### Snippet
-```java
         if ( activation == null )
         {
             return null;
@@ -719,7 +669,43 @@ Return of `null`
 in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
 #### Snippet
 ```java
+        if ( policy == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
+#### Snippet
+```java
         if ( activation == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
+#### Snippet
+```java
+        if ( activation == null )
+        {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/resolver/internal/ant/SettingsUtils.java`
+#### Snippet
+```java
+        if ( repo == null )
         {
             return null;
         }
@@ -740,14 +726,14 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/ProjectWorkspaceReader.
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
+in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
 #### Snippet
 ```java
-        if ( proxy == null )
+        public String getClassifier()
         {
             return null;
         }
-        return new org.eclipse.aether.repository.Proxy( proxy.getType(), proxy.getHost(), proxy.getPort(),
+
 ```
 
 ### ReturnNull
@@ -764,14 +750,14 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
+in `src/main/java/org/apache/maven/resolver/internal/ant/ConverterUtils.java`
 #### Snippet
 ```java
-        public String getClassifier()
+        if ( proxy == null )
         {
             return null;
         }
-
+        return new org.eclipse.aether.repository.Proxy( proxy.getType(), proxy.getHost(), proxy.getPort(),
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -785,18 +771,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Layout.java`
                         if ( lt.length() > 0 && "-_".indexOf( lt.charAt( lt.length() - 1 ) ) >= 0 )
                         {
                             buffer.setLength( buffer.length() - 1 );
-```
-
-### SizeReplaceableByIsEmpty
-`classifier.length() > 0` can be replaced with '!classifier.isEmpty()'
-in `src/main/java/org/apache/maven/resolver/internal/ant/types/Dependency.java`
-#### Snippet
-```java
-        key.append( ':' );
-        key.append( ( type != null ) ? type : "jar" );
-        if ( classifier != null && classifier.length() > 0 )
-        {
-            key.append( ':' );
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -848,6 +822,18 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`classifier.length() > 0` can be replaced with '!classifier.isEmpty()'
+in `src/main/java/org/apache/maven/resolver/internal/ant/types/Dependency.java`
+#### Snippet
+```java
+        key.append( ':' );
+        key.append( ( type != null ) ? type : "jar" );
+        if ( classifier != null && classifier.length() > 0 )
+        {
+            key.append( ':' );
+```
+
+### SizeReplaceableByIsEmpty
 `dep.getSystemPath().length() > 0` can be replaced with '!dep.getSystemPath().isEmpty()'
 in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
 #### Snippet
@@ -857,19 +843,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
                 if ( dep.getSystemPath() != null && dep.getSystemPath().length() > 0 )
                 {
                     dependency.setSystemPath( task.getProject().resolveFile( dep.getSystemPath() ) );
-```
-
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
-#### Snippet
-```java
-    private String getUserAgent()
-    {
-        StringBuilder buffer = new StringBuilder( 128 );
-
-        buffer.append( "Apache-Ant/" ).append( project.getProperty( "ant.version" ) );
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -883,6 +856,19 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
         boolean envCaseInsensitive = OS_WINDOWS;
         for ( Map.Entry<String, String> entry : System.getenv().entrySet() )
         {
+```
+
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `src/main/java/org/apache/maven/resolver/internal/ant/AntRepoSys.java`
+#### Snippet
+```java
+    private String getUserAgent()
+    {
+        StringBuilder buffer = new StringBuilder( 128 );
+
+        buffer.append( "Apache-Ant/" ).append( project.getProperty( "ant.version" ) );
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -950,18 +936,6 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `Path` may be 'static'
-in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
-#### Snippet
-```java
-    /**
-     */
-    public class Path
-        extends ArtifactConsumer
-    {
-```
-
-### InnerClassMayBeStatic
 Inner class `Props` may be 'static'
 in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
 #### Snippet
@@ -969,6 +943,18 @@ in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
     /**
      */
     public class Props
+        extends ArtifactConsumer
+    {
+```
+
+### InnerClassMayBeStatic
+Inner class `Path` may be 'static'
+in `src/main/java/org/apache/maven/resolver/internal/ant/tasks/Resolve.java`
+#### Snippet
+```java
+    /**
+     */
+    public class Path
         extends ArtifactConsumer
     {
 ```
