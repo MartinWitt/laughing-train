@@ -7,14 +7,14 @@ I found 43 bad smells with 4 repairable:
 | UnnecessaryFullyQualifiedName | 16 | false |
 | EmptyMethod | 4 | false |
 | AssignmentToMethodParameter | 4 | false |
-| DefaultAnnotationParam | 2 | false |
 | RedundantMethodOverride | 2 | false |
+| DefaultAnnotationParam | 2 | false |
 | JUnitMalformedDeclaration | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | StaticCallOnSubclass | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
-| CodeBlock2Expr | 1 | true |
 | AssignmentToStaticFieldFromInstanceMethod | 1 | false |
+| CodeBlock2Expr | 1 | true |
 | RedundantFieldInitialization | 1 | false |
 | HtmlWrongAttributeValue | 1 | false |
 | ReturnNull | 1 | false |
@@ -23,6 +23,31 @@ I found 43 bad smells with 4 repairable:
 | InnerClassMayBeStatic | 1 | true |
 | MissortedModifiers | 1 | false |
 | TestCaseWithNoTestMethods | 1 | false |
+## RuleId[id=RedundantMethodOverride]
+### RedundantMethodOverride
+Method `before()` only delegates to its super method
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownTests.java`
+#### Snippet
+```java
+
+    @Before
+    public void before() {
+        super.before();
+    }
+```
+
+### RedundantMethodOverride
+Method `before()` only delegates to its super method
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.java`
+#### Snippet
+```java
+
+    @Before
+    public void before() {
+        super.before();
+    }
+```
+
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -46,31 +71,6 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResour
     @LRA(value = LRA.Type.NESTED, end = true)
     public Response nestedActivity(@HeaderParam(LRA_HTTP_RECOVERY_HEADER) URI recoveryId,
             @HeaderParam(LRA_HTTP_CONTEXT_HEADER) URI nestedLRAId) {
-```
-
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `before()` only delegates to its super method
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.java`
-#### Snippet
-```java
-
-    @Before
-    public void before() {
-        super.before();
-    }
-```
-
-### RedundantMethodOverride
-Method `before()` only delegates to its super method
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownTests.java`
-#### Snippet
-```java
-
-    @Before
-    public void before() {
-        super.before();
-    }
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -101,30 +101,6 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.jav
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/Forget.java`
-#### Snippet
-```java
- * <p>
- * Similar remarks apply if the participant was enlisted in a nested LRA
- * ({@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA.Type#NESTED}). Actions performed in the context of a nested
- * LRA must remain compensatable until the participant is explicitly told it can clean up using this
- * <code>&#64;Forget</code> annotation.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/lra/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("2.0")
-package org.eclipse.microprofile.lra;
-
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.net` is unnecessary and can be removed
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraCancelOnResource.java`
 #### Snippet
@@ -149,15 +125,123 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraCancel
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
 #### Snippet
 ```java
-     * </p>
-     *
-     * @return the {@link jakarta.ws.rs.core.Response.Status.Family} status families that will cause cancellation of the
-     *         LRA
+
+    /**
+     * See {@link LraCancelOnResource#cancelOnFamily3xx(java.net.URI)}
      */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#notCancelOnFamily5xx(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelOnFamilyDefault4xx(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelOn301(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
+#### Snippet
+```java
+
+    /**
+     * See {@link LraCancelOnResource#cancelOnFamilyDefault5xx(java.net.URI)}
+     */
+    @Test
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
+in `api/src/main/java/org/eclipse/microprofile/lra/package-info.java`
+#### Snippet
+```java
+ */
+
+@org.osgi.annotation.versioning.Version("2.0")
+package org.eclipse.microprofile.lra;
+
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/lra/LRAResponse.java`
+#### Snippet
+```java
+/**
+ * The utility class that will create the correct {@link Response} or
+ * {@link jakarta.ws.rs.core.Response.ResponseBuilder} for the response that should be returned from the LRA JAX-RS
+ * methods.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/lra/annotation/Forget.java`
+#### Snippet
+```java
+ * <p>
+ * Similar remarks apply if the participant was enlisted in a nested LRA
+ * ({@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA.Type#NESTED}). Actions performed in the context of a nested
+ * LRA must remain compensatable until the participant is explicitly told it can clean up using this
+ * <code>&#64;Forget</code> annotation.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
+in `api/src/main/java/org/eclipse/microprofile/lra/annotation/AfterLRA.java`
+#### Snippet
+```java
+ * name {@link LRA#LRA_HTTP_ENDED_CONTEXT_HEADER} and the final status is passed to the method as plain text
+ * corresponding to one of the {@link LRAStatus} enum values. If this LRA was nested then the parent LRA MUST be present
+ * in the header {@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA#LRA_HTTP_PARENT_CONTEXT_HEADER} and value is
+ * of type {@link java.net.URI}. For example:
+ * </p>
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -167,9 +251,9 @@ in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
 ```java
      * </p>
      *
-     * @return the {@link jakarta.ws.rs.core.Response.Status} HTTP status codes that will cause cancellation of the LRA
+     * @return the {@link jakarta.ws.rs.core.Response.Status.Family} status families that will cause cancellation of the
+     *         LRA
      */
-    Response.Status[] cancelOn() default {};
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -197,99 +281,15 @@ in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#notCancelOnFamily5xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOn301(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamily3xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamilyDefault4xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamilyDefault5xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/AfterLRA.java`
-#### Snippet
-```java
- * name {@link LRA#LRA_HTTP_ENDED_CONTEXT_HEADER} and the final status is passed to the method as plain text
- * corresponding to one of the {@link LRAStatus} enum values. If this LRA was nested then the parent LRA MUST be present
- * in the header {@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA#LRA_HTTP_PARENT_CONTEXT_HEADER} and value is
- * of type {@link java.net.URI}. For example:
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/LRAResponse.java`
+in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
 #### Snippet
 ```java
-/**
- * The utility class that will create the correct {@link Response} or
- * {@link jakarta.ws.rs.core.Response.ResponseBuilder} for the response that should be returned from the LRA JAX-RS
- * methods.
- */
+     * </p>
+     *
+     * @return the {@link jakarta.ws.rs.core.Response.Status} HTTP status codes that will cause cancellation of the LRA
+     */
+    Response.Status[] cancelOn() default {};
 ```
 
 ## RuleId[id=ThrowablePrintStackTrace]
@@ -307,18 +307,6 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
 
 ## RuleId[id=JUnitMalformedDeclaration]
 ### JUnitMalformedDeclaration
-Method `testCancelWhenParticipantIsRestarted` annotated with '@Test' should not declare parameter 'deploymentURL'
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
-#### Snippet
-```java
-     */
-    @Test
-    public void testCancelWhenParticipantIsRestarted(@ArquillianResource URL deploymentURL) {
-        clientServiceSetup(deploymentURL);
-
-```
-
-### JUnitMalformedDeclaration
 Method `testCancelWhenParticipantIsUnavailable` annotated with '@Test' should not declare parameter 'deploymentURL'
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 #### Snippet
@@ -330,17 +318,16 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+### JUnitMalformedDeclaration
+Method `testCancelWhenParticipantIsRestarted` annotated with '@Test' should not declare parameter 'deploymentURL'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 #### Snippet
 ```java
-        // starting at index 1 as LRAResource#multiLevelNestedActivity returns the top-level LRA as the first argument
-        // which was not finished yet
-        IntStream.range(1, uris.length).parallel().forEach(i -> {
-            lraTestService.waitForCallbacks(uris[i]);
-        });
+     */
+    @Test
+    public void testCancelWhenParticipantIsRestarted(@ArquillianResource URL deploymentURL) {
+        clientServiceSetup(deploymentURL);
+
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
@@ -354,6 +341,19 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/service/LRATestService.ja
         tckSuiteClient = ClientBuilder.newClient();
         tckSuiteTarget = tckSuiteClient.target(URI.create(deploymentURL.toExternalForm()));
         lraClient = new LRAClientOps(tckSuiteTarget);
+```
+
+## RuleId[id=CodeBlock2Expr]
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+#### Snippet
+```java
+        // starting at index 1 as LRAResource#multiLevelNestedActivity returns the top-level LRA as the first argument
+        // which was not finished yet
+        IntStream.range(1, uris.length).parallel().forEach(i -> {
+            lraTestService.waitForCallbacks(uris[i]);
+        });
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -420,6 +420,30 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/Participa
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `how`
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+#### Snippet
+```java
+
+        if (how == CompletionType.mixed && nestedCnt <= 1) {
+            how = CompletionType.complete;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `lraId`
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResource.java`
+#### Snippet
+```java
+            URI lra = new LRAClientOps(target).startLRA(null, "subActivity", 0L, ChronoUnit.SECONDS);
+
+            lraId = lra;
+
+            storeActivity(lraId, null);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `lraCheckType`
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
 #### Snippet
@@ -443,34 +467,10 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
             } else {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `lraId`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResource.java`
-#### Snippet
-```java
-            URI lra = new LRAClientOps(target).startLRA(null, "subActivity", 0L, ChronoUnit.SECONDS);
-
-            lraId = lra;
-
-            storeActivity(lraId, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `how`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
-#### Snippet
-```java
-
-        if (how == CompletionType.mixed && nestedCnt <= 1) {
-            how = CompletionType.complete;
-        }
-
-```
-
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-19-34-50.428.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-19-35-19.196.html`
 #### Snippet
 ```java
               <td>0</td>
