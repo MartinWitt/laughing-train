@@ -85,18 +85,6 @@ in `src/main/java/org/eclipse/microprofile/starter/core/templates/TemplateModelL
 ```
 
 ### DataFlowIssue
-Argument `stream` might be null
-in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
-#### Snippet
-```java
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(stream));
-            MavenXpp3Reader reader = new MavenXpp3Reader();
-            model = reader.read(in);
-```
-
-### DataFlowIssue
 Argument `FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst")` might be null
 in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
 #### Snippet
@@ -106,6 +94,18 @@ in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
         try (Scanner scanner = new Scanner(FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst"))) {
 
             while (scanner.hasNext()) {
+```
+
+### DataFlowIssue
+Argument `stream` might be null
+in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
+#### Snippet
+```java
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(stream));
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            model = reader.read(in);
 ```
 
 ### DataFlowIssue
@@ -331,6 +331,66 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP22:
+                break;
+            case MP21:
+                tomeeVersion = "8.0.0-M3";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP20:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP14:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP14:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP13:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP13:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP12:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP12:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            default:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
 #### Snippet
 ```java
@@ -427,66 +487,6 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP22:
-                break;
-            case MP21:
-                tomeeVersion = "8.0.0-M3";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP20:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP14:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP14:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP13:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP13:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP12:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP12:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            default:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/ThorntailServer.java`
 #### Snippet
 ```java
@@ -523,6 +523,18 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'modelManager' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+
+    @Inject
+    private ModelManager modelManager;
+
+    @Inject
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'version' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
@@ -530,6 +542,18 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 
     @Inject
     private Version version;
+
+    @Inject
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'jdkSelector' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+
+    @Inject
+    private JDKSelector jdkSelector;
 
     @Inject
 ```
@@ -547,30 +571,6 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'errorLogger' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-
-    @Inject
-    private ErrorLogger errorLogger;
-
-    @Resource
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'jdkSelector' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-
-    @Inject
-    private JDKSelector jdkSelector;
-
-    @Inject
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'creator' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
@@ -583,15 +583,15 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'modelManager' in a Serializable class
+Non-serializable field 'errorLogger' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
 ```java
 
     @Inject
-    private ModelManager modelManager;
+    private ErrorLogger errorLogger;
 
-    @Inject
+    @Resource
 ```
 
 ## RuleId[id=CatchMayIgnoreException]
@@ -714,18 +714,6 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```java
     }
 
-    private void setAddonOptions(List<JessieAddon> allAddons, Map<String, OptionValue> options) {
-
-        for (JessieAddon addon : allAddons) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JessieAddon`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
     private void orderAddons(List<JessieAddon> allAddons) {
         allAddons.sort(Comparator.comparing(JessieAddon::priority));
     }
@@ -741,6 +729,18 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
     private void addDefaultOption(Map<String, OptionValue> options, String key, String value) {
         OptionValue optionValue;
         if (!options.containsKey(key)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends JessieAddon`
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
+#### Snippet
+```java
+    }
+
+    private void setAddonOptions(List<JessieAddon> allAddons, Map<String, OptionValue> options) {
+
+        for (JessieAddon addon : allAddons) {
 ```
 
 ### BoundedWildcard
@@ -787,9 +787,9 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
 ```java
 
     @JsonIgnore
-    final private Map<String, Object> parameters = new HashMap<>();
+    final private Map<String, String> variables = new HashMap<>();
 
-    @JsonIgnore
+    /**
 ```
 
 ### MissortedModifiers
@@ -799,9 +799,9 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
 ```java
 
     @JsonIgnore
-    final private Map<String, String> variables = new HashMap<>();
+    final private Map<String, Object> parameters = new HashMap<>();
 
-    /**
+    @JsonIgnore
 ```
 
 ### MissortedModifiers
@@ -1132,35 +1132,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
- */
-public class Project {
-    private String groupId = null;
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
 public class Project {
     private String groupId = null;
     private String artifactId = null;
     private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1192,6 +1168,18 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
+    private List<String> selectedSpecs = null;
+    private List<MicroprofileSpec> selectedSpecEnums;
+    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
+    private BuildTool buildTool = BuildTool.MAVEN;
+    private boolean selectAllSpecs = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
     private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
     private SupportedServer supportedServer = null;
@@ -1216,11 +1204,23 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
+ */
+public class Project {
+    private String groupId = null;
+    private String artifactId = null;
+    private MicroProfileVersion mpVersion = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
+    private JavaSEVersion javaSEVersion = null;
+    private SupportedServer supportedServer = null;
     private List<String> selectedSpecs = null;
     private List<MicroprofileSpec> selectedSpecEnums;
     private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-    private BuildTool buildTool = BuildTool.MAVEN;
-    private boolean selectAllSpecs = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1253,30 +1253,6 @@ Return of `null`
 in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
 #### Snippet
 ```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-256 not available.", e);
-            return null;
-        }
-        digest.update(StandardCharsets.UTF_8.encode(dynamoDBJSON));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-1 not available.", e);
-            return null;
-        }
-        final String timestamp = logMessageTimeFormat.format(date);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             LOG.log(Level.SEVERE, "HmacSHA256 key problem:", e);
             return null;
@@ -1298,6 +1274,30 @@ in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
+#### Snippet
+```java
+        } catch (NoSuchAlgorithmException e) {
+            LOG.log(Level.SEVERE, "SHA-1 not available.", e);
+            return null;
+        }
+        final String timestamp = logMessageTimeFormat.format(date);
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
+#### Snippet
+```java
+        } catch (NoSuchAlgorithmException e) {
+            LOG.log(Level.SEVERE, "SHA-256 not available.", e);
+            return null;
+        }
+        digest.update(StandardCharsets.UTF_8.encode(dynamoDBJSON));
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
 #### Snippet
 ```java
@@ -1311,7 +1311,7 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-15-10-03-56.708.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-17-18-31.297.html`
 #### Snippet
 ```java
               <td>0</td>
