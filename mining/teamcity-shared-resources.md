@@ -104,6 +104,30 @@ Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
+  private Map<String, String> validate(@NotNull final Map<String, String> params) {
+    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
+      return null;
+    } else {
+      return params;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+    Resource resource = null;
+    if (isEmptyOrSpaces(resourceId)) {
+      return null;
+    }
+    if (ResourceType.QUOTED.equals(resourceType)) {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
         } catch (IllegalArgumentException e) {
           LOG.warn("Illegal argument supplied in quota for resource [" + resourceName + "]");
           return null;
@@ -133,30 +157,6 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
-      return null;
-    }
-    if (ResourceType.QUOTED.equals(resourceType)) {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
-      return null;
-    } else {
-      return params;
 ```
 
 ### ReturnNull
@@ -333,6 +333,30 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? extends SharedResourcesFeature`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
+    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
+    features.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+#### Snippet
+```java
+  @NotNull
+  @Override
+  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
+    final Map<String, String> buildParams = new HashMap<>();
+    for (Lock lock: locks) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Resource`
 in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspector.java`
 #### Snippet
@@ -357,27 +381,15 @@ in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspect
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+Can generalize to `? extends CustomResource`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
 #### Snippet
 ```java
-  @NotNull
-  @Override
-  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
-    final Map<String, String> buildParams = new HashMap<>();
-    for (Lock lock: locks) {
-```
+  }
 
-### BoundedWildcard
-Can generalize to `? extends SharedResourcesFeature`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-  @NotNull
-  @Override
-  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
-    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
-    features.stream()
+  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
+                                                           @NotNull final Map<String, Lock> locks) {
+    final Map<String, CustomResource> result = new HashMap<>();
 ```
 
 ### BoundedWildcard
@@ -417,18 +429,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CustomResource`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-  }
-
-  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
-                                                           @NotNull final Map<String, Lock> locks) {
-    final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
 Can generalize to `? extends List`
 in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.java`
 #### Snippet
@@ -465,6 +465,18 @@ in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.ja
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Map`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+#### Snippet
+```java
+  private void gatherRuntimeInfo(@NotNull final List<RunningBuildEx> runningBuilds,
+                                 @NotNull final Map<QueuedBuildInfo, SBuildAgent> canBeStarted,
+                                 @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
+    if (takenLocks.get() == null) {
+      takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
+```
+
+### BoundedWildcard
 Can generalize to `? extends TakenLock`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
 #### Snippet
@@ -477,15 +489,15 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgent
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Map`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
 #### Snippet
 ```java
-  private void gatherRuntimeInfo(@NotNull final List<RunningBuildEx> runningBuilds,
-                                 @NotNull final Map<QueuedBuildInfo, SBuildAgent> canBeStarted,
-                                 @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
-    if (takenLocks.get() == null) {
-      takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
+
+  @Override
+  public Map<Resource, String> getUnavailableLocks(@NotNull final Collection<Lock> locksToTake,
+                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
+                                                   @NotNull final String projectId,
 ```
 
 ### BoundedWildcard
@@ -510,18 +522,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
                                                    @NotNull final Map<String, Resource> chainNodeResources,
                                                    @NotNull final Map<Resource, Map<BuildPromotionEx, Lock>> chainLocks,
                                                    @NotNull final BuildPromotion promotion) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Map<Resource, String> getUnavailableLocks(@NotNull final Collection<Lock> locksToTake,
-                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
-                                                   @NotNull final String projectId,
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
