@@ -10,27 +10,27 @@ I found 23 bad smells with 0 repairable:
 | JavaReflectionMemberAccess | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
-#### Snippet
-```java
-
-    public NetworkBasedDockerContainerInfo(
-            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
-        this.docker = docker;
-        this.networkName = networkName;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
 #### Snippet
 ```java
     private final DockerExecutable docker;
-    private final String networkName;
+    private final ProjectName projectName;
     private final Optional<String> imageNameOverride;
+    private final Optional<String> networkNameOverride;
 
-    public NetworkBasedDockerContainerInfo(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'networkNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+#### Snippet
+```java
+    private final ProjectName projectName;
+    private final Optional<String> imageNameOverride;
+    private final Optional<String> networkNameOverride;
+
+    public ProjectBasedDockerContainerInfo(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -59,26 +59,26 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedD
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
 #### Snippet
 ```java
     private final DockerExecutable docker;
-    private final ProjectName projectName;
+    private final String networkName;
     private final Optional<String> imageNameOverride;
-    private final Optional<String> networkNameOverride;
 
+    public NetworkBasedDockerContainerInfo(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'networkNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+`Optional` used as type for parameter 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
 #### Snippet
 ```java
-    private final ProjectName projectName;
-    private final Optional<String> imageNameOverride;
-    private final Optional<String> networkNameOverride;
 
-    public ProjectBasedDockerContainerInfo(
+    public NetworkBasedDockerContainerInfo(
+            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
+        this.docker = docker;
+        this.networkName = networkName;
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -145,15 +145,27 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameSer
 ```
 
 ### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+'com.google.common.io.CharStreams' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
 #### Snippet
 ```java
-            String labelsString = Iterables.getOnlyElement(
-                    runDockerProcess(docker, "inspect", "--format", labelsFormat, containerId));
-            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
-        } catch (IOException | InterruptedException e) {
-            throw Throwables.propagate(e);
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
+```
+
+### UnstableApiUsage
+'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
 ```
 
 ### UnstableApiUsage
@@ -193,27 +205,15 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContain
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.CharStreams' is marked unstable with @Beta
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
 #### Snippet
 ```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
-```
-
-### UnstableApiUsage
-'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
+            String labelsString = Iterables.getOnlyElement(
+                    runDockerProcess(docker, "inspect", "--format", labelsFormat, containerId));
+            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
+        } catch (IOException | InterruptedException e) {
+            throw Throwables.propagate(e);
 ```
 
 ### UnstableApiUsage
