@@ -1,7 +1,7 @@
 # bahir-flink 
  
 # Bad smells
-I found 144 bad smells with 37 repairable:
+I found 143 bad smells with 37 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 19 | false |
@@ -39,11 +39,10 @@ I found 144 bad smells with 37 repairable:
 | RedundantSuppression | 1 | false |
 | AccessStaticViaInstance | 1 | false |
 | UnnecessaryUnboxing | 1 | false |
-| ThrowablePrintStackTrace | 1 | false |
 | NestedAssignment | 1 | false |
+| ThrowablePrintStackTrace | 1 | false |
 | Java8MapApi | 1 | false |
 | EmptyMethod | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | UseCompareMethod | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
@@ -108,42 +107,6 @@ public class FlumeUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `KuduTypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTypeUtils.java`
-#### Snippet
-```java
-import static org.apache.flink.util.Preconditions.checkNotNull;
-
-public class KuduTypeUtils {
-
-    public static DataType toFlinkType(Type type, ColumnTypeAttributes typeAttributes) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SiddhiTupleFactory` has only 'static' members, and lacks a 'private' constructor
-in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/utils/SiddhiTupleFactory.java`
-#### Snippet
-```java
- * Siddhi Tuple Utility methods
- */
-public class SiddhiTupleFactory {
-    /**
-     * Convert object array to type of Tuple{N} where N is between 0 to 25.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SiddhiStreamFactory` has only 'static' members, and lacks a 'private' constructor
-in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/utils/SiddhiStreamFactory.java`
-#### Snippet
-```java
- * Convert SiddhiCEPExecutionPlan to SiddhiCEP Operator and build output DataStream
- */
-public class SiddhiStreamFactory {
-    @SuppressWarnings("unchecked")
-    public static <OUT> DataStream<OUT> createDataStream(SiddhiOperatorContext context, DataStream<Tuple2<String, Object>> namedStream, String outStreamId) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `FileSystemUtils` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-pinot/src/main/java/org/apache/flink/streaming/connectors/pinot/filesystem/FileSystemUtils.java`
 #### Snippet
@@ -168,15 +131,15 @@ public class SiddhiTypeFactory {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `KuduTableUtils` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
+Class `SiddhiStreamFactory` has only 'static' members, and lacks a 'private' constructor
+in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/utils/SiddhiStreamFactory.java`
 #### Snippet
 ```java
-
-
-public class KuduTableUtils {
-
-    private static final Logger LOG = LoggerFactory.getLogger(KuduTableUtils.class);
+ * Convert SiddhiCEPExecutionPlan to SiddhiCEP Operator and build output DataStream
+ */
+public class SiddhiStreamFactory {
+    @SuppressWarnings("unchecked")
+    public static <OUT> DataStream<OUT> createDataStream(SiddhiOperatorContext context, DataStream<Tuple2<String, Object>> namedStream, String outStreamId) {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -192,6 +155,42 @@ public class RedisCommandsContainerBuilder {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `RedisHandlerServices` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+#### Snippet
+```java
+ * @param <T> redis handler type.
+ */
+public class RedisHandlerServices<T> {
+
+    private static final ServiceLoader<RedisHandler> defaultLoader = ServiceLoader.load(RedisHandler.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `KuduTypeUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTypeUtils.java`
+#### Snippet
+```java
+import static org.apache.flink.util.Preconditions.checkNotNull;
+
+public class KuduTypeUtils {
+
+    public static DataType toFlinkType(Type type, ColumnTypeAttributes typeAttributes) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SiddhiTupleFactory` has only 'static' members, and lacks a 'private' constructor
+in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/utils/SiddhiTupleFactory.java`
+#### Snippet
+```java
+ * Siddhi Tuple Utility methods
+ */
+public class SiddhiTupleFactory {
+    /**
+     * Convert object array to type of Tuple{N} where N is between 0 to 25.
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `RedisValidator` has only 'static' members, and lacks a 'private' constructor
 in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/descriptor/RedisValidator.java`
 #### Snippet
@@ -204,15 +203,15 @@ public class RedisValidator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `RedisHandlerServices` has only 'static' members, and lacks a 'private' constructor
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+Class `KuduTableUtils` has only 'static' members, and lacks a 'private' constructor
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
 #### Snippet
 ```java
- * @param <T> redis handler type.
- */
-public class RedisHandlerServices<T> {
 
-    private static final ServiceLoader<RedisHandler> defaultLoader = ServiceLoader.load(RedisHandler.class);
+
+public class KuduTableUtils {
+
+    private static final Logger LOG = LoggerFactory.getLogger(KuduTableUtils.class);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -428,18 +427,6 @@ in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'scanner' in a Serializable class
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReaderIterator.java`
-#### Snippet
-```java
-public class KuduReaderIterator<T> implements Serializable {
-
-    private final KuduScanner scanner;
-    private final RowResultConvertor<T> rowResultConvertor;
-    private RowResultIterator rowIterator;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'value' in a Serializable class
 in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/KuduFilterInfo.java`
 #### Snippet
@@ -463,6 +450,18 @@ public class PojoOperationMapper<T> extends AbstractSingleOperationMapper<T> {
     protected PojoOperationMapper(Class<T> pojoClass, String[] columnNames) { this(pojoClass, columnNames, null); }
 ```
 
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'scanner' in a Serializable class
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReaderIterator.java`
+#### Snippet
+```java
+public class KuduReaderIterator<T> implements Serializable {
+
+    private final KuduScanner scanner;
+    private final RowResultConvertor<T> rowResultConvertor;
+    private RowResultIterator rowIterator;
+```
+
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is set
@@ -477,6 +476,18 @@ in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/re
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`activeSegments.size() != 0` can be replaced with '!activeSegments.isEmpty()'
+in `flink-connector-pinot/src/main/java/org/apache/flink/streaming/connectors/pinot/writer/PinotSinkWriter.java`
+#### Snippet
+```java
+     */
+    public void initializeState(PinotSinkWriterState state) {
+        if (activeSegments.size() != 0) {
+            throw new IllegalStateException("Please call the initialization before creating the first PinotWriterSegment.");
+        }
+```
+
 ### SizeReplaceableByIsEmpty
 `predicates.size() != 0` can be replaced with '!predicates.isEmpty()'
 in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/KuduTableSource.java`
@@ -513,19 +524,19 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/ut
             }
 ```
 
-### SizeReplaceableByIsEmpty
-`activeSegments.size() != 0` can be replaced with '!activeSegments.isEmpty()'
-in `flink-connector-pinot/src/main/java/org/apache/flink/streaming/connectors/pinot/writer/PinotSinkWriter.java`
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `flink-connector-pinot/src/main/java/org/apache/flink/streaming/connectors/pinot/filesystem/FileSystemUtils.java`
 #### Snippet
 ```java
      */
-    public void initializeState(PinotSinkWriterState state) {
-        if (activeSegments.size() != 0) {
-            throw new IllegalStateException("Please call the initialization before creating the first PinotWriterSegment.");
-        }
+    public static File createFileInDir(File targetDir) {
+        String fileName = String.format("%s.json", UUID.randomUUID().toString());
+        return new File(targetDir.toString(), fileName);
+    }
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dynamic/catalog/KuduDynamicCatalog.java`
@@ -548,18 +559,6 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dy
                     permittedProperties.toString());
         }
 
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `flink-connector-pinot/src/main/java/org/apache/flink/streaming/connectors/pinot/filesystem/FileSystemUtils.java`
-#### Snippet
-```java
-     */
-    public static File createFileInDir(File targetDir) {
-        String fileName = String.format("%s.json", UUID.randomUUID().toString());
-        return new File(targetDir.toString(), fileName);
-    }
 ```
 
 ### UnnecessaryToStringCall
@@ -589,18 +588,6 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/Ku
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super IN`
-in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
-#### Snippet
-```java
-
-    public InfluxDBWriter(
-            final InfluxDBSchemaSerializer<IN> schemaSerializer,
-            final Configuration configuration) {
-        this.schemaSerializer = schemaSerializer;
-```
-
-### BoundedWildcard
-Can generalize to `? super IN`
 in `flink-connector-flume/src/main/java/org/apache/flink/streaming/connectors/flume/FlumeSink.java`
 #### Snippet
 ```java
@@ -612,39 +599,15 @@ in `flink-connector-flume/src/main/java/org/apache/flink/streaming/connectors/fl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/source/reader/InfluxDBRecordEmitter.java`
-#### Snippet
-```java
-    private final InfluxDBDataPointDeserializer<T> dataPointDeserializer;
-
-    public InfluxDBRecordEmitter(final InfluxDBDataPointDeserializer<T> dataPointDeserializer) {
-        this.dataPointDeserializer = dataPointDeserializer;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ColumnSchema`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dynamic/catalog/KuduDynamicCatalog.java`
+Can generalize to `? super T`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriter.java`
 #### Snippet
 ```java
     }
 
-    protected Map<String, String> createTableProperties(String tableName, List<ColumnSchema> primaryKeyColumns) {
-        Map<String, String> props = new HashMap<>();
-        props.put(KuduDynamicTableSourceSinkFactory.KUDU_MASTERS.key(), kuduMasters);
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operator/StreamInMemOutputHandler.java`
-#### Snippet
-```java
-    private final LinkedList<StreamRecord<R>> collectedRecords;
-
-    public StreamInMemOutputHandler(TypeInformation<R> typeInfo, AbstractDefinition definition) {
-        this.typeInfo = typeInfo;
-        this.definition = definition;
+    public KuduWriter(KuduTableInfo tableInfo, KuduWriterConfig writerConfig, KuduOperationMapper<T> operationMapper, KuduFailureHandler failureHandler) throws IOException {
+        this.tableInfo = tableInfo;
+        this.writerConfig = writerConfig;
 ```
 
 ### BoundedWildcard
@@ -661,26 +624,26 @@ in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/re
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReaderIterator.java`
+in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/source/reader/InfluxDBRecordEmitter.java`
 #### Snippet
 ```java
-    private RowResultIterator rowIterator;
+    private final InfluxDBDataPointDeserializer<T> dataPointDeserializer;
 
-    public KuduReaderIterator(KuduScanner scanner, RowResultConvertor<T> rowResultConvertor) throws KuduException {
-        this.scanner = scanner;
-        this.rowResultConvertor = rowResultConvertor;
+    public InfluxDBRecordEmitter(final InfluxDBDataPointDeserializer<T> dataPointDeserializer) {
+        this.dataPointDeserializer = dataPointDeserializer;
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriter.java`
+Can generalize to `? extends R`
+in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operator/StreamInMemOutputHandler.java`
 #### Snippet
 ```java
-    }
+    private final LinkedList<StreamRecord<R>> collectedRecords;
 
-    public KuduWriter(KuduTableInfo tableInfo, KuduWriterConfig writerConfig, KuduOperationMapper<T> operationMapper, KuduFailureHandler failureHandler) throws IOException {
-        this.tableInfo = tableInfo;
-        this.writerConfig = writerConfig;
+    public StreamInMemOutputHandler(TypeInformation<R> typeInfo, AbstractDefinition definition) {
+        this.typeInfo = typeInfo;
+        this.definition = definition;
 ```
 
 ### BoundedWildcard
@@ -708,87 +671,15 @@ in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operato
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
-#### Snippet
-```java
-
-    private static Optional<KuduFilterInfo> convertUnaryIsNullExpression(
-            FunctionDefinition functionDefinition, List<Expression> children) {
-        FieldReferenceExpression fieldReferenceExpression;
-        if (isFieldReferenceExpression(children.get(0))) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tuple2`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
+Can generalize to `? extends KuduFilterInfo`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReader.java`
 #### Snippet
 ```java
     }
 
-    public static List<ColumnSchema> toKuduConnectorColumns(List<Tuple2<String, DataType>> columns,
-                                                            Collection<String> keyColumns) {
-        return columns.stream()
-```
+    public List<KuduScanToken> scanTokens(List<KuduFilterInfo> tableFilters, List<String> tableProjections, Integer rowLimit) {
+        KuduScanToken.KuduScanTokenBuilder tokenBuilder = client.newScanTokenBuilder(table);
 
-### BoundedWildcard
-Can generalize to `? extends Expression`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
-#### Snippet
-```java
-
-    private static Optional<KuduFilterInfo> convertBinaryComparison(
-            FunctionDefinition functionDefinition, List<Expression> children) {
-        FieldReferenceExpression fieldReferenceExpression;
-        ValueLiteralExpression valueLiteralExpression;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/handler/FlinkJedisSentinelConfigHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public FlinkJedisConfigBase createFlinkJedisConfig(Map<String, String> properties) {
-        String masterName = properties.computeIfAbsent(REDIS_MASTER_NAME, null);
-        String sentinelsInfo = properties.computeIfAbsent(SENTINELS_INFO, null);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ColumnSchema`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/KuduCatalog.java`
-#### Snippet
-```java
-    }
-
-    protected Map<String, String> createTableProperties(String tableName, List<ColumnSchema> primaryKeyColumns) {
-        Map<String, String> props = new HashMap<>();
-        props.put(KuduTableFactory.KUDU_MASTERS, kuduMasters);
-```
-
-### BoundedWildcard
-Can generalize to `? extends RedisHandler`
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
-#### Snippet
-```java
-    private static <T> List<T> filterByFactoryClass(
-            Class<T> redisClass,
-            List<RedisHandler> redis) {
-
-        List<RedisHandler> redisList = redis.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassLoader`
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
-#### Snippet
-```java
-     * @return all redis in the classpath
-     */
-    private static List<RedisHandler> discoverRedisHanlder(Optional<ClassLoader> classLoader) {
-        try {
-            List<RedisHandler> result = new LinkedList<>();
 ```
 
 ### BoundedWildcard
@@ -804,15 +695,123 @@ in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/re
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KuduFilterInfo`
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReader.java`
+Can generalize to `? extends ClassLoader`
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+#### Snippet
+```java
+     * @return all redis in the classpath
+     */
+    private static List<RedisHandler> discoverRedisHanlder(Optional<ClassLoader> classLoader) {
+        try {
+            List<RedisHandler> result = new LinkedList<>();
+```
+
+### BoundedWildcard
+Can generalize to `? extends RedisHandler`
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+#### Snippet
+```java
+    private static <T> List<T> filterByFactoryClass(
+            Class<T> redisClass,
+            List<RedisHandler> redis) {
+
+        List<RedisHandler> redisList = redis.stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/reader/KuduReaderIterator.java`
+#### Snippet
+```java
+    private RowResultIterator rowIterator;
+
+    public KuduReaderIterator(KuduScanner scanner, RowResultConvertor<T> rowResultConvertor) throws KuduException {
+        this.scanner = scanner;
+        this.rowResultConvertor = rowResultConvertor;
+```
+
+### BoundedWildcard
+Can generalize to `? super IN`
+in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
+#### Snippet
+```java
+
+    public InfluxDBWriter(
+            final InfluxDBSchemaSerializer<IN> schemaSerializer,
+            final Configuration configuration) {
+        this.schemaSerializer = schemaSerializer;
+```
+
+### BoundedWildcard
+Can generalize to `? extends ColumnSchema`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dynamic/catalog/KuduDynamicCatalog.java`
 #### Snippet
 ```java
     }
 
-    public List<KuduScanToken> scanTokens(List<KuduFilterInfo> tableFilters, List<String> tableProjections, Integer rowLimit) {
-        KuduScanToken.KuduScanTokenBuilder tokenBuilder = client.newScanTokenBuilder(table);
+    protected Map<String, String> createTableProperties(String tableName, List<ColumnSchema> primaryKeyColumns) {
+        Map<String, String> props = new HashMap<>();
+        props.put(KuduDynamicTableSourceSinkFactory.KUDU_MASTERS.key(), kuduMasters);
+```
 
+### BoundedWildcard
+Can generalize to `? extends ColumnSchema`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/KuduCatalog.java`
+#### Snippet
+```java
+    }
+
+    protected Map<String, String> createTableProperties(String tableName, List<ColumnSchema> primaryKeyColumns) {
+        Map<String, String> props = new HashMap<>();
+        props.put(KuduTableFactory.KUDU_MASTERS, kuduMasters);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/handler/FlinkJedisSentinelConfigHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public FlinkJedisConfigBase createFlinkJedisConfig(Map<String, String> properties) {
+        String masterName = properties.computeIfAbsent(REDIS_MASTER_NAME, null);
+        String sentinelsInfo = properties.computeIfAbsent(SENTINELS_INFO, null);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
+#### Snippet
+```java
+
+    private static Optional<KuduFilterInfo> convertUnaryIsNullExpression(
+            FunctionDefinition functionDefinition, List<Expression> children) {
+        FieldReferenceExpression fieldReferenceExpression;
+        if (isFieldReferenceExpression(children.get(0))) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Expression`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
+#### Snippet
+```java
+
+    private static Optional<KuduFilterInfo> convertBinaryComparison(
+            FunctionDefinition functionDefinition, List<Expression> children) {
+        FieldReferenceExpression fieldReferenceExpression;
+        ValueLiteralExpression valueLiteralExpression;
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tuple2`
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/utils/KuduTableUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<ColumnSchema> toKuduConnectorColumns(List<Tuple2<String, DataType>> columns,
+                                                            Collection<String> keyColumns) {
+        return columns.stream()
 ```
 
 ## RuleId[id=NullableProblems]
@@ -945,11 +944,11 @@ in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connector
 in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
 #### Snippet
 ```java
-            Class<T> RedisHanlderClass,
-            Map<String, String> meta,
-            Optional<ClassLoader> classLoader) {
-
-        List<RedisHandler> redisHandlers = discoverRedisHanlder(classLoader);
+     * @return all redis in the classpath
+     */
+    private static List<RedisHandler> discoverRedisHanlder(Optional<ClassLoader> classLoader) {
+        try {
+            List<RedisHandler> result = new LinkedList<>();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -957,11 +956,11 @@ in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/re
 in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
 #### Snippet
 ```java
-     * @return all redis in the classpath
-     */
-    private static List<RedisHandler> discoverRedisHanlder(Optional<ClassLoader> classLoader) {
-        try {
-            List<RedisHandler> result = new LinkedList<>();
+            Class<T> RedisHanlderClass,
+            Map<String, String> meta,
+            Optional<ClassLoader> classLoader) {
+
+        List<RedisHandler> redisHandlers = discoverRedisHanlder(classLoader);
 ```
 
 ## RuleId[id=AccessStaticViaInstance]
@@ -992,18 +991,6 @@ in `flink-connector-flume/src/main/java/org/apache/flink/streaming/connectors/fl
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.api.connector.sink` is unnecessary and can be removed
-in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
-#### Snippet
-```java
-     * @param in incoming data
-     * @param context current Flink context
-     * @see org.apache.flink.api.connector.sink.SinkWriter.Context
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `io.siddhi.core` is unnecessary and can be removed
 in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operator/AbstractSiddhiOperator.java`
 #### Snippet
@@ -1016,6 +1003,18 @@ in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operato
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.api.connector.sink` is unnecessary and can be removed
+in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
+#### Snippet
+```java
+     * @param in incoming data
+     * @param context current Flink context
+     * @see org.apache.flink.api.connector.sink.SinkWriter.Context
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.flink.core.io` is unnecessary and can be removed
 in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/source/split/InfluxDBSplitSerializer.java`
 #### Snippet
@@ -1025,19 +1024,6 @@ in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connector
  * The {@link org.apache.flink.core.io.SimpleVersionedSerializer serializer} for {@link
  * InfluxDBSplit}.
  */
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
-#### Snippet
-```java
-                resultIterator.close();
-            } catch (KuduException e) {
-                e.printStackTrace();
-            }
-        }
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -1053,7 +1039,80 @@ in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connector
                 points.add(dataPoint);
 ```
 
+## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
+#### Snippet
+```java
+                resultIterator.close();
+            } catch (KuduException e) {
+                e.printStackTrace();
+            }
+        }
+```
+
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
+#### Snippet
+```java
+    }
+
+    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
+                                   KuduTableInfo tableInfo, List<String> tableProjections) {
+        this(readerConfig, rowResultConvertor, tableInfo, new ArrayList<>(), tableProjections);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
+#### Snippet
+```java
+    private transient KuduReaderIterator<T> resultIterator;
+
+    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
+                                   KuduTableInfo tableInfo) {
+        this(readerConfig, rowResultConvertor, tableInfo, new ArrayList<>(), null);
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
+#### Snippet
+```java
+    }
+
+    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
+                                   KuduTableInfo tableInfo, List<KuduFilterInfo> tableFilters,
+                                   List<String> tableProjections) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `SiddhiStream()` of an abstract class should not be declared 'public'
+in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/SiddhiStream.java`
+#### Snippet
+```java
+     * @param cepEnvironment SiddhiCEP cepEnvironment.
+     */
+    public SiddhiStream(SiddhiCEP cepEnvironment) {
+        Preconditions.checkNotNull(cepEnvironment,"SiddhiCEP cepEnvironment is null");
+        this.cepEnvironment = cepEnvironment;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ExecutableStream()` of an abstract class should not be declared 'public'
+in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/SiddhiStream.java`
+#### Snippet
+```java
+     */
+    public abstract static class ExecutableStream extends SiddhiStream {
+        public ExecutableStream(SiddhiCEP environment) {
+            super(environment);
+        }
+```
+
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractReadOnlyCatalog()` of an abstract class should not be declared 'public'
 in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/AbstractReadOnlyCatalog.java`
@@ -1067,18 +1126,6 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/Ab
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSingleOperationMapper()` of an abstract class should not be declared 'public'
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/AbstractSingleOperationMapper.java`
-#### Snippet
-```java
-    }
-
-    public AbstractSingleOperationMapper(String[] columnNames, KuduOperation operation) {
-        this.columnNames = columnNames;
-        this.operation = operation;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractSiddhiOperator()` of an abstract class should not be declared 'public'
 in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operator/AbstractSiddhiOperator.java`
 #### Snippet
@@ -1088,6 +1135,18 @@ in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operato
     public AbstractSiddhiOperator(SiddhiOperatorContext siddhiPlan, String operatorName) {
         validate(siddhiPlan);
         this.executionExpression = siddhiPlan.getFinalExecutionPlan();
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RowRedisMapper()` of an abstract class should not be declared 'public'
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/mapper/row/RowRedisMapper.java`
+#### Snippet
+```java
+    }
+
+    public RowRedisMapper(RedisCommand redisCommand) {
+        this.redisCommand = redisCommand;
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -1115,75 +1174,15 @@ in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/re
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `RowRedisMapper()` of an abstract class should not be declared 'public'
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/mapper/row/RowRedisMapper.java`
+Constructor `AbstractSingleOperationMapper()` of an abstract class should not be declared 'public'
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/AbstractSingleOperationMapper.java`
 #### Snippet
 ```java
     }
 
-    public RowRedisMapper(RedisCommand redisCommand) {
-        this.redisCommand = redisCommand;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ExecutableStream()` of an abstract class should not be declared 'public'
-in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/SiddhiStream.java`
-#### Snippet
-```java
-     */
-    public abstract static class ExecutableStream extends SiddhiStream {
-        public ExecutableStream(SiddhiCEP environment) {
-            super(environment);
-        }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SiddhiStream()` of an abstract class should not be declared 'public'
-in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/SiddhiStream.java`
-#### Snippet
-```java
-     * @param cepEnvironment SiddhiCEP cepEnvironment.
-     */
-    public SiddhiStream(SiddhiCEP cepEnvironment) {
-        Preconditions.checkNotNull(cepEnvironment,"SiddhiCEP cepEnvironment is null");
-        this.cepEnvironment = cepEnvironment;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
-#### Snippet
-```java
-    }
-
-    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
-                                   KuduTableInfo tableInfo, List<KuduFilterInfo> tableFilters,
-                                   List<String> tableProjections) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
-#### Snippet
-```java
-    private transient KuduReaderIterator<T> resultIterator;
-
-    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
-                                   KuduTableInfo tableInfo) {
-        this(readerConfig, rowResultConvertor, tableInfo, new ArrayList<>(), null);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractKuduInputFormat()` of an abstract class should not be declared 'public'
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/AbstractKuduInputFormat.java`
-#### Snippet
-```java
-    }
-
-    public AbstractKuduInputFormat(KuduReaderConfig readerConfig, RowResultConvertor<T> rowResultConvertor,
-                                   KuduTableInfo tableInfo, List<String> tableProjections) {
-        this(readerConfig, rowResultConvertor, tableInfo, new ArrayList<>(), tableProjections);
+    public AbstractSingleOperationMapper(String[] columnNames, KuduOperation operation) {
+        this.columnNames = columnNames;
+        this.operation = operation;
 ```
 
 ## RuleId[id=Java8MapApi]
@@ -1213,18 +1212,6 @@ in `flink-connector-flume/src/main/java/org/apache/flink/streaming/connectors/fl
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `autoAck` is accessed in both synchronized and unsynchronized contexts
-in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSource.java`
-#### Snippet
-```java
-    private transient MessageConsumer consumer;
-    // If source should immediately acknowledge incoming message
-    private boolean autoAck;
-    // Map of message ids to currently unacknowledged AMQ messages
-    private HashMap<String, Message> unacknowledgedMessages = new HashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `unacknowledgedMessages` is accessed in both synchronized and unsynchronized contexts
 in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSource.java`
 #### Snippet
@@ -1234,6 +1221,18 @@ in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors
     private HashMap<String, Message> unacknowledgedMessages = new HashMap<>();
     // Listener for AMQ exceptions
     private AMQExceptionListener exceptionListener;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `autoAck` is accessed in both synchronized and unsynchronized contexts
+in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSource.java`
+#### Snippet
+```java
+    private transient MessageConsumer consumer;
+    // If source should immediately acknowledge incoming message
+    private boolean autoAck;
+    // Map of message ids to currently unacknowledged AMQ messages
+    private HashMap<String, Message> unacknowledgedMessages = new HashMap<>();
 ```
 
 ## RuleId[id=Convert2Lambda]
@@ -1301,66 +1300,6 @@ in `flink-library-siddhi/src/main/java/org/apache/flink/streaming/siddhi/operato
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
-#### Snippet
-```java
-    private final int bufferSize;
-    private final boolean writeCheckpoint;
-    private long lastTimestamp = 0;
-    private final List<Point> elements;
-    private ProcessingTimeService processingTimerService;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/FlinkJedisPoolConfig.java`
-#### Snippet
-```java
-        private boolean testOnReturn = GenericObjectPoolConfig.DEFAULT_TEST_ON_RETURN;
-        private boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
-        private boolean useSsl = false;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSource.java`
-#### Snippet
-```java
-    private final DestinationType destinationType;
-    // Throw exceptions or just log them
-    private boolean logFailuresOnly = false;
-    // Stores if source is running (used for testing)
-    private RunningChecker runningChecker;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSink.java`
-#### Snippet
-```java
-    private final DestinationType destinationType;
-    // Throw exceptions or just log them
-    private boolean logFailuresOnly = false;
-    // Used to send messages
-    private transient MessageProducer producer;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/FlinkJedisClusterConfig.java`
-#### Snippet
-```java
-        private boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
-        private String password;
-        private boolean useSsl = false;
-
-        /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/RedisTableSink.java`
 #### Snippet
@@ -1398,26 +1337,74 @@ in `flink-connector-influxdb/src/main/java/org/apache/flink/streaming/connectors
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriterConfig.java`
+in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSink.java`
 #### Snippet
 ```java
-        private boolean ignoreNotFound = false;
-        // Reference from AsyncKuduSession ignoreAllDuplicateRows false.
-        private boolean ignoreDuplicate = false;
-
-        private Builder(String masters) {
+    private final DestinationType destinationType;
+    // Throw exceptions or just log them
+    private boolean logFailuresOnly = false;
+    // Used to send messages
+    private transient MessageProducer producer;
 ```
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriterConfig.java`
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/FlinkJedisPoolConfig.java`
 #### Snippet
 ```java
-        private int flushInterval = 1000;
-        // Reference from AsyncKuduSession ignoreAllNotFoundRows false.
-        private boolean ignoreNotFound = false;
-        // Reference from AsyncKuduSession ignoreAllDuplicateRows false.
-        private boolean ignoreDuplicate = false;
+        private boolean testOnReturn = GenericObjectPoolConfig.DEFAULT_TEST_ON_RETURN;
+        private boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
+        private boolean useSsl = false;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-connector-activemq/src/main/java/org/apache/flink/streaming/connectors/activemq/AMQSource.java`
+#### Snippet
+```java
+    private final DestinationType destinationType;
+    // Throw exceptions or just log them
+    private boolean logFailuresOnly = false;
+    // Stores if source is running (used for testing)
+    private RunningChecker runningChecker;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/FlinkJedisClusterConfig.java`
+#### Snippet
+```java
+        private boolean testWhileIdle = GenericObjectPoolConfig.DEFAULT_TEST_WHILE_IDLE;
+        private String password;
+        private boolean useSsl = false;
+
+        /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/KuduTableInfo.java`
+#### Snippet
+```java
+    private String name;
+    private CreateTableOptionsFactory createTableOptionsFactory = null;
+    private ColumnSchemasFactory schemasFactory = null;
+
+    private KuduTableInfo(String name) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/KuduTableInfo.java`
+#### Snippet
+```java
+
+    private String name;
+    private CreateTableOptionsFactory createTableOptionsFactory = null;
+    private ColumnSchemasFactory schemasFactory = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -1469,27 +1456,39 @@ public class RunningChecker implements Serializable {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/KuduTableInfo.java`
+Field initialization to `0` is redundant
+in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/sink/writer/InfluxDBWriter.java`
 #### Snippet
 ```java
-
-    private String name;
-    private CreateTableOptionsFactory createTableOptionsFactory = null;
-    private ColumnSchemasFactory schemasFactory = null;
-
+    private final int bufferSize;
+    private final boolean writeCheckpoint;
+    private long lastTimestamp = 0;
+    private final List<Point> elements;
+    private ProcessingTimeService processingTimerService;
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/KuduTableInfo.java`
+Field initialization to `false` is redundant
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriterConfig.java`
 #### Snippet
 ```java
-    private String name;
-    private CreateTableOptionsFactory createTableOptionsFactory = null;
-    private ColumnSchemasFactory schemasFactory = null;
+        private boolean ignoreNotFound = false;
+        // Reference from AsyncKuduSession ignoreAllDuplicateRows false.
+        private boolean ignoreDuplicate = false;
 
-    private KuduTableInfo(String name) {
+        private Builder(String masters) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connector/writer/KuduWriterConfig.java`
+#### Snippet
+```java
+        private int flushInterval = 1000;
+        // Reference from AsyncKuduSession ignoreAllNotFoundRows false.
+        private boolean ignoreNotFound = false;
+        // Reference from AsyncKuduSession ignoreAllDuplicateRows false.
+        private boolean ignoreDuplicate = false;
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -1579,19 +1578,6 @@ public interface FlumeEventBuilder<IN> extends Function, Serializable {
     Event createFlumeEvent(IN value, RuntimeContext ctx);
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-01-56-12.214.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -1603,18 +1589,6 @@ in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connector
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/source/reader/InfluxDBSplitReader.java`
-#### Snippet
-```java
-    public RecordsWithSplitIds<DataPoint> fetch() throws IOException {
-        if (this.split == null) {
-            return null;
-        }
-        final InfluxDBSplitRecords recordsBySplits = new InfluxDBSplitRecords(this.split.splitId());
 ```
 
 ### ReturnNull
@@ -1665,17 +1639,29 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/format/A
     }
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `table` is redundant
-in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dynamic/catalog/KuduDynamicCatalog.java`
+### ReturnNull
+Return of `null`
+in `flink-connector-influxdb2/src/main/java/org/apache/flink/streaming/connectors/influxdb/source/reader/InfluxDBSplitReader.java`
 #### Snippet
 ```java
-            KuduTable kuduTable = kuduClient.openTable(tableName);
-            // fixme base on TableSchema, TableSchema needs to be upgraded to ResolvedSchema
-            CatalogTableImpl table = new CatalogTableImpl(
-                    KuduTableUtils.kuduToFlinkSchema(kuduTable.getSchema()),
-                    createTableProperties(tableName, kuduTable.getSchema().getPrimaryKeyColumns()),
+    public RecordsWithSplitIds<DataPoint> fetch() throws IOException {
+        if (this.split == null) {
+            return null;
+        }
+        final InfluxDBSplitRecords recordsBySplits = new InfluxDBSplitRecords(this.split.splitId());
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `contextFactories` is redundant
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+#### Snippet
+```java
+                redis);
+
+        List<T> contextFactories = filterByContext(
+                meta,
+                redisFactories);
 ```
 
 ### UnnecessaryLocalVariable
@@ -1691,15 +1677,15 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/connecto
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `flinkJedisSentinelConfig` is redundant
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/handler/FlinkJedisSentinelConfigHandler.java`
+Local variable `table` is redundant
+in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/dynamic/catalog/KuduDynamicCatalog.java`
 #### Snippet
 ```java
-            sentinelsPassword = null;
-        }
-        FlinkJedisSentinelConfig flinkJedisSentinelConfig = new FlinkJedisSentinelConfig.Builder()
-                .setMasterName(masterName).setSentinels(sentinels).setPassword(sentinelsPassword)
-                .build();
+            KuduTable kuduTable = kuduClient.openTable(tableName);
+            // fixme base on TableSchema, TableSchema needs to be upgraded to ResolvedSchema
+            CatalogTableImpl table = new CatalogTableImpl(
+                    KuduTableUtils.kuduToFlinkSchema(kuduTable.getSchema()),
+                    createTableProperties(tableName, kuduTable.getSchema().getPrimaryKeyColumns()),
 ```
 
 ### UnnecessaryLocalVariable
@@ -1715,15 +1701,15 @@ in `flink-connector-kudu/src/main/java/org/apache/flink/connectors/kudu/table/Ku
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `contextFactories` is redundant
-in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/hanlder/RedisHandlerServices.java`
+Local variable `flinkJedisSentinelConfig` is redundant
+in `flink-connector-redis/src/main/java/org/apache/flink/streaming/connectors/redis/common/config/handler/FlinkJedisSentinelConfigHandler.java`
 #### Snippet
 ```java
-                redis);
-
-        List<T> contextFactories = filterByContext(
-                meta,
-                redisFactories);
+            sentinelsPassword = null;
+        }
+        FlinkJedisSentinelConfig flinkJedisSentinelConfig = new FlinkJedisSentinelConfig.Builder()
+                .setMasterName(masterName).setSentinels(sentinels).setPassword(sentinelsPassword)
+                .build();
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
