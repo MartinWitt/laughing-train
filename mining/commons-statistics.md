@@ -1,21 +1,23 @@
 # commons-statistics 
  
 # Bad smells
-I found 54 bad smells with 7 repairable:
+I found 63 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SuspiciousNameCombination | 15 | false |
-| NestedAssignment | 9 | false |
-| ManualMinMaxCalculation | 8 | false |
+| SuspiciousNameCombination | 17 | false |
+| NestedAssignment | 10 | false |
+| ManualMinMaxCalculation | 10 | false |
 | UnnecessaryLocalVariable | 7 | true |
-| RedundantMethodOverride | 2 | false |
-| EmptyMethod | 2 | false |
+| RedundantMethodOverride | 3 | false |
+| EmptyMethod | 3 | false |
 | DuplicateExpressions | 2 | false |
 | NonShortCircuitBoolean | 2 | false |
 | FunctionalExpressionCanBeFolded | 1 | false |
 | PointlessArithmeticExpression | 1 | false |
+| UnnecessarySemicolon | 1 | false |
 | CommentedOutCode | 1 | false |
 | ReturnNull | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | ConstantMathCall | 1 | false |
 | NumericOverflow | 1 | false |
@@ -43,6 +45,30 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
         final double p = RegularizedGamma.P.derivative(shape, y) / scale;
         if (p <= Double.MAX_VALUE && p >= Double.MIN_NORMAL) {
             return Math.log(p);
+```
+
+### SuspiciousNameCombination
+'x' should probably not be passed as parameter 'y'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/BrentOptimizer.java`
+#### Snippet
+```java
+                }
+                if (fu <= fw ||
+                    Precision.equals(w, x)) {
+                    v = w;
+                    fv = fw;
+```
+
+### SuspiciousNameCombination
+'x' should probably not be passed as parameter 'y'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/BrentOptimizer.java`
+#### Snippet
+```java
+                    fw = fu;
+                } else if (fu <= fv ||
+                           Precision.equals(v, x) ||
+                           Precision.equals(v, w)) {
+                    v = u;
 ```
 
 ### SuspiciousNameCombination
@@ -95,6 +121,18 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 
 ### SuspiciousNameCombination
 'y' should probably not be passed as parameter 'x'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+        // Sort the sample arrays
+        sort(x, SAMPLE_1_NAME);
+        sort(y, SAMPLE_2_NAME);
+        final int n = x.length;
+        final int m = y.length;
+```
+
+### SuspiciousNameCombination
+'y' should probably not be passed as parameter 'x'
 in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
 #### Snippet
 ```java
@@ -143,14 +181,26 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 
 ### SuspiciousNameCombination
 'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/DD.java`
 #### Snippet
 ```java
-        // Sort the sample arrays
-        sort(x, SAMPLE_1_NAME);
-        sort(y, SAMPLE_2_NAME);
-        final int n = x.length;
-        final int m = y.length;
+        final double q0 = 1 / y;
+        // remainder r0 = x - q0 * y
+        multiply(y, yy, q0, q);
+        // This add saves 2 twoSum and 2 fastTwoSum (18 FLOPS)
+        add(-q.hi, -q.lo, 1, q);
+```
+
+### SuspiciousNameCombination
+'y' should probably not be passed as parameter 'x'
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/DD.java`
+#### Snippet
+```java
+        final double q1 = r / y;
+        // remainder r1 = r0 - q1 * y
+        multiply(y, yy, q1, q);
+        add(-q.hi, -q.lo, r, rr, q);
+        // next quotient q2 = r1 / y
 ```
 
 ### SuspiciousNameCombination
@@ -189,34 +239,10 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
         // next quotient q2 = r1 / y
 ```
 
-### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/DD.java`
-#### Snippet
-```java
-        final double q0 = 1 / y;
-        // remainder r0 = x - q0 * y
-        multiply(y, yy, q0, q);
-        // This add saves 2 twoSum and 2 fastTwoSum (18 FLOPS)
-        add(-q.hi, -q.lo, 1, q);
-```
-
-### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'x'
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/DD.java`
-#### Snippet
-```java
-        final double q1 = r / y;
-        // remainder r1 = r0 - q1 * y
-        multiply(y, yy, q1, q);
-        add(-q.hi, -q.lo, r, rr, q);
-        // next quotient q2 = r1 / y
-```
-
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getStatistic()` only delegates to its super method
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/MannWhitneyUTest.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/UnconditionedExactTest.java`
 #### Snippet
 ```java
          */
@@ -229,6 +255,18 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ### RedundantMethodOverride
 Method `getStatistic()` only delegates to its super method
 in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+         */
+        @Override
+        public double getStatistic() {
+            // Note: This method is here for documentation
+            return super.getStatistic();
+```
+
+### RedundantMethodOverride
+Method `getStatistic()` only delegates to its super method
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/MannWhitneyUTest.java`
 #### Snippet
 ```java
          */
@@ -251,17 +289,30 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
         }
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/UnconditionedExactTest.java`
+#### Snippet
+```java
+         * @see FisherExactTest
+         */
+        BOSCHLOO;
+    }
+
+```
+
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/WilcoxonSignedRankTest.java`
 #### Snippet
 ```java
-        double m = median;
-        if (Double.isNaN(m)) {
-            median = m = inverseCumulativeProbability(0.5);
-        }
-        return m;
+        final double[] u = new double[t + 1];
+        // Initialize u_1(t) using base cases for recursion
+        u[0] = u[1] = 1;
+
+        // Each u_n(t) is created using the current correct values for u_{n-1}(t)
 ```
 
 ### NestedAssignment
@@ -278,14 +329,38 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/WilcoxonSignedRankTest.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/UnconditionedExactTest.java`
 #### Snippet
 ```java
-        final double[] u = new double[t + 1];
-        // Initialize u_1(t) using base cases for recursion
-        u[0] = u[1] = 1;
+        int j = n - 1;
+        for (int i = 1; i <= j; i++, j--) {
+            binom[i] = binom[j] = LogBinomialCoefficient.value(n, i);
+        }
+        return k -> binom[k];
+```
 
-        // Each u_n(t) is created using the current correct values for u_{n-1}(t)
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/HypergeometricDistribution.java`
+#### Snippet
+```java
+                p1 = p0;
+            }
+            midpoint = v = new double[] {x, p1};
+        }
+        return v;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/AbstractContinuousDistribution.java`
+#### Snippet
+```java
+        double m = median;
+        if (Double.isNaN(m)) {
+            median = m = inverseCumulativeProbability(0.5);
+        }
+        return m;
 ```
 
 ### NestedAssignment
@@ -302,14 +377,26 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 
 ### NestedAssignment
 Result of assignment expression used
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/HypergeometricDistribution.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
 #### Snippet
 ```java
-                p1 = p0;
-            }
-            midpoint = v = new double[] {x, p1};
+        } else {
+            final boolean exact = method == PValueMethod.EXACT;
+            p = p2 = twoSampleP(dnm, n, m, gcd, d, exact);
+            if (significantTies) {
+                // Compute the upper bound on D.
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/MannWhitneyUTest.java`
+#### Snippet
+```java
+            // Recursion from formula (3):
+            // f(m, n, k) = f(m-1, n, k-n) + f(m, n-1, k)
+            f[m][n][k] = fmnk = fmnk(f, m - 1, n, k - n) + fmnk(f, m, n - 1, k);
         }
-        return v;
+        return fmnk;
 ```
 
 ### NestedAssignment
@@ -334,30 +421,6 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
                             final double[] b = f[x][y] = Arrays.copyOf(f[x][y], sk);
                             for (int z = k1; z < sk; z++) {
                                 b[z] = UNSET;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/MannWhitneyUTest.java`
-#### Snippet
-```java
-            // Recursion from formula (3):
-            // f(m, n, k) = f(m-1, n, k-n) + f(m, n-1, k)
-            f[m][n][k] = fmnk = fmnk(f, m - 1, n, k - n) + fmnk(f, m, n - 1, k);
-        }
-        return fmnk;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
-#### Snippet
-```java
-        } else {
-            final boolean exact = method == PValueMethod.EXACT;
-            p = p2 = twoSampleP(dnm, n, m, gcd, d, exact);
-            if (significantTies) {
-                // Compute the upper bound on D.
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -398,6 +461,18 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
             return super.getStatistic();
 ```
 
+### EmptyMethod
+Method only calls its super
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/UnconditionedExactTest.java`
+#### Snippet
+```java
+         */
+        @Override
+        public double getStatistic() {
+            // Note: This method is here for documentation
+            return super.getStatistic();
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -409,6 +484,19 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
             return null;
         }
         final double p = FDistribution.of(dfbg, dfwg).survivalProbability(f);
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-18-03-21-57.209.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -437,30 +525,6 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `d1` is redundant
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
-#### Snippet
-```java
-                                    double v2, long n2) {
-        // Sample sizes are specified as a double to avoid integer overflow
-        final double d1 = n1;
-        final double d2 = n2;
-        return (((v1 / d1) + (v2 / d2)) * ((v1 / d1) + (v2 / d2))) /
-```
-
-### UnnecessaryLocalVariable
-Local variable `d2` is redundant
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
-#### Snippet
-```java
-        // Sample sizes are specified as a double to avoid integer overflow
-        final double d1 = n1;
-        final double d2 = n2;
-        return (((v1 / d1) + (v2 / d2)) * ((v1 / d1) + (v2 / d2))) /
-            ((v1 * v1) / (d1 * d1 * (n1 - 1)) + (v2 * v2) / (d2 * d2 * (n2 - 1)));
-```
-
 ### UnnecessaryLocalVariable
 Local variable `b` is redundant
 in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/OneWayAnova.java`
@@ -498,6 +562,18 @@ in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `lm` is redundant
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+
+        // Normalized by binom(m+n, n). Check this is possible.
+        final long lm = m;
+        if (n + lm > Integer.MAX_VALUE) {
+            return -1;
+```
+
+### UnnecessaryLocalVariable
 Local variable `nd` is redundant
 in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
 #### Snippet
@@ -510,15 +586,27 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `lm` is redundant
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+Local variable `d1` is redundant
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
 #### Snippet
 ```java
+                                    double v2, long n2) {
+        // Sample sizes are specified as a double to avoid integer overflow
+        final double d1 = n1;
+        final double d2 = n2;
+        return (((v1 / d1) + (v2 / d2)) * ((v1 / d1) + (v2 / d2))) /
+```
 
-        // Normalized by binom(m+n, n). Check this is possible.
-        final long lm = m;
-        if (n + lm > Integer.MAX_VALUE) {
-            return -1;
+### UnnecessaryLocalVariable
+Local variable `d2` is redundant
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/TTest.java`
+#### Snippet
+```java
+        // Sample sizes are specified as a double to avoid integer overflow
+        final double d1 = n1;
+        final double d2 = n2;
+        return (((v1 / d1) + (v2 / d2)) * ((v1 / d1) + (v2 / d2))) /
+            ((v1 * v1) / (d1 * d1 * (n1 - 1)) + (v2 * v2) / (d2 * d2 * (n2 - 1)));
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -559,53 +647,42 @@ in `commons-statistics-ranking/src/main/java/org/apache/commons/statistics/ranki
 
 ```
 
+## RuleId[id=ConstantMathCall]
+### ConstantMathCall
+Constant call to `sqrt()` can be simplified
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+#### Snippet
+```java
+    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
+    /** &radic;(2 &pi;). */
+    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
+    /** The mu parameter of this distribution. */
+    private final double mu;
+```
+
 ## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/UnconditionedExactTest.java`
 #### Snippet
 ```java
-            return lower;
-        }
-        return x < upper ? x : upper;
-    }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
-#### Snippet
-```java
-                    d += m;
-                } while (i < n && x[i] == z);
-                plus = d > plus ? d : plus;
-            } else if (x[i] > y[j]) {
-                final double z = y[j];
+     */
+    private void addCandidate(Candidates minima, double v1, double v2, double v3, double x2) {
+        final double min = v1 < v3 ? v1 : v3;
+        if (min < v2) {
+            // Lower neighbour(s)
 ```
 
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/BracketFinder.java`
 #### Snippet
 ```java
-                    d -= n;
-                } while (j < m && y[j] == z);
-                minus = d < minus ? d : minus;
-            } else {
-                // Traverse to the end of the tied section for d.
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
-#### Snippet
-```java
-                d += k * (long) m;
-                // Extreme D+ path
-                tplus = d > tplus ? d : tplus;
-                k = j;
-                do {
+            range = x -> {
+                if (x > min) {
+                    return x < max ? x : max;
+                }
+                return min;
 ```
 
 ### ManualMinMaxCalculation
@@ -656,17 +733,52 @@ in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inf
             sign[0] = Double.compare(plus, minus);
 ```
 
-## RuleId[id=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/LogNormalDistribution.java`
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
 #### Snippet
 ```java
-    private static final double HALF_LOG_TWO_PI = 0.9189385332046727417803297;
-    /** &radic;(2 &pi;). */
-    private static final double SQRT2PI = Math.sqrt(2 * Math.PI);
-    /** The mu parameter of this distribution. */
-    private final double mu;
+                    d += m;
+                } while (i < n && x[i] == z);
+                plus = d > plus ? d : plus;
+            } else if (x[i] > y[j]) {
+                final double z = y[j];
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+                    d -= n;
+                } while (j < m && y[j] == z);
+                minus = d < minus ? d : minus;
+            } else {
+                // Traverse to the end of the tied section for d.
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `commons-statistics-inference/src/main/java/org/apache/commons/statistics/inference/KolmogorovSmirnovTest.java`
+#### Snippet
+```java
+                d += k * (long) m;
+                // Extreme D+ path
+                tplus = d > tplus ? d : tplus;
+                k = j;
+                do {
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `commons-statistics-distribution/src/main/java/org/apache/commons/statistics/distribution/TruncatedNormalDistribution.java`
+#### Snippet
+```java
+            return lower;
+        }
+        return x < upper ? x : upper;
+    }
+
 ```
 
 ## RuleId[id=NumericOverflow]
