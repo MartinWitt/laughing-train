@@ -75,18 +75,6 @@ in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `modulesToAdd` are updated, but never queried
-in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkExecutor.java`
-#### Snippet
-```java
-    private final Log log;
-
-    private final List<String> modulesToAdd = new ArrayList<>();
-    private final List<String> modulePaths = new ArrayList<>();
-
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `modulePaths` are updated, but never queried
 in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkExecutor.java`
 #### Snippet
@@ -99,15 +87,15 @@ in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkExecutor.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `addModules` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
+Contents of collection `modulesToAdd` are updated, but never queried
+in `src/main/java/org/apache/maven/plugins/jlink/AbstractJLinkExecutor.java`
 #### Snippet
 ```java
-     */
-    @Parameter
-    private List<String> addModules;
+    private final Log log;
 
-    /**
+    private final List<String> modulesToAdd = new ArrayList<>();
+    private final List<String> modulePaths = new ArrayList<>();
+
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -118,6 +106,18 @@ in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
      */
     @Parameter
     private List<String> modulePaths;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `addModules` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/jlink/JLinkMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> addModules;
 
     /**
 ```
