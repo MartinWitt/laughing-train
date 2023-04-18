@@ -1,13 +1,12 @@
 # spring-cloud-stream-binder-dapr 
  
 # Bad smells
-I found 15 bad smells with 2 repairable:
+I found 14 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 4 | false |
 | IgnoreResultOfCall | 3 | false |
 | RedundantFieldInitialization | 2 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
@@ -36,19 +35,6 @@ in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/s
 	private int i = 0;
 
 	@Bean
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-00-51-57.988.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -129,18 +115,6 @@ in `samples/migration-kafka-to-dapr/src/main/java/com.azure.spring.cloud.stream.
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ManagedChannelBuilderCustomizer`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
-#### Snippet
-```java
-	@ConditionalOnMissingBean
-	public ManagedChannelBuilder managedChannelBuilder(DaprBinderConfigurationProperties daprBinderProperties,
-			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
-		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
-		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
-```
-
-### BoundedWildcard
 Can generalize to `? extends DaprStubCustomizer`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
 #### Snippet
@@ -150,6 +124,18 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 			ObjectProvider<DaprStubCustomizer> daprStubCustomizers) {
 		DaprGrpc.DaprStub daprStub = DaprGrpc.newStub(channel);
 		DaprBinderConfigurationProperties.DaprStub daprStubProperties = daprBinderProperties.getDaprStub();
+```
+
+### BoundedWildcard
+Can generalize to `? extends ManagedChannelBuilderCustomizer`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/config/DaprBinderConfiguration.java`
+#### Snippet
+```java
+	@ConditionalOnMissingBean
+	public ManagedChannelBuilder managedChannelBuilder(DaprBinderConfigurationProperties daprBinderProperties,
+			ObjectProvider<ManagedChannelBuilderCustomizer> managedChannelBuilderCustomizers) {
+		ManagedChannelBuilder builder = ManagedChannelBuilder.forAddress(daprBinderProperties.getDaprIp(), daprBinderProperties.getDaprPort());
+		DaprBinderConfigurationProperties.ManagedChannel managedChannelProperties = daprBinderProperties.getManagedChannel();
 ```
 
 ## RuleId[id=CodeBlock2Expr]
