@@ -95,18 +95,6 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ObserverHandler`
-in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
-#### Snippet
-```java
-     * @return this builder for fluent chaining.
-     */
-    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
-      observerHandlers.addAll(handlers);
-      return this;
-```
-
-### BoundedWildcard
 Can generalize to `? super Throwable`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
@@ -116,5 +104,17 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
   static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
     final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
     try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ObserverHandler`
+in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
+#### Snippet
+```java
+     * @return this builder for fluent chaining.
+     */
+    public Builder addObserverHandlers(Collection<ObserverHandler> handlers) {
+      observerHandlers.addAll(handlers);
+      return this;
 ```
 
