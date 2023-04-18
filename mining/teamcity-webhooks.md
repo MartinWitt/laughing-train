@@ -6,8 +6,8 @@ I found 20 bad smells with 1 repairable:
 | --- | --- | --- |
 | UNUSED_IMPORT | 14 | false |
 | ReturnNull | 1 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
 | MissingDeprecatedAnnotation | 1 | false |
+| UtilityClassWithoutPrivateConstructor | 1 | true |
 | BoundedWildcard | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
@@ -24,19 +24,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventLis
         return new SimpleCredentials(username, password);
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `EventNames` has only 'static' members, and lacks a 'private' constructor
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
-#### Snippet
-```java
-public class WebhooksManager {
-
-    public static final class EventNames {
-        public static final String AGENT_REGISTRED = "AGENT_REGISTRED";
-        public static final String AGENT_UNREGISTERED = "AGENT_UNREGISTERED";
-```
-
 ## RuleId[id=MissingDeprecatedAnnotation]
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
@@ -48,6 +35,19 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 public class AsyncEventDispatcher {
 
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `EventNames` has only 'static' members, and lacks a 'private' constructor
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
+#### Snippet
+```java
+public class WebhooksManager {
+
+    public static final class EventNames {
+        public static final String AGENT_REGISTRED = "AGENT_REGISTRED";
+        public static final String AGENT_UNREGISTERED = "AGENT_UNREGISTERED";
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
