@@ -329,10 +329,10 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
@@ -341,10 +341,10 @@ Method must be marked with '@com.google.common.annotations.Beta' annotation beca
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
@@ -488,7 +488,7 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConf
 #### Snippet
 ```java
   public static TcsConfig fromYamlFile(String configFile) throws FileNotFoundException {
-    Yaml yaml = new Yaml(new SafeConstructor());
+    Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
     Map<String, Object> rawYamlData = yaml.load(Files.newReader(new File(configFile), UTF_8));
     return fromRawData(rawYamlData);
   }
@@ -595,10 +595,10 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
@@ -607,10 +607,10 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
