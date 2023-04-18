@@ -187,11 +187,11 @@ Referencing subclass PredefinedConfiguration from superclass RecordingConfigurat
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 #### Snippet
 ```java
-     * The profile configuration collects more events and is suitable for profiling an application.
+     * The default configuration is suitable for continuous recordings.
      */
-    public static final RecordingConfiguration PROFILE_CONFIGURATION = new PredefinedConfiguration("profile");
+    public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
 
-
+    /**
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -199,11 +199,11 @@ Referencing subclass PredefinedConfiguration from superclass RecordingConfigurat
 in `core/src/main/java/com/microsoft/jfr/RecordingConfiguration.java`
 #### Snippet
 ```java
-     * The default configuration is suitable for continuous recordings.
+     * The profile configuration collects more events and is suitable for profiling an application.
      */
-    public static final RecordingConfiguration DEFAULT_CONFIGURATION = new PredefinedConfiguration("default");
+    public static final RecordingConfiguration PROFILE_CONFIGURATION = new PredefinedConfiguration("profile");
 
-    /**
+
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -221,18 +221,6 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-    // {0} is the state the code is trying to transition to.
-    // {1} are the states that the instance could be in for a valid transition.
-    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
-
-    /**
-```
-
-### MissortedModifiers
 Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
@@ -249,11 +237,23 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
-
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
 
+    private volatile long id = -1;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+    // {0} is the state the code is trying to transition to.
+    // {1} are the states that the instance could be in for a valid transition.
+    private final static MessageFormat illegalStateFormat = new MessageFormat("Recording state {0} not in [{1}]");
+
+    /**
 ```
 
 ### MissortedModifiers
@@ -261,11 +261,11 @@ Missorted modifiers `final private`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
 ```java
+
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
 
-    private volatile long id = -1;
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
