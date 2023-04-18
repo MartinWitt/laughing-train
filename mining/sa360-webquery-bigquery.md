@@ -13,7 +13,7 @@ I found 20 bad smells with 3 repairable:
 | ReturnNull | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
 | StringEqualsEmptyString | 1 | false |
-## RuleId[ruleID=RedundantFieldInitialization]
+## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
@@ -38,7 +38,7 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
   /**
 ```
 
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
@@ -51,7 +51,7 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
     super.fatalError(e);
 ```
 
-## RuleId[ruleID=ReturnNull]
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `src/main/java/dswebquerytobigquery/WebQuery.java`
@@ -64,7 +64,7 @@ in `src/main/java/dswebquerytobigquery/WebQuery.java`
 
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `WqToBqDataTypeMapper` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/dswebquerytobigquery/WqToBqDataTypeMapper.java`
@@ -101,7 +101,7 @@ class Main {
   private static final GoogleLogger logger = GoogleLogger.forEnclosingClass();
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
@@ -126,7 +126,7 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
   }
 ```
 
-## RuleId[ruleID=ZeroLengthArrayInitialization]
+## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
@@ -139,7 +139,7 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
 
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import java.io.IOException;`
 in `src/main/java/dswebquerytobigquery/BigQueryProcessor.java`
@@ -188,7 +188,7 @@ import com.google.common.flogger.GoogleLogger;
 import java.io.File;
 ```
 
-## RuleId[ruleID=AbstractClassNeverImplemented]
+## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
 Abstract class `ColumnHeader` has no concrete subclass
 in `src/main/java/dswebquerytobigquery/ColumnHeader.java`
@@ -199,6 +199,18 @@ in `src/main/java/dswebquerytobigquery/ColumnHeader.java`
 public abstract class ColumnHeader {
 
   public abstract String name();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/dswebquerytobigquery/TransferConfig.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setBigQueryConfig(BigQueryConfig newBigQueryConfig);
 ```
 
 ### AbstractClassNeverImplemented
@@ -215,14 +227,14 @@ public abstract class TransferConfig {
 
 ### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/TransferConfig.java`
+in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
 #### Snippet
 ```java
 
   @AutoValue.Builder
   public abstract static class Builder {
 
-    public abstract Builder setBigQueryConfig(BigQueryConfig newBigQueryConfig);
+    public abstract Builder setProjectId(String newProjectId);
 ```
 
 ### AbstractClassNeverImplemented
@@ -237,19 +249,7 @@ public abstract class BigQueryConfig {
   public static Builder builder() {
 ```
 
-### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
-#### Snippet
-```java
-
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setProjectId(String newProjectId);
-```
-
-## RuleId[ruleID=StringEqualsEmptyString]
+## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
