@@ -1,18 +1,18 @@
 # gradle-git-version 
  
 # Bad smells
-I found 20 bad smells with 5 repairable:
+I found 20 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 8 | false |
-| UnnecessaryLocalVariable | 4 | true |
+| ReturnNull | 9 | false |
+| UnnecessaryLocalVariable | 3 | true |
 | DataFlowIssue | 2 | false |
 | SystemOutErr | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | NestedAssignment | 1 | false |
 | AbstractClassNeverImplemented | 1 | false |
-| UnusedAssignment | 1 | false |
 | CodeBlock2Expr | 1 | true |
+| UnusedAssignment | 1 | false |
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
@@ -29,26 +29,26 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
+        } catch (IOException | InterruptedException | RuntimeException e) {
+            log.debug("Native git status --porcelain failed", e);
             return null;
         }
-
+    }
 ```
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
-
+                    "HEAD");
+            if (result.isEmpty()) {
+                return null;
+            }
+            return result;
 ```
 
 ### ReturnNull
@@ -69,7 +69,7 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
         } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git status --porcelain failed", e);
+            log.debug("Native git rev-parse HEAD failed", e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 #### Snippet
 ```java
         } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git rev-parse HEAD failed", e);
+            log.debug("Native git command {} failed.\n", command, e);
             return null;
         }
     }
@@ -113,27 +113,39 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git command {} failed.\n", command, e);
+        String gitHashFull = getGitHashFull();
+        if (gitHashFull == null) {
             return null;
         }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
     }
+
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `versionDetails` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+Local variable `processedDescription` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
-        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
-        VersionDetails versionDetails =
-                versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
-        return versionDetails;
+    private String description() {
+        String rawDescription = nativeGitInvoker.describe(args.getPrefix());
+        String processedDescription =
+                rawDescription == null ? null : rawDescription.replaceFirst("^" + args.getPrefix(), "");
+        return processedDescription;
 ```
 
 ### UnnecessaryLocalVariable
@@ -149,27 +161,15 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `nativeGitDescribe` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+Local variable `versionDetails` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
 ```java
-    private String expensiveComputeRawDescription() {
-
-        String nativeGitDescribe = nativeGitInvoker.describe(args.getPrefix());
-
-        return nativeGitDescribe;
-```
-
-### UnnecessaryLocalVariable
-Local variable `processedDescription` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-    private String description() {
-        String rawDescription = expensiveComputeRawDescription();
-        String processedDescription =
-                rawDescription == null ? null : rawDescription.replaceFirst("^" + args.getPrefix(), "");
-        return processedDescription;
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        VersionDetails versionDetails =
+                versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
+        return versionDetails;
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -194,8 +194,8 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         }
 
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
+        return Integer.parseInt(match.group(2));
 ```
 
 ### DataFlowIssue
@@ -206,8 +206,8 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         }
 
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
-        return Integer.parseInt(match.group(2));
+        return match.matches() ? match.group(1) : null;
+    }
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -236,19 +236,6 @@ public abstract class GitVersionCacheService implements BuildService<BuildServic
     private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `line` initializer `null` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-
-        StringBuilder builder = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
-```
-
 ## RuleId[id=CodeBlock2Expr]
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
@@ -260,5 +247,18 @@ in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
                     return timer.record(method.getName(), () -> {
                         try {
                             return method.invoke(versionDetails, args);
+```
+
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `line` initializer `null` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+
+        StringBuilder builder = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            builder.append(line);
 ```
 
