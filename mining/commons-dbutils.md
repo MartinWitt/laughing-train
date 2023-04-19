@@ -1,7 +1,7 @@
 # commons-dbutils 
  
 # Bad smells
-I found 161 bad smells with 13 repairable:
+I found 160 bad smells with 13 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 60 | false |
@@ -19,9 +19,8 @@ I found 161 bad smells with 13 repairable:
 | DynamicRegexReplaceableByCompiledPattern | 2 | false |
 | MagicConstant | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
-| DataFlowIssue | 1 | false |
 | RedundantClassCall | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| DataFlowIssue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | UtilityClassWithPublicConstructor | 1 | false |
 ## RuleId[id=SystemOutErr]
@@ -100,19 +99,6 @@ in `src/main/java/org/apache/commons/dbutils/GenerousBeanProcessor.java`
             for (int i = 0; i < props.length; i++) {
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getParameterType` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
-#### Snippet
-```java
-                         * be null here.
-                         */
-                        sqlType = pmd.getParameterType(i + 1);
-                    } catch (final SQLException e) {
-                        pmdKnownBroken = true;
-```
-
 ## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `isInstance()`
@@ -126,31 +112,20 @@ in `src/main/java/org/apache/commons/dbutils/handlers/properties/DatePropertyHan
             }
 ```
 
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getParameterType` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
+#### Snippet
+```java
+                         * be null here.
+                         */
+                        sqlType = pmd.getParameterType(i + 1);
+                    } catch (final SQLException e) {
+                        pmdKnownBroken = true;
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/ColumnHandler.java`
-#### Snippet
-```java
-/**
- * Interface to define how implementations can interact with column handling when constructing a bean from a
- * {@link java.sql.ResultSet}.  ColumnHandlers do the work of retrieving data correctly from the {@code ResultSet}.
- */
-public interface ColumnHandler {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils.handlers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ColumnListHandler.java`
-#### Snippet
-```java
-     * @throws ClassCastException if the class datatype does not match the column type
-     *
-     * @see org.apache.commons.dbutils.handlers.AbstractListHandler#handle(ResultSet)
-     */
-    // We assume that the user has picked the correct type to match the column
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.dbutils.handlers` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/handlers/MapListHandler.java`
@@ -165,24 +140,24 @@ in `src/main/java/org/apache/commons/dbutils/handlers/MapListHandler.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/BeanListHandler.java`
-#### Snippet
-```java
- *
- * @param <T> the target bean type
- * @see org.apache.commons.dbutils.ResultSetHandler
- */
-public class BeanListHandler<T> implements ResultSetHandler<List<T>> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/BeanListHandler.java`
+in `src/main/java/org/apache/commons/dbutils/handlers/BeanHandler.java`
 #### Snippet
 ```java
      *
      * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(ResultSet, Class)
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/BeanHandler.java`
+#### Snippet
+```java
+     *
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
      */
     @Override
 ```
@@ -200,159 +175,27 @@ public class BeanHandler<T> implements ResultSetHandler<T> {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/BeanHandler.java`
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/wrappers/StringTrimmedResultSet.java`
 #### Snippet
 ```java
+     * returned.
      *
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/BeanHandler.java`
-#### Snippet
-```java
-     *
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils.handlers` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ArrayListHandler.java`
-#### Snippet
-```java
-     *
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.handlers.AbstractListHandler#handle(ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/properties/DatePropertyHandler.java`
-#### Snippet
-```java
-/**
- * {@link PropertyHandler} for date fields. Will convert {@link java.sql.Date}, {@link java.sql.Time}, and
- * {@link java.sql.Timestamp} from SQL types to java types.
- */
-public class DatePropertyHandler implements PropertyHandler {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/commons/dbutils/handlers/properties/DatePropertyHandler.java`
-#### Snippet
-```java
-        } else
-        if ("java.sql.Time".equals(targetType)) {
-            value = new java.sql.Time(time);
-        } else
-        if ("java.sql.Timestamp".equals(targetType)) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
-#### Snippet
-```java
- * thread safe.
- *
- * @see org.apache.commons.dbutils.ResultSetHandler
- */
-public class ArrayHandler implements ResultSetHandler<Object[]> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
-#### Snippet
-```java
-     *
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
-#### Snippet
-```java
-     *
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
+     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
+     * @param proxy Not used; all method calls go to the internal result set
+     * @param method The method to invoke on the result set
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/ProxyFactory.java`
+in `src/main/java/org/apache/commons/dbutils/wrappers/StringTrimmedResultSet.java`
 #### Snippet
 ```java
- * thread safe.
- *
- * @see java.lang.reflect.Proxy
- * @see java.lang.reflect.InvocationHandler
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/ProxyFactory.java`
-#### Snippet
-```java
- *
- * @see java.lang.reflect.Proxy
- * @see java.lang.reflect.InvocationHandler
- */
-public class ProxyFactory {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
-#### Snippet
-```java
- * safe.
- *
- * @see org.apache.commons.dbutils.ResultSetHandler
- */
-public class MapHandler implements ResultSetHandler<Map<String, Object>> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
-#### Snippet
-```java
-     * @throws SQLException if a database access error occurs
+     * returned.
      *
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
-#### Snippet
-```java
-     * @throws SQLException if a database access error occurs
-     *
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    @Override
+     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
+     * @param proxy Not used; all method calls go to the internal result set
+     * @param method The method to invoke on the result set
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -380,123 +223,15 @@ in `src/main/java/org/apache/commons/dbutils/QueryLoader.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-     * {@code null}.
-     *
-     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
-     * @param proxy Not used; all method calls go to the internal result set
-     * @param method The method to invoke on the result set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-     * {@code null}.
-     *
-     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
-     * @param proxy Not used; all method calls go to the internal result set
-     * @param method The method to invoke on the result set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
-#### Snippet
-```java
-    /**
-     * Deletes the current row from the {@code ResultSet}.
-     * @see java.util.Iterator#remove()
-     * @throws RuntimeException if an SQLException occurs.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
-#### Snippet
-```java
-     * @return An {@code Object[]} with the same number of elements as
-     * columns in the {@code ResultSet}.
-     * @see java.util.Iterator#next()
-     * @throws RuntimeException if an SQLException occurs.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
-#### Snippet
-```java
-     *
-     * @param ds The {@code DataSource} to retrieve connections from.
-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
-     * if {@code pmdKnownBroken} is set to true, we won't even try it; if false, we'll try it,
-     * and if it breaks, we'll remember not to use it again.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
-#### Snippet
-```java
-     * @throws ClassCastException if the class datatype does not match the column type
-     *
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    // We assume that the user has picked the correct type to match the column
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
-#### Snippet
-```java
-     * @throws ClassCastException if the class datatype does not match the column type
-     *
-     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
-     */
-    // We assume that the user has picked the correct type to match the column
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
+in `src/main/java/org/apache/commons/dbutils/handlers/AbstractListHandler.java`
 #### Snippet
 ```java
  *
- * @param <T> The type of the scalar
+ * @param <T> the target List generic type
  * @see org.apache.commons.dbutils.ResultSetHandler
  */
-public class ScalarHandler<T> implements ResultSetHandler<T> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/wrappers/StringTrimmedResultSet.java`
-#### Snippet
-```java
-     * returned.
-     *
-     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
-     * @param proxy Not used; all method calls go to the internal result set
-     * @param method The method to invoke on the result set
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/wrappers/StringTrimmedResultSet.java`
-#### Snippet
-```java
-     * returned.
-     *
-     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
-     * @param proxy Not used; all method calls go to the internal result set
-     * @param method The method to invoke on the result set
+public abstract class AbstractListHandler<T> implements ResultSetHandler<List<T>> {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -536,15 +271,375 @@ in `src/main/java/org/apache/commons/dbutils/handlers/AbstractKeyedHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils.handlers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ArrayListHandler.java`
+#### Snippet
+```java
+     *
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.handlers.AbstractListHandler#handle(ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils.handlers` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ColumnListHandler.java`
+#### Snippet
+```java
+     * @throws ClassCastException if the class datatype does not match the column type
+     *
+     * @see org.apache.commons.dbutils.handlers.AbstractListHandler#handle(ResultSet)
+     */
+    // We assume that the user has picked the correct type to match the column
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/handlers/AbstractListHandler.java`
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * will be set to {@code null} if the column was SQL NULL.
+     *
+     * @see org.apache.commons.dbutils.RowProcessor#toArray(java.sql.ResultSet)
+     * @param rs ResultSet that supplies the array data
+     * @throws SQLException if a database access error occurs
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * will be set to {@code null} if the column was SQL NULL.
+     *
+     * @see org.apache.commons.dbutils.RowProcessor#toArray(java.sql.ResultSet)
+     * @param rs ResultSet that supplies the array data
+     * @throws SQLException if a database access error occurs
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * @return the newly created Map
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.RowProcessor#toMap(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * @return the newly created Map
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.RowProcessor#toMap(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * Convert a {@code ResultSet} into a {@code List} of JavaBeans.
+     * This implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * Convert a {@code ResultSet} into a {@code List} of JavaBeans.
+     * This implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * This implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+     * @param rs ResultSet that supplies the bean data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * This implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+     * @param rs ResultSet that supplies the bean data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * Convert a {@code ResultSet} row into a JavaBean.  This
+     * implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * Convert a {@code ResultSet} row into a JavaBean.  This
+     * implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+     * @param rs ResultSet that supplies the bean data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
+#### Snippet
+```java
+     * implementation delegates to a BeanProcessor instance.
+     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
+     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
+     * @param <T> The type of bean to create
+     * @param rs ResultSet that supplies the bean data
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
+#### Snippet
+```java
+     * @throws ClassCastException if the class datatype does not match the column type
+     *
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    // We assume that the user has picked the correct type to match the column
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
+#### Snippet
+```java
+     * @throws ClassCastException if the class datatype does not match the column type
+     *
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    // We assume that the user has picked the correct type to match the column
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
 #### Snippet
 ```java
  *
- * @param <T> the target List generic type
+ * @param <T> The type of the scalar
  * @see org.apache.commons.dbutils.ResultSetHandler
  */
-public abstract class AbstractListHandler<T> implements ResultSetHandler<List<T>> {
+public class ScalarHandler<T> implements ResultSetHandler<T> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
+#### Snippet
+```java
+     *
+     * @param ds The {@code DataSource} to retrieve connections from.
+     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
+     * if {@code pmdKnownBroken} is set to true, we won't even try it; if false, we'll try it,
+     * and if it breaks, we'll remember not to use it again.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/ProxyFactory.java`
+#### Snippet
+```java
+ * thread safe.
+ *
+ * @see java.lang.reflect.Proxy
+ * @see java.lang.reflect.InvocationHandler
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/ProxyFactory.java`
+#### Snippet
+```java
+ *
+ * @see java.lang.reflect.Proxy
+ * @see java.lang.reflect.InvocationHandler
+ */
+public class ProxyFactory {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/ColumnHandler.java`
+#### Snippet
+```java
+/**
+ * Interface to define how implementations can interact with column handling when constructing a bean from a
+ * {@link java.sql.ResultSet}.  ColumnHandlers do the work of retrieving data correctly from the {@code ResultSet}.
+ */
+public interface ColumnHandler {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
+#### Snippet
+```java
+     * @throws SQLException if a database access error occurs
+     *
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
+#### Snippet
+```java
+     * @throws SQLException if a database access error occurs
+     *
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
+#### Snippet
+```java
+ * safe.
+ *
+ * @see org.apache.commons.dbutils.ResultSetHandler
+ */
+public class MapHandler implements ResultSetHandler<Map<String, Object>> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/BeanListHandler.java`
+#### Snippet
+```java
+     *
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(ResultSet, Class)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/BeanListHandler.java`
+#### Snippet
+```java
+ *
+ * @param <T> the target bean type
+ * @see org.apache.commons.dbutils.ResultSetHandler
+ */
+public class BeanListHandler<T> implements ResultSetHandler<List<T>> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
+#### Snippet
+```java
+     *
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
+#### Snippet
+```java
+     *
+     * @throws SQLException if a database access error occurs
+     * @see org.apache.commons.dbutils.ResultSetHandler#handle(java.sql.ResultSet)
+     */
+    @Override
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/ArrayHandler.java`
+#### Snippet
+```java
+ * thread safe.
+ *
+ * @see org.apache.commons.dbutils.ResultSetHandler
+ */
+public class ArrayHandler implements ResultSetHandler<Object[]> {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/handlers/properties/DatePropertyHandler.java`
+#### Snippet
+```java
+/**
+ * {@link PropertyHandler} for date fields. Will convert {@link java.sql.Date}, {@link java.sql.Time}, and
+ * {@link java.sql.Timestamp} from SQL types to java types.
+ */
+public class DatePropertyHandler implements PropertyHandler {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `src/main/java/org/apache/commons/dbutils/handlers/properties/DatePropertyHandler.java`
+#### Snippet
+```java
+        } else
+        if ("java.sql.Time".equals(targetType)) {
+            value = new java.sql.Time(time);
+        } else
+        if ("java.sql.Timestamp".equals(targetType)) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -560,150 +655,6 @@ in `src/main/java/org/apache/commons/dbutils/handlers/BeanMapHandler.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * @return the newly created Map
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.RowProcessor#toMap(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * @return the newly created Map
-     * @throws SQLException if a database access error occurs
-     * @see org.apache.commons.dbutils.RowProcessor#toMap(java.sql.ResultSet)
-     */
-    @Override
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * Convert a {@code ResultSet} row into a JavaBean.  This
-     * implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * Convert a {@code ResultSet} row into a JavaBean.  This
-     * implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-     * @param rs ResultSet that supplies the bean data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBean(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBean(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-     * @param rs ResultSet that supplies the bean data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * will be set to {@code null} if the column was SQL NULL.
-     *
-     * @see org.apache.commons.dbutils.RowProcessor#toArray(java.sql.ResultSet)
-     * @param rs ResultSet that supplies the array data
-     * @throws SQLException if a database access error occurs
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * will be set to {@code null} if the column was SQL NULL.
-     *
-     * @see org.apache.commons.dbutils.RowProcessor#toArray(java.sql.ResultSet)
-     * @param rs ResultSet that supplies the array data
-     * @throws SQLException if a database access error occurs
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * Convert a {@code ResultSet} into a {@code List} of JavaBeans.
-     * This implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * Convert a {@code ResultSet} into a {@code List} of JavaBeans.
-     * This implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * This implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-     * @param rs ResultSet that supplies the bean data
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
-#### Snippet
-```java
-     * This implementation delegates to a BeanProcessor instance.
-     * @see org.apache.commons.dbutils.RowProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @see org.apache.commons.dbutils.BeanProcessor#toBeanList(java.sql.ResultSet, Class)
-     * @param <T> The type of bean to create
-     * @param rs ResultSet that supplies the bean data
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.lang.reflect` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
 #### Snippet
@@ -716,48 +667,96 @@ in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
+#### Snippet
+```java
+     * @return An {@code Object[]} with the same number of elements as
+     * columns in the {@code ResultSet}.
+     * @see java.util.Iterator#next()
+     * @throws RuntimeException if an SQLException occurs.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
+#### Snippet
+```java
+    /**
+     * Deletes the current row from the {@code ResultSet}.
+     * @see java.util.Iterator#remove()
+     * @throws RuntimeException if an SQLException occurs.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+     * {@code null}.
+     *
+     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
+     * @param proxy Not used; all method calls go to the internal result set
+     * @param method The method to invoke on the result set
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+     * {@code null}.
+     *
+     * @see java.lang.reflect.InvocationHandler#invoke(Object, java.lang.reflect.Method, Object[])
+     * @param proxy Not used; all method calls go to the internal result set
+     * @param method The method to invoke on the result set
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     * that does not return any result sets.  If you are not invoking a stored
+     * procedure, or the stored procedure has no OUT parameters, consider using
+     * {@link #update(java.sql.Connection, String, Object...) }.
+     * If the stored procedure returns result sets, use
+     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     * {@link #update(java.sql.Connection, String, Object...) }.
+     * If the stored procedure returns result sets, use
+     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
+     *
+     * @param conn The connection to use to run the query.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     * {@link #update(java.sql.Connection, String, Object...) }.
+     * If the stored procedure returns result sets, use
+     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
+     *
+     * @param conn The connection to use to run the query.
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.sql` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
      *
      * @param ds The {@code DataSource} to retrieve connections from.
-     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
-     * if {@code pmdKnownBroken} is set to true, we won't even try it; if false, we'll try it,
-     * and if it breaks, we'll remember not to use it again.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     * result sets; b) invoking a stored procedure that return result
-     * sets and OUT parameters.  Otherwise you may wish to use
-     * {@link #query(String, org.apache.commons.dbutils.ResultSetHandler, Object...) }
-     * (if there are no OUT parameters) or
-     * {@link #execute(String, Object...) }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     * {@link #update(String, Object...) }.
-     * If the stored procedure returns result sets, use
-     * {@link #execute(String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
-     * <p>
-     * The {@code Connection} is retrieved from the {@code DataSource}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     * Constructor for QueryRunner that controls the use of {@code ParameterMetaData}.
-     *
      * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
      * if {@code pmdKnownBroken} is set to true, we won't even try it; if false, we'll try it,
      * and if it breaks, we'll remember not to use it again.
@@ -800,6 +799,18 @@ in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     * {@link #update(String, Object...) }.
+     * If the stored procedure returns result sets, use
+     * {@link #execute(String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
+     * <p>
+     * The {@code Connection} is retrieved from the {@code DataSource}
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.sql` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
@@ -816,23 +827,11 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
-     * that does not return any result sets.  If you are not invoking a stored
-     * procedure, or the stored procedure has no OUT parameters, consider using
-     * {@link #update(java.sql.Connection, String, Object...) }.
-     * If the stored procedure returns result sets, use
-     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary and can be removed
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     * {@link #update(java.sql.Connection, String, Object...) }.
-     * If the stored procedure returns result sets, use
-     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
+     * Constructor for QueryRunner that controls the use of {@code ParameterMetaData}.
      *
-     * @param conn The connection to use to run the query.
+     * @param pmdKnownBroken Some drivers don't support {@link java.sql.ParameterMetaData#getParameterType(int) };
+     * if {@code pmdKnownBroken} is set to true, we won't even try it; if false, we'll try it,
+     * and if it breaks, we'll remember not to use it again.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -840,26 +839,51 @@ Qualifier `org.apache.commons.dbutils` is unnecessary and can be removed
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
-     * {@link #update(java.sql.Connection, String, Object...) }.
-     * If the stored procedure returns result sets, use
-     * {@link #execute(java.sql.Connection, String, org.apache.commons.dbutils.ResultSetHandler, Object...) }.
-     *
-     * @param conn The connection to use to run the query.
+     * result sets; b) invoking a stored procedure that return result
+     * sets and OUT parameters.  Otherwise you may wish to use
+     * {@link #query(String, org.apache.commons.dbutils.ResultSetHandler, Object...) }
+     * (if there are no OUT parameters) or
+     * {@link #execute(String, Object...) }
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractQueryRunner()` of an abstract class should not be declared 'public'
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'ds' is still used
 in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
 #### Snippet
 ```java
-     * Default constructor, sets pmdKnownBroken to false, ds to null and stmtConfig to null.
      */
-    public AbstractQueryRunner() {
-        ds = null;
-        this.stmtConfig = null;
+    @Deprecated
+    protected final DataSource ds;
+
+    /**
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'AsyncQueryRunner' is still used
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
+        super(ds, pmdKnownBroken);
+        this.executorService = executorService;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AsyncQueryRunner' is still used
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
+        this(null, pmdKnownBroken, executorService);
+    }
+```
+
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractQueryRunner()` of an abstract class should not be declared 'public'
 in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
@@ -901,6 +925,18 @@ Constructor `AbstractQueryRunner()` of an abstract class should not be declared 
 in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
 #### Snippet
 ```java
+     * Default constructor, sets pmdKnownBroken to false, ds to null and stmtConfig to null.
+     */
+    public AbstractQueryRunner() {
+        ds = null;
+        this.stmtConfig = null;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractQueryRunner()` of an abstract class should not be declared 'public'
+in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
+#### Snippet
+```java
      *            not to use it again.
      */
     public AbstractQueryRunner(final boolean pmdKnownBroken) {
@@ -932,44 +968,19 @@ in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
         this.stmtConfig = stmtConfig;
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'ds' is still used
+## RuleId[id=RedundantFieldInitialization]
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
 #### Snippet
 ```java
+     * it yet)?
      */
-    @Deprecated
-    protected final DataSource ds;
+    private volatile boolean pmdKnownBroken = false;
 
     /**
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'AsyncQueryRunner' is still used
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
-        this(null, pmdKnownBroken, executorService);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'AsyncQueryRunner' is still used
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
-        super(ds, pmdKnownBroken);
-        this.executorService = executorService;
-```
-
-## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/OutParameter.java`
@@ -980,6 +991,54 @@ in `src/main/java/org/apache/commons/dbutils/OutParameter.java`
     private T value = null;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private String nullString = null;
+    private Time nullTime = null;
+    private Timestamp nullTimestamp = null;
+    private URL nullURL = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private float nullFloat = 0.0f;
+    private int nullInt = 0;
+    private long nullLong = 0;
+    private Object nullObject = null;
+    private Ref nullRef = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private Blob nullBlob = null;
+    private boolean nullBoolean = false;
+    private byte nullByte = 0;
+    private byte[] nullBytes = null;
+    private Reader nullCharacterStream = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private InputStream nullBinaryStream = null;
+    private Blob nullBlob = null;
+    private boolean nullBoolean = false;
+    private byte nullByte = 0;
+    private byte[] nullBytes = null;
 ```
 
 ### RedundantFieldInitialization
@@ -999,131 +1058,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
-    private Reader nullCharacterStream = null;
-    private Clob nullClob = null;
-    private Date nullDate = null;
-    private double nullDouble = 0.0;
-    private float nullFloat = 0.0f;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private double nullDouble = 0.0;
-    private float nullFloat = 0.0f;
-    private int nullInt = 0;
-    private long nullLong = 0;
-    private Object nullObject = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private InputStream nullAsciiStream = null;
-    private BigDecimal nullBigDecimal = null;
-    private InputStream nullBinaryStream = null;
-    private Blob nullBlob = null;
-    private boolean nullBoolean = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private int nullInt = 0;
-    private long nullLong = 0;
-    private Object nullObject = null;
     private Ref nullRef = null;
     private short nullShort = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private Blob nullBlob = null;
-    private boolean nullBoolean = false;
-    private byte nullByte = 0;
-    private byte[] nullBytes = null;
-    private Reader nullCharacterStream = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-
-    private InputStream nullAsciiStream = null;
-    private BigDecimal nullBigDecimal = null;
-    private InputStream nullBinaryStream = null;
-    private Blob nullBlob = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    }
-
-    private InputStream nullAsciiStream = null;
-    private BigDecimal nullBigDecimal = null;
-    private InputStream nullBinaryStream = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private boolean nullBoolean = false;
-    private byte nullByte = 0;
-    private byte[] nullBytes = null;
-    private Reader nullCharacterStream = null;
-    private Clob nullClob = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
+    private String nullString = null;
     private Time nullTime = null;
     private Timestamp nullTimestamp = null;
-    private URL nullURL = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private float nullFloat = 0.0f;
-    private int nullInt = 0;
-    private long nullLong = 0;
-    private Object nullObject = null;
-    private Ref nullRef = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private byte[] nullBytes = null;
-    private Reader nullCharacterStream = null;
-    private Clob nullClob = null;
-    private Date nullDate = null;
-    private double nullDouble = 0.0;
 ```
 
 ### RedundantFieldInitialization
@@ -1143,35 +1082,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
-    private String nullString = null;
-    private Time nullTime = null;
-    private Timestamp nullTimestamp = null;
-    private URL nullURL = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private byte nullByte = 0;
     private byte[] nullBytes = null;
     private Reader nullCharacterStream = null;
     private Clob nullClob = null;
     private Date nullDate = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
-    private InputStream nullBinaryStream = null;
-    private Blob nullBlob = null;
-    private boolean nullBoolean = false;
-    private byte nullByte = 0;
-    private byte[] nullBytes = null;
+    private double nullDouble = 0.0;
 ```
 
 ### RedundantFieldInitialization
@@ -1179,23 +1094,59 @@ Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
-    private Ref nullRef = null;
-    private short nullShort = 0;
-    private String nullString = null;
     private Time nullTime = null;
     private Timestamp nullTimestamp = null;
+    private URL nullURL = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
+Field initialization to `null` is redundant
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
+
+    private InputStream nullAsciiStream = null;
+    private BigDecimal nullBigDecimal = null;
+    private InputStream nullBinaryStream = null;
+    private Blob nullBlob = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private int nullInt = 0;
+    private long nullLong = 0;
     private Object nullObject = null;
     private Ref nullRef = null;
     private short nullShort = 0;
-    private String nullString = null;
-    private Time nullTime = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private InputStream nullAsciiStream = null;
+    private BigDecimal nullBigDecimal = null;
+    private InputStream nullBinaryStream = null;
+    private Blob nullBlob = null;
+    private boolean nullBoolean = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    }
+
+    private InputStream nullAsciiStream = null;
+    private BigDecimal nullBigDecimal = null;
+    private InputStream nullBinaryStream = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1208,6 +1159,30 @@ in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.ja
     private Ref nullRef = null;
     private short nullShort = 0;
     private String nullString = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private double nullDouble = 0.0;
+    private float nullFloat = 0.0f;
+    private int nullInt = 0;
+    private long nullLong = 0;
+    private Object nullObject = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private boolean nullBoolean = false;
+    private byte nullByte = 0;
+    private byte[] nullBytes = null;
+    private Reader nullCharacterStream = null;
+    private Clob nullClob = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1223,6 +1198,42 @@ in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.ja
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private Reader nullCharacterStream = null;
+    private Clob nullClob = null;
+    private Date nullDate = null;
+    private double nullDouble = 0.0;
+    private float nullFloat = 0.0f;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private byte nullByte = 0;
+    private byte[] nullBytes = null;
+    private Reader nullCharacterStream = null;
+    private Clob nullClob = null;
+    private Date nullDate = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
+#### Snippet
+```java
+    private Object nullObject = null;
+    private Ref nullRef = null;
+    private short nullShort = 0;
+    private String nullString = null;
+    private Time nullTime = null;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0.0f` is redundant
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
@@ -1232,18 +1243,6 @@ in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.ja
     private float nullFloat = 0.0f;
     private int nullInt = 0;
     private long nullLong = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/commons/dbutils/AbstractQueryRunner.java`
-#### Snippet
-```java
-     * it yet)?
-     */
-    private volatile boolean pmdKnownBroken = false;
-
-    /**
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -1310,6 +1309,18 @@ in `src/main/java/org/apache/commons/dbutils/handlers/BeanHandler.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
+#### Snippet
+```java
+            return (T) rs.getObject(this.columnName);
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
 #### Snippet
 ```java
@@ -1322,12 +1333,36 @@ in `src/main/java/org/apache/commons/dbutils/handlers/MapHandler.java`
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
+#### Snippet
+```java
+
+        if ( !propType.isPrimitive() && retval == null ) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
+#### Snippet
+```java
+        } catch (final SQLException e) {
+            rethrow(e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
      */
-    public Date getNullDate() {
-        return this.nullDate != null ? new Date(this.nullDate.getTime()) : null;
+    public Time getNullTime() {
+        return this.nullTime != null ? new Time(this.nullTime.getTime()) : null;
     }
 
 ```
@@ -1349,18 +1384,6 @@ Return of `null`
 in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
-     */
-    public Time getNullTime() {
-        return this.nullTime != null ? new Time(this.nullTime.getTime()) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
-#### Snippet
-```java
     public byte[] getNullBytes() {
         if (this.nullBytes == null) {
             return null;
@@ -1370,66 +1393,17 @@ in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.ja
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/commons/dbutils/ResultSetIterator.java`
+in `src/main/java/org/apache/commons/dbutils/wrappers/SqlNullCheckedResultSet.java`
 #### Snippet
 ```java
-        } catch (final SQLException e) {
-            rethrow(e);
-            return null;
-        }
+     */
+    public Date getNullDate() {
+        return this.nullDate != null ? new Date(this.nullDate.getTime()) : null;
     }
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbutils/handlers/ScalarHandler.java`
-#### Snippet
-```java
-            return (T) rs.getObject(this.columnName);
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
-#### Snippet
-```java
-
-        if ( !propType.isPrimitive() && retval == null ) {
-            return null;
-        }
-
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-16-19-46-32.113.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`0 == columnName.length()` can be replaced with 'columnName.isEmpty()'
-in `src/main/java/org/apache/commons/dbutils/GenerousBeanProcessor.java`
-#### Snippet
-```java
-            String columnName = rsmd.getColumnLabel(col);
-
-            if (null == columnName || 0 == columnName.length()) {
-                columnName = rsmd.getColumnName(col);
-            }
-```
-
 ### SizeReplaceableByIsEmpty
 `0 == propKey.length()` can be replaced with 'propKey.isEmpty()'
 in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
@@ -1452,6 +1426,18 @@ in `src/main/java/org/apache/commons/dbutils/BasicRowProcessor.java`
             if (null == propKey || 0 == propKey.length()) {
               // The column index can't be null
               propKey = Integer.toString(i);
+```
+
+### SizeReplaceableByIsEmpty
+`0 == columnName.length()` can be replaced with 'columnName.isEmpty()'
+in `src/main/java/org/apache/commons/dbutils/GenerousBeanProcessor.java`
+#### Snippet
+```java
+            String columnName = rsmd.getColumnLabel(col);
+
+            if (null == columnName || 0 == columnName.length()) {
+                columnName = rsmd.getColumnName(col);
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1499,19 +1485,7 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      * @since 1.6
      */
-    public <T> Future<T> insert(final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
-        return executorService.submit(new Callable<T>() {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
-#### Snippet
-```java
-     * @since 1.6
-     */
-    public <T> Future<T> insert(final String sql, final ResultSetHandler<T> rsh) throws SQLException {
+    public <T> Future<T> insertBatch(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object[][] params) throws SQLException {
         return executorService.submit(new Callable<T>() {
 
 ```
@@ -1535,31 +1509,7 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      * @since 1.6
      */
-    public <T> Future<T> insert(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
-        return executorService.submit(new Callable<T>() {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
-#### Snippet
-```java
-     * @since 1.6
-     */
-    public <T> Future<T> insertBatch(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object[][] params) throws SQLException {
-        return executorService.submit(new Callable<T>() {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
-#### Snippet
-```java
-     * @throws SQLException if a database access error occurs
-     */
-    public <T> Future<T> query(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
+    public <T> Future<T> insert(final String sql, final ResultSetHandler<T> rsh) throws SQLException {
         return executorService.submit(new Callable<T>() {
 
 ```
@@ -1581,11 +1531,11 @@ Can generalize to `? extends T`
 in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 #### Snippet
 ```java
-         */
-        public QueryCallableStatement(final Connection conn, final boolean closeConn, final PreparedStatement ps,
-                final ResultSetHandler<T> rsh, final String sql, final Object... params) {
-            this.sql = sql;
-            this.params = params;
+     * @throws SQLException if a database access error occurs
+     */
+    public <T> Future<T> query(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
+        return executorService.submit(new Callable<T>() {
+
 ```
 
 ### BoundedWildcard
@@ -1595,7 +1545,7 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      * @since 1.6
      */
-    public <T> Future<T> insertBatch(final String sql, final ResultSetHandler<T> rsh, final Object[][] params) throws SQLException {
+    public <T> Future<T> insert(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
         return executorService.submit(new Callable<T>() {
 
 ```
@@ -1620,6 +1570,42 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
      * @throws SQLException if a database access error occurs
      */
     public <T> Future<T> query(final String sql, final ResultSetHandler<T> rsh) throws SQLException {
+        return executorService.submit(new Callable<T>() {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+     * @since 1.6
+     */
+    public <T> Future<T> insert(final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
+        return executorService.submit(new Callable<T>() {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+         */
+        public QueryCallableStatement(final Connection conn, final boolean closeConn, final PreparedStatement ps,
+                final ResultSetHandler<T> rsh, final String sql, final Object... params) {
+            this.sql = sql;
+            this.params = params;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+     * @since 1.6
+     */
+    public <T> Future<T> insertBatch(final String sql, final ResultSetHandler<T> rsh, final Object[][] params) throws SQLException {
         return executorService.submit(new Callable<T>() {
 
 ```
@@ -1745,72 +1731,24 @@ in `src/main/java/org/apache/commons/dbutils/handlers/columns/FloatColumnHandler
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/handlers/columns/ShortColumnHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
-        return Short.valueOf(rs.getShort(columnIndex));
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/handlers/columns/DoubleColumnHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
-        return Double.valueOf(rs.getDouble(columnIndex));
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/handlers/columns/BooleanColumnHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
-        return Boolean.valueOf(rs.getBoolean(columnIndex));
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/handlers/columns/IntegerColumnHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
-        return Integer.valueOf(rs.getInt(columnIndex));
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/handlers/columns/ByteColumnHandler.java`
-#### Snippet
-```java
-    @Override
-    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
-        return Byte.valueOf(rs.getByte(columnIndex));
-    }
-}
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
 in `src/main/java/org/apache/commons/dbutils/handlers/columns/LongColumnHandler.java`
 #### Snippet
 ```java
     @Override
     public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
         return Long.valueOf(rs.getLong(columnIndex));
+    }
+}
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/dbutils/handlers/columns/ShortColumnHandler.java`
+#### Snippet
+```java
+    @Override
+    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
+        return Short.valueOf(rs.getShort(columnIndex));
     }
 }
 ```
@@ -1901,38 +1839,50 @@ in `src/main/java/org/apache/commons/dbutils/BeanProcessor.java`
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+in `src/main/java/org/apache/commons/dbutils/handlers/columns/IntegerColumnHandler.java`
 #### Snippet
 ```java
-            @Override
-            public Integer call() throws Exception {
-                return Integer.valueOf(queryRunner.update(sql, param));
-            }
-
+    @Override
+    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
+        return Integer.valueOf(rs.getInt(columnIndex));
+    }
+}
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+in `src/main/java/org/apache/commons/dbutils/handlers/columns/BooleanColumnHandler.java`
 #### Snippet
 ```java
-            }
-
-            return Integer.valueOf(rows);
-        }
-
+    @Override
+    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
+        return Boolean.valueOf(rs.getBoolean(columnIndex));
+    }
+}
 ```
 
 ### UnnecessaryBoxing
 Unnecessary boxing
-in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+in `src/main/java/org/apache/commons/dbutils/handlers/columns/DoubleColumnHandler.java`
 #### Snippet
 ```java
-            @Override
-            public Integer call() throws Exception {
-                return Integer.valueOf(queryRunner.update(conn, sql));
-            }
+    @Override
+    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
+        return Double.valueOf(rs.getDouble(columnIndex));
+    }
+}
+```
 
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/dbutils/handlers/columns/ByteColumnHandler.java`
+#### Snippet
+```java
+    @Override
+    public Object apply(final ResultSet rs, final int columnIndex) throws SQLException {
+        return Byte.valueOf(rs.getByte(columnIndex));
+    }
+}
 ```
 
 ### UnnecessaryBoxing
@@ -1954,7 +1904,7 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
             @Override
             public Integer call() throws Exception {
-                return Integer.valueOf(queryRunner.update(conn, sql, param));
+                return Integer.valueOf(queryRunner.update(conn, sql, params));
             }
 
 ```
@@ -1978,8 +1928,44 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
             @Override
             public Integer call() throws Exception {
-                return Integer.valueOf(queryRunner.update(conn, sql, params));
+                return Integer.valueOf(queryRunner.update(conn, sql, param));
             }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+            @Override
+            public Integer call() throws Exception {
+                return Integer.valueOf(queryRunner.update(sql, param));
+            }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+            @Override
+            public Integer call() throws Exception {
+                return Integer.valueOf(queryRunner.update(conn, sql));
+            }
+
+```
+
+### UnnecessaryBoxing
+Unnecessary boxing
+in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
+#### Snippet
+```java
+            }
+
+            return Integer.valueOf(rows);
+        }
 
 ```
 
