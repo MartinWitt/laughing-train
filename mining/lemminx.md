@@ -1,18 +1,18 @@
 # lemminx 
  
 # Bad smells
-I found 1695 bad smells with 231 repairable:
+I found 1691 bad smells with 231 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 529 | false |
 | BoundedWildcard | 177 | false |
 | AssignmentToMethodParameter | 99 | false |
 | UnnecessarySuperQualifier | 69 | false |
-| DataFlowIssue | 65 | false |
+| DataFlowIssue | 64 | false |
 | MissortedModifiers | 62 | false |
 | UnusedAssignment | 58 | false |
 | UnnecessaryModifier | 57 | true |
-| ConstantValue | 55 | false |
+| ConstantValue | 54 | false |
 | UnnecessaryFullyQualifiedName | 38 | false |
 | UnnecessaryLocalVariable | 36 | true |
 | CodeBlock2Expr | 32 | true |
@@ -40,7 +40,6 @@ I found 1695 bad smells with 231 repairable:
 | RedundantMethodOverride | 6 | false |
 | AssignmentToForLoopParameter | 6 | false |
 | EmptyStatementBody | 5 | false |
-| UNUSED_IMPORT | 5 | false |
 | UnnecessaryReturn | 4 | true |
 | UnnecessaryUnboxing | 4 | false |
 | EqualsAndHashcode | 4 | false |
@@ -49,6 +48,7 @@ I found 1695 bad smells with 231 repairable:
 | MismatchedJavadocCode | 4 | false |
 | InnerClassMayBeStatic | 4 | true |
 | StringEquality | 3 | false |
+| UNUSED_IMPORT | 3 | false |
 | NestedAssignment | 3 | false |
 | EmptyMethod | 3 | false |
 | InstanceofCatchParameter | 3 | false |
@@ -312,6 +312,18 @@ String values are compared using `!=`, not 'equals()'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
+		// check deletion
+		final int lineDelta;
+		boolean delete = node.length == 0 && node.delimiter != NO_DELIM;
+		if (delete) {
+			lineDelta = -1;
+```
+
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
 		}
 
 		if (node.delimiter != NO_DELIM) {
@@ -329,18 +341,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracke
 		return node.delimiter == NO_DELIM ? null : node.delimiter;
 	}
 
-```
-
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-		// check deletion
-		final int lineDelta;
-		boolean delete = node.length == 0 && node.delimiter != NO_DELIM;
-		if (delete) {
-			lineDelta = -1;
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -421,11 +421,10 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/IXMLSettingFeature.java`
 #### Snippet
 ```java
-	 * @return a displayable name for this feature
+	 * @return the related settingId for this feature
 	 */
-	public String getName();
-
-	/**
+	public String getSettingId();
+}
 ```
 
 ### UnnecessaryModifier
@@ -433,10 +432,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/IXMLSettingFeature.java`
 #### Snippet
 ```java
-	 * @return the related settingId for this feature
+	 * @return a displayable name for this feature
 	 */
-	public String getSettingId();
-}
+	public String getName();
+
+	/**
 ```
 
 ### UnnecessaryModifier
@@ -513,24 +513,24 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionItemResolverRequest.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionRequest.java`
 #### Snippet
 ```java
 	 *          false otherwise
 	 */
-	public boolean isResolveDocumentationSupported();
+	public boolean isResolveAdditionalTextEditsSupported();
 
 	/**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionItemResolverRequest.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionRequest.java`
 #### Snippet
 ```java
 	 *          false otherwise
 	 */
-	public boolean isResolveAdditionalTextEditsSupported();
+	public boolean isResolveDocumentationSupported();
 
 	/**
 ```
@@ -549,24 +549,24 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionRequest.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionItemResolverRequest.java`
 #### Snippet
 ```java
 	 *          false otherwise
 	 */
-	public boolean isResolveDocumentationSupported();
+	public boolean isResolveAdditionalTextEditsSupported();
 
 	/**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionRequest.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionItemResolverRequest.java`
 #### Snippet
 ```java
 	 *          false otherwise
 	 */
-	public boolean isResolveAdditionalTextEditsSupported();
+	public boolean isResolveDocumentationSupported();
 
 	/**
 ```
@@ -588,10 +588,10 @@ Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDErrorCode.java`
 #### Snippet
 ```java
-	}
+	private final String code;
 
-	private XSDErrorCode(String code) {
-		this.code = code;
+	private XSDErrorCode() {
+		this(null);
 	}
 ```
 
@@ -600,10 +600,10 @@ Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDErrorCode.java`
 #### Snippet
 ```java
-	private final String code;
+	}
 
-	private XSDErrorCode() {
-		this(null);
+	private XSDErrorCode(String code) {
+		this.code = code;
 	}
 ```
 
@@ -624,18 +624,6 @@ Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
 #### Snippet
 ```java
-	private final String code;
-
-	private RelaxNGErrorCode() {
-		this(null);
-	}
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
-#### Snippet
-```java
 	}
 
 	private RelaxNGErrorCode(String code) {
@@ -645,14 +633,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/EntitiesDocumentationUtils.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
 #### Snippet
 ```java
-		private final String value;
+	private final String code;
 
-		private PredefinedEntity(String value) {
-			this.value = value;
-		}
+	private RelaxNGErrorCode() {
+		this(null);
+	}
 ```
 
 ### UnnecessaryModifier
@@ -668,15 +656,15 @@ public class EntitiesDocumentationUtils {
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
+Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/EntitiesDocumentationUtils.java`
 #### Snippet
 ```java
-	 *
-	 */
-	public static enum PredefinedEntity {
+		private final String value;
 
-		lt("&#60;"), gt("&#62;"), amp("&#38;"), apos("&#39;"), quot("&#34;");
+		private PredefinedEntity(String value) {
+			this.value = value;
+		}
 ```
 
 ### UnnecessaryModifier
@@ -689,6 +677,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/En
 		private EntityOriginType(String label) {
 			this.label = label;
 		}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/EntitiesDocumentationUtils.java`
+#### Snippet
+```java
+	 *
+	 */
+	public static enum PredefinedEntity {
+
+		lt("&#60;"), gt("&#62;"), amp("&#38;"), apos("&#39;"), quot("&#34;");
 ```
 
 ### UnnecessaryModifier
@@ -765,6 +765,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelProvider.java`
+#### Snippet
+```java
+public interface ContentModelProvider {
+
+	public class Identifier {
+
+		private final String publicId;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/CMElementDeclaration.java`
 #### Snippet
 ```java
@@ -800,18 +812,6 @@ public interface CMElementDeclaration {
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelProvider.java`
-#### Snippet
-```java
-public interface ContentModelProvider {
-
-	public class Identifier {
-
-		private final String publicId;
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQuery.java`
 #### Snippet
@@ -824,18 +824,6 @@ public class SearchQuery {
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/commands/SurroundWithCommand.java`
-#### Snippet
-```java
-	}
-
-	public static enum SurroundWithKind {
-		tags, //
-		comments, //
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/commands/AssociateGrammarCommand.java`
 #### Snippet
@@ -845,6 +833,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 		private GrammarBindingType(String name) {
 			this.name = name != null ? name : name();
 		}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/commands/SurroundWithCommand.java`
+#### Snippet
+```java
+	}
+
+	public static enum SurroundWithKind {
+		tags, //
+		comments, //
 ```
 
 ### UnnecessaryModifier
@@ -924,10 +924,10 @@ Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSchemaErrorCode.java`
 #### Snippet
 ```java
-	}
+	private final String code;
 
-	private XMLSchemaErrorCode(String code) {
-		this.code = code;
+	private XMLSchemaErrorCode() {
+		this(null);
 	}
 ```
 
@@ -936,11 +936,23 @@ Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSchemaErrorCode.java`
 #### Snippet
 ```java
-	private final String code;
-
-	private XMLSchemaErrorCode() {
-		this(null);
 	}
+
+	private XMLSchemaErrorCode(String code) {
+		this.code = code;
+	}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolverExtension.java`
+#### Snippet
+```java
+	 *         resource
+	 */
+	public String resolve(String baseLocation, String publicId, String systemId);
+
+	@Override
 ```
 
 ### UnnecessaryModifier
@@ -980,30 +992,6 @@ public interface URIResolverExtension extends XMLEntityResolver {
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolverExtension.java`
-#### Snippet
-```java
-	 *         resource
-	 */
-	public String resolve(String baseLocation, String publicId, String systemId);
-
-	@Override
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourceDownloadedException.java`
-#### Snippet
-```java
-		private final String rawMessage;
-
-		private CacheResourceDownloadedError(String rawMessage) {
-			this.rawMessage = rawMessage;
-		}
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourceDownloadingException.java`
 #### Snippet
@@ -1023,6 +1011,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/InvalidURI
 		private final String rawMessage;
 
 		private InvalidURIError(String rawMessage) {
+			this.rawMessage = rawMessage;
+		}
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourceDownloadedException.java`
+#### Snippet
+```java
+		private final String rawMessage;
+
+		private CacheResourceDownloadedError(String rawMessage) {
 			this.rawMessage = rawMessage;
 		}
 ```
@@ -1228,10 +1228,10 @@ Commented out code (2 lines)
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
-				break;
+				break; // propagate up
 			default:
-				// if (ASSERT)
-				// Assert.isTrue(false);
+//					if (ASSERT)
+//						Assert.isTrue(false);
 			}
 ```
 
@@ -1240,11 +1240,11 @@ Commented out code (2 lines)
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
-				break; // propagate up
-			default:
-//					if (ASSERT)
-//						Assert.isTrue(false);
-			}
+		}
+
+		// Assert.isTrue(node.offset == offLen[0]);
+		// Assert.isTrue(node.line == offLen[1]);
+
 ```
 
 ### CommentedOutCode
@@ -1272,18 +1272,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracke
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-		}
-
-		// Assert.isTrue(node.offset == offLen[0]);
-		// Assert.isTrue(node.line == offLen[1]);
-
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
@@ -1293,6 +1281,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracke
 //		Assert.isTrue(node.balance == rightDepth - leftDepth);
 //		Assert.isTrue(node.left == null || node.left.parent == node);
 //		Assert.isTrue(node.right == null || node.right.parent == node);
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
+				break;
+			default:
+				// if (ASSERT)
+				// Assert.isTrue(false);
+			}
 ```
 
 ### CommentedOutCode
@@ -1308,42 +1308,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `org.eclipse.lemminx/src/main/resources/schemas/catalog/catalog-1.1.xsd`
-#### Snippet
-```java
-         the whitespace characters because they're normalized by XML parsing. -->
-    <xs:restriction base="xs:string">
-      <xs:pattern value="[a-zA-Z0-9\-'\(\)+,./:=?;!*#@$_%]*"/>
-    </xs:restriction>
-  </xs:simpleType>
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `org.eclipse.lemminx/src/main/resources/schemas/catalog/catalog-1.1.xsd`
-#### Snippet
-```java
-         the whitespace characters because they're normalized by XML parsing. -->
-    <xs:restriction base="xs:string">
-      <xs:pattern value="[a-zA-Z0-9\-'\(\)+,./:=?;!*#@$_%]*"/>
-    </xs:restriction>
-  </xs:simpleType>
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\?` in RegExp
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public static final Pattern ELEMENT_NAME_REGEX = Pattern.compile("^[_:\\w][_:\\w-.\\d]*");
-
-	public static final Pattern ATTRIBUTE_NAME_REGEX = Pattern.compile("^[^\\s\\?\"'<>/=\\x00-\\x0F\\x7F\\x80-\\x9F]*");
-
-	public static final Pattern ATTRIBUTE_VALUE_REGEX = Pattern.compile("^(\"[^\"]*\"?)|(\'[^\']*\'?)");
-```
-
 ### RegExpRedundantEscape
 Redundant character escape `\\>` in RegExp
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
@@ -1366,6 +1330,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.j
 	public static final Pattern DOCUMENTATION_CONTENT = Pattern.compile(".*<[\\S]+:?documentation[^\\>]*>(.*)<\\/[\\S]+:?documentation[\\s]*>.*");
 
 }
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\?` in RegExp
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public static final Pattern ELEMENT_NAME_REGEX = Pattern.compile("^[_:\\w][_:\\w-.\\d]*");
+
+	public static final Pattern ATTRIBUTE_NAME_REGEX = Pattern.compile("^[^\\s\\?\"'<>/=\\x00-\\x0F\\x7F\\x80-\\x9F]*");
+
+	public static final Pattern ATTRIBUTE_VALUE_REGEX = Pattern.compile("^(\"[^\"]*\"?)|(\'[^\']*\'?)");
 ```
 
 ### RegExpRedundantEscape
@@ -1414,6 +1390,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPM
 		Pattern namespacePattern = Pattern.compile("^\\{\"(.*)\":(.*)(\\}|,)");
 		return namespacePattern.matcher(name);
 	}
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `org.eclipse.lemminx/src/main/resources/schemas/catalog/catalog-1.1.xsd`
+#### Snippet
+```java
+         the whitespace characters because they're normalized by XML parsing. -->
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9\-'\(\)+,./:=?;!*#@$_%]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `org.eclipse.lemminx/src/main/resources/schemas/catalog/catalog-1.1.xsd`
+#### Snippet
+```java
+         the whitespace characters because they're normalized by XML parsing. -->
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9\-'\(\)+,./:=?;!*#@$_%]*"/>
+    </xs:restriction>
+  </xs:simpleType>
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -1683,30 +1683,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `org.eclipse.lemminx/src/main/resources/schemas/xslt/xslt-3.0.xsd`
-#### Snippet
-```java
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:pattern value="Q\{[^{}]*\}[\i-[:]][\c-[:]]*"/>
-        </xs:restriction>
-      </xs:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `org.eclipse.lemminx/src/main/resources/schemas/xslt/xslt-3.0.xsd`
-#### Snippet
-```java
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:pattern value="Q\{[^{}]*\}[\i-[:]][\c-[:]]*"/>
-        </xs:restriction>
-      </xs:simpleType>
-```
-
-### RegExpSimplifiable
 `[^\\s]` can be simplified to '\\S'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/SchemaLocation.java`
 #### Snippet
@@ -1778,6 +1754,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 	public static String getCachePathSetting() {
 ```
 
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `org.eclipse.lemminx/src/main/resources/schemas/xslt/xslt-3.0.xsd`
+#### Snippet
+```java
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="Q\{[^{}]*\}[\i-[:]][\c-[:]]*"/>
+        </xs:restriction>
+      </xs:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `org.eclipse.lemminx/src/main/resources/schemas/xslt/xslt-3.0.xsd`
+#### Snippet
+```java
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="Q\{[^{}]*\}[\i-[:]][\c-[:]]*"/>
+        </xs:restriction>
+      </xs:simpleType>
+```
+
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `parameters.size() > 0` can be replaced with '!parameters.isEmpty()'
@@ -1804,6 +1804,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`this.children.size() > 0` can be replaced with '!this.children.isEmpty()'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public DOMNode getLastChild() {
+		return this.children != null && this.children.size() > 0 ? this.children.get(this.children.size() - 1) : null;
+	}
+
+```
+
+### SizeReplaceableByIsEmpty
+`attributeNodes.size() != 0` can be replaced with '!attributeNodes.isEmpty()'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public boolean hasAttributes() {
+		return attributeNodes != null && attributeNodes.size() != 0;
+	}
+
+```
+
+### SizeReplaceableByIsEmpty
 `children.size() > 0` can be replaced with '!children.isEmpty()'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
@@ -1823,30 +1847,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 	@Override
 	public DOMNode getFirstChild() {
 		return this.children != null && children.size() > 0 ? this.children.get(0) : null;
-	}
-
-```
-
-### SizeReplaceableByIsEmpty
-`attributeNodes.size() != 0` can be replaced with '!attributeNodes.isEmpty()'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public boolean hasAttributes() {
-		return attributeNodes != null && attributeNodes.size() != 0;
-	}
-
-```
-
-### SizeReplaceableByIsEmpty
-`this.children.size() > 0` can be replaced with '!this.children.isEmpty()'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public DOMNode getLastChild() {
-		return this.children != null && this.children.size() > 0 ? this.children.get(this.children.size() - 1) : null;
 	}
 
 ```
@@ -2008,18 +2008,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 ```
 
 ### SizeReplaceableByIsEmpty
-`relatedInformation.size() > 0` can be replaced with '!relatedInformation.isEmpty()'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-			List<DiagnosticRelatedInformation> relatedInformation) {
-		Diagnostic d = new Diagnostic(adjustedRange, message, severity, source, code);
-		if (hasRelatedInfo && relatedInformation != null && relatedInformation.size() > 0) {
-			d.setRelatedInformation(relatedInformation);
-		}
-```
-
-### SizeReplaceableByIsEmpty
 `invalidCatalogs.size() > 0` can be replaced with '!invalidCatalogs.isEmpty()'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XMLCatalogPlugin.java`
 #### Snippet
@@ -2029,6 +2017,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XML
 		if (invalidCatalogs.size() > 0) {
 			this.pathWarner.onInvalidFilePath(invalidCatalogs, PathFeature.CATALOGS);
 		} else {
+```
+
+### SizeReplaceableByIsEmpty
+`relatedInformation.size() > 0` can be replaced with '!relatedInformation.isEmpty()'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+			List<DiagnosticRelatedInformation> relatedInformation) {
+		Diagnostic d = new Diagnostic(adjustedRange, message, severity, source, code);
+		if (hasRelatedInfo && relatedInformation != null && relatedInformation.size() > 0) {
+			d.setRelatedInformation(relatedInformation);
+		}
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -2315,24 +2315,24 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlm
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/PossibleRequiredElementsFunction.java`
-#### Snippet
-```java
-	private final Set<String> requiredElementNames;
-
-	public PossibleRequiredElementsFunction(Set<String> requiredElementNames) {
-		this.requiredElementNames = requiredElementNames;
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/MyRequiredElementsFunction.java`
 #### Snippet
 ```java
 	private final Set<String> requiredElementNames;
 
 	public MyRequiredElementsFunction(Set<String> requiredElementNames) {
+		this.requiredElementNames = requiredElementNames;
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/PossibleRequiredElementsFunction.java`
+#### Snippet
+```java
+	private final Set<String> requiredElementNames;
+
+	public PossibleRequiredElementsFunction(Set<String> requiredElementNames) {
 		this.requiredElementNames = requiredElementNames;
 	}
 ```
@@ -2398,30 +2398,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Character`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
-#### Snippet
-```java
-	 *         to the given <code>min</code> and -1 if no word.
-	 */
-	public static int findStartWord(String text, int offset, int min, Predicate<Character> isValidChar) {
-		if (offset < 0 || offset >= text.length() || !isValidChar.test(text.charAt(offset))) {
-			return -1;
-```
-
-### BoundedWildcard
-Can generalize to `? super Character`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
-#### Snippet
-```java
-	 *         and -1 if no word.
-	 */
-	public static int findEndWord(String text, int offset, int max, Predicate<Character> isValidChar) {
-		if (offset < 0 || offset >= text.length() || !isValidChar.test(text.charAt(offset))) {
-			return -1;
-```
-
-### BoundedWildcard
 Can generalize to `? extends MarkupContent`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/MarkupContentFactory.java`
 #### Snippet
@@ -2446,15 +2422,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathAtt
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DOMNode`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+Can generalize to `? super Character`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
 #### Snippet
 ```java
-	}
+	 *         and -1 if no word.
+	 */
+	public static int findEndWord(String text, int offset, int max, Predicate<Character> isValidChar) {
+		if (offset < 0 || offset >= text.length() || !isValidChar.test(text.charAt(offset))) {
+			return -1;
+```
 
-	private static DOMNode findUnclosedChildNode(List<DOMNode> children) {
-		for (DOMNode child : children) {
-			if (!child.isClosed()) {
+### BoundedWildcard
+Can generalize to `? super Character`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
+#### Snippet
+```java
+	 *         to the given <code>min</code> and -1 if no word.
+	 */
+	public static int findStartWord(String text, int offset, int min, Predicate<Character> isValidChar) {
+		if (offset < 0 || offset >= text.length() || !isValidChar.test(text.charAt(offset))) {
+			return -1;
 ```
 
 ### BoundedWildcard
@@ -2470,6 +2458,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtili
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DOMNode`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+	}
+
+	private static DOMNode findUnclosedChildNode(List<DOMNode> children) {
+		for (DOMNode child : children) {
+			if (!child.isClosed()) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends TextDocumentContentChangeEvent`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
 #### Snippet
@@ -2479,18 +2479,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.j
 	public void update(List<TextDocumentContentChangeEvent> changes) {
 		if (changes.size() < 1) {
 			// no changes, ignore it.
-```
-
-### BoundedWildcard
-Can generalize to `? super ModelTextDocument`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelValidatorDelayer.java`
-#### Snippet
-```java
-	}
-
-	public ModelValidatorDelayer(ScheduledExecutorService executorService, Consumer<ModelTextDocument<T>> validator,
-			long validationDelayMs) {
-		this.executorService = executorService;
 ```
 
 ### BoundedWildcard
@@ -2506,39 +2494,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/CodeActionFact
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TextDocument`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
+Can generalize to `? super ModelTextDocument`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelValidatorDelayer.java`
 #### Snippet
 ```java
-	private T model;
+	}
 
-	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
-		super(document);
-		this.parse = parse;
-```
-
-### BoundedWildcard
-Can generalize to `? super CancelChecker`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
-#### Snippet
-```java
-	private T model;
-
-	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
-		super(document);
-		this.parse = parse;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
-#### Snippet
-```java
-	private T model;
-
-	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
-		super(document);
-		this.parse = parse;
+	public ModelValidatorDelayer(ScheduledExecutorService executorService, Consumer<ModelTextDocument<T>> validator,
+			long validationDelayMs) {
+		this.executorService = executorService;
 ```
 
 ### BoundedWildcard
@@ -2574,6 +2538,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocum
 
 	public ModelTextDocument(String text, String uri, BiFunction<TextDocument, CancelChecker, T> parse) {
 		super(text, uri);
+		this.parse = parse;
+```
+
+### BoundedWildcard
+Can generalize to `? super TextDocument`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
+#### Snippet
+```java
+	private T model;
+
+	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
+		super(document);
+		this.parse = parse;
+```
+
+### BoundedWildcard
+Can generalize to `? super CancelChecker`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
+#### Snippet
+```java
+	private T model;
+
+	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
+		super(document);
+		this.parse = parse;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocument.java`
+#### Snippet
+```java
+	private T model;
+
+	public ModelTextDocument(TextDocumentItem document, BiFunction<TextDocument, CancelChecker, T> parse) {
+		super(document);
 		this.parse = parse;
 ```
 
@@ -2758,18 +2758,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionR
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SymbolInformation`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
-#### Snippet
-```java
-	}
-
-	private void findSymbolInformations(DOMNode node, String container, List<SymbolInformation> symbols,
-			boolean ignoreNode, XMLSymbolFilter filter, boolean hasFilterForAttr, CancelChecker cancelChecker)
-			throws BadLocationException {
-```
-
-### BoundedWildcard
 Can generalize to `? super DOMNode`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
 #### Snippet
@@ -2782,15 +2770,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsPro
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DOMNode`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+Can generalize to `? super SymbolInformation`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
 #### Snippet
 ```java
-	 */
-	private static List<TextEdit> renameElementsNamespace(DOMDocument document, List<TextEdit> edits,
-			List<DOMNode> elements, String oldNamespace, String newNamespace) {
-		int oldNamespaceLength = oldNamespace.length();
-		for (DOMNode node : elements) {
+	}
+
+	private void findSymbolInformations(DOMNode node, String container, List<SymbolInformation> symbols,
+			boolean ignoreNode, XMLSymbolFilter filter, boolean hasFilterForAttr, CancelChecker cancelChecker)
+			throws BadLocationException {
 ```
 
 ### BoundedWildcard
@@ -2803,6 +2791,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java
 	private static Hover mergeHover(List<Hover> hovers, Range defaultRange) {
 		if (hovers.isEmpty()) {
 			// no hover
+```
+
+### BoundedWildcard
+Can generalize to `? extends DOMNode`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+#### Snippet
+```java
+	 */
+	private static List<TextEdit> renameElementsNamespace(DOMDocument document, List<TextEdit> edits,
+			List<DOMNode> elements, String oldNamespace, String newNamespace) {
+		int oldNamespaceLength = oldNamespace.length();
+		for (DOMNode node : elements) {
 ```
 
 ### BoundedWildcard
@@ -2842,6 +2842,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFoldings.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? super FoldingRange`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFoldings.java`
+#### Snippet
+```java
+	}
+
+	private static int addRange(FoldingRange range, List<FoldingRange> ranges) {
+		ranges.add(range);
+		return range.getStartLine();
+```
+
+### BoundedWildcard
 Can generalize to `? super Integer`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFoldings.java`
 #### Snippet
@@ -2878,18 +2890,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFoldings.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? super FoldingRange`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFoldings.java`
-#### Snippet
-```java
-	}
-
-	private static int addRange(FoldingRange range, List<FoldingRange> ranges) {
-		ranges.add(range);
-		return range.getStartLine();
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/snippets/DocTypeSnippetContext.java`
 #### Snippet
@@ -2911,18 +2911,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/snippets/DocT
 	public boolean isMatch(ICompletionRequest request, Map<String, String> model) {
 		DOMDocument document = request.getXMLDocument();
 		DOMElement documentElement = document.getDocumentElement();
-```
-
-### BoundedWildcard
-Can generalize to `? super Location`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/participants/DTDReferenceParticipant.java`
-#### Snippet
-```java
-	@Override
-	protected void findReferences(DOMNode node, Position position, int offset, ReferenceContext context,
-			List<Location> locations, CancelChecker cancelChecker) {
-		// DTD reference works only when references is done on an <!ELEMENT name
-		if (!node.isDTDElementDecl()) {
 ```
 
 ### BoundedWildcard
@@ -2938,15 +2926,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/partici
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DocumentHighlight`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/participants/DTDHighlightingParticipant.java`
+Can generalize to `? super Location`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/participants/DTDReferenceParticipant.java`
 #### Snippet
 ```java
-
 	@Override
-	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
-			CancelChecker cancelChecker) {
-		boolean findReferences = false;
+	protected void findReferences(DOMNode node, Position position, int offset, ReferenceContext context,
+			List<Location> locations, CancelChecker cancelChecker) {
+		// DTD reference works only when references is done on an <!ELEMENT name
+		if (!node.isDTDElementDecl()) {
 ```
 
 ### BoundedWildcard
@@ -2962,6 +2950,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/partici
 ```
 
 ### BoundedWildcard
+Can generalize to `? super DocumentHighlight`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/participants/DTDHighlightingParticipant.java`
+#### Snippet
+```java
+
+	@Override
+	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
+			CancelChecker cancelChecker) {
+		boolean findReferences = false;
+```
+
+### BoundedWildcard
 Can generalize to `? super CodeLens`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/participants/DTDCodeLensParticipant.java`
 #### Snippet
@@ -2971,18 +2971,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/partici
 	public void doCodeLens(ICodeLensRequest request, List<CodeLens> lenses, CancelChecker cancelChecker) {
 		DOMDocument xmlDocument = request.getDocument();
 		// DTD CodeLens is applicable only for DTD or XML which defines a DOCTYPE
-```
-
-### BoundedWildcard
-Can generalize to `? super DTDGrammar`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/utils/DTDUtils.java`
-#### Snippet
-```java
-	}
-
-	private static void updateTracker(DTDGrammar grammar, Set<DTDGrammar> trackedGrammars,
-			FilesChangedTracker tracker) {
-		if (grammar == null || trackedGrammars.contains(grammar)) {
 ```
 
 ### BoundedWildcard
@@ -3010,15 +2998,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/utils/D
 ```
 
 ### BoundedWildcard
-Can generalize to `? super TextEdit`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
+Can generalize to `? super DTDGrammar`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/utils/DTDUtils.java`
 #### Snippet
 ```java
 	}
 
-	private void trimFinalNewlines(boolean insertFinalNewline, List<TextEdit> edits) {
-		String xml = textDocument.getText();
-		int end = xml.length() - 1;
+	private static void updateTracker(DTDGrammar grammar, Set<DTDGrammar> trackedGrammars,
+			FilesChangedTracker tracker) {
+		if (grammar == null || trackedGrammars.contains(grammar)) {
 ```
 
 ### BoundedWildcard
@@ -3034,15 +3022,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CMElementDeclaration`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDDocument.java`
+Can generalize to `? super TextEdit`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
 #### Snippet
 ```java
 	}
 
-	void collectElementsDeclaration(String elementName, List<CMElementDeclaration> elements) {
-		if (hierarchiesMap == null) {
-			return;
+	private void trimFinalNewlines(boolean insertFinalNewline, List<TextEdit> edits) {
+		String xml = textDocument.getText();
+		int end = xml.length() - 1;
 ```
 
 ### BoundedWildcard
@@ -3058,15 +3046,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/XSDAnnotationModel.java`
+Can generalize to `? super CMElementDeclaration`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDDocument.java`
 #### Snippet
 ```java
-		}
+	}
 
-		private static void addIfNonEmptyString(List<String> list, String str) {
-			if (!StringUtils.isEmpty(str)) {
-				list.add(str);
+	void collectElementsDeclaration(String elementName, List<CMElementDeclaration> elements) {
+		if (hierarchiesMap == null) {
+			return;
 ```
 
 ### BoundedWildcard
@@ -3082,27 +3070,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 ```
 
 ### BoundedWildcard
-Can generalize to `? super LocationLink`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDefinitionParticipant.java`
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/XSDAnnotationModel.java`
 #### Snippet
 ```java
+		}
 
-	@Override
-	protected void doFindDefinition(IDefinitionRequest request, List<LocationLink> locations,
-			CancelChecker cancelChecker) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super DocumentHighlight`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDHighlightingParticipant.java`
-#### Snippet
-```java
-
-	@Override
-	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
-			CancelChecker cancelChecker) {
-		// XSD highlight applicable only for XSD file
+		private static void addIfNonEmptyString(List<String> list, String str) {
+			if (!StringUtils.isEmpty(str)) {
+				list.add(str);
 ```
 
 ### BoundedWildcard
@@ -3130,6 +3106,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 ```
 
 ### BoundedWildcard
+Can generalize to `? super LocationLink`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDefinitionParticipant.java`
+#### Snippet
+```java
+
+	@Override
+	protected void doFindDefinition(IDefinitionRequest request, List<LocationLink> locations,
+			CancelChecker cancelChecker) {
+
+```
+
+### BoundedWildcard
 Can generalize to `? super CodeLens`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDCodeLensParticipant.java`
 #### Snippet
@@ -3142,27 +3130,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DocumentLink`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDocumentLinkParticipant.java`
+Can generalize to `? super DocumentHighlight`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDHighlightingParticipant.java`
 #### Snippet
 ```java
 
 	@Override
-	public void findDocumentLinks(DOMDocument document, List<DocumentLink> links) {
-		DOMElement root = document.getDocumentElement();
-		if (!XSDUtils.isXSSchema(root)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CMElementDeclaration`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-	 * @param elements
-	 */
-	void collectElement(XSElementDeclaration elementDeclaration, Collection<CMElementDeclaration> elements) {
-		XSObjectList list = getSubstitutionGroup(elementDeclaration);
-		if (list != null) {
+	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
+			CancelChecker cancelChecker) {
+		// XSD highlight applicable only for XSD file
 ```
 
 ### BoundedWildcard
@@ -3187,6 +3163,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions) {
 		codeActions.put(s4s_elt_invalid_content_3.getCode(), new s4s_elt_invalid_content_3CodeAction());
 		codeActions.put(src_import_1_2.getCode(), new src_import_1_2CodeAction());
+```
+
+### BoundedWildcard
+Can generalize to `? super DocumentLink`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDocumentLinkParticipant.java`
+#### Snippet
+```java
+
+	@Override
+	public void findDocumentLinks(DOMDocument document, List<DocumentLink> links) {
+		DOMElement root = document.getDocumentElement();
+		if (!XSDUtils.isXSSchema(root)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super CMElementDeclaration`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+	 * @param elements
+	 */
+	void collectElement(XSElementDeclaration elementDeclaration, Collection<CMElementDeclaration> elements) {
+		XSObjectList list = getSubstitutionGroup(elementDeclaration);
+		if (list != null) {
 ```
 
 ### BoundedWildcard
@@ -3298,6 +3298,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml
 ```
 
 ### BoundedWildcard
+Can generalize to `? super Location`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RNGReferenceParticipant.java`
+#### Snippet
+```java
+	@Override
+	protected void findReferences(DOMNode node, Position position, int offset, ReferenceContext context,
+			List<Location> locations, CancelChecker cancelChecker) {
+		DOMAttr attr = node.findAttrAt(offset);
+		if (attr != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Location`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RNGRenameParticipant.java`
 #### Snippet
@@ -3331,18 +3343,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/gra
 	public void doCodeLens(ICodeLensRequest request, List<CodeLens> lenses, CancelChecker cancelChecker) {
 		DOMDocument xmlDocument = request.getDocument();
 		// RNG types CodeLens is applicable only for rng files
-```
-
-### BoundedWildcard
-Can generalize to `? super Location`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RNGReferenceParticipant.java`
-#### Snippet
-```java
-	@Override
-	protected void findReferences(DOMNode node, Position position, int offset, ReferenceContext context,
-			List<Location> locations, CancelChecker cancelChecker) {
-		DOMAttr attr = node.findAttrAt(offset);
-		if (attr != null) {
 ```
 
 ### BoundedWildcard
@@ -3382,15 +3382,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/gra
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DocumentLink`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XIncludeDocumentLinkParticipant.java`
+Can generalize to `? super CMAttributeDeclaration`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
 #### Snippet
 ```java
-	}
 
-	public void findDocumentLinks(DOMNode parent, DOMDocument document, List<DocumentLink> links) {
-		for (DOMNode child : parent.getChildren()) {
-			if (child.isElement()) {
+	private void collectAttributesDeclaration(XSComplexTypeDefinition typeDefinition,
+			Collection<CMAttributeDeclaration> attributes) {
+		XSObjectList list = typeDefinition.getAttributeUses();
+		if (list != null) {
 ```
 
 ### BoundedWildcard
@@ -3406,15 +3406,39 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/pa
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CMAttributeDeclaration`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
+Can generalize to `? super DocumentLink`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XIncludeDocumentLinkParticipant.java`
+#### Snippet
+```java
+	}
+
+	public void findDocumentLinks(DOMNode parent, DOMDocument document, List<DocumentLink> links) {
+		for (DOMNode child : parent.getChildren()) {
+			if (child.isElement()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super SchemaGrammar`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
+#### Snippet
+```java
+	}
+
+	private static void updateTracker(SchemaGrammar grammar, Set<SchemaGrammar> trackedGrammars,
+			Set<String> trackedURIs, FilesChangedTracker tracker) {
+		if (grammar == null || trackedGrammars.contains(grammar)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
 #### Snippet
 ```java
 
-	private void collectAttributesDeclaration(XSComplexTypeDefinition typeDefinition,
-			Collection<CMAttributeDeclaration> attributes) {
-		XSObjectList list = typeDefinition.getAttributeUses();
-		if (list != null) {
+	private static void updateTracker(SchemaGrammar grammar, Set<SchemaGrammar> trackedGrammars,
+			Set<String> trackedURIs, FilesChangedTracker tracker) {
+		if (grammar == null || trackedGrammars.contains(grammar)) {
+			return;
 ```
 
 ### BoundedWildcard
@@ -3502,30 +3526,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/X
 ```
 
 ### BoundedWildcard
-Can generalize to `? super SchemaGrammar`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
-#### Snippet
-```java
-	}
-
-	private static void updateTracker(SchemaGrammar grammar, Set<SchemaGrammar> trackedGrammars,
-			Set<String> trackedURIs, FilesChangedTracker tracker) {
-		if (grammar == null || trackedGrammars.contains(grammar)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
-#### Snippet
-```java
-
-	private static void updateTracker(SchemaGrammar grammar, Set<SchemaGrammar> trackedGrammars,
-			Set<String> trackedURIs, FilesChangedTracker tracker) {
-		if (grammar == null || trackedGrammars.contains(grammar)) {
-			return;
-```
-
-### BoundedWildcard
 Can generalize to `? super DOMAttr`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
 #### Snippet
@@ -3535,18 +3535,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/X
 	private static void addTargetNode(DOMNode node, List<DOMAttr> targetAttrs) {
 		DOMAttr attr = null;
 		switch (node.getNodeType()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Cardinality`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2xsd/XML2XMLSchemaGenerator.java`
-#### Snippet
-```java
-	}
-
-	private static boolean allChildrenAreOptional(Collection<Cardinality> values) {
-		return values.stream().allMatch(cardinality -> cardinality.getMin() == 0);
-	}
 ```
 
 ### BoundedWildcard
@@ -3562,6 +3550,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Cardinality`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2xsd/XML2XMLSchemaGenerator.java`
+#### Snippet
+```java
+	}
+
+	private static boolean allChildrenAreOptional(Collection<Cardinality> values) {
+		return values.stream().allMatch(cardinality -> cardinality.getMin() == 0);
+	}
+```
+
+### BoundedWildcard
 Can generalize to `? super String`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchEngine.java`
 #### Snippet
@@ -3574,15 +3574,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DocumentHighlight`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesHighlightingParticipant.java`
+Can generalize to `? super CodeLens`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesCodeLensParticipant.java`
 #### Snippet
 ```java
 
 	@Override
-	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
-			CancelChecker cancelChecker) {
-		// Create the from query for the node which needs to perform the search.
+	public void doCodeLens(ICodeLensRequest request, List<CodeLens> lenses, CancelChecker cancelChecker) {
+		DOMDocument document = request.getDocument();
+		Collection<ReferenceLink> links = SearchEngine.getInstance().searchLinks(document,
 ```
 
 ### BoundedWildcard
@@ -3595,6 +3595,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 	public void findLinkedEditingRanges(ILinkedEditingRangesRequest request, List<Range> ranges,
 			CancelChecker cancelChecker) {
 		if (request.getNode() == null || request.getNode().isOwnerDocument()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super DocumentHighlight`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesHighlightingParticipant.java`
+#### Snippet
+```java
+
+	@Override
+	public void findDocumentHighlights(DOMNode node, Position position, int offset, List<DocumentHighlight> highlights,
+			CancelChecker cancelChecker) {
+		// Create the from query for the node which needs to perform the search.
 ```
 
 ### BoundedWildcard
@@ -3646,18 +3658,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 ```
 
 ### BoundedWildcard
-Can generalize to `? super CodeLens`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesCodeLensParticipant.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeLens(ICodeLensRequest request, List<CodeLens> lenses, CancelChecker cancelChecker) {
-		DOMDocument document = request.getDocument();
-		Collection<ReferenceLink> links = SearchEngine.getInstance().searchLinks(document,
-```
-
-### BoundedWildcard
 Can generalize to `? super ReferencedGrammarInfo`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
 #### Snippet
@@ -3679,18 +3679,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 	protected void doFindTypeDefinition(ITypeDefinitionRequest request, List<LocationLink> locations,
 			CancelChecker cancelChecker) {
 		ContentModelManager contentModelManager = request.getComponent(ContentModelManager.class);
-```
-
-### BoundedWildcard
-Can generalize to `? super DocumentLink`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelDocumentLinkParticipant.java`
-#### Snippet
-```java
-
-	@Override
-	public void findDocumentLinks(DOMDocument document, List<DocumentLink> links) {
-		// Document link for DTD
-		DOMDocumentType docType = document.getDoctype();
 ```
 
 ### BoundedWildcard
@@ -3730,6 +3718,90 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### BoundedWildcard
+Can generalize to `? super DocumentLink`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelDocumentLinkParticipant.java`
+#### Snippet
+```java
+
+	@Override
+	public void findDocumentLinks(DOMDocument document, List<DocumentLink> links) {
+		// Document link for DTD
+		DOMDocumentType docType = document.getDoctype();
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
+#### Snippet
+```java
+	}
+
+	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
+			SharedSettings sharedSettings) {
+		codeActions.put(ElementDeclUnterminated.getCode(), new ElementDeclUnterminatedCodeAction());
+```
+
+### BoundedWildcard
+Can generalize to `? super ICodeActionParticipant`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
+#### Snippet
+```java
+	}
+
+	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
+			SharedSettings sharedSettings) {
+		codeActions.put(ElementDeclUnterminated.getCode(), new ElementDeclUnterminatedCodeAction());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
+#### Snippet
+```java
+	}
+
+	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
+			SharedSettings sharedSettings) {
+		codeActions.put(ETagUnterminated.getCode(), new ETagUnterminatedCodeAction());
+```
+
+### BoundedWildcard
+Can generalize to `? super ICodeActionParticipant`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
+#### Snippet
+```java
+	}
+
+	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
+			SharedSettings sharedSettings) {
+		codeActions.put(ETagUnterminated.getCode(), new ETagUnterminatedCodeAction());
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_1CodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super MarkupContent`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
+#### Snippet
+```java
+	}
+
+	private static void fillHoverContent(MarkupContent content, List<MarkupContent> contents) {
+		if (content != null && !StringUtils.isEmpty(content.getValue())) {
+			contents.add(content);
+```
+
+### BoundedWildcard
 Can generalize to `? super CodeLens`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelCodeLensParticipant.java`
 #### Snippet
@@ -3751,78 +3823,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 	private void createReferencedGrammarLenses(ICodeLensRequest request, List<CodeLens> lenses) {
 		DOMDocument document = request.getDocument();
 		if (!document.hasGrammar()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
-#### Snippet
-```java
-	}
-
-	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
-			SharedSettings sharedSettings) {
-		codeActions.put(ElementDeclUnterminated.getCode(), new ElementDeclUnterminatedCodeAction());
-```
-
-### BoundedWildcard
-Can generalize to `? super ICodeActionParticipant`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
-#### Snippet
-```java
-	}
-
-	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
-			SharedSettings sharedSettings) {
-		codeActions.put(ElementDeclUnterminated.getCode(), new ElementDeclUnterminatedCodeAction());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
-#### Snippet
-```java
-	}
-
-	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
-			SharedSettings sharedSettings) {
-		codeActions.put(ETagUnterminated.getCode(), new ETagUnterminatedCodeAction());
-```
-
-### BoundedWildcard
-Can generalize to `? super ICodeActionParticipant`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
-#### Snippet
-```java
-	}
-
-	public static void registerCodeActionParticipants(Map<String, ICodeActionParticipant> codeActions,
-			SharedSettings sharedSettings) {
-		codeActions.put(ETagUnterminated.getCode(), new ETagUnterminatedCodeAction());
-```
-
-### BoundedWildcard
-Can generalize to `? super MarkupContent`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
-#### Snippet
-```java
-	}
-
-	private static void fillHoverContent(MarkupContent content, List<MarkupContent> contents) {
-		if (content != null && !StringUtils.isEmpty(content.getValue())) {
-			contents.add(content);
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_1CodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
 ```
 
 ### BoundedWildcard
@@ -3862,6 +3862,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/SemicolonRequiredInReferenceCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_2CodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
 Can generalize to `? extends CMAttributeDeclaration`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
 #### Snippet
@@ -3895,6 +3931,90 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			HashMap<CMElementDeclaration, List<CMElementDeclaration>> generatedElements) {
 		for (CMElementDeclaration child : children) {
 			if (generatedElements.get(child) != null
+```
+
+### BoundedWildcard
+Can generalize to `? extends CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_4CodeAction.java`
+#### Snippet
+```java
+	}
+
+	private boolean codeAlreadyActionExists(List<CodeAction> codeActions, Diagnostic diagnostic) {
+		for (CodeAction codeAction : codeActions) {
+			for (Diagnostic codeActionDiagnostic : codeAction.getDiagnostics()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/OpenQuoteExpectedCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_elt_1_aCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		DOMDocument document = request.getDocument();
+		Diagnostic diagnostic = request.getDiagnostic();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/s4s_elt_invalid_content_3CodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
+```
+
+### BoundedWildcard
+Can generalize to `? super TextEdit`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
+#### Snippet
+```java
+	}
+
+	private void addTextEdits(DOMElement root, String newText, List<TextEdit> replace) {
+		replace.add(new TextEdit(XMLPositionUtility.selectStartTagName(root), newText));
+
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_2_4_aCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		Diagnostic diagnostic = request.getDiagnostic();
+		DOMDocument document = request.getDocument();
 ```
 
 ### BoundedWildcard
@@ -3934,18 +4054,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/uti
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DOMAttr`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
-#### Snippet
-```java
-	 * @param targetAttrs the list of referenced nodes.
-	 */
-	private static void addTargetNode(DOMNode node, List<DOMAttr> targetAttrs) {
-		DOMAttr attr = null;
-		switch (node.getNodeType()) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends DOMAttr`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
 #### Snippet
@@ -3982,8 +4090,20 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/uti
 ```
 
 ### BoundedWildcard
+Can generalize to `? super DOMAttr`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+#### Snippet
+```java
+	 * @param targetAttrs the list of referenced nodes.
+	 */
+	private static void addTargetNode(DOMNode node, List<DOMAttr> targetAttrs) {
+		DOMAttr attr = null;
+		switch (node.getNodeType()) {
+```
+
+### BoundedWildcard
 Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/SemicolonRequiredInReferenceCodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/FixMissingSpaceCodeAction.java`
 #### Snippet
 ```java
 
@@ -3995,7 +4115,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### BoundedWildcard
 Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_2CodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/ElementDeclUnterminatedCodeAction.java`
 #### Snippet
 ```java
 
@@ -4007,31 +4127,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### BoundedWildcard
 Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/OpenQuoteExpectedCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_2_4_aCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_type_3_1_1CodeAction.java`
 #### Snippet
 ```java
 
@@ -4063,6 +4159,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			XMLGenerator generator, Set<String> tags, Set<CMElementDeclaration> processedElements) {
 		for (CMElementDeclaration child : elements) {
 			if (!processedElements.contains(child)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CMDocument`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelCompletionParticipant.java`
+#### Snippet
+```java
+	}
+
+	private boolean hasNamespace(String namespaceURI, Collection<CMDocument> cmRootDocuments) {
+		if (cmRootDocuments.isEmpty()) {
+			return false;
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelCompletionParticipant.java`
+#### Snippet
+```java
+	private static void addTagCompletionItem(CMElementDeclaration elementDeclaration, DOMElement parentElement,
+			String defaultPrefix, boolean forceUseOfPrefix, ICompletionRequest request, ICompletionResponse response,
+			XMLGenerator generator, Set<String> tags) {
+		String prefix = forceUseOfPrefix ? defaultPrefix
+				: (parentElement != null ? parentElement.getPrefix(elementDeclaration.getNamespace()) : null);
 ```
 
 ### BoundedWildcard
@@ -4102,32 +4222,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CMDocument`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelCompletionParticipant.java`
-#### Snippet
-```java
-	}
-
-	private boolean hasNamespace(String namespaceURI, Collection<CMDocument> cmRootDocuments) {
-		if (cmRootDocuments.isEmpty()) {
-			return false;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelCompletionParticipant.java`
-#### Snippet
-```java
-	private static void addTagCompletionItem(CMElementDeclaration elementDeclaration, DOMElement parentElement,
-			String defaultPrefix, boolean forceUseOfPrefix, ICompletionRequest request, ICompletionResponse response,
-			XMLGenerator generator, Set<String> tags) {
-		String prefix = forceUseOfPrefix ? defaultPrefix
-				: (parentElement != null ? parentElement.getPrefix(elementDeclaration.getNamespace()) : null);
-```
-
-### BoundedWildcard
 Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/FixMissingSpaceCodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/DownloadDisabledResourceCodeAction.java`
 #### Snippet
 ```java
 
@@ -4135,107 +4231,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
 		Diagnostic diagnostic = request.getDiagnostic();
 		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/s4s_elt_invalid_content_3CodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_elt_1_aCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		DOMDocument document = request.getDocument();
-		Diagnostic diagnostic = request.getDiagnostic();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_4CodeAction.java`
-#### Snippet
-```java
-	}
-
-	private boolean codeAlreadyActionExists(List<CodeAction> codeActions, Diagnostic diagnostic) {
-		for (CodeAction codeAction : codeActions) {
-			for (Diagnostic codeActionDiagnostic : codeAction.getDiagnostics()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/ElementDeclUnterminatedCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super TextEdit`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
-#### Snippet
-```java
-	}
-
-	private void addTextEdits(DOMElement root, String newText, List<TextEdit> replace) {
-		replace.add(new TextEdit(XMLPositionUtility.selectStartTagName(root), newText));
-
 ```
 
 ### BoundedWildcard
 Can generalize to `? super CodeAction`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EqRequiredInAttributeCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_type_3_1_1CodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		Diagnostic diagnostic = request.getDiagnostic();
-		DOMDocument document = request.getDocument();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/DownloadDisabledResourceCodeAction.java`
 #### Snippet
 ```java
 
@@ -4307,42 +4307,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### BoundedWildcard
 Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
-#### Snippet
-```java
-	 */
-	private void addEntityCodeAction(String entityName, Diagnostic diagnostic, DOMDocument document,
-			SharedSettings settings, List<CodeAction> codeActions) throws BadLocationException {
-
-		DOMDocumentType docType = document.getDoctype();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
-#### Snippet
-```java
-	 */
-	private void addDoctypeAndEntityCodeAction(String entityName, Diagnostic diagnostic, DOMDocument document,
-			SharedSettings settings, List<CodeAction> codeActions) throws BadLocationException {
-		Position insertPosition = getDoctypeInsertPosition(document);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/missingelement/required_elements_missing_expectedCodeAction.java`
-#### Snippet
-```java
-
-	@Override
-	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
-		DOMDocument document = request.getDocument();
-		Diagnostic diagnostic = request.getDiagnostic();
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/missinggrammar/AbstractFixMissingGrammarCodeAction.java`
 #### Snippet
 ```java
@@ -4367,6 +4331,54 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### BoundedWildcard
 Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/missingelement/required_elements_missing_expectedCodeAction.java`
+#### Snippet
+```java
+
+	@Override
+	public void doCodeAction(ICodeActionRequest request, List<CodeAction> codeActions, CancelChecker cancelChecker) {
+		DOMDocument document = request.getDocument();
+		Diagnostic diagnostic = request.getDiagnostic();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
+#### Snippet
+```java
+	 */
+	private void addDoctypeAndEntityCodeAction(String entityName, Diagnostic diagnostic, DOMDocument document,
+			SharedSettings settings, List<CodeAction> codeActions) throws BadLocationException {
+		Position insertPosition = getDoctypeInsertPosition(document);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
+#### Snippet
+```java
+	 */
+	private void addEntityCodeAction(String entityName, Diagnostic diagnostic, DOMDocument document,
+			SharedSettings settings, List<CodeAction> codeActions) throws BadLocationException {
+
+		DOMDocumentType docType = document.getDoctype();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
+#### Snippet
+```java
+	 */
+	private void doCodeActionsForStartTagUnclosed(DOMElement element, DOMDocument document, Range diagnosticRange,
+			Diagnostic diagnostic, List<CodeAction> codeActions) throws BadLocationException {
+		// Here start tag element is not closed with '>'.
+		String text = document.getText();
+```
+
+### BoundedWildcard
+Can generalize to `? super CodeAction`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
 #### Snippet
 ```java
@@ -4387,18 +4399,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			List<CodeAction> codeActions) throws BadLocationException {
 		// ex: <foo> </foo
 		Position endTagPosition = document
-```
-
-### BoundedWildcard
-Can generalize to `? super CodeAction`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
-#### Snippet
-```java
-	 */
-	private void doCodeActionsForStartTagUnclosed(DOMElement element, DOMDocument document, Range diagnosticRange,
-			Diagnostic diagnostic, List<CodeAction> codeActions) throws BadLocationException {
-		// Here start tag element is not closed with '>'.
-		String text = document.getText();
 ```
 
 ### BoundedWildcard
@@ -4443,11 +4443,11 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
+	public final static int _QMA = "?".codePointAt(0);
+	public final static int _XVL = "x".codePointAt(0);
 	public final static int _mVL = "m".codePointAt(0);
 	public final static int _lVL = "l".codePointAt(0);
 	public final static int _PCT = "%".codePointAt(0);
-	public final static int _AST = "*".codePointAt(0);
-	public final static int _PLS = "+".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4455,311 +4455,11 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _TAB = "\t".codePointAt(0);
-	public final static int _OSB = "[".codePointAt(0);
-	public final static int _CSB = "]".codePointAt(0);
-	public final static int _ORB = "(".codePointAt(0);
-	public final static int _CRB = ")".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _UDS = "_".codePointAt(0);
-	public final static int _DDT = ":".codePointAt(0);
-	public final static int _DOT = ".".codePointAt(0);
-	public final static int _LAN = "<".codePointAt(0);
-	public final static int _RAN = ">".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _LVL = "L".codePointAt(0);
-	public final static int _MVL = "M".codePointAt(0);
-	public final static int _NVL = "N".codePointAt(0);
-	public final static int _IVL = "I".codePointAt(0);
-	public final static int _SVL = "S".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _NWL = "\n".codePointAt(0);
-	public final static int _CAR = "\r".codePointAt(0);
-	public final static int _LFD = "\f".codePointAt(0);
-	public final static int _WSP = " ".codePointAt(0);
-	public final static int _TAB = "\t".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _CRB = ")".codePointAt(0);
-	public final static int _OCB = "{".codePointAt(0);
-	public final static int _CCB = "}".codePointAt(0);
-	public final static int _CVL = "C".codePointAt(0);
 	public final static int _DVL = "D".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _EVL = "E".codePointAt(0);
-	public final static int _LVL = "L".codePointAt(0);
-	public final static int _MVL = "M".codePointAt(0);
-	public final static int _NVL = "N".codePointAt(0);
-	public final static int _IVL = "I".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _MVL = "M".codePointAt(0);
-	public final static int _NVL = "N".codePointAt(0);
-	public final static int _IVL = "I".codePointAt(0);
-	public final static int _SVL = "S".codePointAt(0);
-	public final static int _QMA = "?".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _RAN = ">".codePointAt(0);
-	public final static int _FSL = "/".codePointAt(0);
-	public final static int _EQS = "=".codePointAt(0);
-	public final static int _CMA = ",".codePointAt(0);
-	public final static int _DQO = "\"".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
 	public final static int _AVL = "A".codePointAt(0);
 	public final static int _TVL = "T".codePointAt(0);
 	public final static int _OVL = "O".codePointAt(0);
 	public final static int _YVL = "Y".codePointAt(0);
-	public final static int _PVL = "P".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _DQO = "\"".codePointAt(0);
-	public final static int _SQO = "\"".codePointAt(0);
-	public final static int _SIQ = "\'".codePointAt(0);
-	public final static int _NWL = "\n".codePointAt(0);
-	public final static int _CAR = "\r".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _OVL = "O".codePointAt(0);
-	public final static int _YVL = "Y".codePointAt(0);
-	public final static int _PVL = "P".codePointAt(0);
-	public final static int _EVL = "E".codePointAt(0);
-	public final static int _LVL = "L".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _WSP = " ".codePointAt(0);
-	public final static int _TAB = "\t".codePointAt(0);
-	public final static int _OSB = "[".codePointAt(0);
-	public final static int _CSB = "]".codePointAt(0);
-	public final static int _ORB = "(".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _DDT = ":".codePointAt(0);
-	public final static int _DOT = ".".codePointAt(0);
-	public final static int _LAN = "<".codePointAt(0);
-	public final static int _RAN = ">".codePointAt(0);
-	public final static int _FSL = "/".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _XVL = "x".codePointAt(0);
-	public final static int _mVL = "m".codePointAt(0);
-	public final static int _lVL = "l".codePointAt(0);
-	public final static int _PCT = "%".codePointAt(0);
-	public final static int _AST = "*".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _ORB = "(".codePointAt(0);
-	public final static int _CRB = ")".codePointAt(0);
-	public final static int _OCB = "{".codePointAt(0);
-	public final static int _CCB = "}".codePointAt(0);
-	public final static int _CVL = "C".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _MIN = "-".codePointAt(0);
-	public final static int _UDS = "_".codePointAt(0);
-	public final static int _DDT = ":".codePointAt(0);
-	public final static int _DOT = ".".codePointAt(0);
-	public final static int _LAN = "<".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _SIQ = "\'".codePointAt(0);
-	public final static int _NWL = "\n".codePointAt(0);
-	public final static int _CAR = "\r".codePointAt(0);
-	public final static int _LFD = "\f".codePointAt(0);
-	public final static int _WSP = " ".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _SQO = "\"".codePointAt(0);
-	public final static int _SIQ = "\'".codePointAt(0);
-	public final static int _NWL = "\n".codePointAt(0);
-	public final static int _CAR = "\r".codePointAt(0);
-	public final static int _LFD = "\f".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _IVL = "I".codePointAt(0);
-	public final static int _SVL = "S".codePointAt(0);
-	public final static int _QMA = "?".codePointAt(0);
-	public final static int _XVL = "x".codePointAt(0);
-	public final static int _mVL = "m".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _TVL = "T".codePointAt(0);
-	public final static int _OVL = "O".codePointAt(0);
-	public final static int _YVL = "Y".codePointAt(0);
-	public final static int _PVL = "P".codePointAt(0);
-	public final static int _EVL = "E".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _SVL = "S".codePointAt(0);
-	public final static int _QMA = "?".codePointAt(0);
-	public final static int _XVL = "x".codePointAt(0);
-	public final static int _mVL = "m".codePointAt(0);
-	public final static int _lVL = "l".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _PVL = "P".codePointAt(0);
-	public final static int _EVL = "E".codePointAt(0);
-	public final static int _LVL = "L".codePointAt(0);
-	public final static int _MVL = "M".codePointAt(0);
-	public final static int _NVL = "N".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _DOT = ".".codePointAt(0);
-	public final static int _LAN = "<".codePointAt(0);
-	public final static int _RAN = ">".codePointAt(0);
-	public final static int _FSL = "/".codePointAt(0);
-	public final static int _EQS = "=".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-
-	public final static int _EXL = "!".codePointAt(0);
-	public final static int _MIN = "-".codePointAt(0);
-	public final static int _UDS = "_".codePointAt(0);
-	public final static int _DDT = ":".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _EXL = "!".codePointAt(0);
-	public final static int _MIN = "-".codePointAt(0);
-	public final static int _UDS = "_".codePointAt(0);
-	public final static int _DDT = ":".codePointAt(0);
-	public final static int _DOT = ".".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _QMA = "?".codePointAt(0);
-	public final static int _XVL = "x".codePointAt(0);
-	public final static int _mVL = "m".codePointAt(0);
-	public final static int _lVL = "l".codePointAt(0);
-	public final static int _PCT = "%".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4779,11 +4479,11 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _FSL = "/".codePointAt(0);
-	public final static int _EQS = "=".codePointAt(0);
-	public final static int _CMA = ",".codePointAt(0);
-	public final static int _DQO = "\"".codePointAt(0);
-	public final static int _SQO = "\"".codePointAt(0);
+	public final static int _UDS = "_".codePointAt(0);
+	public final static int _DDT = ":".codePointAt(0);
+	public final static int _DOT = ".".codePointAt(0);
+	public final static int _LAN = "<".codePointAt(0);
+	public final static int _RAN = ">".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4803,11 +4503,23 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _NVL = "N".codePointAt(0);
-	public final static int _IVL = "I".codePointAt(0);
-	public final static int _SVL = "S".codePointAt(0);
-	public final static int _QMA = "?".codePointAt(0);
-	public final static int _XVL = "x".codePointAt(0);
+	public final static int _OCB = "{".codePointAt(0);
+	public final static int _CCB = "}".codePointAt(0);
+	public final static int _CVL = "C".codePointAt(0);
+	public final static int _DVL = "D".codePointAt(0);
+	public final static int _AVL = "A".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _SIQ = "\'".codePointAt(0);
+	public final static int _NWL = "\n".codePointAt(0);
+	public final static int _CAR = "\r".codePointAt(0);
+	public final static int _LFD = "\f".codePointAt(0);
+	public final static int _WSP = " ".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4827,11 +4539,107 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _LAN = "<".codePointAt(0);
-	public final static int _RAN = ">".codePointAt(0);
+	public final static int _DQO = "\"".codePointAt(0);
+	public final static int _SQO = "\"".codePointAt(0);
+	public final static int _SIQ = "\'".codePointAt(0);
+	public final static int _NWL = "\n".codePointAt(0);
+	public final static int _CAR = "\r".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _ORB = "(".codePointAt(0);
+	public final static int _CRB = ")".codePointAt(0);
+	public final static int _OCB = "{".codePointAt(0);
+	public final static int _CCB = "}".codePointAt(0);
+	public final static int _CVL = "C".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _LFD = "\f".codePointAt(0);
+	public final static int _WSP = " ".codePointAt(0);
+	public final static int _TAB = "\t".codePointAt(0);
+	public final static int _OSB = "[".codePointAt(0);
+	public final static int _CSB = "]".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _XVL = "x".codePointAt(0);
+	public final static int _mVL = "m".codePointAt(0);
+	public final static int _lVL = "l".codePointAt(0);
+	public final static int _PCT = "%".codePointAt(0);
+	public final static int _AST = "*".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _CVL = "C".codePointAt(0);
+	public final static int _DVL = "D".codePointAt(0);
+	public final static int _AVL = "A".codePointAt(0);
+	public final static int _TVL = "T".codePointAt(0);
+	public final static int _OVL = "O".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
 	public final static int _FSL = "/".codePointAt(0);
 	public final static int _EQS = "=".codePointAt(0);
 	public final static int _CMA = ",".codePointAt(0);
+	public final static int _DQO = "\"".codePointAt(0);
+	public final static int _SQO = "\"".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _SVL = "S".codePointAt(0);
+	public final static int _QMA = "?".codePointAt(0);
+	public final static int _XVL = "x".codePointAt(0);
+	public final static int _mVL = "m".codePointAt(0);
+	public final static int _lVL = "l".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _MVL = "M".codePointAt(0);
+	public final static int _NVL = "N".codePointAt(0);
+	public final static int _IVL = "I".codePointAt(0);
+	public final static int _SVL = "S".codePointAt(0);
+	public final static int _QMA = "?".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _DDT = ":".codePointAt(0);
+	public final static int _DOT = ".".codePointAt(0);
+	public final static int _LAN = "<".codePointAt(0);
+	public final static int _RAN = ">".codePointAt(0);
+	public final static int _FSL = "/".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4851,71 +4659,11 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _CCB = "}".codePointAt(0);
-	public final static int _CVL = "C".codePointAt(0);
-	public final static int _DVL = "D".codePointAt(0);
-	public final static int _AVL = "A".codePointAt(0);
-	public final static int _TVL = "T".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _CVL = "C".codePointAt(0);
-	public final static int _DVL = "D".codePointAt(0);
-	public final static int _AVL = "A".codePointAt(0);
-	public final static int _TVL = "T".codePointAt(0);
-	public final static int _OVL = "O".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
+	public final static int _TAB = "\t".codePointAt(0);
+	public final static int _OSB = "[".codePointAt(0);
 	public final static int _CSB = "]".codePointAt(0);
 	public final static int _ORB = "(".codePointAt(0);
 	public final static int _CRB = ")".codePointAt(0);
-	public final static int _OCB = "{".codePointAt(0);
-	public final static int _CCB = "}".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _CAR = "\r".codePointAt(0);
-	public final static int _LFD = "\f".codePointAt(0);
-	public final static int _WSP = " ".codePointAt(0);
-	public final static int _TAB = "\t".codePointAt(0);
-	public final static int _OSB = "[".codePointAt(0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _PCT = "%".codePointAt(0);
-	public final static int _AST = "*".codePointAt(0);
-	public final static int _PLS = "+".codePointAt(0);
-
-	public static final Pattern ENTITY_NAME_REGEX = Pattern.compile("");
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
-#### Snippet
-```java
-	public final static int _OCB = "{".codePointAt(0);
-	public final static int _CCB = "}".codePointAt(0);
-	public final static int _CVL = "C".codePointAt(0);
-	public final static int _DVL = "D".codePointAt(0);
-	public final static int _AVL = "A".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4935,11 +4683,11 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
+	public final static int _CCB = "}".codePointAt(0);
+	public final static int _CVL = "C".codePointAt(0);
 	public final static int _DVL = "D".codePointAt(0);
 	public final static int _AVL = "A".codePointAt(0);
 	public final static int _TVL = "T".codePointAt(0);
-	public final static int _OVL = "O".codePointAt(0);
-	public final static int _YVL = "Y".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4947,11 +4695,239 @@ Missorted modifiers `final static`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
 #### Snippet
 ```java
-	public final static int _LFD = "\f".codePointAt(0);
+	public final static int _CSB = "]".codePointAt(0);
+	public final static int _ORB = "(".codePointAt(0);
+	public final static int _CRB = ")".codePointAt(0);
+	public final static int _OCB = "{".codePointAt(0);
+	public final static int _CCB = "}".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
 	public final static int _WSP = " ".codePointAt(0);
 	public final static int _TAB = "\t".codePointAt(0);
 	public final static int _OSB = "[".codePointAt(0);
 	public final static int _CSB = "]".codePointAt(0);
+	public final static int _ORB = "(".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _TVL = "T".codePointAt(0);
+	public final static int _OVL = "O".codePointAt(0);
+	public final static int _YVL = "Y".codePointAt(0);
+	public final static int _PVL = "P".codePointAt(0);
+	public final static int _EVL = "E".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _IVL = "I".codePointAt(0);
+	public final static int _SVL = "S".codePointAt(0);
+	public final static int _QMA = "?".codePointAt(0);
+	public final static int _XVL = "x".codePointAt(0);
+	public final static int _mVL = "m".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _SQO = "\"".codePointAt(0);
+	public final static int _SIQ = "\'".codePointAt(0);
+	public final static int _NWL = "\n".codePointAt(0);
+	public final static int _CAR = "\r".codePointAt(0);
+	public final static int _LFD = "\f".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _RAN = ">".codePointAt(0);
+	public final static int _FSL = "/".codePointAt(0);
+	public final static int _EQS = "=".codePointAt(0);
+	public final static int _CMA = ",".codePointAt(0);
+	public final static int _DQO = "\"".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _EVL = "E".codePointAt(0);
+	public final static int _LVL = "L".codePointAt(0);
+	public final static int _MVL = "M".codePointAt(0);
+	public final static int _NVL = "N".codePointAt(0);
+	public final static int _IVL = "I".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _LAN = "<".codePointAt(0);
+	public final static int _RAN = ">".codePointAt(0);
+	public final static int _FSL = "/".codePointAt(0);
+	public final static int _EQS = "=".codePointAt(0);
+	public final static int _CMA = ",".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _DOT = ".".codePointAt(0);
+	public final static int _LAN = "<".codePointAt(0);
+	public final static int _RAN = ">".codePointAt(0);
+	public final static int _FSL = "/".codePointAt(0);
+	public final static int _EQS = "=".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _mVL = "m".codePointAt(0);
+	public final static int _lVL = "l".codePointAt(0);
+	public final static int _PCT = "%".codePointAt(0);
+	public final static int _AST = "*".codePointAt(0);
+	public final static int _PLS = "+".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _NVL = "N".codePointAt(0);
+	public final static int _IVL = "I".codePointAt(0);
+	public final static int _SVL = "S".codePointAt(0);
+	public final static int _QMA = "?".codePointAt(0);
+	public final static int _XVL = "x".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _MIN = "-".codePointAt(0);
+	public final static int _UDS = "_".codePointAt(0);
+	public final static int _DDT = ":".codePointAt(0);
+	public final static int _DOT = ".".codePointAt(0);
+	public final static int _LAN = "<".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _EXL = "!".codePointAt(0);
+	public final static int _MIN = "-".codePointAt(0);
+	public final static int _UDS = "_".codePointAt(0);
+	public final static int _DDT = ":".codePointAt(0);
+	public final static int _DOT = ".".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+
+	public final static int _EXL = "!".codePointAt(0);
+	public final static int _MIN = "-".codePointAt(0);
+	public final static int _UDS = "_".codePointAt(0);
+	public final static int _DDT = ":".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _AVL = "A".codePointAt(0);
+	public final static int _TVL = "T".codePointAt(0);
+	public final static int _OVL = "O".codePointAt(0);
+	public final static int _YVL = "Y".codePointAt(0);
+	public final static int _PVL = "P".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _PCT = "%".codePointAt(0);
+	public final static int _AST = "*".codePointAt(0);
+	public final static int _PLS = "+".codePointAt(0);
+
+	public static final Pattern ENTITY_NAME_REGEX = Pattern.compile("");
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _CRB = ")".codePointAt(0);
+	public final static int _OCB = "{".codePointAt(0);
+	public final static int _CCB = "}".codePointAt(0);
+	public final static int _CVL = "C".codePointAt(0);
+	public final static int _DVL = "D".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _PVL = "P".codePointAt(0);
+	public final static int _EVL = "E".codePointAt(0);
+	public final static int _LVL = "L".codePointAt(0);
+	public final static int _MVL = "M".codePointAt(0);
+	public final static int _NVL = "N".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _OVL = "O".codePointAt(0);
+	public final static int _YVL = "Y".codePointAt(0);
+	public final static int _PVL = "P".codePointAt(0);
+	public final static int _EVL = "E".codePointAt(0);
+	public final static int _LVL = "L".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _LVL = "L".codePointAt(0);
+	public final static int _MVL = "M".codePointAt(0);
+	public final static int _NVL = "N".codePointAt(0);
+	public final static int _IVL = "I".codePointAt(0);
+	public final static int _SVL = "S".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -4964,6 +4940,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.j
 	public final static int _EVL = "E".codePointAt(0);
 	public final static int _LVL = "L".codePointAt(0);
 	public final static int _MVL = "M".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _NWL = "\n".codePointAt(0);
+	public final static int _CAR = "\r".codePointAt(0);
+	public final static int _LFD = "\f".codePointAt(0);
+	public final static int _WSP = " ".codePointAt(0);
+	public final static int _TAB = "\t".codePointAt(0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/Constants.java`
+#### Snippet
+```java
+	public final static int _CAR = "\r".codePointAt(0);
+	public final static int _LFD = "\f".codePointAt(0);
+	public final static int _WSP = " ".codePointAt(0);
+	public final static int _TAB = "\t".codePointAt(0);
+	public final static int _OSB = "[".codePointAt(0);
 ```
 
 ### MissortedModifiers
@@ -5088,14 +5088,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XI
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesDiagnosticParticipant.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesErrorCode.java`
 #### Snippet
 ```java
-public class XMLReferencesDiagnosticParticipant implements IDiagnosticsParticipant {
+	}
 
-	private final static String UNDEFINED_REFERENCE_MESSSAGE = "Undefined reference ''{0}'': nothing that matches the expression ''{1}'' defines ''{2}''.";
+	private final static Map<String, XMLReferencesErrorCode> codes;
 
-	private final static String INVALID_PREFIX_MESSSAGE = "Invalid reference ''{0}'': references to declarations that match the expression ''{1}'' require the ''{2}'' prefix.";
+	static {
 ```
 
 ### MissortedModifiers
@@ -5112,14 +5112,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesErrorCode.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesDiagnosticParticipant.java`
 #### Snippet
 ```java
-	}
+public class XMLReferencesDiagnosticParticipant implements IDiagnosticsParticipant {
 
-	private final static Map<String, XMLReferencesErrorCode> codes;
+	private final static String UNDEFINED_REFERENCE_MESSSAGE = "Undefined reference ''{0}'': nothing that matches the expression ''{1}'' defines ''{2}''.";
 
-	static {
+	private final static String INVALID_PREFIX_MESSSAGE = "Invalid reference ''{0}'': references to declarations that match the expression ''{1}'' require the ''{2}'' prefix.";
 ```
 
 ### MissortedModifiers
@@ -5360,8 +5360,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
 		@Override
-		public T item(int index) {
-			return super.get(index);
+		public int getLength() {
+			return super.size();
 		}
 
 ```
@@ -5384,8 +5384,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
 		@Override
-		public int getLength() {
-			return super.size();
+		public T item(int index) {
+			return super.get(index);
 		}
 
 ```
@@ -5404,23 +5404,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/LimitExceededWa
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/InvalidPathWarner.java`
-#### Snippet
-```java
-					Collections.singletonList(feature.getSettingId()));
-
-		super.sendNotification(message, MessageType.Error, command);
-	}
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
 #### Snippet
 ```java
-	private IXPathNodeMatcher createAndAddNodeMatcher(String prefix, String localName) {
-		IXPathNodeMatcher matcher = createNodeMatcher(prefix, localName);
+	protected XPathElementMatcher createAnyElementMatcher() {
+		XPathElementMatcher matcher = new XPathElementMatcher(null, XPathElementMatcher.ANY_ELEMENT_NAME, this);
 		super.add(matcher);
 		return matcher;
 	}
@@ -5467,34 +5455,10 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
 #### Snippet
 ```java
-	protected XPathElementMatcher createAnyElementMatcher() {
-		XPathElementMatcher matcher = new XPathElementMatcher(null, XPathElementMatcher.ANY_ELEMENT_NAME, this);
+	private IXPathNodeMatcher createAndAddNodeMatcher(String prefix, String localName) {
+		IXPathNodeMatcher matcher = createNodeMatcher(prefix, localName);
 		super.add(matcher);
 		return matcher;
-	}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
-#### Snippet
-```java
-
-	public TextDocument(String text, String uri) {
-		super.setUri(uri);
-		super.setText(text);
-	}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
-#### Snippet
-```java
-		ILineTracker lineTracker = getLineTracker();
-		Line line = lineTracker.getLineInformation(lineNumber);
-		String text = super.getText();
-		return text.substring(line.offset, line.offset + line.length);
 	}
 ```
 
@@ -5515,6 +5479,18 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
 #### Snippet
 ```java
+		}
+		ILineTracker lineTracker = isIncremental() ? new TreeLineTracker(new ListLineTracker()) : new ListLineTracker();
+		lineTracker.set(super.getText());
+		return lineTracker;
+	}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
+#### Snippet
+```java
 		this(document.getText(), document.getUri());
 		super.setVersion(document.getVersion());
 		super.setLanguageId(document.getLanguageId());
@@ -5527,11 +5503,35 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
 #### Snippet
 ```java
-		}
-		ILineTracker lineTracker = isIncremental() ? new TreeLineTracker(new ListLineTracker()) : new ListLineTracker();
-		lineTracker.set(super.getText());
-		return lineTracker;
+		ILineTracker lineTracker = getLineTracker();
+		Line line = lineTracker.getLineInformation(lineNumber);
+		String text = super.getText();
+		return text.substring(line.offset, line.offset + line.length);
 	}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.java`
+#### Snippet
+```java
+
+	public TextDocument(String text, String uri) {
+		super.setUri(uri);
+		super.setText(text);
+	}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/InvalidPathWarner.java`
+#### Snippet
+```java
+					Collections.singletonList(feature.getSettingId()));
+
+		super.sendNotification(message, MessageType.Error, command);
+	}
+
 ```
 
 ### UnnecessarySuperQualifier
@@ -5563,9 +5563,9 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/CompletionResponse.java`
 #### Snippet
 ```java
-
-	public CompletionResponse() {
-		super.setIsIncomplete(false);
+	@Override
+	public void addCompletionItem(CompletionItem completionItem) {
+		super.getItems().add(completionItem);
 	}
 
 ```
@@ -5575,9 +5575,9 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/CompletionResponse.java`
 #### Snippet
 ```java
-	@Override
-	public void addCompletionItem(CompletionItem completionItem) {
-		super.getItems().add(completionItem);
+
+	public CompletionResponse() {
+		super.setIsIncomplete(false);
 	}
 
 ```
@@ -5604,54 +5604,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 		super.setArguments(Arrays.asList(uri, position));
 	}
 
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-	protected JsonObject addResolveData(ICompletionRequest request, String participantId) {
-		JsonObject data = DataEntryField.createCompletionData(request, participantId);
-		super.setData(data);
-		return data;
-	}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-		this.generator = generator;
-		this.request = request;
-		super.setLabel(tagName);
-		super.setSortText(tagName);
-		super.setFilterText(request.getFilterForStartTagName(tagName));
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-		this.request = request;
-		super.setLabel(tagName);
-		super.setSortText(tagName);
-		super.setFilterText(request.getFilterForStartTagName(tagName));
-		super.setKind(CompletionItemKind.Property);
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-		super.setLabel(tagName);
-		super.setSortText(tagName);
-		super.setFilterText(request.getFilterForStartTagName(tagName));
-		super.setKind(CompletionItemKind.Property);
-		// Update TextEdit
 ```
 
 ### UnnecessarySuperQualifier
@@ -5719,11 +5671,71 @@ Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
 #### Snippet
 ```java
+		this.generator = generator;
+		this.request = request;
+		super.setLabel(tagName);
+		super.setSortText(tagName);
+		super.setFilterText(request.getFilterForStartTagName(tagName));
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
+		this.request = request;
+		super.setLabel(tagName);
+		super.setSortText(tagName);
+		super.setFilterText(request.getFilterForStartTagName(tagName));
+		super.setKind(CompletionItemKind.Property);
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
+		super.setLabel(tagName);
+		super.setSortText(tagName);
+		super.setFilterText(request.getFilterForStartTagName(tagName));
+		super.setKind(CompletionItemKind.Property);
+		// Update TextEdit
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
 		super.setSortText(tagName);
 		super.setFilterText(request.getFilterForStartTagName(tagName));
 		super.setKind(CompletionItemKind.Property);
 		// Update TextEdit
 		boolean generateFullElement = updateTextEdit();
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
+	protected JsonObject addResolveData(ICompletionRequest request, String participantId) {
+		JsonObject data = DataEntryField.createCompletionData(request, participantId);
+		super.setData(data);
+		return data;
+	}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
+		// }
+		MarkupContent documentation = generateDocumentation();
+		super.setDocumentation(documentation);
+		return false;
+	}
 ```
 
 ### UnnecessarySuperQualifier
@@ -5776,42 +5788,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-		// }
-		MarkupContent documentation = generateDocumentation();
-		super.setDocumentation(documentation);
-		return false;
-	}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
-#### Snippet
-```java
-			initializeDefaultSettings();
-		}
-		super.setTabSize(tabSize);
-		super.setInsertSpaces(insertSpaces);
-	}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
-#### Snippet
-```java
-		}
-		super.setTabSize(tabSize);
-		super.setInsertSpaces(insertSpaces);
-	}
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
 #### Snippet
 ```java
@@ -5848,12 +5824,36 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormatting
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
+#### Snippet
+```java
+			initializeDefaultSettings();
+		}
+		super.setTabSize(tabSize);
+		super.setInsertSpaces(insertSpaces);
+	}
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
+#### Snippet
+```java
+		}
+		super.setTabSize(tabSize);
+		super.setInsertSpaces(insertSpaces);
+	}
+
+```
+
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDAttributeDeclaration.java`
 #### Snippet
 ```java
 	@Override
-	public String getLocalName() {
-		return super.name.localpart;
+	public boolean isRequired() {
+		return super.simpleType.defaultType == XMLSimpleType.DEFAULT_TYPE_REQUIRED;
 	}
 
 ```
@@ -5912,8 +5912,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 #### Snippet
 ```java
 	@Override
-	public boolean isRequired() {
-		return super.simpleType.defaultType == XMLSimpleType.DEFAULT_TYPE_REQUIRED;
+	public String getLocalName() {
+		return super.name.localpart;
 	}
 
 ```
@@ -5936,8 +5936,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 #### Snippet
 ```java
 	@Override
-	public boolean isEmpty() {
-		return super.type == XMLElementDecl.TYPE_EMPTY;
+	public String getLocalName() {
+		return super.name.localpart;
 	}
 
 ```
@@ -5948,8 +5948,8 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 #### Snippet
 ```java
 	@Override
-	public String getLocalName() {
-		return super.name.localpart;
+	public boolean isEmpty() {
+		return super.type == XMLElementDecl.TYPE_EMPTY;
 	}
 
 ```
@@ -6148,6 +6148,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
+Unused import `import static org.eclipse.lsp4j.jsonrpc.CompletableFutures.computeAsync;`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
+#### Snippet
+```java
+package org.eclipse.lemminx;
+
+import static org.eclipse.lsp4j.jsonrpc.CompletableFutures.computeAsync;
+
+import java.util.Arrays;
+```
+
+### UNUSED_IMPORT
 Unused import `import org.w3c.dom.Node;`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDEntityDecl.java`
 #### Snippet
@@ -6157,42 +6169,6 @@ import org.w3c.dom.Entity;
 import org.w3c.dom.Node;
 
 /**
-```
-
-### UNUSED_IMPORT
-Unused import `import java.io.StringReader;`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/XMLValidator.java`
-#### Snippet
-```java
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.net.URL;
-import java.util.HashMap;
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.ArrayList;`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/telemetry/DocumentTelemetryInfo.java`
-#### Snippet
-```java
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-```
-
-### UNUSED_IMPORT
-Unused import `import java.util.List;`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/telemetry/DocumentTelemetryInfo.java`
-#### Snippet
-```java
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 ```
 
 ### UNUSED_IMPORT
@@ -6381,6 +6357,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLServerSocketLaunche
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/MultiLineStream.java`
+#### Snippet
+```java
+
+	private static final Predicate<Integer> WHITESPACE_PREDICATE = ch -> {
+		return ch == _WSP || ch == _TAB || ch == _NWL || ch == _LFD || ch == _CAR;
+	};
+
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
 #### Snippet
 ```java
@@ -6405,14 +6393,38 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/MultiLineStream.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetDeserializer.java`
 #### Snippet
 ```java
+			if (prefixElt.isJsonArray()) {
+				JsonArray prefixArray = (JsonArray) prefixElt;
+				prefixArray.forEach(elt -> {
+					prefixes.add(elt.getAsString());
+				});
+```
 
-	private static final Predicate<Integer> WHITESPACE_PREDICATE = ch -> {
-		return ch == _WSP || ch == _TAB || ch == _NWL || ch == _LFD || ch == _CAR;
-	};
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetDeserializer.java`
+#### Snippet
+```java
+			if (bodyElt.isJsonArray()) {
+				JsonArray bodyArray = (JsonArray) bodyElt;
+				bodyArray.forEach(elt -> {
+					body.add(elt.getAsString());
+				});
+```
 
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+	private void triggerValidationFor(Collection<ModelTextDocument<DOMDocument>> documents) {
+		if (!documents.isEmpty()) {
+			xmlLanguageServer.schedule(() -> {
+				documents.forEach(document -> {
+					try {
 ```
 
 ### CodeBlock2Expr
@@ -6435,6 +6447,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService
 	public CompletableFuture<List<ColorPresentation>> colorPresentation(ColorPresentationParams params) {
 		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
 			return getXMLLanguageService().getColorPresentations(xmlDocument, params, cancelChecker);
+		});
+	}
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+	public CompletableFuture<List<? extends Location>> references(ReferenceParams params) {
+		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
+			return getXMLLanguageService().findReferences(xmlDocument, params.getPosition(), params.getContext(),
+					cancelChecker);
+		});
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+	public CompletableFuture<LinkedEditingRanges> linkedEditingRange(LinkedEditingRangeParams params) {
+		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
+			return getXMLLanguageService().findLinkedEditingRanges(xmlDocument, params.getPosition(), cancelChecker);
+		});
+	}
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+	public CompletableFuture<List<SelectionRange>> selectionRange(SelectionRangeParams params) {
+		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
+			return getXMLLanguageService().getSelectionRanges(xmlDocument, params.getPositions(), cancelChecker);
 		});
 	}
 ```
@@ -6468,30 +6516,6 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
 ```java
-	public CompletableFuture<LinkedEditingRanges> linkedEditingRange(LinkedEditingRangeParams params) {
-		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
-			return getXMLLanguageService().findLinkedEditingRanges(xmlDocument, params.getPosition(), cancelChecker);
-		});
-	}
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
-#### Snippet
-```java
-	public CompletableFuture<List<? extends Location>> references(ReferenceParams params) {
-		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
-			return getXMLLanguageService().findReferences(xmlDocument, params.getPosition(), params.getContext(),
-					cancelChecker);
-		});
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
-#### Snippet
-```java
 	public CompletableFuture<Hover> hover(HoverParams params) {
 		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
 			return getXMLLanguageService().doHover(xmlDocument, params.getPosition(), sharedSettings, cancelChecker);
@@ -6504,11 +6528,11 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
 ```java
-	private void triggerValidationFor(Collection<ModelTextDocument<DOMDocument>> documents) {
-		if (!documents.isEmpty()) {
-			xmlLanguageServer.schedule(() -> {
-				documents.forEach(document -> {
-					try {
+	public CompletableFuture<CompletionItem> resolveCompletionItem(CompletionItem unresolved) {
+		return computeDOMAsync(unresolved.getData(), (xmlDocument, cancelChecker) -> {
+			return getXMLLanguageService().resolveCompletionItem(unresolved, xmlDocument, sharedSettings,
+					cancelChecker);
+		});
 ```
 
 ### CodeBlock2Expr
@@ -6516,9 +6540,9 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
 ```java
-	public CompletableFuture<CompletionItem> resolveCompletionItem(CompletionItem unresolved) {
-		return computeDOMAsync(unresolved.getData(), (xmlDocument, cancelChecker) -> {
-			return getXMLLanguageService().resolveCompletionItem(unresolved, xmlDocument, sharedSettings,
+		}
+		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
+			return getXMLLanguageService().getCodeLens(xmlDocument, sharedSettings.getCodeLensSettings(),
 					cancelChecker);
 		});
 ```
@@ -6552,18 +6576,6 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
 ```java
-		}
-		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
-			return getXMLLanguageService().getCodeLens(xmlDocument, sharedSettings.getCodeLensSettings(),
-					cancelChecker);
-		});
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
-#### Snippet
-```java
 		DOMParser parser = DOMParser.getInstance();
 		this.documents = new ModelTextDocuments<DOMDocument>((document, cancelChecker) -> {
 			return parser.parse(document, getXMLLanguageService().getResolverExtensionManager(), true, cancelChecker);
@@ -6576,47 +6588,11 @@ Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
 ```java
-	public CompletableFuture<List<SelectionRange>> selectionRange(SelectionRangeParams params) {
-		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
-			return getXMLLanguageService().getSelectionRanges(xmlDocument, params.getPositions(), cancelChecker);
-		});
-	}
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
-#### Snippet
-```java
 	public CompletableFuture<List<? extends DocumentHighlight>> documentHighlight(DocumentHighlightParams params) {
 		return computeDOMAsync(params.getTextDocument(), (xmlDocument, cancelChecker) -> {
 			return getXMLLanguageService().findDocumentHighlights(xmlDocument, params.getPosition(), cancelChecker);
 		});
 	}
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetDeserializer.java`
-#### Snippet
-```java
-			if (prefixElt.isJsonArray()) {
-				JsonArray prefixArray = (JsonArray) prefixElt;
-				prefixArray.forEach(elt -> {
-					prefixes.add(elt.getAsString());
-				});
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetDeserializer.java`
-#### Snippet
-```java
-			if (bodyElt.isJsonArray()) {
-				JsonArray bodyArray = (JsonArray) bodyElt;
-				bodyArray.forEach(elt -> {
-					body.add(elt.getAsString());
-				});
 ```
 
 ### CodeBlock2Expr
@@ -6717,18 +6693,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### CodeBlock2Expr
 Statement lambda can be replaced with expression lambda
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesHighlightingParticipant.java`
-#### Snippet
-```java
-		// Highlight the referenced 'from' nodes
-		SearchEngine.getInstance().search(query,
-				(fromSearchNode, toSearchNode, expression) -> {
-					highlights.add(new DocumentHighlight(
-							XMLPositionUtility.createRange(fromSearchNode),
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesLinkedEditingRangesParticipant.java`
 #### Snippet
 ```java
@@ -6739,29 +6703,29 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 				},
 ```
 
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `languageClient` is accessed in both synchronized and unsynchronized contexts
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/participants/XMLReferencesHighlightingParticipant.java`
 #### Snippet
 ```java
-	private final XMLTextDocumentService xmlTextDocumentService;
-	private final XMLWorkspaceService xmlWorkspaceService;
-	private XMLLanguageClientAPI languageClient;
-	private final ScheduledExecutorService delayer;
-	private Integer parentProcessId;
+		// Highlight the referenced 'from' nodes
+		SearchEngine.getInstance().search(query,
+				(fromSearchNode, toSearchNode, expression) -> {
+					highlights.add(new DocumentHighlight(
+							XMLPositionUtility.createRange(fromSearchNode),
 ```
 
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `schemaLocation` is accessed in both synchronized and unsynchronized contexts
+Field `noNamespaceSchemaLocation` is accessed in both synchronized and unsynchronized contexts
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 #### Snippet
 ```java
-public class DOMDocument extends DOMNode implements Document {
 
 	private SchemaLocation schemaLocation;
 	private NoNamespaceSchemaLocation noNamespaceSchemaLocation;
 	private List<XMLModel> xmlModels;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -6777,30 +6741,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `xmlModels` is accessed in both synchronized and unsynchronized contexts
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-	private SchemaLocation schemaLocation;
-	private NoNamespaceSchemaLocation noNamespaceSchemaLocation;
-	private List<XMLModel> xmlModels;
-
-	private boolean referencedExternalGrammarInitialized;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `externalGrammarLocation` is accessed in both synchronized and unsynchronized contexts
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-	private final TextDocument textDocument;
-	private boolean hasNamespaces;
-	private Map<String, String> externalGrammarLocation;
-	private String schemaInstancePrefix;
-	private String schemaPrefix;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `schemaInstancePrefix` is accessed in both synchronized and unsynchronized contexts
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 #### Snippet
@@ -6813,15 +6753,39 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `noNamespaceSchemaLocation` is accessed in both synchronized and unsynchronized contexts
+Field `referencedSchemaInitialized` is accessed in both synchronized and unsynchronized contexts
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 #### Snippet
 ```java
 
+	private boolean referencedExternalGrammarInitialized;
+	private boolean referencedSchemaInitialized;
+	private final URIResolverExtensionManager resolverExtensionManager;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `schemaLocation` is accessed in both synchronized and unsynchronized contexts
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+public class DOMDocument extends DOMNode implements Document {
+
+	private SchemaLocation schemaLocation;
+	private NoNamespaceSchemaLocation noNamespaceSchemaLocation;
+	private List<XMLModel> xmlModels;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `xmlModels` is accessed in both synchronized and unsynchronized contexts
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
 	private SchemaLocation schemaLocation;
 	private NoNamespaceSchemaLocation noNamespaceSchemaLocation;
 	private List<XMLModel> xmlModels;
 
+	private boolean referencedExternalGrammarInitialized;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -6849,6 +6813,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `externalGrammarLocation` is accessed in both synchronized and unsynchronized contexts
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+	private final TextDocument textDocument;
+	private boolean hasNamespaces;
+	private Map<String, String> externalGrammarLocation;
+	private String schemaInstancePrefix;
+	private String schemaPrefix;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `externalGrammarFromNamespaceURI` is accessed in both synchronized and unsynchronized contexts
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 #### Snippet
@@ -6861,15 +6837,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `referencedSchemaInitialized` is accessed in both synchronized and unsynchronized contexts
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+Field `languageClient` is accessed in both synchronized and unsynchronized contexts
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
 #### Snippet
 ```java
-
-	private boolean referencedExternalGrammarInitialized;
-	private boolean referencedSchemaInitialized;
-	private final URIResolverExtensionManager resolverExtensionManager;
-
+	private final XMLTextDocumentService xmlTextDocumentService;
+	private final XMLWorkspaceService xmlWorkspaceService;
+	private XMLLanguageClientAPI languageClient;
+	private final ScheduledExecutorService delayer;
+	private Integer parentProcessId;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -6897,18 +6873,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocum
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `commandService` is accessed in both synchronized and unsynchronized contexts
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XMLExtensionsRegistry.java`
-#### Snippet
-```java
-	private IXMLDocumentProvider documentProvider;
-	private IXMLValidationService validationService;
-	private IXMLCommandService commandService;
-
-	private InitializeParams params;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
 Field `initialized` is accessed in both synchronized and unsynchronized contexts
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XMLExtensionsRegistry.java`
 #### Snippet
@@ -6918,6 +6882,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XM
 	private boolean initialized;
 
 	private IXMLNotificationService notificationService;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `commandService` is accessed in both synchronized and unsynchronized contexts
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XMLExtensionsRegistry.java`
+#### Snippet
+```java
+	private IXMLDocumentProvider documentProvider;
+	private IXMLValidationService validationService;
+	private IXMLCommandService commandService;
+
+	private InitializeParams params;
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -6963,11 +6939,11 @@ Field initialization to `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMProcessingInstruction.java`
 #### Snippet
 ```java
-	boolean startTagClose;
 	String target;
 	boolean prolog = false;
 	boolean processingInstruction = false;
 	int startContent;
+	int endContent;
 ```
 
 ### RedundantFieldInitialization
@@ -6975,11 +6951,11 @@ Field initialization to `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMProcessingInstruction.java`
 #### Snippet
 ```java
+	boolean startTagClose;
 	String target;
 	boolean prolog = false;
 	boolean processingInstruction = false;
 	int startContent;
-	int endContent;
 ```
 
 ### RedundantFieldInitialization
@@ -7023,11 +6999,11 @@ Field initialization to `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.java`
 #### Snippet
 ```java
-	 * set to true description CDATA #IMPLIED >
-	 */
-	boolean isInitialAttlistDeclCompleted = false;
-	private int nbBraceOpened;
-
+	String lastDoctypeKind;
+	String url;
+	boolean isInsideDTDContent = false; // Either internal dtd in xml file OR external dtd in dtd file
+	boolean isDeclCompleted = false; // If any type of DTD declaration was supplied with all the required properties
+	TokenType tempToken;
 ```
 
 ### RedundantFieldInitialization
@@ -7035,11 +7011,11 @@ Field initialization to `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.java`
 #### Snippet
 ```java
-	String lastDoctypeKind;
-	String url;
-	boolean isInsideDTDContent = false; // Either internal dtd in xml file OR external dtd in dtd file
-	boolean isDeclCompleted = false; // If any type of DTD declaration was supplied with all the required properties
-	TokenType tempToken;
+	 * set to true description CDATA #IMPLIED >
+	 */
+	boolean isInitialAttlistDeclCompleted = false;
+	private int nbBraceOpened;
+
 ```
 
 ### RedundantFieldInitialization
@@ -7059,11 +7035,11 @@ Field initialization to `0` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormattingConstraints.java`
 #### Snippet
 ```java
+
 	private int availableLineWidth = 0;
 	private int indentLevel = 0;
 	private int mixedContentIndentLevel = 0;
 
-	/**
 ```
 
 ### RedundantFieldInitialization
@@ -7083,11 +7059,11 @@ Field initialization to `0` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormattingConstraints.java`
 #### Snippet
 ```java
-
 	private int availableLineWidth = 0;
 	private int indentLevel = 0;
 	private int mixedContentIndentLevel = 0;
 
+	/**
 ```
 
 ### RedundantFieldInitialization
@@ -7119,18 +7095,6 @@ Field initialization to `null` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
 #### Snippet
 ```java
-
-	// private objects to cache the locale and resource bundle
-	private Locale fLocale = null;
-	private ResourceBundle fResourceBundle = null;
-	private ResourceBundle newResourceBundle = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
-#### Snippet
-```java
 	// private objects to cache the locale and resource bundle
 	private Locale fLocale = null;
 	private ResourceBundle fResourceBundle = null;
@@ -7152,14 +7116,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPM
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/msg/XMLModelMessageFormatter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
 #### Snippet
 ```java
 
 	// private objects to cache the locale and resource bundle
 	private Locale fLocale = null;
 	private ResourceBundle fResourceBundle = null;
-
+	private ResourceBundle newResourceBundle = null;
 ```
 
 ### RedundantFieldInitialization
@@ -7172,6 +7136,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlm
 	private ResourceBundle fResourceBundle = null;
 
 	//
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/msg/XMLModelMessageFormatter.java`
+#### Snippet
+```java
+
+	// private objects to cache the locale and resource bundle
+	private Locale fLocale = null;
+	private ResourceBundle fResourceBundle = null;
+
 ```
 
 ### RedundantFieldInitialization
@@ -7250,7 +7226,7 @@ public class PathPatternMatcher {
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-16-02-56-41.899.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-19-00-04-48.091.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -7426,11 +7402,11 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/jing/SchemaProvider.java`
 #### Snippet
 ```java
-
-	private static InputSource createInputSource(RelaxNGDescription description, XMLEntityResolver entityResolver)
-			throws MalformedURIException, IOException {
-		XMLInputSource source = entityResolver.resolveEntity(description);
-		return source.getByteStream() != null ? new InputSource(source.getByteStream())
+	public static Schema loadSchema(RelaxNGDescription description, XMLEntityResolver entityResolver,
+			XMLErrorReporter errorReporter, SchemaPatternBuilder schemaPatternBuilder)
+			throws MalformedURIException, IOException, SAXException, IncorrectSchemaException {
+		InputSource input = createInputSource(description, entityResolver);
+		return loadSchema(input, entityResolver, errorReporter, schemaPatternBuilder, null);
 ```
 
 ### DuplicateThrows
@@ -7438,11 +7414,11 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/jing/SchemaProvider.java`
 #### Snippet
 ```java
-	public static Schema loadSchema(RelaxNGDescription description, XMLEntityResolver entityResolver,
-			XMLErrorReporter errorReporter, SchemaPatternBuilder schemaPatternBuilder)
-			throws MalformedURIException, IOException, SAXException, IncorrectSchemaException {
-		InputSource input = createInputSource(description, entityResolver);
-		return loadSchema(input, entityResolver, errorReporter, schemaPatternBuilder, null);
+
+	private static InputSource createInputSource(RelaxNGDescription description, XMLEntityResolver entityResolver)
+			throws MalformedURIException, IOException {
+		XMLInputSource source = entityResolver.resolveEntity(description);
+		return source.getByteStream() != null ? new InputSource(source.getByteStream())
 ```
 
 ## RuleId[id=FuseStreamOperations]
@@ -7473,18 +7449,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/Refl
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `fh` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/logs/LogHelper.java`
-#### Snippet
-```java
-		}
-		if (!f.exists() || f.canWrite()) {
-			FileHandler fh = null;
-			fh = new FileHandler(filePath, true);
-			fh.setFormatter(new SimpleFormatter());
-```
-
-### UnusedAssignment
 Variable `closed` initializer `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
@@ -7497,6 +7461,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 ```
 
 ### UnusedAssignment
+Variable `fh` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/logs/LogHelper.java`
+#### Snippet
+```java
+		}
+		if (!f.exists() || f.canWrite()) {
+			FileHandler fh = null;
+			fh = new FileHandler(filePath, true);
+			fh.setFormatter(new SimpleFormatter());
+```
+
+### UnusedAssignment
 Variable `isInsideDTDContent` initializer `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.java`
 #### Snippet
@@ -7506,6 +7482,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.
 	boolean isInsideDTDContent = false; // Either internal dtd in xml file OR external dtd in dtd file
 	boolean isDeclCompleted = false; // If any type of DTD declaration was supplied with all the required properties
 	TokenType tempToken;
+```
+
+### UnusedAssignment
+Variable `condition` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
+#### Snippet
+```java
+		}
+		Node testNode = node;
+		IXPathNodeMatcher condition = null;
+		for (int i = super.size() - 1; i >= 0; i--) {
+			if (testNode == null) {
 ```
 
 ### UnusedAssignment
@@ -7530,18 +7518,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMat
 		IXPathNodeMatcher nodeMatcher = null;
 		String[] paths = xpathExpression.split("/");
 		for (int i = 0; i < paths.length; i++) {
-```
-
-### UnusedAssignment
-Variable `condition` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
-#### Snippet
-```java
-		}
-		Node testNode = node;
-		IXPathNodeMatcher condition = null;
-		for (int i = super.size() - 1; i >= 0; i--) {
-			if (testNode == null) {
 ```
 
 ### UnusedAssignment
@@ -7581,6 +7557,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ListLineTracke
 ```
 
 ### UnusedAssignment
+The value `false` assigned to `previousTokenWasEndTagOpen` is never used
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMParser.java`
+#### Snippet
+```java
+		}
+		if (previousTokenWasEndTagOpen) {
+			previousTokenWasEndTagOpen = false;
+			if (token != TokenType.EndTag) {
+				// The excepted token is not an EndTag, create a fake end tag element
+```
+
+### UnusedAssignment
+Variable `request` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLPrepareRename.java`
+#### Snippet
+```java
+			CancelChecker cancelChecker) {
+
+		IPrepareRenameRequest request = null;
+
+		try {
+```
+
+### UnusedAssignment
 Variable `resultLimitExceeded` initializer `false` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
 #### Snippet
@@ -7606,14 +7606,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService
 
 ### UnusedAssignment
 Variable `request` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLPrepareRename.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLDefinition.java`
 #### Snippet
 ```java
+	public List<? extends LocationLink> findDefinition(DOMDocument document, Position position,
 			CancelChecker cancelChecker) {
-
-		IPrepareRenameRequest request = null;
-
+		IDefinitionRequest request = null;
 		try {
+			request = new DefinitionRequest(document, position, extensionsRegistry);
 ```
 
 ### UnusedAssignment
@@ -7629,27 +7629,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLTypeDefini
 ```
 
 ### UnusedAssignment
-Variable `request` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLDefinition.java`
+Variable `offset` initializer `-1` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHighlighting.java`
 #### Snippet
 ```java
-	public List<? extends LocationLink> findDefinition(DOMDocument document, Position position,
+	public List<DocumentHighlight> findDocumentHighlights(DOMDocument xmlDocument, Position position,
 			CancelChecker cancelChecker) {
-		IDefinitionRequest request = null;
+		int offset = -1;
 		try {
-			request = new DefinitionRequest(document, position, extensionsRegistry);
-```
-
-### UnusedAssignment
-The value `false` assigned to `previousTokenWasEndTagOpen` is never used
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMParser.java`
-#### Snippet
-```java
-		}
-		if (previousTokenWasEndTagOpen) {
-			previousTokenWasEndTagOpen = false;
-			if (token != TokenType.EndTag) {
-				// The excepted token is not an EndTag, create a fake end tag element
+			offset = xmlDocument.offsetAt(position);
 ```
 
 ### UnusedAssignment
@@ -7713,15 +7701,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHighlighti
 ```
 
 ### UnusedAssignment
-Variable `offset` initializer `-1` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHighlighting.java`
+Variable `hoverRequest` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
 #### Snippet
 ```java
-	public List<DocumentHighlight> findDocumentHighlights(DOMDocument xmlDocument, Position position,
+	public Hover doHover(DOMDocument xmlDocument, Position position, SharedSettings settings,
 			CancelChecker cancelChecker) {
-		int offset = -1;
+		HoverRequest hoverRequest = null;
 		try {
-			offset = xmlDocument.offsetAt(position);
+			hoverRequest = new HoverRequest(xmlDocument, position, settings, extensionsRegistry);
 ```
 
 ### UnusedAssignment
@@ -7773,15 +7761,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.jav
 ```
 
 ### UnusedAssignment
-Variable `hoverRequest` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
+Variable `contentEnd` initializer `-1` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCDATAFormatter.java`
 #### Snippet
 ```java
-	public Hover doHover(DOMDocument xmlDocument, Position position, SharedSettings settings,
-			CancelChecker cancelChecker) {
-		HoverRequest hoverRequest = null;
-		try {
-			hoverRequest = new HoverRequest(xmlDocument, position, settings, extensionsRegistry);
+			int spaceStart = -1;
+			int spaceEnd = -1;
+			int contentEnd = -1;
+			int cDATAStartContent = cDATANode.getStartContent();
+			int cDATAEndContent = cDATANode.getEndContent();
 ```
 
 ### UnusedAssignment
@@ -7806,18 +7794,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletion
 		CompletionRequest completionRequest = null;
 		try {
 			completionRequest = new CompletionRequest(xmlDocument, position, settings, extensionsRegistry);
-```
-
-### UnusedAssignment
-Variable `contentEnd` initializer `-1` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCDATAFormatter.java`
-#### Snippet
-```java
-			int spaceStart = -1;
-			int spaceEnd = -1;
-			int contentEnd = -1;
-			int cDATAStartContent = cDATANode.getStartContent();
-			int cDATAEndContent = cDATANode.getEndContent();
 ```
 
 ### UnusedAssignment
@@ -7881,51 +7857,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### UnusedAssignment
-Variable `schema` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
+Variable `prev` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelAwareParserConfiguration.java`
 #### Snippet
 ```java
-	private static Object[] cvc_2_4_a_solution(Object[] arguments) {
-		Matcher m = getNamespaceMatcher(getString(arguments[0]));
-		String schema = null;
-		String name = null;
-		String validNames = null;
-```
-
-### UnusedAssignment
-Variable `name` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
-#### Snippet
-```java
-		Matcher m = getNamespaceMatcher(getString(arguments[0]));
-		String schema = null;
-		String name = null;
-		String validNames = null;
-
-```
-
-### UnusedAssignment
-Variable `validNames` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
-#### Snippet
-```java
-		String schema = null;
-		String name = null;
-		String validNames = null;
-
-		if (m.matches()) {
-```
-
-### UnusedAssignment
-Variable `msg` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
-#### Snippet
-```java
-		boolean usedNewResourceBundle = false;
-
-		String msg = null;
-
-		if (newResourceBundle.containsKey(key)) {
+			// configure XML document pipeline: insert after DTDValidator and
+			// before XML Schema validator
+			XMLDocumentSource prev = null;
+			if (fFeatures.get(XMLSCHEMA_VALIDATION) == Boolean.TRUE) {
+				// we don't have to worry about fSchemaValidator being null, since
 ```
 
 ### UnusedAssignment
@@ -7965,15 +7905,51 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPM
 ```
 
 ### UnusedAssignment
-Variable `prev` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelAwareParserConfiguration.java`
+Variable `msg` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
 #### Snippet
 ```java
-			// configure XML document pipeline: insert after DTDValidator and
-			// before XML Schema validator
-			XMLDocumentSource prev = null;
-			if (fFeatures.get(XMLSCHEMA_VALIDATION) == Boolean.TRUE) {
-				// we don't have to worry about fSchemaValidator being null, since
+		boolean usedNewResourceBundle = false;
+
+		String msg = null;
+
+		if (newResourceBundle.containsKey(key)) {
+```
+
+### UnusedAssignment
+Variable `schema` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
+#### Snippet
+```java
+	private static Object[] cvc_2_4_a_solution(Object[] arguments) {
+		Matcher m = getNamespaceMatcher(getString(arguments[0]));
+		String schema = null;
+		String name = null;
+		String validNames = null;
+```
+
+### UnusedAssignment
+Variable `name` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
+#### Snippet
+```java
+		Matcher m = getNamespaceMatcher(getString(arguments[0]));
+		String schema = null;
+		String name = null;
+		String validNames = null;
+
+```
+
+### UnusedAssignment
+Variable `validNames` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
+#### Snippet
+```java
+		String schema = null;
+		String name = null;
+		String validNames = null;
+
+		if (m.matches()) {
 ```
 
 ### UnusedAssignment
@@ -8001,6 +7977,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/X
 ```
 
 ### UnusedAssignment
+Variable `document` initializer `null` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
+#### Snippet
+```java
+
+	private CMDocument getCMDocumentFromCache(String key) {
+		CMDocument document = null;
+		synchronized (cmDocumentCache) {
+			document = cmDocumentCache.get(key);
+```
+
+### UnusedAssignment
 Variable `startText` initializer `null` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/commands/SurroundWithCommand.java`
 #### Snippet
@@ -8022,18 +8010,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 		StringBuilder endText = null;
 		Position startPos = selection.getStart();
 		Position endPos = selection.getEnd();
-```
-
-### UnusedAssignment
-Variable `document` initializer `null` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
-#### Snippet
-```java
-
-	private CMDocument getCMDocumentFromCache(String key) {
-		CMDocument document = null;
-		synchronized (cmDocumentCache) {
-			document = cmDocumentCache.get(key);
 ```
 
 ### UnusedAssignment
@@ -8133,15 +8109,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolve
 ```
 
 ### UnusedAssignment
-Variable `f` initializer `null` is redundant
+Variable `uri` initializer `null` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourcesManager.java`
 #### Snippet
 ```java
-		}
 
-		CompletableFuture<Path> f = null;
-		synchronized (resourcesLoading) {
-			if (resourcesLoading.containsKey(resourceURI)) {
+	public static Path getResourceCachePath(String resourceURI) throws IOException {
+		URI uri = null;
+		try {
+			uri = URI.create(resourceURI);
 ```
 
 ### UnusedAssignment
@@ -8157,15 +8133,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResou
 ```
 
 ### UnusedAssignment
-Variable `uri` initializer `null` is redundant
+Variable `f` initializer `null` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourcesManager.java`
 #### Snippet
 ```java
+		}
 
-	public static Path getResourceCachePath(String resourceURI) throws IOException {
-		URI uri = null;
-		try {
-			uri = URI.create(resourceURI);
+		CompletableFuture<Path> f = null;
+		synchronized (resourcesLoading) {
+			if (resourcesLoading.containsKey(resourceURI)) {
 ```
 
 ## RuleId[id=ConstantValue]
@@ -8194,30 +8170,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/ExceptionUtils.j
 ```
 
 ### ConstantValue
-Value `errorMessage` is always 'null'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.java`
-#### Snippet
-```java
-		stream.advance(1);
-		state = isInsideDTDContent ? ScannerState.DTDWithinContent : ScannerState.WithinContent;
-		return finishToken(offset, TokenType.Unknown, errorMessage);
-	}
-
-```
-
-### ConstantValue
-Condition `i < value.length()` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
-#### Snippet
-```java
-
-		// left trim
-		while (i < value.length() && Character.isWhitespace(c)) {
-			i++;
-			c = val[i];
-```
-
-### ConstantValue
 Value `isWhitespaceContent` is always 'true'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
 #### Snippet
@@ -8230,6 +8182,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
 ```
 
 ### ConstantValue
+Value `errorMessage` is always 'null'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/parser/XMLScanner.java`
+#### Snippet
+```java
+		stream.advance(1);
+		state = isInsideDTDContent ? ScannerState.DTDWithinContent : ScannerState.WithinContent;
+		return finishToken(offset, TokenType.Unknown, errorMessage);
+	}
+
+```
+
+### ConstantValue
 Condition `filename != null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/LimitExceededWarner.java`
 #### Snippet
@@ -8239,6 +8203,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/client/LimitExceededWa
 		String message = filename != null ? filename + ": " : "";
 		message += "For performance reasons, " + feature.getName() + " have been limited to " + resultLimit
 				+ " items.\nIf a new limit is set, please close and reopen this file to recompute " + feature.getName() + ".";
+```
+
+### ConstantValue
+Condition `i < value.length()` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
+#### Snippet
+```java
+
+		// left trim
+		while (i < value.length() && Character.isWhitespace(c)) {
+			i++;
+			c = val[i];
 ```
 
 ### ConstantValue
@@ -8294,30 +8270,6 @@ Value `hasFilterForAttr` is always 'true'
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
 #### Snippet
 ```java
-			if (collectAttributes) {
-				// Collect attributes from the DOM element
-				List<DOMNode> attrToIgnore = getFilteredNodeAttributes(node, filter, hasFilterForAttr);
-				for (DOMAttr attr : node.getAttributeNodes()) {
-					findSymbolInformations(attr, containerName, symbols, attrToIgnore.contains(attr), filter, hasFilterForAttr,
-```
-
-### ConstantValue
-Value `hasFilterForAttr` is always 'true'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
-#### Snippet
-```java
-				List<DOMNode> attrToIgnore = getFilteredNodeAttributes(node, filter, hasFilterForAttr);
-				for (DOMAttr attr : node.getAttributeNodes()) {
-					findSymbolInformations(attr, containerName, symbols, attrToIgnore.contains(attr), filter, hasFilterForAttr,
-							cancelChecker);
-				}
-```
-
-### ConstantValue
-Value `hasFilterForAttr` is always 'true'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
-#### Snippet
-```java
 				if (collectAttributes) {
 					// Collect attributes from the DOM element
 					List<DOMNode> attrToIgnore = getFilteredNodeAttributes(node, filter, hasFilterForAttr);
@@ -8334,6 +8286,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsPro
 					for (DOMAttr attr : node.getAttributeNodes()) {
 						findDocumentSymbols(attr, childrenSymbols, attrToIgnore, filter, hasFilterForAttr, cancelChecker);
 					}
+				}
+```
+
+### ConstantValue
+Value `hasFilterForAttr` is always 'true'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
+#### Snippet
+```java
+			if (collectAttributes) {
+				// Collect attributes from the DOM element
+				List<DOMNode> attrToIgnore = getFilteredNodeAttributes(node, filter, hasFilterForAttr);
+				for (DOMAttr attr : node.getAttributeNodes()) {
+					findSymbolInformations(attr, containerName, symbols, attrToIgnore.contains(attr), filter, hasFilterForAttr,
+```
+
+### ConstantValue
+Value `hasFilterForAttr` is always 'true'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
+#### Snippet
+```java
+				List<DOMNode> attrToIgnore = getFilteredNodeAttributes(node, filter, hasFilterForAttr);
+				for (DOMAttr attr : node.getAttributeNodes()) {
+					findSymbolInformations(attr, containerName, symbols, attrToIgnore.contains(attr), filter, hasFilterForAttr,
+							cancelChecker);
 				}
 ```
 
@@ -8362,6 +8338,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/Snipp
 ```
 
 ### ConstantValue
+Condition `parentNode != null` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
+#### Snippet
+```java
+			// no grammar, collect similar tags from the parent node
+			Set<String> seenElements = new HashSet<>();
+			if (parentNode != null && parentNode.isElement() && parentNode.hasChildNodes()) {
+				parentNode.getChildren().forEach(node -> {
+					DOMElement element = node.isElement() ? (DOMElement) node : null;
+```
+
+### ConstantValue
 Condition `node != null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
 #### Snippet
@@ -8371,18 +8359,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletion
 			if (node != null && node.isElement() && !element.isSelfClosed() && element.hasTagName()
 					&& !isEmptyElement(((DOMElement) node).getTagName()) && node.getStart() < offset
 					&& (!element.hasEndTag() || (element.getTagName().equals(node.getParentNode().getNodeName())
-```
-
-### ConstantValue
-Condition `node != null` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
-#### Snippet
-```java
-				node = node.getParentNode();
-			}
-			if (node != null && node.isElement() && ((DOMElement) node).getTagName() != null) {
-				snippet = ((DOMElement) node).getTagName() + ">$0";
-			}
 ```
 
 ### ConstantValue
@@ -8407,18 +8383,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletion
 			if (suffixIndex == suffix.length()) {
 				// the suffix index is the last character of the suffix
 				return offset;
-```
-
-### ConstantValue
-Condition `parentNode != null` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
-#### Snippet
-```java
-			// no grammar, collect similar tags from the parent node
-			Set<String> seenElements = new HashSet<>();
-			if (parentNode != null && parentNode.isElement() && parentNode.hasChildNodes()) {
-				parentNode.getChildren().forEach(node -> {
-					DOMElement element = node.isElement() ? (DOMElement) node : null;
 ```
 
 ### ConstantValue
@@ -8506,18 +8470,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### ConstantValue
-Condition `declaration != null` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDDocument.java`
-#### Snippet
-```java
-				declaration = findElementDeclaration(elt.getLocalName(), namespace);
-			} else {
-				declaration = declaration != null ? declaration.findCMElement(elt.getLocalName(), namespace) : null;
-			}
-			if (declaration == null) {
-```
-
-### ConstantValue
 Condition `valuesDocumentation == null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
 #### Snippet
@@ -8527,6 +8479,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 		if (valuesDocumentation == null) {
 			valuesDocumentation = createValuesDocumentation(request);
 		}
+```
+
+### ConstantValue
+Condition `declaration != null` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDDocument.java`
+#### Snippet
+```java
+				declaration = findElementDeclaration(elt.getLocalName(), namespace);
+			} else {
+				declaration = declaration != null ? declaration.findCMElement(elt.getLocalName(), namespace) : null;
+			}
+			if (declaration == null) {
 ```
 
 ### ConstantValue
@@ -8542,18 +8506,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 ```
 
 ### ConstantValue
-Value `inAnyLevel` is always 'true'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-				}
-				if (inAnyLevel && elt.hasChildNodes()) {
-					location = findXSElement(originElement, elt.getChildNodes(), inAnyLevel);
-					if (location != null) {
-						return location;
-```
-
-### ConstantValue
 Condition `declaration != null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
 #### Snippet
@@ -8563,6 +8515,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 				declaration = declaration != null ? declaration.findCMElement(elt.getLocalName(), namespace) : null;
 			}
 			if (declaration == null) {
+```
+
+### ConstantValue
+Value `inAnyLevel` is always 'true'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+				}
+				if (inAnyLevel && elt.hasChildNodes()) {
+					location = findXSElement(originElement, elt.getChildNodes(), inAnyLevel);
+					if (location != null) {
+						return location;
 ```
 
 ### ConstantValue
@@ -8650,18 +8614,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 ```
 
 ### ConstantValue
-Condition `hasCharacterContent` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2dtd/XML2DTDGenerator.java`
-#### Snippet
-```java
-					// Mixed content
-					dtd.addContent("(#PCDATA");
-					if (hasCharacterContent) {
-						for (ElementDeclaration elementInfo : children) {
-
-```
-
-### ConstantValue
 Condition `targetAttr != null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
 #### Snippet
@@ -8695,6 +8647,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/X
 								searchInExternalSchema);
 					}
 				}
+```
+
+### ConstantValue
+Condition `hasCharacterContent` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2dtd/XML2DTDGenerator.java`
+#### Snippet
+```java
+					// Mixed content
+					dtd.addContent("(#PCDATA");
+					if (hasCharacterContent) {
+						for (ElementDeclaration elementInfo : children) {
+
 ```
 
 ### ConstantValue
@@ -8734,18 +8698,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### ConstantValue
-Condition `resourceIdentifier != null` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/LSPXMLCatalogResolver.java`
-#### Snippet
-```java
-	private static boolean isXSDIncludeWithNamespace(XMLResourceIdentifier resourceIdentifier) {
-		String namespaceURI = resourceIdentifier.getNamespace();
-		if (resourceIdentifier != null && resourceIdentifier instanceof XSDDescription && namespaceURI != null
-				&& (resourceIdentifier.getLiteralSystemId() != null
-						&& !resourceIdentifier.getLiteralSystemId().contains(":"))) {
-```
-
-### ConstantValue
 Condition `resolvedId == null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/LSPXMLCatalogResolver.java`
 #### Snippet
@@ -8758,15 +8710,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### ConstantValue
-Value `searchInExternalSchema` is always 'true'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+Condition `resourceIdentifier != null` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/LSPXMLCatalogResolver.java`
 #### Snippet
 ```java
-						searchRNGTargetAttributes(originAttr, bindingType, matchAttr, collector,
-								externalDocument.getDocumentElement(), targetNamespacePrefix, originName, visitedURIs,
-								searchInExternalSchema);
-					}
-				}
+	private static boolean isXSDIncludeWithNamespace(XMLResourceIdentifier resourceIdentifier) {
+		String namespaceURI = resourceIdentifier.getNamespace();
+		if (resourceIdentifier != null && resourceIdentifier instanceof XSDDescription && namespaceURI != null
+				&& (resourceIdentifier.getLiteralSystemId() != null
+						&& !resourceIdentifier.getLiteralSystemId().contains(":"))) {
+```
+
+### ConstantValue
+Condition `possibleElements != null` is always `true`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_2_4_aCodeAction.java`
+#### Snippet
+```java
+
+				Collection<CMElementDeclaration> possibleElements = getPossibleElements(element, request);
+				if (possibleElements != null) {
+
+					// When added to these collections, the names will be ordered alphabetically
 ```
 
 ### ConstantValue
@@ -8782,6 +8746,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/uti
 ```
 
 ### ConstantValue
+Value `searchInExternalSchema` is always 'true'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+#### Snippet
+```java
+						searchRNGTargetAttributes(originAttr, bindingType, matchAttr, collector,
+								externalDocument.getDocumentElement(), targetNamespacePrefix, originName, visitedURIs,
+								searchInExternalSchema);
+					}
+				}
+```
+
+### ConstantValue
 Condition `targetAttr != null` is always `true`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
 #### Snippet
@@ -8791,18 +8767,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/uti
 									if (targetAttr != null && (Objects.equal(originName, targetAttr.getValue()))) {
 										collector.accept(originAttr, targetAttr);
 									}
-```
-
-### ConstantValue
-Condition `possibleElements != null` is always `true`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/cvc_complex_type_2_4_aCodeAction.java`
-#### Snippet
-```java
-
-				Collection<CMElementDeclaration> possibleElements = getPossibleElements(element, request);
-				if (possibleElements != null) {
-
-					// When added to these collections, the names will be ordered alphabetically
 ```
 
 ### ConstantValue
@@ -8848,11 +8812,11 @@ Redundant array length check
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLSymbolFilter.java`
 #### Snippet
 ```java
-	 */
-	public XMLSymbolExpressionFilter getFilterForInlineAttr(DOMAttr attrNode){
+			return false;
+		}
 		if (expressions != null && expressions.length > 0) {
-			for (XMLSymbolExpressionFilter expression : expressions) {
-				if (expression.match(attrNode) && expression.isInlineAttribute()) {
+			// loop for list of XPath expression and returns the first expression which
+			// matches the given node.
 ```
 
 ### RedundantLengthCheck
@@ -8860,11 +8824,11 @@ Redundant array length check
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLSymbolFilter.java`
 #### Snippet
 ```java
-			return false;
-		}
+	 */
+	public XMLSymbolExpressionFilter getFilterForInlineAttr(DOMAttr attrNode){
 		if (expressions != null && expressions.length > 0) {
-			// loop for list of XPath expression and returns the first expression which
-			// matches the given node.
+			for (XMLSymbolExpressionFilter expression : expressions) {
+				if (expression.match(attrNode) && expression.isInlineAttribute()) {
 ```
 
 ### RedundantLengthCheck
@@ -9037,18 +9001,6 @@ public class DTDValidator {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `XSISchemaModel` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsi/XSISchemaModel.java`
-#### Snippet
-```java
- * https://www.w3.org/2001/XMLSchema-instance
- */
-public class XSISchemaModel {
-
-	private static String lineSeparator = System.lineSeparator();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `XSDValidator` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/diagnostics/XSDValidator.java`
 #### Snippet
@@ -9058,6 +9010,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 public class XSDValidator {
 
 	private static final Logger LOGGER = Logger.getLogger(XSDValidator.class.getName());
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `XSISchemaModel` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsi/XSISchemaModel.java`
+#### Snippet
+```java
+ * https://www.w3.org/2001/XMLSchema-instance
+ */
+public class XSISchemaModel {
+
+	private static String lineSeparator = System.lineSeparator();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9073,18 +9037,6 @@ public class LSPSecurityManager {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PrologModel` has only 'static' members, and lacks a 'private' constructor
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/prolog/PrologModel.java`
-#### Snippet
-```java
- * https://www.w3.org/2001/XMLSchema-instance
- */
-public class PrologModel {
-	public static final String VERSION_NAME = "version";
-	public static final String ENCODING_NAME = "encoding";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ReflectionUtils` has only 'static' members, and lacks a 'private' constructor
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/ReflectionUtils.java`
 #### Snippet
@@ -9094,6 +9046,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/Refl
 public class ReflectionUtils {
 
 	/**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PrologModel` has only 'static' members, and lacks a 'private' constructor
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/prolog/PrologModel.java`
+#### Snippet
+```java
+ * https://www.w3.org/2001/XMLSchema-instance
+ */
+public class PrologModel {
+	public static final String VERSION_NAME = "version";
+	public static final String ENCODING_NAME = "encoding";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -9458,17 +9422,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/settings/NamespacesEnabled.java`
-#### Snippet
-```java
-
-public enum NamespacesEnabled {
-	always, never, onNamespaceEncountered;
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQuery.java`
 #### Snippet
 ```java
@@ -9477,6 +9430,17 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 		FROM_2_TO, TO_2_FROM, BOTH;
 	}
 
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/settings/NamespacesEnabled.java`
+#### Snippet
+```java
+
+public enum NamespacesEnabled {
+	always, never, onNamespaceEncountered;
+}
 ```
 
 ### UnnecessarySemicolon
@@ -9569,7 +9533,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
 	@Override
-	public NodeList getElementsByTagNameNS(String arg0, String arg1) throws DOMException {
+	public String getAttributeNS(String arg0, String arg1) throws DOMException {
 		return null;
 	}
 
@@ -9593,7 +9557,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
 	@Override
-	public String getAttributeNS(String arg0, String arg1) throws DOMException {
+	public NodeList getElementsByTagNameNS(String arg0, String arg1) throws DOMException {
 		return null;
 	}
 
@@ -10080,6 +10044,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsPro
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetRegistry.java`
+#### Snippet
+```java
+				char ch = line.charAt(i);
+				if (Character.isDigit(ch)) {
+					startsWithNumber = true;
+				} else {
+					onlyNumber = false;
+```
+
+### DataFlowIssue
 Argument `element` might be null
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
 #### Snippet
@@ -10105,30 +10081,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.jav
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/SnippetRegistry.java`
-#### Snippet
-```java
-				char ch = line.charAt(i);
-				if (Character.isDigit(ch)) {
-					startsWithNumber = true;
-				} else {
-					onlyNumber = false;
-```
-
-### DataFlowIssue
-Method invocation `isElement` may produce `NullPointerException`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
-#### Snippet
-```java
-		} else if (cBefore == '<' && c == '/') { // Case: <a> </|
-			DOMNode node = xmlDocument.findNodeBefore(offset);
-			while ((node != null && node.isClosed()) || (node.isElement() && ((DOMElement) node).isOrphanEndTag())) {
-				node = node.getParentNode();
-			}
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
 #### Snippet
 ```java
@@ -10137,6 +10089,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletion
 			addQuotes = false;
 		} else {
 			valuePrefix = text.substring(valueStart, offset);
+```
+
+### DataFlowIssue
+Method invocation `getEnd` may produce `NullPointerException`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMElementFormatter.java`
+#### Snippet
+```java
+		int width = 0;
+		if (isPreserveAttributeLineBreaks() && element.hasAttributes()
+				&& hasLineBreak(getLastAttribute(element).getEnd(), startTagClose)) {
+			spaceBeforeEmptyCloseTag = false;
+			int indentLevel = parentConstraints.getIndentLevel();
 ```
 
 ### DataFlowIssue
@@ -10149,30 +10113,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 		return fullElement.getAttributeNodes().size() == 1;
 	}
 
-```
-
-### DataFlowIssue
-Method invocation `getEnd` may produce `NullPointerException`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
-#### Snippet
-```java
-				elementEndOffset = element.getStartTagCloseOffset();
-			}
-			if (!isSameLine(getLastAttribute(element).getEnd(), elementEndOffset)) {
-				this.xmlBuilder.linefeed();
-				this.xmlBuilder.indent(this.indentLevel);
-```
-
-### DataFlowIssue
-Method invocation `getEnd` may produce `NullPointerException`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
-#### Snippet
-```java
-	private void formatElementStartTagCloseBracket(DOMElement element) throws BadLocationException {
-		if (this.sharedSettings.getFormattingSettings().isPreserveAttributeLineBreaks() && element.hasAttributes()
-				&& !isSameLine(getLastAttribute(element).getEnd(), element.getStartTagCloseOffset())) {
-			xmlBuilder.linefeed();
-			this.xmlBuilder.indent(this.indentLevel);
 ```
 
 ### DataFlowIssue
@@ -10189,14 +10129,26 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 
 ### DataFlowIssue
 Method invocation `getEnd` may produce `NullPointerException`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMElementFormatter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
 #### Snippet
 ```java
-		int width = 0;
-		if (isPreserveAttributeLineBreaks() && element.hasAttributes()
-				&& hasLineBreak(getLastAttribute(element).getEnd(), startTagClose)) {
-			spaceBeforeEmptyCloseTag = false;
-			int indentLevel = parentConstraints.getIndentLevel();
+	private void formatElementStartTagCloseBracket(DOMElement element) throws BadLocationException {
+		if (this.sharedSettings.getFormattingSettings().isPreserveAttributeLineBreaks() && element.hasAttributes()
+				&& !isSameLine(getLastAttribute(element).getEnd(), element.getStartTagCloseOffset())) {
+			xmlBuilder.linefeed();
+			this.xmlBuilder.indent(this.indentLevel);
+```
+
+### DataFlowIssue
+Method invocation `getEnd` may produce `NullPointerException`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
+#### Snippet
+```java
+				elementEndOffset = element.getStartTagCloseOffset();
+			}
+			if (!isSameLine(getLastAttribute(element).getEnd(), elementEndOffset)) {
+				this.xmlBuilder.linefeed();
+				this.xmlBuilder.indent(this.indentLevel);
 ```
 
 ### DataFlowIssue
@@ -10337,11 +10289,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/TextEd
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XMLExtensionsRegistry.java`
 #### Snippet
 ```java
-	public void initializeParams(InitializeParams params) {
+	public void doSave(ISaveContext saveContext) {
 		if (initialized) {
-			extensions.stream().forEach(extension -> {
-				try {
-					extension.start(params, this);
+			extensions.stream().forEach(extension -> extension.doSave(saveContext));
+		} else if (this.initialSaveContext == null
+				|| (saveContext != null && saveContext.getType() == SaveContextType.SETTINGS)) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -10349,11 +10301,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XM
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/XMLExtensionsRegistry.java`
 #### Snippet
 ```java
-	public void doSave(ISaveContext saveContext) {
+	public void initializeParams(InitializeParams params) {
 		if (initialized) {
-			extensions.stream().forEach(extension -> extension.doSave(saveContext));
-		} else if (this.initialSaveContext == null
-				|| (saveContext != null && saveContext.getType() == SaveContextType.SETTINGS)) {
+			extensions.stream().forEach(extension -> {
+				try {
+					extension.start(params, this);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -10458,6 +10410,30 @@ Unnecessary string length argument
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
 #### Snippet
 ```java
+		} else if (prefix == null && localName.startsWith(ATTR_NODE_SELECTOR)) {
+			// ex : @id
+			return new XPathAttributeNameMatcher(prefix, localName.substring(1, localName.length()), this);
+		} else if (prefix != null && prefix.startsWith(ATTR_NODE_SELECTOR)) {
+			// ex : @xml:id
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
+#### Snippet
+```java
+		} else if (prefix != null && prefix.startsWith(ATTR_NODE_SELECTOR)) {
+			// ex : @xml:id
+			return new XPathAttributeNameMatcher(prefix.substring(1, prefix.length()), localName, this);
+		}
+		return new XPathElementMatcher(prefix, localName, this);
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
+#### Snippet
+```java
 		String localName = null;
 		if (xpathExpression.startsWith("/")) {
 			xpathExpression = xpathExpression.substring(1, xpathExpression.length());
@@ -10499,30 +10475,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMat
 													attrName.toString().substring(1, attrName.length()),
 													attrValue.toString());
 											if (attributematcher.hasWildcard()) {
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
-#### Snippet
-```java
-		} else if (prefix == null && localName.startsWith(ATTR_NODE_SELECTOR)) {
-			// ex : @id
-			return new XPathAttributeNameMatcher(prefix, localName.substring(1, localName.length()), this);
-		} else if (prefix != null && prefix.startsWith(ATTR_NODE_SELECTOR)) {
-			// ex : @xml:id
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
-#### Snippet
-```java
-		} else if (prefix != null && prefix.startsWith(ATTR_NODE_SELECTOR)) {
-			// ex : @xml:id
-			return new XPathAttributeNameMatcher(prefix.substring(1, prefix.length()), localName, this);
-		}
-		return new XPathElementMatcher(prefix, localName, this);
 ```
 
 ### StringOperationCanBeSimplified
@@ -10647,18 +10599,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### StringOperationCanBeSimplified
 Unnecessary string length argument
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
-#### Snippet
-```java
-				return null;
-			}
-			return originAttrValue.substring(index + 1, originAttrValue.length());
-		}
-		return originAttrValue;
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSchemaErrorCode.java`
 #### Snippet
 ```java
@@ -10679,6 +10619,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 		return schemaURI.substring(index + 1, schemaURI.length());
 	}
 
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+#### Snippet
+```java
+				return null;
+			}
+			return originAttrValue.substring(index + 1, originAttrValue.length());
+		}
+		return originAttrValue;
 ```
 
 ## RuleId[id=MethodOverloadsParentMethod]
@@ -10749,9 +10701,9 @@ Unnecessary `Integer.toString()` call
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/CompletionSortTextHelper.java`
 #### Snippet
 ```java
-	public String next() {
+		String tempBase = getSortText(kind);
 		i++;
-		return base + Integer.toString(i);
+		return tempBase + Integer.toString(i);
 	}
 
 ```
@@ -10761,9 +10713,9 @@ Unnecessary `Integer.toString()` call
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/CompletionSortTextHelper.java`
 #### Snippet
 ```java
-		String tempBase = getSortText(kind);
+	public String next() {
 		i++;
-		return tempBase + Integer.toString(i);
+		return base + Integer.toString(i);
 	}
 
 ```
@@ -11122,11 +11074,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPXMLGrammarPool.java`
 #### Snippet
 ```java
-		// clear this entry; useful to promote garbage collection
-		// since reduces reference count of objects to be destroyed
-		protected void clear() {
-			desc = null;
-			grammar = null;
+		public String internalSubset;
+
+		protected Entry(int hash, XMLGrammarDescription desc, Grammar grammar, Entry next) {
+			this.hash = hash;
+			this.desc = desc;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11134,11 +11086,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPXMLGrammarPool.java`
 #### Snippet
 ```java
-		public String internalSubset;
-
-		protected Entry(int hash, XMLGrammarDescription desc, Grammar grammar, Entry next) {
-			this.hash = hash;
-			this.desc = desc;
+		// clear this entry; useful to promote garbage collection
+		// since reduces reference count of objects to be destroyed
+		protected void clear() {
+			desc = null;
+			grammar = null;
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -11193,18 +11145,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMat
 
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCommentFormatter.java`
-#### Snippet
-```java
-				int contentStart = i;
-				while (i + 1 < commentNode.getEnd() && !Character.isWhitespace(text.charAt(i + 1))) {
-					i++;
-				}
-				int contentEnd = i + 1;
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCDATAFormatter.java`
 #### Snippet
 ```java
@@ -11213,6 +11153,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCDA
 						i++;
 					}
 					contentEnd = i;
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMCommentFormatter.java`
+#### Snippet
+```java
+				int contentStart = i;
+				while (i + 1 < commentNode.getEnd() && !Character.isWhitespace(text.charAt(i + 1))) {
+					i++;
+				}
+				int contentEnd = i + 1;
 ```
 
 ### AssignmentToForLoopParameter
@@ -11561,18 +11513,6 @@ Condition 'conn != null' covered by subsequent condition 'conn instanceof HttpUR
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourcesManager.java`
 #### Snippet
 ```java
-	 */
-	private static String getHttpResponseCode(URLConnection conn) {
-		if (conn != null && conn instanceof HttpURLConnection) {
-			try {
-				HttpURLConnection httpConn = (HttpURLConnection) conn;
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'conn != null' covered by subsequent condition 'conn instanceof HttpURLConnection'
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourcesManager.java`
-#### Snippet
-```java
 					resourcesLoading.remove(resourceURI);
 				}
 				if (conn != null && conn instanceof HttpURLConnection) {
@@ -11580,31 +11520,19 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResou
 				}
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
+### ConditionCoveredByFurtherCondition
+Condition 'conn != null' covered by subsequent condition 'conn instanceof HttpURLConnection'
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourcesManager.java`
 #### Snippet
 ```java
 	 */
-	public static File toFile(String fileUri) {
-		String convertedUri = fileUri.replace("file:///", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
-		convertedUri = convertedUri.replace("file://", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
-		return new File(URI.create(convertedUri));
+	private static String getHttpResponseCode(URLConnection conn) {
+		if (conn != null && conn instanceof HttpURLConnection) {
+			try {
+				HttpURLConnection httpConn = (HttpURLConnection) conn;
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
-#### Snippet
-```java
-	public static File toFile(String fileUri) {
-		String convertedUri = fileUri.replace("file:///", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
-		convertedUri = convertedUri.replace("file://", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
-		return new File(URI.create(convertedUri));
-	}
-```
-
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
@@ -11615,6 +11543,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 		return path.replace(" ", "%20");
 	}
 	
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
+#### Snippet
+```java
+	 */
+	public static File toFile(String fileUri) {
+		String convertedUri = fileUri.replace("file:///", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
+		convertedUri = convertedUri.replace("file://", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
+		return new File(URI.create(convertedUri));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
+#### Snippet
+```java
+	public static File toFile(String fileUri) {
+		String convertedUri = fileUri.replace("file:///", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
+		convertedUri = convertedUri.replace("file://", "file:/"); //$NON-NLS-1$//$NON-NLS-2$
+		return new File(URI.create(convertedUri));
+	}
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -11752,18 +11704,6 @@ public class DOMComment extends DOMCharacterData implements org.w3c.dom.Comment 
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMProcessingInstruction.java`
-#### Snippet
-```java
- *
- */
-public class DOMProcessingInstruction extends DOMCharacterData implements org.w3c.dom.ProcessingInstruction {
-
-	boolean startTagClose;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMText.java`
 #### Snippet
 ```java
@@ -11772,6 +11712,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMText.java`
 public class DOMText extends DOMCharacterData implements org.w3c.dom.Text {
 
 	public DOMText(int start, int end) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMProcessingInstruction.java`
+#### Snippet
+```java
+ *
+ */
+public class DOMProcessingInstruction extends DOMCharacterData implements org.w3c.dom.ProcessingInstruction {
+
+	boolean startTagClose;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11793,7 +11745,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```java
 	 */
 	@Override
-	public DOMNode importNode(org.w3c.dom.Node importedNode, boolean deep) throws DOMException {
+	public DOMNode adoptNode(org.w3c.dom.Node source) throws DOMException {
 		throw new UnsupportedOperationException();
 	}
 ```
@@ -11805,9 +11757,21 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 ```java
 	 */
 	@Override
-	public DOMNode adoptNode(org.w3c.dom.Node source) throws DOMException {
+	public DOMNode importNode(org.w3c.dom.Node importedNode, boolean deep) throws DOMException {
 		throw new UnsupportedOperationException();
 	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+ *
+ */
+public class DOMAttr extends DOMNode implements org.w3c.dom.Attr {
+
+	public static final String XMLNS_ATTR = "xmlns";
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11820,18 +11784,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 	public DOMAttr removeAttributeNode(org.w3c.dom.Attr arg0) throws DOMException {
 		return null;
 	}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
- *
- */
-public class DOMElement extends DOMNode implements org.w3c.dom.Element {
-
-	String tag;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -11863,6 +11815,18 @@ Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
+ *
+ */
+public class DOMElement extends DOMNode implements org.w3c.dom.Element {
+
+	String tag;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
 
 	@Override
 	public DOMAttr setAttributeNodeNS(org.w3c.dom.Attr arg0) throws DOMException {
@@ -11871,18 +11835,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary, and can be replaced with an import
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
- *
- */
-public class DOMAttr extends DOMNode implements org.w3c.dom.Attr {
-
-	public static final String XMLNS_ATTR = "xmlns";
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.w3c.dom` is unnecessary and can be removed
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
@@ -11903,54 +11855,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 	@Override
 	public org.w3c.dom.Node removeChild(org.w3c.dom.Node arg0) throws DOMException {
 		return null;
-	}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean isSameNode(org.w3c.dom.Node arg0) {
-		return false;
-	}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-
-	@Override
-	public boolean isEqualNode(org.w3c.dom.Node arg0) {
-		return false;
-	}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	 */
-	@Override
-	public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
-		throw new UnsupportedOperationException();
-	}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	 */
-	@Override
-	public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
-		throw new UnsupportedOperationException();
 	}
 ```
 
@@ -11961,9 +11865,45 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 ```java
 
 		@Override
-		public T setNamedItem(org.w3c.dom.Node arg0) throws DOMException {
+		public T setNamedItemNS(org.w3c.dom.Node arg0) throws DOMException {
 			throw new UnsupportedOperationException();
 		}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	 */
+	@Override
+	public org.w3c.dom.Node cloneNode(boolean deep) {
+		throw new UnsupportedOperationException();
+	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	 */
+	@Override
+	public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
+		throw new UnsupportedOperationException();
+	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	 */
+	@Override
+	public org.w3c.dom.Node appendChild(org.w3c.dom.Node newChild) throws DOMException {
+		throw new UnsupportedOperationException();
+	}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12021,6 +11961,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 ```java
 
 	@Override
+	public boolean isSameNode(org.w3c.dom.Node arg0) {
+		return false;
+	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+
+	@Override
+	public boolean isEqualNode(org.w3c.dom.Node arg0) {
+		return false;
+	}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.w3c.dom` is unnecessary and can be removed
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+
+	@Override
 	public org.w3c.dom.Node insertBefore(org.w3c.dom.Node arg0, org.w3c.dom.Node arg1) throws DOMException {
 		return null;
 	}
@@ -12057,21 +12021,9 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 ```java
 
 		@Override
-		public T setNamedItemNS(org.w3c.dom.Node arg0) throws DOMException {
+		public T setNamedItem(org.w3c.dom.Node arg0) throws DOMException {
 			throw new UnsupportedOperationException();
 		}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.w3c.dom` is unnecessary and can be removed
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	 */
-	@Override
-	public org.w3c.dom.Node cloneNode(boolean deep) {
-		throw new UnsupportedOperationException();
-	}
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12111,18 +12063,6 @@ public class XMLFormattingOptions extends org.eclipse.lemminx.settings.LSPFormat
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.text` is unnecessary, and can be replaced with an import
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
-#### Snippet
-```java
-				}
-
-				msg = java.text.MessageFormat.format(msg, arguments);
-			} catch (Exception e) {
-				msg = fResourceBundle.getString("FormatFailed");
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary, and can be replaced with an import
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/ExternalXMLDTDValidator.java`
 #### Snippet
@@ -12132,6 +12072,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/Exte
 				} catch (java.io.IOException e) {
 				}
 				XMLDTDDescription grammarDesc = new XMLDTDDescription(null, externalDoctype,
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.text` is unnecessary, and can be replaced with an import
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
+#### Snippet
+```java
+				}
+
+				msg = java.text.MessageFormat.format(msg, arguments);
+			} catch (Exception e) {
+				msg = fResourceBundle.getString("FormatFailed");
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -12358,11 +12310,11 @@ Constructor `CacheResourceException()` of an abstract class should not be declar
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourceException.java`
 #### Snippet
 ```java
-	private final String resourceURI;
-
-	public CacheResourceException(String resourceURI, String message) {
-		this(resourceURI, message, null);
 	}
+
+	public CacheResourceException(String resourceURI, String message, Throwable cause) {
+		super(message, cause);
+		this.resourceURI = resourceURI;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -12370,11 +12322,11 @@ Constructor `CacheResourceException()` of an abstract class should not be declar
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/CacheResourceException.java`
 #### Snippet
 ```java
-	}
+	private final String resourceURI;
 
-	public CacheResourceException(String resourceURI, String message, Throwable cause) {
-		super(message, cause);
-		this.resourceURI = resourceURI;
+	public CacheResourceException(String resourceURI, String message) {
+		this(resourceURI, message, null);
+	}
 ```
 
 ## RuleId[id=Java8MapApi]
@@ -12512,6 +12464,54 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/ExceptionUtils.j
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
+#### Snippet
+```java
+		if (!isWhitespaceContent) {
+			if (isJoinContentLines()) {
+				text = StringUtils.normalizeSpace(text);
+			} else if (hasSiblings) {
+				text = text.trim();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
+#### Snippet
+```java
+				text = StringUtils.normalizeSpace(text);
+			} else if (hasSiblings) {
+				text = text.trim();
+			}
+			if (isTrimTrailingWhitespace()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `text`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
+#### Snippet
+```java
+			}
+			if (isTrimTrailingWhitespace()) {
+				text = trimTrailingSpacesEachLine(text);
+			}
+			append(text);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `content`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
+#### Snippet
+```java
+	public XMLBuilder addContentCDATA(String content) {
+		if (isJoinCDATALines()) {
+			content = normalizeSpace(content);
+		}
+		append(content);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `left`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/LevenshteinDistance.java`
 #### Snippet
@@ -12560,15 +12560,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/LevenshteinDista
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `fileURI`
+Assignment to method parameter `uri`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 #### Snippet
 ```java
-				index++;
-			}
-			fileURI = fileURI.substring(index + 1, fileURI.length());
-		}
-		return fileURI;
+	public static Path getPath(String uri) {
+		// Remove file://
+		uri = removeFileScheme(uri, Platform.isWindows);
+		try {
+			// replace "%20" with " ", "%3A" with ":", etc
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `uri`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
+#### Snippet
+```java
+		try {
+			// replace "%20" with " ", "%3A" with ":", etc
+			uri = URLDecoder.decode(uri, StandardCharsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+			// Do nothing
 ```
 
 ### AssignmentToMethodParameter
@@ -12632,27 +12644,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `uri`
+Assignment to method parameter `fileURI`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 #### Snippet
 ```java
-	public static Path getPath(String uri) {
-		// Remove file://
-		uri = removeFileScheme(uri, Platform.isWindows);
-		try {
-			// replace "%20" with " ", "%3A" with ":", etc
+				index++;
+			}
+			fileURI = fileURI.substring(index + 1, fileURI.length());
+		}
+		return fileURI;
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `uri`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
+Assignment to method parameter `index`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
 #### Snippet
 ```java
-		try {
-			// replace "%20" with " ", "%3A" with ":", etc
-			uri = URLDecoder.decode(uri, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-			// Do nothing
+				return false;
+			}
+			index++;
+		}
+		return true;
 ```
 
 ### AssignmentToMethodParameter
@@ -12677,78 +12689,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java
 		pathString = pathString.replace("/", "\\");
 		return pathString;
 	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
-#### Snippet
-```java
-				return false;
-			}
-			index++;
-		}
-		return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `content`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
-#### Snippet
-```java
-	public XMLBuilder addContentCDATA(String content) {
-		if (isJoinCDATALines()) {
-			content = normalizeSpace(content);
-		}
-		append(content);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
-#### Snippet
-```java
-		if (!isWhitespaceContent) {
-			if (isJoinContentLines()) {
-				text = StringUtils.normalizeSpace(text);
-			} else if (hasSiblings) {
-				text = text.trim();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
-#### Snippet
-```java
-				text = StringUtils.normalizeSpace(text);
-			} else if (hasSiblings) {
-				text = text.trim();
-			}
-			if (isTrimTrailingWhitespace()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLBuilder.java`
-#### Snippet
-```java
-			}
-			if (isTrimTrailingWhitespace()) {
-				text = trimTrailingSpacesEachLine(text);
-			}
-			append(text);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-
-	public static Range selectAttributeNameAt(int offset, DOMDocument document) {
-		offset = adjustOffsetForAttribute(offset, document);
-		DOMAttr attr = document.findAttrAt(offset);
-		return createAttrNameRange(attr, document);
 ```
 
 ### AssignmentToMethodParameter
@@ -12800,6 +12740,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtili
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `offset`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+
+	public static Range selectAttributeNameAt(int offset, DOMDocument document) {
+		offset = adjustOffsetForAttribute(offset, document);
+		DOMAttr attr = document.findAttrAt(offset);
+		return createAttrNameRange(attr, document);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `xpathExpression`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMatcher.java`
 #### Snippet
@@ -12821,6 +12773,54 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/xpath/matcher/XPathMat
 			xpathExpression = xpathExpression.substring(0, xpathExpression.length() - 2);
 		}
 		IXPathNodeMatcher nodeMatcher = null;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `wasLeftChild`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
+			Node parent = node.parent;
+			if (parent != null) {
+				wasLeftChild = node == parent.left;
+			}
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
+			}
+
+			node = parent;
+		}
+	}
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
+			while (info != null) {
+				int lineLen = info.delimiterIndex - consumed + info.delimiterLength;
+				node = insertAfter(node, lineLen, info.delimiter);
+				consumed += lineLen;
+				info = nextDelimiterInfo(text, consumed);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `from`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
+#### Snippet
+```java
+				parent.line += deltaLines;
+			}
+			from = parent;
+			parent = from.parent;
+		}
 ```
 
 ### AssignmentToMethodParameter
@@ -12864,23 +12864,11 @@ Assignment to method parameter `node`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
-			case 1:
-			case -1:
-				node = parent;
-				parent = node.parent;
-				continue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `wasLeftChild`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-			Node parent = node.parent;
-			if (parent != null) {
-				wasLeftChild = node == parent.left;
-			}
-
+		Node child = node.left;
+		while (child != null) {
+			node = child;
+			child = node.left;
+		}
 ```
 
 ### AssignmentToMethodParameter
@@ -12888,23 +12876,11 @@ Assignment to method parameter `node`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
-			}
-
-			node = parent;
-		}
-	}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `from`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-				parent.line += deltaLines;
-			}
-			from = parent;
-			parent = from.parent;
-		}
+			case 1:
+			case -1:
+				node = parent;
+				parent = node.parent;
+				continue;
 ```
 
 ### AssignmentToMethodParameter
@@ -12920,39 +12896,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracke
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-		Node child = node.left;
-		while (child != null) {
-			node = child;
-			child = node.left;
-		}
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-			while (info != null) {
-				int lineLen = info.delimiterIndex - consumed + info.delimiterLength;
-				node = insertAfter(node, lineLen, info.delimiter);
-				consumed += lineLen;
-				info = nextDelimiterInfo(text, consumed);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `selectionRange`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
 #### Snippet
 ```java
-			parentSelectionRange.setRange(range);
-			selectionRange.setParent(parentSelectionRange);
-			selectionRange = parentSelectionRange;
-		}
-		return selectionRange;
+					parentSelectionRange.setRange(range);
+					selectionRange.setParent(parentSelectionRange);
+					selectionRange = parentSelectionRange;
+				} catch (BadLocationException e) {
+					LOGGER.log(Level.SEVERE, "Failed to select DOCTYPE subset", e);
 ```
 
 ### AssignmentToMethodParameter
@@ -12989,6 +12941,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionR
 			selectionRange = parentSelectionRange;
 		}
 		return handleGenericNodeSelectionRange(selectionRange, element, offset);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `selectionRange`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
+#### Snippet
+```java
+
+	private SelectionRange handleAttributeSelectionRange(SelectionRange selectionRange, DOMAttr attr, int offset) {
+		selectionRange = handleGenericNodeSelectionRange(selectionRange, attr, offset);
+		DOMElement ownerElement = attr.getOwnerElement();
+		if (ownerElement != null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `selectionRange`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
+#### Snippet
+```java
+		DOMElement ownerElement = attr.getOwnerElement();
+		if (ownerElement != null) {
+			selectionRange = handleGenericNodeSelectionRange(selectionRange, ownerElement, offset);
+		}
+		return selectionRange;
 ```
 
 ### AssignmentToMethodParameter
@@ -13032,33 +13008,9 @@ Assignment to method parameter `selectionRange`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
 #### Snippet
 ```java
-					parentSelectionRange.setRange(range);
-					selectionRange.setParent(parentSelectionRange);
-					selectionRange = parentSelectionRange;
-				} catch (BadLocationException e) {
-					LOGGER.log(Level.SEVERE, "Failed to select DOCTYPE subset", e);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `selectionRange`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
-#### Snippet
-```java
-
-	private SelectionRange handleAttributeSelectionRange(SelectionRange selectionRange, DOMAttr attr, int offset) {
-		selectionRange = handleGenericNodeSelectionRange(selectionRange, attr, offset);
-		DOMElement ownerElement = attr.getOwnerElement();
-		if (ownerElement != null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `selectionRange`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionRanges.java`
-#### Snippet
-```java
-		DOMElement ownerElement = attr.getOwnerElement();
-		if (ownerElement != null) {
-			selectionRange = handleGenericNodeSelectionRange(selectionRange, ownerElement, offset);
+			parentSelectionRange.setRange(range);
+			selectionRange.setParent(parentSelectionRange);
+			selectionRange = parentSelectionRange;
 		}
 		return selectionRange;
 ```
@@ -13136,27 +13088,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `spaceEnd`
+Assignment to method parameter `newLineCount`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
 #### Snippet
 ```java
-	void replaceSpacesWithOneSpace(int spaceStart, int spaceEnd, List<TextEdit> edits) {
-		if (spaceStart >= 0) {
-			spaceEnd = spaceEnd == -1 ? spaceStart + 1 : spaceEnd + 1;
-			// Replace several spaces with one space
-			// <foo>a[space][space][space]b</foo>
+		while (newLineCount != 0) {
+			spaces.append(lineDelimiter);
+			newLineCount--;
+		}
+
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
+Assignment to method parameter `to`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
 #### Snippet
 ```java
-		int indentLevel = 0;
-		while (node != null) {
-			node = node.getParentElement();
-			if (node != null) {
-				indentLevel++;
+		for (int i = from; i < to; i++) {
+			if (Character.isWhitespace(text.charAt(i)) && !Character.isWhitespace(text.charAt(i + 1))) {
+				to -= contentOffset;
+				contentOffset = 0;
+			} else if (Character.isWhitespace(text.charAt(i))) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13220,27 +13172,27 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `to`
+Assignment to method parameter `spaceEnd`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
 #### Snippet
 ```java
-		for (int i = from; i < to; i++) {
-			if (Character.isWhitespace(text.charAt(i)) && !Character.isWhitespace(text.charAt(i + 1))) {
-				to -= contentOffset;
-				contentOffset = 0;
-			} else if (Character.isWhitespace(text.charAt(i))) {
+	void replaceSpacesWithOneSpace(int spaceStart, int spaceEnd, List<TextEdit> edits) {
+		if (spaceStart >= 0) {
+			spaceEnd = spaceEnd == -1 ? spaceStart + 1 : spaceEnd + 1;
+			// Replace several spaces with one space
+			// <foo>a[space][space][space]b</foo>
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `newLineCount`
+Assignment to method parameter `node`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocument.java`
 #### Snippet
 ```java
-		while (newLineCount != 0) {
-			spaces.append(lineDelimiter);
-			newLineCount--;
-		}
-
+		int indentLevel = 0;
+		while (node != null) {
+			node = node.getParentElement();
+			if (node != null) {
+				indentLevel++;
 ```
 
 ### AssignmentToMethodParameter
@@ -13280,6 +13232,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `charCode`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/colors/utils/ColorUtils.java`
+#### Snippet
+```java
+		}
+		if (charCode < a) {
+			charCode += (a - A);
+		}
+		if (charCode >= a && charCode <= f) {
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `locale`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPMessageFormatter.java`
 #### Snippet
@@ -13304,18 +13268,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPM
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `charCode`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/colors/utils/ColorUtils.java`
-#### Snippet
-```java
-		}
-		if (charCode < a) {
-			charCode += (a - A);
-		}
-		if (charCode >= a && charCode <= f) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `locale`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/msg/XMLModelMessageFormatter.java`
 #### Snippet
@@ -13328,15 +13280,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlm
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `exception`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+Assignment to method parameter `baseURI`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogUtils.java`
 #### Snippet
 ```java
-			Exception exception) throws XNIException {
-		if (currentError != null) {
-			exception = currentError;
-			currentError = null;
+		String groupSegment = group.getAttribute(XML_BASE_ATTRIBUTE);
+		if (groupSegment != null) {
+			baseURI = Paths.get(baseURI, groupSegment).toString();
 		}
+		for (DOMNode node : group.getChildren()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13352,15 +13304,15 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/Abst
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `baseURI`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogUtils.java`
+Assignment to method parameter `exception`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
 #### Snippet
 ```java
-		String groupSegment = group.getAttribute(XML_BASE_ATTRIBUTE);
-		if (groupSegment != null) {
-			baseURI = Paths.get(baseURI, groupSegment).toString();
+			Exception exception) throws XNIException {
+		if (currentError != null) {
+			exception = currentError;
+			currentError = null;
 		}
-		for (DOMNode node : group.getChildren()) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13424,30 +13376,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `identifier`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
-#### Snippet
-```java
-			}
-			if (identifier == null) {
-				identifier = new Identifier(publicId, systemId, null, null);
-			}
-			referencedGrammarInfos.add(new ReferencedGrammarInfo(resolvedURIInfo, grammarCacheInfo, identifier));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `modelProvider`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
-#### Snippet
-```java
-			// xsi:noNamespaceSchemaLocation, doctype)
-			// try to get it by using extension (ex: .xsd, .dtd)
-			modelProvider = getModelProviderByURI(resolvedUri);
-		}
-		if (modelProvider == null) {
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `rootUri`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
 #### Snippet
@@ -13469,6 +13397,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			namespaceURI = xmlDocument.getNamespaceURI();
 		}
 		Collection<CMDocument> documents = new ArrayList<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `identifier`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
+#### Snippet
+```java
+			}
+			if (identifier == null) {
+				identifier = new Identifier(publicId, systemId, null, null);
+			}
+			referencedGrammarInfos.add(new ReferencedGrammarInfo(resolvedURIInfo, grammarCacheInfo, identifier));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `modelProvider`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
+#### Snippet
+```java
+			// xsi:noNamespaceSchemaLocation, doctype)
+			// try to get it by using extension (ex: .xsd, .dtd)
+			modelProvider = getModelProviderByURI(resolvedUri);
+		}
+		if (modelProvider == null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -13643,6 +13595,138 @@ in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelax
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+#### Snippet
+```java
+
+	public String getCategory() {
+		return category != null ? category.getParameter() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+#### Snippet
+```java
+		// Check if offset is in the <!ELEMENT nam|e
+		if (isInNameParameter(offset)) {
+			return null;
+		}
+		// We are after the <!ELEMENT name, search the parameter
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+#### Snippet
+```java
+		if (paramStart == -1 || paramEnd == -1) {
+			// no word
+			return null;
+		}
+		return new DTDDeclParameter(this, paramStart, paramEnd);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+#### Snippet
+```java
+
+	public String getContent() {
+		return content != null ? content.getParameter() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
+#### Snippet
+```java
+			node = node.getParentNode();
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
+#### Snippet
+```java
+			return getNameParameter();
+		}
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
+#### Snippet
+```java
+
+	protected DTDDeclParameter getParameterAtIndex(int index) {
+		return parameters != null && parameters.size() > index ? parameters.get(index) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
+#### Snippet
+```java
+	public String getName() {
+		DTDDeclParameter name = getNameParameter();
+		return name != null ? name.getParameter() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
+#### Snippet
+```java
+			return declType.getParameter();
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDNotationDecl.java`
+#### Snippet
+```java
+
+	public String getSystemId() {
+		return systemId != null ? systemId.getParameterWithoutFirstAndLastChar() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDNotationDecl.java`
+#### Snippet
+```java
+
+	public String getPublicId() {
+		return publicId != null ? publicId.getParameterWithoutFirstAndLastChar() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
@@ -13698,78 +13782,6 @@ in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelax
 		if (!URIUtils.isFileResource(systemId)) {
 			return null;
 		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-		DOMNode node = findNodeAt(locator);
-		if (node == null) {
-			return null;
-		}
-		if (node.isElement()) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-		DOMElement choice = findFirstChildElementByTagName(element, CHOICE_ELT);
-		if (choice == null) {
-			return null;
-		}
-		int length = choice.getChildren().size();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-						return (DOMElement) next;
-					}
-					return null;
-				}
-			}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
 
 ```
 
@@ -13859,108 +13871,36 @@ in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelax
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
-		// Check if offset is in the <!ELEMENT nam|e
-		if (isInNameParameter(offset)) {
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
+#### Snippet
+```java
+		DOMNode node = findNodeAt(locator);
+		if (node == null) {
 			return null;
 		}
-		// We are after the <!ELEMENT name, search the parameter
+		if (node.isElement()) {
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
-		if (paramStart == -1 || paramEnd == -1) {
-			// no word
-			return null;
-		}
-		return new DTDDeclParameter(this, paramStart, paramEnd);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
-#### Snippet
-```java
-
-	public String getContent() {
-		return content != null ? content.getParameter() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDElementDecl.java`
-#### Snippet
-```java
-
-	public String getCategory() {
-		return category != null ? category.getParameter() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
-#### Snippet
-```java
-			return getNameParameter();
+			}
 		}
 		return null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
-#### Snippet
-```java
-	public String getName() {
-		DTDDeclParameter name = getNameParameter();
-		return name != null ? name.getParameter() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
-#### Snippet
-```java
-			return declType.getParameter();
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
-#### Snippet
-```java
-			node = node.getParentNode();
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDDeclNode.java`
-#### Snippet
-```java
-
-	protected DTDDeclParameter getParameterAtIndex(int index) {
-		return parameters != null && parameters.size() > index ? parameters.get(index) : null;
 	}
 
 ```
@@ -13979,31 +13919,31 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDNotationDecl.ja
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDNotationDecl.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
-
-	public String getPublicId() {
-		return publicId != null ? publicId.getParameterWithoutFirstAndLastChar() : null;
-	}
-
+		DOMElement choice = findFirstChildElementByTagName(element, CHOICE_ELT);
+		if (choice == null) {
+			return null;
+		}
+		int length = choice.getChildren().size();
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDNotationDecl.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
-
-	public String getSystemId() {
-		return systemId != null ? systemId.getParameterWithoutFirstAndLastChar() : null;
-	}
-
+						return (DOMElement) next;
+					}
+					return null;
+				}
+			}
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGElementDeclaration.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGDocument.java`
 #### Snippet
 ```java
 			}
@@ -14018,7 +13958,7 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGElementDeclaration.java`
 #### Snippet
 ```java
-			return ((SimpleNameClass) nameClass).getName();
+			}
 		}
 		return null;
 	}
@@ -14063,12 +14003,12 @@ in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelax
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDAttlistDecl.java`
+in `org.eclipse.lemminx/src/main/java/com/thaiopensource/relaxng/pattern/CMRelaxNGElementDeclaration.java`
 #### Snippet
 ```java
-	 */
-	public String getAttributeName() {
-		return attributeName != null ? attributeName.getParameter() : null;
+			return ((SimpleNameClass) nameClass).getName();
+		}
+		return null;
 	}
 
 ```
@@ -14081,6 +14021,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDAttlistDecl.jav
 
 	public String getAttributeType() {
 		return attributeType != null ? attributeType.getParameter() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDAttlistDecl.java`
+#### Snippet
+```java
+	 */
+	public String getAttributeName() {
+		return attributeName != null ? attributeName.getParameter() : null;
 	}
 
 ```
@@ -14114,45 +14066,9 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
 #### Snippet
 ```java
-
-	public String getPublicIdWithoutQuotes() {
-		return publicId != null ? publicId.getParameterWithoutFirstAndLastChar() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
-#### Snippet
-```java
-
-	public String getSystemIdWithoutQuotes() {
-		return systemId != null ? systemId.getParameterWithoutFirstAndLastChar() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
-#### Snippet
-```java
 	 */
 	public String getKind() {
 		return kind != null ? kind.getParameter() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
-#### Snippet
-```java
-	@Override
-	public String getPublicId() {
-		return publicId != null ? publicId.getParameter() : null;
 	}
 
 ```
@@ -14175,6 +14091,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.ja
 #### Snippet
 ```java
 	@Override
+	public String getPublicId() {
+		return publicId != null ? publicId.getParameter() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
+#### Snippet
+```java
+	@Override
 	public String getSystemId() {
 		return systemId != null ? systemId.getParameter() : null;
 	}
@@ -14183,12 +14111,24 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.ja
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
 #### Snippet
 ```java
-	public DOMDocument getDocument(String uri) {
-		ModelTextDocument<DOMDocument> document = xmlTextDocumentService.getDocument(uri);
-		return document != null ? document.getModel() : null;
+
+	public String getSystemIdWithoutQuotes() {
+		return systemId != null ? systemId.getParameterWithoutFirstAndLastChar() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocumentType.java`
+#### Snippet
+```java
+
+	public String getPublicIdWithoutQuotes() {
+		return publicId != null ? publicId.getParameterWithoutFirstAndLastChar() : null;
 	}
 
 ```
@@ -14210,6 +14150,18 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/XMLModel.java`
 #### Snippet
 ```java
+	public String getHref() {
+		XMLModelDeclaration declaration = getModelDeclaration();
+		return declaration != null ? declaration.getHref() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/XMLModel.java`
+#### Snippet
+```java
 		String data = processingInstruction.getData();
 		if (data == null) {
 			return null;
@@ -14219,12 +14171,264 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/XMLModel.java`
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/XMLModel.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
 #### Snippet
 ```java
-	public String getHref() {
-		XMLModelDeclaration declaration = getModelDeclaration();
-		return declaration != null ? declaration.getHref() : null;
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+			return getChild(0);
+		} else {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+		// Check that the attribute and the attribute value of xsi:schemaLocation is not null
+		if (attr == null || attr.getNodeAttrValue() == null) {
+			return null;
+		}
+		return new SchemaLocation(attr);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+		DOMAttr attr = root.getAttributeNode(getPrefixedName(schemaInstancePrefix, "noNamespaceSchemaLocation"));
+		if (attr == null || attr.getValue() == null) {
+			return null;
+		}
+		return new NoNamespaceSchemaLocation(attr);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+		}
+		if (start == end) {
+			return null;
+		}
+		end--;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+	public String getNamespaceURI() {
+		DOMElement documentElement = getDocumentElement();
+		return documentElement != null ? documentElement.getNamespaceURI() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
+#### Snippet
+```java
+			return getTrimmedRange(range.getStart().getCharacter(), range.getEnd().getCharacter());
+		}
+		return null;
+
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+				if (isDefaultXmlns()) {
+					// xmlns="http://"
+					return null;
+				}
+				// xmlns:xxx="http://"
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+		DOMNode parentNode = getOwnerElement();
+		if (parentNode == null) {
+			return null;
+		}
+		List<DOMAttr> children = parentNode.getAttributeNodes();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+		List<DOMAttr> children = parentNode.getAttributeNodes();
+		int nextIndex = children.indexOf(this) + 1;
+		return nextIndex < children.size() ? children.get(nextIndex) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+				return super.getContent();
+			}
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+	public String getNamespaceURI() {
+		if (ownerElement == null || ownerElement.getNodeType() != Node.ELEMENT_NODE) {
+			return null;
+		}
+		String prefix = getPrefix();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+		String name = getName();
+		if (name == null) {
+			return null;
+		}
+		String prefix = null;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+	 */
+	public DOMElement getOwnerElement() {
+		return ownerElement.isElement() ? (DOMElement) ownerElement : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
+#### Snippet
+```java
+	@Override
+	public DOMDocument getOwnerDocument() {
+		return ownerElement != null ? ownerElement.getOwnerDocument() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+	@Override
+	public DOMAttr removeAttributeNode(org.w3c.dom.Attr arg0) throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+	@Override
+	public DOMAttr getAttributeNodeNS(String arg0, String arg1) throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+	@Override
+	public DOMAttr setAttributeNode(org.w3c.dom.Attr arg0) throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+		String name = getTagName();
+		if (name == null) {
+			return null;
+		}
+		String prefix = null;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+	@Override
+	public TypeInfo getSchemaTypeInfo() {
+		return null;
 	}
 
 ```
@@ -14249,6 +14453,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDEntityDecl.java
 	@Override
 	public String getPublicId() {
 		return publicId != null ? publicId.getParameterWithoutFirstAndLastChar() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDEntityDecl.java`
+#### Snippet
+```java
+	 */
+	public String getPercent() {
+		return percent != null ? percent.getParameter() : null;
 	}
 
 ```
@@ -14279,155 +14495,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDEntityDecl.java
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DTDEntityDecl.java`
-#### Snippet
-```java
-	 */
-	public String getPercent() {
-		return percent != null ? percent.getParameter() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-		DOMAttr attr = root.getAttributeNode(getPrefixedName(schemaInstancePrefix, "noNamespaceSchemaLocation"));
-		if (attr == null || attr.getValue() == null) {
-			return null;
-		}
-		return new NoNamespaceSchemaLocation(attr);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-	public String getNamespaceURI() {
-		DOMElement documentElement = getDocumentElement();
-		return documentElement != null ? documentElement.getNamespaceURI() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-			return getTrimmedRange(range.getStart().getCharacter(), range.getEnd().getCharacter());
-		}
-		return null;
-
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-			return getChild(0);
-		} else {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-		}
-		if (start == end) {
-			return null;
-		}
-		end--;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMDocument.java`
-#### Snippet
-```java
-		// Check that the attribute and the attribute value of xsi:schemaLocation is not null
-		if (attr == null || attr.getNodeAttrValue() == null) {
-			return null;
-		}
-		return new SchemaLocation(attr);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-		String name = getTagName();
-		if (name == null) {
-			return null;
-		}
-		int index = name.indexOf(":"); //$NON-NLS-1$
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
 	@Override
-	public TypeInfo getSchemaTypeInfo() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-	public String getPrefix(String namespaceURI) {
-		if (namespaceURI == null) {
-			return null;
-		}
-		if (hasAttributes()) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-			}
-		}
+	public DOMAttr setAttributeNodeNS(org.w3c.dom.Attr arg0) throws DOMException {
 		return null;
 	}
 
@@ -14440,6 +14512,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 ```java
 	@Override
 	public NodeList getElementsByTagNameNS(String arg0, String arg1) throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+	@Override
+	public String getAttributeNS(String arg0, String arg1) throws DOMException {
 		return null;
 	}
 
@@ -14474,8 +14558,20 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
-	@Override
-	public DOMAttr removeAttributeNode(org.w3c.dom.Attr arg0) throws DOMException {
+	public String getPrefix(String namespaceURI) {
+		if (namespaceURI == null) {
+			return null;
+		}
+		if (hasAttributes()) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+#### Snippet
+```java
+			}
+		}
 		return null;
 	}
 
@@ -14486,11 +14582,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
-			parent = parent.getParentNode();
+		String name = getTagName();
+		if (name == null) {
+			return null;
 		}
-		return null;
-	}
-
+		int index = name.indexOf(":"); //$NON-NLS-1$
 ```
 
 ### ReturnNull
@@ -14535,30 +14631,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
 	@Override
-	public DOMAttr setAttributeNode(org.w3c.dom.Attr arg0) throws DOMException {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-		String name = getTagName();
-		if (name == null) {
-			return null;
-		}
-		String prefix = null;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-	@Override
 	public NodeList getElementsByTagName(String arg0) {
 		return null;
 	}
@@ -14570,8 +14642,8 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 #### Snippet
 ```java
-	@Override
-	public String getAttributeNS(String arg0, String arg1) throws DOMException {
+			parent = parent.getParentNode();
+		}
 		return null;
 	}
 
@@ -14579,230 +14651,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
-	@Override
-	public DOMAttr getAttributeNodeNS(String arg0, String arg1) throws DOMException {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMElement.java`
-#### Snippet
-```java
-	@Override
-	public DOMAttr setAttributeNodeNS(org.w3c.dom.Attr arg0) throws DOMException {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-		String name = getName();
-		if (name == null) {
+		String value = attr != null ? attr.getValue() : null;
+		if (value == null) {
 			return null;
 		}
-		String prefix = null;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-		DOMNode parentNode = getOwnerElement();
-		if (parentNode == null) {
-			return null;
-		}
-		List<DOMAttr> children = parentNode.getAttributeNodes();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-		List<DOMAttr> children = parentNode.getAttributeNodes();
-		int nextIndex = children.indexOf(this) + 1;
-		return nextIndex < children.size() ? children.get(nextIndex) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-	@Override
-	public DOMDocument getOwnerDocument() {
-		return ownerElement != null ? ownerElement.getOwnerDocument() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-	 */
-	public DOMElement getOwnerElement() {
-		return ownerElement.isElement() ? (DOMElement) ownerElement : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-				if (isDefaultXmlns()) {
-					// xmlns="http://"
-					return null;
-				}
-				// xmlns:xxx="http://"
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-	public String getNamespaceURI() {
-		if (ownerElement == null || ownerElement.getNodeType() != Node.ELEMENT_NODE) {
-			return null;
-		}
-		String prefix = getPrefix();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMAttr.java`
-#### Snippet
-```java
-				return super.getContent();
-			}
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public String lookupPrefix(String arg0) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public Object getUserData(String arg0) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-			node = node.getParentNode();
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public String getPrefix() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public DOMNode getFirstChild() {
-		return this.children != null && children.size() > 0 ? this.children.get(0) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public String getLocalName() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-				}
-			}
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public String lookupNamespaceURI(String arg0) {
-		return null;
-	}
-
+		if (value.isEmpty()) {
 ```
 
 ### ReturnNull
@@ -14823,67 +14679,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
 	@Override
-	public org.w3c.dom.Node insertBefore(org.w3c.dom.Node arg0, org.w3c.dom.Node arg1) throws DOMException {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public DOMNode getLastChild() {
-		return this.children != null && this.children.size() > 0 ? this.children.get(this.children.size() - 1) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-		DOMNode parentNode = getParentNode();
-		if (parentNode == null) {
-			return null;
-		}
-		List<DOMNode> children = parentNode.getChildren();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-		List<DOMNode> children = parentNode.getChildren();
-		int nextIndex = children.indexOf(this) + 1;
-		return nextIndex < children.size() ? children.get(nextIndex) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public String getNodeValue() throws DOMException {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-	@Override
-	public org.w3c.dom.Node removeChild(org.w3c.dom.Node arg0) throws DOMException {
+	public Object getUserData(String arg0) {
 		return null;
 	}
 
@@ -14906,47 +14702,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
-		String name = sb.toString();
-		if (!hasAttributes()) {
+				}
+			}
 			return null;
 		}
-		for (DOMAttr attr : attributeNodes) {
-```
 
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
-#### Snippet
-```java
-		String value = attr != null ? attr.getValue() : null;
-		if (value == null) {
-			return null;
-		}
-		if (value.isEmpty()) {
 ```
 
 ### ReturnNull
@@ -14990,6 +14750,42 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
+			parent = parent.getParentNode();
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+		DOMNode parentNode = getParentNode();
+		if (parentNode == null) {
+			return null;
+		}
+		List<DOMNode> children = parentNode.getChildren();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+		List<DOMNode> children = parentNode.getChildren();
+		int nextIndex = children.indexOf(this) + 1;
+		return nextIndex < children.size() ? children.get(nextIndex) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
 		@Override
 		public Node item(int index) {
 			return null;
@@ -15003,7 +14799,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
 	@Override
-	public Object setUserData(String arg0, Object arg1, UserDataHandler arg2) {
+	public org.w3c.dom.Node removeChild(org.w3c.dom.Node arg0) throws DOMException {
 		return null;
 	}
 
@@ -15014,11 +14810,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
-		DOMNode next = getNextSibling();
-		if (next == null || !next.isElement()) {
-			return null;
-		}
-		// emp| </employe>
+	@Override
+	public String lookupPrefix(String arg0) {
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -15026,8 +14822,56 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
-			return nextElement;
+	@Override
+	public DOMNode getLastChild() {
+		return this.children != null && this.children.size() > 0 ? this.children.get(this.children.size() - 1) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+		String name = sb.toString();
+		if (!hasAttributes()) {
+			return null;
 		}
+		for (DOMAttr attr : attributeNodes) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+			node = node.getParentNode();
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public String getLocalName() {
 		return null;
 	}
 
@@ -15062,9 +14906,117 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
 #### Snippet
 ```java
-			parent = parent.getParentNode();
+		DOMNode next = getNextSibling();
+		if (next == null || !next.isElement()) {
+			return null;
+		}
+		// emp| </employe>
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+			return nextElement;
 		}
 		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public String getNodeValue() throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public Object setUserData(String arg0, Object arg1, UserDataHandler arg2) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public org.w3c.dom.Node insertBefore(org.w3c.dom.Node arg0, org.w3c.dom.Node arg1) throws DOMException {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public String lookupNamespaceURI(String arg0) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public String getPrefix() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/dom/DOMNode.java`
+#### Snippet
+```java
+	@Override
+	public DOMNode getFirstChild() {
+		return this.children != null && children.size() > 0 ? this.children.get(0) : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLLanguageServer.java`
+#### Snippet
+```java
+	public DOMDocument getDocument(String uri) {
+		ModelTextDocument<DOMDocument> document = xmlTextDocumentService.getDocument(uri);
+		return document != null ? document.getModel() : null;
 	}
 
 ```
@@ -15143,18 +15095,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/FilesUtils.java`
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
-#### Snippet
-```java
-			return obj.toString();
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/MarkupContentFactory.java`
 #### Snippet
 ```java
@@ -15179,14 +15119,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/MarkupContentFac
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/StringUtils.java`
 #### Snippet
 ```java
-			List<DTDDeclParameter> params = declNode.getParameters();
-			if (params.isEmpty()) {
-				return null;
-			}
-			if (params.size() == 1) {
+			return obj.toString();
+		}
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -15206,7 +15146,211 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
+		int entityReferenceStart = getEntityReferenceStartOffset(text, offset);
+		if (entityReferenceStart == -1) {
+			return null;
+		}
+		// Search ';' (or character on the right of the offset
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		if (entityReferenceEnd == -1) {
+			if (endsWithSemicolon) {
+				return null;
+			}
+			entityReferenceEnd = offset;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+	public static Range selectAttributePrefixFromGivenNameAt(String attrName, int offset, DOMDocument document) {
+		if (attrName == null) {
+			return null;
+		}
+		DOMNode element = document.findNodeAt(offset);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		DOMNode node = document.findNodeAt(offset);
+		if (node == null || !node.isElement()) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+
+		if (child == null) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return new Range(startPosition, endPosition);
+		} catch (BadLocationException e) {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
 			return createRange(finalParam.getEnd(), finalParam.getEnd() + 1, document);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+				finalStartOffset += prefix.length() + 1; // skips prefix name and ':'
+			} else {
+				return null;
+			}
+		}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		}
+		if (root == null) {
+			return null;
+		}
+		DOMAttr attr = root.getAttributeNode(attrName);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		DOMAttr attr = root.getAttributeNode(attrName);
+		if (attr == null) {
+			return null;
+		}
+		return selectAttributeValue(attr);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return selectEndTagName(element);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return createRange(declNode.declType.getStart(), declNode.declType.getEnd(), document);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		DOMNode node = document.findNodeAt(offset);
+		if (node == null || !node.isElement()) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+				return new Range(startPosition, endPosition);
+			} catch (BadLocationException e) {
+				return null;
+			}
+		}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
 		}
 		return null;
 	}
@@ -15242,6 +15386,66 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
+			return createRange(node.getStart(), node.getEnd(), document);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+					finalStartOffset += prefix.length() + 1; // skips prefix and ':'
+				} else {
+					return null;
+				}
+			}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return createRange(finalStartOffset, endOffset, element.getOwnerDocument());
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		}
+		if (root == null) {
+			return null;
+		}
+		return selectStartTagName(root);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		DOMNode parent = document.findNodeAt(offset);
+		if (parent == null || !parent.isElement() || !((DOMElement) parent).hasTagName()) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
 			}
 		}
 		return null;
@@ -15255,6 +15459,162 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtili
 #### Snippet
 ```java
 			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return createAttrNameRange(attr, attr.getOwnerDocument());
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			List<DTDDeclParameter> params = declNode.getParameters();
+			if (params.isEmpty()) {
+				return null;
+			}
+			if (params.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return createRange(finalParam.getEnd(), finalParam.getEnd() + 1, document);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		DOMRange attrValue = attr.getNodeAttrValue();
+		if (attrValue == null) {
+			return null;
+		}
+		if (withoutQuote) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+		List<DOMNode> childNodes = document.findNodeAt(offset).getChildren();
+		if (childNodes.size() == 0) {
+			return null;
+		}
+		for (DOMNode domNode : childNodes) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+#### Snippet
+```java
+			return selectStartTagName(element);
 		}
 		return null;
 	}
@@ -15314,342 +15674,6 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
-			return createRange(declNode.declType.getStart(), declNode.declType.getEnd(), document);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		DOMNode node = document.findNodeAt(offset);
-		if (node == null || !node.isElement()) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-				return new Range(startPosition, endPosition);
-			} catch (BadLocationException e) {
-				return null;
-			}
-		}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		DOMRange attrValue = attr.getNodeAttrValue();
-		if (attrValue == null) {
-			return null;
-		}
-		if (withoutQuote) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		int entityReferenceStart = getEntityReferenceStartOffset(text, offset);
-		if (entityReferenceStart == -1) {
-			return null;
-		}
-		// Search ';' (or character on the right of the offset
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		if (entityReferenceEnd == -1) {
-			if (endsWithSemicolon) {
-				return null;
-			}
-			entityReferenceEnd = offset;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return selectEndTagName(element);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		DOMNode node = document.findNodeAt(offset);
-		if (node == null || !node.isElement()) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-
-		if (child == null) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return new Range(startPosition, endPosition);
-		} catch (BadLocationException e) {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return selectStartTagName(element);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return createRange(finalParam.getEnd(), finalParam.getEnd() + 1, document);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		}
-		if (root == null) {
-			return null;
-		}
-		return selectStartTagName(root);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return createRange(node.getStart(), node.getEnd(), document);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return createAttrNameRange(attr, attr.getOwnerDocument());
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return createRange(node.getStart(), node.getEnd(), document);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-					finalStartOffset += prefix.length() + 1; // skips prefix and ':'
-				} else {
-					return null;
-				}
-			}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			return createRange(finalStartOffset, endOffset, element.getOwnerDocument());
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-				finalStartOffset += prefix.length() + 1; // skips prefix name and ':'
-			} else {
-				return null;
-			}
-		}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		List<DOMNode> childNodes = document.findNodeAt(offset).getChildren();
-		if (childNodes.size() == 0) {
-			return null;
-		}
-		for (DOMNode domNode : childNodes) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
 			}
 		}
 		return null;
@@ -15674,7 +15698,7 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
-			}
+			return createRange(node.getStart(), node.getEnd(), document);
 		}
 		return null;
 	}
@@ -15683,73 +15707,13 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtili
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocuments.java`
 #### Snippet
 ```java
 			}
 		}
 		return null;
 	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-	public static Range selectAttributePrefixFromGivenNameAt(String attrName, int offset, DOMDocument document) {
-		if (attrName == null) {
-			return null;
-		}
-		DOMNode element = document.findNodeAt(offset);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		}
-		if (root == null) {
-			return null;
-		}
-		DOMAttr attr = root.getAttributeNode(attrName);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		DOMAttr attr = root.getAttributeNode(attrName);
-		if (attr == null) {
-			return null;
-		}
-		return selectAttributeValue(attr);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
-#### Snippet
-```java
-		DOMNode parent = document.findNodeAt(offset);
-		if (parent == null || !parent.isElement() || !((DOMElement) parent).hasTagName()) {
-			return null;
-		}
 
 ```
 
@@ -15762,6 +15726,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocument.j
 		} catch (BadLocationException e) {
 			return null;
 		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ListLineTracker.java`
+#### Snippet
+```java
+		}
+
+		return null;
+
 	}
 ```
 
@@ -15791,30 +15767,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ListLineTracke
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ListLineTracker.java`
-#### Snippet
-```java
-		}
-
-		return null;
-
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TextDocuments.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/ISnippetRegistryLoader.java`
 #### Snippet
 ```java
@@ -15827,25 +15779,13 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/snippets/ISnip
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
 #### Snippet
 ```java
-		if (clientConfigurationSupport == null || !clientConfigurationSupport.booleanValue()) {
-			// The client doesn't support 'configuration/workspace'.
-			return null;
 		}
-		ConfigurationItem insertSpaces = new ConfigurationItem();
-```
 
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
-#### Snippet
-```java
-				});
-			}
-			return null;
-		});
+		return null;
+
 	}
 ```
 
@@ -15871,18 +15811,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracke
 		return null;
 	}
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/TreeLineTracker.java`
-#### Snippet
-```java
-		}
-
-		return null;
-
-	}
 ```
 
 ### ReturnNull
@@ -15959,6 +15887,30 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLinkedEdit
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+				});
+			}
+			return null;
+		});
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/XMLTextDocumentService.java`
+#### Snippet
+```java
+		if (clientConfigurationSupport == null || !clientConfigurationSupport.booleanValue()) {
+			// The client doesn't support 'configuration/workspace'.
+			return null;
+		}
+		ConfigurationItem insertSpaces = new ConfigurationItem();
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLFormatter.java`
 #### Snippet
 ```java
@@ -15974,7 +15926,7 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocuments.java`
 #### Snippet
 ```java
-			return document.getExistingModel();
+			return document.getModel();
 		}
 		return null;
 	}
@@ -15986,7 +15938,7 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/commons/ModelTextDocuments.java`
 #### Snippet
 ```java
-			return document.getModel();
+			return document.getExistingModel();
 		}
 		return null;
 	}
@@ -16022,9 +15974,9 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/AbstractPositionRequest.java`
 #### Snippet
 ```java
-			return ((DOMElement) node).getTagName();
-		}
-		return null;
+	public String getCurrentAttributeName() {
+		DOMAttr attr = getCurrentAttribute();
+		return attr != null ? attr.getName() : null;
 	}
 
 ```
@@ -16058,9 +16010,9 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/AbstractPositionRequest.java`
 #### Snippet
 ```java
-	public String getCurrentAttributeName() {
-		DOMAttr attr = getCurrentAttribute();
-		return attr != null ? attr.getName() : null;
+			return ((DOMElement) node).getTagName();
+		}
+		return null;
 	}
 
 ```
@@ -16096,66 +16048,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSelectionR
 ```java
 		} catch (BadLocationException e) {
 			LOGGER.log(Level.SEVERE, "Unable to calculate selection range for position " + position, e);
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
-#### Snippet
-```java
-	private List<DOMNode> getFilteredNodeAttributes(DOMNode node, XMLSymbolFilter filter, boolean hasFilterForAttr){
-		if(!hasFilterForAttr){
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
-#### Snippet
-```java
-			JsonObject json = JSONUtility.toModel(data, JsonObject.class);
-			if (json == null) {
-				return null;
-			}
-			JsonElement element = json.get(fieldName);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
-#### Snippet
-```java
-			}
-			JsonElement element = json.get(fieldName);
-			return element != null ? element.getAsInt() : null;
-		} catch (Exception e) {
-			return null;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
-#### Snippet
-```java
-			return element != null ? element.getAsInt() : null;
-		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -16211,35 +16103,35 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntr
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
 #### Snippet
 ```java
-	private DOMElement getAssociatedElement(DOMNode node) {
-		if (!node.isElement() && !node.isAttribute()) {
-			return null;
-		}
-
+			JsonObject json = JSONUtility.toModel(data, JsonObject.class);
+			if (json == null) {
+				return null;
+			}
+			JsonElement element = json.get(fieldName);
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
 #### Snippet
 ```java
-		} catch (BadLocationException e) {
-			LOGGER.log(Level.SEVERE, "Failed creating RenameRequest", e);
+			}
+			JsonElement element = json.get(fieldName);
+			return element != null ? element.getAsInt() : null;
+		} catch (Exception e) {
 			return null;
-		}
-
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/data/DataEntryField.java`
 #### Snippet
 ```java
-			return ranges;
-		} catch (BadLocationException e) {
+			return element != null ? element.getAsInt() : null;
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -16247,14 +16139,26 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.jav
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
 #### Snippet
 ```java
-		if (hovers.isEmpty()) {
-			// no hover
+	private List<DOMNode> getFilteredNodeAttributes(DOMNode node, XMLSymbolFilter filter, boolean hasFilterForAttr){
+		if(!hasFilterForAttr){
 			return null;
 		}
-		if (hovers.size() == 1) {
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLSymbolsProvider.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+
 ```
 
 ### ReturnNull
@@ -16310,7 +16214,7 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
 #### Snippet
 ```java
-					return getTagHover(hoverRequest, tagRange, false);
+					return getTagHover(hoverRequest, tagRange, false, cancelChecker);
 				}
 				return null;
 			}
@@ -16322,11 +16226,119 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
 #### Snippet
 ```java
-			return getTextHover(hoverRequest, textRange);
+			return getTextHover(hoverRequest, textRange, cancelChecker);
 		}
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLHover.java`
+#### Snippet
+```java
+		if (hovers.isEmpty()) {
+			// no hover
+			return null;
+		}
+		if (hovers.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+#### Snippet
+```java
+		} catch (BadLocationException e) {
+			LOGGER.log(Level.SEVERE, "Failed creating RenameRequest", e);
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+#### Snippet
+```java
+	private DOMElement getAssociatedElement(DOMNode node) {
+		if (!node.isElement() && !node.isAttribute()) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLRename.java`
+#### Snippet
+```java
+			return ranges;
+		} catch (BadLocationException e) {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/TextEditUtils.java`
+#### Snippet
+```java
+		if (isMatchExpectedContent(from, to, expectedContent, text)) {
+			// The expected content exists, no need to create a TextEdit
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/TextEditUtils.java`
+#### Snippet
+```java
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
+#### Snippet
+```java
+			});
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
+#### Snippet
+```java
+				}
+			}
+			return null;
+		} catch (BadLocationException e) {
+			return null;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
+#### Snippet
+```java
+			return null;
+		} catch (BadLocationException e) {
+			return null;
+		}
+	}
 ```
 
 ### ReturnNull
@@ -16478,18 +16490,6 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
 #### Snippet
 ```java
-			return offset;
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
-#### Snippet
-```java
 										return document.positionAt(eatIndex);
 									} catch (BadLocationException e) {
 										return null;
@@ -16526,6 +16526,18 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
 #### Snippet
 ```java
+			return offset;
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletions.java`
+#### Snippet
+```java
 					return XMLPositionUtility.selectText((DOMText) firstChild);
 				}
 				return null;
@@ -16547,71 +16559,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLCompletion
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
-#### Snippet
-```java
-				}
-			}
-			return null;
-		} catch (BadLocationException e) {
-			return null;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
-#### Snippet
-```java
-			return null;
-		} catch (BadLocationException e) {
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/XMLLanguageService.java`
-#### Snippet
-```java
-			});
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/TextEditUtils.java`
-#### Snippet
-```java
-		if (isMatchExpectedContent(from, to, expectedContent, text)) {
-			// The expected content exists, no need to create a TextEdit
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/TextEditUtils.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, e.getMessage(), e);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/HoverParticipantAdapter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/hover/HoverParticipantAdapter.java`
 #### Snippet
 ```java
 	@Override
-	public Hover onAttributeValue(IHoverRequest request) throws Exception {
+	public Hover onAttributeValue(IHoverRequest request, CancelChecker cancelChecker) throws Exception {
 		return null;
 	}
 
@@ -16619,11 +16571,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/Ho
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/HoverParticipantAdapter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/hover/HoverParticipantAdapter.java`
 #### Snippet
 ```java
 	@Override
-	public Hover onText(IHoverRequest request) throws Exception {
+	public Hover onTag(IHoverRequest request, CancelChecker cancelChecker) throws Exception {
 		return null;
 	}
 
@@ -16631,11 +16583,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/Ho
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/HoverParticipantAdapter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/hover/HoverParticipantAdapter.java`
 #### Snippet
 ```java
 	@Override
-	public Hover onTag(IHoverRequest request) throws Exception {
+	public Hover onAttributeName(IHoverRequest request, CancelChecker cancelChecker) throws Exception {
 		return null;
 	}
 
@@ -16643,11 +16595,23 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/Ho
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/HoverParticipantAdapter.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/hover/HoverParticipantAdapter.java`
 #### Snippet
 ```java
 	@Override
-	public Hover onAttributeName(IHoverRequest request) throws Exception {
+	public Hover onText(IHoverRequest request, CancelChecker cancelChecker) throws Exception {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/format/IFormatterParticipant.java`
+#### Snippet
+```java
+			XMLFormattingConstraints parentConstraints, Map<String, Collection<CMDocument>> formattingContext,
+			SharedSettings sharedSettings) {
 		return null;
 	}
 
@@ -16667,143 +16631,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/co
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
-#### Snippet
-```java
-	private DOMAttr getLastAttribute(DOMElement element) {
-		if (!element.hasAttributes()) {
-			return null;
-		}
-		List<DOMAttr> attributes = element.getAttributeNodes();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
-#### Snippet
-```java
-			// for DOMNode.findNodeAt() to find the correct element
-		} else {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/format/IFormatterParticipant.java`
-#### Snippet
-```java
-			XMLFormattingConstraints parentConstraints, Map<String, Collection<CMDocument>> formattingContext,
-			SharedSettings sharedSettings) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/commands/ArgumentsUtils.java`
-#### Snippet
-```java
-	public static Object getArgAt(List<Object> arguments, int index) {
-		if (arguments == null || index >= arguments.size()) {
-			return null;
-		}
-		return arguments.get(index);
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/ICompletionParticipant.java`
 #### Snippet
 ```java
 	 */
 	default ICompletionItemResolveParticipant getResolveCompletionItemParticipant(String participantId) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/DOMElementCompletionItem.java`
-#### Snippet
-```java
-	@Override
-	protected MarkupContent generateDocumentation() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
-#### Snippet
-```java
-			return Arrays.asList(new TextEdit(range, tagName));
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/AllXMLSettings.java`
-#### Snippet
-```java
-	public static Object getAllXMLSettings(Object initializationOptionsSettings) {
-		AllXMLSettings settings = JSONUtility.toModel(initializationOptionsSettings, AllXMLSettings.class);
-		return settings != null ? settings.getXml() : null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/FaultTolerantTypeAdapterFactory.java`
-#### Snippet
-```java
-							e);
-					in.skipValue();
-					return null;
-				}
-			}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFoldingSettings.java`
-#### Snippet
-```java
-
-	public Integer getRangeLimit() {
-		return capabilities != null ? capabilities.getRangeLimit() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/InitializationOptionsSettings.java`
-#### Snippet
-```java
-		InitializationOptionsSettings root = JSONUtility.toModel(initializeParams.getInitializationOptions(),
-				InitializationOptionsSettings.class);
-		return root != null ? root.getSettings() : null;
-	}
-}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLSymbolFilter.java`
-#### Snippet
-```java
-		}
-
 		return null;
 	}
 
@@ -16823,6 +16655,114 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/DOMEle
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/commands/ArgumentsUtils.java`
+#### Snippet
+```java
+	public static Object getArgAt(List<Object> arguments, int index) {
+		if (arguments == null || index >= arguments.size()) {
+			return null;
+		}
+		return arguments.get(index);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
+#### Snippet
+```java
+			// for DOMNode.findNodeAt() to find the correct element
+		} else {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
+#### Snippet
+```java
+	private DOMAttr getLastAttribute(DOMElement element) {
+		if (!element.hasAttributes()) {
+			return null;
+		}
+		List<DOMAttr> attributes = element.getAttributeNodes();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/DOMElementCompletionItem.java`
+#### Snippet
+```java
+	@Override
+	protected MarkupContent generateDocumentation() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/AllXMLSettings.java`
+#### Snippet
+```java
+	public static Object getAllXMLSettings(Object initializationOptionsSettings) {
+		AllXMLSettings settings = JSONUtility.toModel(initializationOptionsSettings, AllXMLSettings.class);
+		return settings != null ? settings.getXml() : null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/InitializationOptionsSettings.java`
+#### Snippet
+```java
+		InitializationOptionsSettings root = JSONUtility.toModel(initializeParams.getInitializationOptions(),
+				InitializationOptionsSettings.class);
+		return root != null ? root.getSettings() : null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/extensions/completion/AbstractElementCompletionItem.java`
+#### Snippet
+```java
+			return Arrays.asList(new TextEdit(range, tagName));
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLSymbolFilter.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFoldingSettings.java`
+#### Snippet
+```java
+
+	public Integer getRangeLimit() {
+		return capabilities != null ? capabilities.getRangeLimit() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/capabilities/InitializationOptionsExtendedClientCapabilities.java`
 #### Snippet
 ```java
@@ -16835,14 +16775,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/capabilities/
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/FaultTolerantTypeAdapterFactory.java`
 #### Snippet
 ```java
+							e);
+					in.skipValue();
+					return null;
+				}
 			}
-		}
-		return null;
-	}
-}
 ```
 
 ### ReturnNull
@@ -16859,23 +16799,23 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/xmlmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDContentModelProvider.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/settings/XMLFormattingOptions.java`
 #### Snippet
 ```java
 			}
-		} catch (Exception e) {
-			return null;
 		}
 		return null;
+	}
+}
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDContentModelProvider.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDAttributeDeclaration.java`
 #### Snippet
 ```java
-			return null;
-		}
+	@Override
+	public String getAttributeValueDocumentation(String value, ISharedSettingsRequest request) {
 		return null;
 	}
 
@@ -16907,11 +16847,35 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDAttributeDeclaration.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDContentModelProvider.java`
 #### Snippet
 ```java
-	@Override
-	public String getAttributeValueDocumentation(String value, ISharedSettingsRequest request) {
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDContentModelProvider.java`
+#### Snippet
+```java
+			return null;
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDElementDeclaration.java`
+#### Snippet
+```java
+			}
+		}
 		return null;
 	}
 
@@ -16934,8 +16898,8 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDElementDeclaration.java`
 #### Snippet
 ```java
-			}
-		}
+	@Override
+	public String getNamespace() {
 		return null;
 	}
 
@@ -16960,18 +16924,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 ```java
 			}
 		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/contentmodel/CMDTDElementDeclaration.java`
-#### Snippet
-```java
-	@Override
-	public String getNamespace() {
 		return null;
 	}
 
@@ -17009,6 +16961,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/xmlmode
 			return new XMLModelSchemaValidator(modelDeclaration.getHref());
 		}
 		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
+#### Snippet
+```java
+			}
+		}
+		return xsValue != null ? xsValue.getNormalizedValue().toString() : null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
+#### Snippet
+```java
+	@Override
+	public String getPrefix() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
+#### Snippet
+```java
+		// Try get xs:annotation from the type of attribute declaration
+		XSSimpleTypeDefinition typeDefinition = attributeDeclaration.getTypeDefinition();
+		return typeDefinition != null ? typeDefinition.getAnnotations() : null;
 	}
 
 ```
@@ -17063,35 +17051,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/dtd/content
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDContentModelProvider.java`
 #### Snippet
 ```java
-		// Try get xs:annotation from the type of attribute declaration
-		XSSimpleTypeDefinition typeDefinition = attributeDeclaration.getTypeDefinition();
-		return typeDefinition != null ? typeDefinition.getAnnotations() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
-#### Snippet
-```java
-			}
+			return new CMXSDDocument(model, loader);
 		}
-		return xsValue != null ? xsValue.getNormalizedValue().toString() : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDAttributeDeclaration.java`
-#### Snippet
-```java
-	@Override
-	public String getPrefix() {
 		return null;
 	}
 
@@ -17099,11 +17063,11 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/XSDAnnotationModel.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDContentModelProvider.java`
 #### Snippet
 ```java
-			return (XSAnnotation) annotation;
-		}
+	@Override
+	public CMDocument createInternalCMDocument(DOMDocument xmlDocument, boolean resolveExternalEntities) {
 		return null;
 	}
 
@@ -17126,35 +17090,23 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/XSDAnnotationModel.java`
 #### Snippet
 ```java
+			return (XSAnnotation) annotation;
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/XSDAnnotationModel.java`
+#### Snippet
+```java
 			return handler.getModel();
 		} catch (Exception e) {
 			return null;
 		}
 	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDContentModelProvider.java`
-#### Snippet
-```java
-			return new CMXSDDocument(model, loader);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDContentModelProvider.java`
-#### Snippet
-```java
-	@Override
-	public CMDocument createInternalCMDocument(DOMDocument xmlDocument, boolean resolveExternalEntities) {
-		return null;
-	}
-
 ```
 
 ### ReturnNull
@@ -17219,12 +17171,180 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/partici
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDErrorCode.java`
+#### Snippet
+```java
+		}
+
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDocumentLinkParticipant.java`
+#### Snippet
+```java
+	private static String getResolvedLocation(String documentURI, String location) {
+		if (location == null) {
+			return null;
+		}
+		try {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
+#### Snippet
+```java
+	private String getVersion(String uri) {
+		if (documentProvider == null) {
+			return null;
+		}
+		DOMDocument document = documentProvider.getDocument(uri);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
+#### Snippet
+```java
+	public String resolve(String baseLocation, String publicId, String systemId) {
+		if (!XSL_NAMESPACE_URI.equals(publicId)) {
+			return null;
+		}
+		String version = getVersion(baseLocation);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
+#### Snippet
+```java
+			// Do nothing?
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			return findXSElement(originElement, (Element) node);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+					"Error while retrieving mapped Xerces xs:element of '" + elementDeclaration.getName() + "'.", e);
+		}
+		return null;
+
+	}
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
 #### Snippet
 ```java
 			}
 		}
 		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
+#### Snippet
+```java
+	 */
+	private static SchemaGrammar getSchemaGrammar(XSNamespaceItem namespaceItem) {
+		return (namespaceItem != null && namespaceItem instanceof SchemaGrammar) ? (SchemaGrammar) namespaceItem : null;
 	}
 
 ```
@@ -17258,23 +17378,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
 #### Snippet
 ```java
-					"Error while retrieving mapped Xerces xs:element of '" + elementDeclaration.getName() + "'.", e);
-		}
-		return null;
-
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-	 */
-	private static SchemaGrammar getSchemaGrammar(XSNamespaceItem namespaceItem) {
-		return (namespaceItem != null && namespaceItem instanceof SchemaGrammar) ? (SchemaGrammar) namespaceItem : null;
-	}
-
+										XSAnnotation annotation = (XSAnnotation) enumerationAnnotations.get(enumIndex);
+										if (annotation == null) {
+											return null;
+										}
+										return new XSObjectListImpl(new XSAnnotation[] { annotation }, 1);
 ```
 
 ### ReturnNull
@@ -17294,11 +17402,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
 #### Snippet
 ```java
-			}
+			LOGGER.log(Level.SEVERE, "Error while retrieving list of xs:complexType of the grammar '"
+					+ grammar.getSchemaNamespace() + "'.", e);
+			return null;
 		}
-		return null;
 	}
-
 ```
 
 ### ReturnNull
@@ -17311,54 +17419,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 			return null;
 		}
 		return schemaGrammar.getDocumentLocations().item(0);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			return findXSElement(originElement, (Element) node);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
 ```
 
 ### ReturnNull
@@ -17423,55 +17483,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-										XSAnnotation annotation = (XSAnnotation) enumerationAnnotations.get(enumIndex);
-										if (annotation == null) {
-											return null;
-										}
-										return new XSObjectListImpl(new XSAnnotation[] { annotation }, 1);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDDocument.java`
-#### Snippet
-```java
-			LOGGER.log(Level.SEVERE, "Error while retrieving list of xs:complexType of the grammar '"
-					+ grammar.getSchemaNamespace() + "'.", e);
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDDocumentLinkParticipant.java`
-#### Snippet
-```java
-	private static String getResolvedLocation(String documentURI, String location) {
-		if (location == null) {
-			return null;
-		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/XSDErrorCode.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/diagnostics/LSPErrorReporterForXSD.java`
 #### Snippet
 ```java
 		}
@@ -17519,66 +17531,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsi/XSISche
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
-#### Snippet
-```java
-	public String resolve(String baseLocation, String publicId, String systemId) {
-		if (!XSL_NAMESPACE_URI.equals(publicId)) {
-			return null;
-		}
-		String version = getVersion(baseLocation);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
-#### Snippet
-```java
-			// Do nothing?
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsl/XSLURIResolverExtension.java`
-#### Snippet
-```java
-	private String getVersion(String uri) {
-		if (documentProvider == null) {
-			return null;
-		}
-		DOMDocument document = documentProvider.getDocument(uri);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/participants/diagnostics/LSPErrorReporterForXSD.java`
-#### Snippet
-```java
-		}
-
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPXMLEntityManager.java`
 #### Snippet
 ```java
@@ -17607,7 +17559,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPX
 #### Snippet
 ```java
 		@Override
-		public String getEncoding() {
+		public String getExpandedSystemId() {
 			return null;
 		}
 
@@ -17619,7 +17571,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPX
 #### Snippet
 ```java
 		@Override
-		public String getExpandedSystemId() {
+		public String getXMLVersion() {
 			return null;
 		}
 
@@ -17643,22 +17595,10 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/LSPX
 #### Snippet
 ```java
 		@Override
-		public String getXMLVersion() {
+		public String getEncoding() {
 			return null;
 		}
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/ExternalXMLDTDValidator.java`
-#### Snippet
-```java
-			return ReflectionUtils.getFieldValue(this, "fRootElement");
-		} catch (Exception e) {
-			return null;
-		}
-	}
 ```
 
 ### ReturnNull
@@ -17759,6 +17699,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/colors/util
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/ExternalXMLDTDValidator.java`
+#### Snippet
+```java
+			return ReflectionUtils.getFieldValue(this, "fRootElement");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractReferencedGrammarLSPErrorReporter.java`
 #### Snippet
 ```java
@@ -17775,90 +17727,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XML
 #### Snippet
 ```java
 			LOGGER.log(Level.SEVERE, "Creation of document link failed", e);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-		List<DiagnosticRelatedInformation> relatedInformations = null;
-		if (adjustedRange == null || NO_RANGE.equals(adjustedRange)) {
-			return null;
-		}
-		if (hasRelatedInfo) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-		String code = getCode(domain, key, arguments, exception);
-		if (addDiagnostic(adjustedRange, message, diagnosticSeverity, code, relatedInformations) == null) {
-			return null;
-		}
-		if (fatalError && !fContinueAfterFatalError) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-		}
-		if (diagnostics.contains(d)) {
-			return null;
-		}
-		// Fill diagnostic
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-			return document.positionAt(offset);
-		} catch (BadLocationException e) {
-			return location != null ? new Position(location.getLineNumber() - 1, location.getColumnNumber() - 1) : null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
-#### Snippet
-```java
-
-		if (startOffset < 0 || endOffset < 0) {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XMLCatalogURIResolverExtension.java`
-#### Snippet
-```java
-	public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier) throws XNIException, IOException {
-		if (hasDTDorXMLSchema(resourceIdentifier.getBaseSystemId())) {
-			return null;
-		}
-		String publicId = resourceIdentifier.getNamespace();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XMLCatalogURIResolverExtension.java`
-#### Snippet
-```java
-			}
 		}
 		return null;
 	}
@@ -17891,55 +17759,19 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XML
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XMLCatalogURIResolverExtension.java`
 #### Snippet
 ```java
-	@Override
-	public String[] getRecognizedFeatures() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
-#### Snippet
-```java
-	@Override
-	public String[] getRecognizedProperties() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
-#### Snippet
-```java
-	@Override
-	public Object getPropertyDefault(String propertyId) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
-#### Snippet
-```java
-		String href = modelDeclaration.getHref();
-		if (StringUtils.isEmpty(href)) {
+	public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier) throws XNIException, IOException {
+		if (hasDTDorXMLSchema(resourceIdentifier.getBaseSystemId())) {
 			return null;
 		}
-		for (XMLModelValidatorFactory factory : MODEL_VALIDATOR_FACTORIES) {
+		String publicId = resourceIdentifier.getNamespace();
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/XMLCatalogURIResolverExtension.java`
 #### Snippet
 ```java
 			}
@@ -17947,102 +17779,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlm
 		return null;
 	}
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
-#### Snippet
-```java
-	@Override
-	public Boolean getFeatureDefault(String featureId) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
-#### Snippet
-```java
-		DOMAttr uriAttr = CatalogUtils.getCatalogEntryURI(getEntryElement());
-		if (uriAttr == null) {
-			return null;
-		}
-		return uriAttr.getNodeAttrValue();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
-#### Snippet
-```java
-		DOMAttr uriAttr = CatalogUtils.getCatalogEntryURI(getEntryElement());
-		if (uriAttr == null) {
-			return null;
-		}
-		String lastSegment = uriAttr.getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
-#### Snippet
-```java
-		String lastSegment = uriAttr.getValue();
-		if (StringUtils.isBlank(lastSegment)) {
-			return null;
-		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
-#### Snippet
-```java
-		} catch (InvalidPathException e) {
-			// See issue #977
-			return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
-#### Snippet
-```java
-		DOMAttr catalogAttr = CatalogUtils.getCatalogEntryCatalog(getEntryElement());
-		if (catalogAttr == null) {
-			return null;
-		}
-		String lastSegment = catalogAttr.getValue();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
-#### Snippet
-```java
-		String lastSegment = catalogAttr.getValue();
-		if (StringUtils.isBlank(lastSegment)) {
-			return null;
-		}
-		return Paths.get(getBaseURI(), lastSegment).toString();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
-#### Snippet
-```java
-		DOMAttr catalogAttr = CatalogUtils.getCatalogEntryCatalog(getEntryElement());
-		if (catalogAttr == null) {
-			return null;
-		}
-		return catalogAttr.getNodeAttrValue();
 ```
 
 ### ReturnNull
@@ -18071,14 +17807,218 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/Cat
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorHandler.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
+#### Snippet
+```java
+		DOMAttr catalogAttr = CatalogUtils.getCatalogEntryCatalog(getEntryElement());
+		if (catalogAttr == null) {
+			return null;
+		}
+		return catalogAttr.getNodeAttrValue();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
+#### Snippet
+```java
+		DOMAttr catalogAttr = CatalogUtils.getCatalogEntryCatalog(getEntryElement());
+		if (catalogAttr == null) {
+			return null;
+		}
+		String lastSegment = catalogAttr.getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/CatalogCatalogEntry.java`
+#### Snippet
+```java
+		String lastSegment = catalogAttr.getValue();
+		if (StringUtils.isBlank(lastSegment)) {
+			return null;
+		}
+		return Paths.get(getBaseURI(), lastSegment).toString();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+#### Snippet
+```java
+		String href = modelDeclaration.getHref();
+		if (StringUtils.isEmpty(href)) {
+			return null;
+		}
+		for (XMLModelValidatorFactory factory : MODEL_VALIDATOR_FACTORIES) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
 #### Snippet
 ```java
 			}
 		}
-		return arg != null ? arg.toString() : null;
+		return null;
 	}
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
+#### Snippet
+```java
+		DOMAttr uriAttr = CatalogUtils.getCatalogEntryURI(getEntryElement());
+		if (uriAttr == null) {
+			return null;
+		}
+		String lastSegment = uriAttr.getValue();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+#### Snippet
+```java
+	@Override
+	public Object getPropertyDefault(String propertyId) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
+#### Snippet
+```java
+		String lastSegment = uriAttr.getValue();
+		if (StringUtils.isBlank(lastSegment)) {
+			return null;
+		}
+		try {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
+#### Snippet
+```java
+		} catch (InvalidPathException e) {
+			// See issue #977
+			return null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+#### Snippet
+```java
+	@Override
+	public String[] getRecognizedProperties() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/catalog/URICatalogEntry.java`
+#### Snippet
+```java
+		DOMAttr uriAttr = CatalogUtils.getCatalogEntryURI(getEntryElement());
+		if (uriAttr == null) {
+			return null;
+		}
+		return uriAttr.getNodeAttrValue();
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+#### Snippet
+```java
+	@Override
+	public Boolean getFeatureDefault(String featureId) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/xmlmodel/XMLModelHandler.java`
+#### Snippet
+```java
+	@Override
+	public String[] getRecognizedFeatures() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+		}
+		if (diagnostics.contains(d)) {
+			return null;
+		}
+		// Fill diagnostic
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+
+		if (startOffset < 0 || endOffset < 0) {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+			return document.positionAt(offset);
+		} catch (BadLocationException e) {
+			return location != null ? new Position(location.getLineNumber() - 1, location.getColumnNumber() - 1) : null;
+		}
+	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+		List<DiagnosticRelatedInformation> relatedInformations = null;
+		if (adjustedRange == null || NO_RANGE.equals(adjustedRange)) {
+			return null;
+		}
+		if (hasRelatedInfo) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xerces/AbstractLSPErrorReporter.java`
+#### Snippet
+```java
+		String code = getCode(domain, key, arguments, exception);
+		if (addDiagnostic(adjustedRange, message, diagnosticSeverity, code, relatedInformations) == null) {
+			return null;
+		}
+		if (fatalError && !fContinueAfterFatalError) {
 ```
 
 ### ReturnNull
@@ -18115,6 +18055,162 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorHandler.java`
+#### Snippet
+```java
+			}
+		}
+		return arg != null ? arg.toString() : null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+	@Override
+	public Object getPropertyDefault(String propertyId) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getEncoding() {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getExpandedSystemId() {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getPublicId() {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+	@Override
+	public String[] getRecognizedFeatures() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getBaseSystemId() {
+			return null;
+		}
+	};
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+	@Override
+	public Boolean getFeatureDefault(String featureId) {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getLiteralSystemId() {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+		@Override
+		public String getXMLVersion() {
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
+#### Snippet
+```java
+	@Override
+	public String[] getRecognizedProperties() {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RelaxNGURIResolverExtension.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RelaxNGURIResolverExtension.java`
+#### Snippet
+```java
+	public String resolve(String baseLocation, String publicId, String systemId) {
+		if (!RELAXNG_NAMESPACE_URI.equals(publicId)) {
+			return null;
+		}
+		try {
 ```
 
 ### ReturnNull
@@ -18167,138 +18263,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/general/com
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-	@Override
-	public String[] getRecognizedProperties() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getEncoding() {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getLiteralSystemId() {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getBaseSystemId() {
-			return null;
-		}
-	};
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getExpandedSystemId() {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getPublicId() {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-		@Override
-		public String getXMLVersion() {
-			return null;
-		}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-	@Override
-	public Object getPropertyDefault(String propertyId) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-	@Override
-	public Boolean getFeatureDefault(String featureId) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/ExternalRelaxNGValidator.java`
-#### Snippet
-```java
-	@Override
-	public String[] getRecognizedFeatures() {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
-#### Snippet
-```java
-
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
 #### Snippet
 ```java
@@ -18311,22 +18275,10 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RelaxNGURIResolverExtension.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml/validator/RelaxNGErrorCode.java`
 #### Snippet
 ```java
-	public String resolve(String baseLocation, String publicId, String systemId) {
-		if (!RELAXNG_NAMESPACE_URI.equals(publicId)) {
-			return null;
-		}
-		try {
-```
 
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RelaxNGURIResolverExtension.java`
-#### Snippet
-```java
-			}
 		}
 		return null;
 	}
@@ -18407,22 +18359,22 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/xml
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RNGDocumentLinkParticipant.java`
-#### Snippet
-```java
-	private static String getResolvedLocation(String documentURI, String location) {
-		if (location == null) {
-			return null;
-		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XIncludeErrorCode.java`
 #### Snippet
 ```java
 				return XMLPositionUtility.selectStartTagName(offset, document);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/participants/EntitiesHoverParticipant.java`
+#### Snippet
+```java
+			}
 		}
 		return null;
 	}
@@ -18503,12 +18455,12 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/pa
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/entities/participants/EntitiesHoverParticipant.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xmlmodel/contentmodel/CMXMLModelContentModelProvider.java`
 #### Snippet
 ```java
-			}
-		}
-		return null;
+	public CMDocument createCMDocument(String uri, boolean resolveExternalEntities) {
+		ContentModelProvider modelProvider = modelManager.getModelProviderByURI(uri);
+		return modelProvider != null ? modelProvider.createCMDocument(uri, resolveExternalEntities) : null;
 	}
 
 ```
@@ -18527,19 +18479,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xmlmodel/co
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xmlmodel/contentmodel/CMXMLModelContentModelProvider.java`
-#### Snippet
-```java
-	public CMDocument createCMDocument(String uri, boolean resolveExternalEntities) {
-		ContentModelProvider modelProvider = modelManager.getModelProviderByURI(uri);
-		return modelProvider != null ? modelProvider.createCMDocument(uri, resolveExternalEntities) : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XIncludeDocumentLinkParticipant.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/grammar/rng/RNGDocumentLinkParticipant.java`
 #### Snippet
 ```java
 	private static String getResolvedLocation(String documentURI, String location) {
@@ -18547,18 +18487,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XI
 			return null;
 		}
 		try {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
-#### Snippet
-```java
-			return ((XSSimpleTypeDecl) typeDefinition).getAnnotations();
-		}
-		return null;
-	}
-
 ```
 
 ### ReturnNull
@@ -18590,18 +18518,6 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
 #### Snippet
 ```java
-	public String getPrefix(String namespaceURI) {
-		// TODO : implement this method
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
-#### Snippet
-```java
 			return CMXSDDocument.getEnumerationAnnotations(simpleDefinition, textContent);
 		}
 		return null;
@@ -18614,6 +18530,18 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
 #### Snippet
 ```java
+	public String getPrefix(String namespaceURI) {
+		// TODO : implement this method
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
+#### Snippet
+```java
 			}
 		}
 		return null;
@@ -18635,14 +18563,38 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/content
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/contentmodel/CMXSDElementDeclaration.java`
 #### Snippet
 ```java
-			}
+			return ((XSSimpleTypeDecl) typeDefinition).getAnnotations();
 		}
 		return null;
 	}
 
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xinclude/XIncludeDocumentLinkParticipant.java`
+#### Snippet
+```java
+	private static String getResolvedLocation(String documentURI, String location) {
+		if (location == null) {
+			return null;
+		}
+		try {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
+#### Snippet
+```java
+	private static String getResolvedLocation(String documentURI, String location) {
+		if (StringUtils.isBlank(location)) {
+			return null;
+		}
+		try {
 ```
 
 ### ReturnNull
@@ -18674,11 +18626,23 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/xsd/utils/XSDUtils.java`
 #### Snippet
 ```java
-	private static String getResolvedLocation(String documentURI, String location) {
-		if (StringUtils.isBlank(location)) {
-			return null;
+			}
 		}
-		try {
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2relaxng/XML2RelaxNGGenerator.java`
+#### Snippet
+```java
+				return "boolean";
+			default:
+				return null;
+		}
+	}
 ```
 
 ### ReturnNull
@@ -18722,95 +18686,11 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
 #### Snippet
 ```java
-				: null;
-		if (allReferences == null) {
-			return null;
-		}
-		DOMDocument document = node.getOwnerDocument();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
 			}
 		}
 		return null;
 	}
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-		DOMNode adjustedNode = findAttrOrTextNode(node, offset);
-		if (adjustedNode == null) {
-			return null;
-		}
-		SearchQuery query = internalCreateQuery(adjustedNode, offset, settings, QueryDirection.FROM_2_TO);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-					return Direction.TO;
-				}
-				return null;
-			case TO_2_FROM:
-				if (expression.matchFrom(node)) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-					return Direction.FROM;
-				}
-				return null;
-			default:
-				if (expression.matchFrom(node)) {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-					return Direction.TO;
-				}
-				return null;
-		}
-	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-		DOMNode adjustedNode = findAttrOrTextNode(node, offset);
-		if (adjustedNode == null) {
-			return null;
-		}
-		return internalCreateQuery(adjustedNode, offset, settings, direction);
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
-#### Snippet
-```java
-				direction);
-		if (expressions == null) {
-			return null;
-		}
-		return new SearchQuery(adjustedNode, offset, expressions, direction);
 ```
 
 ### ReturnNull
@@ -18854,6 +18734,42 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
 #### Snippet
 ```java
+				direction);
+		if (expressions == null) {
+			return null;
+		}
+		return new SearchQuery(adjustedNode, offset, expressions, direction);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
+		DOMNode adjustedNode = findAttrOrTextNode(node, offset);
+		if (adjustedNode == null) {
+			return null;
+		}
+		SearchQuery query = internalCreateQuery(adjustedNode, offset, settings, QueryDirection.FROM_2_TO);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
+		DOMNode adjustedNode = findAttrOrTextNode(node, offset);
+		if (adjustedNode == null) {
+			return null;
+		}
+		return internalCreateQuery(adjustedNode, offset, settings, direction);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
 			}
 		}
 		return null;
@@ -18863,14 +18779,50 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/generators/xml2relaxng/XML2RelaxNGGenerator.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
 #### Snippet
 ```java
-				return "boolean";
+					return Direction.TO;
+				}
+				return null;
+			case TO_2_FROM:
+				if (expression.matchFrom(node)) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
+					return Direction.FROM;
+				}
+				return null;
 			default:
+				if (expression.matchFrom(node)) {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
+					return Direction.TO;
+				}
 				return null;
 		}
 	}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/search/SearchQueryFactory.java`
+#### Snippet
+```java
+				: null;
+		if (allReferences == null) {
+			return null;
+		}
+		DOMDocument document = node.getOwnerDocument();
 ```
 
 ### ReturnNull
@@ -18938,6 +18890,18 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ReferencedGrammarInfo.java`
 #### Snippet
 ```java
+	public String getResolvedBy() {
+		String resolvedBy = resolvedURIInfo != null ? resolvedURIInfo.getResolverName() : null;
+		return URIResolverExtension.DEFAULT.equals(resolvedBy) ? null : resolvedBy;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ReferencedGrammarInfo.java`
+#### Snippet
+```java
 	 */
 	public String getBindingKind() {
 		return identifier != null ? identifier.getKind() : null;
@@ -18955,18 +18919,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			return null;
 		}
 		String publicId = identifier.getPublicId();
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ReferencedGrammarInfo.java`
-#### Snippet
-```java
-	public String getResolvedBy() {
-		String resolvedBy = resolvedURIInfo != null ? resolvedURIInfo.getResolverName() : null;
-		return URIResolverExtension.DEFAULT.equals(resolvedBy) ? null : resolvedBy;
-	}
-
 ```
 
 ### ReturnNull
@@ -19019,36 +18971,12 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/references/
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
 #### Snippet
 ```java
-	public String resolve(String baseLocation, String publicId, String systemId) {
-		// Don't resolve the URI
-		return null;
-	}
 
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
-#### Snippet
-```java
-			return cacheResourcesManager.getResource(url);
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
-#### Snippet
-```java
-			return new XMLFileInputSource(resourceIdentifier, file);
-		}
-		return null;
+	public LSPXMLGrammarPool getGrammarPool() {
+		return cacheResolverExtension.isUseCache() ? grammarPool : null;
 	}
 
 ```
@@ -19115,46 +19043,34 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/model/ContentModelManager.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
 #### Snippet
 ```java
-
-	public LSPXMLGrammarPool getGrammarPool() {
-		return cacheResolverExtension.isUseCache() ? grammarPool : null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
-#### Snippet
-```java
-			return catalogResolver.resolveIdentifier(namespaceURI, publicId, systemId, baseURI);
-		}
+	public String resolve(String baseLocation, String publicId, String systemId) {
+		// Don't resolve the URI
 		return null;
-
 	}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
 #### Snippet
 ```java
-			return catalogResolver.getCatalogList();
+			return cacheResourcesManager.getResource(url);
 		}
 		return null;
 	}
-}
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCacheResolverExtension.java`
 #### Snippet
 ```java
-			return catalogResolver.resolveEntity(resourceIdentifier);
+			return new XMLFileInputSource(resourceIdentifier, file);
 		}
 		return null;
 	}
@@ -19207,6 +19123,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			return null;
 		} else if ("info".equalsIgnoreCase(noGrammar)) {
 			return DiagnosticSeverity.Information;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
+#### Snippet
+```java
+			return catalogResolver.getCatalogList();
+		}
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
+#### Snippet
+```java
+			return catalogResolver.resolveEntity(resourceIdentifier);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/uriresolver/XMLCatalogResolverExtension.java`
+#### Snippet
+```java
+			return catalogResolver.resolveIdentifier(namespaceURI, publicId, systemId, baseURI);
+		}
+		return null;
+
+	}
 ```
 
 ### ReturnNull
@@ -19295,6 +19247,42 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
+#### Snippet
+```java
+	private static String getResolvedLocation(String documentURI, String location) {
+		if (location == null) {
+			return null;
+		}
+		try {
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
+#### Snippet
+```java
+		case EntityNotDeclared: {
+			EntityReferenceRange range = XMLPositionUtility.selectEntityReference(offset - 1, document);
+			return range != null ? range.getRange() : null;
+		}
+		case QuoteRequiredInPublicID:
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
+#### Snippet
+```java
+			}
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLModelUtils.java`
 #### Snippet
 ```java
@@ -19331,42 +19319,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
-#### Snippet
-```java
-		case EntityNotDeclared: {
-			EntityReferenceRange range = XMLPositionUtility.selectEntityReference(offset - 1, document);
-			return range != null ? range.getRange() : null;
-		}
-		case QuoteRequiredInPublicID:
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/DTDErrorCode.java`
-#### Snippet
-```java
-	private static String getResolvedLocation(String documentURI, String location) {
-		if (location == null) {
-			return null;
-		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/completion/AttributeNameCompletionResolver.java`
 #### Snippet
 ```java
@@ -19379,14 +19331,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/completion/AttributeValueCompletionResolver.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
 #### Snippet
 ```java
-					request);
+			}
 		}
 		return null;
 	}
-}
+
 ```
 
 ### ReturnNull
@@ -19439,42 +19391,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSyntaxErrorCode.java`
-#### Snippet
-```java
-			}
-		}
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
-#### Snippet
-```java
-		DOMElement element = text.getParentElement();
-		if (element == null) {
-			return null;
-		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
-#### Snippet
-```java
-			if (cmDocuments.isEmpty()) {
-				// no bound grammar -> no documentation
-				return null;
-			}
-			String textContent = text.getTextContent();
-```
-
-### ReturnNull
-Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
 #### Snippet
 ```java
@@ -19511,6 +19427,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
+#### Snippet
+```java
+		DOMElement element = text.getParentElement();
+		if (element == null) {
+			return null;
+		}
+		try {
+```
+
+### ReturnNull
+Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_1CodeAction.java`
 #### Snippet
 ```java
@@ -19523,26 +19451,38 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/ContentModelHoverParticipant.java`
 #### Snippet
 ```java
-			String prefix = originAttrValue.substring(0, index);
-			if (!Objects.equal(prefix, targetNamespacePrefix)) {
+			if (cmDocuments.isEmpty()) {
+				// no bound grammar -> no documentation
 				return null;
 			}
-			return originAttrValue.substring(index + 1, originAttrValue.length());
+			String textContent = text.getTextContent();
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/completion/AttributeValueCompletionResolver.java`
 #### Snippet
 ```java
-	public static DOMAttr getHref(DOMElement element) {
-		if (!(isInclude(element) || isExternalRef(element))) {
+					request);
+		}
+		return null;
+	}
+}
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSchemaErrorCode.java`
+#### Snippet
+```java
+	private static String getResolvedLocation(String documentURI, String location) {
+		if (location == null) {
 			return null;
 		}
-		return element.getAttributeNode(HREF_ATTR);
+		try {
 ```
 
 ### ReturnNull
@@ -19583,46 +19523,34 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/XMLSchemaErrorCode.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
 #### Snippet
 ```java
-	private static String getResolvedLocation(String documentURI, String location) {
-		if (location == null) {
+
+		if (node == null || !node.isElement()) {
 			return null;
 		}
-		try {
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
-#### Snippet
-```java
-			return MarkupContentFactory.createMarkupContent(documentation, MarkupKind.MARKDOWN, support);
-		}
-		return null;
-	}
 
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
 #### Snippet
 ```java
-	private String findPrefixFromDOMNode(String namespace) {
-		if (node == null) {
+
+		if (!root.getTagName().contains("schema")) {
 			return null;
 		}
-		DOMElement element = null;
+		String message;
 ```
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_2CodeAction.java`
 #### Snippet
 ```java
-			return element.getPrefix(namespace);
+			return nsMatcher.group(1);
 		}
 		return null;
 	}
@@ -19670,6 +19598,18 @@ Return of `null`
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
 #### Snippet
 ```java
+			return MarkupContentFactory.createMarkupContent(documentation, MarkupKind.MARKDOWN, support);
+		}
+		return null;
+	}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
+#### Snippet
+```java
 			return MarkupContentFactory.createMarkupContent(documentation, MarkupKind.MARKDOWN, request);
 		}
 		return null;
@@ -19679,10 +19619,22 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/TargetNamespace_2CodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
 #### Snippet
 ```java
-			return nsMatcher.group(1);
+	private String findPrefixFromDOMNode(String namespace) {
+		if (node == null) {
+			return null;
+		}
+		DOMElement element = null;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/utils/XMLGenerator.java`
+#### Snippet
+```java
+			return element.getPrefix(namespace);
 		}
 		return null;
 	}
@@ -19691,26 +19643,14 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
 #### Snippet
 ```java
-
-		if (!root.getTagName().contains("schema")) {
+		int preMatch = message.indexOf(preText);
+		if (preMatch < 0) {
 			return null;
 		}
-		String message;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/src_import_1_2CodeAction.java`
-#### Snippet
-```java
-
-		if (node == null || !node.isElement()) {
-			return null;
-		}
-
+		return message.substring(preMatch + preText.length(), message.length() - 2);
 ```
 
 ### ReturnNull
@@ -19739,14 +19679,26 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/RootElementTypeMustMatchDoctypedeclCodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
 #### Snippet
 ```java
-		int preMatch = message.indexOf(preText);
-		if (preMatch < 0) {
+	public static DOMAttr getHref(DOMElement element) {
+		if (!(isInclude(element) || isExternalRef(element))) {
 			return null;
 		}
-		return message.substring(preMatch + preText.length(), message.length() - 2);
+		return element.getAttributeNode(HREF_ATTR);
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
+#### Snippet
+```java
+			String prefix = originAttrValue.substring(0, index);
+			if (!Objects.equal(prefix, targetNamespacePrefix)) {
+				return null;
+			}
+			return originAttrValue.substring(index + 1, originAttrValue.length());
 ```
 
 ### ReturnNull
@@ -19787,19 +19739,7 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
-#### Snippet
-```java
-		String removedAmpAndSemiColon = name.substring(1, name.length() - 1);
-		if (!diagnostic.getMessage().contains("\"" + removedAmpAndSemiColon + "\"")) {
-			return null;
-		}
-		return removedAmpAndSemiColon;
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/missinggrammar/AbstractFixMissingGrammarCodeAction.java`
 #### Snippet
 ```java
 		}
@@ -19823,7 +19763,19 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/missinggrammar/AbstractFixMissingGrammarCodeAction.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
+#### Snippet
+```java
+		String removedAmpAndSemiColon = name.substring(1, name.length() - 1);
+		if (!diagnostic.getMessage().contains("\"" + removedAmpAndSemiColon + "\"")) {
+			return null;
+		}
+		return removedAmpAndSemiColon;
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/EntityNotDeclaredCodeAction.java`
 #### Snippet
 ```java
 		}
@@ -19855,18 +19807,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 			return null;
 		}
 	}
-```
-
-### ReturnNull
-Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPXMLGrammarPool.java`
-#### Snippet
-```java
-				return RelaxNGUtils.createFilesChangedTracker((RelaxNGGrammar) grammar);
-			}
-			return null;
-		}
-
 ```
 
 ### ReturnNull
@@ -19907,10 +19847,22 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolverExtensionManager.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPXMLGrammarPool.java`
 #### Snippet
 ```java
-			return new ResolvedURIInfo(resolvedURI, defaultURIResolverExtension);
+				return RelaxNGUtils.createFilesChangedTracker((RelaxNGGrammar) grammar);
+			}
+			return null;
+		}
+
+```
+
+### ReturnNull
+Return of `null`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPErrorReporterForXML.java`
+#### Snippet
+```java
+			}
 		}
 		return null;
 	}
@@ -19931,10 +19883,10 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolve
 
 ### ReturnNull
 Return of `null`
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/diagnostics/LSPErrorReporterForXML.java`
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/uriresolver/URIResolverExtensionManager.java`
 #### Snippet
 ```java
-			}
+			return new ResolvedURIInfo(resolvedURI, defaultURIResolverExtension);
 		}
 		return null;
 	}
@@ -19983,11 +19935,11 @@ Local variable `targetSelectionRange` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
-	public static LocationLink createLocationLink(Range origin, DOMRange target) {
-		Range targetRange = XMLPositionUtility.createRange(target);
+	public static LocationLink createLocationLink(Range origin, TargetRange target) {
+		Range targetRange = target.getTargetRange();
 		Range targetSelectionRange = targetRange;
-		DOMDocument targetDocument = target.getOwnerDocument();
-		return new LocationLink(targetDocument.getDocumentURI(), targetRange, targetSelectionRange, origin);
+		return new LocationLink(target.getTargetURI(), targetRange, targetSelectionRange, origin);
+	}
 ```
 
 ### UnnecessaryLocalVariable
@@ -19995,11 +19947,11 @@ Local variable `targetSelectionRange` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/utils/XMLPositionUtility.java`
 #### Snippet
 ```java
-	public static LocationLink createLocationLink(Range origin, TargetRange target) {
-		Range targetRange = target.getTargetRange();
+	public static LocationLink createLocationLink(Range origin, DOMRange target) {
+		Range targetRange = XMLPositionUtility.createRange(target);
 		Range targetSelectionRange = targetRange;
-		return new LocationLink(target.getTargetURI(), targetRange, targetSelectionRange, origin);
-	}
+		DOMDocument targetDocument = target.getOwnerDocument();
+		return new LocationLink(targetDocument.getDocumentURI(), targetRange, targetSelectionRange, origin);
 ```
 
 ### UnnecessaryLocalVariable
@@ -20099,18 +20051,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `textEdits` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
-#### Snippet
-```java
-		format(this.rangeDomDocument);
-
-		List<? extends TextEdit> textEdits = getFormatTextEdit();
-		return textEdits;
-	}
-```
-
-### UnnecessaryLocalVariable
 Local variable `startNodeIndentLevel` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
 #### Snippet
@@ -20119,6 +20059,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFor
 		// the starting indent level is the parent's indent level + 1
 		int startNodeIndentLevel = getNodeIndentLevel(startNodeParent) + 1;
 		return startNodeIndentLevel;
+	}
+```
+
+### UnnecessaryLocalVariable
+Local variable `textEdits` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/services/format/XMLFormatterDocumentOld.java`
+#### Snippet
+```java
+		format(this.rangeDomDocument);
+
+		List<? extends TextEdit> textEdits = getFormatTextEdit();
+		return textEdits;
 	}
 ```
 
@@ -20295,11 +20247,11 @@ Local variable `parent` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
 #### Snippet
 ```java
-					break;
-				}
-				Node parent = documentElement;
-				addTargetAttrs(parent, targetAttrs);
 		}
+		Set<String> externalURIS = null;
+		Node parent = documentElement;
+		NodeList children = parent.getChildNodes();
+		for (int i = 0; i < children.getLength(); i++) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -20307,11 +20259,11 @@ Local variable `parent` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/relaxng/utils/RelaxNGUtils.java`
 #### Snippet
 ```java
+					break;
+				}
+				Node parent = documentElement;
+				addTargetAttrs(parent, targetAttrs);
 		}
-		Set<String> externalURIS = null;
-		Node parent = documentElement;
-		NodeList children = parent.getChildNodes();
-		for (int i = 0; i < children.getLength(); i++) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -20351,18 +20303,6 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `removeAction` is redundant
-in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
-#### Snippet
-```java
-		Position endPosition = document.positionAt(element.getEnd());
-		String contentToRemove = text.substring(element.getStart(), element.getEnd());
-		CodeAction removeAction = CodeActionFactory.remove("Remove '" + contentToRemove + "'",
-				new Range(startPosition, endPosition), document.getTextDocument(), diagnostic);
-		return removeAction;
-```
-
-### UnnecessaryLocalVariable
 Local variable `autoCloseAction` is redundant
 in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
 #### Snippet
@@ -20372,6 +20312,18 @@ in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmode
 		CodeAction autoCloseAction = CodeActionFactory.insert("Close with '>'", position, ">",
 				document.getTextDocument(), diagnostic);
 		return autoCloseAction;
+```
+
+### UnnecessaryLocalVariable
+Local variable `removeAction` is redundant
+in `org.eclipse.lemminx/src/main/java/org/eclipse/lemminx/extensions/contentmodel/participants/codeactions/CloseTagCodeAction.java`
+#### Snippet
+```java
+		Position endPosition = document.positionAt(element.getEnd());
+		String contentToRemove = text.substring(element.getStart(), element.getEnd());
+		CodeAction removeAction = CodeActionFactory.remove("Remove '" + contentToRemove + "'",
+				new Range(startPosition, endPosition), document.getTextDocument(), diagnostic);
+		return removeAction;
 ```
 
 ### UnnecessaryLocalVariable
