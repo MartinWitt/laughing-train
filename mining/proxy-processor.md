@@ -35,15 +35,15 @@ in `proxy-processor/src/main/java/com/palantir/proxy/processor/Methods.java`
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `messager` is accessed in both synchronized and unsynchronized contexts
+Field `filer` is accessed in both synchronized and unsynchronized contexts
 in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
 #### Snippet
 ```java
-    private static final ImmutableSet<String> ANNOTATIONS = ImmutableSet.of(Proxy.class.getName());
 
     private Messager messager;
     private Filer filer;
     private Elements elements;
+
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -59,14 +59,14 @@ in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationPr
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `filer` is accessed in both synchronized and unsynchronized contexts
+Field `messager` is accessed in both synchronized and unsynchronized contexts
 in `proxy-processor/src/main/java/com/palantir/proxy/processor/ProxyAnnotationProcessor.java`
 #### Snippet
 ```java
+    private static final ImmutableSet<String> ANNOTATIONS = ImmutableSet.of(Proxy.class.getName());
 
     private Messager messager;
     private Filer filer;
     private Elements elements;
-
 ```
 
