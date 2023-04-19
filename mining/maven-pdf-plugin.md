@@ -44,6 +44,19 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
     }
 ```
 
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `exists` may produce `NullPointerException`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+            getLog().error("unexpected IOException while getting aggregator root tmp site dir", ioe);
+        }
+        if (!dstSiteTmp.exists()) {
+            getLog().error("Top-level project does not have src.tmp directory");
+            return;
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.plugin` is unnecessary and can be removed
@@ -67,19 +80,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
     private static class PdfXdocSink extends XdocSink implements org.codehaus.doxia.sink.Sink {
         protected PdfXdocSink(Writer writer) {
             super(writer);
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `exists` may produce `NullPointerException`
-in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
-#### Snippet
-```java
-            getLog().error("unexpected IOException while getting aggregator root tmp site dir", ioe);
-        }
-        if (!dstSiteTmp.exists()) {
-            getLog().error("Top-level project does not have src.tmp directory");
-            return;
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -123,18 +123,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `p`
-in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
-#### Snippet
-```java
-        projectPath.addFirst(p.getArtifactId());
-        while (p.getParent() != null) {
-            p = p.getParent();
-            projectPath.addFirst(p.getArtifactId());
-        }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `docDescriptor`
 in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
 #### Snippet
@@ -143,6 +131,18 @@ in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
             if (localizedDocDescriptor.exists()) {
                 docDescriptor = localizedDocDescriptor;
             }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `p`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+        projectPath.addFirst(p.getArtifactId());
+        while (p.getParent() != null) {
+            p = p.getParent();
+            projectPath.addFirst(p.getArtifactId());
         }
 ```
 
@@ -165,7 +165,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
 #### Snippet
 ```java
-    private static String getProjectName(MavenProject project) {
+    private static String getProjectModelEncoding(MavenProject project) {
         if (project == null) {
             return null;
         }
@@ -177,7 +177,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
 #### Snippet
 ```java
-    private static String getProjectModelEncoding(MavenProject project) {
+    private static String getProjectName(MavenProject project) {
         if (project == null) {
             return null;
         }
@@ -194,6 +194,18 @@ in `src/main/java/org/apache/maven/plugins/pdf/DocumentModelBuilder.java`
             return null;
         }
 
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
+#### Snippet
+```java
+                    }
+
+                    return null;
+                }
+            });
 ```
 
 ### ReturnNull
@@ -218,18 +230,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
             return null;
         }
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/pdf/DocumentDescriptorReader.java`
-#### Snippet
-```java
-                    }
-
-                    return null;
-                }
-            });
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -277,18 +277,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
-    public String getYear() {
-        synchronized (this) {
-            return YEAR.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
     public String getMinute() {
         synchronized (this) {
             return MINUTE.format(date);
@@ -301,9 +289,33 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
+    public String getDate() {
+        synchronized (this) {
+            return DATE.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
     public String getSecond() {
         synchronized (this) {
             return SECOND.format(date);
+        }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
+#### Snippet
+```java
+     */
+    public String getDateTime() {
+        synchronized (this) {
+            return DATE_TIME.format(date);
         }
 ```
 
@@ -337,9 +349,9 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
-    public String getDateTime() {
+    public String getYear() {
         synchronized (this) {
-            return DATE_TIME.format(date);
+            return YEAR.format(date);
         }
 ```
 
@@ -361,18 +373,6 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 #### Snippet
 ```java
      */
-    public String getDate() {
-        synchronized (this) {
-            return DATE.format(date);
-        }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
-#### Snippet
-```java
-     */
     public String getMillisecond() {
         synchronized (this) {
             return MILLI_SECOND.format(date);
@@ -382,13 +382,37 @@ in `src/main/java/org/apache/maven/plugins/pdf/DateBean.java`
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+    protected void prepareTempSiteDirectory(final File tmpSiteDir) throws IOException {
+        // safety
+        tmpSiteDir.mkdirs();
+
+        // copy site
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
+#### Snippet
+```java
+                FileUtils.deleteDirectory(file);
+            } else {
+                file.delete();
+            }
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
 #### Snippet
 ```java
 
-    protected void prepareTempSiteDirectory(final File tmpSiteDir) {
-        tmpSiteDir.mkdirs();
-    }
+            if (!outputDir.exists()) {
+                outputDir.mkdirs();
+            }
 
 ```
 
@@ -421,42 +445,6 @@ Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
 #### Snippet
 ```java
-
-            if (!outputDir.exists()) {
-                outputDir.mkdirs();
-            }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-    protected void prepareTempSiteDirectory(final File tmpSiteDir) throws IOException {
-        // safety
-        tmpSiteDir.mkdirs();
-
-        // copy site
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
-                FileUtils.deleteDirectory(file);
-            } else {
-                file.delete();
-            }
-        }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
-#### Snippet
-```java
                         File in = new File(fromLocale, generatedSiteFile);
                         File out = new File(new File(to, locale.getLanguage()), generatedSiteFile);
                         out.getParentFile().mkdirs();
@@ -474,5 +462,17 @@ in `src/main/java/org/apache/maven/plugins/pdf/PdfMojo.java`
                     out.getParentFile().mkdirs();
                     FileUtils.copyFile(in, out);
                 }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/pdf/PdfAggregateMojo.java`
+#### Snippet
+```java
+
+    protected void prepareTempSiteDirectory(final File tmpSiteDir) {
+        tmpSiteDir.mkdirs();
+    }
+
 ```
 
