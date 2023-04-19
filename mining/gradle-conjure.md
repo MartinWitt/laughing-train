@@ -277,10 +277,22 @@ Statement lambda can be replaced with expression lambda
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
 ```java
-    private static void linkPublish(Project project, TaskProvider<?> depTask) {
-        // this is the cleanest and most common way to link to the publish task.
-        project.getPluginManager().withPlugin("maven-publish", _packagingPlugin -> {
-            project.getTasks().named("publish").configure(t -> t.dependsOn(depTask));
+        TaskProvider<Task> cleanTask = project.getTasks().named(LifecycleBasePlugin.CLEAN_TASK_NAME);
+        // This replicates what the built in gradle CleanRule does, but using task-avoidance APIs
+        TaskProvider<Delete> cleanerTask = project.getTasks().register(cleanTaskName, Delete.class, t -> {
+            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
+        });
+```
+
+### CodeBlock2Expr
+Statement lambda can be replaced with expression lambda
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
+        });
+        cleanTask.configure(t -> {
+            t.dependsOn(cleanerTask);
         });
 ```
 
@@ -301,22 +313,10 @@ Statement lambda can be replaced with expression lambda
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
 ```java
-        TaskProvider<Task> cleanTask = project.getTasks().named(LifecycleBasePlugin.CLEAN_TASK_NAME);
-        // This replicates what the built in gradle CleanRule does, but using task-avoidance APIs
-        TaskProvider<Delete> cleanerTask = project.getTasks().register(cleanTaskName, Delete.class, t -> {
-            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-            t.delete(creatorTask.map(Task::getOutputs).map(TaskOutputs::getFiles));
-        });
-        cleanTask.configure(t -> {
-            t.dependsOn(cleanerTask);
+    private static void linkPublish(Project project, TaskProvider<?> depTask) {
+        // this is the cleanest and most common way to link to the publish task.
+        project.getPluginManager().withPlugin("maven-publish", _packagingPlugin -> {
+            project.getTasks().named("publish").configure(t -> t.dependsOn(depTask));
         });
 ```
 
@@ -334,18 +334,6 @@ public abstract class CompileConjureTypeScriptTask extends ConjureGeneratorTask 
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `GenerateConjureServiceDependenciesTask()` of an abstract class should not be declared 'public'
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
-#### Snippet
-```java
-    private Supplier<Set<ServiceDependency>> conjureServiceDependencies;
-
-    public GenerateConjureServiceDependenciesTask() {
-        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `ConjureGeneratorTask()` of an abstract class should not be declared 'public'
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
 #### Snippet
@@ -355,6 +343,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTas
     public ConjureGeneratorTask() {
         // @TaskAction uses doFirst I think, because other actions prepended using doFirst end up happening AFTER the
         // main task. Intentionally not using a lambda because this breaks Gradle caching
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `GenerateConjureServiceDependenciesTask()` of an abstract class should not be declared 'public'
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
+#### Snippet
+```java
+    private Supplier<Set<ServiceDependency>> conjureServiceDependencies;
+
+    public GenerateConjureServiceDependenciesTask() {
+        getOutputFile().convention(getProject().getLayout().getBuildDirectory().file("service-dependencies.json"));
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -728,18 +728,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/RenderGeneratorOpti
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-    private static void setupGenericConjureProjects(
-            Project project,
-            Function<String, GeneratorOptions> getGenericOptions,
-            TaskProvider<?> compileConjure,
-            TaskProvider<?> compileIrTask,
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
@@ -785,6 +773,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
             BiConsumer<Project, Supplier<GeneratorOptions>> extraConfig) {
         String projectName = getDerivedProjectName(parentProject, projectSuffix);
         if (!derivedProjectExists(parentProject, projectName)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+    private static void setupGenericConjureProjects(
+            Project project,
+            Function<String, GeneratorOptions> getGenericOptions,
+            TaskProvider<?> compileConjure,
+            TaskProvider<?> compileIrTask,
 ```
 
 ### BoundedWildcard
@@ -849,18 +849,6 @@ public abstract class ConjureLocalGenerateTask extends ConjureGeneratorTask {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GenerateConjureServiceDependenciesTask` has no concrete subclass
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
-#### Snippet
-```java
-import org.gradle.api.tasks.TaskAction;
-
-public abstract class GenerateConjureServiceDependenciesTask extends DefaultTask {
-    private static final Pattern GROUP_PATTERN = Pattern.compile("^[^:@?\\s]+");
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[^:@?\\s]+");
-```
-
-### AbstractClassNeverImplemented
 Abstract class `ConjureGeneratorTask` has no concrete subclass
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
 #### Snippet
@@ -870,6 +858,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTas
 public abstract class ConjureGeneratorTask extends SourceTask {
     private Supplier<GeneratorOptions> options;
 
+```
+
+### AbstractClassNeverImplemented
+Abstract class `GenerateConjureServiceDependenciesTask` has no concrete subclass
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServiceDependenciesTask.java`
+#### Snippet
+```java
+import org.gradle.api.tasks.TaskAction;
+
+public abstract class GenerateConjureServiceDependenciesTask extends DefaultTask {
+    private static final Pattern GROUP_PATTERN = Pattern.compile("^[^:@?\\s]+");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[^:@?\\s]+");
 ```
 
 ### AbstractClassNeverImplemented
