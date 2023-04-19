@@ -1,14 +1,18 @@
 # jnosql 
  
 # Bad smells
-I found 344 bad smells with 15 repairable:
+I found 438 bad smells with 16 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantClassCall | 170 | false |
-| BoundedWildcard | 46 | false |
-| UnnecessaryFullyQualifiedName | 22 | false |
+| BoundedWildcard | 44 | false |
+| PatternVariableCanBeUsed | 37 | false |
+| SimplifyStreamApiCallChains | 26 | false |
+| EnhancedSwitchMigration | 25 | false |
+| UnnecessaryFullyQualifiedName | 18 | false |
 | TypeParameterHidesVisibleType | 13 | false |
 | RedundantImplements | 13 | false |
+| ClassCanBeRecord | 11 | false |
 | MissortedModifiers | 10 | false |
 | ReturnNull | 10 | false |
 | EmptyMethod | 9 | false |
@@ -25,6 +29,7 @@ I found 344 bad smells with 15 repairable:
 | UnnecessarySemicolon | 1 | false |
 | Convert2MethodRef | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| SizeReplaceableByIsEmpty | 1 | true |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
@@ -35,18 +40,6 @@ I found 344 bad smells with 15 repairable:
 ## RuleId[id=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/InsertQueryParser.java`
-#### Snippet
-```java
-            throw new QueryException("To run a query with a parameter use a PrepareStatement instead.");
-        }
-        if (ttl.isPresent()) {
-            return Stream.of(collectionManager.insert(entity, ttl.get()));
-        } else {
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
 in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/InsertQueryParser.java`
 #### Snippet
 ```java
@@ -54,6 +47,18 @@ in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/j
         }
         if (ttl.isPresent()) {
             return Stream.of(manager.insert(entity, ttl.get()));
+        } else {
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/InsertQueryParser.java`
+#### Snippet
+```java
+            throw new QueryException("To run a query with a parameter use a PrepareStatement instead.");
+        }
+        if (ttl.isPresent()) {
+            return Stream.of(collectionManager.insert(entity, ttl.get()));
         } else {
 ```
 
@@ -106,6 +111,19 @@ public class QueueTypeReferenceReader implements TypeReferenceReader {
     @Override
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/ValueType.java`
+#### Snippet
+```java
+     * In computer science, a Boolean is a logical data type that can have only the values true or false
+     */
+    BOOLEAN;
+}
+
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Unboxing of `bool` may produce `NullPointerException`
@@ -132,1854 +150,6 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
 ```
 
 ## RuleId[id=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-        Object result = get(value, parameters);
-        if (result instanceof Value) {
-            return Value.class.cast(result);
-        }
-        return Value.of(result);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-
-    private static Object executeConvert(Params parameters, Object[] params) {
-        Object value = get(QueryValue.class.cast(params[0]), parameters);
-        return Value.of(value)
-                .get((Class<?>) params[1]);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-                return value.get();
-            case PARAMETER:
-                return parameters.add(ParamQueryValue.class.cast(value).get());
-            case ARRAY:
-                return Stream.of(ArrayQueryValue.class.cast(value).get())
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-                return parameters.add(ParamQueryValue.class.cast(value).get());
-            case ARRAY:
-                return Stream.of(ArrayQueryValue.class.cast(value).get())
-                        .map(v -> get(v, parameters))
-                        .collect(toList());
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-                        .collect(toList());
-            case FUNCTION:
-                Function function = FunctionQueryValue.class.cast(value).get();
-                String name = function.name();
-                Object[] params = function.params();
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
-#### Snippet
-```java
-                throw new QueryException(message);
-            case JSON:
-                return JSONQueryValue.class.cast(value).get().toString();
-            case CONDITION:
-            default:
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
-#### Snippet
-```java
-                        Values.get(condition.value(), parameters)));
-            case NOT:
-                return getCondition(ConditionQueryValue.class.cast(condition.value()).get().get(0),
-                        parameters, observer,
-                        entity).negate();
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
-#### Snippet
-```java
-                        entity).negate();
-            case OR:
-                return or(ConditionQueryValue.class.cast(condition.value())
-                        .get()
-                        .stream().map(v -> getCondition(v, parameters, observer, entity))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
-#### Snippet
-```java
-                        .toArray(DocumentCondition[]::new));
-            case AND:
-                return and(ConditionQueryValue.class.cast(condition.value())
-                        .get()
-                        .stream().map(v -> getCondition(v, parameters, observer, entity))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueEntity.java`
-#### Snippet
-```java
-    private static Object getKey(Object key) {
-        if (key instanceof Value) {
-            return Value.class.cast(key).get();
-        }
-        return key;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueEntity.java`
-#### Snippet
-```java
-    private static Value getValue(Object value) {
-        if (value instanceof Value) {
-            return Value.class.cast(value);
-        }
-        return Value.of(value);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Document.java`
-#### Snippet
-```java
-    private static Value getValue(Object value) {
-        if (value instanceof Value) {
-            return Value.class.cast(value);
-        } else {
-            return Value.of(value);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
-#### Snippet
-```java
-                return value.get();
-            case PARAMETER:
-                return parameters.add(ParamQueryValue.class.cast(value).get());
-            case ARRAY:
-                return Stream.of(ArrayQueryValue.class.cast(value).get())
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
-#### Snippet
-```java
-                return parameters.add(ParamQueryValue.class.cast(value).get());
-            case ARRAY:
-                return Stream.of(ArrayQueryValue.class.cast(value).get())
-                        .map(v -> get(v, parameters))
-                        .collect(toList());
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
-#### Snippet
-```java
-                        .collect(toList());
-            case FUNCTION:
-                Function function = FunctionQueryValue.class.cast(value).get();
-                String name = function.name();
-                Object[] params = function.params();
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
-#### Snippet
-```java
-                Object[] params = function.params();
-                if ("convert".equals(name)) {
-                    return Value.of(get(QueryValue.class.cast(params[0]), parameters))
-                            .get((Class<?>) params[1]);
-                }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
-#### Snippet
-```java
-                throw new QueryException(message);
-            case JSON:
-                return JsonObjects.getDocuments(JSONQueryValue.class.cast(value).get());
-            case CONDITION:
-            default:
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Documents.java`
-#### Snippet
-```java
-
-        if (value instanceof Map) {
-            List list = Documents.of((Map.class.cast(value)));
-            if(list.size() == 1) {
-                return list.get(0);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Documents.java`
-#### Snippet
-```java
-        }
-        if (value instanceof Iterable) {
-            return stream(Iterable.class.cast(value).spliterator(), false)
-                    .map(Documents::getValue).collect(toList());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
-#### Snippet
-```java
-
-    private static void checkBetweenClause(Object value) {
-        if (Iterable.class.isInstance(value)) {
-
-            long count = (int) StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).count();
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
-#### Snippet
-```java
-        if (Iterable.class.isInstance(value)) {
-
-            long count = (int) StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).count();
-
-            if (count != 2) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
-#### Snippet
-```java
-
-        if (operator.equals(this.condition.condition())) {
-            ConditionQueryValue conditionValue = ConditionQueryValue.class.cast(this.condition.value());
-            List<QueryCondition> conditions = new ArrayList<>(conditionValue.get());
-            conditions.add(newCondition);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
-#### Snippet
-```java
-            this.condition = new DefaultQueryCondition("_" + operator.name(), operator, ConditionQueryValue.of(conditions));
-        } else {
-            List<QueryCondition> conditions = ConditionQueryValue.class.cast(this.condition.value()).get();
-            QueryCondition lastCondition = conditions.get(conditions.size() - 1);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
-#### Snippet
-```java
-            if (isAppendable(lastCondition) && operator.equals(lastCondition.condition())) {
-                List<QueryCondition> lastConditions = new ArrayList<>(ConditionQueryValue.class
-                        .cast(lastCondition.value()).get());
-                lastConditions.add(newCondition);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
-#### Snippet
-```java
-    private Object convert(Object value) {
-        if (value instanceof Document) {
-            Document column = Document.class.cast(value);
-            return singletonMap(column.name(), convert(column.get()));
-        } else if (value instanceof Iterable) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
-#### Snippet
-```java
-        } else if (value instanceof Iterable) {
-            List<Object> list = new ArrayList<>();
-            Iterable.class.cast(value).forEach(e -> list.add(convert(e)));
-            return list;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
-#### Snippet
-```java
-
-        if (operator.equals(this.condition.condition())) {
-            ConditionQueryValue conditionValue = ConditionQueryValue.class.cast(this.condition.value());
-            List<QueryCondition> conditions = new ArrayList<>(conditionValue.get());
-            conditions.add(newCondition);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
-#### Snippet
-```java
-            this.condition = new MethodCondition(SUB_ENTITY_FLAG + operator.name(), operator, ConditionQueryValue.of(conditions));
-        } else {
-            List<QueryCondition> conditions = ConditionQueryValue.class.cast(this.condition.value()).get();
-            QueryCondition lastCondition = conditions.get(conditions.size() - 1);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
-#### Snippet
-```java
-
-            if (isAppendable(lastCondition) && Condition.EQUALS.equals(lastCondition.condition())) {
-                List<QueryCondition> lastConditions = new ArrayList<>(ConditionQueryValue.class.cast(lastCondition.value()).get());
-                lastConditions.add(newCondition);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/GraphQueryMethod.java`
-#### Snippet
-```java
-    public Object getValue(String name, QueryValue<?> value) {
-        if (value instanceof BooleanQueryValue) {
-            return BooleanQueryValue.class.cast(value).get();
-        }
-        return ConverterUtil.getValue(getValue(), mapping, name, converters);
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DateReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Date.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DateReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return (T) new Date(((Number) value).longValue());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        boolean isAtomicBoolean = AtomicBoolean.class.equals(type);
-
-        if (isAtomicBoolean && AtomicBoolean.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        }
-        Boolean bool = null;
-        if (Boolean.class.isInstance(value)) {
-            bool = Boolean.class.cast(value);
-        } else if (AtomicBoolean.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        Boolean bool = null;
-        if (Boolean.class.isInstance(value)) {
-            bool = Boolean.class.cast(value);
-        } else if (AtomicBoolean.class.isInstance(value)) {
-            bool = AtomicBoolean.class.cast(value).get();
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        if (Boolean.class.isInstance(value)) {
-            bool = Boolean.class.cast(value);
-        } else if (AtomicBoolean.class.isInstance(value)) {
-            bool = AtomicBoolean.class.cast(value).get();
-        } else if (Number.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-            bool = Boolean.class.cast(value);
-        } else if (AtomicBoolean.class.isInstance(value)) {
-            bool = AtomicBoolean.class.cast(value).get();
-        } else if (Number.class.isInstance(value)) {
-            bool = Number.class.cast(value).longValue() != 0;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        } else if (AtomicBoolean.class.isInstance(value)) {
-            bool = AtomicBoolean.class.cast(value).get();
-        } else if (Number.class.isInstance(value)) {
-            bool = Number.class.cast(value).longValue() != 0;
-        } else if (String.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-            bool = AtomicBoolean.class.cast(value).get();
-        } else if (Number.class.isInstance(value)) {
-            bool = Number.class.cast(value).longValue() != 0;
-        } else if (String.class.isInstance(value)) {
-            bool = Boolean.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
-#### Snippet
-```java
-        } else if (Number.class.isInstance(value)) {
-            bool = Number.class.cast(value).longValue() != 0;
-        } else if (String.class.isInstance(value)) {
-            bool = Boolean.valueOf(value.toString());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (AtomicInteger.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) new AtomicInteger(Number.class.cast(value).intValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) new AtomicInteger(Number.class.cast(value).intValue());
-        } else {
-            return (T) new AtomicInteger(Integer.parseInt(value.toString()));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NumberReader.java`
-#### Snippet
-```java
-    @Override
-    public <T> T read(Class<T> type, Object value) {
-        if (Number.class.isInstance(value)) {
-            return (T) value;
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            return (List.class.equals(parameterizedType.getRawType())
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-                    || Iterable.class.equals(parameterizedType.getRawType())
-                    || Collection.class.equals(parameterizedType.getRawType())) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
-#### Snippet
-```java
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-                    .collect(toList());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (LocalDateTime.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
-#### Snippet
-```java
-    @Override
-    public <T> T read(Class<T> type, Object value) {
-        if (Character.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Character.valueOf((char) Number.class.cast(value).intValue());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Character.valueOf((char) Number.class.cast(value).intValue());
-        }
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (AtomicLong.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) new AtomicLong(Number.class.cast(value).longValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) new AtomicLong(Number.class.cast(value).longValue());
-        } else {
-            return (T) new AtomicLong(Long.parseLong(value.toString()));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o));
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o));
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            return Stream.class.equals(parameterizedType.getRawType()) &&
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
-#### Snippet
-```java
-
-            return Stream.class.equals(parameterizedType.getRawType()) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Integer.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Integer.valueOf(Number.class.cast(value).intValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Integer.valueOf(Number.class.cast(value).intValue());
-        } else {
-            return (T) Integer.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Short.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Short.valueOf(Number.class.cast(value).shortValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Short.valueOf(Number.class.cast(value).shortValue());
-        } else {
-            return (T) Short.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (BigInteger.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) BigInteger.valueOf(Number.class.cast(value).longValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) BigInteger.valueOf(Number.class.cast(value).longValue());
-        } else {
-            return (T) BigInteger.valueOf(Long.parseLong(value.toString()));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            return Optional.class.equals(parameterizedType.getRawType()) &&
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
-#### Snippet
-```java
-
-            return Optional.class.equals(parameterizedType.getRawType()) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
-#### Snippet
-```java
-
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        return (T) Optional.ofNullable(SERVICE_PROVIDER.read(classType, value));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (BigDecimal.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) BigDecimal.valueOf(Number.class.cast(value).doubleValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) BigDecimal.valueOf(Number.class.cast(value).doubleValue());
-        } else {
-            return (T) BigDecimal.valueOf(Double.parseDouble(value.toString()));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Double.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Double.valueOf(Number.class.cast(value).doubleValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Double.valueOf(Number.class.cast(value).doubleValue());
-        } else {
-            return (T) Double.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
-#### Snippet
-```java
-    @Override
-    public <T> T read(Class<T> type, Object value) {
-        if (LocalTime.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StringReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (CharSequence.class.equals(type) && CharSequence.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            Type collectionType = parameterizedType.getRawType();
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-                    ||
-                    SortedSet.class.equals(collectionType));
-            boolean isElementCompatible = Class.class.isInstance(elementType)
-                    && Comparable.class.isAssignableFrom((Class<?>) elementType);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
-#### Snippet
-```java
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-                    .collect(Collectors.toCollection(TreeSet::new));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (LocalDate.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
-#### Snippet
-```java
-
-    private OffsetTime getOffSetDateTime(Object value) {
-        if (OffsetTime.class.isInstance(value)) {
-            return OffsetTime.class.cast(value);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
-#### Snippet
-```java
-    private OffsetTime getOffSetDateTime(Object value) {
-        if (OffsetTime.class.isInstance(value)) {
-            return OffsetTime.class.cast(value);
-        }
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return ((Calendar) value).toInstant().atZone(ZoneId.systemDefault())
-                    .toOffsetDateTime().toOffsetTime();
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return ((Date) value).toInstant().atZone(ZoneId.systemDefault())
-                    .toOffsetDateTime()
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault())
-                    .toOffsetDateTime()
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Float.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Float.valueOf(Number.class.cast(value).floatValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Float.valueOf(Number.class.cast(value).floatValue());
-        } else {
-            return (T) Float.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/YearReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Year.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Calendar.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis( ((Number) value).longValue());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime((Date)value);
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            return Set.class.equals(parameterizedType.getRawType()) &&
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-
-            return Set.class.equals(parameterizedType.getRawType()) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
-#### Snippet
-```java
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-                    .collect(toSet());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
-#### Snippet
-```java
-
-    private OffsetDateTime getOffSetDateTime(Object value) {
-        if (OffsetDateTime.class.isInstance(value)) {
-            return OffsetDateTime.class.cast(value);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
-#### Snippet
-```java
-    private OffsetDateTime getOffSetDateTime(Object value) {
-        if (OffsetDateTime.class.isInstance(value)) {
-            return OffsetDateTime.class.cast(value);
-        }
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Byte.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Byte.valueOf(Number.class.cast(value).byteValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Byte.valueOf(Number.class.cast(value).byteValue());
-        } else {
-            return (T) Byte.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/YearMonthReader.java`
-#### Snippet
-```java
-    @Override
-    public <T> T read(Class<T> type, Object value) {
-        if (YearMonth.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Optional.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
-#### Snippet
-```java
-        List<Enum> elements = getEnumList((Class<Enum>) type);
-
-        if (Number.class.isInstance(value)) {
-            int index = Number.class.cast(value).intValue();
-            return (T) elements.stream().filter(element -> element.ordinal() == index).findFirst()
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
-#### Snippet
-```java
-
-        if (Number.class.isInstance(value)) {
-            int index = Number.class.cast(value).intValue();
-            return (T) elements.stream().filter(element -> element.ordinal() == index).findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("There is not index in enum to value: " + index));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
-#### Snippet
-```java
-    @Override
-    public <T> T read(Class<T> type, Object value) {
-        if (ZonedDateTime.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Calendar.class.isInstance(value)) {
-            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Date.class.isInstance(value)) {
-            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
-#### Snippet
-```java
-        }
-
-        if (Number.class.isInstance(value)) {
-            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault());
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
-#### Snippet
-```java
-    public <T> T read(Class<T> type, Object value) {
-
-        if (Long.class.isInstance(value)) {
-            return (T) value;
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
-#### Snippet
-```java
-            return (T) value;
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Long.valueOf(Number.class.cast(value).longValue());
-        } else {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
-#### Snippet
-```java
-        }
-        if (Number.class.isInstance(value)) {
-            return (T) Long.valueOf(Number.class.cast(value).longValue());
-        } else {
-            return (T) Long.valueOf(value.toString());
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            boolean isCollectionRight = Queue.class.equals(parameterizedType.getRawType())
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-                    || Deque.class.equals(parameterizedType.getRawType());
-            return isCollectionRight &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
-#### Snippet
-```java
-        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        if (Iterable.class.isInstance(value)) {
-            Iterable iterable = Iterable.class.cast(value);
-            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
-                    .collect(Collectors.toCollection(LinkedList::new));
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-    private <K, V> Map<K, V> getMap(Class<K> keyClass, Class<V> valueClass, Object value) {
-
-        if (Map.class.isInstance(value)) {
-            return convertToMap(keyClass, valueClass, value);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-            return convertToMap(keyClass, valueClass, value);
-        }
-        if (Iterable.class.isInstance(value)) {
-            List<Object> collection = new ArrayList<>();
-            Iterable.class.cast(value).forEach(collection::add);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-        if (Iterable.class.isInstance(value)) {
-            List<Object> collection = new ArrayList<>();
-            Iterable.class.cast(value).forEach(collection::add);
-            if (collection.isEmpty()) {
-                return Collections.emptyMap();
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
-        Type type = typeReference.get();
-        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-        Class<?> keyType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-        Class<?> valueType = (Class<?>) Optional.of(parameterizedType.getActualTypeArguments()[1])
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-    public boolean test(TypeSupplier<?> typeReference) {
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-        Type type = typeReference.get();
-        if (ParameterizedType.class.isInstance(type)) {
-            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
-
-            return Map.class.equals(parameterizedType.getRawType()) &&
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-
-            return Map.class.equals(parameterizedType.getRawType()) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0])
-                    && Class.class.isInstance(parameterizedType.getActualTypeArguments()[1]);
-        }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-            return Map.class.equals(parameterizedType.getRawType()) &&
-                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0])
-                    && Class.class.isInstance(parameterizedType.getActualTypeArguments()[1]);
-        }
-        return false;
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-
-    private void convertEntryToMap(Object value, Map<String, Object> map) {
-        Entry entry = Entry.class.cast(value);
-        Object entryValue = entry.value().get();
-        if (entryValue instanceof Entry) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-        if (entryValue instanceof Entry) {
-            Map<String, Object> subMap = new HashMap<>();
-            Entry subEntry = Entry.class.cast(entryValue);
-            convertEntryToMap(subEntry, subMap);
-            map.put(entry.name(), subMap);
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-
-    private <K, V> Map<K, V> convertToMap(Class<K> keyClass, Class<V> valueClass, Object value) {
-        Map mapValue = Map.class.cast(value);
-        return (Map<K, V>) mapValue.keySet().stream()
-                .collect(Collectors.toMap(mapKeyElement(keyClass), mapValueElement(valueClass, mapValue)));
-```
-
 ### RedundantClassCall
 Redundant call to `cast()`
 in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/Conditions.java`
@@ -2162,6 +332,1854 @@ in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/j
 
 ### RedundantClassCall
 Redundant call to `cast()`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/GraphQueryMethod.java`
+#### Snippet
+```java
+    public Object getValue(String name, QueryValue<?> value) {
+        if (value instanceof BooleanQueryValue) {
+            return BooleanQueryValue.class.cast(value).get();
+        }
+        return ConverterUtil.getValue(getValue(), mapping, name, converters);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+
+    private static Object executeConvert(Params parameters, Object[] params) {
+        Object value = get(QueryValue.class.cast(params[0]), parameters);
+        return Value.of(value)
+                .get((Class<?>) params[1]);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+        Object result = get(value, parameters);
+        if (result instanceof Value) {
+            return Value.class.cast(result);
+        }
+        return Value.of(result);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+                return value.get();
+            case PARAMETER:
+                return parameters.add(ParamQueryValue.class.cast(value).get());
+            case ARRAY:
+                return Stream.of(ArrayQueryValue.class.cast(value).get())
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+                return parameters.add(ParamQueryValue.class.cast(value).get());
+            case ARRAY:
+                return Stream.of(ArrayQueryValue.class.cast(value).get())
+                        .map(v -> get(v, parameters))
+                        .collect(toList());
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+                        .collect(toList());
+            case FUNCTION:
+                Function function = FunctionQueryValue.class.cast(value).get();
+                String name = function.name();
+                Object[] params = function.params();
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+                throw new QueryException(message);
+            case JSON:
+                return JSONQueryValue.class.cast(value).get().toString();
+            case CONDITION:
+            default:
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueEntity.java`
+#### Snippet
+```java
+    private static Value getValue(Object value) {
+        if (value instanceof Value) {
+            return Value.class.cast(value);
+        }
+        return Value.of(value);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueEntity.java`
+#### Snippet
+```java
+    private static Object getKey(Object key) {
+        if (key instanceof Value) {
+            return Value.class.cast(key).get();
+        }
+        return key;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DateReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Date.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DateReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return (T) new Date(((Number) value).longValue());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        boolean isAtomicBoolean = AtomicBoolean.class.equals(type);
+
+        if (isAtomicBoolean && AtomicBoolean.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        }
+        Boolean bool = null;
+        if (Boolean.class.isInstance(value)) {
+            bool = Boolean.class.cast(value);
+        } else if (AtomicBoolean.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        Boolean bool = null;
+        if (Boolean.class.isInstance(value)) {
+            bool = Boolean.class.cast(value);
+        } else if (AtomicBoolean.class.isInstance(value)) {
+            bool = AtomicBoolean.class.cast(value).get();
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        if (Boolean.class.isInstance(value)) {
+            bool = Boolean.class.cast(value);
+        } else if (AtomicBoolean.class.isInstance(value)) {
+            bool = AtomicBoolean.class.cast(value).get();
+        } else if (Number.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+            bool = Boolean.class.cast(value);
+        } else if (AtomicBoolean.class.isInstance(value)) {
+            bool = AtomicBoolean.class.cast(value).get();
+        } else if (Number.class.isInstance(value)) {
+            bool = Number.class.cast(value).longValue() != 0;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        } else if (AtomicBoolean.class.isInstance(value)) {
+            bool = AtomicBoolean.class.cast(value).get();
+        } else if (Number.class.isInstance(value)) {
+            bool = Number.class.cast(value).longValue() != 0;
+        } else if (String.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+            bool = AtomicBoolean.class.cast(value).get();
+        } else if (Number.class.isInstance(value)) {
+            bool = Number.class.cast(value).longValue() != 0;
+        } else if (String.class.isInstance(value)) {
+            bool = Boolean.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BooleanReader.java`
+#### Snippet
+```java
+        } else if (Number.class.isInstance(value)) {
+            bool = Number.class.cast(value).longValue() != 0;
+        } else if (String.class.isInstance(value)) {
+            bool = Boolean.valueOf(value.toString());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (LocalDateTime.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (AtomicInteger.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) new AtomicInteger(Number.class.cast(value).intValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicIntegerReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) new AtomicInteger(Number.class.cast(value).intValue());
+        } else {
+            return (T) new AtomicInteger(Integer.parseInt(value.toString()));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+                    .collect(toList());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            return (List.class.equals(parameterizedType.getRawType())
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
+#### Snippet
+```java
+                    || Iterable.class.equals(parameterizedType.getRawType())
+                    || Collection.class.equals(parameterizedType.getRawType())) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NumberReader.java`
+#### Snippet
+```java
+    @Override
+    public <T> T read(Class<T> type, Object value) {
+        if (Number.class.isInstance(value)) {
+            return (T) value;
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
+#### Snippet
+```java
+    @Override
+    public <T> T read(Class<T> type, Object value) {
+        if (Character.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Character.valueOf((char) Number.class.cast(value).intValue());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CharacterReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Character.valueOf((char) Number.class.cast(value).intValue());
+        }
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (AtomicLong.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) new AtomicLong(Number.class.cast(value).longValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/AtomicLongReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) new AtomicLong(Number.class.cast(value).longValue());
+        } else {
+            return (T) new AtomicLong(Long.parseLong(value.toString()));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Integer.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Integer.valueOf(Number.class.cast(value).intValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/IntegerReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Integer.valueOf(Number.class.cast(value).intValue());
+        } else {
+            return (T) Integer.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (BigInteger.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) BigInteger.valueOf(Number.class.cast(value).longValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigIntegerReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) BigInteger.valueOf(Number.class.cast(value).longValue());
+        } else {
+            return (T) BigInteger.valueOf(Long.parseLong(value.toString()));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Short.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Short.valueOf(Number.class.cast(value).shortValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ShortReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Short.valueOf(Number.class.cast(value).shortValue());
+        } else {
+            return (T) Short.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o));
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            return Stream.class.equals(parameterizedType.getRawType()) &&
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StreamTypeReferenceReader.java`
+#### Snippet
+```java
+
+            return Stream.class.equals(parameterizedType.getRawType()) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
+#### Snippet
+```java
+    @Override
+    public <T> T read(Class<T> type, Object value) {
+        if (LocalTime.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (BigDecimal.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) BigDecimal.valueOf(Number.class.cast(value).doubleValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/BigDecimalReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) BigDecimal.valueOf(Number.class.cast(value).doubleValue());
+        } else {
+            return (T) BigDecimal.valueOf(Double.parseDouble(value.toString()));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Double.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Double.valueOf(Number.class.cast(value).doubleValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/DoubleReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Double.valueOf(Number.class.cast(value).doubleValue());
+        } else {
+            return (T) Double.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            return Optional.class.equals(parameterizedType.getRawType()) &&
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
+#### Snippet
+```java
+
+            return Optional.class.equals(parameterizedType.getRawType()) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalTypeReferenceReader.java`
+#### Snippet
+```java
+
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        return (T) Optional.ofNullable(SERVICE_PROVIDER.read(classType, value));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/StringReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (CharSequence.class.equals(type) && CharSequence.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Calendar.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis( ((Number) value).longValue());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/CalendarReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime((Date)value);
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
+#### Snippet
+```java
+
+    private OffsetTime getOffSetDateTime(Object value) {
+        if (OffsetTime.class.isInstance(value)) {
+            return OffsetTime.class.cast(value);
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
+#### Snippet
+```java
+    private OffsetTime getOffSetDateTime(Object value) {
+        if (OffsetTime.class.isInstance(value)) {
+            return OffsetTime.class.cast(value);
+        }
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return ((Calendar) value).toInstant().atZone(ZoneId.systemDefault())
+                    .toOffsetDateTime().toOffsetTime();
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return ((Date) value).toInstant().atZone(ZoneId.systemDefault())
+                    .toOffsetDateTime()
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault())
+                    .toOffsetDateTime()
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            return Set.class.equals(parameterizedType.getRawType()) &&
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+
+            return Set.class.equals(parameterizedType.getRawType()) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/SetTypeReferenceReader.java`
+#### Snippet
+```java
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+                    .collect(toSet());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/YearReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Year.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Byte.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Byte.valueOf(Number.class.cast(value).byteValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ByteReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Byte.valueOf(Number.class.cast(value).byteValue());
+        } else {
+            return (T) Byte.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
+#### Snippet
+```java
+        List<Enum> elements = getEnumList((Class<Enum>) type);
+
+        if (Number.class.isInstance(value)) {
+            int index = Number.class.cast(value).intValue();
+            return (T) elements.stream().filter(element -> element.ordinal() == index).findFirst()
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
+#### Snippet
+```java
+
+        if (Number.class.isInstance(value)) {
+            int index = Number.class.cast(value).intValue();
+            return (T) elements.stream().filter(element -> element.ordinal() == index).findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("There is not index in enum to value: " + index));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Float.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Float.valueOf(Number.class.cast(value).floatValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/FloatReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Float.valueOf(Number.class.cast(value).floatValue());
+        } else {
+            return (T) Float.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+                    .collect(Collectors.toCollection(TreeSet::new));
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            Type collectionType = parameterizedType.getRawType();
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/NavigableSetTypeReferenceReader.java`
+#### Snippet
+```java
+                    ||
+                    SortedSet.class.equals(collectionType));
+            boolean isElementCompatible = Class.class.isInstance(elementType)
+                    && Comparable.class.isAssignableFrom((Class<?>) elementType);
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (LocalDate.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LocalDateReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/YearMonthReader.java`
+#### Snippet
+```java
+    @Override
+    public <T> T read(Class<T> type, Object value) {
+        if (YearMonth.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
+#### Snippet
+```java
+    @Override
+    public <T> T read(Class<T> type, Object value) {
+        if (ZonedDateTime.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return (T) ((Calendar) value).toInstant().atZone(ZoneId.systemDefault());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return (T) ((Date) value).toInstant().atZone(ZoneId.systemDefault());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ZonedDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return (T) new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OptionalReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Optional.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
+#### Snippet
+```java
+
+    private OffsetDateTime getOffSetDateTime(Object value) {
+        if (OffsetDateTime.class.isInstance(value)) {
+            return OffsetDateTime.class.cast(value);
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
+#### Snippet
+```java
+    private OffsetDateTime getOffSetDateTime(Object value) {
+        if (OffsetDateTime.class.isInstance(value)) {
+            return OffsetDateTime.class.cast(value);
+        }
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Calendar.class.isInstance(value)) {
+            return ((Calendar) value).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Date.class.isInstance(value)) {
+            return ((Date) value).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/OffsetDateTimeReader.java`
+#### Snippet
+```java
+        }
+
+        if (Number.class.isInstance(value)) {
+            return new Date(((Number) value).longValue()).toInstant().atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
+#### Snippet
+```java
+    public <T> T read(Class<T> type, Object value) {
+
+        if (Long.class.isInstance(value)) {
+            return (T) value;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
+#### Snippet
+```java
+            return (T) value;
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Long.valueOf(Number.class.cast(value).longValue());
+        } else {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/LongReader.java`
+#### Snippet
+```java
+        }
+        if (Number.class.isInstance(value)) {
+            return (T) Long.valueOf(Number.class.cast(value).longValue());
+        } else {
+            return (T) Long.valueOf(value.toString());
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            boolean isCollectionRight = Queue.class.equals(parameterizedType.getRawType())
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+                    || Deque.class.equals(parameterizedType.getRawType());
+            return isCollectionRight &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/QueueTypeReferenceReader.java`
+#### Snippet
+```java
+        Class<?> classType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        if (Iterable.class.isInstance(value)) {
+            Iterable iterable = Iterable.class.cast(value);
+            return (T) stream(iterable.spliterator(), false).map(o -> SERVICE_PROVIDER.read(classType, o))
+                    .collect(Collectors.toCollection(LinkedList::new));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+
+    private void convertEntryToMap(Object value, Map<String, Object> map) {
+        Entry entry = Entry.class.cast(value);
+        Object entryValue = entry.value().get();
+        if (entryValue instanceof Entry) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+        if (entryValue instanceof Entry) {
+            Map<String, Object> subMap = new HashMap<>();
+            Entry subEntry = Entry.class.cast(entryValue);
+            convertEntryToMap(subEntry, subMap);
+            map.put(entry.name(), subMap);
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+    public boolean test(TypeSupplier<?> typeReference) {
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+        Type type = typeReference.get();
+        if (ParameterizedType.class.isInstance(type)) {
+            ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+
+            return Map.class.equals(parameterizedType.getRawType()) &&
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+
+            return Map.class.equals(parameterizedType.getRawType()) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0])
+                    && Class.class.isInstance(parameterizedType.getActualTypeArguments()[1]);
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+            return Map.class.equals(parameterizedType.getRawType()) &&
+                    Class.class.isInstance(parameterizedType.getActualTypeArguments()[0])
+                    && Class.class.isInstance(parameterizedType.getActualTypeArguments()[1]);
+        }
+        return false;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+    private <K, V> Map<K, V> getMap(Class<K> keyClass, Class<V> valueClass, Object value) {
+
+        if (Map.class.isInstance(value)) {
+            return convertToMap(keyClass, valueClass, value);
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+            return convertToMap(keyClass, valueClass, value);
+        }
+        if (Iterable.class.isInstance(value)) {
+            List<Object> collection = new ArrayList<>();
+            Iterable.class.cast(value).forEach(collection::add);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+        if (Iterable.class.isInstance(value)) {
+            List<Object> collection = new ArrayList<>();
+            Iterable.class.cast(value).forEach(collection::add);
+            if (collection.isEmpty()) {
+                return Collections.emptyMap();
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+    public <T> T convert(TypeSupplier<T> typeReference, Object value) {
+        Type type = typeReference.get();
+        ParameterizedType parameterizedType = ParameterizedType.class.cast(type);
+        Class<?> keyType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
+        Class<?> valueType = (Class<?>) Optional.of(parameterizedType.getActualTypeArguments()[1])
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+
+    private <K, V> Map<K, V> convertToMap(Class<K> keyClass, Class<V> valueClass, Object value) {
+        Map mapValue = Map.class.cast(value);
+        return (Map<K, V>) mapValue.keySet().stream()
+                .collect(Collectors.toMap(mapKeyElement(keyClass), mapValueElement(valueClass, mapValue)));
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
+#### Snippet
+```java
+                        Values.get(condition.value(), parameters)));
+            case NOT:
+                return getCondition(ConditionQueryValue.class.cast(condition.value()).get().get(0),
+                        parameters, observer,
+                        entity).negate();
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
+#### Snippet
+```java
+                        entity).negate();
+            case OR:
+                return or(ConditionQueryValue.class.cast(condition.value())
+                        .get()
+                        .stream().map(v -> getCondition(v, parameters, observer, entity))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
+#### Snippet
+```java
+                        .toArray(DocumentCondition[]::new));
+            case AND:
+                return and(ConditionQueryValue.class.cast(condition.value())
+                        .get()
+                        .stream().map(v -> getCondition(v, parameters, observer, entity))
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Document.java`
+#### Snippet
+```java
+    private static Value getValue(Object value) {
+        if (value instanceof Value) {
+            return Value.class.cast(value);
+        } else {
+            return Value.of(value);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+                return value.get();
+            case PARAMETER:
+                return parameters.add(ParamQueryValue.class.cast(value).get());
+            case ARRAY:
+                return Stream.of(ArrayQueryValue.class.cast(value).get())
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+                return parameters.add(ParamQueryValue.class.cast(value).get());
+            case ARRAY:
+                return Stream.of(ArrayQueryValue.class.cast(value).get())
+                        .map(v -> get(v, parameters))
+                        .collect(toList());
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+                        .collect(toList());
+            case FUNCTION:
+                Function function = FunctionQueryValue.class.cast(value).get();
+                String name = function.name();
+                Object[] params = function.params();
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+                Object[] params = function.params();
+                if ("convert".equals(name)) {
+                    return Value.of(get(QueryValue.class.cast(params[0]), parameters))
+                            .get((Class<?>) params[1]);
+                }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+                throw new QueryException(message);
+            case JSON:
+                return JsonObjects.getDocuments(JSONQueryValue.class.cast(value).get());
+            case CONDITION:
+            default:
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Documents.java`
+#### Snippet
+```java
+
+        if (value instanceof Map) {
+            List list = Documents.of((Map.class.cast(value)));
+            if(list.size() == 1) {
+                return list.get(0);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Documents.java`
+#### Snippet
+```java
+        }
+        if (value instanceof Iterable) {
+            return stream(Iterable.class.cast(value).spliterator(), false)
+                    .map(Documents::getValue).collect(toList());
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
+#### Snippet
+```java
+
+    private static void checkBetweenClause(Object value) {
+        if (Iterable.class.isInstance(value)) {
+
+            long count = (int) StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).count();
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
+#### Snippet
+```java
+        if (Iterable.class.isInstance(value)) {
+
+            long count = (int) StreamSupport.stream(Iterable.class.cast(value).spliterator(), false).count();
+
+            if (count != 2) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
+#### Snippet
+```java
+    private Object convert(Object value) {
+        if (value instanceof Document) {
+            Document column = Document.class.cast(value);
+            return singletonMap(column.name(), convert(column.get()));
+        } else if (value instanceof Iterable) {
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
+#### Snippet
+```java
+        } else if (value instanceof Iterable) {
+            List<Object> list = new ArrayList<>();
+            Iterable.class.cast(value).forEach(e -> list.add(convert(e)));
+            return list;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
+#### Snippet
+```java
+
+        if (operator.equals(this.condition.condition())) {
+            ConditionQueryValue conditionValue = ConditionQueryValue.class.cast(this.condition.value());
+            List<QueryCondition> conditions = new ArrayList<>(conditionValue.get());
+            conditions.add(newCondition);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
+#### Snippet
+```java
+            this.condition = new DefaultQueryCondition("_" + operator.name(), operator, ConditionQueryValue.of(conditions));
+        } else {
+            List<QueryCondition> conditions = ConditionQueryValue.class.cast(this.condition.value()).get();
+            QueryCondition lastCondition = conditions.get(conditions.size() - 1);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/AbstractWhereSupplier.java`
+#### Snippet
+```java
+            if (isAppendable(lastCondition) && operator.equals(lastCondition.condition())) {
+                List<QueryCondition> lastConditions = new ArrayList<>(ConditionQueryValue.class
+                        .cast(lastCondition.value()).get());
+                lastConditions.add(newCondition);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+#### Snippet
+```java
+
+        if (operator.equals(this.condition.condition())) {
+            ConditionQueryValue conditionValue = ConditionQueryValue.class.cast(this.condition.value());
+            List<QueryCondition> conditions = new ArrayList<>(conditionValue.get());
+            conditions.add(newCondition);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+#### Snippet
+```java
+            this.condition = new MethodCondition(SUB_ENTITY_FLAG + operator.name(), operator, ConditionQueryValue.of(conditions));
+        } else {
+            List<QueryCondition> conditions = ConditionQueryValue.class.cast(this.condition.value()).get();
+            QueryCondition lastCondition = conditions.get(conditions.size() - 1);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+#### Snippet
+```java
+
+            if (isAppendable(lastCondition) && Condition.EQUALS.equals(lastCondition.condition())) {
+                List<QueryCondition> lastConditions = new ArrayList<>(ConditionQueryValue.class.cast(lastCondition.value()).get());
+                lastConditions.add(newCondition);
+
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
 in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/util/ParamsBinder.java`
 #### Snippet
 ```java
@@ -2172,32 +2190,320 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
                 }
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/ValueType.java`
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DocumentMapperSelect.java`
 #### Snippet
 ```java
-     * In computer science, a Boolean is a logical data type that can have only the values true or false
-     */
-    BOOLEAN;
-}
+        DocumentQuery query = build();
+        return this.template.<T>select(query)
+                .collect(Collectors.toUnmodifiableList());
+    }
 
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/query/AbstractDocumentRepository.java`
+#### Snippet
+```java
+                , null ,metadata.name());
+
+        List<Object> entities = getTemplate().select(query).collect(Collectors.toUnmodifiableList());
+        return NoSQLPage.of(entities, pageable);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/query/BaseDocumentRepository.java`
+#### Snippet
+```java
+        return p -> {
+            Stream<T> entities = getTemplate().select(query);
+            return NoSQLPage.of(entities.collect(toUnmodifiableList()), p);
+        };
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DocumentEntityConverter.java`
+#### Snippet
+```java
+    private <T> T convertEntity(List<Document> documents, EntityMetadata mapping, T instance) {
+        final Map<String, FieldMapping> fieldsGroupByName = mapping.fieldsGroupByName();
+        final List<String> names = documents.stream().map(Document::name).sorted().collect(Collectors.toList());
+        final Predicate<String> existField = k -> Collections.binarySearch(names, k) >= 0;
+        final Predicate<String> isElementType = k -> {
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultGraphTraversalSourceConverter.java`
+#### Snippet
+```java
+        List<FieldGraph> fields = mapping.fields().stream()
+                .map(f -> to(f, entity))
+                .filter(FieldGraph::isNotEmpty).collect(toList());
+
+        Optional<FieldGraph> id = fields.stream().filter(FieldGraph::isId).findFirst();
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperSelect.java`
+#### Snippet
+```java
+    public <T> List<T> result() {
+        Stream<T> stream = stream();
+        return stream.collect(Collectors.toUnmodifiableList());
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphConverter.java`
+#### Snippet
+```java
+        List<FieldGraph> fields = mapping.fields().stream()
+                .map(f -> to(f, entity))
+                .filter(FieldGraph::isNotEmpty).collect(toList());
+
+        return fields.stream().filter(FieldGraph::isNotId)
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphConverter.java`
+#### Snippet
+```java
+        List<FieldGraph> fields = mapping.fields().stream()
+                .map(f -> to(f, entity))
+                .filter(FieldGraph::isNotEmpty).collect(toList());
+
+        Optional<FieldGraph> id = fields.stream().filter(FieldGraph::isId).findFirst();
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphConverter.java`
+#### Snippet
+```java
+                .map(Property::key)
+                .sorted()
+                .collect(toList());
+        Predicate<String> existField = k -> Collections.binarySearch(names, k) >= 0;
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/AbstractGraphRepository.java`
+#### Snippet
+```java
+                .skip(NoSQLPage.skip(pageable))
+                .limit(pageable.size()).result()
+                .collect(Collectors.toUnmodifiableList());
+
+        return NoSQLPage.of(entities, pageable);
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/AbstractGraphRepositoryProxy.java`
+#### Snippet
+```java
+
+        Function<Pageable, Page<?>> pageFunction = p -> {
+            List<?> entities = querySupplier.get().collect(Collectors.toUnmodifiableList());
+            return NoSQLPage.of(entities, p);
+        };
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/DelQueryParser.java`
+#### Snippet
+```java
+        DelQuery delQuery = converter.apply(query);
+        Params params = Params.newParams();
+        List<Value> values = delQuery.keys().stream().map(k -> Values.getValue(k, params)).collect(toList());
+        if (params.isNotEmpty()) {
+            throw new QueryException("To run a query with a parameter use a PrepareStatement instead.");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/GetQueryParser.java`
+#### Snippet
+```java
+        GetQuery getQuery = converter.apply(query);
+        Params params = Params.newParams();
+        List<Value> values = getQuery.keys().stream().map(k -> Values.getValue(k, params)).collect(toList());
+        if (params.isNotEmpty()) {
+            throw new QueryException("To run a query with a parameter use a PrepareStatement instead.");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnMapperSelect.java`
+#### Snippet
+```java
+        ColumnQuery query = build();
+        return this.template.<T>select(query)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
+#### Snippet
+```java
+        Iterable<String> prefixes = StreamSupport.stream(suppliers.spliterator(), false)
+                .map(Supplier::get)
+                .collect(Collectors.toUnmodifiableList());
+        return prefix(prefixes);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
+#### Snippet
+```java
+        Objects.requireNonNull(prefixes, "prefixes is required");
+        List<String> values = StreamSupport.stream(prefixes.spliterator(), false)
+                .collect(Collectors.toUnmodifiableList());
+        if (values.isEmpty()) {
+            return Collections.emptyList();
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
+#### Snippet
+```java
+        Objects.requireNonNull(suppliers, "supplier is required");
+        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
+                .map(Supplier::get).collect(Collectors.toUnmodifiableList());
+        return get(keys);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/AbstractColumnRepository.java`
+#### Snippet
+```java
+                , null ,metadata.name());
+
+        List<Object> entities = getTemplate().select(query).collect(Collectors.toUnmodifiableList());
+        return NoSQLPage.of(entities, pageable);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/BaseColumnRepository.java`
+#### Snippet
+```java
+        return p -> {
+            Stream<T> entities = getTemplate().select(query);
+            return NoSQLPage.of(entities.collect(toUnmodifiableList()), p);
+        };
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ConstructorMetadataBuilder.java`
+#### Snippet
+```java
+        List<ParameterMetaData> parameters = Stream.of(constructor.getParameters())
+                .map(ParameterMetaDataBuilder::of)
+                .collect(Collectors.toUnmodifiableList());
+        return new ConstructorMetadata(constructor, parameters);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnEntityConverter.java`
+#### Snippet
+```java
+    private <T> T convertEntity(List<Column> columns, EntityMetadata mapping, T instance) {
+        final Map<String, FieldMapping> fieldsGroupByName = mapping.fieldsGroupByName();
+        final List<String> names = columns.stream().map(Column::name).sorted().collect(Collectors.toList());
+        final Predicate<String> existField = k -> Collections.binarySearch(names, k) >= 0;
+        final Predicate<String> isElementType = k -> {
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassScanner.java`
+#### Snippet
+```java
+                .loadClasses(DataRepository.class)
+                .stream().filter(RepositoryFilter.INSTANCE)
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
+#### Snippet
+```java
+                of(type.getDeclaredConstructors())
+                .filter(defaultConstructorPredicate.or(customConstructorPredicate))
+                .collect(toList());
+
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+#### Snippet
+```java
+
+        List<String> values = StreamSupport.stream(prefixes.spliterator(), false)
+                .collect(Collectors.toUnmodifiableList());
+        if (values.isEmpty()) {
+            return Collections.emptyList();
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+#### Snippet
+```java
+        Objects.requireNonNull(suppliers, "supplier is required");
+        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
+                .map(Supplier::get).collect(Collectors.toUnmodifiableList());
+        return get(keys);
+    }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toUnmodifiableList())' can be replaced with 'toList()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+#### Snippet
+```java
+        Iterable<String> prefixes = StreamSupport.stream(suppliers.spliterator(), false)
+                .map(Supplier::get)
+                .collect(Collectors.toUnmodifiableList());
+        return prefix(prefixes);
+    }
 ```
 
 ## RuleId[id=TypeParameterHidesVisibleType]
-### TypeParameterHidesVisibleType
-Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultVertexUntilTraversal.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> VertexTraversal hasLabel(Class<T> type) {
-        requireNonNull(type, "type is required");
-        Entity entity = type.getAnnotation(Entity.class);
-```
-
 ### TypeParameterHidesVisibleType
 Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultVertexUntilTraversal.java`
@@ -2212,14 +2518,14 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 
 ### TypeParameterHidesVisibleType
 Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultVertexTraversal.java`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultVertexUntilTraversal.java`
 #### Snippet
 ```java
 
     @Override
-    public <T> Stream<T> result() {
-        return flow.apply(supplier.get())
-                .toStream()
+    public <T> VertexTraversal hasLabel(Class<T> type) {
+        requireNonNull(type, "type is required");
+        Entity entity = type.getAnnotation(Entity.class);
 ```
 
 ### TypeParameterHidesVisibleType
@@ -2265,6 +2571,18 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 ```java
 
     @Override
+    public <T> Optional<T> singleResult() {
+        final Stream<T> stream = result();
+        final Iterator<T> iterator = stream.iterator();
+```
+
+### TypeParameterHidesVisibleType
+Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultVertexTraversal.java`
+#### Snippet
+```java
+
+    @Override
     public <T> VertexTraversal hasLabel(Class<T> type) {
         requireNonNull(type, "type is required");
         Entity entity = type.getAnnotation(Entity.class);
@@ -2289,21 +2607,9 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 ```java
 
     @Override
-    public <T> Optional<T> singleResult() {
-        final Stream<T> stream = result();
-        final Iterator<T> iterator = stream.iterator();
-```
-
-### TypeParameterHidesVisibleType
-Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/VertexConditionTraversal.java`
-#### Snippet
-```java
-     * @throws NullPointerException when predicate is null
-     */
-    <T> VertexTraversal hasLabel(P<String> predicate);
-
-    /**
+    public <T> Stream<T> result() {
+        return flow.apply(supplier.get())
+                .toStream()
 ```
 
 ### TypeParameterHidesVisibleType
@@ -2314,6 +2620,18 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
      * @throws NullPointerException when entityClazz is null
      */
     <T> VertexTraversal hasLabel(Class<T> type);
+
+    /**
+```
+
+### TypeParameterHidesVisibleType
+Type parameter `T` hides visible type 'org.apache.tinkerpop.gremlin.structure.T'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/VertexConditionTraversal.java`
+#### Snippet
+```java
+     * @throws NullPointerException when predicate is null
+     */
+    <T> VertexTraversal hasLabel(P<String> predicate);
 
     /**
 ```
@@ -2405,6 +2723,451 @@ in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jno
                 .collect(Collectors.toList());
 ```
 
+## RuleId[id=PatternVariableCanBeUsed]
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/MappingDocumentDeleteQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DocumentDeleteQuery that = (DocumentDeleteQuery) o;
+        return Objects.equals(documentCollection, that.name()) &&
+                Objects.equals(condition, that.condition().orElse(null)) && Objects.equals(Collections.emptyList(),
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/MappingDocumentQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DocumentQuery that = (DocumentQuery) o;
+        return limit == that.limit() &&
+                skip == that.skip() &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'map' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/FieldConverter.java`
+#### Snippet
+```java
+            Object value = sudDocument.get();
+            if (value instanceof Map) {
+                Map map = (Map) value;
+                List<Document> embeddedDocument = new ArrayList<>();
+
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/DefaultColumn.java`
+#### Snippet
+```java
+        }
+
+        Column that = (Column) o;
+        return Objects.equals(name, that.name()) &&
+                Objects.equals(value, that.value());
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/DefaultColumnQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        ColumnQuery that = (ColumnQuery) o;
+        return maxResults == that.limit() &&
+                firstResult == that.skip() &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/DefaultColumnDeleteQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        ColumnDeleteQuery that = (ColumnDeleteQuery) o;
+        return Objects.equals(columnFamily, that.name()) &&
+                Objects.equals(condition, that.condition().orElse(null)) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/FieldGraph.java`
+#### Snippet
+```java
+            return false;
+        }
+        FieldGraph that = (FieldGraph) o;
+        return Objects.equals(value, that.value) &&
+                Objects.equals(field, that.field);
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultProperty.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultProperty<?> that = (DefaultProperty<?>) o;
+        return Objects.equals(key, that.key) &&
+                Objects.equals(value, that.value);
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultEdgeEntity.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultEdgeEntity<?, ?> that = (DefaultEdgeEntity<?, ?>) o;
+        return Objects.equals(edge, that.edge) &&
+                Objects.equals(incoming, that.incoming) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        Value that = (Value) o;
+        return Objects.equals(value, that.get());
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultDocumentQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DocumentQuery that = (DocumentQuery) o;
+        return limit == that.limit() &&
+                skip == that.skip() &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultDocumentDeleteQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DocumentDeleteQuery that = (DocumentDeleteQuery) o;
+        return Objects.equals(documentCollection, that.name()) &&
+                Objects.equals(condition, that.condition().orElse(null)) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultDocument.java`
+#### Snippet
+```java
+            return false;
+        }
+        Document that = (Document) o;
+        return Objects.equals(name, that.name()) &&
+                Objects.equals(value, that.value());
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/StringQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        StringQueryValue that = (StringQueryValue) o;
+        return Objects.equals(value, that.value);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/InsertQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        InsertQuery that = (InsertQuery) o;
+        return Objects.equals(entity, that.entity) &&
+                Objects.equals(duration, that.duration) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/UpdateQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        UpdateQuery that = (UpdateQuery) o;
+        return Objects.equals(entity, that.entity) &&
+                Objects.equals(conditions, that.conditions);
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/Where.java`
+#### Snippet
+```java
+            return false;
+        }
+        Where that = (Where) o;
+        return Objects.equals(condition, that.condition);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultArrayQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultArrayQueryValue that = (DefaultArrayQueryValue) o;
+        return Arrays.equals(values, that.values);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultQueryValue that = (DefaultQueryValue) o;
+        return Objects.equals(value, that.value);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultQueryCondition.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultQueryCondition that = (DefaultQueryCondition) o;
+        return Objects.equals(name, that.name) &&
+                condition == that.condition &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultFunction.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultFunction that = (DefaultFunction) o;
+        return Objects.equals(name, that.name) &&
+                Arrays.equals(args, that.args);
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/ConditionQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        ConditionQueryValue that = (ConditionQueryValue) o;
+        return Objects.equals(conditions, that.conditions);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
+#### Snippet
+```java
+            return false;
+        }
+        DocumentEntity that = (DocumentEntity) o;
+        return Objects.equals(this.documents().stream().sorted(comparing(Document::name)).collect(toList()),
+                that.documents().stream().sorted(comparing(Document::name)).collect(toList())) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DeleteQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DeleteQuery that = (DeleteQuery) o;
+        return Objects.equals(entity, that.entity) &&
+                Objects.equals(fields, that.fields) &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/NumberQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        NumberQueryValue that = (NumberQueryValue) o;
+        return Objects.equals(number, that.number);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/GetQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        GetQuery that = (GetQuery) o;
+        return Objects.equals(keys, that.keys);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/MethodArrayValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        MethodArrayValue that = (MethodArrayValue) o;
+        return Arrays.equals(values, that.values);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultSelectQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultSelectQuery that = (DefaultSelectQuery) o;
+        return skip == that.skip &&
+                limit == that.limit &&
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/FunctionQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        FunctionQueryValue that = (FunctionQueryValue) o;
+        return Objects.equals(function, that.function);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/MethodParamQueryValue.java`
+#### Snippet
+```java
+            return false;
+        }
+        MethodParamQueryValue that = (MethodParamQueryValue) o;
+        return Objects.equals(value, that.value);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/MappingColumnQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        ColumnQuery that = (ColumnQuery) o;
+        return limit == that.limit()
+                && skip == that.skip()
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/MappingColumnDeleteQuery.java`
+#### Snippet
+```java
+            return false;
+        }
+        ColumnDeleteQuery that = (ColumnDeleteQuery) o;
+        return Objects.equals(columnFamily, that.name())
+                && Objects.equals(condition, that.condition().orElse(null))
+```
+
+### PatternVariableCanBeUsed
+Variable 'map' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/FieldConverter.java`
+#### Snippet
+```java
+            Object value = subColumn.get();
+            if (value instanceof Map) {
+                Map map = (Map) value;
+                List<Column> embeddedColumns = new ArrayList<>();
+
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/EntityPrePersist.java`
+#### Snippet
+```java
+            return false;
+        }
+        EntityPrePersist that = (EntityPrePersist) o;
+        return Objects.equals(value, that.value);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/EntityPostPersist.java`
+#### Snippet
+```java
+            return false;
+        }
+        EntityPostPersist that = (EntityPostPersist) o;
+        return Objects.equals(value, that.value);
+    }
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/DatabaseMetadata.java`
+#### Snippet
+```java
+            return false;
+        }
+        DatabaseMetadata that = (DatabaseMetadata) o;
+        return type == that.type &&
+                Objects.equals(provider, that.provider);
+```
+
+### PatternVariableCanBeUsed
+Variable 'that' can be replaced with pattern variable
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/DefaultEntityMetadata.java`
+#### Snippet
+```java
+            return false;
+        }
+        DefaultEntityMetadata that = (DefaultEntityMetadata) o;
+        return Objects.equals(type, that.type);
+    }
+```
+
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'reflections' in a Serializable class
@@ -2416,6 +3179,320 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
     private final Reflections reflections = new Reflections();
 
     private final ClassOperation reflection = new ReflectionClassOperation(reflections);
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`cs.length() == 0` can be replaced with 'cs.isEmpty()'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/util/StringUtils.java`
+#### Snippet
+```java
+
+    public static boolean isBlank(final CharSequence cs) {
+        if (cs == null || cs.length() == 0) {
+            return true;
+        }
+```
+
+## RuleId[id=EnhancedSwitchMigration]
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/ParameterConverter.java`
+#### Snippet
+```java
+
+    static ParameterConverter of(ParameterMetaData parameter) {
+        switch (parameter.getParamType()) {
+            case COLLECTION:
+                return COLLECTION;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/query/AbstractDocumentRepositoryProxy.java`
+#### Snippet
+```java
+        Class<?> typeClass = getEntityMetadata().type();
+
+        switch (type) {
+            case DEFAULT:
+                return method.invoke(getRepository(), args);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/Conditions.java`
+#### Snippet
+```java
+
+    static ColumnCondition getCondition(QueryCondition condition, Params parameters, ColumnObserverParser observer, String entity) {
+        switch (condition.condition()) {
+            case EQUALS:
+                return ColumnCondition.eq(Column.of(getName(condition, observer, entity),
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnQueryParser.java`
+#### Snippet
+```java
+        String command = query.substring(0, 6);
+
+        switch (command) {
+            case "select":
+                return select.prepare(query, manager, observer);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnQueryParser.java`
+#### Snippet
+```java
+        validation(query, manager, observer);
+        String command = query.substring(0, 6);
+        switch (command) {
+            case "select":
+                return select.query(query, manager, observer);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnPreparedStatement.java`
+#### Snippet
+```java
+            throw new QueryException("Check all the parameters before execute the query, params left: " + paramsLeft);
+        }
+        switch (type) {
+            case SELECT:
+                return manager.select(columnQuery);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/Values.java`
+#### Snippet
+```java
+
+        ValueType type = value.type();
+        switch (type) {
+            case NUMBER:
+            case STRING:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/AbstractQueryConvert.java`
+#### Snippet
+```java
+        QueryValue<?> value = condition.value();
+        String nativeName = parser.field(name);
+        switch (operator) {
+            case EQUALS:
+                return __.has(nativeName, P.eq(graphQuery.getValue(name, value)));
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/AbstractGraphRepositoryProxy.java`
+#### Snippet
+```java
+        Class<?> typeClass = getEntityMetadata().type();
+
+        switch (type) {
+            case DEFAULT:
+                return method.invoke(getRepository(), args);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-key-value/src/main/java/org/eclipse/jnosql/mapping/keyvalue/query/AbstractKeyValueRepositoryProxy.java`
+#### Snippet
+```java
+
+        RepositoryType type = RepositoryType.of(method);
+        switch (type) {
+            case DEFAULT:
+                return method.invoke(getRepository(), args);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/Values.java`
+#### Snippet
+```java
+
+        ValueType type = value.type();
+        switch (type) {
+            case NUMBER:
+            case STRING:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueQueryParser.java`
+#### Snippet
+```java
+        validation(query, manager);
+        String command = query.substring(0, 3);
+        switch (command) {
+            case "get":
+                return getQueryParser.query(query, manager);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/KeyValueQueryParser.java`
+#### Snippet
+```java
+        validation(query, manager);
+        String command = query.substring(0, 3);
+        switch (command) {
+            case "get":
+                return getQueryParser.prepare(query, manager);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/DefaultKeyValuePreparedStatement.java`
+#### Snippet
+```java
+                    + paramsLeft);
+        }
+        switch (type) {
+            case GET:
+                return keys.stream().map(Value::get)
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentQueryParser.java`
+#### Snippet
+```java
+        String command = query.substring(0, 6);
+
+        switch (command) {
+            case "select":
+                return select.prepare(query, collectionManager, observer);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentQueryParser.java`
+#### Snippet
+```java
+        validation(query, collectionManager, observer);
+        String command = query.substring(0, 6);
+        switch (command) {
+            case "select":
+                return select.query(query, collectionManager, observer);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Conditions.java`
+#### Snippet
+```java
+
+    static DocumentCondition getCondition(QueryCondition condition, Params parameters, DocumentObserverParser observer, String entity) {
+        switch (condition.condition()) {
+            case EQUALS:
+                return eq(Document.of(getName(condition, observer, entity),
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/Values.java`
+#### Snippet
+```java
+
+        ValueType type = value.type();
+        switch (type) {
+            case NUMBER:
+            case STRING:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentPreparedStatement.java`
+#### Snippet
+```java
+            throw new QueryException("Check all the parameters before execute the query, params left: " + paramsLeft);
+        }
+        switch (type) {
+            case SELECT:
+                return manager.select(documentQuery);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/Durations.java`
+#### Snippet
+```java
+        long value = Long.parseLong(ctx.INT().getText());
+        String unit = ctx.unit().getText();
+        switch (unit) {
+            case "day":
+                return Duration.ofDays(value);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ParameterConverter.java`
+#### Snippet
+```java
+
+    static ParameterConverter of(ParameterMetaData parameter) {
+        switch (parameter.getParamType()) {
+            case COLLECTION:
+                return COLLECTION;
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/AbstractColumnRepositoryProxy.java`
+#### Snippet
+```java
+        Class<?> typeClass = getEntityMetadata().type();
+
+        switch (type) {
+            case DEFAULT:
+                return method.invoke(getRepository(), args);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ParameterMetaDataBuilder.java`
+#### Snippet
+```java
+                .orElseGet(() -> column.value());
+        MappingType mappingType = MappingType.of(parameter);
+        switch (mappingType) {
+            case COLLECTION:
+            case MAP:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
+            builder.withConverter(convert.value());
+        }
+        switch (mappingType) {
+            case COLLECTION:
+            case MAP:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
+
+
+        switch (field.type()) {
+            case ENTITY:
+                appendFields(nativeFieldGroupByJavaField, field, javaField, appendPreparePrefix(nativeField, field.name()));
 ```
 
 ## RuleId[id=Java9UndeclaredServiceUsage]
@@ -2445,87 +3522,27 @@ in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/j
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Value`
-in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/DefaultKeyValuePreparedStatement.java`
+Can generalize to `? extends DocumentManager`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DefaultDocumentTemplate.java`
 #### Snippet
 ```java
-    private final Value value;
 
-    DefaultKeyValuePreparedStatement(Value key, Value value, List<Value> keys,
-                                     PreparedStatementType type,
-                                     BucketManager manager,
+    @Inject
+    DefaultDocumentTemplate(DocumentEntityConverter converter, Instance<DocumentManager> manager,
+                            DocumentWorkflow workflow, DocumentEventPersistManager persistManager,
+                            EntitiesMetadata entities, Converters converters) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends QueryCondition`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/ConditionQueryValue.java`
+Can generalize to `? extends FieldMapping`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DocumentEntityConverter.java`
 #### Snippet
 ```java
-    private final List<QueryCondition> conditions;
+  
 
-    private ConditionQueryValue(List<QueryCondition> conditions) {
-        this.conditions = conditions;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends QueryValue`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DelQuery.java`
-#### Snippet
-```java
-    private final List<QueryValue<?>> keys;
-
-    DelQuery(List<QueryValue<?>> keys) {
-        this.keys = keys;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends QueryValue`
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/GetQuery.java`
-#### Snippet
-```java
-    private final List<QueryValue<?>> keys;
-
-    GetQuery(List<QueryValue<?>> keys) {
-        this.keys = keys;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Document`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
-#### Snippet
-```java
-     * @throws NullPointerException          when document is null
-     */
-    public void addAll(Iterable<Document> documents) {
-        requireNonNull(documents, "documents are required");
-        documents.forEach(this::add);
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
-#### Snippet
-```java
-     * @throws NullPointerException when there are null parameters
-     */
-    public <T> Optional<T> find(String documentName, Class<T> type) {
-        Objects.requireNonNull(documentName, "documentName is required");
-        Objects.requireNonNull(type, "type is required");
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
-#### Snippet
-```java
-     * @throws NullPointerException when there are null parameters
-     */
-    public <T> Optional<T> find(String documentName, TypeSupplier<T> type) {
-        Objects.requireNonNull(documentName, "documentName is required");
-        Objects.requireNonNull(type, "type is required");
+    protected <T> Consumer<String> feedObject(T entity, List<Document> documents, Map<String, FieldMapping> fieldsGroupByName) {
+        return k -> {
+            Optional<Document> document = documents.stream().filter(c -> c.name().equals(k)).findFirst();
 ```
 
 ### BoundedWildcard
@@ -2538,6 +3555,42 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
     DefaultGraphTemplate(Instance<Graph> graph, EntitiesMetadata entities, GraphConverter converter,
                          GraphWorkflow workflow,
                          Converters converters) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+#### Snippet
+```java
+     * @throws NullPointerException when there are null parameters
+     */
+    public <T> Optional<T> find(String columnName, TypeSupplier<T> type) {
+        Objects.requireNonNull(columnName, "columnName is required");
+        Objects.requireNonNull(type, "type is required");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Column`
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+#### Snippet
+```java
+
+
+    public void addAll(List<Column> columns) {
+        Objects.requireNonNull(columns, "The object column is required");
+        columns.forEach(this::add);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+#### Snippet
+```java
+     * @throws NullPointerException when there are null parameters
+     */
+    public <T> Optional<T> find(String columnName, Class<T> type) {
+        Objects.requireNonNull(columnName, "columnName is required");
+        Objects.requireNonNull(type, "type is required");
 ```
 
 ### BoundedWildcard
@@ -2601,18 +3654,6 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FieldMapping`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphConverter.java`
-#### Snippet
-```java
-
-    private <T> Consumer<String> feedObject(T instance, List<Property> elements,
-                                            Map<String, FieldMapping> fieldsGroupByName) {
-        return k -> {
-            Optional<Property> element = elements
-```
-
-### BoundedWildcard
 Can generalize to `? extends GraphTraversal`
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/DefaultValueMapTraversal.java`
 #### Snippet
@@ -2649,99 +3690,15 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ColumnManager`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/DefaultColumnTemplate.java`
-#### Snippet
-```java
-
-    @Inject
-    DefaultColumnTemplate(ColumnEntityConverter converter, Instance<ColumnManager> manager,
-                          ColumnWorkflow flow,
-                          ColumnEventPersistManager eventManager,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ValidatorFactory`
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-         * @throws NullPointerException when the provided validatorFactories or the validators instances are null
-         */
-        private static Validator get(Instance<ValidatorFactory> validatorFactories, Instance<Validator> validators) {
-            Objects.requireNonNull(validatorFactories, "validatorFactories is required");
-            Objects.requireNonNull(validators, "validators is required");
-```
-
-### BoundedWildcard
-Can generalize to `? extends Validator`
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-         * @throws NullPointerException when the provided validatorFactories or the validators instances are null
-         */
-        private static Validator get(Instance<ValidatorFactory> validatorFactories, Instance<Validator> validators) {
-            Objects.requireNonNull(validatorFactories, "validatorFactories is required");
-            Objects.requireNonNull(validators, "validators is required");
-```
-
-### BoundedWildcard
 Can generalize to `? extends FieldMapping`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnEntityConverter.java`
-#### Snippet
-```java
-    }
-
-    protected <T> Consumer<String> feedObject(T entity, List<Column> columns, Map<String, FieldMapping> fieldsGroupByName) {
-        return (String k) -> {
-            Optional<Column> column = columns.stream().filter(c -> c.name().equals(k)).findFirst();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Enum`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
-#### Snippet
-```java
-    }
-
-    private <T> List<Enum> getEnumList(Class<Enum> type) {
-        EnumSet enumSet = EnumSet.allOf(type);
-        return new ArrayList<>(enumSet);
-```
-
-### BoundedWildcard
-Can generalize to `? extends DocumentManager`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DefaultDocumentTemplate.java`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphConverter.java`
 #### Snippet
 ```java
 
-    @Inject
-    DefaultDocumentTemplate(DocumentEntityConverter converter, Instance<DocumentManager> manager,
-                            DocumentWorkflow workflow, DocumentEventPersistManager persistManager,
-                            EntitiesMetadata entities, Converters converters) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
-#### Snippet
-```java
-    }
-
-    private void convertEntryToMap(Object value, Map<String, Object> map) {
-        Entry entry = Entry.class.cast(value);
-        Object entryValue = entry.value().get();
-```
-
-### BoundedWildcard
-Can generalize to `? extends FieldMapping`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DocumentEntityConverter.java`
-#### Snippet
-```java
-  
-
-    protected <T> Consumer<String> feedObject(T entity, List<Document> documents, Map<String, FieldMapping> fieldsGroupByName) {
+    private <T> Consumer<String> feedObject(T instance, List<Property> elements,
+                                            Map<String, FieldMapping> fieldsGroupByName) {
         return k -> {
-            Optional<Document> document = documents.stream().filter(c -> c.name().equals(k)).findFirst();
+            Optional<Property> element = elements
 ```
 
 ### BoundedWildcard
@@ -2757,51 +3714,111 @@ in `jnosql-mapping/jnosql-mapping-key-value/src/main/java/org/eclipse/jnosql/map
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Column`
-in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+Can generalize to `? extends Value`
+in `jnosql-communication/jnosql-communication-key-value/src/main/java/org/eclipse/jnosql/communication/keyvalue/DefaultKeyValuePreparedStatement.java`
 #### Snippet
 ```java
+    private final Value value;
 
+    DefaultKeyValuePreparedStatement(Value key, Value value, List<Value> keys,
+                                     PreparedStatementType type,
+                                     BucketManager manager,
+```
 
-    public void addAll(List<Column> columns) {
-        Objects.requireNonNull(columns, "The object column is required");
-        columns.forEach(this::add);
+### BoundedWildcard
+Can generalize to `? extends Enum`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/EnumReader.java`
+#### Snippet
+```java
+    }
+
+    private <T> List<Enum> getEnumList(Class<Enum> type) {
+        EnumSet enumSet = EnumSet.allOf(type);
+        return new ArrayList<>(enumSet);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/MapTypeReferenceReader.java`
+#### Snippet
+```java
+    }
+
+    private void convertEntryToMap(Object value, Map<String, Object> map) {
+        Entry entry = Entry.class.cast(value);
+        Object entryValue = entry.value().get();
+```
+
+### BoundedWildcard
+Can generalize to `? extends QueryValue`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DelQuery.java`
+#### Snippet
+```java
+    private final List<QueryValue<?>> keys;
+
+    DelQuery(List<QueryValue<?>> keys) {
+        this.keys = keys;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends QueryCondition`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/ConditionQueryValue.java`
+#### Snippet
+```java
+    private final List<QueryCondition> conditions;
+
+    private ConditionQueryValue(List<QueryCondition> conditions) {
+        this.conditions = conditions;
+    }
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
 #### Snippet
 ```java
      * @throws NullPointerException when there are null parameters
      */
-    public <T> Optional<T> find(String columnName, Class<T> type) {
-        Objects.requireNonNull(columnName, "columnName is required");
+    public <T> Optional<T> find(String documentName, Class<T> type) {
+        Objects.requireNonNull(documentName, "documentName is required");
         Objects.requireNonNull(type, "type is required");
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends T`
-in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnEntity.java`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
 #### Snippet
 ```java
      * @throws NullPointerException when there are null parameters
      */
-    public <T> Optional<T> find(String columnName, TypeSupplier<T> type) {
-        Objects.requireNonNull(columnName, "columnName is required");
+    public <T> Optional<T> find(String documentName, TypeSupplier<T> type) {
+        Objects.requireNonNull(documentName, "documentName is required");
         Objects.requireNonNull(type, "type is required");
 ```
 
 ### BoundedWildcard
-Can generalize to `? super DatabaseMetadata`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/Databases.java`
+Can generalize to `? extends Document`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentEntity.java`
 #### Snippet
 ```java
-     * @see DatabaseType
+     * @throws NullPointerException          when document is null
      */
-    public static void addDatabase(final ProcessProducer processProducer, final DatabaseType type, final Set<DatabaseMetadata> databases) {
+    public void addAll(Iterable<Document> documents) {
+        requireNonNull(documents, "documents are required");
+        documents.forEach(this::add);
+```
 
-        Set<Annotation> annotations = processProducer.getAnnotatedMember().getAnnotations();
+### BoundedWildcard
+Can generalize to `? extends QueryValue`
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/GetQuery.java`
+#### Snippet
+```java
+    private final List<QueryValue<?>> keys;
+
+    GetQuery(List<QueryValue<?>> keys) {
+        this.keys = keys;
+    }
 ```
 
 ### BoundedWildcard
@@ -2817,18 +3834,6 @@ in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jno
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Object> getSupplier(Iterable<Supplier<String>> suppliers) {
-        Objects.requireNonNull(suppliers, "supplier is required");
-        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
 #### Snippet
@@ -2841,63 +3846,75 @@ in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jno
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+Can generalize to `? extends Supplier`
+in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/DefaultSettings.java`
 #### Snippet
 ```java
-    }
 
-    private void appendFields(Map<String, NativeMapping> nativeFieldGroupByJavaField,
-                              FieldMapping field, String javaField, String nativeField,
-                              Class<?> type) {
+    @Override
+    public Optional<Object> getSupplier(Iterable<Supplier<String>> suppliers) {
+        Objects.requireNonNull(suppliers, "supplier is required");
+        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
 ```
 
 ### BoundedWildcard
-Can generalize to `? super NativeMapping`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+Can generalize to `? extends ColumnManager`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/DefaultColumnTemplate.java`
 #### Snippet
 ```java
-    }
 
-    private void appendFields(Map<String, NativeMapping> nativeFieldGroupByJavaField,
-                              FieldMapping field, String javaField, String nativeField,
-                              Class<?> type) {
+    @Inject
+    DefaultColumnTemplate(ColumnEntityConverter converter, Instance<ColumnManager> manager,
+                          ColumnWorkflow flow,
+                          ColumnEventPersistManager eventManager,
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+Can generalize to `? super DatabaseMetadata`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/Databases.java`
 #### Snippet
 ```java
-    }
+     * @see DatabaseType
+     */
+    public static void addDatabase(final ProcessProducer processProducer, final DatabaseType type, final Set<DatabaseMetadata> databases) {
 
-    private void appendDefaultField(Map<String, NativeMapping> nativeFieldGroupByJavaField,
-                                    FieldMapping field, String javaField, String nativeField) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super NativeMapping`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
-#### Snippet
-```java
-    }
-
-    private void appendDefaultField(Map<String, NativeMapping> nativeFieldGroupByJavaField,
-                                    FieldMapping field, String javaField, String nativeField) {
-
+        Set<Annotation> annotations = processProducer.getAnnotatedMember().getAnnotations();
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends FieldMapping`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnEntityConverter.java`
 #### Snippet
 ```java
     }
 
-    private Map<String, NativeMapping> getNativeFieldGroupByJavaField(List<FieldMapping> fields,
-                                                                      String javaField, String nativeField) {
+    protected <T> Consumer<String> feedObject(T entity, List<Column> columns, Map<String, FieldMapping> fieldsGroupByName) {
+        return (String k) -> {
+            Optional<Column> column = columns.stream().filter(c -> c.name().equals(k)).findFirst();
+```
 
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Object> getSupplier(Iterable<Supplier<String>> suppliers) {
+        Objects.requireNonNull(suppliers, "supplier is required");
+        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
+```
+
+### BoundedWildcard
+Can generalize to `? extends Supplier`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Object> prefixSupplier(Iterable<Supplier<String>> suppliers) {
+        Objects.requireNonNull(suppliers, "suppliers is required");
+        Iterable<String> prefixes = StreamSupport.stream(suppliers.spliterator(), false)
 ```
 
 ### BoundedWildcard
@@ -2973,30 +3990,102 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+Can generalize to `? super String`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public List<Object> prefixSupplier(Iterable<Supplier<String>> suppliers) {
-        Objects.requireNonNull(suppliers, "suppliers is required");
-        Iterable<String> prefixes = StreamSupport.stream(suppliers.spliterator(), false)
+    private void appendFields(Map<String, NativeMapping> nativeFieldGroupByJavaField,
+                              FieldMapping field, String javaField, String nativeField,
+                              Class<?> type) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Supplier`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/config/MicroProfileSettings.java`
+Can generalize to `? super NativeMapping`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public Optional<Object> getSupplier(Iterable<Supplier<String>> suppliers) {
-        Objects.requireNonNull(suppliers, "supplier is required");
-        List<String> keys = StreamSupport.stream(suppliers.spliterator(), false)
+    private void appendFields(Map<String, NativeMapping> nativeFieldGroupByJavaField,
+                              FieldMapping field, String javaField, String nativeField,
+                              Class<?> type) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
+    }
+
+    private void appendDefaultField(Map<String, NativeMapping> nativeFieldGroupByJavaField,
+                                    FieldMapping field, String javaField, String nativeField) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? super NativeMapping`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
+    }
+
+    private void appendDefaultField(Map<String, NativeMapping> nativeFieldGroupByJavaField,
+                                    FieldMapping field, String javaField, String nativeField) {
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends FieldMapping`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
+    }
+
+    private Map<String, NativeMapping> getNativeFieldGroupByJavaField(List<FieldMapping> fields,
+                                                                      String javaField, String nativeField) {
+
 ```
 
 ## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
+#### Snippet
+```java
+    protected String name;
+
+    protected transient final EntityMetadata mapping;
+
+    protected transient final Converters converters;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
+#### Snippet
+```java
+    protected transient final Converters converters;
+
+    protected transient final JNoSQLDocumentTemplate template;
+
+    protected long start;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
+#### Snippet
+```java
+    protected transient final EntityMetadata mapping;
+
+    protected transient final Converters converters;
+
+    protected transient final JNoSQLDocumentTemplate template;
+```
+
 ### MissortedModifiers
 Missorted modifiers `transient final`
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractMapperQuery.java`
@@ -3007,6 +4096,18 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
     protected transient final EntityMetadata mapping;
 
     protected transient final Converters converters;
+```
+
+### MissortedModifiers
+Missorted modifiers `transient final`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractMapperQuery.java`
+#### Snippet
+```java
+    protected transient final EntityMetadata mapping;
+
+    protected transient final Converters converters;
+
+    protected transient final GraphTraversal<Vertex, Vertex> traversal;
 ```
 
 ### MissortedModifiers
@@ -3026,18 +4127,6 @@ Missorted modifiers `transient final`
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractMapperQuery.java`
 #### Snippet
 ```java
-    protected transient final EntityMetadata mapping;
-
-    protected transient final Converters converters;
-
-    protected transient final GraphTraversal<Vertex, Vertex> traversal;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractMapperQuery.java`
-#### Snippet
-```java
     protected transient final Converters converters;
 
     protected transient final GraphTraversal<Vertex, Vertex> traversal;
@@ -3062,18 +4151,6 @@ Missorted modifiers `transient final`
 in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/AbstractMapperQuery.java`
 #### Snippet
 ```java
-    protected String name;
-
-    protected transient final EntityMetadata mapping;
-
-    protected transient final Converters converters;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/AbstractMapperQuery.java`
-#### Snippet
-```java
     protected transient final EntityMetadata mapping;
 
     protected transient final Converters converters;
@@ -3083,31 +4160,7 @@ in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mappin
 
 ### MissortedModifiers
 Missorted modifiers `transient final`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
-#### Snippet
-```java
-    protected transient final Converters converters;
-
-    protected transient final JNoSQLDocumentTemplate template;
-
-    protected long start;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
-#### Snippet
-```java
-    protected transient final EntityMetadata mapping;
-
-    protected transient final Converters converters;
-
-    protected transient final JNoSQLDocumentTemplate template;
-```
-
-### MissortedModifiers
-Missorted modifiers `transient final`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/AbstractMapperQuery.java`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/AbstractMapperQuery.java`
 #### Snippet
 ```java
     protected String name;
@@ -3119,25 +4172,61 @@ in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapp
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `type()` is identical to its super method
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultQueryValue.java`
-#### Snippet
-```java
-
-    @Override
-    public ValueType type() {
-        return ValueType.PARAMETER;
-    }
-```
-
-### RedundantMethodOverride
-Method `getInjectionPoints()` is identical to its super method
+Method `destroy()` is identical to its super method
 in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
 #### Snippet
 ```java
 
     @Override
-    public Set<InjectionPoint> getInjectionPoints() {
+    public void destroy(JNoSQLDocumentTemplate instance, CreationalContext<JNoSQLDocumentTemplate> creationalContext) {
+
+    }
+```
+
+### RedundantMethodOverride
+Method `isNullable()` is identical to its super method
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isNullable() {
+        return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `getScope()` is identical to its super method
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
+#### Snippet
+```java
+
+    @Override
+    public Class<? extends Annotation> getScope() {
+        return ApplicationScoped.class;
+    }
+```
+
+### RedundantMethodOverride
+Method `isAlternative()` is identical to its super method
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean isAlternative() {
+        return false;
+    }
+```
+
+### RedundantMethodOverride
+Method `getStereotypes()` is identical to its super method
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<Class<? extends Annotation>> getStereotypes() {
         return Collections.emptySet();
     }
 ```
@@ -3155,62 +4244,26 @@ in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapp
 ```
 
 ### RedundantMethodOverride
-Method `isAlternative()` is identical to its super method
+Method `getInjectionPoints()` is identical to its super method
 in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
 #### Snippet
 ```java
 
     @Override
-    public boolean isAlternative() {
-        return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `destroy()` is identical to its super method
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
-#### Snippet
-```java
-
-    @Override
-    public void destroy(JNoSQLDocumentTemplate instance, CreationalContext<JNoSQLDocumentTemplate> creationalContext) {
-
-    }
-```
-
-### RedundantMethodOverride
-Method `getStereotypes()` is identical to its super method
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<Class<? extends Annotation>> getStereotypes() {
+    public Set<InjectionPoint> getInjectionPoints() {
         return Collections.emptySet();
     }
 ```
 
 ### RedundantMethodOverride
-Method `getScope()` is identical to its super method
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
+Method `type()` is identical to its super method
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultQueryValue.java`
 #### Snippet
 ```java
 
     @Override
-    public Class<? extends Annotation> getScope() {
-        return ApplicationScoped.class;
-    }
-```
-
-### RedundantMethodOverride
-Method `isNullable()` is identical to its super method
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean isNullable() {
-        return false;
+    public ValueType type() {
+        return ValueType.PARAMETER;
     }
 ```
 
@@ -3230,26 +4283,26 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnCondition.java`
 #### Snippet
 ```java
-     * Returns a new {@link DocumentCondition} aggregating ,as "AND", all the conditions as just one condition.
-     * The {@link Document} will storage the {@link Condition#getNameField()} as key and the value gonna be
+     * Returns a new {@link ColumnCondition} aggregating ,as "OR", all the conditions as just one condition.
+     * The {@link Column} will storage the {@link Condition#getNameField()} as key and the value gonna be
      * the {@link java.util.List} of all conditions, in other words.
      * <p>Given:</p>
-     * <pre>
+     * {@code
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnCondition.java`
 #### Snippet
 ```java
-     * Returns a new {@link DocumentCondition} aggregating ,as "OR", all the conditions as just one condition.
-     * The {@link Document} will storage the {@link Condition#getNameField()} as key and the value gonna be
+     * Returns a new {@link ColumnCondition} aggregating ,as "AND", all the conditions as just one condition.
+     * The {@link Column} will storage the {@link Condition#getNameField()} as key and the value gonna be
      * the {@link java.util.List} of all conditions, in other words.
      * <p>Given:</p>
-     * <pre>
+     * {@code
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3325,66 +4378,6 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.data.repository` is unnecessary and can be removed
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/ColumnRepositoryProxy.java`
-#### Snippet
-```java
-
-/**
- * Proxy handle to generate {@link jakarta.data.repository.PageableRepository}
- *
- * @param <T>  the type
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.validation` is unnecessary and can be removed
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-     * @param event the event
-     * @throws NullPointerException                            when entity is null
-     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
-     *                                                         returns a non-empty collection
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.validation` is unnecessary and can be removed
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-     * @param event the event
-     * @throws NullPointerException                            when entity is null
-     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
-     *                                                         returns a non-empty collection
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.validation` is unnecessary and can be removed
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-     * @param entity the entity to be validated
-     * @throws NullPointerException                            when entity is null
-     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
-     *                                                         returns a non-empty collection
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.validation` is unnecessary and can be removed
-in `jnosql-mapping/jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validation/MappingValidator.java`
-#### Snippet
-```java
-     * @param entity the entity to be validated
-     * @throws NullPointerException                            when entity is null
-     * @throws jakarta.validation.ConstraintViolationException when {@link jakarta.validation.Validator#validate(Object, Class[])}
-     *                                                         returns a non-empty collection
-     */
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jnosql/communication/reader/ListTypeReferenceReader.java`
 #### Snippet
@@ -3434,26 +4427,38 @@ in `jnosql-communication/jnosql-communication-core/src/main/java/org/eclipse/jno
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnCondition.java`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
 #### Snippet
 ```java
-     * Returns a new {@link ColumnCondition} aggregating ,as "AND", all the conditions as just one condition.
-     * The {@link Column} will storage the {@link Condition#getNameField()} as key and the value gonna be
+     * Returns a new {@link DocumentCondition} aggregating ,as "AND", all the conditions as just one condition.
+     * The {@link Document} will storage the {@link Condition#getNameField()} as key and the value gonna be
      * the {@link java.util.List} of all conditions, in other words.
      * <p>Given:</p>
-     * {@code
+     * <pre>
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
-in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnCondition.java`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DocumentCondition.java`
 #### Snippet
 ```java
-     * Returns a new {@link ColumnCondition} aggregating ,as "OR", all the conditions as just one condition.
-     * The {@link Column} will storage the {@link Condition#getNameField()} as key and the value gonna be
+     * Returns a new {@link DocumentCondition} aggregating ,as "OR", all the conditions as just one condition.
+     * The {@link Document} will storage the {@link Condition#getNameField()} as key and the value gonna be
      * the {@link java.util.List} of all conditions, in other words.
      * <p>Given:</p>
-     * {@code
+     * <pre>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `jakarta.data.repository` is unnecessary and can be removed
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/ColumnRepositoryProxy.java`
+#### Snippet
+```java
+
+/**
+ * Proxy handle to generate {@link jakarta.data.repository.PageableRepository}
+ *
+ * @param <T>  the type
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3655,90 +4660,6 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
-Redundant interface declaration `DocumentQueryBuild`
-in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultFluentDocumentQueryBuilder.java`
-#### Snippet
-```java
- */
-class DefaultFluentDocumentQueryBuilder extends BaseQueryBuilder implements DocumentSelect, DocumentFrom, DocumentLimit,
-        DocumentSkip, DocumentOrder, DocumentNotCondition, DocumentNameOrder, DocumentWhere, DocumentQueryBuild {
-
-
-```
-
-### RedundantImplements
-Redundant interface declaration `MapperDeleteNameCondition`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperDelete.java`
-#### Snippet
-```java
-
-final class GraphMapperDelete extends AbstractMapperQuery implements MapperDeleteFrom,
-        MapperDeleteWhere, MapperDeleteNameCondition, MapperDeleteNotCondition {
-    GraphMapperDelete(EntityMetadata mapping, Converters converters, GraphTraversal<Vertex, Vertex> traversal,
-                      GraphConverter converter) {
-```
-
-### RedundantImplements
-Redundant interface declaration `MapperNameCondition`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperSelect.java`
-#### Snippet
-```java
-final class GraphMapperSelect extends AbstractMapperQuery
-        implements MapperFrom, MapperLimit,
-        MapperSkip, MapperOrder, MapperNameCondition,
-        MapperNotCondition, MapperNameOrder, MapperWhere {
-
-```
-
-### RedundantImplements
-Redundant interface declaration `PageableRepository`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/GraphRepositoryProxy.java`
-#### Snippet
-```java
-
-
-    static class GraphRepository extends AbstractGraphRepository implements PageableRepository {
-
-        private final GraphTemplate template;
-```
-
-### RedundantImplements
-Redundant interface declaration `MapperNameCondition`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnMapperSelect.java`
-#### Snippet
-```java
-
-final class ColumnMapperSelect extends AbstractMapperQuery implements MapperFrom, MapperLimit,
-        MapperSkip, MapperOrder, MapperNameCondition,
-        MapperNotCondition, MapperNameOrder, MapperWhere {
-
-```
-
-### RedundantImplements
-Redundant interface declaration `MapperDeleteNameCondition`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnMapperDelete.java`
-#### Snippet
-```java
-
-final class ColumnMapperDelete extends AbstractMapperQuery implements MapperDeleteFrom,
-        MapperDeleteWhere, MapperDeleteNameCondition, MapperDeleteNotCondition  {
-
-
-```
-
-### RedundantImplements
-Redundant interface declaration `PageableRepository`
-in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/ColumnRepositoryProxy.java`
-#### Snippet
-```java
-
-
-    static class ColumnRepository extends AbstractColumnRepository implements PageableRepository {
-
-        private final JNoSQLColumnTemplate template;
-```
-
-### RedundantImplements
 Redundant interface declaration `MapperDeleteNameCondition`
 in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/DocumentMapperDelete.java`
 #### Snippet
@@ -3799,6 +4720,90 @@ class DefaultFluentColumnQueryBuilder extends BaseQueryBuilder implements
 ```
 
 ### RedundantImplements
+Redundant interface declaration `MapperDeleteNameCondition`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperDelete.java`
+#### Snippet
+```java
+
+final class GraphMapperDelete extends AbstractMapperQuery implements MapperDeleteFrom,
+        MapperDeleteWhere, MapperDeleteNameCondition, MapperDeleteNotCondition {
+    GraphMapperDelete(EntityMetadata mapping, Converters converters, GraphTraversal<Vertex, Vertex> traversal,
+                      GraphConverter converter) {
+```
+
+### RedundantImplements
+Redundant interface declaration `MapperNameCondition`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperSelect.java`
+#### Snippet
+```java
+final class GraphMapperSelect extends AbstractMapperQuery
+        implements MapperFrom, MapperLimit,
+        MapperSkip, MapperOrder, MapperNameCondition,
+        MapperNotCondition, MapperNameOrder, MapperWhere {
+
+```
+
+### RedundantImplements
+Redundant interface declaration `PageableRepository`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/query/GraphRepositoryProxy.java`
+#### Snippet
+```java
+
+
+    static class GraphRepository extends AbstractGraphRepository implements PageableRepository {
+
+        private final GraphTemplate template;
+```
+
+### RedundantImplements
+Redundant interface declaration `DocumentQueryBuild`
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultFluentDocumentQueryBuilder.java`
+#### Snippet
+```java
+ */
+class DefaultFluentDocumentQueryBuilder extends BaseQueryBuilder implements DocumentSelect, DocumentFrom, DocumentLimit,
+        DocumentSkip, DocumentOrder, DocumentNotCondition, DocumentNameOrder, DocumentWhere, DocumentQueryBuild {
+
+
+```
+
+### RedundantImplements
+Redundant interface declaration `MapperDeleteNameCondition`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnMapperDelete.java`
+#### Snippet
+```java
+
+final class ColumnMapperDelete extends AbstractMapperQuery implements MapperDeleteFrom,
+        MapperDeleteWhere, MapperDeleteNameCondition, MapperDeleteNotCondition  {
+
+
+```
+
+### RedundantImplements
+Redundant interface declaration `MapperNameCondition`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/ColumnMapperSelect.java`
+#### Snippet
+```java
+
+final class ColumnMapperSelect extends AbstractMapperQuery implements MapperFrom, MapperLimit,
+        MapperSkip, MapperOrder, MapperNameCondition,
+        MapperNotCondition, MapperNameOrder, MapperWhere {
+
+```
+
+### RedundantImplements
+Redundant interface declaration `PageableRepository`
+in `jnosql-mapping/jnosql-mapping-column/src/main/java/org/eclipse/jnosql/mapping/column/query/ColumnRepositoryProxy.java`
+#### Snippet
+```java
+
+
+    static class ColumnRepository extends AbstractColumnRepository implements PageableRepository {
+
+        private final JNoSQLColumnTemplate template;
+```
+
+### RedundantImplements
 Redundant interface declaration `ParameterMetaData`
 in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/GenericParameterMetaData.java`
 #### Snippet
@@ -3808,127 +4813,6 @@ import java.util.ServiceLoader;
 public final class GenericParameterMetaData extends DefaultParameterMetaData implements ParameterMetaData {
 
     private final TypeSupplier<?> typeSupplier;
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperSelect.java`
-#### Snippet
-```java
-    public <T> MapperWhere in(Iterable<T> values) {
-        inImpl(values);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
-#### Snippet
-```java
-    @Override
-    public String getName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/query/AbstractDocumentRepositoryProxy.java`
-#### Snippet
-```java
-                DocumentDeleteQuery documentDeleteQuery = getDeleteQuery(method, args);
-                getTemplate().delete(documentDeleteQuery);
-                return null;
-            case OBJECT_METHOD:
-                return method.invoke(this, args);
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-key-value/src/main/java/org/eclipse/jnosql/mapping/keyvalue/KeyValueEntityConverter.java`
-#### Snippet
-```java
-        T bean = entity.value(type);
-        if (Objects.isNull(bean)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/spi/AbstractBean.java`
-#### Snippet
-```java
-    @Override
-    public String getName() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/FieldMapping.java`
-#### Snippet
-```java
-     */
-    default Field nativeField() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
-#### Snippet
-```java
-        } catch (Exception exception) {
-            LOGGER.log(Level.FINEST, "There is an issue to creating an entity from this constructor", exception);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
-#### Snippet
-```java
-            LOGGER.log(Level.FINEST, "There is an issue with returning value from this field.", exception);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
-#### Snippet
-```java
-        } catch (Exception exception) {
-            LOGGER.log(Level.FINEST, "There is an issue to creating an entity from this constructor", exception);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/repository/DynamicReturn.java`
-#### Snippet
-```java
-    public static Pageable findPageable(Object[] params) {
-        if (params == null || params.length == 0) {
-            return null;
-        }
-        return Stream.of(params)
 ```
 
 ## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
@@ -3985,6 +4869,18 @@ Call to `concat()` can be replaced with '+' expression
 in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
 #### Snippet
 ```java
+
+    private String appendPreparePrefix(String prefix, String field) {
+        return appendPrefix(prefix, field).concat(".");
+    }
+
+```
+
+### CallToStringConcatCanBeReplacedByOperator
+Call to `concat()` can be replaced with '+' expression
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+#### Snippet
+```java
                                     FieldMapping field, String javaField, String nativeField) {
 
         nativeFieldGroupByJavaField.put(javaField.concat(field.fieldName()),
@@ -4004,28 +4900,137 @@ in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/
 
 ```
 
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/ClassConverter.java`
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/spi/TemplateBean.java`
 #### Snippet
 ```java
-
-    private String appendPreparePrefix(String prefix, String field) {
-        return appendPrefix(prefix, field).concat(".");
+    @Override
+    public String getName() {
+        return null;
     }
 
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `operator` is redundant
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-document/src/main/java/org/eclipse/jnosql/mapping/document/query/AbstractDocumentRepositoryProxy.java`
 #### Snippet
 ```java
-        boolean hasNot = Objects.nonNull(ctx.not());
-        String variable = getVariable(ctx.variable());
-        Condition operator = IN;
-        appendCondition(hasNot, variable, operator);
+                DocumentDeleteQuery documentDeleteQuery = getDeleteQuery(method, args);
+                getTemplate().delete(documentDeleteQuery);
+                return null;
+            case OBJECT_METHOD:
+                return method.invoke(this, args);
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/GraphMapperSelect.java`
+#### Snippet
+```java
+    public <T> MapperWhere in(Iterable<T> values) {
+        inImpl(values);
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-key-value/src/main/java/org/eclipse/jnosql/mapping/keyvalue/KeyValueEntityConverter.java`
+#### Snippet
+```java
+        T bean = entity.value(type);
+        if (Objects.isNull(bean)) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/spi/AbstractBean.java`
+#### Snippet
+```java
+    @Override
+    public String getName() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/FieldMapping.java`
+#### Snippet
+```java
+     */
+    default Field nativeField() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
+#### Snippet
+```java
+        } catch (Exception exception) {
+            LOGGER.log(Level.FINEST, "There is an issue to creating an entity from this constructor", exception);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
+#### Snippet
+```java
+        } catch (Exception exception) {
+            LOGGER.log(Level.FINEST, "There is an issue to creating an entity from this constructor", exception);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/Reflections.java`
+#### Snippet
+```java
+            LOGGER.log(Level.FINEST, "There is an issue with returning value from this field.", exception);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/repository/DynamicReturn.java`
+#### Snippet
+```java
+    public static Pageable findPageable(Object[] params) {
+        if (params == null || params.length == 0) {
+            return null;
+        }
+        return Stream.of(params)
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `graph` is redundant
+in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/configuration/GraphSupplier.java`
+#### Snippet
+```java
+                }).orElseGet(GraphConfiguration::getConfiguration);
+
+        Graph graph = configuration.apply(settings);
+        return graph;
     }
 ```
 
@@ -4046,23 +5051,11 @@ Local variable `operator` is redundant
 in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
 #### Snippet
 ```java
+    @Override
+    public void exitEq(MethodParser.EqContext ctx) {
+        Condition operator = EQUALS;
         boolean hasNot = Objects.nonNull(ctx.not());
         String variable = getVariable(ctx.variable());
-        Condition operator = GREATER_THAN;
-        appendCondition(hasNot, variable, operator);
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `operator` is redundant
-in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
-#### Snippet
-```java
-        boolean hasNot = Objects.nonNull(ctx.not());
-        String variable = getVariable(ctx.variable());
-        Condition operator = LESSER_THAN;
-        appendCondition(hasNot, variable, operator);
-    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -4094,11 +5087,35 @@ Local variable `operator` is redundant
 in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
 #### Snippet
 ```java
-    @Override
-    public void exitEq(MethodParser.EqContext ctx) {
-        Condition operator = EQUALS;
         boolean hasNot = Objects.nonNull(ctx.not());
         String variable = getVariable(ctx.variable());
+        Condition operator = IN;
+        appendCondition(hasNot, variable, operator);
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `operator` is redundant
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+#### Snippet
+```java
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Condition operator = LESSER_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `operator` is redundant
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/method/AbstractMethodQueryProvider.java`
+#### Snippet
+```java
+        boolean hasNot = Objects.nonNull(ctx.not());
+        String variable = getVariable(ctx.variable());
+        Condition operator = GREATER_THAN;
+        appendCondition(hasNot, variable, operator);
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -4113,16 +5130,137 @@ in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jn
         checkCondition(new MethodCondition(variable, operator, value), hasNot);
 ```
 
-### UnnecessaryLocalVariable
-Local variable `graph` is redundant
-in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/configuration/GraphSupplier.java`
+## RuleId[id=ClassCanBeRecord]
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/DefaultColumn.java`
 #### Snippet
 ```java
-                }).orElseGet(GraphConfiguration::getConfiguration);
+ * Default implementation of {@link Column}
+ */
+final class DefaultColumn implements Column {
 
-        Graph graph = configuration.apply(settings);
-        return graph;
+    private final String name;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/UpdateQueryParser.java`
+#### Snippet
+```java
     }
+
+    private static final class UpdateQueryConditionSupplier implements ConditionQuerySupplier {
+        private final UpdateQuery query;
+
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnQueryParams.java`
+#### Snippet
+```java
+ * The result of {@link org.eclipse.jnosql.communication.query.SelectQueryConverter} that has {@link ColumnQuery} and {@link Params}.
+ */
+public final class ColumnQueryParams {
+
+    private final ColumnQuery query;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/InsertQueryParser.java`
+#### Snippet
+```java
+
+
+    private static final class InsertQueryConditionSupplier implements ConditionQuerySupplier {
+        private final InsertQuery query;
+
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-column/src/main/java/org/eclipse/jnosql/communication/column/ColumnDeleteQueryParams.java`
+#### Snippet
+```java
+ *  The result of {@link ColumnDeleteQueryParams} that has {@link ColumnDeleteQuery} and {@link Params}.
+ */
+public final class ColumnDeleteQueryParams {
+
+    private final ColumnDeleteQuery query;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/UpdateQueryParser.java`
+#### Snippet
+```java
+    }
+
+    private static final class UpdateQueryConditioinSupplier implements ConditionQuerySupplier {
+        private final UpdateQuery query;
+
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/InsertQueryParser.java`
+#### Snippet
+```java
+
+
+    private static final class InsertQueryConditionSupplier implements ConditionQuerySupplier {
+        private final InsertQuery query;
+
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-document/src/main/java/org/eclipse/jnosql/communication/document/DefaultDocument.java`
+#### Snippet
+```java
+import java.util.Objects;
+
+final class DefaultDocument implements Document {
+
+    private final String name;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-communication/jnosql-communication-query/src/main/java/org/eclipse/jnosql/communication/query/DefaultQueryCondition.java`
+#### Snippet
+```java
+ * The default implementation of {@link QueryCondition}
+ */
+final class DefaultQueryCondition implements QueryCondition {
+
+    private final String name;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/reflection/DefaultFieldValue.java`
+#### Snippet
+```java
+import java.util.Objects;
+
+public final class DefaultFieldValue implements FieldValue {
+
+    private final Object value;
+```
+
+### ClassCanBeRecord
+Class can be a record
+in `jnosql-mapping/jnosql-mapping-core/src/main/java/org/eclipse/jnosql/mapping/repository/DynamicReturn.java`
+#### Snippet
+```java
+    }
+
+    private static class SupplierConverter implements Function<Supplier<Stream<?>>, Supplier<Optional<?>>> {
+
+        private final Method method;
 ```
 
 ## RuleId[id=PointlessBooleanExpression]
@@ -4157,11 +5295,11 @@ in `jnosql-mapping/jnosql-mapping-key-value/src/main/java/org/eclipse/jnosql/map
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractGraphTemplate.java`
 #### Snippet
 ```java
-    private <T> boolean isIdNull(T entity) {
+    private <T> Optional<Vertex> vertex(T entity) {
         EntityMetadata entityMetadata = getEntities().get(entity.getClass());
         FieldMapping field = entityMetadata.id().get();
-        return isNull(field.read(entity));
-
+        Object id = field.read(entity);
+        Iterator<Vertex> vertices = vertices(id);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4169,11 +5307,11 @@ in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping
 in `jnosql-mapping/jnosql-mapping-graph/src/main/java/org/eclipse/jnosql/mapping/graph/AbstractGraphTemplate.java`
 #### Snippet
 ```java
-    private <T> Optional<Vertex> vertex(T entity) {
+    private <T> boolean isIdNull(T entity) {
         EntityMetadata entityMetadata = getEntities().get(entity.getClass());
         FieldMapping field = entityMetadata.id().get();
-        Object id = field.read(entity);
-        Iterator<Vertex> vertices = vertices(id);
+        return isNull(field.read(entity));
+
 ```
 
 ### OptionalGetWithoutIsPresent
