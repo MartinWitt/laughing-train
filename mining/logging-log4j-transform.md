@@ -1,15 +1,14 @@
 # logging-log4j-transform 
  
 # Bad smells
-I found 9 bad smells with 1 repairable:
+I found 8 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantFieldInitialization | 2 | false |
 | BoundedWildcard | 2 | false |
-| NonSerializableFieldInSerializableClass | 1 | false |
 | UnnecessaryModifier | 1 | true |
+| NonSerializableFieldInSerializableClass | 1 | false |
 | ReturnNull | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
@@ -36,19 +35,6 @@ in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/loggi
 
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'argumentTypes' in a Serializable class
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
-#### Snippet
-```java
-    ENTRY_MESSAGE_STRING_SUPPLIERS(LOGGER_TYPE, STRING_TYPE, SUPPLIER_ARRAY_TYPE);
-
-    private final Type[] argumentTypes;
-
-    private SupplierLambdaType(final Type... argumentTypes) {
-```
-
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
@@ -62,6 +48,19 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     }
 ```
 
+## RuleId[id=NonSerializableFieldInSerializableClass]
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'argumentTypes' in a Serializable class
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
+#### Snippet
+```java
+    ENTRY_MESSAGE_STRING_SUPPLIERS(LOGGER_TYPE, STRING_TYPE, SUPPLIER_ARRAY_TYPE);
+
+    private final Type[] argumentTypes;
+
+    private SupplierLambdaType(final Type... argumentTypes) {
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -73,19 +72,6 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisi
                 : null;
     }
 
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-18-12-18-03.805.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
