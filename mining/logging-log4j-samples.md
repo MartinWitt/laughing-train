@@ -23,20 +23,44 @@ I found 73 bad smells with 7 repairable:
 | Convert2MethodRef | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | SuspiciousInvocationHandlerImplementation | 1 | false |
-| UnusedAssignment | 1 | false |
 | NonExceptionNameEndsWithException | 1 | false |
+| UnusedAssignment | 1 | false |
 | AnonymousHasLambdaAlternative | 1 | false |
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
 #### Snippet
 ```java
+                //
+            }
+            System.out.println("SHUTDOWN.......................");
+        }
+    }
+```
 
-        try {
-            System.out.println(getException());
-        } catch (IllegalArgumentException e) {
-            logger.error("An error occurred.", e);
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
+#### Snippet
+```java
+        @Override
+        public void run() {
+            System.out.println("STARTING..................");
+
+            while (!shutdown) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
+#### Snippet
+```java
+        final LoggingApp app = new LoggingApp(member);
+        app.runApp(member);
+        System.out.println("Job ended");
+    }
+
 ```
 
 ### SystemOutErr
@@ -101,6 +125,18 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ut
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
+#### Snippet
+```java
+
+        try {
+            System.out.println(getException());
+        } catch (IllegalArgumentException e) {
+            logger.error("An error occurred.", e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
 #### Snippet
 ```java
@@ -135,42 +171,6 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
         if (events == null) {
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-                //
-            }
-            System.out.println("SHUTDOWN.......................");
-        }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-        @Override
-        public void run() {
-            System.out.println("STARTING..................");
-
-            while (!shutdown) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
-#### Snippet
-```java
-        final LoggingApp app = new LoggingApp(member);
-        app.runApp(member);
-        System.out.println("Job ended");
-    }
-
-```
-
 ## RuleId[id=WhileLoopSpinsOnField]
 ### WhileLoopSpinsOnField
 `while` loop spins on field
@@ -199,30 +199,6 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `Log4J2AsyncLoggerException` has only 'static' members, and lacks a 'private' constructor
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
-#### Snippet
-```java
-import org.apache.logging.log4j.Logger;
-
-public class Log4J2AsyncLoggerException {
-
-    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `NamingUtils` has only 'static' members, and lacks a 'private' constructor
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
-#### Snippet
-```java
-import org.apache.logging.log4j.util.Strings;
-
-public class NamingUtils {
-
-    public static String getPackageName(final String className) {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `MockEventsSupplier` has only 'static' members, and lacks a 'private' constructor
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/MockEventsSupplier.java`
 #### Snippet
@@ -247,6 +223,30 @@ public class ConfigServiceApplication {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `NamingUtils` has only 'static' members, and lacks a 'private' constructor
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
+#### Snippet
+```java
+import org.apache.logging.log4j.util.Strings;
+
+public class NamingUtils {
+
+    public static String getPackageName(final String className) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Log4J2AsyncLoggerException` has only 'static' members, and lacks a 'private' constructor
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLoggerException.java`
+#### Snippet
+```java
+import org.apache.logging.log4j.Logger;
+
+public class Log4J2AsyncLoggerException {
+
+    private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `LogEventFactory` has only 'static' members, and lacks a 'private' constructor
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LogEventFactory.java`
 #### Snippet
@@ -259,6 +259,30 @@ public class LogEventFactory {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
+#### Snippet
+```java
+        t.printStackTrace(ps);
+        String stackTrace = os.toString();
+        stackTrace = stackTrace.replaceAll("\n", "<br>");
+
+        //LOGGER.info("Hello, World");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
+#### Snippet
+```java
+
+    public static String getFieldName(final String fieldName) {
+        return fieldName.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY);
+    }
+
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
@@ -283,30 +307,6 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ut
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/util/NamingUtils.java`
-#### Snippet
-```java
-
-    public static String getFieldName(final String fieldName) {
-        return fieldName.replaceAll("[^a-zA-Z0-9_]+", Strings.EMPTY);
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
-#### Snippet
-```java
-        t.printStackTrace(ps);
-        String stackTrace = os.toString();
-        stackTrace = stackTrace.replaceAll("\n", "<br>");
-
-        //LOGGER.info("Hello, World");
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.springframework.web.client` is unnecessary, and can be replaced with an import
@@ -318,6 +318,19 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
 public class SampleResponseErrorHandler implements org.springframework.web.client.ResponseErrorHandler {
     @Override
     public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+```
+
+## RuleId[id=InfiniteLoopStatement]
+### InfiniteLoopStatement
+`while` statement cannot complete without throwing an exception
+in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLogger.java`
+#### Snippet
+```java
+
+        // In Java 8, No need to check the log level, we can do this
+        while (true) //for test rolling file
+            logger.debug("Hello print {}", () -> getValue());
+    }
 ```
 
 ## RuleId[id=RegExpSingleCharAlternation]
@@ -343,19 +356,6 @@ in `log4j-samples-flume-remote/src/main/xml/web-common_4_0.xsd`
       <xsd:pattern value="[a-z]{2}(_|-)?([\p{L}\-\p{Nd}]{2})?"/>
     </xsd:restriction>
   </xsd:simpleType>
-```
-
-## RuleId[id=InfiniteLoopStatement]
-### InfiniteLoopStatement
-`while` statement cannot complete without throwing an exception
-in `log4j-samples-asynclogger/src/main/java/org/apache/logging/log4j/samples/async/Log4J2AsyncLogger.java`
-#### Snippet
-```java
-
-        // In Java 8, No need to check the log level, we can do this
-        while (true) //for test rolling file
-            logger.debug("Hello print {}", () -> getValue());
-    }
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -510,30 +510,6 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
-#### Snippet
-```java
-    public String lookup(final LogEvent event, final String key) {
-        if (event == null) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
-#### Snippet
-```java
-        } catch (final Exception ex) {
-            LOGGER.warn(LOOKUP, "Error while getting property [{}].", key, ex);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/K8SController.java`
 #### Snippet
 ```java
@@ -541,18 +517,6 @@ in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/loggin
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LogEventFactory.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
 
 ```
 
@@ -580,55 +544,43 @@ in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup
 
 ```
 
+### ReturnNull
+Return of `null`
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LogEventFactory.java`
+#### Snippet
+```java
+            }
+
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
+#### Snippet
+```java
+    public String lookup(final LogEvent event, final String key) {
+        if (event == null) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
+#### Snippet
+```java
+        } catch (final Exception ex) {
+            LOGGER.warn(LOOKUP, "Error while getting property [{}].", key, ex);
+            return null;
+        }
+    }
+```
+
 ## RuleId[id=RegExpSimplifiable]
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpSimplifiable
-`[:]` can be simplified to ':'
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
 ### RegExpSimplifiable
 `[^\s]` can be simplified to '\\S'
 in `log4j-samples-flume-embedded/src/main/xml/web-common_4_0.xsd`
@@ -701,19 +653,55 @@ in `log4j-samples-flume-remote/src/main/xml/web-common_4_0.xsd`
   </xsd:simpleType>
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
 #### Snippet
 ```java
-                return "";
-            }
-            if (key == null || key.length() == 0 || key.equals("*")) {
-                final StringBuilder sb = new StringBuilder("{");
-                boolean first = true;
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 ```
 
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpSimplifiable
+`[:]` can be simplified to ':'
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `key.length() == 0` can be replaced with 'key.isEmpty()'
 in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/MapMessageLookup.java`
@@ -726,19 +714,19 @@ in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup
                 }
 ```
 
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
+### SizeReplaceableByIsEmpty
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `log4j-samples-loggerProperties/src/main/java/org/apache/logging/log4j/lookup/CustomLookup.java`
 #### Snippet
 ```java
-                        // Sleep for rand seconds
-                        try {
-                            Thread.sleep(rand * timeBase);
-                        } catch (final InterruptedException e) {
-                            logger.warn("WARN", e);
+                return "";
+            }
+            if (key == null || key.length() == 0 || key.equals("*")) {
+                final StringBuilder sb = new StringBuilder("{");
+                boolean first = true;
 ```
 
+## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingApp.java`
@@ -751,55 +739,19 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
                     logger.warn("WARN", e);
 ```
 
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/app/LoggingController.java`
+#### Snippet
+```java
+                        // Sleep for rand seconds
+                        try {
+                            Thread.sleep(rand * timeBase);
+                        } catch (final InterruptedException e) {
+                            logger.warn("WARN", e);
+```
+
 ## RuleId[id=RegExpRedundantNestedCharacterClass]
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
-### RegExpRedundantNestedCharacterClass
-Redundant nested character class
-in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
-#### Snippet
-```java
-    </xsd:annotation>
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-```
-
 ### RegExpRedundantNestedCharacterClass
 Redundant nested character class
 in `log4j-samples-flume-embedded/src/main/xml/web-common_4_0.xsd`
@@ -868,6 +820,54 @@ in `log4j-samples-flume-remote/src/main/xml/web-common_4_0.xsd`
     </xsd:annotation>
     <xsd:restriction base="xsd:token">
       <xsd:pattern value="[!-~-[\(\)&#60;&#62;@,;:&#34;/\[\]?=\{\}\\\p{Z}]]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+```
+
+### RegExpRedundantNestedCharacterClass
+Redundant nested character class
+in `log4j-samples-flume-remote/src/main/xml/javaee_web_services_client_1_4.xsd`
+#### Snippet
+```java
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:pattern value="\*|([\i-[:]][\c-[:]]*:)?[\i-[:]][\c-[:]]*\*?"/>
     </xsd:restriction>
   </xsd:simpleType>
 ```
@@ -885,19 +885,6 @@ in `log4j-samples-flume-common/src/main/java/org/apache/logging/log4j/samples/ap
 
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `msg` initializer `""` is redundant
-in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
-#### Snippet
-```java
-            count = MAX_MESSAGES / threads;
-        }
-        String msg = "";
-        if (threads == 1) {
-            Timer timer = new Timer("sample");
-```
-
 ## RuleId[id=NonExceptionNameEndsWithException]
 ### NonExceptionNameEndsWithException
 Non-exception class name `Log4J2AsyncLoggerException` ends with 'Exception'
@@ -909,6 +896,19 @@ import org.apache.logging.log4j.Logger;
 public class Log4J2AsyncLoggerException {
 
     private static final Logger logger = LogManager.getLogger(Log4J2AsyncLoggerException.class);
+```
+
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `msg` initializer `""` is redundant
+in `log4j-spring-cloud-config-sample-application/src/main/java/org/apache/logging/log4j/spring/cloud/config/sample/controller/SampleController.java`
+#### Snippet
+```java
+            count = MAX_MESSAGES / threads;
+        }
+        String msg = "";
+        if (threads == 1) {
+            Timer timer = new Timer("sample");
 ```
 
 ## RuleId[id=AnonymousHasLambdaAlternative]
