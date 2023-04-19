@@ -149,18 +149,6 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `EncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
-#### Snippet
-```java
-})
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
-public abstract class EncryptedValue {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final String PREFIX = "enc:";
-```
-
-### AbstractClassNeverImplemented
 Abstract class `KeyPair` has no concrete subclass
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPair.java`
 #### Snippet
@@ -170,6 +158,18 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPair.java
 public abstract class KeyPair {
 
     public abstract KeyWithType encryptionKey();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `KeyPairFiles` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles.java`
+#### Snippet
+```java
+ */
+@Value.Immutable
+public abstract class KeyPairFiles {
+
+    public abstract Path encryptionKeyFile();
 ```
 
 ### AbstractClassNeverImplemented
@@ -209,15 +209,15 @@ public abstract class RsaEncryptedValue extends EncryptedValue {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `KeyPairFiles` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPairFiles.java`
+Abstract class `EncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
 #### Snippet
 ```java
- */
-@Value.Immutable
-public abstract class KeyPairFiles {
-
-    public abstract Path encryptionKeyFile();
+})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+public abstract class EncryptedValue {
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final String PREFIX = "enc:";
 ```
 
 ### AbstractClassNeverImplemented
