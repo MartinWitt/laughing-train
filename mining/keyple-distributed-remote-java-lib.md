@@ -23,14 +23,14 @@ in `src/main/java/org/eclipse/keyple/distributed/ObservableRemotePluginClientAda
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/eclipse/keyple/distributed/RemoteReaderServerAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/ObservableRemotePluginServerAdapter.java`
 #### Snippet
 ```java
-    return inputDataJson != null
-        ? JsonUtil.getParser().fromJson(inputDataJson, inputDataClass)
-        : null;
+  public String executeRemotely(String jsonData) {
+    // NOP. Invoked only once during the plugin registration process.
+    return null;
   }
-}
+
 ```
 
 ### ReturnNull
@@ -47,14 +47,14 @@ in `src/main/java/org/eclipse/keyple/distributed/RemoteReaderServerAdapter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/eclipse/keyple/distributed/ObservableRemotePluginServerAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/RemoteReaderServerAdapter.java`
 #### Snippet
 ```java
-  public String executeRemotely(String jsonData) {
-    // NOP. Invoked only once during the plugin registration process.
-    return null;
+    return inputDataJson != null
+        ? JsonUtil.getParser().fromJson(inputDataJson, inputDataClass)
+        : null;
   }
-
+}
 ```
 
 ## RuleId[id=ReplaceCallWithBinaryOperator]
@@ -97,30 +97,6 @@ in `build.gradle.kts`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notNull(endpoint, "endpoint")
-          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
-      this.asyncEndpoint = endpoint;
-      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
-#### Snippet
-```java
-
-    public Builder(String remotePluginName) {
-      Assert.getInstance().notEmpty(remotePluginName, "remotePluginName");
-      this.remotePluginName = remotePluginName;
-      this.executorService = null;
-```
-
-### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBuilder.java`
 #### Snippet
@@ -130,18 +106,6 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBu
       Assert.getInstance().notNull(endpoint, "endpoint");
       this.syncEndpoint = endpoint;
       return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notEmpty(remotePluginName, "remotePluginName")
-          .notNull(executorService, "executorService");
-      this.remotePluginName = remotePluginName;
-      this.executorService = executorService;
 ```
 
 ### IgnoreResultOfCall
@@ -157,20 +121,8 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBu
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
-#### Snippet
-```java
-    @Override
-    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
-      Assert.getInstance().notNull(endpoint, "endpoint");
-      this.asyncEndpoint = endpoint;
-      return this;
-```
-
-### IgnoreResultOfCall
 Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
+in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBuilder.java`
 #### Snippet
 ```java
       Assert.getInstance()
@@ -178,6 +130,18 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilde
           .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
       this.asyncEndpoint = endpoint;
       this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public SyncNodeReaderStep withPluginPollingStrategy(int requestFrequencyMillis) {
+      Assert.getInstance().greaterOrEqual(requestFrequencyMillis, 1, "requestFrequencyMillis");
+      this.syncPluginObservationStrategy =
+          new ServerPushEventStrategyAdapter(Type.POLLING, requestFrequencyMillis);
 ```
 
 ### IgnoreResultOfCall
@@ -209,23 +173,11 @@ Result of `Assert.greaterOrEqual()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public SyncNodeReaderStep withPluginPollingStrategy(int requestFrequencyMillis) {
-      Assert.getInstance().greaterOrEqual(requestFrequencyMillis, 1, "requestFrequencyMillis");
-      this.syncPluginObservationStrategy =
-          new ServerPushEventStrategyAdapter(Type.POLLING, requestFrequencyMillis);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
-#### Snippet
-```java
-    @Override
-    public SyncNodePluginStep withSyncNode(SyncEndpointClientSpi endpoint) {
-      Assert.getInstance().notNull(endpoint, "endpoint");
-      this.syncEndpoint = endpoint;
-      return this;
+      Assert.getInstance()
+          .notNull(endpoint, "endpoint")
+          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
+      this.asyncEndpoint = endpoint;
+      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
 ```
 
 ### IgnoreResultOfCall
@@ -254,14 +206,50 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilde
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemoteReaderServerAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
 #### Snippet
 ```java
-  @Override
-  public <T> T getInputData(Class<T> inputDataClass) {
-    Assert.getInstance().notNull(inputDataClass, "inputDataClass");
-    return inputDataJson != null
-        ? JsonUtil.getParser().fromJson(inputDataJson, inputDataClass)
+    @Override
+    public SyncNodePluginStep withSyncNode(SyncEndpointClientSpi endpoint) {
+      Assert.getInstance().notNull(endpoint, "endpoint");
+      this.syncEndpoint = endpoint;
+      return this;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+#### Snippet
+```java
+
+    public Builder(String remotePluginName) {
+      Assert.getInstance().notEmpty(remotePluginName, "remotePluginName");
+      this.remotePluginName = remotePluginName;
+      this.executorService = null;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
+      Assert.getInstance().notNull(endpoint, "endpoint");
+      this.asyncEndpoint = endpoint;
+      return this;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+#### Snippet
+```java
+      Assert.getInstance()
+          .notEmpty(remotePluginName, "remotePluginName")
+          .notNull(executorService, "executorService");
+      this.remotePluginName = remotePluginName;
+      this.executorService = executorService;
 ```
 
 ### IgnoreResultOfCall
@@ -274,5 +262,17 @@ in `src/main/java/org/eclipse/keyple/distributed/ObservableRemotePluginServerAda
     Assert.getInstance().notEmpty(remoteReaderName, "remoteReaderName");
 
     // Clean the readers map.
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemoteReaderServerAdapter.java`
+#### Snippet
+```java
+  @Override
+  public <T> T getInputData(Class<T> inputDataClass) {
+    Assert.getInstance().notNull(inputDataClass, "inputDataClass");
+    return inputDataJson != null
+        ? JsonUtil.getParser().fromJson(inputDataJson, inputDataClass)
 ```
 
