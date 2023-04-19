@@ -101,66 +101,6 @@ in `server/src/jetbrains/buildServer/sharedResources/model/LockType.java`
 
 ### ReturnNull
 Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
-      return null;
-    } else {
-      return params;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
-      return null;
-    }
-    if (ResourceType.QUOTED.equals(resourceType)) {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-        } catch (IllegalArgumentException e) {
-          LOG.warn("Illegal argument supplied in quota for resource [" + resourceName + "]");
-          return null;
-        }
-      } else {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-      }
-    } else {
-      return null;
-    }
-    return null;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-      return null;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
 #### Snippet
 ```java
@@ -205,6 +145,66 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorage
         return null;
       });
     }
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+        } catch (IllegalArgumentException e) {
+          LOG.warn("Illegal argument supplied in quota for resource [" + resourceName + "]");
+          return null;
+        }
+      } else {
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+      }
+    } else {
+      return null;
+    }
+    return null;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+      return null;
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+  private Map<String, String> validate(@NotNull final Map<String, String> params) {
+    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
+      return null;
+    } else {
+      return params;
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
+#### Snippet
+```java
+    Resource resource = null;
+    if (isEmptyOrSpaces(resourceId)) {
+      return null;
+    }
+    if (ResourceType.QUOTED.equals(resourceType)) {
 ```
 
 ### ReturnNull
@@ -381,30 +381,6 @@ in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspect
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CustomResource`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-  }
-
-  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
-                                                           @NotNull final Map<String, Lock> locks) {
-    final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
-```
-
-### BoundedWildcard
 Can generalize to `? extends Resource`
 in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
 #### Snippet
@@ -426,6 +402,30 @@ in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesConte
                                                          @NotNull final Map<String, Map<String, CustomResource>> projectTreeCustomResources) {
     return projectTreeCustomResources.computeIfAbsent(projectId,
                                                       id -> projectResources.values().stream()
+```
+
+### BoundedWildcard
+Can generalize to `? extends Lock`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+
+  @NotNull
+  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
+    return myLocks.stream()
+                  .collect(Collectors.toMap(Function.identity(), val -> ""));
+```
+
+### BoundedWildcard
+Can generalize to `? extends CustomResource`
+in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
+#### Snippet
+```java
+  }
+
+  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
+                                                           @NotNull final Map<String, Lock> locks) {
+    final Map<String, CustomResource> result = new HashMap<>();
 ```
 
 ### BoundedWildcard
