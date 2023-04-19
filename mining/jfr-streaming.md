@@ -221,6 +221,18 @@ in `core/src/main/java/com/microsoft/jfr/RecordingOptions.java`
 
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
+Missorted modifiers `final private`
+in `core/src/main/java/com/microsoft/jfr/Recording.java`
+#### Snippet
+```java
+
+    final private FlightRecorderConnection connection;
+    final private RecordingOptions recordingOptions;
+    final private RecordingConfiguration recordingConfiguration;
+
+```
+
+### MissortedModifiers
 Missorted modifiers `final static`
 in `core/src/main/java/com/microsoft/jfr/Recording.java`
 #### Snippet
@@ -242,18 +254,6 @@ in `core/src/main/java/com/microsoft/jfr/Recording.java`
     final private FlightRecorderConnection connection;
     final private RecordingOptions recordingOptions;
     final private RecordingConfiguration recordingConfiguration;
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `core/src/main/java/com/microsoft/jfr/Recording.java`
-#### Snippet
-```java
-
-    final private FlightRecorderConnection connection;
-    final private RecordingOptions recordingOptions;
-    final private RecordingConfiguration recordingConfiguration;
-
 ```
 
 ### MissortedModifiers
