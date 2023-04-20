@@ -287,6 +287,18 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CryptographicSer
 ```
 
 ### StaticCallOnSubclass
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
+#### Snippet
+```java
+            resultStr.append("out: ");
+            for (String line : outLines) {
+              if (!StringUtil.isEmpty(line)) {
+                resultStr.append(line);
+              }
+```
+
+### StaticCallOnSubclass
 Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
@@ -308,6 +320,30 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsS
     if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
       return null;
     }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+
+    userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
+    if(StringUtil.isEmptyOrSpaces(userName)) {
+      if(trowException) {
+        throw new BuildStartException("RunAs user must be defined for \"" + profileName + "\"");
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+
+    password = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.PASSWORD), myProfileParametersService.tryGetProperty(profileName, Constants.CONFIG_PASSWORD));
+    if(StringUtil.isEmptyOrSpaces(password)) {
+      if(trowException) {
+        throw new BuildStartException("RunAs password must be defined for \"" + profileName + "\"");
 ```
 
 ### StaticCallOnSubclass
@@ -339,18 +375,6 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
-
-    String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
-    if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
-      additionalArgs = "";
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
   private String tryGetFirstNotEmpty(String ... values) {
     for(String value: values) {
       if(!StringUtil.isEmptyOrSpaces(value)) {
@@ -364,34 +388,10 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsS
 #### Snippet
 ```java
 
-    userName = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.USER));
-    if(StringUtil.isEmptyOrSpaces(userName)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs user must be defined for \"" + profileName + "\"");
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-
-    password = tryGetFirstNotEmpty(myProfileParametersService.tryGetProperty(profileName, Constants.PASSWORD), myProfileParametersService.tryGetProperty(profileName, Constants.CONFIG_PASSWORD));
-    if(StringUtil.isEmptyOrSpaces(password)) {
-      if(trowException) {
-        throw new BuildStartException("RunAs password must be defined for \"" + profileName + "\"");
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CommandLineExecutorImpl.java`
-#### Snippet
-```java
-            resultStr.append("out: ");
-            for (String line : outLines) {
-              if (!StringUtil.isEmpty(line)) {
-                resultStr.append(line);
-              }
+    String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
+    if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
+      additionalArgs = "";
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -703,54 +703,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CmdGenerator.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### BoundedWildcard
 Can generalize to `? extends AccessControlEntry`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
 #### Snippet
@@ -760,6 +712,54 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlLis
   AccessControlList(final Iterable<AccessControlEntry> accessControlEntries) {
     for (AccessControlEntry entry: accessControlEntries) {
       myAccessControlEntries.add(entry);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
+      try {
+        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
+      try {
+        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
 ```
 
 ### BoundedWildcard
@@ -1120,7 +1120,7 @@ import jetbrains.buildServer.runAs.common.Constants;
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-02-58-20.015.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-08-57-23.810.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1161,9 +1161,9 @@ Allocation of zero length array
 in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
 #### Snippet
 ```java
-      @Override
-      public Object[] toArray() {
-        return new Object[0];
+      public <T> T[] toArray(@NotNull final T[] a) {
+        //noinspection unchecked
+        return (T[])new String[0];
       }
 
 ```
@@ -1173,9 +1173,9 @@ Allocation of zero length array
 in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeExtension.java`
 #### Snippet
 ```java
-      public <T> T[] toArray(@NotNull final T[] a) {
-        //noinspection unchecked
-        return (T[])new String[0];
+      @Override
+      public Object[] toArray() {
+        return new Object[0];
       }
 
 ```
