@@ -15,18 +15,6 @@ I found 20 bad smells with 3 repairable:
 | StringEqualsEmptyString | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
-#### Snippet
-```java
-  private StringBuilder textAccumulator;
-  private ImmutableList.Builder<String> rowAccumulator;
-  private boolean bodyElementStarted = false;
-  private int bodyRowCounter = 0;
-
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
 #### Snippet
@@ -36,6 +24,18 @@ in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
   private int bodyRowCounter = 0;
 
   /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/dswebquerytobigquery/Html2CsvParseHandler.java`
+#### Snippet
+```java
+  private StringBuilder textAccumulator;
+  private ImmutableList.Builder<String> rowAccumulator;
+  private boolean bodyElementStarted = false;
+  private int bodyRowCounter = 0;
+
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -226,18 +226,6 @@ public abstract class TransferConfig {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `Builder` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
-#### Snippet
-```java
-
-  @AutoValue.Builder
-  public abstract static class Builder {
-
-    public abstract Builder setProjectId(String newProjectId);
-```
-
-### AbstractClassNeverImplemented
 Abstract class `BigQueryConfig` has no concrete subclass
 in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
 #### Snippet
@@ -247,6 +235,18 @@ in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
 public abstract class BigQueryConfig {
 
   public static Builder builder() {
+```
+
+### AbstractClassNeverImplemented
+Abstract class `Builder` has no concrete subclass
+in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
+#### Snippet
+```java
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+
+    public abstract Builder setProjectId(String newProjectId);
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
