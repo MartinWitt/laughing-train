@@ -153,11 +153,11 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Successfully stored the output Markdown file!");
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+				return false;
 ```
 
 ### ThrowablePrintStackTrace
@@ -165,10 +165,10 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				return false;
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Successfully stored the output Markdown file!");
 ```
 
