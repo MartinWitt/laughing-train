@@ -29,11 +29,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-		File parent = new File(outputFile).getParentFile();
-		if (!parent.exists()) {
-			System.out.println(
-					"No parent directory [" + parent + "] found. Will not generate the configuration properties file");
-			return;
+				e.printStackTrace();
+			}
+			System.out.println("Successfully stored the output Markdown file!");
+		}
+
 ```
 
 ### SystemOutErr
@@ -41,11 +41,11 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-				e.printStackTrace();
-			}
-			System.out.println("Successfully stored the output Markdown file!");
-		}
-
+		File parent = new File(outputFile).getParentFile();
+		if (!parent.exists()) {
+			System.out.println(
+					"No parent directory [" + parent + "] found. Will not generate the configuration properties file");
+			return;
 ```
 
 ### SystemOutErr
