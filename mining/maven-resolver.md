@@ -1,7 +1,7 @@
 # maven-resolver 
  
 # Bad smells
-I found 484 bad smells with 88 repairable:
+I found 485 bad smells with 88 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 82 | false |
@@ -38,12 +38,13 @@ I found 484 bad smells with 88 repairable:
 | StringBufferReplaceableByString | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
 | RegExpRepeatedSpace | 1 | false |
-| StringEqualsEmptyString | 1 | false |
 | ExplicitArrayFilling | 1 | false |
+| StringEqualsEmptyString | 1 | false |
 | ClassNameSameAsAncestorName | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
-| AssignmentToLambdaParameter | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | ArrayEquality | 1 | false |
+| AssignmentToLambdaParameter | 1 | false |
 | SynchronizeOnThis | 1 | false |
 ## RuleId[id=IOResource]
 ### IOResource
@@ -72,6 +73,210 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `UriUtils` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
+#### Snippet
+```java
+ * Helps to deal with URIs.
+ */
+final class UriUtils {
+
+    public static URI resolve(URI base, URI ref) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `InstallArtifacts` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
+#### Snippet
+```java
+ * Installs a JAR and its POM to the local repository.
+ */
+public class InstallArtifacts {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetDirectDependencies` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDirectDependencies.java`
+#### Snippet
+```java
+ * Determines the direct dependencies of an artifact as declared in its artifact descriptor (POM).
+ */
+public class GetDirectDependencies {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetDependencyHierarchy` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyHierarchy.java`
+#### Snippet
+```java
+ * Visualizes the transitive dependencies of an artifact similar to m2e's dependency hierarchy view.
+ */
+public class GetDependencyHierarchy {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResolveArtifact` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ResolveArtifact.java`
+#### Snippet
+```java
+ * Resolves a single artifact.
+ */
+public class ResolveArtifact {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FindNewestVersion` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
+#### Snippet
+```java
+ * Determines the newest version of an artifact.
+ */
+public class FindNewestVersion {
+    /**
+     * Main.
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `FindAvailableVersions` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindAvailableVersions.java`
+#### Snippet
+```java
+ * Determines all available versions of an artifact.
+ */
+public class FindAvailableVersions {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `AllResolverDemos` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/AllResolverDemos.java`
+#### Snippet
+```java
+ * Runs all demos at once.
+ */
+public class AllResolverDemos {
+    /**
+     * Main
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DependencyHierarchyWithRanges` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
+#### Snippet
+```java
+ * @see <a href="https://issues.apache.org/jira/browse/MRESOLVER-345">MRESOLVER-345</a>
+ */
+public class DependencyHierarchyWithRanges {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GetDependencyTree` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
+#### Snippet
+```java
+ * Collects the transitive dependencies of an artifact.
+ */
+public class GetDependencyTree {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ResolveTransitiveDependencies` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ResolveTransitiveDependencies.java`
+#### Snippet
+```java
+ * Resolves the transitive (compile) dependencies of an artifact.
+ */
+public class ResolveTransitiveDependencies {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DeployArtifacts` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DeployArtifacts.java`
+#### Snippet
+```java
+ * Deploys a JAR and its POM to a remote repository.
+ */
+public class DeployArtifacts {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReverseDependencyTree` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ReverseDependencyTree.java`
+#### Snippet
+```java
+ * Example of building reverse dependency tree using custom {@link ReverseTreeRepositoryListener}.
+ */
+public class ReverseDependencyTree {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Booter` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/Booter.java`
+#### Snippet
+```java
+ * A helper to boot the repository system and a repository system session.
+ */
+public class Booter {
+    public static final String SERVICE_LOCATOR = "serviceLocator";
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ManualRepositorySystemFactory` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/manual/ManualRepositorySystemFactory.java`
+#### Snippet
+```java
+ * infrastructure to wire up the system's components.
+ */
+public class ManualRepositorySystemFactory {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManualRepositorySystemFactory.class);
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GuiceRepositorySystemFactory` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/guice/GuiceRepositorySystemFactory.java`
+#### Snippet
+```java
+ * A factory for repository system instances that employs JSR-330 via Guice to wire up the system's components.
+ */
+public class GuiceRepositorySystemFactory {
+
+    public static RepositorySystem newRepositorySystem() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `TestNioLock` has only 'static' members, and lacks a 'private' constructor
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/demo/TestNioLock.java`
+#### Snippet
+```java
+ * </ul>
+ */
+public class TestNioLock {
+    private static final int EC_WON = 10;
+
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `Utils` has only 'static' members, and lacks a 'private' constructor
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Utils.java`
@@ -120,211 +325,43 @@ public final class ExecutorUtils {
      * Shared instance of "direct executor".
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `GetDirectDependencies` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDirectDependencies.java`
-#### Snippet
-```java
- * Determines the direct dependencies of an artifact as declared in its artifact descriptor (POM).
- */
-public class GetDirectDependencies {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InstallArtifacts` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
-#### Snippet
-```java
- * Installs a JAR and its POM to the local repository.
- */
-public class InstallArtifacts {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FindNewestVersion` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
-#### Snippet
-```java
- * Determines the newest version of an artifact.
- */
-public class FindNewestVersion {
-    /**
-     * Main.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetDependencyHierarchy` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyHierarchy.java`
-#### Snippet
-```java
- * Visualizes the transitive dependencies of an artifact similar to m2e's dependency hierarchy view.
- */
-public class GetDependencyHierarchy {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ResolveArtifact` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ResolveArtifact.java`
-#### Snippet
-```java
- * Resolves a single artifact.
- */
-public class ResolveArtifact {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AllResolverDemos` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/AllResolverDemos.java`
-#### Snippet
-```java
- * Runs all demos at once.
- */
-public class AllResolverDemos {
-    /**
-     * Main
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DependencyHierarchyWithRanges` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
-#### Snippet
-```java
- * @see <a href="https://issues.apache.org/jira/browse/MRESOLVER-345">MRESOLVER-345</a>
- */
-public class DependencyHierarchyWithRanges {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FindAvailableVersions` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindAvailableVersions.java`
-#### Snippet
-```java
- * Determines all available versions of an artifact.
- */
-public class FindAvailableVersions {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ResolveTransitiveDependencies` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ResolveTransitiveDependencies.java`
-#### Snippet
-```java
- * Resolves the transitive (compile) dependencies of an artifact.
- */
-public class ResolveTransitiveDependencies {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DeployArtifacts` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DeployArtifacts.java`
-#### Snippet
-```java
- * Deploys a JAR and its POM to a remote repository.
- */
-public class DeployArtifacts {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GetDependencyTree` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
-#### Snippet
-```java
- * Collects the transitive dependencies of an artifact.
- */
-public class GetDependencyTree {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReverseDependencyTree` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ReverseDependencyTree.java`
-#### Snippet
-```java
- * Example of building reverse dependency tree using custom {@link ReverseTreeRepositoryListener}.
- */
-public class ReverseDependencyTree {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Booter` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/Booter.java`
-#### Snippet
-```java
- * A helper to boot the repository system and a repository system session.
- */
-public class Booter {
-    public static final String SERVICE_LOCATOR = "serviceLocator";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GuiceRepositorySystemFactory` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/guice/GuiceRepositorySystemFactory.java`
-#### Snippet
-```java
- * A factory for repository system instances that employs JSR-330 via Guice to wire up the system's components.
- */
-public class GuiceRepositorySystemFactory {
-
-    public static RepositorySystem newRepositorySystem() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ManualRepositorySystemFactory` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/manual/ManualRepositorySystemFactory.java`
-#### Snippet
-```java
- * infrastructure to wire up the system's components.
- */
-public class ManualRepositorySystemFactory {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ManualRepositorySystemFactory.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TestNioLock` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/demo/TestNioLock.java`
-#### Snippet
-```java
- * </ul>
- */
-public class TestNioLock {
-    private static final int EC_WON = 10;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UriUtils` has only 'static' members, and lacks a 'private' constructor
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
-#### Snippet
-```java
- * Helps to deal with URIs.
- */
-final class UriUtils {
-
-    public static URI resolve(URI base, URI ref) {
-```
-
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleRepositoryListener.java`
+#### Snippet
+```java
+        requireNonNull(event, "event cannot be null");
+        out.println("Invalid artifact descriptor for " + event.getArtifact() + ": "
+                + event.getException().getMessage());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `hasNext` may produce `NullPointerException`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+
+            while (line.contains("%s")) {
+                if (!substitutionIterator.hasNext()) {
+                    throw new IllegalStateException("not enough substitutions to fill placeholders");
+                }
+```
+
+### DataFlowIssue
+Method invocation `getChildren` may produce `NullPointerException`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+                    throw new IllegalStateException("undefined reference " + reference);
+                }
+                node.getChildren().add(child);
+            } else {
+
+```
+
 ### DataFlowIssue
 Method invocation `getScope` may produce `NullPointerException`
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/DependencyGraphDumper.java`
@@ -373,42 +410,6 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/
 
 ```
 
-### DataFlowIssue
-Method invocation `hasNext` may produce `NullPointerException`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-
-            while (line.contains("%s")) {
-                if (!substitutionIterator.hasNext()) {
-                    throw new IllegalStateException("not enough substitutions to fill placeholders");
-                }
-```
-
-### DataFlowIssue
-Method invocation `getChildren` may produce `NullPointerException`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-                    throw new IllegalStateException("undefined reference " + reference);
-                }
-                node.getChildren().add(child);
-            } else {
-
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleRepositoryListener.java`
-#### Snippet
-```java
-        requireNonNull(event, "event cannot be null");
-        out.println("Invalid artifact descriptor for " + event.getArtifact() + ": "
-                + event.getException().getMessage());
-    }
-
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Unnecessary empty string argument
@@ -423,6 +424,18 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/syncconte
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'HttpTransporterFactory' is still used
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/HttpTransporterFactory.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public HttpTransporterFactory() {
+        this(getManuallyCreatedExtractors());
+    }
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'DefaultServiceLocator' is still used
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/impl/DefaultServiceLocator.java`
@@ -448,14 +461,14 @@ public class Slf4jLoggerFactory implements LoggerFactory, Service {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'Maven2RepositoryLayoutFactory' is still used
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
+Deprecated member 'DependencyCollectorDelegate' is still used
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DependencyCollectorDelegate.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public Maven2RepositoryLayoutFactory() {
-        this(new DefaultChecksumAlgorithmFactorySelector());
+    protected DependencyCollectorDelegate() {
+        // enables default constructor
     }
 ```
 
@@ -472,50 +485,26 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/b
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'StringUtils' is still used
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/StringUtils.java`
+Deprecated member 'DefaultSyncContextFactory' is still used
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/synccontext/legacy/DefaultSyncContextFactory.java`
 #### Snippet
 ```java
- */
+@Named
 @Deprecated
-public final class StringUtils {
+public final class DefaultSyncContextFactory implements org.eclipse.aether.impl.SyncContextFactory, Service {
+    private SyncContextFactory delegate;
 
-    private StringUtils() {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DependencyCollectorDelegate' is still used
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DependencyCollectorDelegate.java`
+Deprecated member 'Maven2RepositoryLayoutFactory' is still used
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    protected DependencyCollectorDelegate() {
-        // enables default constructor
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DfDependencyCollector' is still used
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public DfDependencyCollector() {
-        // enables default constructor
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HttpTransporterFactory' is still used
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/HttpTransporterFactory.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public HttpTransporterFactory() {
-        this(getManuallyCreatedExtractors());
+    public Maven2RepositoryLayoutFactory() {
+        this(new DefaultChecksumAlgorithmFactorySelector());
     }
 ```
 
@@ -532,6 +521,18 @@ public interface FileTransformerManager {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'DfDependencyCollector' is still used
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public DfDependencyCollector() {
+        // enables default constructor
+    }
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getFileTransformerManager' is still used
 in `maven-resolver-api/src/main/java/org/eclipse/aether/RepositorySystemSession.java`
 #### Snippet
@@ -544,27 +545,15 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/RepositorySystemSession.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DefaultSyncContextFactory' is still used
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/synccontext/legacy/DefaultSyncContextFactory.java`
+Deprecated member 'StringUtils' is still used
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/StringUtils.java`
 #### Snippet
 ```java
-@Named
+ */
 @Deprecated
-public final class DefaultSyncContextFactory implements org.eclipse.aether.impl.SyncContextFactory, Service {
-    private SyncContextFactory delegate;
+public final class StringUtils {
 
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'calc' is still used
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Map<String, Object> calc(File dataFile, Collection<String> algos) throws IOException {
-        return calc(new FileInputStream(dataFile), algos);
-    }
+    private StringUtils() {
 ```
 
 ### DeprecatedIsStillUsed
@@ -579,32 +568,20 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java
     }
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'calc' is still used
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Map<String, Object> calc(File dataFile, Collection<String> algos) throws IOException {
+        return calc(new FileInputStream(dataFile), algos);
+    }
+```
+
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
-Redundant character escape `\(` in RegExp
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
-
-    static final String RANGE = "(" + RANGE_NC + ")";
-
-    static final String SCOPE = "(?:scope\\s*=\\s*)?((?!optional)[-_a-zA-Z0-9]+)(?:<([-_a-zA-Z0-9]+))?";
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\)` in RegExp
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
-
-    static final String RANGE = "(" + RANGE_NC + ")";
-
-    static final String SCOPE = "(?:scope\\s*=\\s*)?((?!optional)[-_a-zA-Z0-9]+)(?:<([-_a-zA-Z0-9]+))?";
-```
-
-### RegExpRedundantEscape
 Redundant character escape `\\(` in RegExp
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
 #### Snippet
@@ -698,6 +675,30 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
     static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
 
     static final String NODE = COORDSX + "(?:\\s+" + PROPS + ")?" + "(?:\\s+" + SCOPE + ")?" + "(?:\\s+" + OPTIONAL
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\(` in RegExp
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
+
+    static final String RANGE = "(" + RANGE_NC + ")";
+
+    static final String SCOPE = "(?:scope\\s*=\\s*)?((?!optional)[-_a-zA-Z0-9]+)(?:<([-_a-zA-Z0-9]+))?";
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\)` in RegExp
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
+
+    static final String RANGE = "(" + RANGE_NC + ")";
+
+    static final String SCOPE = "(?:scope\\s*=\\s*)?((?!optional)[-_a-zA-Z0-9]+)(?:<([-_a-zA-Z0-9]+))?";
 ```
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
@@ -716,95 +717,11 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/b
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferFailed(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferCorrupted(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferInitiated(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferProgressed(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferSucceeded(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
-#### Snippet
-```java
-            try {
-                listener.transferStarted(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
 #### Snippet
 ```java
             try {
-                listener.artifactDescriptorInvalid(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.artifactDownloaded(event);
+                listener.artifactInstalling(event);
             } catch (RuntimeException e) {
                 handleError(event, listener, e);
             }
@@ -828,115 +745,7 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
 #### Snippet
 ```java
             try {
-                listener.artifactResolved(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.metadataResolved(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.metadataInvalid(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.artifactDeployed(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.metadataDownloaded(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.artifactResolving(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.artifactInstalling(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.artifactDescriptorMissing(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
                 listener.metadataInstalled(event);
-            } catch (RuntimeException e) {
-                handleError(event, listener, e);
-            }
-```
-
-### CatchMayIgnoreException
-Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
-#### Snippet
-```java
-            try {
-                listener.metadataResolving(event);
             } catch (RuntimeException e) {
                 handleError(event, listener, e);
             }
@@ -960,7 +769,7 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
 #### Snippet
 ```java
             try {
-                listener.metadataDownloading(event);
+                listener.metadataDownloaded(event);
             } catch (RuntimeException e) {
                 handleError(event, listener, e);
             }
@@ -972,7 +781,19 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
 #### Snippet
 ```java
             try {
-                listener.metadataDeploying(event);
+                listener.metadataResolving(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactDownloaded(event);
             } catch (RuntimeException e) {
                 handleError(event, listener, e);
             }
@@ -996,7 +817,19 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
 #### Snippet
 ```java
             try {
-                listener.artifactInstalled(event);
+                listener.artifactDescriptorInvalid(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.metadataInvalid(event);
             } catch (RuntimeException e) {
                 handleError(event, listener, e);
             }
@@ -1014,19 +847,175 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
             }
 ```
 
-## RuleId[id=ProtectedMemberInFinalClass]
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactDescriptorMissing(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.metadataResolved(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactResolving(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.metadataDeploying(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactResolved(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactInstalled(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.artifactDeployed(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
+#### Snippet
+```java
+            try {
+                listener.metadataDownloading(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("EmptyMethod")
-    protected void handleError(TransferEvent event, TransferListener listener, RuntimeException error) {
-        // default just swallows errors
-    }
+            try {
+                listener.transferInitiated(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
 ```
 
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
+#### Snippet
+```java
+            try {
+                listener.transferFailed(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
+#### Snippet
+```java
+            try {
+                listener.transferSucceeded(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
+#### Snippet
+```java
+            try {
+                listener.transferCorrupted(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
+#### Snippet
+```java
+            try {
+                listener.transferProgressed(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+### CatchMayIgnoreException
+Unexpected VM exception like 'java.lang.NullPointerException' might be ignored in a `catch` block
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
+#### Snippet
+```java
+            try {
+                listener.transferStarted(event);
+            } catch (RuntimeException e) {
+                handleError(event, listener, e);
+            }
+```
+
+## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRepositoryListener.java`
@@ -1039,17 +1028,53 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedRe
     }
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`host.length() > 0` can be replaced with '!host.isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultOfflineController.java`
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/listener/ChainedTransferListener.java`
 #### Snippet
 ```java
-        if (hosts != null) {
-            String host = repository.getHost();
-            if (host.length() > 0) {
-                for (String h : hosts) {
-                    if (h.equalsIgnoreCase(host)) {
+
+    @SuppressWarnings("EmptyMethod")
+    protected void handleError(TransferEvent event, TransferListener listener, RuntimeException error) {
+        // default just swallows errors
+    }
+```
+
+## RuleId[id=SizeReplaceableByIsEmpty]
+### SizeReplaceableByIsEmpty
+`path.length() > 0` can be replaced with '!path.isEmpty()'
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
+#### Snippet
+```java
+    public static URI resolve(URI base, URI ref) {
+        String path = ref.getRawPath();
+        if (path != null && path.length() > 0) {
+            path = base.getRawPath();
+            if (path == null || !path.endsWith("/")) {
+```
+
+### SizeReplaceableByIsEmpty
+`protocol.length() > 0` can be replaced with '!protocol.isEmpty()'
+in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
+#### Snippet
+```java
+        String retValue = null;
+
+        if (protocol.length() > 0) {
+            retValue = url.substring(protocol.length() + 1);
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`base.length() > 0` can be replaced with '!base.isEmpty()'
+in `maven-resolver-transport-classpath/src/main/java/org/eclipse/aether/transport/classpath/ClasspathTransporter.java`
+#### Snippet
+```java
+                base = ssp;
+            }
+            if (base.length() > 0 && !base.endsWith("/")) {
+                base += '/';
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1065,27 +1090,15 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultOf
 ```
 
 ### SizeReplaceableByIsEmpty
-`artifact.getClassifier().length() > 0` can be replaced with '!artifact.getClassifier().isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultLocalPathComposer.java`
+`host.length() > 0` can be replaced with '!host.isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultOfflineController.java`
 #### Snippet
 ```java
-        }
-
-        if (artifact.getClassifier().length() > 0) {
-            path.append('-').append(artifact.getClassifier());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`artifact.getExtension().length() > 0` can be replaced with '!artifact.getExtension().isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultLocalPathComposer.java`
-#### Snippet
-```java
-        }
-
-        if (artifact.getExtension().length() > 0) {
-            path.append('.').append(artifact.getExtension());
-        }
+        if (hosts != null) {
+            String host = repository.getHost();
+            if (host.length() > 0) {
+                for (String h : hosts) {
+                    if (h.equalsIgnoreCase(host)) {
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1122,6 +1135,174 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultLo
                 if (metadata.getVersion().length() > 0) {
                     path.append(metadata.getVersion()).append('/');
                 }
+```
+
+### SizeReplaceableByIsEmpty
+`artifact.getClassifier().length() > 0` can be replaced with '!artifact.getClassifier().isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultLocalPathComposer.java`
+#### Snippet
+```java
+        }
+
+        if (artifact.getClassifier().length() > 0) {
+            path.append('-').append(artifact.getClassifier());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`artifact.getExtension().length() > 0` can be replaced with '!artifact.getExtension().isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultLocalPathComposer.java`
+#### Snippet
+```java
+        }
+
+        if (artifact.getExtension().length() > 0) {
+            path.append('.').append(artifact.getExtension());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`url.length() > 0` can be replaced with '!url.isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    private String normalizeRepoUrl(String url) {
+        String result = url;
+        if (url != null && url.length() > 0 && !url.endsWith("/")) {
+            result = url + '/';
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+        String value = props.getProperty(key + UPDATED_KEY_SUFFIX, "");
+        try {
+            return (value.length() > 0) ? Long.parseLong(value) : 1;
+        } catch (NumberFormatException e) {
+            LOGGER.debug("Cannot parse last updated date {}, ignoring it", value, e);
+```
+
+### SizeReplaceableByIsEmpty
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Exclusion.java`
+#### Snippet
+```java
+                + ':'
+                + getExtension()
+                + (getClassifier().length() > 0 ? ':' + getClassifier() : "");
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
+#### Snippet
+```java
+            boolean includesDependencies) {
+        this.id = requireNonNull(id, "type id cannot be null");
+        if (id.length() == 0) {
+            throw new IllegalArgumentException("type id cannot be empty");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`language.length() > 0` can be replaced with '!language.isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
+#### Snippet
+```java
+        Map<String, String> props = new HashMap<>();
+        props.put(ArtifactProperties.TYPE, id);
+        props.put(ArtifactProperties.LANGUAGE, (language != null && language.length() > 0) ? language : "none");
+        props.put(ArtifactProperties.INCLUDES_DEPENDENCIES, Boolean.toString(includesDependencies));
+        props.put(ArtifactProperties.CONSTITUTES_BUILD_PATH, Boolean.toString(constitutesBuildPath));
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
+#### Snippet
+```java
+    public DefaultArtifactType(String id, String extension, String classifier, Map<String, String> properties) {
+        this.id = requireNonNull(id, "type id cannot be null");
+        if (id.length() == 0) {
+            throw new IllegalArgumentException("type id cannot be empty");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`getGroupId().length() > 0` can be replaced with '!getGroupId().isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
+#### Snippet
+```java
+    public String toString() {
+        StringBuilder buffer = new StringBuilder(128);
+        if (getGroupId().length() > 0) {
+            buffer.append(getGroupId());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`getArtifactId().length() > 0` can be replaced with '!getArtifactId().isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
+#### Snippet
+```java
+            buffer.append(getGroupId());
+        }
+        if (getArtifactId().length() > 0) {
+            buffer.append(':').append(getArtifactId());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`getVersion().length() > 0` can be replaced with '!getVersion().isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
+#### Snippet
+```java
+            buffer.append(':').append(getArtifactId());
+        }
+        if (getVersion().length() > 0) {
+            buffer.append(':').append(getVersion());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/AbstractArtifact.java`
+#### Snippet
+```java
+        buffer.append(':').append(getArtifactId());
+        buffer.append(':').append(getExtension());
+        if (getClassifier().length() > 0) {
+            buffer.append(':').append(getClassifier());
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`artifact.getClassifier().length() > 0` can be replaced with '!artifact.getClassifier().isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
+#### Snippet
+```java
+            path.append(artifact.getArtifactId()).append('-').append(artifact.getVersion());
+
+            if (artifact.getClassifier().length() > 0) {
+                path.append('-').append(artifact.getClassifier());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`artifact.getExtension().length() > 0` can be replaced with '!artifact.getExtension().isEmpty()'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
+#### Snippet
+```java
+            }
+
+            if (artifact.getExtension().length() > 0) {
+                path.append('.').append(artifact.getExtension());
+            }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1162,62 +1343,134 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2Rep
 
 ### SizeReplaceableByIsEmpty
 `artifact.getClassifier().length() > 0` can be replaced with '!artifact.getClassifier().isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
+in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/UnsolvableVersionConflictException.java`
 #### Snippet
 ```java
-            path.append(artifact.getArtifactId()).append('-').append(artifact.getVersion());
-
+            buffer.append(':').append(artifact.getArtifactId());
+            buffer.append(':').append(artifact.getExtension());
             if (artifact.getClassifier().length() > 0) {
-                path.append('-').append(artifact.getClassifier());
+                buffer.append(':').append(artifact.getClassifier());
             }
 ```
 
 ### SizeReplaceableByIsEmpty
-`artifact.getExtension().length() > 0` can be replaced with '!artifact.getExtension().isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Maven2RepositoryLayoutFactory.java`
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/AuthenticationContext.java`
 #### Snippet
 ```java
-            }
-
-            if (artifact.getExtension().length() > 0) {
-                path.append('.').append(artifact.getExtension());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`url.length() > 0` can be replaced with '!url.isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    private String normalizeRepoUrl(String url) {
-        String result = url;
-        if (url != null && url.length() > 0 && !url.endsWith("/")) {
-            result = url + '/';
+    public <T> T get(String key, Map<String, String> data, Class<T> type) {
+        requireNonNull(key, "authentication key cannot be null");
+        if (key.length() == 0) {
+            throw new IllegalArgumentException("authentication key cannot be empty");
         }
 ```
 
 ### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/AuthenticationContext.java`
 #### Snippet
 ```java
-        String value = props.getProperty(key + UPDATED_KEY_SUFFIX, "");
-        try {
-            return (value.length() > 0) ? Long.parseLong(value) : 1;
-        } catch (NumberFormatException e) {
-            LOGGER.debug("Cannot parse last updated date {}, ignoring it", value, e);
+    public void put(String key, Object value) {
+        requireNonNull(key, "authentication key cannot be null");
+        if (key.length() == 0) {
+            throw new IllegalArgumentException("authentication key cannot be empty");
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
-`base.length() > 0` can be replaced with '!base.isEmpty()'
-in `maven-resolver-transport-classpath/src/main/java/org/eclipse/aether/transport/classpath/ClasspathTransporter.java`
+`process.length() > 0` can be replaced with '!process.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionScheme.java`
 #### Snippet
 ```java
-                base = ssp;
+            process = process.substring(index + 1).trim();
+
+            if (process.length() > 0 && process.startsWith(",")) {
+                process = process.substring(1).trim();
             }
-            if (base.length() > 0 && !base.endsWith("/")) {
-                base += '/';
+```
+
+### SizeReplaceableByIsEmpty
+`process.length() > 0` can be replaced with '!process.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionScheme.java`
+#### Snippet
+```java
+        }
+
+        if (process.length() > 0 && !ranges.isEmpty()) {
+            throw new InvalidVersionSpecificationException(
+                    constraint, "Invalid version range " + constraint + ", expected [ or ( but got " + process);
+```
+
+### SizeReplaceableByIsEmpty
+`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
+#### Snippet
+```java
+    public DependencyNode build() {
+        Dependency dependency = null;
+        if (artifactId != null && artifactId.length() > 0) {
+            Artifact artifact =
+                    new DefaultArtifact(groupId, artifactId, classifier, ext, version, properties, (File) null);
+```
+
+### SizeReplaceableByIsEmpty
+`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
+#### Snippet
+```java
+        }
+        DefaultDependencyNode node = new DefaultDependencyNode(dependency);
+        if (artifactId != null && artifactId.length() > 0) {
+            try {
+                node.setVersion(versionScheme.parseVersion(version));
+```
+
+### SizeReplaceableByIsEmpty
+`parsedLowerBound.length() > 0` can be replaced with '!parsedLowerBound.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionRange.java`
+#### Snippet
+```java
             }
+
+            lowerBound = parsedLowerBound.length() > 0 ? new TestVersion(parsedLowerBound) : null;
+            upperBound = parsedUpperBound.length() > 0 ? new TestVersion(parsedUpperBound) : null;
+
+```
+
+### SizeReplaceableByIsEmpty
+`parsedUpperBound.length() > 0` can be replaced with '!parsedUpperBound.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionRange.java`
+#### Snippet
+```java
+
+            lowerBound = parsedLowerBound.length() > 0 ? new TestVersion(parsedLowerBound) : null;
+            upperBound = parsedUpperBound.length() > 0 ? new TestVersion(parsedUpperBound) : null;
+
+            if (upperBound != null && lowerBound != null) {
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() == 0` can be replaced with 'line.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+
+    private static boolean isEmpty(String line) {
+        return line == null || line.length() == 0;
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() == 0` can be replaced with 'line.isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+
+    private static boolean isEmpty(String line) {
+        return line == null || line.length() == 0;
+    }
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1233,54 +1486,6 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/Depe
 ```
 
 ### SizeReplaceableByIsEmpty
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/TransitiveDependencyManager.java`
-#### Snippet
-```java
-
-            String version = artifact.getVersion();
-            if (version.length() > 0 && !versions.containsKey(key)) {
-                if (versions == managedVersions) {
-                    versions = new HashMap<>(managedVersions);
-```
-
-### SizeReplaceableByIsEmpty
-`scope.length() > 0` can be replaced with '!scope.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/TransitiveDependencyManager.java`
-#### Snippet
-```java
-
-            String scope = managedDependency.getScope();
-            if (scope.length() > 0 && !scopes.containsKey(key)) {
-                if (scopes == this.managedScopes) {
-                    scopes = new HashMap<>(this.managedScopes);
-```
-
-### SizeReplaceableByIsEmpty
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
-#### Snippet
-```java
-
-            String version = artifact.getVersion();
-            if (version.length() > 0 && !versions.containsKey(key)) {
-                if (versions == this.managedVersions) {
-                    versions = new HashMap<>(this.managedVersions);
-```
-
-### SizeReplaceableByIsEmpty
-`scope.length() > 0` can be replaced with '!scope.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
-#### Snippet
-```java
-
-            String scope = managedDependency.getScope();
-            if (scope.length() > 0 && !scopes.containsKey(key)) {
-                if (scopes == this.managedScopes) {
-                    scopes = new HashMap<>(this.managedScopes);
-```
-
-### SizeReplaceableByIsEmpty
 `token.length() > 0` can be replaced with '!token.isEmpty()'
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/DependencyFilterUtils.java`
 #### Snippet
@@ -1290,6 +1495,18 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/DependencyF
                     if (token.length() > 0) {
                         types.add(token);
                     }
+```
+
+### SizeReplaceableByIsEmpty
+`pattern.length() == 0` can be replaced with 'pattern.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/AbstractPatternDependencyFilter.java`
+#### Snippet
+```java
+
+        // support full wildcard and implied wildcard
+        if ("*".equals(pattern) || pattern.length() == 0) {
+            matches = true;
+        }
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1341,18 +1558,6 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/artifact/ArtifactI
 ```
 
 ### SizeReplaceableByIsEmpty
-`pattern.length() == 0` can be replaced with 'pattern.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/AbstractPatternDependencyFilter.java`
-#### Snippet
-```java
-
-        // support full wildcard and implied wildcard
-        if ("*".equals(pattern) || pattern.length() == 0) {
-            matches = true;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `version.length() > 0` can be replaced with '!version.isEmpty()'
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersion.java`
 #### Snippet
@@ -1365,15 +1570,63 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVer
 ```
 
 ### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ComponentAuthentication.java`
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
 #### Snippet
 ```java
-    ComponentAuthentication(String key, Object value) {
-        this.key = requireNonNull(key, "authentication key cannot be null");
-        if (key.length() == 0) {
-            throw new IllegalArgumentException("authentication key cannot be empty");
-        }
+
+            String version = artifact.getVersion();
+            if (version.length() > 0 && !versions.containsKey(key)) {
+                if (versions == this.managedVersions) {
+                    versions = new HashMap<>(this.managedVersions);
+```
+
+### SizeReplaceableByIsEmpty
+`scope.length() > 0` can be replaced with '!scope.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
+#### Snippet
+```java
+
+            String scope = managedDependency.getScope();
+            if (scope.length() > 0 && !scopes.containsKey(key)) {
+                if (scopes == this.managedScopes) {
+                    scopes = new HashMap<>(this.managedScopes);
+```
+
+### SizeReplaceableByIsEmpty
+`line.length() > 0` can be replaced with '!line.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
+#### Snippet
+```java
+                }
+                line = line.trim();
+                if (line.length() > 0) {
+                    checksum = line;
+                    break;
+```
+
+### SizeReplaceableByIsEmpty
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/TransitiveDependencyManager.java`
+#### Snippet
+```java
+
+            String version = artifact.getVersion();
+            if (version.length() > 0 && !versions.containsKey(key)) {
+                if (versions == managedVersions) {
+                    versions = new HashMap<>(managedVersions);
+```
+
+### SizeReplaceableByIsEmpty
+`scope.length() > 0` can be replaced with '!scope.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/TransitiveDependencyManager.java`
+#### Snippet
+```java
+
+            String scope = managedDependency.getScope();
+            if (scope.length() > 0 && !scopes.containsKey(key)) {
+                if (scopes == this.managedScopes) {
+                    scopes = new HashMap<>(this.managedScopes);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1382,6 +1635,18 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/StringA
 #### Snippet
 ```java
     StringAuthentication(String key, String value) {
+        this.key = requireNonNull(key, "authentication key cannot be null");
+        if (key.length() == 0) {
+            throw new IllegalArgumentException("authentication key cannot be empty");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`key.length() == 0` can be replaced with 'key.isEmpty()'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ComponentAuthentication.java`
+#### Snippet
+```java
+    ComponentAuthentication(String key, Object value) {
         this.key = requireNonNull(key, "authentication key cannot be null");
         if (key.length() == 0) {
             throw new IllegalArgumentException("authentication key cannot be empty");
@@ -1437,78 +1702,6 @@ in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/transport/
 ```
 
 ### SizeReplaceableByIsEmpty
-`process.length() > 0` can be replaced with '!process.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionScheme.java`
-#### Snippet
-```java
-            process = process.substring(index + 1).trim();
-
-            if (process.length() > 0 && process.startsWith(",")) {
-                process = process.substring(1).trim();
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`process.length() > 0` can be replaced with '!process.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionScheme.java`
-#### Snippet
-```java
-        }
-
-        if (process.length() > 0 && !ranges.isEmpty()) {
-            throw new InvalidVersionSpecificationException(
-                    constraint, "Invalid version range " + constraint + ", expected [ or ( but got " + process);
-```
-
-### SizeReplaceableByIsEmpty
-`parsedLowerBound.length() > 0` can be replaced with '!parsedLowerBound.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionRange.java`
-#### Snippet
-```java
-            }
-
-            lowerBound = parsedLowerBound.length() > 0 ? new TestVersion(parsedLowerBound) : null;
-            upperBound = parsedUpperBound.length() > 0 ? new TestVersion(parsedUpperBound) : null;
-
-```
-
-### SizeReplaceableByIsEmpty
-`parsedUpperBound.length() > 0` can be replaced with '!parsedUpperBound.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionRange.java`
-#### Snippet
-```java
-
-            lowerBound = parsedLowerBound.length() > 0 ? new TestVersion(parsedLowerBound) : null;
-            upperBound = parsedUpperBound.length() > 0 ? new TestVersion(parsedUpperBound) : null;
-
-            if (upperBound != null && lowerBound != null) {
-```
-
-### SizeReplaceableByIsEmpty
-`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
-#### Snippet
-```java
-    public DependencyNode build() {
-        Dependency dependency = null;
-        if (artifactId != null && artifactId.length() > 0) {
-            Artifact artifact =
-                    new DefaultArtifact(groupId, artifactId, classifier, ext, version, properties, (File) null);
-```
-
-### SizeReplaceableByIsEmpty
-`artifactId.length() > 0` can be replaced with '!artifactId.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
-#### Snippet
-```java
-        }
-        DefaultDependencyNode node = new DefaultDependencyNode(dependency);
-        if (artifactId != null && artifactId.length() > 0) {
-            try {
-                node.setVersion(versionScheme.parseVersion(version));
-```
-
-### SizeReplaceableByIsEmpty
 `version.length() > 0` can be replaced with '!version.isEmpty()'
 in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/ClassicDependencyManager.java`
 #### Snippet
@@ -1530,198 +1723,6 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/Clas
             if (scope.length() > 0 && !managedScopes.containsKey(key)) {
                 if (managedScopes == this.managedScopes) {
                     managedScopes = new HashMap<>(this.managedScopes);
-```
-
-### SizeReplaceableByIsEmpty
-`protocol.length() > 0` can be replaced with '!protocol.isEmpty()'
-in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
-#### Snippet
-```java
-        String retValue = null;
-
-        if (protocol.length() > 0) {
-            retValue = url.substring(protocol.length() + 1);
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() == 0` can be replaced with 'line.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-
-    private static boolean isEmpty(String line) {
-        return line == null || line.length() == 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() == 0` can be replaced with 'line.isEmpty()'
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-
-    private static boolean isEmpty(String line) {
-        return line == null || line.length() == 0;
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() > 0` can be replaced with '!path.isEmpty()'
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
-#### Snippet
-```java
-    public static URI resolve(URI base, URI ref) {
-        String path = ref.getRawPath();
-        if (path != null && path.length() > 0) {
-            path = base.getRawPath();
-            if (path == null || !path.endsWith("/")) {
-```
-
-### SizeReplaceableByIsEmpty
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Exclusion.java`
-#### Snippet
-```java
-                + ':'
-                + getExtension()
-                + (getClassifier().length() > 0 ? ':' + getClassifier() : "");
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
-#### Snippet
-```java
-    public DefaultArtifactType(String id, String extension, String classifier, Map<String, String> properties) {
-        this.id = requireNonNull(id, "type id cannot be null");
-        if (id.length() == 0) {
-            throw new IllegalArgumentException("type id cannot be empty");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
-#### Snippet
-```java
-            boolean includesDependencies) {
-        this.id = requireNonNull(id, "type id cannot be null");
-        if (id.length() == 0) {
-            throw new IllegalArgumentException("type id cannot be empty");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`language.length() > 0` can be replaced with '!language.isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/DefaultArtifactType.java`
-#### Snippet
-```java
-        Map<String, String> props = new HashMap<>();
-        props.put(ArtifactProperties.TYPE, id);
-        props.put(ArtifactProperties.LANGUAGE, (language != null && language.length() > 0) ? language : "none");
-        props.put(ArtifactProperties.INCLUDES_DEPENDENCIES, Boolean.toString(includesDependencies));
-        props.put(ArtifactProperties.CONSTITUTES_BUILD_PATH, Boolean.toString(constitutesBuildPath));
-```
-
-### SizeReplaceableByIsEmpty
-`artifact.getClassifier().length() > 0` can be replaced with '!artifact.getClassifier().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/UnsolvableVersionConflictException.java`
-#### Snippet
-```java
-            buffer.append(':').append(artifact.getArtifactId());
-            buffer.append(':').append(artifact.getExtension());
-            if (artifact.getClassifier().length() > 0) {
-                buffer.append(':').append(artifact.getClassifier());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`getClassifier().length() > 0` can be replaced with '!getClassifier().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/artifact/AbstractArtifact.java`
-#### Snippet
-```java
-        buffer.append(':').append(getArtifactId());
-        buffer.append(':').append(getExtension());
-        if (getClassifier().length() > 0) {
-            buffer.append(':').append(getClassifier());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`getGroupId().length() > 0` can be replaced with '!getGroupId().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
-#### Snippet
-```java
-    public String toString() {
-        StringBuilder buffer = new StringBuilder(128);
-        if (getGroupId().length() > 0) {
-            buffer.append(getGroupId());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`getArtifactId().length() > 0` can be replaced with '!getArtifactId().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
-#### Snippet
-```java
-            buffer.append(getGroupId());
-        }
-        if (getArtifactId().length() > 0) {
-            buffer.append(':').append(getArtifactId());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`getVersion().length() > 0` can be replaced with '!getVersion().isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/metadata/AbstractMetadata.java`
-#### Snippet
-```java
-            buffer.append(':').append(getArtifactId());
-        }
-        if (getVersion().length() > 0) {
-            buffer.append(':').append(getVersion());
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() > 0` can be replaced with '!line.isEmpty()'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
-#### Snippet
-```java
-                }
-                line = line.trim();
-                if (line.length() > 0) {
-                    checksum = line;
-                    break;
-```
-
-### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/AuthenticationContext.java`
-#### Snippet
-```java
-    public <T> T get(String key, Map<String, String> data, Class<T> type) {
-        requireNonNull(key, "authentication key cannot be null");
-        if (key.length() == 0) {
-            throw new IllegalArgumentException("authentication key cannot be empty");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`key.length() == 0` can be replaced with 'key.isEmpty()'
-in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/AuthenticationContext.java`
-#### Snippet
-```java
-    public void put(String key, Object value) {
-        requireNonNull(key, "authentication key cannot be null");
-        if (key.length() == 0) {
-            throw new IllegalArgumentException("authentication key cannot be empty");
-        }
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -1752,18 +1753,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `DelegatingArtifact` has no concrete subclass
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/artifact/DelegatingArtifact.java`
-#### Snippet
-```java
- * carry additional data fields.
- */
-public abstract class DelegatingArtifact extends AbstractArtifact {
-
-    private final Artifact delegate;
-```
-
-### AbstractClassNeverImplemented
 Abstract class `AbstractForwardingRepositorySystemSession` has no concrete subclass
 in `maven-resolver-api/src/main/java/org/eclipse/aether/AbstractForwardingRepositorySystemSession.java`
 #### Snippet
@@ -1773,6 +1762,18 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/AbstractForwardingReposi
 public abstract class AbstractForwardingRepositorySystemSession implements RepositorySystemSession {
 
     /**
+```
+
+### AbstractClassNeverImplemented
+Abstract class `DelegatingArtifact` has no concrete subclass
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/artifact/DelegatingArtifact.java`
+#### Snippet
+```java
+ * carry additional data fields.
+ */
+public abstract class DelegatingArtifact extends AbstractArtifact {
+
+    private final Artifact delegate;
 ```
 
 ## RuleId[id=RegExpRepeatedSpace]
@@ -1862,6 +1863,18 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUp
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends DependencyNode`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DefaultDependencyCycle.java`
+#### Snippet
+```java
+     * there is no such node.
+     */
+    public static int find(List<DependencyNode> nodes, Artifact artifact) {
+
+        for (int i = nodes.size() - 1; i >= 0; i--) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends Metadata`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultMetadataResolver.java`
 #### Snippet
@@ -1875,14 +1888,14 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultMe
 
 ### BoundedWildcard
 Can generalize to `? extends DependencyNode`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DefaultDependencyCycle.java`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/DependencyResolutionSkipper.java`
 #### Snippet
 ```java
-     * there is no such node.
-     */
-    public static int find(List<DependencyNode> nodes, Artifact artifact) {
+            }
 
-        for (int i = nodes.size() - 1; i >= 0; i--) {
+            boolean isLeftmost(DependencyNode node, List<DependencyNode> parents) {
+                Coordinate leftmost = leftmostCoordinates.get(node.getArtifact());
+                if (leftmost != null && leftmost.depth <= parents.size()) {
 ```
 
 ### BoundedWildcard
@@ -1907,18 +1920,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/
             List<ChecksumAlgorithmFactory> checksumAlgorithmFactories) {
         final boolean originAware = isOriginAware(session);
         final HashMap<String, String> checksums = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyNode`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/DependencyResolutionSkipper.java`
-#### Snippet
-```java
-            }
-
-            boolean isLeftmost(DependencyNode node, List<DependencyNode> parents) {
-                Coordinate leftmost = leftmostCoordinates.get(node.getArtifact());
-                if (leftmost != null && leftmost.depth <= parents.size()) {
 ```
 
 ### BoundedWildcard
@@ -1994,198 +1995,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/D
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            SyncContext shared,
-            SyncContext exclusive,
-            Collection<Artifact> subjects,
-            RepositorySystemSession session,
-            Collection<? extends ArtifactRequest> requests)
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencySelector`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/AndDependencySelector.java`
-#### Snippet
-```java
-    }
-
-    private AndDependencySelector(Set<DependencySelector> selectors) {
-        if (selectors != null && !selectors.isEmpty()) {
-            this.selectors = selectors;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyTraverser`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/AndDependencyTraverser.java`
-#### Snippet
-```java
-    }
-
-    private AndDependencyTraverser(Set<DependencyTraverser> traversers) {
-        if (traversers != null && !traversers.isEmpty()) {
-            this.traversers = traversers;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyFilter`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/AndDependencyFilter.java`
-#### Snippet
-```java
-     * @param filters The filters to combine, may be {@code null} but must not contain {@code null} elements.
-     */
-    public AndDependencyFilter(Collection<DependencyFilter> filters) {
-        if (filters != null) {
-            this.filters.addAll(filters);
-```
-
-### BoundedWildcard
-Can generalize to `? super DependencyNode`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
-#### Snippet
-```java
-
-    private void analyze(
-            DependencyNode node, Map<DependencyNode, Object> nodes, Map<Object, ConflictGroup> groups, int[] counter) {
-        if (nodes.put(node, Boolean.TRUE) != null) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyNode`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
-#### Snippet
-```java
-    }
-
-    private Map<DependencyNode, Object> mark(Collection<DependencyNode> nodes, Map<Object, ConflictGroup> groups) {
-        Map<DependencyNode, Object> conflictIds = new IdentityHashMap<>(nodes.size() + 1);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConflictGroup`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
-#### Snippet
-```java
-    }
-
-    private Map<DependencyNode, Object> mark(Collection<DependencyNode> nodes, Map<Object, ConflictGroup> groups) {
-        Map<DependencyNode, Object> conflictIds = new IdentityHashMap<>(nodes.size() + 1);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends DependencyFilter`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/OrDependencyFilter.java`
-#### Snippet
-```java
-     * @param filters The filters to combine, may be {@code null}.
-     */
-    public OrDependencyFilter(Collection<DependencyFilter> filters) {
-        if (filters != null) {
-            this.filters.addAll(filters);
-```
-
-### BoundedWildcard
-Can generalize to `? super ConflictId`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
-#### Snippet
-```java
-    private void findCycles(
-            ConflictId id,
-            Map<ConflictId, Object> visited,
-            Map<Object, Integer> stack,
-            Collection<Collection<Object>> cycles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Collection`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
-#### Snippet
-```java
-            Map<ConflictId, Object> visited,
-            Map<Object, Integer> stack,
-            Collection<Collection<Object>> cycles) {
-        Integer depth = stack.put(id.key, stack.size());
-        if (depth != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super DependencyNode`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
-#### Snippet
-```java
-            ConflictId id,
-            int depth,
-            Map<DependencyNode, Object> visited,
-            Map<?, ?> conflictIds) {
-        if (visited.put(node, Boolean.TRUE) != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends WorkspaceReader`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ChainedWorkspaceReader.java`
-#### Snippet
-```java
-        private final List<Object> keys = new ArrayList<>();
-
-        Key(List<WorkspaceReader> readers) {
-            for (WorkspaceReader reader : readers) {
-                keys.add(reader.getRepository().getKey());
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestFileUtils.java`
-#### Snippet
-```java
-    }
-
-    private static void delete(File file, Collection<File> undeletables) {
-        String[] children = file.list();
-        if (children != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ChecksumAlgorithmFactory`
-in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ChecksumAlgorithmHelper.java`
-#### Snippet
-```java
-    }
-
-    private static Map<String, String> calculate(InputStream inputStream, List<ChecksumAlgorithmFactory> factories)
-            throws IOException {
-        LinkedHashMap<String, ChecksumAlgorithm> algorithms = new LinkedHashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super NodeEntry`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-    }
-
-    private void addNode(DependencyNode root, int level, List<NodeEntry> entries) {
-
-        NodeEntry entry = new NodeEntry();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProvidedChecksumsSource`
-in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/BasicRepositoryConnector.java`
-#### Snippet
-```java
-            ChecksumPolicyProvider checksumPolicyProvider,
-            FileProcessor fileProcessor,
-            Map<String, ProvidedChecksumsSource> providedChecksumsSources)
-            throws NoRepositoryConnectorException {
-        try {
-```
-
-### BoundedWildcard
 Can generalize to `? extends R`
 in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/Retry.java`
 #### Snippet
@@ -2234,6 +2043,18 @@ in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/Re
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Artifact`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            SyncContext shared,
+            SyncContext exclusive,
+            Collection<Artifact> subjects,
+            RepositorySystemSession session,
+            Collection<? extends ArtifactRequest> requests)
+```
+
+### BoundedWildcard
 Can generalize to `? extends T`
 in `maven-resolver-api/src/main/java/org/eclipse/aether/DefaultRepositorySystemSession.java`
 #### Snippet
@@ -2245,17 +2066,184 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/DefaultRepositorySystemS
         if (table == null || table.isEmpty()) {
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
+### BoundedWildcard
+Can generalize to `? super File`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestFileUtils.java`
+#### Snippet
+```java
+    }
+
+    private static void delete(File file, Collection<File> undeletables) {
+        String[] children = file.list();
+        if (children != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super NodeEntry`
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
 #### Snippet
 ```java
-                    .append(":")
-                    .append(artifact.getVersion());
-            if (dependency.getScope() != null && (!"".equals(dependency.getScope()))) {
-                defBuilder.append(":").append(dependency.getScope());
-            }
+    }
+
+    private void addNode(DependencyNode root, int level, List<NodeEntry> entries) {
+
+        NodeEntry entry = new NodeEntry();
+```
+
+### BoundedWildcard
+Can generalize to `? extends DependencySelector`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/AndDependencySelector.java`
+#### Snippet
+```java
+    }
+
+    private AndDependencySelector(Set<DependencySelector> selectors) {
+        if (selectors != null && !selectors.isEmpty()) {
+            this.selectors = selectors;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DependencyTraverser`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/AndDependencyTraverser.java`
+#### Snippet
+```java
+    }
+
+    private AndDependencyTraverser(Set<DependencyTraverser> traversers) {
+        if (traversers != null && !traversers.isEmpty()) {
+            this.traversers = traversers;
+```
+
+### BoundedWildcard
+Can generalize to `? extends DependencyFilter`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/AndDependencyFilter.java`
+#### Snippet
+```java
+     * @param filters The filters to combine, may be {@code null} but must not contain {@code null} elements.
+     */
+    public AndDependencyFilter(Collection<DependencyFilter> filters) {
+        if (filters != null) {
+            this.filters.addAll(filters);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DependencyFilter`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/OrDependencyFilter.java`
+#### Snippet
+```java
+     * @param filters The filters to combine, may be {@code null}.
+     */
+    public OrDependencyFilter(Collection<DependencyFilter> filters) {
+        if (filters != null) {
+            this.filters.addAll(filters);
+```
+
+### BoundedWildcard
+Can generalize to `? extends DependencyNode`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
+#### Snippet
+```java
+    }
+
+    private Map<DependencyNode, Object> mark(Collection<DependencyNode> nodes, Map<Object, ConflictGroup> groups) {
+        Map<DependencyNode, Object> conflictIds = new IdentityHashMap<>(nodes.size() + 1);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConflictGroup`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
+#### Snippet
+```java
+    }
+
+    private Map<DependencyNode, Object> mark(Collection<DependencyNode> nodes, Map<Object, ConflictGroup> groups) {
+        Map<DependencyNode, Object> conflictIds = new IdentityHashMap<>(nodes.size() + 1);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super DependencyNode`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictMarker.java`
+#### Snippet
+```java
+
+    private void analyze(
+            DependencyNode node, Map<DependencyNode, Object> nodes, Map<Object, ConflictGroup> groups, int[] counter) {
+        if (nodes.put(node, Boolean.TRUE) != null) {
+            return;
+```
+
+### BoundedWildcard
+Can generalize to `? super DependencyNode`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
+#### Snippet
+```java
+            ConflictId id,
+            int depth,
+            Map<DependencyNode, Object> visited,
+            Map<?, ?> conflictIds) {
+        if (visited.put(node, Boolean.TRUE) != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ConflictId`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
+#### Snippet
+```java
+    private void findCycles(
+            ConflictId id,
+            Map<ConflictId, Object> visited,
+            Map<Object, Integer> stack,
+            Collection<Collection<Object>> cycles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Collection`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
+#### Snippet
+```java
+            Map<ConflictId, Object> visited,
+            Map<Object, Integer> stack,
+            Collection<Collection<Object>> cycles) {
+        Integer depth = stack.put(id.key, stack.size());
+        if (depth != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends WorkspaceReader`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ChainedWorkspaceReader.java`
+#### Snippet
+```java
+        private final List<Object> keys = new ArrayList<>();
+
+        Key(List<WorkspaceReader> readers) {
+            for (WorkspaceReader reader : readers) {
+                keys.add(reader.getRepository().getKey());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ProvidedChecksumsSource`
+in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/BasicRepositoryConnector.java`
+#### Snippet
+```java
+            ChecksumPolicyProvider checksumPolicyProvider,
+            FileProcessor fileProcessor,
+            Map<String, ProvidedChecksumsSource> providedChecksumsSources)
+            throws NoRepositoryConnectorException {
+        try {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ChecksumAlgorithmFactory`
+in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ChecksumAlgorithmHelper.java`
+#### Snippet
+```java
+    }
+
+    private static Map<String, String> calculate(InputStream inputStream, List<ChecksumAlgorithmFactory> factories)
+            throws IOException {
+        LinkedHashMap<String, ChecksumAlgorithm> algorithms = new LinkedHashMap<>();
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -2268,6 +2256,19 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/SecretA
         if (chars != null) {
             for (int i = 0; i < chars.length; i++) {
                 chars[i] = '\0';
+            }
+```
+
+## RuleId[id=StringEqualsEmptyString]
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+                    .append(":")
+                    .append(artifact.getVersion());
+            if (dependency.getScope() != null && (!"".equals(dependency.getScope()))) {
+                defBuilder.append(":").append(dependency.getScope());
             }
 ```
 
@@ -2297,6 +2298,18 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultRe
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/FileTransporter.java`
+#### Snippet
+```java
+    protected void implPut(PutTask task) throws Exception {
+        File file = getFile(task, false);
+        file.getParentFile().mkdirs();
+        try {
+            utilPut(task, Files.newOutputStream(file.toPath()), true);
+```
+
 ### IgnoreResultOfCall
 Result of `File.setLastModified()` is ignored
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultFileProcessor.java`
@@ -2334,6 +2347,18 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultDe
 ```
 
 ### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+
+        if (artifactFile.exists() && !hasErrors(props)) {
+            touchFile.delete();
+        }
+    }
+```
+
+### IgnoreResultOfCall
 Result of `File.setLastModified()` is ignored
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultInstaller.java`
 #### Snippet
@@ -2355,18 +2380,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultIn
                 dstFile.setLastModified(srcFile.lastModified());
             }
 
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-
-        if (artifactFile.exists() && !hasErrors(props)) {
-            touchFile.delete();
-        }
-    }
 ```
 
 ### IgnoreResultOfCall
@@ -2453,18 +2466,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
         try {
 ```
 
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/FileTransporter.java`
-#### Snippet
-```java
-    protected void implPut(PutTask task) throws Exception {
-        File file = getFile(task, false);
-        file.getParentFile().mkdirs();
-        try {
-            utilPut(task, Files.newOutputStream(file.toPath()), true);
-```
-
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -2493,50 +2494,26 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
 #### Snippet
 ```java
-    // CHECKSTYLE_ON: LineLength
-    public static void main(String... args) {
-        System.out.println("Display parameters as parsed by Maven Resolver (in canonical form and as a list of tokens)"
-                + " and comparison result:");
-        if (args.length == 0) {
+     */
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(InstallArtifacts.class.getSimpleName());
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
 #### Snippet
 ```java
-            if (prev != null) {
-                int compare = prev.compareTo(c);
-                System.out.println(
-                        "   " + prev + ' ' + ((compare == 0) ? "==" : ((compare < 0) ? "<" : ">")) + ' ' + version);
-            }
-```
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(InstallArtifacts.class.getSimpleName());
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
-#### Snippet
-```java
-            }
-
-            System.out.println((i++) + ". " + version + " -> " + c.asString() + "; tokens: " + c.asItems());
-
-            prev = c;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestLoggerFactory.java`
-#### Snippet
-```java
-
-        TestLogger(PrintStream out) {
-            this.out = (out != null) ? out : System.out;
-        }
-
+        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
 ```
 
 ### SystemOutErr
@@ -2572,66 +2549,6 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
         for (Dependency dependency : descriptorResult.getDependencies()) {
             System.out.println(dependency);
         }
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
-#### Snippet
-```java
-     */
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(InstallArtifacts.class.getSimpleName());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/InstallArtifacts.java`
-#### Snippet
-```java
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(InstallArtifacts.class.getSimpleName());
-
-        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
-#### Snippet
-```java
-     */
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(FindNewestVersion.class.getSimpleName());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
-#### Snippet
-```java
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(FindNewestVersion.class.getSimpleName());
-
-        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
-#### Snippet
-```java
-        Version newestVersion = rangeResult.getHighestVersion();
-
-        System.out.println(
-                "Newest version " + newestVersion + " from repository " + rangeResult.getRepository(newestVersion));
     }
 ```
 
@@ -2709,26 +2626,38 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
 #### Snippet
 ```java
      */
     public static void main(String[] args) throws Exception {
         System.out.println("------------------------------------------------------------");
-        System.out.println(DependencyHierarchyWithRanges.class.getSimpleName());
+        System.out.println(FindNewestVersion.class.getSimpleName());
 
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
 #### Snippet
 ```java
     public static void main(String[] args) throws Exception {
         System.out.println("------------------------------------------------------------");
-        System.out.println(DependencyHierarchyWithRanges.class.getSimpleName());
+        System.out.println(FindNewestVersion.class.getSimpleName());
 
         RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/FindNewestVersion.java`
+#### Snippet
+```java
+        Version newestVersion = rangeResult.getHighestVersion();
+
+        System.out.println(
+                "Newest version " + newestVersion + " from repository " + rangeResult.getRepository(newestVersion));
+    }
 ```
 
 ### SystemOutErr
@@ -2765,6 +2694,54 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
         System.out.println("Available versions " + versions);
     }
 }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
+#### Snippet
+```java
+     */
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(DependencyHierarchyWithRanges.class.getSimpleName());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/DependencyHierarchyWithRanges.java`
+#### Snippet
+```java
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(DependencyHierarchyWithRanges.class.getSimpleName());
+
+        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
+#### Snippet
+```java
+     */
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(GetDependencyTree.class.getSimpleName());
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
+#### Snippet
+```java
+    public static void main(String[] args) throws Exception {
+        System.out.println("------------------------------------------------------------");
+        System.out.println(GetDependencyTree.class.getSimpleName());
+
+        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
 ```
 
 ### SystemOutErr
@@ -2829,30 +2806,6 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
-#### Snippet
-```java
-     */
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(GetDependencyTree.class.getSimpleName());
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/GetDependencyTree.java`
-#### Snippet
-```java
-    public static void main(String[] args) throws Exception {
-        System.out.println("------------------------------------------------------------");
-        System.out.println(GetDependencyTree.class.getSimpleName());
-
-        RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/ReverseDependencyTree.java`
 #### Snippet
 ```java
@@ -2873,18 +2826,6 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
         System.out.println(ReverseDependencyTree.class.getSimpleName());
 
         RepositorySystem system = Booter.newRepositorySystem(Booter.selectFactory(args));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ReverseTreeRepositoryListener.java`
-#### Snippet
-```java
-                        .replace(":", "_"));
-                Files.write(trackingFile, trackingData.getBytes(StandardCharsets.UTF_8));
-                System.out.println(trackingData);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
 ```
 
 ### SystemOutErr
@@ -2901,23 +2842,23 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ReverseTreeRepositoryListener.java`
+#### Snippet
+```java
+                        .replace(":", "_"));
+                Files.write(trackingFile, trackingData.getBytes(StandardCharsets.UTF_8));
+                System.out.println(trackingData);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleRepositoryListener.java`
 #### Snippet
 ```java
 
     public ConsoleRepositoryListener(PrintStream out) {
-        this.out = (out != null) ? out : System.out;
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleTransferListener.java`
-#### Snippet
-```java
-
-    public ConsoleTransferListener(PrintStream out) {
         this.out = (out != null) ? out : System.out;
     }
 
@@ -2991,6 +2932,18 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
         System.out.println("classpath=" + result.getResolvedClassPath());
         System.out.println("files=" + result.getResolvedFiles());
         System.out.println("root=" + result.getRoot());
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleTransferListener.java`
+#### Snippet
+```java
+
+    public ConsoleTransferListener(PrintStream out) {
+        this.out = (out != null) ? out : System.out;
     }
 
 ```
@@ -3199,6 +3152,54 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/demo/TestNio
         System.exit(EC_ERROR);
 ```
 
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestLoggerFactory.java`
+#### Snippet
+```java
+
+        TestLogger(PrintStream out) {
+            this.out = (out != null) ? out : System.out;
+        }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
+#### Snippet
+```java
+    // CHECKSTYLE_ON: LineLength
+    public static void main(String... args) {
+        System.out.println("Display parameters as parsed by Maven Resolver (in canonical form and as a list of tokens)"
+                + " and comparison result:");
+        if (args.length == 0) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
+#### Snippet
+```java
+            if (prev != null) {
+                int compare = prev.compareTo(c);
+                System.out.println(
+                        "   " + prev + ' ' + ((compare == 0) ? "==" : ((compare < 0) ? "<" : ">")) + ' ' + version);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/version/GenericVersionScheme.java`
+#### Snippet
+```java
+            }
+
+            System.out.println((i++) + ". " + version + " -> " + c.asString() + "; tokens: " + c.asItems());
+
+            prev = c;
+```
+
 ## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `SyncContextFactory` is the same as one of its superclass' names
@@ -3213,18 +3214,6 @@ public interface SyncContextFactory extends org.eclipse.aether.spi.synccontext.S
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
-Condition 'scope != null' covered by subsequent condition 'JavaScopes.SYSTEM.equals(...)'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
-#### Snippet
-```java
-        }
-
-        if ((scope != null && JavaScopes.SYSTEM.equals(scope))
-                || (scope == null && JavaScopes.SYSTEM.equals(dependency.getScope()))) {
-            String localPath = managedLocalPaths.get(key);
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'process.length() \> 0' covered by subsequent condition 'process.startsWith(...)'
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersionScheme.java`
 #### Snippet
@@ -3236,7 +3225,43 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
             }
 ```
 
+### ConditionCoveredByFurtherCondition
+Condition 'scope != null' covered by subsequent condition 'JavaScopes.SYSTEM.equals(...)'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DefaultDependencyManager.java`
+#### Snippet
+```java
+        }
+
+        if ((scope != null && JavaScopes.SYSTEM.equals(scope))
+                || (scope == null && JavaScopes.SYSTEM.equals(dependency.getScope()))) {
+            String localPath = managedLocalPaths.get(key);
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/ConnMgrConfig.java`
+#### Snippet
+```java
+            return null;
+        }
+        return value.split(",+");
+    }
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ReverseTreeRepositoryListener.java`
+#### Snippet
+```java
+                        .getArtifact()
+                        .toString()
+                        .replace(":", "_"));
+                Files.write(trackingFile, trackingData.getBytes(StandardCharsets.UTF_8));
+                System.out.println(trackingData);
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/SummaryFileTrustedChecksumsSource.java`
@@ -3250,39 +3275,27 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/DependencyFilterUtils.java`
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/WorkspaceRepository.java`
 #### Snippet
 ```java
-        if (classpathTypes != null) {
-            for (String classpathType : classpathTypes) {
-                String[] tokens = classpathType.split("[+,]");
-                for (String token : tokens) {
-                    token = token.trim();
+    public WorkspaceRepository(String type, Object key) {
+        this.type = (type != null) ? type : "";
+        this.key = (key != null) ? key : UUID.randomUUID().toString().replace("-", "");
+    }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
 #### Snippet
 ```java
-                for (StringTokenizer tokenizer = new StringTokenizer(nonProxyHosts, "|"); tokenizer.hasMoreTokens(); ) {
-                    String pattern = tokenizer.nextToken();
-                    pattern = pattern.replace(".", "\\.").replace("*", ".*");
-                    patterns.add(Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
-                }
-```
+    static final String COORDS = "([^: \\(]+):([^: ]+)(?::([^: ]*)(?::([^: ]+))?)?:([^: \\[\\(<]+)";
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
-#### Snippet
-```java
-                for (StringTokenizer tokenizer = new StringTokenizer(nonProxyHosts, "|"); tokenizer.hasMoreTokens(); ) {
-                    String pattern = tokenizer.nextToken();
-                    pattern = pattern.replace(".", "\\.").replace("*", ".*");
-                    patterns.add(Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
-                }
+    private static final String COORDS_NC = NodeDefinition.COORDS.replaceAll("\\((?=\\[)", "(?:");
+
+    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3307,30 +3320,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
             Collections.addAll(relocations, relocs.split("\\s*,\\s*"));
         }
 
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String COORDS = "([^: \\(]+):([^: ]+)(?::([^: ]*)(?::([^: ]+))?)?:([^: \\[\\(<]+)";
-
-    private static final String COORDS_NC = NodeDefinition.COORDS.replaceAll("\\((?=\\[)", "(?:");
-
-    private static final String RANGE_NC = "[\\(\\[][^\\(\\)\\[\\]]+[\\)\\]]";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/artifact/SubArtifact.java`
-#### Snippet
-```java
-        String result = "";
-        if (pattern != null) {
-            result = pattern.replace("*", replacement);
-
-            if (replacement.isEmpty()) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3370,39 +3359,15 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ReverseTreeRepositoryListener.java`
-#### Snippet
-```java
-                        .getArtifact()
-                        .toString()
-                        .replace(":", "_"));
-                Files.write(trackingFile, trackingData.getBytes(StandardCharsets.UTF_8));
-                System.out.println(trackingData);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/ConnMgrConfig.java`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/filter/DependencyFilterUtils.java`
 #### Snippet
 ```java
-            return null;
-        }
-        return value.split(",+");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/WorkspaceRepository.java`
-#### Snippet
-```java
-    public WorkspaceRepository(String type, Object key) {
-        this.type = (type != null) ? type : "";
-        this.key = (key != null) ? key : UUID.randomUUID().toString().replace("-", "");
-    }
-
+        if (classpathTypes != null) {
+            for (String classpathType : classpathTypes) {
+                String[] tokens = classpathType.split("[+,]");
+                for (String token : tokens) {
+                    token = token.trim();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -3417,79 +3382,43 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java
             checksum = checksum.substring(lastSpacePos + 1);
 ```
 
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
+#### Snippet
+```java
+                for (StringTokenizer tokenizer = new StringTokenizer(nonProxyHosts, "|"); tokenizer.hasMoreTokens(); ) {
+                    String pattern = tokenizer.nextToken();
+                    pattern = pattern.replace(".", "\\.").replace("*", ".*");
+                    patterns.add(Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
+#### Snippet
+```java
+                for (StringTokenizer tokenizer = new StringTokenizer(nonProxyHosts, "|"); tokenizer.hasMoreTokens(); ) {
+                    String pattern = tokenizer.nextToken();
+                    pattern = pattern.replace(".", "\\.").replace("*", ".*");
+                    patterns.add(Pattern.compile(pattern, Pattern.CASE_INSENSITIVE));
+                }
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/artifact/SubArtifact.java`
+#### Snippet
+```java
+        String result = "";
+        if (pattern != null) {
+            result = pattern.replace("*", replacement);
+
+            if (replacement.isEmpty()) {
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.spi.log` is unnecessary, and can be replaced with an import
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultRepositorySystem.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public DefaultRepositorySystem setLoggerFactory(org.eclipse.aether.spi.log.LoggerFactory loggerFactory) {
-        // this.logger = NullLoggerFactory.getSafeLogger( loggerFactory, getClass() );
-        return this;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/AbstractDepthFirstNodeListGenerator.java`
-#### Snippet
-```java
- * <p>
- * Actual vertex ordering (preorder, inorder, postorder) needs to be defined by subclasses through appropriate
- * implementations for {@link #visitEnter(org.eclipse.aether.graph.DependencyNode)} and
- * {@link #visitLeave(org.eclipse.aether.graph.DependencyNode)}
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/AbstractDepthFirstNodeListGenerator.java`
-#### Snippet
-```java
- * Actual vertex ordering (preorder, inorder, postorder) needs to be defined by subclasses through appropriate
- * implementations for {@link #visitEnter(org.eclipse.aether.graph.DependencyNode)} and
- * {@link #visitLeave(org.eclipse.aether.graph.DependencyNode)}
- */
-abstract class AbstractDepthFirstNodeListGenerator implements DependencyVisitor {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.artifact` is unnecessary and can be removed
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/FatArtifactTraverser.java`
-#### Snippet
-```java
-/**
- * A dependency traverser that excludes the dependencies of fat artifacts from the traversal. Fat artifacts are
- * artifacts that have the property {@link org.eclipse.aether.artifact.ArtifactProperties#INCLUDES_DEPENDENCIES} set to
- * {@code true}.
- *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether` is unnecessary and can be removed
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
-#### Snippet
-```java
-
-    /**
-     * The key in the repository session's {@link org.eclipse.aether.RepositorySystemSession#getConfigProperties()
-     * configuration properties} used to store a {@link Boolean} flag controlling the transformer's verbose mode.
-     * Accepted values are {@link Boolean} type, {@link String} type (where "true" would be interpreted as {@code true}
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/JreProxySelector.java`
-#### Snippet
-```java
- * up the proxy configuration from the operating system, see <a
- * href="http://docs.oracle.com/javase/6/docs/technotes/guides/net/proxies.html">Java Networking and Proxies</a> for
- * details. The {@link java.net.Authenticator JRE's global authenticator} is used to look up credentials for a proxy
- * when needed.
- */
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.redisson.api` is unnecessary and can be removed
 in `maven-resolver-named-locks-redisson/src/main/java/org/eclipse/aether/named/redisson/RedissonReadWriteLockNamedLockFactory.java`
@@ -3512,30 +3441,6 @@ in `maven-resolver-named-locks-redisson/src/main/java/org/eclipse/aether/named/r
  * Provider of {@link RedissonSemaphoreNamedLockFactory} using Redisson and {@link org.redisson.api.RSemaphore}.
  */
 @Singleton
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.spi.connector.layout` is unnecessary and can be removed
-in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/layout/RepositoryLayout.java`
-#### Snippet
-```java
-     * The result affects only layout provided checksums. See
-     * {@link org.eclipse.aether.spi.connector.checksum.ChecksumPolicy.ChecksumKind#REMOTE_EXTERNAL}.
-     * On download, the {@link org.eclipse.aether.spi.connector.layout.RepositoryLayout#getChecksumAlgorithmFactories()}
-     * layout required checksums are calculated, and non layout-provided checksums are still utilized.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.spi.connector.checksum` is unnecessary and can be removed
-in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ProvidedChecksumsSource.java`
-#### Snippet
-```java
-/**
- * Component able to provide (expected) checksums to connector beforehand the download happens. Checksum provided by
- * this component are of kind {@link org.eclipse.aether.spi.connector.checksum.ChecksumPolicy.ChecksumKind#PROVIDED}.
- *
- * @since 1.8.0
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3584,6 +3489,18 @@ in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/m
                 return org.apache.maven.resolver.examples.sisu.SisuRepositorySystemFactory.newRepositorySystem();
             default:
                 throw new IllegalArgumentException("Unknown factory: " + factory);
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.spi.log` is unnecessary, and can be replaced with an import
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultRepositorySystem.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public DefaultRepositorySystem setLoggerFactory(org.eclipse.aether.spi.log.LoggerFactory loggerFactory) {
+        // this.logger = NullLoggerFactory.getSafeLogger( loggerFactory, getClass() );
+        return this;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -3695,18 +3612,6 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/transfer/TransferResourc
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/VersionFilter.java`
-#### Snippet
-```java
-     * Filters the available versions for a given dependency. Implementations will usually call
-     * {@link VersionFilterContext#iterator() context.iterator()} to inspect the available versions and use
-     * {@link java.util.Iterator#remove()} to delete unacceptable versions. If no versions remain after all filtering
-     * has been performed, the dependency collection process will automatically fail, i.e. implementations need not
-     * handle this situation on their own.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.eclipse.aether` is unnecessary and can be removed
 in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/VersionFilter.java`
 #### Snippet
@@ -3730,6 +3635,102 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/VersionFilter
  */
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `maven-resolver-api/src/main/java/org/eclipse/aether/collection/VersionFilter.java`
+#### Snippet
+```java
+     * Filters the available versions for a given dependency. Implementations will usually call
+     * {@link VersionFilterContext#iterator() context.iterator()} to inspect the available versions and use
+     * {@link java.util.Iterator#remove()} to delete unacceptable versions. If no versions remain after all filtering
+     * has been performed, the dependency collection process will automatically fail, i.e. implementations need not
+     * handle this situation on their own.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/AbstractDepthFirstNodeListGenerator.java`
+#### Snippet
+```java
+ * <p>
+ * Actual vertex ordering (preorder, inorder, postorder) needs to be defined by subclasses through appropriate
+ * implementations for {@link #visitEnter(org.eclipse.aether.graph.DependencyNode)} and
+ * {@link #visitLeave(org.eclipse.aether.graph.DependencyNode)}
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.graph` is unnecessary and can be removed
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/AbstractDepthFirstNodeListGenerator.java`
+#### Snippet
+```java
+ * Actual vertex ordering (preorder, inorder, postorder) needs to be defined by subclasses through appropriate
+ * implementations for {@link #visitEnter(org.eclipse.aether.graph.DependencyNode)} and
+ * {@link #visitLeave(org.eclipse.aether.graph.DependencyNode)}
+ */
+abstract class AbstractDepthFirstNodeListGenerator implements DependencyVisitor {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.artifact` is unnecessary and can be removed
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/FatArtifactTraverser.java`
+#### Snippet
+```java
+/**
+ * A dependency traverser that excludes the dependencies of fat artifacts from the traversal. Fat artifacts are
+ * artifacts that have the property {@link org.eclipse.aether.artifact.ArtifactProperties#INCLUDES_DEPENDENCIES} set to
+ * {@code true}.
+ *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether` is unnecessary and can be removed
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
+#### Snippet
+```java
+
+    /**
+     * The key in the repository session's {@link org.eclipse.aether.RepositorySystemSession#getConfigProperties()
+     * configuration properties} used to store a {@link Boolean} flag controlling the transformer's verbose mode.
+     * Accepted values are {@link Boolean} type, {@link String} type (where "true" would be interpreted as {@code true}
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.net` is unnecessary and can be removed
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/JreProxySelector.java`
+#### Snippet
+```java
+ * up the proxy configuration from the operating system, see <a
+ * href="http://docs.oracle.com/javase/6/docs/technotes/guides/net/proxies.html">Java Networking and Proxies</a> for
+ * details. The {@link java.net.Authenticator JRE's global authenticator} is used to look up credentials for a proxy
+ * when needed.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.spi.connector.layout` is unnecessary and can be removed
+in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/layout/RepositoryLayout.java`
+#### Snippet
+```java
+     * The result affects only layout provided checksums. See
+     * {@link org.eclipse.aether.spi.connector.checksum.ChecksumPolicy.ChecksumKind#REMOTE_EXTERNAL}.
+     * On download, the {@link org.eclipse.aether.spi.connector.layout.RepositoryLayout#getChecksumAlgorithmFactories()}
+     * layout required checksums are calculated, and non layout-provided checksums are still utilized.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.eclipse.aether.spi.connector.checksum` is unnecessary and can be removed
+in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ProvidedChecksumsSource.java`
+#### Snippet
+```java
+/**
+ * Component able to provide (expected) checksums to connector beforehand the download happens. Checksum provided by
+ * this component are of kind {@link org.eclipse.aether.spi.connector.checksum.ChecksumPolicy.ChecksumKind#PROVIDED}.
+ *
+ * @since 1.8.0
+```
+
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -3744,6 +3745,18 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 ```
 
 ## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
+#### Snippet
+```java
+        if (url != null) {
+            int pos = -1;
+            while ((pos = decoded.indexOf('%', pos + 1)) >= 0) {
+                if (pos + 2 < decoded.length()) {
+                    String hexStr = decoded.substring(pos + 1, pos + 3);
+```
+
 ### NestedAssignment
 Result of assignment expression used
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/filter/PrefixesRemoteRepositoryFilterSource.java`
@@ -3778,18 +3791,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/
                 while ((line = reader.readLine()) != null) {
                     if (!line.startsWith("#") && !line.isEmpty()) {
                         String[] parts = line.split("  ", 2);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
-#### Snippet
-```java
-        if (url != null) {
-            int pos = -1;
-            while ((pos = decoded.indexOf('%', pos + 1)) >= 0) {
-                if (pos + 2 < decoded.length()) {
-                    String hexStr = decoded.substring(pos + 1, pos + 3);
 ```
 
 ### NestedAssignment
@@ -3842,30 +3843,6 @@ in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/ba
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `MessageDigestChecksumAlgorithmFactorySupport()` of an abstract class should not be declared 'public'
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/MessageDigestChecksumAlgorithmFactorySupport.java`
-#### Snippet
-```java
- */
-public abstract class MessageDigestChecksumAlgorithmFactorySupport extends ChecksumAlgorithmFactorySupport {
-    public MessageDigestChecksumAlgorithmFactorySupport(String name, String extension) {
-        super(name, extension);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ChecksumAlgorithmFactorySupport()` of an abstract class should not be declared 'public'
-in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ChecksumAlgorithmFactorySupport.java`
-#### Snippet
-```java
-    private final String fileExtension;
-
-    public ChecksumAlgorithmFactorySupport(String name, String fileExtension) {
-        this.name = requireNonNull(name);
-        this.fileExtension = requireNonNull(fileExtension);
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `RedissonNamedLockFactorySupport()` of an abstract class should not be declared 'public'
 in `maven-resolver-named-locks-redisson/src/main/java/org/eclipse/aether/named/redisson/RedissonNamedLockFactorySupport.java`
 #### Snippet
@@ -3874,6 +3851,18 @@ in `maven-resolver-named-locks-redisson/src/main/java/org/eclipse/aether/named/r
 
     public RedissonNamedLockFactorySupport() {
         this.redissonClient = createRedissonClient();
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `MessageDigestChecksumAlgorithmFactorySupport()` of an abstract class should not be declared 'public'
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/MessageDigestChecksumAlgorithmFactorySupport.java`
+#### Snippet
+```java
+ */
+public abstract class MessageDigestChecksumAlgorithmFactorySupport extends ChecksumAlgorithmFactorySupport {
+    public MessageDigestChecksumAlgorithmFactorySupport(String name, String extension) {
+        super(name, extension);
     }
 ```
 
@@ -3899,6 +3888,18 @@ in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/Na
     public NamedLockFactorySupport() {
         this.locks = new ConcurrentHashMap<>();
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ChecksumAlgorithmFactorySupport()` of an abstract class should not be declared 'public'
+in `maven-resolver-spi/src/main/java/org/eclipse/aether/spi/connector/checksum/ChecksumAlgorithmFactorySupport.java`
+#### Snippet
+```java
+    private final String fileExtension;
+
+    public ChecksumAlgorithmFactorySupport(String name, String fileExtension) {
+        this.name = requireNonNull(name);
+        this.fileExtension = requireNonNull(fileExtension);
 ```
 
 ## RuleId[id=UseOfPropertiesAsHashtable]
@@ -3977,54 +3978,6 @@ in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/htt
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
-#### Snippet
-```java
-    private String scope = "compile";
-
-    private boolean optional = false;
-
-    private String context;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-        private String reference = null;
-
-        private boolean optional = false;
-
-        Definition(String def) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-        private String id = null;
-
-        private String reference = null;
-
-        private boolean optional = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-        private String definition;
-
-        private String id = null;
-
-        private String reference = null;
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Dependency.java`
 #### Snippet
@@ -4048,7 +4001,91 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/LocalMetadata
     /**
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeBuilder.java`
+#### Snippet
+```java
+    private String scope = "compile";
+
+    private boolean optional = false;
+
+    private String context;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+        private String id = null;
+
+        private String reference = null;
+
+        private boolean optional = false;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+        private String reference = null;
+
+        private boolean optional = false;
+
+        Definition(String def) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+        private String definition;
+
+        private String id = null;
+
+        private String reference = null;
+```
+
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `base`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
+#### Snippet
+```java
+            if (path == null || !path.endsWith("/")) {
+                try {
+                    base = new URI(base.getScheme(), base.getAuthority(), base.getPath() + '/', null, null);
+                } catch (URISyntaxException e) {
+                    throw new IllegalStateException(e);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `host`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/SharingAuthCache.java`
+#### Snippet
+```java
+    @Override
+    public AuthScheme get(HttpHost host) {
+        host = toKey(host);
+        AuthScheme authScheme = authSchemes.get(host);
+        if (authScheme == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `spaces`
+in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleTransferListener.java`
+#### Snippet
+```java
+            int n = Math.min(spaces, block.length());
+            buffer.append(block, 0, n);
+            spaces -= n;
+        }
+    }
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `priority`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/PrioritizedComponents.java`
@@ -4206,6 +4243,18 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultAr
 ```
 
 ### AssignmentToMethodParameter
+Assignment to method parameter `exclusions`
+in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Dependency.java`
+#### Snippet
+```java
+        private Exclusions(Collection<Exclusion> exclusions) {
+            if (exclusions.size() > 1 && !(exclusions instanceof Set)) {
+                exclusions = new LinkedHashSet<>(exclusions);
+            }
+            this.exclusions = exclusions.toArray(new Exclusion[0]);
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `dependency`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
 #### Snippet
@@ -4218,102 +4267,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/d
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ChainedDependencyGraphTransformer.java`
-#### Snippet
-```java
-        requireNonNull(context, "context cannot be null");
-        for (DependencyGraphTransformer transformer : transformers) {
-            node = transformer.transformGraph(node, context);
-        }
-        return node;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `depth`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
-#### Snippet
-```java
-            if (depth < minDepth) {
-                minDepth = depth;
-                depth++;
-                for (ConflictId child : children) {
-                    child.pullup(depth);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `depth`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
-#### Snippet
-```java
-        }
-
-        depth++;
-
-        for (DependencyNode child : node.getChildren()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `line`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-
-        if (idx != -1) {
-            line = line.substring(0, idx);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `level`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-
-        entry.setDefinition(defBuilder.toString());
-        entry.setLevel(level++);
-
-        entries.add(entry);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `line`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-
-        if (idx != -1) {
-            line = line.substring(0, idx);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `spaces`
-in `maven-resolver-demos/maven-resolver-demo-snippets/src/main/java/org/apache/maven/resolver/examples/util/ConsoleTransferListener.java`
-#### Snippet
-```java
-            int n = Math.min(spaces, block.length());
-            buffer.append(block, 0, n);
-            spaces -= n;
-        }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `base`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/UriUtils.java`
-#### Snippet
-```java
-            if (path == null || !path.endsWith("/")) {
-                try {
-                    base = new URI(base.getScheme(), base.getAuthority(), base.getPath() + '/', null, null);
-                } catch (URISyntaxException e) {
-                    throw new IllegalStateException(e);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `e`
 in `maven-resolver-transport-wagon/src/main/java/org/eclipse/aether/transport/wagon/WagonCancelledException.java`
 #### Snippet
@@ -4323,30 +4276,6 @@ in `maven-resolver-transport-wagon/src/main/java/org/eclipse/aether/transport/wa
             e = (Exception) e.getCause();
         }
         return e;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `host`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/SharingAuthCache.java`
-#### Snippet
-```java
-    @Override
-    public AuthScheme get(HttpHost host) {
-        host = toKey(host);
-        AuthScheme authScheme = authSchemes.get(host);
-        if (authScheme == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `exclusions`
-in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Dependency.java`
-#### Snippet
-```java
-        private Exclusions(Collection<Exclusion> exclusions) {
-            if (exclusions.size() > 1 && !(exclusions instanceof Set)) {
-                exclusions = new LinkedHashSet<>(exclusions);
-            }
-            this.exclusions = exclusions.toArray(new Exclusion[0]);
 ```
 
 ### AssignmentToMethodParameter
@@ -4397,7 +4326,188 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/Authenticatio
             }
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `line`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+
+        if (idx != -1) {
+            line = line.substring(0, idx);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `line`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+
+        if (idx != -1) {
+            line = line.substring(0, idx);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `level`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
+#### Snippet
+```java
+
+        entry.setDefinition(defBuilder.toString());
+        entry.setLevel(level++);
+
+        entries.add(entry);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ChainedDependencyGraphTransformer.java`
+#### Snippet
+```java
+        requireNonNull(context, "context cannot be null");
+        for (DependencyGraphTransformer transformer : transformers) {
+            node = transformer.transformGraph(node, context);
+        }
+        return node;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `depth`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
+#### Snippet
+```java
+        }
+
+        depth++;
+
+        for (DependencyNode child : node.getChildren()) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `depth`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictIdSorter.java`
+#### Snippet
+```java
+            if (depth < minDepth) {
+                minDepth = depth;
+                depth++;
+                for (ConflictId child : children) {
+                    child.pullup(depth);
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-04-52-54.223.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/XChecksumChecksumExtractor.java`
+#### Snippet
+```java
+        }
+
+        return result.isEmpty() ? null : result;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/XChecksumChecksumExtractor.java`
+#### Snippet
+```java
+    private String extractChecksum(HttpResponse response, String name) {
+        Header header = response.getFirstHeader(name);
+        return header != null ? header.getValue() : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/Nexus2ChecksumExtractor.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/SharingHttpContext.java`
+#### Snippet
+```java
+        if (HttpClientContext.USER_TOKEN.equals(id)) {
+            state.setUserToken(null);
+            return null;
+        }
+        return super.removeAttribute(id);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/LocalState.java`
+#### Snippet
+```java
+            return pool.get();
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/ConnMgrConfig.java`
+#### Snippet
+```java
+    private static String[] split(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        }
+        return value.split(",+");
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/DeferredCredentialsProvider.java`
+#### Snippet
+```java
+            String username = authContext.get(AuthenticationContext.USERNAME);
+            if (username == null) {
+                return null;
+            }
+            String password = authContext.get(AuthenticationContext.PASSWORD);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/DeferredCredentialsProvider.java`
+#### Snippet
+```java
+            String username = authContext.get(AuthenticationContext.USERNAME);
+            if (username == null) {
+                return null;
+            }
+            String password = authContext.get(AuthenticationContext.PASSWORD);
+```
+
 ### ReturnNull
 Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/DefaultTrackingFileManager.java`
@@ -4415,10 +4525,10 @@ Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/impl/DefaultServiceLocator.java`
 #### Snippet
 ```java
-    public <T> T getService(Class<T> type) {
-        Entry<T> entry = getEntry(type, false);
-        return (entry != null) ? entry.getInstance() : null;
-    }
+        public T getInstance() {
+            List<T> instances = getInstances();
+            return instances.isEmpty() ? null : instances.get(0);
+        }
 
 ```
 
@@ -4451,10 +4561,10 @@ Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/impl/DefaultServiceLocator.java`
 #### Snippet
 ```java
-        public T getInstance() {
-            List<T> instances = getInstances();
-            return instances.isEmpty() ? null : instances.get(0);
-        }
+    public <T> T getService(Class<T> type) {
+        Entry<T> entry = getEntry(type, false);
+        return (entry != null) ? entry.getInstance() : null;
+    }
 
 ```
 
@@ -4499,7 +4609,7 @@ Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/LocalPathPrefixComposerFactorySupport.java`
 #### Snippet
 ```java
-        public String getPathPrefixForLocalArtifact(Artifact artifact) {
+        public String getPathPrefixForLocalMetadata(Metadata metadata) {
             if (!split) {
                 return null;
             }
@@ -4511,7 +4621,7 @@ Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/LocalPathPrefixComposerFactorySupport.java`
 #### Snippet
 ```java
-        public String getPathPrefixForLocalMetadata(Metadata metadata) {
+        public String getPathPrefixForLocalArtifact(Artifact artifact) {
             if (!split) {
                 return null;
             }
@@ -4568,18 +4678,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/C
 
 ### ReturnNull
 Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/filter/DefaultRemoteRepositoryFilterManager.java`
-#### Snippet
-```java
-                return new Participants(filters);
-            } else {
-                return null;
-            }
-        });
-```
-
-### ReturnNull
-Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/filter/GroupIdRemoteRepositoryFilterSource.java`
 #### Snippet
 ```java
@@ -4592,10 +4690,58 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/filter/Gr
 
 ### ReturnNull
 Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/filter/DefaultRemoteRepositoryFilterManager.java`
+#### Snippet
+```java
+                return new Participants(filters);
+            } else {
+                return null;
+            }
+        });
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
+#### Snippet
+```java
+        public V get(K key) {
+            WeakReference<V> ref = map.get(key);
+            return ref != null ? ref.get() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
+#### Snippet
+```java
+            return constraint.toResult(request);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
+#### Snippet
+```java
+            return descriptor.toResult(request);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/FileTrustedChecksumsSourceSupport.java`
 #### Snippet
 ```java
-                    doGetTrustedArtifactChecksums(session, artifact, artifactRepository, checksumAlgorithmFactories));
+            return doGetTrustedArtifactChecksumsWriter(session);
         }
         return null;
     }
@@ -4619,46 +4765,10 @@ Return of `null`
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/FileTrustedChecksumsSourceSupport.java`
 #### Snippet
 ```java
-            return doGetTrustedArtifactChecksumsWriter(session);
+                    doGetTrustedArtifactChecksums(session, artifact, artifactRepository, checksumAlgorithmFactories));
         }
         return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
-#### Snippet
-```java
-            return descriptor.toResult(request);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
-#### Snippet
-```java
-            return constraint.toResult(request);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/DataPool.java`
-#### Snippet
-```java
-        public V get(K key) {
-            WeakReference<V> ref = map.get(key);
-            return ref != null ? ref.get() : null;
-        }
 
 ```
 
@@ -4672,414 +4782,6 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/checksum/
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/BfDependencyCollector.java`
-#### Snippet
-```java
-                results.addException(context.dependency, e, context.parents);
-                pool.putDescriptor(key, e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/BfDependencyCollector.java`
-#### Snippet
-```java
-
-        } else if (descriptorResult == DataPool.NO_DESCRIPTOR) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/NoopDependencyManager.java`
-#### Snippet
-```java
-    public DependencyManagement manageDependency(Dependency dependency) {
-        requireNonNull(dependency, "dependency cannot be null");
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-    public static Boolean getPremanagedOptional(DependencyNode node) {
-        if ((node.getManagedBits() & DependencyNode.MANAGED_OPTIONAL) == 0) {
-            return null;
-        }
-        return cast(node.getData().get(NODE_DATA_PREMANAGED_OPTIONAL), Boolean.class);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-    public static Map<String, String> getPremanagedProperties(DependencyNode node) {
-        if ((node.getManagedBits() & DependencyNode.MANAGED_PROPERTIES) == 0) {
-            return null;
-        }
-        return cast(node.getData().get(NODE_DATA_PREMANAGED_PROPERTIES), Map.class);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-    public static String getPremanagedScope(DependencyNode node) {
-        if ((node.getManagedBits() & DependencyNode.MANAGED_SCOPE) == 0) {
-            return null;
-        }
-        return cast(node.getData().get(NODE_DATA_PREMANAGED_SCOPE), String.class);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-
-    private static <T> T cast(Object obj, Class<T> type) {
-        return type.isInstance(obj) ? type.cast(obj) : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-    public static String getPremanagedVersion(DependencyNode node) {
-        if ((node.getManagedBits() & DependencyNode.MANAGED_VERSION) == 0) {
-            return null;
-        }
-        return cast(node.getData().get(NODE_DATA_PREMANAGED_VERSION), String.class);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
-#### Snippet
-```java
-    public static Collection<Exclusion> getPremanagedExclusions(DependencyNode node) {
-        if ((node.getManagedBits() & DependencyNode.MANAGED_EXCLUSIONS) == 0) {
-            return null;
-        }
-        return cast(node.getData().get(NODE_DATA_PREMANAGED_EXCLUSIONS), Collection.class);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ContextualSnapshotVersionFilter.java`
-#### Snippet
-```java
-            if (artifact.isSnapshot()) {
-                // root is a snapshot, allow snapshots all the way down
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/Stack.java`
-#### Snippet
-```java
-    public E peek() {
-        if (size <= 0) {
-            return null;
-        }
-        return elements[size - 1];
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
-#### Snippet
-```java
-            int count = filters.length - removed;
-            if (count <= 0) {
-                return null;
-            }
-            if (count == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
-#### Snippet
-```java
-        if (filters.length <= 1) {
-            if (filters.length <= 0) {
-                return null;
-            }
-            return filters[0];
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
-#### Snippet
-```java
-        if (filters.size() <= 1) {
-            if (filters.isEmpty()) {
-                return null;
-            }
-            return filters.iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/AndDependencySelector.java`
-#### Snippet
-```java
-        if (childSelectors.size() <= 1) {
-            if (childSelectors.isEmpty()) {
-                return null;
-            }
-            return childSelectors.iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
-#### Snippet
-```java
-                results.addException(d, e, args.nodes.nodes);
-                pool.putDescriptor(key, e);
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
-#### Snippet
-```java
-
-        } else if (descriptorResult == DataPool.NO_DESCRIPTOR) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/AndDependencyTraverser.java`
-#### Snippet
-```java
-        if (childTraversers.size() <= 1) {
-            if (childTraversers.isEmpty()) {
-                return null;
-            }
-            return childTraversers.iterator().next();
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/JavaDependencyContextRefiner.java`
-#### Snippet
-```java
-        Dependency dependency = node.getDependency();
-        if (dependency == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/JavaDependencyContextRefiner.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
-#### Snippet
-```java
-
-        private String scope(Dependency dependency) {
-            return (dependency != null) ? dependency.getScope() : null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
-#### Snippet
-```java
-        private DependencyNode parent() {
-            int size = parentNodes.size();
-            return (size <= 0) ? null : parentNodes.get(size - 1);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
-#### Snippet
-```java
-        }
-
-        return (proxy != null) ? proxy.proxy : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/JreProxySelector.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/AuthenticationBuilder.java`
-#### Snippet
-```java
-    public Authentication build() {
-        if (authentications.isEmpty()) {
-            return null;
-        }
-        if (authentications.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/SecretAuthentication.java`
-#### Snippet
-```java
-
-    private static char[] copy(char[] chars) {
-        return (chars != null) ? chars.clone() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultMirrorSelector.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultMirrorSelector.java`
-#### Snippet
-```java
-
-        if (mirror == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-    private Artifact relocation(List<String> list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        String coords = list.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/ChecksumCalculator.java`
-#### Snippet
-```java
-            File targetFile, Collection<ChecksumAlgorithmFactory> checksumAlgorithmFactories) {
-        if (checksumAlgorithmFactories == null || checksumAlgorithmFactories.isEmpty()) {
-            return null;
-        }
-        return new ChecksumCalculator(targetFile, checksumAlgorithmFactories);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/ChecksumValidator.java`
-#### Snippet
-```java
-            return ChecksumCalculator.newInstance(targetFile, checksumAlgorithmFactories);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/XChecksumChecksumExtractor.java`
-#### Snippet
-```java
-    private String extractChecksum(HttpResponse response, String name) {
-        Header header = response.getFirstHeader(name);
-        return header != null ? header.getValue() : null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/XChecksumChecksumExtractor.java`
-#### Snippet
-```java
-        }
-
-        return result.isEmpty() ? null : result;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/providers/FileLockNamedLockFactory.java`
-#### Snippet
-```java
-                                }
-                            } catch (AccessDeniedException e) {
-                                return null;
-                            }
-                        },
 ```
 
 ### ReturnNull
@@ -5156,74 +4858,14 @@ in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/Fi
 
 ### ReturnNull
 Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/SharingHttpContext.java`
+in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/providers/FileLockNamedLockFactory.java`
 #### Snippet
 ```java
-        if (HttpClientContext.USER_TOKEN.equals(id)) {
-            state.setUserToken(null);
-            return null;
-        }
-        return super.removeAttribute(id);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/DeferredCredentialsProvider.java`
-#### Snippet
-```java
-            String username = authContext.get(AuthenticationContext.USERNAME);
-            if (username == null) {
-                return null;
-            }
-            String password = authContext.get(AuthenticationContext.PASSWORD);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/DeferredCredentialsProvider.java`
-#### Snippet
-```java
-            String username = authContext.get(AuthenticationContext.USERNAME);
-            if (username == null) {
-                return null;
-            }
-            String password = authContext.get(AuthenticationContext.PASSWORD);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/Nexus2ChecksumExtractor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/LocalState.java`
-#### Snippet
-```java
-            return pool.get();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/ConnMgrConfig.java`
-#### Snippet
-```java
-    private static String[] split(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
-        return value.split(",+");
+                                }
+                            } catch (AccessDeniedException e) {
+                                return null;
+                            }
+                        },
 ```
 
 ### ReturnNull
@@ -5255,8 +4897,8 @@ Return of `null`
 in `maven-resolver-api/src/main/java/org/eclipse/aether/DefaultRepositorySystemSession.java`
 #### Snippet
 ```java
-        public RemoteRepository getMirror(RemoteRepository repository) {
-            requireNonNull(repository, "repository cannot be null");
+
+        public ArtifactType get(String typeId) {
             return null;
         }
     }
@@ -5267,8 +4909,8 @@ Return of `null`
 in `maven-resolver-api/src/main/java/org/eclipse/aether/DefaultRepositorySystemSession.java`
 #### Snippet
 ```java
-
-        public ArtifactType get(String typeId) {
+        public RemoteRepository getMirror(RemoteRepository repository) {
+            requireNonNull(repository, "repository cannot be null");
             return null;
         }
     }
@@ -5283,6 +4925,54 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/transfer/TransferEvent.j
     public ByteBuffer getDataBuffer() {
         return (dataBuffer != null) ? dataBuffer.asReadOnlyBuffer() : null;
     }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/BfDependencyCollector.java`
+#### Snippet
+```java
+                results.addException(context.dependency, e, context.parents);
+                pool.putDescriptor(key, e);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/bf/BfDependencyCollector.java`
+#### Snippet
+```java
+
+        } else if (descriptorResult == DataPool.NO_DESCRIPTOR) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
+#### Snippet
+```java
+                results.addException(d, e, args.nodes.nodes);
+                pool.putDescriptor(key, e);
+                return null;
+            }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/collect/df/DfDependencyCollector.java`
+#### Snippet
+```java
+
+        } else if (descriptorResult == DataPool.NO_DESCRIPTOR) {
+            return null;
+        }
 
 ```
 
@@ -5308,30 +4998,6 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/VersionRangeR
             return null;
         }
         return versions.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
-#### Snippet
-```java
-    public static String toHexString(byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
-#### Snippet
-```java
-    public static byte[] fromHexString(String hexString) {
-        if (hexString == null) {
-            return null;
-        }
-        if (hexString.isEmpty()) {
 ```
 
 ### ReturnNull
@@ -5363,6 +5029,18 @@ Return of `null`
 in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/ArtifactResolutionException.java`
 #### Snippet
 ```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/ArtifactResolutionException.java`
+#### Snippet
+```java
      */
     public ArtifactResult getResult() {
         return (results != null && !results.isEmpty()) ? results.get(0) : null;
@@ -5372,27 +5050,350 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/ArtifactResol
 
 ### ReturnNull
 Return of `null`
-in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/ArtifactResolutionException.java`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/NoopDependencyManager.java`
+#### Snippet
+```java
+    public DependencyManagement manageDependency(Dependency dependency) {
+        requireNonNull(dependency, "dependency cannot be null");
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
+#### Snippet
+```java
+    private Artifact relocation(List<String> list) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        String coords = list.get(0);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ContextualSnapshotVersionFilter.java`
+#### Snippet
+```java
+            if (artifact.isSnapshot()) {
+                // root is a snapshot, allow snapshots all the way down
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+    public static Boolean getPremanagedOptional(DependencyNode node) {
+        if ((node.getManagedBits() & DependencyNode.MANAGED_OPTIONAL) == 0) {
+            return null;
+        }
+        return cast(node.getData().get(NODE_DATA_PREMANAGED_OPTIONAL), Boolean.class);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+    public static String getPremanagedVersion(DependencyNode node) {
+        if ((node.getManagedBits() & DependencyNode.MANAGED_VERSION) == 0) {
+            return null;
+        }
+        return cast(node.getData().get(NODE_DATA_PREMANAGED_VERSION), String.class);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+    public static Map<String, String> getPremanagedProperties(DependencyNode node) {
+        if ((node.getManagedBits() & DependencyNode.MANAGED_PROPERTIES) == 0) {
+            return null;
+        }
+        return cast(node.getData().get(NODE_DATA_PREMANAGED_PROPERTIES), Map.class);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+    public static Collection<Exclusion> getPremanagedExclusions(DependencyNode node) {
+        if ((node.getManagedBits() & DependencyNode.MANAGED_EXCLUSIONS) == 0) {
+            return null;
+        }
+        return cast(node.getData().get(NODE_DATA_PREMANAGED_EXCLUSIONS), Collection.class);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+
+    private static <T> T cast(Object obj, Class<T> type) {
+        return type.isInstance(obj) ? type.cast(obj) : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/manager/DependencyManagerUtils.java`
+#### Snippet
+```java
+    public static String getPremanagedScope(DependencyNode node) {
+        if ((node.getManagedBits() & DependencyNode.MANAGED_SCOPE) == 0) {
+            return null;
+        }
+        return cast(node.getData().get(NODE_DATA_PREMANAGED_SCOPE), String.class);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/visitor/Stack.java`
+#### Snippet
+```java
+    public E peek() {
+        if (size <= 0) {
+            return null;
+        }
+        return elements[size - 1];
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
+#### Snippet
+```java
+        if (filters.size() <= 1) {
+            if (filters.isEmpty()) {
+                return null;
+            }
+            return filters.iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
+#### Snippet
+```java
+            int count = filters.length - removed;
+            if (count <= 0) {
+                return null;
+            }
+            if (count == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/version/ChainedVersionFilter.java`
+#### Snippet
+```java
+        if (filters.length <= 1) {
+            if (filters.length <= 0) {
+                return null;
+            }
+            return filters[0];
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/AndDependencySelector.java`
+#### Snippet
+```java
+        if (childSelectors.size() <= 1) {
+            if (childSelectors.isEmpty()) {
+                return null;
+            }
+            return childSelectors.iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/traverser/AndDependencyTraverser.java`
+#### Snippet
+```java
+        if (childTraversers.size() <= 1) {
+            if (childTraversers.isEmpty()) {
+                return null;
+            }
+            return childTraversers.iterator().next();
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/JavaDependencyContextRefiner.java`
+#### Snippet
+```java
+        Dependency dependency = node.getDependency();
+        if (dependency == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/JavaDependencyContextRefiner.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
+#### Snippet
+```java
+        private DependencyNode parent() {
+            int size = parentNodes.size();
+            return (size <= 0) ? null : parentNodes.get(size - 1);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
+#### Snippet
+```java
+
+        private String scope(Dependency dependency) {
+            return (dependency != null) ? dependency.getScope() : null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
+#### Snippet
+```java
+    public static byte[] fromHexString(String hexString) {
+        if (hexString == null) {
+            return null;
+        }
+        if (hexString.isEmpty()) {
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
+#### Snippet
+```java
+    public static String toHexString(byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/AuthenticationBuilder.java`
+#### Snippet
+```java
+    public Authentication build() {
+        if (authentications.isEmpty()) {
+            return null;
+        }
+        if (authentications.size() == 1) {
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
+#### Snippet
+```java
+        }
+
+        return (proxy != null) ? proxy.proxy : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/SecretAuthentication.java`
+#### Snippet
+```java
+
+    private static char[] copy(char[] chars) {
+        return (chars != null) ? chars.clone() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/JreProxySelector.java`
 #### Snippet
 ```java
             }
         }
         return null;
     }
-}
+
 ```
 
-## RuleId[id=AssignmentToLambdaParameter]
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `v`
-in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/NamedLockFactorySupport.java`
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultMirrorSelector.java`
 #### Snippet
 ```java
-        return locks.compute(name, (k, v) -> {
-                    if (v == null) {
-                        v = new NamedLockHolder(createLock(k));
-                    }
-                    v.incRef();
+
+        if (mirror == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultMirrorSelector.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/ChecksumCalculator.java`
+#### Snippet
+```java
+            File targetFile, Collection<ChecksumAlgorithmFactory> checksumAlgorithmFactories) {
+        if (checksumAlgorithmFactories == null || checksumAlgorithmFactories.isEmpty()) {
+            return null;
+        }
+        return new ChecksumCalculator(targetFile, checksumAlgorithmFactories);
+```
+
+### ReturnNull
+Return of `null`
+in `maven-resolver-connector-basic/src/main/java/org/eclipse/aether/connector/basic/ChecksumValidator.java`
+#### Snippet
+```java
+            return ChecksumCalculator.newInstance(targetFile, checksumAlgorithmFactories);
+        }
+        return null;
+    }
+
 ```
 
 ## RuleId[id=ArrayEquality]
@@ -5408,20 +5409,32 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/Exc
         }
 ```
 
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/GlobalState.java`
+## RuleId[id=AssignmentToLambdaParameter]
+### AssignmentToLambdaParameter
+Assignment to lambda parameter `v`
+in `maven-resolver-named-locks/src/main/java/org/eclipse/aether/named/support/NamedLockFactorySupport.java`
 #### Snippet
 ```java
-                cache = (GlobalState) tmp;
-            } else {
-                synchronized (GlobalState.class) {
-                    tmp = repoCache.get(session, KEY);
-                    if (tmp instanceof GlobalState) {
+        return locks.compute(name, (k, v) -> {
+                    if (v == null) {
+                        v = new NamedLockHolder(createLock(k));
+                    }
+                    v.incRef();
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/HttpTransporter.java`
+#### Snippet
+```java
+            HttpEntity entity = response.getEntity();
+            if (entity == null) {
+                entity = new ByteArrayEntity(new byte[0]);
+            }
+
+```
+
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
 in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/PrioritizedComponents.java`
@@ -5430,6 +5443,30 @@ in `maven-resolver-impl/src/main/java/org/eclipse/aether/internal/impl/Prioritiz
             keys.add(ConfigurationProperties.PREFIX_PRIORITY + sn.substring(0, sn.length() - FACTORY_SUFFIX.length()));
         }
         return keys.toArray(new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Dependency.java`
+#### Snippet
+```java
+                exclusions = new LinkedHashSet<>(exclusions);
+            }
+            this.exclusions = exclusions.toArray(new Exclusion[0]);
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/RemoteRepository.java`
+#### Snippet
+```java
+            return Collections.emptyList();
+        }
+        return Collections.unmodifiableList(Arrays.asList(repos.toArray(new RemoteRepository[0])));
     }
 
 ```
@@ -5496,26 +5533,14 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/selector/Exc
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
 #### Snippet
 ```java
-                }
-            }
-            this.patterns = patterns.toArray(new Pattern[0]);
         }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ChainedAuthentication.java`
-#### Snippet
-```java
-            this.authentications = authentications.clone();
-        } else {
-            this.authentications = new Authentication[0];
+        if (hexString.isEmpty()) {
+            return new byte[] {};
         }
-    }
+        int len = hexString.length();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -5544,53 +5569,114 @@ in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/Chained
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `maven-resolver-api/src/main/java/org/eclipse/aether/graph/Dependency.java`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/ChainedAuthentication.java`
 #### Snippet
 ```java
-                exclusions = new LinkedHashSet<>(exclusions);
-            }
-            this.exclusions = exclusions.toArray(new Exclusion[0]);
+            this.authentications = authentications.clone();
+        } else {
+            this.authentications = new Authentication[0];
         }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/HttpTransporter.java`
-#### Snippet
-```java
-            HttpEntity entity = response.getEntity();
-            if (entity == null) {
-                entity = new ByteArrayEntity(new byte[0]);
-            }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `maven-resolver-api/src/main/java/org/eclipse/aether/repository/RemoteRepository.java`
-#### Snippet
-```java
-            return Collections.emptyList();
-        }
-        return Collections.unmodifiableList(Arrays.asList(repos.toArray(new RemoteRepository[0])));
     }
-
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/ChecksumUtils.java`
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/repository/DefaultProxySelector.java`
 #### Snippet
 ```java
+                }
+            }
+            this.patterns = patterns.toArray(new Pattern[0]);
         }
-        if (hexString.isEmpty()) {
-            return new byte[] {};
-        }
-        int len = hexString.length();
+
+```
+
+## RuleId[id=SynchronizeOnThis]
+### SynchronizeOnThis
+Lock operations on a class may have unforeseen side-effects
+in `maven-resolver-transport-http/src/main/java/org/eclipse/aether/transport/http/GlobalState.java`
+#### Snippet
+```java
+                cache = (GlobalState) tmp;
+            } else {
+                synchronized (GlobalState.class) {
+                    tmp = repoCache.get(session, KEY);
+                    if (tmp instanceof GlobalState) {
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+
+    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+
+    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+
+    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+
+    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String RELOCATIONS = "relocations\\s*=\\s*(" + COORDS_NC + "(?:\\s*,\\s*" + COORDS_NC + ")*)";
+
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+```
+
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
+#### Snippet
+```java
+    static final String RELOCATIONS = "relocations\\s*=\\s*(" + COORDS_NC + "(?:\\s*,\\s*" + COORDS_NC + ")*)";
+
+    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
+
+    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
+```
+
 ### RegExpUnnecessaryNonCapturingGroup
 Unnecessary non-capturing group `(?:\^([-_a-zA-Z0-9]+))`
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
@@ -5613,78 +5699,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
     static final String LINE = "(?:" + IDREF + ")|(?:" + NODE + ")";
 
     private static final Pattern PATTERN = Pattern.compile(LINE);
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String RELOCATIONS = "relocations\\s*=\\s*(" + COORDS_NC + "(?:\\s*,\\s*" + COORDS_NC + ")*)";
-
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String RELOCATIONS = "relocations\\s*=\\s*(" + COORDS_NC + "(?:\\s*,\\s*" + COORDS_NC + ")*)";
-
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-
-    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-
-    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]+)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-
-    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
-```
-
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:[-_a-zA-Z0-9]*)`
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/NodeDefinition.java`
-#### Snippet
-```java
-    static final String KEY_VAL = "(?:[-_a-zA-Z0-9]+)\\s*:\\s*(?:[-_a-zA-Z0-9]*)";
-
-    static final String PROPS = "props\\s*=\\s*(" + KEY_VAL + "(?:\\s*,\\s*" + KEY_VAL + ")*)";
-
-    static final String COORDSX = "(" + COORDS_NC + ")" + RANGE + "?(?:<((?:" + RANGE_NC + ")|\\S+))?";
 ```
 
 ### RegExpUnnecessaryNonCapturingGroup
@@ -5725,6 +5739,18 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `retValue` initializer `null` is redundant
+in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
+#### Snippet
+```java
+        String protocol = PathUtils.protocol(url);
+
+        String retValue = null;
+
+        if (protocol.length() > 0) {
+```
+
+### UnusedAssignment
 Variable `canonDir` initializer `null` is redundant
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestFileProcessor.java`
 #### Snippet
@@ -5761,15 +5787,15 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
 ```
 
 ### UnusedAssignment
-Variable `retValue` initializer `null` is redundant
-in `maven-resolver-transport-file/src/main/java/org/eclipse/aether/transport/file/PathUtils.java`
+Variable `line` initializer `null` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
 #### Snippet
 ```java
-        String protocol = PathUtils.protocol(url);
 
-        String retValue = null;
+    private ArtifactDescription parse(Reader reader) throws IOException {
+        String line = null;
 
-        if (protocol.length() > 0) {
+        State state = State.NONE;
 ```
 
 ### UnusedAssignment
@@ -5786,18 +5812,6 @@ class IniArtifactDataReader {
 
 ### UnusedAssignment
 Variable `line` initializer `null` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/IniArtifactDataReader.java`
-#### Snippet
-```java
-
-    private ArtifactDescription parse(Reader reader) throws IOException {
-        String line = null;
-
-        State state = State.NONE;
-```
-
-### UnusedAssignment
-Variable `line` initializer `null` is redundant
 in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
 #### Snippet
 ```java
@@ -5806,18 +5820,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
         String line = null;
 
         DependencyNode root = null;
-```
-
-### UnusedAssignment
-Variable `root` initializer `null` is redundant
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
-#### Snippet
-```java
-
-        List<DependencyNode> ret = new ArrayList<>();
-        DependencyNode root = null;
-        while ((root = parse(reader)) != null) {
-            ret.add(root);
 ```
 
 ### UnusedAssignment
@@ -5832,17 +5834,29 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
             } catch (final IOException e) {
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Value `parent` is always 'null'
-in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
+### UnusedAssignment
+Variable `root` initializer `null` is redundant
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/DependencyGraphParser.java`
 #### Snippet
 ```java
-            DependencyNode parent = parent();
-            if (parent == null) {
-                ConflictItem item = newConflictItem(parent, node);
-                items.add(item);
-            } else {
+
+        List<DependencyNode> ret = new ArrayList<>();
+        DependencyNode root = null;
+        while ((root = parse(reader)) != null) {
+            ret.add(root);
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `version == null` is always `false` when reached
+in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersion.java`
+#### Snippet
+```java
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((version == null) ? 0 : version.hashCode());
+        return result;
+    }
 ```
 
 ### ConstantValue
@@ -5855,18 +5869,6 @@ in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util
         if (version == null) {
             if (other.version != null) {
                 return false;
-```
-
-### ConstantValue
-Condition `version == null` is always `false` when reached
-in `maven-resolver-test-util/src/main/java/org/eclipse/aether/internal/test/util/TestVersion.java`
-#### Snippet
-```java
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((version == null) ? 0 : version.hashCode());
-        return result;
-    }
 ```
 
 ### ConstantValue
@@ -5891,5 +5893,17 @@ in `maven-resolver-api/src/main/java/org/eclipse/aether/resolution/ArtifactResol
         this.results = (results != null) ? results : Collections.<ArtifactResult>emptyList();
     }
 
+```
+
+### ConstantValue
+Value `parent` is always 'null'
+in `maven-resolver-util/src/main/java/org/eclipse/aether/util/graph/transformer/ConflictResolver.java`
+#### Snippet
+```java
+            DependencyNode parent = parent();
+            if (parent == null) {
+                ConflictItem item = newConflictItem(parent, node);
+                items.add(item);
+            } else {
 ```
 
