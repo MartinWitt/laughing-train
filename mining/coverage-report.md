@@ -1,7 +1,7 @@
 # coverage-report 
  
 # Bad smells
-I found 43 bad smells with 9 repairable:
+I found 42 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 8 | false |
@@ -23,8 +23,7 @@ I found 43 bad smells with 9 repairable:
 | ManualMinMaxCalculation | 1 | false |
 | ConstantValue | 1 | false |
 | RedundantSuppression | 1 | false |
-| CastCanBeRemovedNarrowingVariableType | 1 | false |
-## RuleId[ruleID=SystemOutErr]
+## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
 in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
@@ -49,19 +48,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/fs/ZipFileSystem.java
         @Override
 ```
 
-## RuleId[ruleID=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
-#### Snippet
-```java
-  }
-
-  private static interface Selector {
-    StatEntry compute(@NotNull CoverageStatistics stat);
-  }
-```
-
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
 in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
@@ -74,7 +61,19 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
   }
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
+#### Snippet
+```java
+  }
+
+  private static interface Selector {
+    StatEntry compute(@NotNull CoverageStatistics stat);
+  }
+```
+
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `IOUtil` has only 'static' members, and lacks a 'private' constructor
 in `report-builder/src/jetbrains/coverage/report/impl/IOUtil.java`
@@ -85,18 +84,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/IOUtil.java`
 public class IOUtil {
   /**
    * Creates directory if it does not exist. Throws runtime exception if directory creation was not successful.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
-#### Snippet
-```java
- * Factory for report builder classes
- */
-public class ReportBuilderFactory {
-  /**
-   * Creates new HTML report builder
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -111,7 +98,19 @@ public class StringUtil {
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+### UtilityClassWithoutPrivateConstructor
+Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
+#### Snippet
+```java
+ * Factory for report builder classes
+ */
+public class ReportBuilderFactory {
+  /**
+   * Creates new HTML report builder
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `jetbrains.coverage.report.impl` is unnecessary, and can be replaced with an import
 in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
@@ -124,20 +123,20 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
 
 ```
 
-## RuleId[ruleID=DataFlowIssue]
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getStatus` may produce `NullPointerException`
 in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java`
 #### Snippet
 ```java
-    for (Object m: myClassData.getMethodSigs()) {
+    for (String m: myClassData.getMethodSigs()) {
       total++;
-      Integer status = myClassData.getStatus((String) m);
+      Integer status = myClassData.getStatus(m);
       if (isCovered(status)) {
         covered++;
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import jetbrains.coverage.report.impl.html.fs.*;`
 in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateProcessorBase.java`
@@ -150,7 +149,7 @@ import org.jetbrains.annotations.NotNull;
 
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `report-builder/src/jetbrains/coverage/report/impl/html/MapToSet.java`
@@ -175,7 +174,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/IOUtil.java`
       total += count;
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
@@ -200,7 +199,7 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
     }
 ```
 
-## RuleId[ruleID=NonProtectedConstructorInAbstractClass]
+## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `JavaClassInfo()` of an abstract class should not be declared 'public'
 in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
@@ -213,7 +212,7 @@ in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
     int lastDot = fqClassName.lastIndexOf(".");
 ```
 
-## RuleId[ruleID=DuplicateBranchesInSwitch]
+## RuleId[id=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java`
@@ -226,19 +225,7 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java
     return false;
 ```
 
-## RuleId[ruleID=ReturnNull]
-### ReturnNull
-Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
-    public StatEntry getBlockStats() {
-      return null;
-    }
-
-```
-
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
@@ -281,6 +268,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
+    public StatEntry getBlockStats() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+
     public StatEntry getLineStats() {
       return null;
     }
@@ -299,7 +298,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 }
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `myName.length() == 0` can be replaced with 'myName.isEmpty()'
 in `report-builder/src/jetbrains/coverage/report/impl/html/ModuleInfo.java`
@@ -336,20 +335,7 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
       if (isInnerClass(className)) continue;
 ```
 
-## RuleId[ruleID=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
-#### Snippet
-```java
-          addLine = true;
-          Character next = charAtOrNull(i+1, text);
-          if (next != null && next == '\n') i++;
-          break;
-        case '\n':
-```
-
-## RuleId[ruleID=DoubleBraceInitialization]
+## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
 in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
@@ -374,7 +360,20 @@ in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 
 ```
 
-## RuleId[ruleID=ManualMinMaxCalculation]
+## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
+#### Snippet
+```java
+          addLine = true;
+          Character next = charAtOrNull(i+1, text);
+          if (next != null && next == '\n') i++;
+          break;
+        case '\n':
+```
+
+## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
 in `report-builder/src/jetbrains/coverage/report/DiffEntry.java`
@@ -387,7 +386,7 @@ in `report-builder/src/jetbrains/coverage/report/DiffEntry.java`
 
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends T`
 in `report-builder/src/jetbrains/coverage/report/impl/html/BaseGenerator.java`
@@ -419,9 +418,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```java
   }
 
-  private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
-    MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
-    for (ClassInfo cd: coverageData) {
+  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
+    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
+    for (ClassInfo info : coverageData) {
 ```
 
 ### BoundedWildcard
@@ -443,21 +442,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```java
   }
 
-  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
-    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
-    for (ClassInfo info : coverageData) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClassData`
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java`
-#### Snippet
-```java
-                               @NotNull final String className,
-                               @Nullable final ClassData classData,
-                               @NotNull final Collection<ClassData> innerClasses) {
-    super(className);
-    myProjectData = projectData;
+  private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
+    MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
+    for (ClassInfo cd: coverageData) {
 ```
 
 ### BoundedWildcard
@@ -473,6 +460,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ClassData`
+in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java`
+#### Snippet
+```java
+                               @NotNull final String className,
+                               @Nullable final ClassData classData,
+                               @NotNull final Collection<ClassData> innerClasses) {
+    super(className);
+    myProjectData = projectData;
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
 #### Snippet
@@ -484,7 +483,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
       public int compare(T o1, T o2) {
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
@@ -504,9 +503,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class LineDataBean {
-    private int myLineNum;
-    private CharSequence mySourceCode;
+  public final static class FileDataBean {
+    private final String myCaption;
+    private final Collection<LineDataBean> myLines;
 ```
 
 ### MissortedModifiers
@@ -516,12 +515,12 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class FileDataBean {
-    private final String myCaption;
-    private final Collection<LineDataBean> myLines;
+  public final static class LineDataBean {
+    private int myLineNum;
+    private CharSequence mySourceCode;
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `n2 != null` is always `true` when reached
 in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
@@ -534,7 +533,7 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/SortOption.java`
         int result = n1.compareTo(n2);
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
@@ -545,18 +544,5 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
     //noinspection unchecked
     allClasses.addAll(projectData.getClasses().keySet());
 
-```
-
-## RuleId[ruleID=CastCanBeRemovedNarrowingVariableType]
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'm' to 'String'
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java`
-#### Snippet
-```java
-    for (Object m: myClassData.getMethodSigs()) {
-      total++;
-      Integer status = myClassData.getStatus((String) m);
-      if (isCovered(status)) {
-        covered++;
 ```
 
