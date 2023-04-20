@@ -9,6 +9,31 @@ I found 11 bad smells with 3 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | DataFlowIssue | 1 | false |
 | BoundedWildcard | 1 | false |
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `ParametersValidator` has only 'static' members, and lacks a 'private' constructor
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
+#### Snippet
+```java
+ * @author vbedrosova
+ */
+public class ParametersValidator {
+  @NotNull
+  public static Map<String, String> validateSettings(@NotNull Map<String, String> params, boolean acceptReferences) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CodePipelineUtil` has only 'static' members, and lacks a 'private' constructor
+in `aws-codepipeline-common/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineUtil.java`
+#### Snippet
+```java
+ * @author vbedrosova
+ */
+public final class CodePipelineUtil {
+  @NotNull
+  public static String printStrings(@NotNull Collection<String> strings) {
+```
+
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `jobs.size() > 0` can be replaced with '!jobs.isEmpty()'
@@ -22,32 +47,31 @@ in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/co
             LOG.warn(msgForBt("Received " + jobs.size() + ", but only one was expected. Will process only the first job", context.getBuildType()));
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `CodePipelineUtil` has only 'static' members, and lacks a 'private' constructor
-in `aws-codepipeline-common/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineUtil.java`
-#### Snippet
-```java
- * @author vbedrosova
- */
-public final class CodePipelineUtil {
-  @NotNull
-  public static String printStrings(@NotNull Collection<String> strings) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ParametersValidator` has only 'static' members, and lacks a 'private' constructor
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
-#### Snippet
-```java
- * @author vbedrosova
- */
-public class ParametersValidator {
-  @NotNull
-  public static Map<String, String> validateSettings(@NotNull Map<String, String> params, boolean acceptReferences) {
-```
-
 ## RuleId[id=StaticCallOnSubclass]
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+#### Snippet
+```java
+    final AWSException awse = new AWSException(e);
+    final String details = awse.getDetails();
+    if (StringUtil.isNotEmpty(details)) LOG.error(details);
+    LOG.error(awse.getMessage(), awse);
+
+```
+
+### StaticCallOnSubclass
+Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
+in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+#### Snippet
+```java
+  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
+    final File dest = new File(inputFolder, path);
+    FileUtil.createParentDirs(dest);
+    try {
+      FileUtil.copy(artifactFile, dest);
+```
+
 ### StaticCallOnSubclass
 Static method `toSystemIndependentName()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
@@ -73,18 +97,6 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
 ```
 
 ### StaticCallOnSubclass
-Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
-    final File dest = new File(inputFolder, path);
-    FileUtil.createParentDirs(dest);
-    try {
-      FileUtil.copy(artifactFile, dest);
-```
-
-### StaticCallOnSubclass
 Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
 #### Snippet
@@ -94,18 +106,6 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     if (StringUtil.isNotEmpty(details)) {
       LOG.error(details);
       build.getBuildLogger().error(details);
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
-#### Snippet
-```java
-    final AWSException awse = new AWSException(e);
-    final String details = awse.getDetails();
-    if (StringUtil.isNotEmpty(details)) LOG.error(details);
-    LOG.error(awse.getMessage(), awse);
-
 ```
 
 ### StaticCallOnSubclass
