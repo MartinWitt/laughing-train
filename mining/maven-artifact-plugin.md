@@ -1,17 +1,17 @@
 # maven-artifact-plugin 
  
 # Bad smells
-I found 36 bad smells with 3 repairable:
+I found 37 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | ReturnNull | 10 | false |
 | ConstantValue | 7 | false |
+| IgnoreResultOfCall | 3 | false |
 | DefaultAnnotationParam | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 2 | true |
 | DataFlowIssue | 2 | false |
 | MismatchedCollectionQueryUpdate | 2 | false |
 | AssignmentToMethodParameter | 2 | false |
-| IgnoreResultOfCall | 2 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
@@ -20,18 +20,6 @@ I found 36 bad smells with 3 repairable:
 | SizeReplaceableByIsEmpty | 1 | true |
 | UnnecessaryBoxing | 1 | false |
 ## RuleId[id=DefaultAnnotationParam]
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
-     */
-    @Parameter(property = "buildinfo.ignore", defaultValue = "")
-    private Set<String> ignore;
-
-```
-
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
@@ -44,19 +32,19 @@ public class CheckBuildPlanMojo extends AbstractMojo {
     @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
- * Plugin utility to detect if install or deploy is skipped in a build.
- */
-class PluginUtil {
-    static boolean isSkip(MavenProject project) {
-        return isSkip(project, "install") || isSkip(project, "deploy");
+     * Artifacts to ignore, specified as <code>extension</code> or <code>classifier.extension</code>.
+     */
+    @Parameter(property = "buildinfo.ignore", defaultValue = "")
+    private Set<String> ignore;
+
 ```
 
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.j
 class JdkToolchainUtil {
     static String getJavaVersion(Toolchain toolchain) {
         String version = "unknown";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+ * Plugin utility to detect if install or deploy is skipped in a build.
+ */
+class PluginUtil {
+    static boolean isSkip(MavenProject project) {
+        return isSkip(project, "install") || isSkip(project, "deploy");
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -212,30 +212,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.ja
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 #### Snippet
 ```java
@@ -248,10 +224,22 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            }
         }
         return null;
     }
@@ -263,19 +251,7 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-        ZipEntry zipEntry = jar.getEntry(entryName);
-        if (zipEntry == null) {
-            return null;
-        }
-        try (InputStream in = jar.getInputStream(zipEntry)) {
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-            log.warn("Unable to read " + entryName + " from " + jar, e);
+            log.warn("unable to open jar file " + file, e);
         }
         return null;
     }
@@ -313,6 +289,30 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 ```java
         }
 
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        ZipEntry zipEntry = jar.getEntry(entryName);
+        if (zipEntry == null) {
+            return null;
+        }
+        try (InputStream in = jar.getInputStream(zipEntry)) {
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("Unable to read " + entryName + " from " + jar, e);
+        }
         return null;
     }
 
@@ -398,7 +398,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 #### Snippet
 ```java
         // reference file name is taken from repository format
-        File reference = new File(referenceDir, getRepositoryFilename(a));
+        File reference = new File(new File(referenceDir, a.getGroupId()), getRepositoryFilename(a));
         if ((actual == null) || (reference == null)) {
             return "missing file for " + a.getId() + " reference = "
                     + (reference == null ? "null" : relative(reference)) + " actual = "
@@ -428,19 +428,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
-#### Snippet
-```java
-            skip = project.getProperties().getProperty("maven." + id + ".skip");
-        }
-        return Boolean.valueOf(skip);
-    }
-
-```
-
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -455,6 +442,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 ```
 
 ### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            dir = new File(referenceDir, groupId);
+            if (!dir.isDirectory()) {
+                dir.mkdir();
+            }
+        }
+```
+
+### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 #### Snippet
@@ -464,5 +463,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         referenceDir.mkdirs();
 
         // download or create reference buildinfo
+```
+
+## RuleId[id=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+            skip = project.getProperties().getProperty("maven." + id + ".skip");
+        }
+        return Boolean.valueOf(skip);
+    }
+
 ```
 
