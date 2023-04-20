@@ -1,7 +1,7 @@
 # Dhalion 
  
 # Bad smells
-I found 54 bad smells with 17 repairable:
+I found 55 bad smells with 17 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 10 | false |
@@ -22,6 +22,7 @@ I found 54 bad smells with 17 repairable:
 | RedundantFieldInitialization | 1 | false |
 | NonSerializableFieldInSerializableClass | 1 | false |
 | RedundantImplements | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | MissortedModifiers | 1 | false |
 | ConstantValue | 1 | false |
@@ -253,6 +254,19 @@ in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-06-11-23.598.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `[Z]` can be simplified to 'Z'
@@ -343,6 +357,42 @@ in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ScarceMemoryDetector.java`
+#### Snippet
+```java
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_MEMORY.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
+    LOG.info("Detector created: " + this.toString());
+  }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
+#### Snippet
+```java
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
+    LOG.info("Detector created: " + this.toString());
+  }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+#### Snippet
+```java
+    Symptom symptom = new Symptom(symptomType, now, assignments);
+    if (LOG.isLoggable(Level.FINE)) {
+      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
+    }
+    return Collections.singletonList(symptom);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.java`
 #### Snippet
 ```java
@@ -363,42 +413,6 @@ in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.ja
       LOG.fine(String.format("Underutilized nodes found: %s", underUtilizedNodes.toString()));
       Diagnosis diagnosis = new Diagnosis(DIAGNOSIS_UNDER_UTILIZED_NODE, context.checkpoint(),
                                           underUtilizedNodes);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ScarceCpuDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_CPU.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ScarceMemoryDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.SCARCE_MEMORY.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 1.5);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
-#### Snippet
-```java
-    Symptom symptom = new Symptom(symptomType, now, assignments);
-    if (LOG.isLoggable(Level.FINE)) {
-      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
-    }
-    return Collections.singletonList(symptom);
 ```
 
 ### UnnecessaryToStringCall
@@ -426,6 +440,18 @@ in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 ```
 
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends Diagnosis`
+in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
+#### Snippet
+```java
+  }
+
+  private void addAll(Collection<Diagnosis> diagnosis) {
+    diagnosis.forEach(this::add);
+  }
+```
+
 ### BoundedWildcard
 Can generalize to `? extends Measurement`
 in `src/main/java/com/microsoft/dhalion/core/Symptom.java`
@@ -455,18 +481,6 @@ Can generalize to `? extends Symptom`
 in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
 #### Snippet
 ```java
-                   Instant instant,
-                   Collection<String> assignments,
-                   Collection<Symptom> symptoms) {
-    super(type, instant, assignments);
-    if (symptoms != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Symptom`
-in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
-#### Snippet
-```java
   }
 
   Diagnosis(int id, String type, Instant instant, Collection<String> assignments, Collection<Symptom> symptoms) {
@@ -475,39 +489,15 @@ in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Diagnosis`
-in `src/main/java/com/microsoft/dhalion/core/DiagnosisTable.java`
-#### Snippet
-```java
-  }
-
-  private void addAll(Collection<Diagnosis> diagnosis) {
-    diagnosis.forEach(this::add);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Action`
-in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
-#### Snippet
-```java
-  }
-
-  private void addAll(Collection<Action> actions) {
-    actions.forEach(this::add);
-  }
-```
-
-### BoundedWildcard
 Can generalize to `? extends Symptom`
-in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
+in `src/main/java/com/microsoft/dhalion/core/Diagnosis.java`
 #### Snippet
 ```java
-  }
-
-  private void addAll(Collection<Symptom> symptoms) {
-    symptoms.forEach(this::add);
-  }
+                   Instant instant,
+                   Collection<String> assignments,
+                   Collection<Symptom> symptoms) {
+    super(type, instant, assignments);
+    if (symptoms != null) {
 ```
 
 ### BoundedWildcard
@@ -532,6 +522,30 @@ in `src/main/java/com/microsoft/dhalion/core/Action.java`
   Action(int id, String type, Instant instant, Collection<String> assignments, Collection<Diagnosis> diagnosis) {
     super(id, type, instant, assignments);
     if (diagnosis != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Symptom`
+in `src/main/java/com/microsoft/dhalion/core/SymptomsTable.java`
+#### Snippet
+```java
+  }
+
+  private void addAll(Collection<Symptom> symptoms) {
+    symptoms.forEach(this::add);
+  }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Action`
+in `src/main/java/com/microsoft/dhalion/core/ActionTable.java`
+#### Snippet
+```java
+  }
+
+  private void addAll(Collection<Action> actions) {
+    actions.forEach(this::add);
+  }
 ```
 
 ### BoundedWildcard
