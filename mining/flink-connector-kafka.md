@@ -266,18 +266,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### DataFlowIssue
-Dereference of `currentTransaction()` may produce `NullPointerException`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-            if (currentTransaction() != null) {
-                try {
-                    currentTransaction().producer.close(Duration.ofSeconds(0));
-                } catch (Throwable t) {
-                    LOG.warn("Error closing producer.", t);
-```
-
-### DataFlowIssue
 Argument `producer.getTransactionalId()` might be null
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
@@ -287,6 +275,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
         availableTransactionalIds.add(producer.getTransactionalId());
         producer.flush();
         producer.close(Duration.ofSeconds(0));
+```
+
+### DataFlowIssue
+Dereference of `currentTransaction()` may produce `NullPointerException`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+            if (currentTransaction() != null) {
+                try {
+                    currentTransaction().producer.close(Duration.ofSeconds(0));
+                } catch (Throwable t) {
+                    LOG.warn("Error closing producer.", t);
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -320,11 +320,11 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaConnectorOptionsUtil.java`
 #### Snippet
 ```java
+                physicalType.is(LogicalTypeRoot.ROW), "Row data type expected.");
+        final Optional<String> optionalKeyFormat = options.getOptional(KEY_FORMAT);
+        final Optional<List<String>> optionalKeyFields = options.getOptional(KEY_FIELDS);
 
-    public static void validateSourceTopic(ReadableConfig tableOptions) {
-        Optional<List<String>> topic = tableOptions.getOptional(TOPIC);
-        Optional<String> pattern = tableOptions.getOptional(TOPIC_PATTERN);
-
+        if (!optionalKeyFormat.isPresent() && optionalKeyFields.isPresent()) {
 ```
 
 ### OptionalContainsCollection
@@ -332,11 +332,11 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaConnectorOptionsUtil.java`
 #### Snippet
 ```java
-                physicalType.is(LogicalTypeRoot.ROW), "Row data type expected.");
-        final Optional<String> optionalKeyFormat = options.getOptional(KEY_FORMAT);
-        final Optional<List<String>> optionalKeyFields = options.getOptional(KEY_FIELDS);
 
-        if (!optionalKeyFormat.isPresent() && optionalKeyFields.isPresent()) {
+    public static void validateSourceTopic(ReadableConfig tableOptions) {
+        Optional<List<String>> topic = tableOptions.getOptional(TOPIC);
+        Optional<String> pattern = tableOptions.getOptional(TOPIC_PATTERN);
+
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -372,7 +372,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
      */
     @Deprecated
     public FlinkKafkaConsumerBase<T> assignTimestampsAndWatermarks(
-            AssignerWithPunctuatedWatermarks<T> assigner) {
+            AssignerWithPeriodicWatermarks<T> assigner) {
         checkNotNull(assigner);
 ```
 
@@ -384,7 +384,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
      */
     @Deprecated
     public FlinkKafkaConsumerBase<T> assignTimestampsAndWatermarks(
-            AssignerWithPeriodicWatermarks<T> assigner) {
+            AssignerWithPunctuatedWatermarks<T> assigner) {
         checkNotNull(assigner);
 ```
 
@@ -416,18 +416,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`optionalKeyFields.get().size() == 0` can be replaced with 'optionalKeyFields.get().isEmpty()'
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaConnectorOptionsUtil.java`
-#### Snippet
-```java
-                            KEY_FIELDS.key(), KEY_FORMAT.key()));
-        } else if (optionalKeyFormat.isPresent()
-                && (!optionalKeyFields.isPresent() || optionalKeyFields.get().size() == 0)) {
-            throw new ValidationException(
-                    String.format(
-```
-
-### SizeReplaceableByIsEmpty
 `keyPrefix.length() > 0` can be replaced with '!keyPrefix.isEmpty()'
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaConnectorOptionsUtil.java`
 #### Snippet
@@ -437,6 +425,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             if (keyPrefix.length() > 0) {
                 throw new ValidationException(
                         String.format(
+```
+
+### SizeReplaceableByIsEmpty
+`optionalKeyFields.get().size() == 0` can be replaced with 'optionalKeyFields.get().isEmpty()'
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaConnectorOptionsUtil.java`
+#### Snippet
+```java
+                            KEY_FIELDS.key(), KEY_FORMAT.key()));
+        } else if (optionalKeyFormat.isPresent()
+                && (!optionalKeyFields.isPresent() || optionalKeyFields.get().size() == 0)) {
+            throw new ValidationException(
+                    String.format(
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -471,7 +471,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
         try {
             if (open) {
                 if (elements.size() > 0) {
-                    return elements.removeFirst();
+                    return elements.getFirst();
                 } else {
 ```
 
@@ -483,7 +483,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
         try {
             if (open) {
                 if (elements.size() > 0) {
-                    return elements.getFirst();
+                    return elements.removeFirst();
                 } else {
 ```
 
@@ -714,7 +714,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             ReadableConfig tableOptions,
             String topic,
             Map<KafkaTopicPartition, Long> specificOffsets) {
-        String specificOffsetsStrOpt = tableOptions.get(SCAN_STARTUP_SPECIFIC_OFFSETS);
+        String specificOffsetsEndOpt = tableOptions.get(SCAN_BOUNDED_SPECIFIC_OFFSETS);
         final Map<Integer, Long> offsetMap =
 ```
 
@@ -726,7 +726,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             ReadableConfig tableOptions,
             String topic,
             Map<KafkaTopicPartition, Long> specificOffsets) {
-        String specificOffsetsStrOpt = tableOptions.get(SCAN_STARTUP_SPECIFIC_OFFSETS);
+        String specificOffsetsEndOpt = tableOptions.get(SCAN_BOUNDED_SPECIFIC_OFFSETS);
         final Map<Integer, Long> offsetMap =
 ```
 
@@ -738,7 +738,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             ReadableConfig tableOptions,
             String topic,
             Map<KafkaTopicPartition, Long> specificOffsets) {
-        String specificOffsetsEndOpt = tableOptions.get(SCAN_BOUNDED_SPECIFIC_OFFSETS);
+        String specificOffsetsStrOpt = tableOptions.get(SCAN_STARTUP_SPECIFIC_OFFSETS);
         final Map<Integer, Long> offsetMap =
 ```
 
@@ -750,7 +750,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             ReadableConfig tableOptions,
             String topic,
             Map<KafkaTopicPartition, Long> specificOffsets) {
-        String specificOffsetsEndOpt = tableOptions.get(SCAN_BOUNDED_SPECIFIC_OFFSETS);
+        String specificOffsetsStrOpt = tableOptions.get(SCAN_STARTUP_SPECIFIC_OFFSETS);
         final Map<Integer, Long> offsetMap =
 ```
 
@@ -791,18 +791,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConsumerRecord`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaFetcher.java`
-#### Snippet
-```java
-
-    protected void partitionConsumerRecordsHandler(
-            List<ConsumerRecord<byte[], byte[]>> partitionRecords,
-            KafkaTopicPartitionState<T, TopicPartition> partition)
-            throws Exception {
-```
-
-### BoundedWildcard
 Can generalize to `? super T`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaFetcher.java`
 #### Snippet
@@ -815,27 +803,15 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/AbstractFetcher.java`
+Can generalize to `? extends ConsumerRecord`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaFetcher.java`
 #### Snippet
 ```java
-     */
-    protected void emitRecordsWithTimestamps(
-            Queue<T> records,
-            KafkaTopicPartitionState<T, KPH> partitionState,
-            long offset,
-```
 
-### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/AbstractFetcher.java`
-#### Snippet
-```java
-    protected void emitRecordsWithTimestamps(
-            Queue<T> records,
-            KafkaTopicPartitionState<T, KPH> partitionState,
-            long offset,
-            long kafkaEventTimestamp) {
+    protected void partitionConsumerRecordsHandler(
+            List<ConsumerRecord<byte[], byte[]>> partitionRecords,
+            KafkaTopicPartitionState<T, TopicPartition> partition)
+            throws Exception {
 ```
 
 ### BoundedWildcard
@@ -863,51 +839,27 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaTopicPartitionStateWithWatermarkGenerator.java`
+Can generalize to `? extends T`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/AbstractFetcher.java`
 #### Snippet
 ```java
-            KafkaTopicPartition partition,
-            KPH kafkaPartitionHandle,
-            TimestampAssigner<T> timestampAssigner,
-            WatermarkGenerator<T> watermarkGenerator,
-            WatermarkOutput immediateOutput,
+     */
+    protected void emitRecordsWithTimestamps(
+            Queue<T> records,
+            KafkaTopicPartitionState<T, KPH> partitionState,
+            long offset,
 ```
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaTopicPartitionStateWithWatermarkGenerator.java`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/AbstractFetcher.java`
 #### Snippet
 ```java
-            KPH kafkaPartitionHandle,
-            TimestampAssigner<T> timestampAssigner,
-            WatermarkGenerator<T> watermarkGenerator,
-            WatermarkOutput immediateOutput,
-            WatermarkOutput deferredOutput) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TopicPartition`
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/KafkaPartitionSplitReader.java`
-#### Snippet
-```java
-            long stoppingOffset,
-            long currentOffset,
-            List<TopicPartition> finishedPartitions,
-            KafkaPartitionSplitRecords recordsBySplits) {
-        LOG.debug(
-```
-
-### BoundedWildcard
-Can generalize to `? extends KafkaPartitionSplit`
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/KafkaPartitionSplitReader.java`
-#### Snippet
-```java
-
-    private void maybeLogSplitChangesHandlingResult(
-            SplitsChange<KafkaPartitionSplit> splitsChange) {
-        if (LOG.isDebugEnabled()) {
-            StringJoiner splitsInfo = new StringJoiner(",");
+    protected void emitRecordsWithTimestamps(
+            Queue<T> records,
+            KafkaTopicPartitionState<T, KPH> partitionState,
+            long offset,
+            long kafkaEventTimestamp) {
 ```
 
 ### BoundedWildcard
@@ -959,6 +911,30 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends KafkaPartitionSplit`
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/KafkaPartitionSplitReader.java`
+#### Snippet
+```java
+
+    private void maybeLogSplitChangesHandlingResult(
+            SplitsChange<KafkaPartitionSplit> splitsChange) {
+        if (LOG.isDebugEnabled()) {
+            StringJoiner splitsInfo = new StringJoiner(",");
+```
+
+### BoundedWildcard
+Can generalize to `? super TopicPartition`
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/KafkaPartitionSplitReader.java`
+#### Snippet
+```java
+            long stoppingOffset,
+            long currentOffset,
+            List<TopicPartition> finishedPartitions,
+            KafkaPartitionSplitRecords recordsBySplits) {
+        LOG.debug(
+```
+
+### BoundedWildcard
 Can generalize to `? super TopicPartition`
 in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/KafkaPartitionSplitReader.java`
 #### Snippet
@@ -995,6 +971,30 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaTopicPartitionStateWithWatermarkGenerator.java`
+#### Snippet
+```java
+            KafkaTopicPartition partition,
+            KPH kafkaPartitionHandle,
+            TimestampAssigner<T> timestampAssigner,
+            WatermarkGenerator<T> watermarkGenerator,
+            WatermarkOutput immediateOutput,
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaTopicPartitionStateWithWatermarkGenerator.java`
+#### Snippet
+```java
+            KPH kafkaPartitionHandle,
+            TimestampAssigner<T> timestampAssigner,
+            WatermarkGenerator<T> watermarkGenerator,
+            WatermarkOutput immediateOutput,
+            WatermarkOutput deferredOutput) {
+```
+
+### BoundedWildcard
 Can generalize to `? super IN`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/shuffle/FlinkKafkaShuffleProducer.java`
 #### Snippet
@@ -1015,6 +1015,30 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 
         KafkaSerializer(TypeSerializer<IN> serializer) {
             this.serializer = serializer;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends SerializationSchema`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/UpsertKafkaDynamicTableFactory.java`
+#### Snippet
+```java
+
+        public EncodingFormatWrapper(
+                EncodingFormat<SerializationSchema<RowData>> innerEncodingFormat) {
+            this.innerEncodingFormat = innerEncodingFormat;
+        }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DeserializationSchema`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/UpsertKafkaDynamicTableFactory.java`
+#### Snippet
+```java
+
+        public DecodingFormatWrapper(
+                DecodingFormat<DeserializationSchema<RowData>> innerDecodingFormat) {
+            this.innerDecodingFormat = innerDecodingFormat;
         }
 ```
 
@@ -1043,30 +1067,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends DeserializationSchema`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/UpsertKafkaDynamicTableFactory.java`
-#### Snippet
-```java
-
-        public DecodingFormatWrapper(
-                DecodingFormat<DeserializationSchema<RowData>> innerDecodingFormat) {
-            this.innerDecodingFormat = innerDecodingFormat;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SerializationSchema`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/UpsertKafkaDynamicTableFactory.java`
-#### Snippet
-```java
-
-        public EncodingFormatWrapper(
-                EncodingFormat<SerializationSchema<RowData>> innerEncodingFormat) {
-            this.innerEncodingFormat = innerEncodingFormat;
-        }
-```
-
-### BoundedWildcard
 Can generalize to `? extends KafkaTopicPartitionState`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/KafkaConsumerThread.java`
 #### Snippet
@@ -1091,6 +1091,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
+Can generalize to `? super T`
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
+#### Snippet
+```java
+     */
+    public <T extends IN> KafkaRecordSerializationSchemaBuilder<T> setValueSerializationSchema(
+            SerializationSchema<T> valueSerializationSchema) {
+        checkValueSerializerNotSet();
+        KafkaRecordSerializationSchemaBuilder<T> self = self();
+```
+
+### BoundedWildcard
 Can generalize to `? super IN`
 in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
 #### Snippet
@@ -1103,15 +1115,15 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/Ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
+Can generalize to `? extends KafkaPartitionSplit`
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/enumerator/KafkaSourceEnumerator.java`
 #### Snippet
 ```java
-     */
-    public <T extends IN> KafkaRecordSerializationSchemaBuilder<T> setValueSerializationSchema(
-            SerializationSchema<T> valueSerializationSchema) {
-        checkValueSerializerNotSet();
-        KafkaRecordSerializationSchemaBuilder<T> self = self();
+    // This method should only be invoked in the coordinator executor thread.
+    private void addPartitionSplitChangeToPendingAssignments(
+            Collection<KafkaPartitionSplit> newPartitionSplits) {
+        int numReaders = context.currentParallelism();
+        for (KafkaPartitionSplit split : newPartitionSplits) {
 ```
 
 ### BoundedWildcard
@@ -1139,15 +1151,15 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends KafkaPartitionSplit`
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/enumerator/KafkaSourceEnumerator.java`
+Can generalize to `? super Exception`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaConsumerBase.java`
 #### Snippet
 ```java
-    // This method should only be invoked in the coordinator executor thread.
-    private void addPartitionSplitChangeToPendingAssignments(
-            Collection<KafkaPartitionSplit> newPartitionSplits) {
-        int numReaders = context.currentParallelism();
-        for (KafkaPartitionSplit split : newPartitionSplits) {
+    }
+
+    private void createAndStartDiscoveryLoop(AtomicReference<Exception> discoveryLoopErrorRef) {
+        discoveryLoopThread =
+                new Thread(
 ```
 
 ### BoundedWildcard
@@ -1163,18 +1175,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Exception`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaConsumerBase.java`
-#### Snippet
-```java
-    }
-
-    private void createAndStartDiscoveryLoop(AtomicReference<Exception> discoveryLoopErrorRef) {
-        discoveryLoopThread =
-                new Thread(
-```
-
-### BoundedWildcard
 Can generalize to `? extends DeserializationSchema`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
 #### Snippet
@@ -1184,18 +1184,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             @Nullable DecodingFormat<DeserializationSchema<RowData>> format,
             int[] projection,
             @Nullable String prefix) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FlinkKafkaProducer.KafkaTransactionState`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-     */
-    private void cleanUpUserContext(
-            Collection<FlinkKafkaProducer.KafkaTransactionState> handledTransactions) {
-        if (!getUserContext().isPresent()) {
-            return;
 ```
 
 ### BoundedWildcard
@@ -1239,6 +1227,18 @@ Can generalize to `? extends FlinkKafkaPartitioner`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
 ```java
+            KeyedSerializationSchema<IN> serializationSchema,
+            Properties producerConfig,
+            Optional<FlinkKafkaPartitioner<IN>> customPartitioner,
+            FlinkKafkaProducer.Semantic semantic,
+            int kafkaProducersPoolSize) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FlinkKafkaPartitioner`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
             SerializationSchema<IN> serializationSchema,
             Properties producerConfig,
             Optional<FlinkKafkaPartitioner<IN>> customPartitioner) {
@@ -1247,15 +1247,172 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FlinkKafkaPartitioner`
+Can generalize to `? extends FlinkKafkaProducer.KafkaTransactionState`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
 ```java
-            KeyedSerializationSchema<IN> serializationSchema,
-            Properties producerConfig,
-            Optional<FlinkKafkaPartitioner<IN>> customPartitioner,
-            FlinkKafkaProducer.Semantic semantic,
-            int kafkaProducersPoolSize) {
+     */
+    private void cleanUpUserContext(
+            Collection<FlinkKafkaProducer.KafkaTransactionState> handledTransactions) {
+        if (!getUserContext().isPresent()) {
+            return;
+```
+
+## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-formats-kafka/flink-avro-confluent-registry/src/main/java/org/apache/flink/formats/avro/registry/confluent/CachedSchemaCoderProvider.java`
+#### Snippet
+```java
+    private final String url;
+    private final int identityMapCapacity;
+    private final @Nullable Map<String, ?> registryConfigs;
+
+    CachedSchemaCoderProvider(String url, int identityMapCapacity) {
+```
+
+### MissortedModifiers
+Missorted modifiers `public static @Nullable`
+in `flink-formats-kafka/flink-avro-confluent-registry/src/main/java/org/apache/flink/formats/avro/registry/confluent/RegistryAvroFormatFactory.java`
+#### Snippet
+```java
+    }
+
+    public static @Nullable Map<String, String> buildOptionalPropertiesMap(
+            ReadableConfig formatOptions) {
+        final Map<String, String> properties = new HashMap<>();
+```
+
+### MissortedModifiers
+Missorted modifiers `private final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/DynamicKafkaDeserializationSchema.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = 1L;
+
+    private final @Nullable DeserializationSchema<RowData> keyDeserialization;
+
+    private final DeserializationSchema<RowData> valueDeserialization;
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/metrics/KafkaSourceReaderMetrics.java`
+#### Snippet
+```java
+    }
+
+    private @Nullable Metric getRecordsLagMetric(
+            Map<MetricName, ? extends Metric> metrics, TopicPartition tp) {
+        try {
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
+#### Snippet
+```java
+
+    /** Partitioner to select Kafka partition for each item. */
+    protected final @Nullable FlinkKafkaPartitioner<RowData> partitioner;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
+#### Snippet
+```java
+    }
+
+    private @Nullable SerializationSchema<RowData> createSerialization(
+            DynamicTableSink.Context context,
+            @Nullable EncodingFormat<SerializationSchema<RowData>> format,
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
+#### Snippet
+```java
+
+    /** Parallelism of the physical Kafka producer. * */
+    protected final @Nullable Integer parallelism;
+
+    public KafkaDynamicSink(
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
+#### Snippet
+```java
+
+    /** Prefix that needs to be removed from fields when constructing the physical data type. */
+    protected final @Nullable String keyPrefix;
+
+    // --------------------------------------------------------------------------------------------
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
+#### Snippet
+```java
+
+    /** Optional format for encoding keys to Kafka. */
+    protected final @Nullable EncodingFormat<SerializationSchema<RowData>> keyEncodingFormat;
+
+    /** Format for encoding values to Kafka. */
+```
+
+### MissortedModifiers
+Missorted modifiers `protected @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
+#### Snippet
+```java
+
+    /** Watermark strategy that is used to generate per-partition watermark. */
+    protected @Nullable WatermarkStrategy<RowData> watermarkStrategy;
+
+    // --------------------------------------------------------------------------------------------
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
+#### Snippet
+```java
+
+    /** Prefix that needs to be removed from fields when constructing the physical data type. */
+    protected final @Nullable String keyPrefix;
+
+    // --------------------------------------------------------------------------------------------
+```
+
+### MissortedModifiers
+Missorted modifiers `private @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
+#### Snippet
+```java
+    }
+
+    private @Nullable DeserializationSchema<RowData> createDeserialization(
+            DynamicTableSource.Context context,
+            @Nullable DecodingFormat<DeserializationSchema<RowData>> format,
+```
+
+### MissortedModifiers
+Missorted modifiers `protected final @Nullable`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
+#### Snippet
+```java
+
+    /** Optional format for decoding keys from Kafka. */
+    protected final @Nullable DecodingFormat<DeserializationSchema<RowData>> keyDecodingFormat;
+
+    /** Format for decoding values from Kafka. */
 ```
 
 ## RuleId[id=NullableProblems]
@@ -1349,10 +1506,10 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 #### Snippet
 ```java
 
-    // Kafka raw metric for bytes consumed total
-    @Nullable private Metric bytesConsumedTotalMetric;
+    // Map for tracking records lag of topic partitions
+    @Nullable private ConcurrentMap<TopicPartition, Metric> recordsLagMetrics;
 
-    /** Number of bytes consumed total at the latest {@link #updateNumBytesInCounter()}. */
+    // Kafka raw metric for bytes consumed total
 ```
 
 ### NullableProblems
@@ -1361,10 +1518,10 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 #### Snippet
 ```java
 
-    // Map for tracking records lag of topic partitions
-    @Nullable private ConcurrentMap<TopicPartition, Metric> recordsLagMetrics;
-
     // Kafka raw metric for bytes consumed total
+    @Nullable private Metric bytesConsumedTotalMetric;
+
+    /** Number of bytes consumed total at the latest {@link #updateNumBytesInCounter()}. */
 ```
 
 ### NullableProblems
@@ -1384,11 +1541,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
 #### Snippet
 ```java
+    @Nullable private SerializationSchema<? super IN> valueSerializationSchema;
     @Nullable private FlinkKafkaPartitioner<? super IN> partitioner;
     @Nullable private SerializationSchema<? super IN> keySerializationSchema;
     @Nullable private HeaderProvider<? super IN> headerProvider;
 
-    /**
 ```
 
 ### NullableProblems
@@ -1396,11 +1553,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
 #### Snippet
 ```java
-    @Nullable private Function<? super IN, String> topicSelector;
-    @Nullable private SerializationSchema<? super IN> valueSerializationSchema;
     @Nullable private FlinkKafkaPartitioner<? super IN> partitioner;
     @Nullable private SerializationSchema<? super IN> keySerializationSchema;
     @Nullable private HeaderProvider<? super IN> headerProvider;
+
+    /**
 ```
 
 ### NullableProblems
@@ -1432,11 +1589,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/sink/KafkaRecordSerializationSchemaBuilder.java`
 #### Snippet
 ```java
+    @Nullable private Function<? super IN, String> topicSelector;
     @Nullable private SerializationSchema<? super IN> valueSerializationSchema;
     @Nullable private FlinkKafkaPartitioner<? super IN> partitioner;
     @Nullable private SerializationSchema<? super IN> keySerializationSchema;
     @Nullable private HeaderProvider<? super IN> headerProvider;
-
 ```
 
 ### NullableProblems
@@ -1444,11 +1601,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
 #### Snippet
 ```java
+     * prefix for all ids of opened Kafka transactions.
+     */
+    @Nullable private final String transactionalIdPrefix;
 
-    /** Parallelism of the physical Kafka producer. * */
-    protected final @Nullable Integer parallelism;
-
-    public KafkaDynamicSink(
+    /** The Kafka topic to write to. */
 ```
 
 ### NullableProblems
@@ -1469,10 +1626,10 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
 
-    /** Prefix that needs to be removed from fields when constructing the physical data type. */
-    protected final @Nullable String keyPrefix;
+    /** Parallelism of the physical Kafka producer. * */
+    protected final @Nullable Integer parallelism;
 
-    // --------------------------------------------------------------------------------------------
+    public KafkaDynamicSink(
 ```
 
 ### NullableProblems
@@ -1480,11 +1637,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
 #### Snippet
 ```java
-     * prefix for all ids of opened Kafka transactions.
-     */
-    @Nullable private final String transactionalIdPrefix;
 
-    /** The Kafka topic to write to. */
+    /** Prefix that needs to be removed from fields when constructing the physical data type. */
+    protected final @Nullable String keyPrefix;
+
+    // --------------------------------------------------------------------------------------------
 ```
 
 ### NullableProblems
@@ -1517,8 +1674,8 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
 
-    /** Prefix that needs to be removed from fields when constructing the physical data type. */
-    protected final @Nullable String keyPrefix;
+    /** Watermark strategy that is used to generate per-partition watermark. */
+    protected @Nullable WatermarkStrategy<RowData> watermarkStrategy;
 
     // --------------------------------------------------------------------------------------------
 ```
@@ -1529,8 +1686,8 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
 
-    /** Watermark strategy that is used to generate per-partition watermark. */
-    protected @Nullable WatermarkStrategy<RowData> watermarkStrategy;
+    /** Prefix that needs to be removed from fields when constructing the physical data type. */
+    protected final @Nullable String keyPrefix;
 
     // --------------------------------------------------------------------------------------------
 ```
@@ -1553,10 +1710,46 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
 
+    /** The callback than handles error propagation or logging callbacks. */
+    @Nullable protected transient Callback callback;
+
+    /** Errors encountered in the async producer are stored here. */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+
     /** The transactional.id prefix to be used by the producers when communicating with Kafka. */
     @Nullable private String transactionalIdPrefix = null;
 
     /** Flag indicating whether to accept failures (and log them), or to fail on failures. */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+
+    /** User-provided partitioner for assigning an object to a Kafka partition for each topic. */
+    @Nullable private final FlinkKafkaPartitioner<IN> flinkKafkaPartitioner;
+
+    /** Partitions of each topic. */
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+     * ProducerRecords}.
+     */
+    @Nullable private final KafkaSerializationSchema<IN> kafkaSchema;
+
+    /** User-provided partitioner for assigning an object to a Kafka partition for each topic. */
 ```
 
 ### NullableProblems
@@ -1577,22 +1770,10 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
 
-    /** The callback than handles error propagation or logging callbacks. */
-    @Nullable protected transient Callback callback;
-
     /** Errors encountered in the async producer are stored here. */
-```
+    @Nullable protected transient volatile Exception asyncException;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-     * ProducerRecords}.
-     */
-    @Nullable private final KafkaSerializationSchema<IN> kafkaSchema;
-
-    /** User-provided partitioner for assigning an object to a Kafka partition for each topic. */
+    /** Number of unacknowledged records. */
 ```
 
 ### NullableProblems
@@ -1605,187 +1786,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
     @Nullable private final KeyedSerializationSchema<IN> keyedSchema;
 
     /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-
-    /** User-provided partitioner for assigning an object to a Kafka partition for each topic. */
-    @Nullable private final FlinkKafkaPartitioner<IN> flinkKafkaPartitioner;
-
-    /** Partitions of each topic. */
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-
-    /** Errors encountered in the async producer are stored here. */
-    @Nullable protected transient volatile Exception asyncException;
-
-    /** Number of unacknowledged records. */
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-formats-kafka/flink-avro-confluent-registry/src/main/java/org/apache/flink/formats/avro/registry/confluent/CachedSchemaCoderProvider.java`
-#### Snippet
-```java
-    private final String url;
-    private final int identityMapCapacity;
-    private final @Nullable Map<String, ?> registryConfigs;
-
-    CachedSchemaCoderProvider(String url, int identityMapCapacity) {
-```
-
-### MissortedModifiers
-Missorted modifiers `public static @Nullable`
-in `flink-formats-kafka/flink-avro-confluent-registry/src/main/java/org/apache/flink/formats/avro/registry/confluent/RegistryAvroFormatFactory.java`
-#### Snippet
-```java
-    }
-
-    public static @Nullable Map<String, String> buildOptionalPropertiesMap(
-            ReadableConfig formatOptions) {
-        final Map<String, String> properties = new HashMap<>();
-```
-
-### MissortedModifiers
-Missorted modifiers `private final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/DynamicKafkaDeserializationSchema.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = 1L;
-
-    private final @Nullable DeserializationSchema<RowData> keyDeserialization;
-
-    private final DeserializationSchema<RowData> valueDeserialization;
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/metrics/KafkaSourceReaderMetrics.java`
-#### Snippet
-```java
-    }
-
-    private @Nullable Metric getRecordsLagMetric(
-            Map<MetricName, ? extends Metric> metrics, TopicPartition tp) {
-        try {
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
-#### Snippet
-```java
-    }
-
-    private @Nullable SerializationSchema<RowData> createSerialization(
-            DynamicTableSink.Context context,
-            @Nullable EncodingFormat<SerializationSchema<RowData>> format,
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
-#### Snippet
-```java
-
-    /** Parallelism of the physical Kafka producer. * */
-    protected final @Nullable Integer parallelism;
-
-    public KafkaDynamicSink(
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
-#### Snippet
-```java
-
-    /** Partitioner to select Kafka partition for each item. */
-    protected final @Nullable FlinkKafkaPartitioner<RowData> partitioner;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
-#### Snippet
-```java
-
-    /** Prefix that needs to be removed from fields when constructing the physical data type. */
-    protected final @Nullable String keyPrefix;
-
-    // --------------------------------------------------------------------------------------------
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSink.java`
-#### Snippet
-```java
-
-    /** Optional format for encoding keys to Kafka. */
-    protected final @Nullable EncodingFormat<SerializationSchema<RowData>> keyEncodingFormat;
-
-    /** Format for encoding values to Kafka. */
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
-#### Snippet
-```java
-
-    /** Prefix that needs to be removed from fields when constructing the physical data type. */
-    protected final @Nullable String keyPrefix;
-
-    // --------------------------------------------------------------------------------------------
-```
-
-### MissortedModifiers
-Missorted modifiers `protected @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
-#### Snippet
-```java
-
-    /** Watermark strategy that is used to generate per-partition watermark. */
-    protected @Nullable WatermarkStrategy<RowData> watermarkStrategy;
-
-    // --------------------------------------------------------------------------------------------
-```
-
-### MissortedModifiers
-Missorted modifiers `private @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
-#### Snippet
-```java
-    }
-
-    private @Nullable DeserializationSchema<RowData> createDeserialization(
-            DynamicTableSource.Context context,
-            @Nullable DecodingFormat<DeserializationSchema<RowData>> format,
-```
-
-### MissortedModifiers
-Missorted modifiers `protected final @Nullable`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicSource.java`
-#### Snippet
-```java
-
-    /** Optional format for decoding keys from Kafka. */
-    protected final @Nullable DecodingFormat<DeserializationSchema<RowData>> keyDecodingFormat;
-
-    /** Format for decoding values from Kafka. */
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
@@ -1811,18 +1811,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
                             "Pending record count must be zero at this point: " + pendingRecords);
                 }
 
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `pendingRecords` accessed in synchronized context
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducerBase.java`
-#### Snippet
-```java
-        if (flushOnCheckpoint) {
-            synchronized (pendingRecordsLock) {
-                pendingRecords++;
-            }
-        }
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -1859,6 +1847,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
             return pendingRecords;
         }
     }
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `pendingRecords` accessed in synchronized context
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducerBase.java`
+#### Snippet
+```java
+        if (flushOnCheckpoint) {
+            synchronized (pendingRecordsLock) {
+                pendingRecords++;
+            }
+        }
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -1918,11 +1918,11 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
 ```java
-            SerializationSchema<IN> serializationSchema,
+            KeyedSerializationSchema<IN> serializationSchema,
             Properties producerConfig,
-            Optional<FlinkKafkaPartitioner<IN>> customPartitioner) {
-        this(
-                topicId,
+            Optional<FlinkKafkaPartitioner<IN>> customPartitioner,
+            FlinkKafkaProducer.Semantic semantic,
+            int kafkaProducersPoolSize) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1930,11 +1930,11 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
 ```java
-            KeyedSerializationSchema<IN> serializationSchema,
+            SerializationSchema<IN> serializationSchema,
             Properties producerConfig,
-            Optional<FlinkKafkaPartitioner<IN>> customPartitioner,
-            FlinkKafkaProducer.Semantic semantic,
-            int kafkaProducersPoolSize) {
+            Optional<FlinkKafkaPartitioner<IN>> customPartitioner) {
+        this(
+                topicId,
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -2076,18 +2076,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicTableFactory.java`
-#### Snippet
-```java
-                    DELIVERY_GUARANTEE.key());
-            return DeliveryGuarantee.valueOf(
-                    tableOptions.get(SINK_SEMANTIC).toUpperCase().replace("-", "_"));
-        }
-        return tableOptions.get(DELIVERY_GUARANTEE);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/FlinkKafkaInternalProducer.java`
 #### Snippet
@@ -2097,6 +2085,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
         String[] x = enumFullName.split("\\.(?=[^\\.]+$)");
         if (x.length == 2) {
             String enumClassName = x[0];
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/table/KafkaDynamicTableFactory.java`
+#### Snippet
+```java
+                    DELIVERY_GUARANTEE.key());
+            return DeliveryGuarantee.valueOf(
+                    tableOptions.get(SINK_SEMANTIC).toUpperCase().replace("-", "_"));
+        }
+        return tableOptions.get(DELIVERY_GUARANTEE);
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -2125,15 +2125,15 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.api.common.eventtime` is unnecessary and can be removed
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/SourceContextWatermarkOutputAdapter.java`
+Qualifier `org.apache.kafka.clients.producer` is unnecessary and can be removed
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/FlinkKafkaInternalProducer.java`
 #### Snippet
 ```java
 
-/**
- * A {@link org.apache.flink.api.common.eventtime.WatermarkOutput} that forwards calls to a {@link
- * org.apache.flink.streaming.api.functions.source.SourceFunction.SourceContext}.
- */
+    /**
+     * Besides committing {@link org.apache.kafka.clients.producer.KafkaProducer#commitTransaction}
+     * is also adding new partitions to the transaction. flushNewPartitions method is moving this
+     * logic to pre-commit/flush, to make resumeTransaction simpler. Otherwise resumeTransaction
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2161,15 +2161,27 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.kafka.clients.producer` is unnecessary and can be removed
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/FlinkKafkaInternalProducer.java`
+Qualifier `org.apache.flink.connector.kafka.source.reader` is unnecessary and can be removed
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/fetcher/KafkaSourceFetcherManager.java`
+#### Snippet
+```java
+ * The SplitFetcherManager for Kafka source. This class is needed to help commit the offsets to
+ * Kafka using the KafkaConsumer inside the {@link
+ * org.apache.flink.connector.kafka.source.reader.KafkaPartitionSplitReader}.
+ */
+@Internal
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.flink.api.common.eventtime` is unnecessary and can be removed
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/SourceContextWatermarkOutputAdapter.java`
 #### Snippet
 ```java
 
-    /**
-     * Besides committing {@link org.apache.kafka.clients.producer.KafkaProducer#commitTransaction}
-     * is also adding new partitions to the transaction. flushNewPartitions method is moving this
-     * logic to pre-commit/flush, to make resumeTransaction simpler. Otherwise resumeTransaction
+/**
+ * A {@link org.apache.flink.api.common.eventtime.WatermarkOutput} that forwards calls to a {@link
+ * org.apache.flink.streaming.api.functions.source.SourceFunction.SourceContext}.
+ */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2185,15 +2197,15 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.connector.kafka.source.reader` is unnecessary and can be removed
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/reader/fetcher/KafkaSourceFetcherManager.java`
+Qualifier `org.apache.flink.runtime.metrics` is unnecessary and can be removed
+in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/metrics/KafkaSourceReaderMetrics.java`
 #### Snippet
 ```java
- * The SplitFetcherManager for Kafka source. This class is needed to help commit the offsets to
- * Kafka using the KafkaConsumer inside the {@link
- * org.apache.flink.connector.kafka.source.reader.KafkaPartitionSplitReader}.
- */
-@Internal
+
+    /**
+     * Update {@link org.apache.flink.runtime.metrics.MetricNames#IO_NUM_BYTES_IN}.
+     *
+     * <p>Instead of simply setting {@link OperatorIOMetricGroup#getNumBytesInCounter()} to the same
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2206,18 +2218,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
      * org.apache.flink.runtime.metrics.MetricNames#PENDING_RECORDS} in {@link
      * SourceReaderMetricGroup}
      *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.flink.runtime.metrics` is unnecessary and can be removed
-in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/metrics/KafkaSourceReaderMetrics.java`
-#### Snippet
-```java
-
-    /**
-     * Update {@link org.apache.flink.runtime.metrics.MetricNames#IO_NUM_BYTES_IN}.
-     *
-     * <p>Instead of simply setting {@link OperatorIOMetricGroup#getNumBytesInCounter()} to the same
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2237,11 +2237,11 @@ Qualifier `org.apache.kafka.common` is unnecessary, and can be replaced with an 
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/metrics/KafkaMetricWrapper.java`
 #### Snippet
 ```java
+@Internal
+public class KafkaMetricWrapper implements Gauge<Double> {
     private final org.apache.kafka.common.Metric kafkaMetric;
 
     public KafkaMetricWrapper(org.apache.kafka.common.Metric metric) {
-        this.kafkaMetric = metric;
-    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2249,11 +2249,11 @@ Qualifier `org.apache.kafka.common` is unnecessary, and can be replaced with an 
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/metrics/KafkaMetricWrapper.java`
 #### Snippet
 ```java
-@Internal
-public class KafkaMetricWrapper implements Gauge<Double> {
     private final org.apache.kafka.common.Metric kafkaMetric;
 
     public KafkaMetricWrapper(org.apache.kafka.common.Metric metric) {
+        this.kafkaMetric = metric;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2646,18 +2646,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 ```
 
 ### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-
-    public static long getTransactionTimeout(Properties producerConfig) {
-        final Object object = producerConfig.get(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG);
-        if (object instanceof String && StringUtils.isNumeric((String) object)) {
-            return Long.parseLong((String) object);
-```
-
-### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
@@ -2667,6 +2655,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
         producerConfig.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, transactionalId);
     }
 
+```
+
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.get()` on properties object
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+
+    public static long getTransactionTimeout(Properties producerConfig) {
+        final Object object = producerConfig.get(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG);
+        if (object instanceof String && StringUtils.isNumeric((String) object)) {
+            return Long.parseLong((String) object);
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
@@ -2731,18 +2731,6 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/connector/kafka/source/
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
-#### Snippet
-```java
-
-    /** The transactional.id prefix to be used by the producers when communicating with Kafka. */
-    @Nullable private String transactionalIdPrefix = null;
-
-    /** Flag indicating whether to accept failures (and log them), or to fail on failures. */
-```
-
-### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
 #### Snippet
@@ -2764,6 +2752,18 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
     protected boolean writeTimestampToKafka = false;
 
     /** The transactional.id prefix to be used by the producers when communicating with Kafka. */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/FlinkKafkaProducer.java`
+#### Snippet
+```java
+
+    /** The transactional.id prefix to be used by the producers when communicating with Kafka. */
+    @Nullable private String transactionalIdPrefix = null;
+
+    /** Flag indicating whether to accept failures (and log them), or to fail on failures. */
 ```
 
 ### RedundantFieldInitialization
@@ -2833,11 +2833,11 @@ Synchronization on local variable `transactionManager`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/FlinkKafkaInternalProducer.java`
 #### Snippet
 ```java
-    private TransactionalRequestResult enqueueNewPartitions() {
-        Object transactionManager = getField(kafkaProducer, "transactionManager");
-        synchronized (transactionManager) {
-            Object newPartitionsInTransaction =
-                    getField(transactionManager, "newPartitionsInTransaction");
+
+            Object transactionManager = getField(kafkaProducer, "transactionManager");
+            synchronized (transactionManager) {
+                Object txnPartitionMap = getField(transactionManager, "txnPartitionMap");
+
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -2845,11 +2845,11 @@ Synchronization on local variable `transactionManager`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/FlinkKafkaInternalProducer.java`
 #### Snippet
 ```java
-
-            Object transactionManager = getField(kafkaProducer, "transactionManager");
-            synchronized (transactionManager) {
-                Object txnPartitionMap = getField(transactionManager, "txnPartitionMap");
-
+    private TransactionalRequestResult enqueueNewPartitions() {
+        Object transactionManager = getField(kafkaProducer, "transactionManager");
+        synchronized (transactionManager) {
+            Object newPartitionsInTransaction =
+                    getField(transactionManager, "newPartitionsInTransaction");
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -2942,18 +2942,6 @@ Return of `null`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/ClosableBlockingQueue.java`
 #### Snippet
 ```java
-                throw new IllegalStateException("queue is closed");
-            } else if (elements.isEmpty()) {
-                return null;
-            } else {
-                return elements.removeFirst();
-```
-
-### ReturnNull
-Return of `null`
-in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/ClosableBlockingQueue.java`
-#### Snippet
-```java
                     return result;
                 } else {
                     return null;
@@ -2966,7 +2954,7 @@ Return of `null`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/ClosableBlockingQueue.java`
 #### Snippet
 ```java
-                    return elements.removeFirst();
+                    return elements.getFirst();
                 } else {
                     return null;
                 }
@@ -2978,7 +2966,19 @@ Return of `null`
 in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/ClosableBlockingQueue.java`
 #### Snippet
 ```java
-                    return elements.getFirst();
+                throw new IllegalStateException("queue is closed");
+            } else if (elements.isEmpty()) {
+                return null;
+            } else {
+                return elements.removeFirst();
+```
+
+### ReturnNull
+Return of `null`
+in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/kafka/internals/ClosableBlockingQueue.java`
+#### Snippet
+```java
+                    return elements.removeFirst();
                 } else {
                     return null;
                 }
@@ -3087,7 +3087,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
         @Override
-        public FlinkKafkaProducer.KafkaTransactionState createInstance() {
+        public FlinkKafkaProducer.KafkaTransactionContext createInstance() {
             return null;
         }
 
@@ -3099,7 +3099,7 @@ in `flink-connector-kafka/src/main/java/org/apache/flink/streaming/connectors/ka
 #### Snippet
 ```java
         @Override
-        public FlinkKafkaProducer.KafkaTransactionContext createInstance() {
+        public FlinkKafkaProducer.KafkaTransactionState createInstance() {
             return null;
         }
 
