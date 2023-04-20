@@ -1,11 +1,11 @@
 # maven-doxia 
  
 # Bad smells
-I found 296 bad smells with 39 repairable:
+I found 298 bad smells with 39 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryFullyQualifiedName | 122 | false |
-| ReturnNull | 20 | false |
+| ReturnNull | 21 | false |
 | AssignmentToForLoopParameter | 19 | false |
 | UnnecessaryToStringCall | 18 | true |
 | ObsoleteCollection | 17 | false |
@@ -23,17 +23,17 @@ I found 296 bad smells with 39 repairable:
 | NonProtectedConstructorInAbstractClass | 3 | true |
 | NonFinalFieldOfException | 3 | false |
 | SimplifyStreamApiCallChains | 2 | false |
+| DeprecatedIsStillUsed | 2 | false |
 | RegExpRedundantEscape | 2 | false |
 | StringBufferReplaceableByString | 2 | false |
-| UnnecessaryBoxing | 2 | false |
 | IgnoreResultOfCall | 2 | false |
+| UnnecessaryBoxing | 2 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | EmptyMethod | 2 | false |
 | RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | UnusedAssignment | 2 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | CommentedOutCode | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | RefusedBequest | 1 | false |
 | RedundantArrayCreation | 1 | true |
 | DuplicateBranchesInSwitch | 1 | false |
@@ -41,8 +41,8 @@ I found 296 bad smells with 39 repairable:
 | TrivialStringConcatenation | 1 | false |
 | RegExpUnexpectedAnchor | 1 | false |
 | BoundedWildcard | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
 | SuspiciousInvocationHandlerImplementation | 1 | false |
+| AbstractClassNeverImplemented | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
 | ClassNameSameAsAncestorName | 1 | false |
 | MissingDeprecatedAnnotation | 1 | false |
@@ -150,6 +150,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttribute
     /**
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'encodeAnchor' is still used
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String encodeAnchor(String id) {
+        if (id == null) {
+            return null;
+```
+
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
@@ -177,6 +189,18 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 
 ## RuleId[id=ObsoleteCollection]
 ### ObsoleteCollection
+Obsolete collection type `Hashtable<>` used
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+
+        /** Map with systemId as key and the content of systemId as byte[]. */
+        protected static final Map<String, byte[]> ENTITY_CACHE = new Hashtable<>();
+
+        private static final Map<String, String> WELL_KNOWN_SYSTEM_IDS = new HashMap<>();
+```
+
+### ObsoleteCollection
 Obsolete collection type `Stack<>` used
 in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
 #### Snippet
@@ -186,18 +210,6 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
         this.listStyles = new Stack<>();
 
         init();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
-#### Snippet
-```java
-
-    /**  listStyles. */
-    private final Stack<String> listStyles;
-
-    /** Keep track of the closing tags for inline events. */
 ```
 
 ### ObsoleteCollection
@@ -222,6 +234,18 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
     protected Stack<List<String>> inlineStack = new Stack<>();
 
     // ----------------------------------------------------------------------
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
+#### Snippet
+```java
+
+    /**  listStyles. */
+    private final Stack<String> listStyles;
+
+    /** Keep track of the closing tags for inline events. */
 ```
 
 ### ObsoleteCollection
@@ -237,6 +261,30 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 ```
 
 ### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
+#### Snippet
+```java
+
+    /** Keep track of the closing tags for inline events. */
+    protected Stack<List<String>> inlineStack = new Stack<>();
+
+    // ----------------------------------------------------------------------
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack<>` used
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
+#### Snippet
+```java
+
+    /** Keep track of the closing tags for inline events. */
+    protected Stack<List<String>> inlineStack = new Stack<>();
+
+    // ----------------------------------------------------------------------
+```
+
+### ObsoleteCollection
 Obsolete collection type `Stack` used
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
 #### Snippet
@@ -249,99 +297,27 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
-#### Snippet
-```java
-
-    /** Keep track of the closing tags for inline events. */
-    protected Stack<List<String>> inlineStack = new Stack<>();
-
-    // ----------------------------------------------------------------------
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
-#### Snippet
-```java
-
-    /** Keep track of the closing tags for inline events. */
-    protected Stack<List<String>> inlineStack = new Stack<>();
-
-    // ----------------------------------------------------------------------
-```
-
-### ObsoleteCollection
-Obsolete collection type `Hashtable<>` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-
-        /** Map with systemId as key and the content of systemId as byte[]. */
-        protected static final Map<String, byte[]> ENTITY_CACHE = new Hashtable<>();
-
-        private static final Map<String, String> WELL_KNOWN_SYSTEM_IDS = new HashMap<>();
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack`> used
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-
-    /** Keep track of the closing tags for inline events. */
-    protected Stack<List<Tag>> inlineStack = new Stack<>();
-
-    /** An indication on if we're inside a paragraph flag. */
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-
-    /** Keep track of the closing tags for inline events. */
-    protected Stack<List<Tag>> inlineStack = new Stack<>();
-
-    /** An indication on if we're inside a paragraph flag. */
-```
-
-### ObsoleteCollection
 Obsolete collection type `Stack` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
 #### Snippet
 ```java
 
-    /** Keep track of the main and div tags for content events. */
-    protected Stack<Tag> contentStack = new Stack<>();
+    /** Used to keep track of closing tags for content events */
+    private Stack<String> divStack = new Stack<>();
 
-    /** Keep track of the closing tags for inline events. */
+    /** Used to wrap the definedTerm with its definition, even when one is omitted */
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Stack<>` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
 #### Snippet
 ```java
 
-    /** Keep track of the main and div tags for content events. */
-    protected Stack<Tag> contentStack = new Stack<>();
+    /** Used to keep track of closing tags for content events */
+    private Stack<String> divStack = new Stack<>();
 
-    /** Keep track of the closing tags for inline events. */
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexingSink.java`
-#### Snippet
-```java
-     */
-    public IndexingSink(IndexEntry sectionEntry) {
-        stack = new Stack<>();
-        stack.push(sectionEntry);
-        usedIds = new HashMap<>();
+    /** Used to wrap the definedTerm with its definition, even when one is omitted */
 ```
 
 ### ObsoleteCollection
@@ -357,27 +333,63 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexingSink.java`
 ```
 
 ### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
+Obsolete collection type `Stack<>` used
+in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexingSink.java`
+#### Snippet
+```java
+     */
+    public IndexingSink(IndexEntry sectionEntry) {
+        stack = new Stack<>();
+        stack.push(sectionEntry);
+        usedIds = new HashMap<>();
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack`> used
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
 #### Snippet
 ```java
 
-    /** Used to keep track of closing tags for content events */
-    private Stack<String> divStack = new Stack<>();
+    /** Keep track of the closing tags for inline events. */
+    protected Stack<List<Tag>> inlineStack = new Stack<>();
 
-    /** Used to wrap the definedTerm with its definition, even when one is omitted */
+    /** An indication on if we're inside a paragraph flag. */
 ```
 
 ### ObsoleteCollection
 Obsolete collection type `Stack<>` used
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
 #### Snippet
 ```java
 
-    /** Used to keep track of closing tags for content events */
-    private Stack<String> divStack = new Stack<>();
+    /** Keep track of the closing tags for inline events. */
+    protected Stack<List<Tag>> inlineStack = new Stack<>();
 
-    /** Used to wrap the definedTerm with its definition, even when one is omitted */
+    /** An indication on if we're inside a paragraph flag. */
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack` used
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+
+    /** Keep track of the main and div tags for content events. */
+    protected Stack<Tag> contentStack = new Stack<>();
+
+    /** Keep track of the closing tags for inline events. */
+```
+
+### ObsoleteCollection
+Obsolete collection type `Stack<>` used
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+
+    /** Keep track of the main and div tags for content events. */
+    protected Stack<Tag> contentStack = new Stack<>();
+
+    /** Keep track of the closing tags for inline events. */
 ```
 
 ## RuleId[id=RefusedBequest]
@@ -507,15 +519,15 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
-`s.length() != 0` can be replaced with '!s.isEmpty()'
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+`sectionIndex.getChildEntries().size() > 0` can be replaced with '!sectionIndex.getChildEntries().isEmpty()'
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/toc/TocMacro.java`
 #### Snippet
 ```java
-        Objects.requireNonNull(s, "s cannot be null");
 
-        if (s.length() != 0) {
-            ungetLine();
-            lastLine = s;
+        if (toDepth > n) {
+            if (sectionIndex.getChildEntries().size() > 0) {
+                if (fromDepth <= n) {
+                    sink.list();
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -531,18 +543,6 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/toc/TocMacro.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`sectionIndex.getChildEntries().size() > 0` can be replaced with '!sectionIndex.getChildEntries().isEmpty()'
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/toc/TocMacro.java`
-#### Snippet
-```java
-
-        if (toDepth > n) {
-            if (sectionIndex.getChildEntries().size() > 0) {
-                if (fromDepth <= n) {
-                    sink.list();
-```
-
-### SizeReplaceableByIsEmpty
 `text.trim().length() != 0` can be replaced with '!text.trim().isEmpty()'
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
 #### Snippet
@@ -552,6 +552,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.jav
                     if (text.trim().length() != 0) {
                         handleText(parser, sink);
                     }
+```
+
+### SizeReplaceableByIsEmpty
+`s.length() != 0` can be replaced with '!s.isEmpty()'
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+        Objects.requireNonNull(s, "s cannot be null");
+
+        if (s.length() != 0) {
+            ungetLine();
+            lastLine = s;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -616,18 +628,6 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-            }
-
-            final StringBuilder buffer = new StringBuilder(comment.length() + 7);
-
-            buffer.append(LESS_THAN).append(BANG).append(MINUS).append(MINUS);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
 #### Snippet
@@ -639,31 +639,19 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.jav
             sb.append(tableCaption);
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+            }
+
+            final StringBuilder buffer = new StringBuilder(comment.length() + 7);
+
+            buffer.append(LESS_THAN).append(BANG).append(MINUS).append(MINUS);
+```
+
 ## RuleId[id=UnnecessaryReturn]
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
-#### Snippet
-```java
-    public void removeAttributes(AttributeSet attributes) {
-        if (attributes == null) {
-            return;
-        } else if (attributes == this) {
-            attribs.clear();
-```
-
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `doxia-modules/doxia-module-xhtml5/src/main/java/org/apache/maven/doxia/module/xhtml5/Xhtml5Parser.java`
-#### Snippet
-```java
-        if (parser.getName().equals(HTML.toString())) {
-            // Do nothing
-            return;
-        } else if (parser.getName().equals(HEAD.toString())) {
-            sink.head(attribs);
-```
-
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlContentParser.java`
@@ -690,6 +678,30 @@ in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/f
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
+#### Snippet
+```java
+    public void removeAttributes(AttributeSet attributes) {
+        if (attributes == null) {
+            return;
+        } else if (attributes == this) {
+            attribs.clear();
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `doxia-modules/doxia-module-xhtml5/src/main/java/org/apache/maven/doxia/module/xhtml5/Xhtml5Parser.java`
+#### Snippet
+```java
+        if (parser.getName().equals(HTML.toString())) {
+            // Do nothing
+            return;
+        } else if (parser.getName().equals(HEAD.toString())) {
+            sink.head(attribs);
+```
+
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
 in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
 #### Snippet
 ```java
@@ -700,224 +712,19 @@ in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/
             if (!inHead) // we might be in head from a <properties> already
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
-#### Snippet
-```java
-                if (SinkEventAttributes.STYLE.equals(key.toString())) {
-                    sb.append(Markup.SPACE)
-                            .append(key.toString())
-                            .append(Markup.EQUAL)
-                            .append(Markup.QUOTE)
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
-#### Snippet
-```java
-        }
-
-        sb.append(t.toString());
-        sb.append(GREATER_THAN);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
-#### Snippet
-```java
-        }
-
-        sb.append(t.toString());
-
-        sb.append(SinkUtils.getAttributeString(att));
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
-#### Snippet
-```java
-    public void table_() {
-        if (tableCaptionBuffer.length() > 0) {
-            text(tableCaptionBuffer.toString() + EOL);
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
-#### Snippet
-```java
-
-        if (tableCaptionBuffer.length() > 0) {
-            text(tableCaptionBuffer.toString() + EOL);
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-
-            if (StringUtils.isEmpty(macroName)) {
-                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
-                        + MACRO_TAG.toString() + "' tag is required.");
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-            if (StringUtils.isEmpty(macroName)) {
-                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
-                        + MACRO_TAG.toString() + "' tag is required.");
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-                    executeMacro(macroName, request, sink);
-                    sink.close();
-                    buffer.append(sw.toString());
-                } catch (MacroNotFoundException me) {
-                    throw new MacroExecutionException("Macro not found: " + macroName, me);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-
-                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
-                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
-                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
-                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
-                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
-                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
-                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
-                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
-                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
-                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
-#### Snippet
-```java
-                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
-                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
-                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
-                }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
-                    throw new MacroExecutionException(
-                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
-                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
-                                    + MACRO_TAG.toString() + "' tag.");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
-                    throw new MacroExecutionException(
-                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
-                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
-                                    + MACRO_TAG.toString() + "' tag.");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-                    throw new MacroExecutionException(
-                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
-                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
-                                    + MACRO_TAG.toString() + "' tag.");
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
-                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
-                                    + MACRO_TAG.toString() + "' tag.");
-                }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-
-            if (StringUtils.isEmpty(macroName)) {
-                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
-                        + MACRO_TAG.toString() + "' tag is required.");
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
-#### Snippet
-```java
-            if (StringUtils.isEmpty(macroName)) {
-                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
-                        + MACRO_TAG.toString() + "' tag is required.");
-            }
-        }
-```
-
 ## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractSink.java`
+#### Snippet
+```java
+            if (text.charAt(i) == '\r') {
+                if ((i + 1) < length && text.charAt(i + 1) == '\n') {
+                    i++;
+                }
+
+```
+
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
@@ -940,18 +747,6 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
                                 buffer.append(Integer.toHexString(toCodePoint(c, text.charAt(++i))));
                             } else {
                                 buffer.append(Integer.toHexString(c));
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractSink.java`
-#### Snippet
-```java
-            if (text.charAt(i) == '\r') {
-                if ((i + 1) < length && text.charAt(i + 1) == '\n') {
-                    i++;
-                }
-
 ```
 
 ### AssignmentToForLoopParameter
@@ -1159,6 +954,223 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
     }
 ```
 
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
+#### Snippet
+```java
+    public void table_() {
+        if (tableCaptionBuffer.length() > 0) {
+            text(tableCaptionBuffer.toString() + EOL);
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
+#### Snippet
+```java
+                if (SinkEventAttributes.STYLE.equals(key.toString())) {
+                    sb.append(Markup.SPACE)
+                            .append(key.toString())
+                            .append(Markup.EQUAL)
+                            .append(Markup.QUOTE)
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSink.java`
+#### Snippet
+```java
+
+        if (tableCaptionBuffer.length() > 0) {
+            text(tableCaptionBuffer.toString() + EOL);
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+                    executeMacro(macroName, request, sink);
+                    sink.close();
+                    buffer.append(sw.toString());
+                } catch (MacroNotFoundException me) {
+                    throw new MacroExecutionException("Macro not found: " + macroName, me);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+
+                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
+                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
+                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
+                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
+                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
+                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
+                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
+                }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
+                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
+                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
+                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
+                }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+                    throw new MacroExecutionException("'" + Attribute.NAME.toString()
+                            + "' and '" + Attribute.VALUE.toString() + "' attributes for the '" + PARAM.toString()
+                            + "' tag are required inside the '" + MACRO_TAG.toString() + "' tag.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+
+            if (StringUtils.isEmpty(macroName)) {
+                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
+                        + MACRO_TAG.toString() + "' tag is required.");
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-fml/src/main/java/org/apache/maven/doxia/module/fml/FmlParser.java`
+#### Snippet
+```java
+            if (StringUtils.isEmpty(macroName)) {
+                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
+                        + MACRO_TAG.toString() + "' tag is required.");
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+#### Snippet
+```java
+        }
+
+        sb.append(t.toString());
+        sb.append(GREATER_THAN);
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+#### Snippet
+```java
+        }
+
+        sb.append(t.toString());
+
+        sb.append(SinkUtils.getAttributeString(att));
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
+                    throw new MacroExecutionException(
+                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
+                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
+                                    + MACRO_TAG.toString() + "' tag.");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+                if (StringUtils.isEmpty(paramName) || StringUtils.isEmpty(paramValue)) {
+                    throw new MacroExecutionException(
+                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
+                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
+                                    + MACRO_TAG.toString() + "' tag.");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+                    throw new MacroExecutionException(
+                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
+                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
+                                    + MACRO_TAG.toString() + "' tag.");
+                }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+                            "'" + Attribute.NAME.toString() + "' and '" + Attribute.VALUE.toString()
+                                    + "' attributes for the '" + PARAM.toString() + "' tag are required inside the '"
+                                    + MACRO_TAG.toString() + "' tag.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+
+            if (StringUtils.isEmpty(macroName)) {
+                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
+                        + MACRO_TAG.toString() + "' tag is required.");
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocParser.java`
+#### Snippet
+```java
+            if (StringUtils.isEmpty(macroName)) {
+                throw new MacroExecutionException("The '" + Attribute.NAME.toString() + "' attribute for the '"
+                        + MACRO_TAG.toString() + "' tag is required.");
+            }
+        }
+```
+
 ## RuleId[id=RegExpUnexpectedAnchor]
 ### RegExpUnexpectedAnchor
 Anchor `^` in unexpected position
@@ -1185,18 +1197,6 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.jav
             SinkEventAttributes attributesNoSemantics = (SinkEventAttributes) attributes.copyAttributes();
 ```
 
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `AbstractXhtml5Sink` has no concrete subclass
-in `doxia-modules/doxia-module-xhtml5/src/main/java/org/apache/maven/doxia/module/xhtml5/AbstractXhtml5Sink.java`
-#### Snippet
-```java
- * <p>Abstract AbstractXhtml5Sink class.</p>
- */
-public abstract class AbstractXhtml5Sink extends SinkAdapter {}
-
-```
-
 ## RuleId[id=SuspiciousInvocationHandlerImplementation]
 ### SuspiciousInvocationHandlerImplementation
 Null might be returned when proxying method 'equals()': this may cause NullPointerException
@@ -1210,19 +1210,19 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
 
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `AbstractXhtml5Sink` has no concrete subclass
+in `doxia-modules/doxia-module-xhtml5/src/main/java/org/apache/maven/doxia/module/xhtml5/AbstractXhtml5Sink.java`
 #### Snippet
 ```java
-    private List<String> readLines(String snippetId) throws IOException {
-        BufferedReader reader;
-        if (encoding == null || "".equals(encoding)) {
-            reader = new BufferedReader(new InputStreamReader(source.openStream()));
-        } else {
+ * <p>Abstract AbstractXhtml5Sink class.</p>
+ */
+public abstract class AbstractXhtml5Sink extends SinkAdapter {}
+
 ```
 
+## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
 in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.java`
@@ -1247,29 +1247,16 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.j
         }
 ```
 
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.java`
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
 #### Snippet
 ```java
-
-        if (verbatimParam != null && !"".equals(verbatimParam)) {
-            verbatim = Boolean.valueOf(verbatimParam);
-        }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.java`
-#### Snippet
-```java
-
-        if (sourceParam != null && !"".equals(sourceParam)) {
-            source = Boolean.valueOf(sourceParam);
-        }
-
+    private List<String> readLines(String snippetId) throws IOException {
+        BufferedReader reader;
+        if (encoding == null || "".equals(encoding)) {
+            reader = new BufferedReader(new InputStreamReader(source.openStream()));
+        } else {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -1297,6 +1284,31 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.jav
 
 ```
 
+## RuleId[id=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.java`
+#### Snippet
+```java
+
+        if (verbatimParam != null && !"".equals(verbatimParam)) {
+            verbatim = Boolean.valueOf(verbatimParam);
+        }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.java`
+#### Snippet
+```java
+
+        if (sourceParam != null && !"".equals(sourceParam)) {
+            source = Boolean.valueOf(sourceParam);
+        }
+
+```
+
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -1316,11 +1328,11 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/AbstractMacro.java`
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
-
+    private void traverseSectionBlocks() throws AptParseException {
         loop:
         while (block != null) {
-            int blockIndent = block.getIndent();
-
+            switch (block.getType()) {
+                case PARAGRAPH:
 ```
 
 ### WhileLoopSpinsOnField
@@ -1328,11 +1340,11 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
-    private void traverseSectionBlocks() throws AptParseException {
+
         loop:
         while (block != null) {
-            switch (block.getType()) {
-                case PARAGRAPH:
+            int blockIndent = block.getIndent();
+
 ```
 
 ### WhileLoopSpinsOnField
@@ -1364,11 +1376,11 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
+        traverseSectionBlocks();
 
-        loop:
         while (block != null) {
-            int blockIndent = block.getIndent();
-
+            if (block.getType() <= type) {
+                break;
 ```
 
 ### WhileLoopSpinsOnField
@@ -1376,11 +1388,11 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
-        traverseSectionBlocks();
 
+        loop:
         while (block != null) {
-            if (block.getType() <= type) {
-                break;
+            int blockIndent = block.getIndent();
+
 ```
 
 ## RuleId[id=ClassNameSameAsAncestorName]
@@ -1398,18 +1410,6 @@ public class YamlFrontMatterVisitor extends AbstractYamlFrontMatterVisitor {
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `anchor_()` is identical to its super method
-in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
-#### Snippet
-```java
-
-    @Override
-    public void anchor_() {
-        // write(ANCHOR_END_MARKUP);
-    }
-```
-
-### RedundantMethodOverride
 Method `anchor()` is identical to its super method
 in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
 #### Snippet
@@ -1422,15 +1422,15 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 ```
 
 ### RedundantMethodOverride
-Method `init()` only delegates to its super method
-in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownParser.java`
+Method `anchor_()` is identical to its super method
+in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownSink.java`
 #### Snippet
 ```java
 
-        @Override
-        protected void init() {
-            super.init();
-        }
+    @Override
+    public void anchor_() {
+        // write(ANCHOR_END_MARKUP);
+    }
 ```
 
 ### RedundantMethodOverride
@@ -1443,6 +1443,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java
     protected void initXmlParser(XmlPullParser parser) throws XmlPullParserException {
         super.initXmlParser(parser);
     }
+```
+
+### RedundantMethodOverride
+Method `init()` only delegates to its super method
+in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownParser.java`
+#### Snippet
+```java
+
+        @Override
+        protected void init() {
+            super.init();
+        }
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -1486,6 +1498,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexingSink.java`
+#### Snippet
+```java
+
+                String title = entry.getTitle() + text;
+                title = title.replaceAll("[\\r\\n]+", "");
+                entry.setTitle(title);
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/MarkdownParser.java`
 #### Snippet
 ```java
@@ -1508,269 +1532,353 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.jav
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexingSink.java`
-#### Snippet
-```java
-
-                String title = entry.getTitle() + text;
-                title = title.replaceAll("[\\r\\n]+", "");
-                entry.setTitle(title);
-
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSource.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
 #### Snippet
 ```java
-     *
-     * @return a line of the apt source.
-     * @throws org.apache.maven.doxia.module.apt.AptParseException if the document can't be parsed.
+     * @return a <code>Sink</code> instance.
+     * @since 1.1
+     * @throws java.io.IOException if any.
      */
-    String getNextLine() throws AptParseException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
-#### Snippet
-```java
-     * AttributeSets are ignored unless the Attribute name is SinkEventAttributeSet.STYLE,
-     * in which case they are written as outlined at
-     * {@link org.apache.maven.doxia.sink.SinkEventAttributes#STYLE SinkEventAttributes.STYLE}.
-     * All other keys and values are written as Strings.
-     *
+    Sink createSink(OutputStream out) throws IOException;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
 #### Snippet
 ```java
-     * <p>Constructor for ByLineReaderSource.</p>
-     *
-     * @param in a {@link java.io.Reader} object.
-     * @param name a {@link java.lang.String} object.
+     * @param outputName the not-null output name.
+     * @return a <code>Sink</code> instance with a file as output.
+     * @throws java.io.IOException if any.
      */
+    Sink createSink(File outputDir, String outputName) throws IOException;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
 #### Snippet
 ```java
-     *
-     * @param in a {@link java.io.Reader} object.
-     * @param name a {@link java.lang.String} object.
+     * @see #createSink(File, String)
+     * @since 1.1
+     * @throws java.io.IOException if any.
      */
-    public ByLineReaderSource(final Reader in, final String name) {
+    Sink createSink(File outputDir, String outputName, String encoding) throws IOException;
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
 #### Snippet
 ```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
+     * @return a <code>Sink</code> instance using specified encoding.
+     * @since 1.1
+     * @throws java.io.IOException if any.
      */
-    public final String getName() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
-     * @throws org.apache.maven.doxia.parser.ParseException if any.
-     */
+    Sink createSink(OutputStream out, String encoding) throws IOException;
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Parser.java`
 #### Snippet
 ```java
+     * You could use <code>newReader</code> methods from {@link org.codehaus.plexus.util.ReaderFactory}.
+     * @param sink A sink that consumes the Doxia events.
+     * @throws org.apache.maven.doxia.parser.ParseException if the model could not be parsed.
+     */
+    void parse(Reader source, Sink sink) throws ParseException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Parser.java`
+#### Snippet
+```java
+     * @param sink A sink that consumes the Doxia events.
+     * @param reference the reference
+     * @throws org.apache.maven.doxia.parser.ParseException if the model could not be parsed.
+     */
+    void parse(Reader source, Sink sink, String reference) throws ParseException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
+#### Snippet
+```java
+     * {@inheritDoc}
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.apache.maven.doxia.parser.ParseException if any.
      */
-    public final String getNextLine() throws ParseException {
+    public String getParserId() {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
 #### Snippet
 ```java
-     * @param t a non null tag.
-     * @param att a set of attributes. May be null.
-     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, boolean)
-     */
-    protected void writeStartTag(Tag t, MutableAttributeSet att) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
-#### Snippet
-```java
+     * {@inheritDoc}
      *
-     * @param t a non null tag
-     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet)
+     * @return an array of {@link java.lang.String} objects.
      */
-    protected void writeStartTag(Tag t) {
+    public String[] getExtensions() {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
 #### Snippet
 ```java
-     * @param t a non null tag.
-     * @param att a set of attributes. May be null.
-     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, boolean)
-     */
-    protected void writeSimpleTag(Tag t, MutableAttributeSet att) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
-#### Snippet
-```java
+     * {@inheritDoc}
      *
-     * @param t a non null tag
-     * @see #writeSimpleTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet)
+     * @return a {@link java.lang.String} object.
      */
-    protected void writeSimpleTag(Tag t) {
+    public String getSourceDirectory() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+#### Snippet
+```java
+     * @param string a string that provides the source input
+     * @param sink a sink that consumes the Doxia events
+     * @throws org.apache.maven.doxia.parser.ParseException if the string could not be parsed
+     * @since 1.1
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+#### Snippet
+```java
+     * @param request the corresponding MacroRequest
+     * @param sink the sink to receive the events
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution
+     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if the macro could not be found
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.macro.manager` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+#### Snippet
+```java
+     * @param sink the sink to receive the events
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution
+     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if the macro could not be found
+     */
+    // Made public right now because of the structure of the APT parser and
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+#### Snippet
+```java
+     * @param sink a sink that consumes the Doxia events
+     * @param reference a string containing the reference to the source of the input string (e.g. filename)
+     * @throws org.apache.maven.doxia.parser.ParseException if the string could not be parsed
+     * @since 1.10
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/LineBreaker.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
 #### Snippet
 ```java
+    /**
+     * Initialize the parser. This is called first by
+     * {@link #parse(java.io.Reader, org.apache.maven.doxia.sink.Sink)} and can be used
+     * to set the parser into a clear state so it can be re-used.
      *
-     * @param text The text to write.
-     * @throws java.io.IOException if there's a problem writing the text.
-     */
-    public void write(String text) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.util.Enumeration} object.
-     */
-    public Enumeration<String> getAttributeNames() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @param attributes a {@link javax.swing.text.AttributeSet} object.
-     */
-    public void removeAttributes(AttributeSet attributes) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link javax.swing.text.AttributeSet} object.
-     */
-    public AttributeSet getResolveParent() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.swing.text` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link javax.swing.text.AttributeSet} object.
-     */
-    public AttributeSet copyAttributes() {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+#### Snippet
+```java
+    /**
+     * Initialize the parser. This is called first by
+     * {@link #parse(java.io.Reader, org.apache.maven.doxia.sink.Sink)} and can be used
+     * to set the parser into a clear state so it can be re-used.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser.manager` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/manager/ParserManager.java`
+#### Snippet
+```java
+     * @param id The identifier.
+     * @return The corresponding parser.
+     * @throws org.apache.maven.doxia.parser.manager.ParserNotFoundException if no parser could be found
+     * for the given id.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * It will be passed as the first argument of the required parameters to the Sink
+     * {@link
+     * org.apache.maven.doxia.sink.Sink#unknown(String, Object[], org.apache.maven.doxia.sink.SinkEventAttributes)}
+     * method.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events. Not null.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     */
+    protected void handleText(XmlPullParser parser, Sink sink) throws XmlPullParserException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+    protected abstract void handleEndTag(XmlPullParser parser, Sink sink)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events. Not null.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     */
+    protected void handleEntity(XmlPullParser parser, Sink sink) throws XmlPullParserException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events. Not null.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     */
+    protected void handleComment(XmlPullParser parser, Sink sink) throws XmlPullParserException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+    private void parseXml(XmlPullParser parser, Sink sink) throws XmlPullParserException, MacroExecutionException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events. Not null.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     */
+    protected void handleCdsect(XmlPullParser parser, Sink sink) throws XmlPullParserException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param parser A parser, not null.
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+#### Snippet
+```java
+     * @param sink the sink to receive the events.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
+     */
+    protected abstract void handleStartTag(XmlPullParser parser, Sink sink)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
 #### Snippet
 ```java
      *
-     * @param pipeline A List of Sinks.
-     * @return a {@link org.apache.maven.doxia.sink.Sink} object.
+     * @param parser A parser, not null.
+     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem initializing the parser
      */
-    public static Sink newInstance(List<Sink> pipeline) {
+    protected void initXmlParser(XmlPullParser parser) throws XmlPullParserException {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+Qualifier `org.apache.maven.doxia.macro.manager` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/manager/MacroManager.java`
 #### Snippet
 ```java
-     * @throws IllegalAccessException if any.
-     * @throws InvocationTargetException if any.
-     * @param proxy a {@link java.lang.Object} object.
-     * @param method a {@link java.lang.reflect.Method} object.
-     * @param args an array of {@link java.lang.Object} objects.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang.reflect` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
-#### Snippet
-```java
-     * @throws InvocationTargetException if any.
-     * @param proxy a {@link java.lang.Object} object.
-     * @param method a {@link java.lang.reflect.Method} object.
-     * @param args an array of {@link java.lang.Object} objects.
-     * @return a {@link java.lang.Object} object.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
-#### Snippet
-```java
-     * @param proxy a {@link java.lang.Object} object.
-     * @param method a {@link java.lang.reflect.Method} object.
-     * @param args an array of {@link java.lang.Object} objects.
-     * @return a {@link java.lang.Object} object.
+     * @param id The identifier.
+     * @return The corresponding MacroManager.
+     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if no MacroManager could be found
+     * for the given id.
      */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
-#### Snippet
-```java
-     * @param method a {@link java.lang.reflect.Method} object.
-     * @param args an array of {@link java.lang.Object} objects.
-     * @return a {@link java.lang.Object} object.
-     */
-    public Object invoke(Object proxy, Method method, Object[] args)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1786,39 +1894,15 @@ in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/Sink.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptSource.java`
 #### Snippet
 ```java
-     * @param id The id to be encoded.
-     * @return The trimmed and encoded id, or null if id is null.
-     * @see DoxiaUtils#encodeId(java.lang.String,boolean)
-     */
-    public static String encodeId(String id) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
-#### Snippet
-```java
-    /**
-     * Returns a tag for a defined HTML tag name. This is one of
-     * the tags defined in {@link org.apache.maven.doxia.markup.HtmlMarkup}.
-     * If the given name does not represent one of the defined tags, then
-     * <code>null</code> will be returned.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/MacroRequest.java`
-#### Snippet
-```java
-     * <p>getSourceContent.</p>
      *
-     * @return a {@link java.lang.String} object.
+     * @return a line of the apt source.
+     * @throws org.apache.maven.doxia.module.apt.AptParseException if the document can't be parsed.
      */
-    public String getSourceContent() {
+    String getNextLine() throws AptParseException;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1894,15 +1978,195 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/MacroRequest.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro.manager` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/manager/MacroManager.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/MacroRequest.java`
 #### Snippet
 ```java
-     * @param id The identifier.
-     * @return The corresponding MacroManager.
-     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if no MacroManager could be found
-     * for the given id.
+     * <p>getSourceContent.</p>
+     *
+     * @return a {@link java.lang.String} object.
      */
+    public String getSourceContent() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
+#### Snippet
+```java
+     * AttributeSets are ignored unless the Attribute name is SinkEventAttributeSet.STYLE,
+     * in which case they are written as outlined at
+     * {@link org.apache.maven.doxia.sink.SinkEventAttributes#STYLE SinkEventAttributes.STYLE}.
+     * All other keys and values are written as Strings.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/LineBreaker.java`
+#### Snippet
+```java
+     *
+     * @param text The text to write.
+     * @throws java.io.IOException if there's a problem writing the text.
+     */
+    public void write(String text) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+     *
+     * @param pipeline A List of Sinks.
+     * @return a {@link org.apache.maven.doxia.sink.Sink} object.
+     */
+    public static Sink newInstance(List<Sink> pipeline) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+     * @throws IllegalAccessException if any.
+     * @throws InvocationTargetException if any.
+     * @param proxy a {@link java.lang.Object} object.
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param args an array of {@link java.lang.Object} objects.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang.reflect` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+     * @throws InvocationTargetException if any.
+     * @param proxy a {@link java.lang.Object} object.
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param args an array of {@link java.lang.Object} objects.
+     * @return a {@link java.lang.Object} object.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+     * @param proxy a {@link java.lang.Object} object.
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param args an array of {@link java.lang.Object} objects.
+     * @return a {@link java.lang.Object} object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param args an array of {@link java.lang.Object} objects.
+     * @return a {@link java.lang.Object} object.
+     */
+    public Object invoke(Object proxy, Method method, Object[] args)
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineSource.java`
+#### Snippet
+```java
+     *
+     * @return the next line. <code>null</code> if we reached the end.
+     * @throws org.apache.maven.doxia.parser.ParseException on I/O error
+     */
+    String getNextLine() throws ParseException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link javax.swing.text.AttributeSet} object.
+     */
+    public AttributeSet getResolveParent() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @param attributes a {@link javax.swing.text.AttributeSet} object.
+     */
+    public void removeAttributes(AttributeSet attributes) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link java.util.Enumeration} object.
+     */
+    public Enumeration<String> getAttributeNames() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkEventAttributeSet.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link javax.swing.text.AttributeSet} object.
+     */
+    public AttributeSet copyAttributes() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link java.lang.String} object.
+     * @throws org.apache.maven.doxia.module.apt.AptParseException if any.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+#### Snippet
+```java
+     *
+     * @return a {@link java.lang.String} object.
+     * @throws org.apache.maven.doxia.module.apt.AptParseException if any.
+     */
+    public String getNextLine() throws AptParseException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public String getName() {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1915,18 +2179,6 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
      * {@link org.apache.maven.doxia.util.DoxiaUtils#encodeId(String)}
      * to ensure the anchor is a valid Doxia id.
      * The procedure is identical to the one in
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptUtils.java`
-#### Snippet
-```java
-     * @return True if link is neither an {@link #isExternalLink(String) external}
-     * nor a {@link #isLocalLink(String) local} link.
-     * @see org.apache.maven.doxia.util.DoxiaUtils#isInternalLink(String)
-     * @see #isExternalLink(String)
-     * @see #isLocalLink(String)
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1966,123 +2218,387 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineSource.java`
+Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptUtils.java`
 #### Snippet
 ```java
-     *
-     * @return the next line. <code>null</code> if we reached the end.
-     * @throws org.apache.maven.doxia.parser.ParseException on I/O error
-     */
-    String getNextLine() throws ParseException;
+     * @return True if link is neither an {@link #isExternalLink(String) external}
+     * nor a {@link #isLocalLink(String) local} link.
+     * @see org.apache.maven.doxia.util.DoxiaUtils#isInternalLink(String)
+     * @see #isExternalLink(String)
+     * @see #isLocalLink(String)
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
 #### Snippet
 ```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
+     * @param t a non null tag.
+     * @param att a set of attributes. May be null.
+     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, boolean)
      */
-    public String getName() {
+    protected void writeStartTag(Tag t, MutableAttributeSet att) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+Qualifier `org.apache.maven.doxia.sink.impl` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
 #### Snippet
 ```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
-     * @throws org.apache.maven.doxia.module.apt.AptParseException if any.
+     * @param newLevel the new section level, all upper levels have to be closed.
+     * @param sink the sink to receive the events.
+     * @param attribs a {@link org.apache.maven.doxia.sink.impl.SinkEventAttributeSet} object.
      */
+    protected void consecutiveSections(int newLevel, Sink sink, SinkEventAttributeSet attribs) {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
 #### Snippet
 ```java
      *
-     * @return a {@link java.lang.String} object.
-     * @throws org.apache.maven.doxia.module.apt.AptParseException if any.
+     * @param t a non null tag
+     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet)
      */
-    public String getNextLine() throws AptParseException {
+    protected void writeStartTag(Tag t) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+#### Snippet
+```java
+     * @param t a non null tag.
+     * @param att a set of attributes. May be null.
+     * @see #writeStartTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet, boolean)
+     */
+    protected void writeSimpleTag(Tag t, MutableAttributeSet att) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `javax.swing.text` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractXmlSink.java`
+#### Snippet
+```java
+     *
+     * @param t a non null tag
+     * @see #writeSimpleTag(javax.swing.text.html.HTML.Tag, javax.swing.text.MutableAttributeSet)
+     */
+    protected void writeSimpleTag(Tag t) {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
 #### Snippet
 ```java
-    /**
-     * Initialize the parser. This is called first by
-     * {@link #parse(java.io.Reader, org.apache.maven.doxia.sink.Sink)} and can be used
-     * to set the parser into a clear state so it can be re-used.
+     * <p>Constructor for ByLineReaderSource.</p>
      *
+     * @param in a {@link java.io.Reader} object.
+     * @param name a {@link java.lang.String} object.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+     *
+     * @param in a {@link java.io.Reader} object.
+     * @param name a {@link java.lang.String} object.
+     */
+    public ByLineReaderSource(final Reader in, final String name) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link java.lang.String} object.
+     */
+    public final String getName() {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     *
+     * @return a {@link java.lang.String} object.
+     * @throws org.apache.maven.doxia.parser.ParseException if any.
+     */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+     *
+     * @return a {@link java.lang.String} object.
+     * @throws org.apache.maven.doxia.parser.ParseException if any.
+     */
+    public final String getNextLine() throws ParseException {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
 #### Snippet
 ```java
-    /**
-     * Initialize the parser. This is called first by
-     * {@link #parse(java.io.Reader, org.apache.maven.doxia.sink.Sink)} and can be used
-     * to set the parser into a clear state so it can be re-used.
+     * @see XdocMarkup#SOURCE_TAG
+     * @see javax.swing.text.html.HTML.Tag#PRE
+     * @param attributes a {@link org.apache.maven.doxia.sink.SinkEventAttributes} object.
+     */
+    public void verbatim(SinkEventAttributes attributes) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
+#### Snippet
+```java
+     * {@inheritDoc}
      *
+     * @see #body(org.apache.maven.doxia.sink.SinkEventAttributes)
+     */
+    public void body() {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
+in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
 #### Snippet
 ```java
-     * @param string a string that provides the source input
-     * @param sink a sink that consumes the Doxia events
-     * @throws org.apache.maven.doxia.parser.ParseException if the string could not be parsed
-     * @since 1.1
+     * {@inheritDoc}
+     *
+     * @see #head(org.apache.maven.doxia.sink.SinkEventAttributes)
      */
+    public void head() {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+Qualifier `java.util` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/DefaultParserModuleManager.java`
 #### Snippet
 ```java
-     * @param sink a sink that consumes the Doxia events
-     * @param reference a string containing the reference to the source of the input string (e.g. filename)
-     * @throws org.apache.maven.doxia.parser.ParseException if the string could not be parsed
-     * @since 1.10
+     * {@inheritDoc}
+     *
+     * @return a {@link java.util.Collection} object.
      */
+    public Collection<ParserModule> getParserModules() {
 ```
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/Macro.java`
 #### Snippet
 ```java
-     * @param request the corresponding MacroRequest
-     * @param sink the sink to receive the events
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution
-     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if the macro could not be found
+     * @param sink The sink to receive the events.
+     * @param request The corresponding MacroRequest.
+     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution.
+     */
+    void execute(Sink sink, MacroRequest request) throws MacroExecutionException;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+#### Snippet
+```java
+    /**
+     * Returns a tag for a defined HTML tag name. This is one of
+     * the tags defined in {@link org.apache.maven.doxia.markup.HtmlMarkup}.
+     * If the given name does not represent one of the defined tags, then
+     * <code>null</code> will be returned.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+#### Snippet
+```java
+     * @param id The id to be encoded.
+     * @return The trimmed and encoded id, or null if id is null, empty or blank.
+     * @see DoxiaUtils#encodeId(java.lang.String)
+     * @deprecated use {@link DoxiaUtils#encodeId(String)}
      */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro.manager` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
 #### Snippet
 ```java
-     * @param sink the sink to receive the events
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution
-     * @throws org.apache.maven.doxia.macro.manager.MacroNotFoundException if the macro could not be found
+     * ie it is a link to an anchor within the same document.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * ie it is a link to an anchor within the same document.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+     * @param link The link to check. Not null.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * @return The trimmed and encoded id, or null if id is null.
+     * If id is not null, the return value is guaranteed to be a valid Doxia id.
+     * @see #isValidId(java.lang.String)
+     * @since 1.1.1
+     * @deprecated Don't chop characters which might produce collisions in a document
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * to another document (a local link) of the same site.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * to another document (a local link) of the same site.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+     * @param link The link to check. Not null.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * @return a set of SinkEventAttributes, or null if no ImageReader was found to read the image.
+     *
+     * @throws java.io.IOException if an error occurs during reading.
+     * @throws NullPointerException if logo is null.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * nor an {@link #isExternalLink(String) external} link.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * nor an {@link #isExternalLink(String) external} link.
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     * If link is not null, then exactly one of the three methods
+     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
+     * {@link #isLocalLink(java.lang.String)} will return true.
+     *
+     * @param link The link to check. Not null.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     *
+     * <p>
+     *   This method is equivalent to {@link #encodeId(java.lang.String, boolean) encodeId(id, false)}.
+     * </p>
+     *
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+     *      May be null in which case null is returned.
+     * @return The trimmed and encoded id, or null if id is null.
+     * @see #encodeId(java.lang.String, boolean)
      */
-    // Made public right now because of the structure of the APT parser and
+    public static String encodeId(final String id) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
+#### Snippet
+```java
+     * @param snippetId The id of the snippet.
+     * @return The snippet.
+     * @throws java.io.IOException if something goes wrong.
+     */
+    public StringBuffer readSnippet(String snippetId) throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2158,618 +2674,6 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getParserId() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getSourceDirectory() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return an array of {@link java.lang.String} objects.
-     */
-    public String[] getExtensions() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
-#### Snippet
-```java
-     * @param snippetId The id of the snippet.
-     * @return The snippet.
-     * @throws java.io.IOException if something goes wrong.
-     */
-    public StringBuffer readSnippet(String snippetId) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-    protected abstract void handleStartTag(XmlPullParser parser, Sink sink)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events. Not null.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     */
-    protected void handleEntity(XmlPullParser parser, Sink sink) throws XmlPullParserException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events. Not null.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     */
-    protected void handleComment(XmlPullParser parser, Sink sink) throws XmlPullParserException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * It will be passed as the first argument of the required parameters to the Sink
-     * {@link
-     * org.apache.maven.doxia.sink.Sink#unknown(String, Object[], org.apache.maven.doxia.sink.SinkEventAttributes)}
-     * method.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events. Not null.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     */
-    protected void handleText(XmlPullParser parser, Sink sink) throws XmlPullParserException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     *
-     * @param parser A parser, not null.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem initializing the parser
-     */
-    protected void initXmlParser(XmlPullParser parser) throws XmlPullParserException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-    protected abstract void handleEndTag(XmlPullParser parser, Sink sink)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events. Not null.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     */
-    protected void handleCdsect(XmlPullParser parser, Sink sink) throws XmlPullParserException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.codehaus.plexus.util.xml.pull` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param parser A parser, not null.
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
-#### Snippet
-```java
-     * @param sink the sink to receive the events.
-     * @throws org.codehaus.plexus.util.xml.pull.XmlPullParserException if there's a problem parsing the model
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if there's a problem executing a macro
-     */
-    private void parseXml(XmlPullParser parser, Sink sink) throws XmlPullParserException, MacroExecutionException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     * @param text the String to encode, may be null.
-     * @return the text encoded, null if null String input.
-     * @see org.apache.maven.doxia.util.HtmlTools#encodeURL(String)
-     */
-    protected static String encodeURL(String text) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * If {@link org.apache.maven.doxia.util.HtmlTools#getHtmlTag(String) HtmlTools.getHtmlTag(name)}
-     * does not return null, the corresponding tag will be written.
-     * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *
-     * @param name the name of the event. If this is not a valid xhtml tag name
-     *      as defined in {@link org.apache.maven.doxia.markup.HtmlMarkup} then the event is ignored.
-     * @param requiredParams If this is null or the first argument is not an Integer then the event is ignored.
-     *      The first argument should indicate the type of the unknown event, its integer value should be one of
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     * @param requiredParams If this is null or the first argument is not an Integer then the event is ignored.
-     *      The first argument should indicate the type of the unknown event, its integer value should be one of
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *      The first argument should indicate the type of the unknown event, its integer value should be one of
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
-     *      otherwise the event will be ignored.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
-     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
-     *      otherwise the event will be ignored.
-     * @param attributes a set of attributes for the event. May be null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-     * @param text the String to escape, may be null
-     * @return the text escaped, "" if null String input
-     * @see org.apache.maven.doxia.util.HtmlTools#escapeHTML(String)
-     */
-    protected static String escapeHTML(String text) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser.manager` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/manager/ParserManager.java`
-#### Snippet
-```java
-     * @param id The identifier.
-     * @return The corresponding parser.
-     * @throws org.apache.maven.doxia.parser.manager.ParserNotFoundException if no parser could be found
-     * for the given id.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
-#### Snippet
-```java
-     * @see #createSink(File, String)
-     * @since 1.1
-     * @throws java.io.IOException if any.
-     */
-    Sink createSink(File outputDir, String outputName, String encoding) throws IOException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
-#### Snippet
-```java
-     * @return a <code>Sink</code> instance using specified encoding.
-     * @since 1.1
-     * @throws java.io.IOException if any.
-     */
-    Sink createSink(OutputStream out, String encoding) throws IOException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
-#### Snippet
-```java
-     * @return a <code>Sink</code> instance.
-     * @since 1.1
-     * @throws java.io.IOException if any.
-     */
-    Sink createSink(OutputStream out) throws IOException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-sink-api/src/main/java/org/apache/maven/doxia/sink/SinkFactory.java`
-#### Snippet
-```java
-     * @param outputName the not-null output name.
-     * @return a <code>Sink</code> instance with a file as output.
-     * @throws java.io.IOException if any.
-     */
-    Sink createSink(File outputDir, String outputName) throws IOException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.macro` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/Macro.java`
-#### Snippet
-```java
-     * @param sink The sink to receive the events.
-     * @param request The corresponding MacroRequest.
-     * @throws org.apache.maven.doxia.macro.MacroExecutionException if an error occurred during execution.
-     */
-    void execute(Sink sink, MacroRequest request) throws MacroExecutionException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Parser.java`
-#### Snippet
-```java
-     * You could use <code>newReader</code> methods from {@link org.codehaus.plexus.util.ReaderFactory}.
-     * @param sink A sink that consumes the Doxia events.
-     * @throws org.apache.maven.doxia.parser.ParseException if the model could not be parsed.
-     */
-    void parse(Reader source, Sink sink) throws ParseException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.parser` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Parser.java`
-#### Snippet
-```java
-     * @param sink A sink that consumes the Doxia events.
-     * @param reference the reference
-     * @throws org.apache.maven.doxia.parser.ParseException if the model could not be parsed.
-     */
-    void parse(Reader source, Sink sink, String reference) throws ParseException;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/DefaultParserModuleManager.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @return a {@link java.util.Collection} object.
-     */
-    public Collection<ParserModule> getParserModules() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink.impl` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
-#### Snippet
-```java
-     * @param newLevel the new section level, all upper levels have to be closed.
-     * @param sink the sink to receive the events.
-     * @param attribs a {@link org.apache.maven.doxia.sink.impl.SinkEventAttributeSet} object.
-     */
-    protected void consecutiveSections(int newLevel, Sink sink, SinkEventAttributeSet attribs) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
-#### Snippet
-```java
-     * @see XdocMarkup#SOURCE_TAG
-     * @see javax.swing.text.html.HTML.Tag#PRE
-     * @param attributes a {@link org.apache.maven.doxia.sink.SinkEventAttributes} object.
-     */
-    public void verbatim(SinkEventAttributes attributes) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @see #head(org.apache.maven.doxia.sink.SinkEventAttributes)
-     */
-    public void head() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
-in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/xdoc/XdocSink.java`
-#### Snippet
-```java
-     * {@inheritDoc}
-     *
-     * @see #body(org.apache.maven.doxia.sink.SinkEventAttributes)
-     */
-    public void body() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * ie it is a link to an anchor within the same document.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * ie it is a link to an anchor within the same document.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-     * @param link The link to check. Not null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * @return The trimmed and encoded id, or null if id is null.
-     * If id is not null, the return value is guaranteed to be a valid Doxia id.
-     * @see #isValidId(java.lang.String)
-     * @since 1.1.1
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     *   This method is equivalent to {@link #encodeId(java.lang.String, boolean) encodeId(id, false)}.
-     * </p>
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     *      May be null in which case null is returned.
-     * @return The trimmed and encoded id, or null if id is null.
-     * @see #encodeId(java.lang.String, boolean)
-     */
-    public static String encodeId(final String id) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * to another document (a local link) of the same site.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * to another document (a local link) of the same site.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-     * @param link The link to check. Not null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * nor an {@link #isExternalLink(String) external} link.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * nor an {@link #isExternalLink(String) external} link.
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * If link is not null, then exactly one of the three methods
-     * {@link #isInternalLink(java.lang.String)}, {@link #isExternalLink(java.lang.String)} and
-     * {@link #isLocalLink(java.lang.String)} will return true.
-     *
-     * @param link The link to check. Not null.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
-#### Snippet
-```java
-     * @return a set of SinkEventAttributes, or null if no ImageReader was found to read the image.
-     *
-     * @throws java.io.IOException if an error occurs during reading.
-     * @throws NullPointerException if logo is null.
-     *
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.doxia.sink` is unnecessary and can be removed
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
 #### Snippet
@@ -2837,8 +2741,8 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
      * <p>Constructor for RandomAccessSink.</p>
      *
      * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param stream a {@link java.io.OutputStream} object.
-     * @throws java.io.IOException if any.
+     * @param outputDirectory a {@link java.io.File} object.
+     * @param outputName a {@link java.lang.String} object.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2848,9 +2752,33 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
 ```java
      *
      * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param stream a {@link java.io.OutputStream} object.
+     * @param outputDirectory a {@link java.io.File} object.
+     * @param outputName a {@link java.lang.String} object.
+     * @throws java.io.IOException if any.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
+#### Snippet
+```java
+     * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
+     * @param outputDirectory a {@link java.io.File} object.
+     * @param outputName a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     * @param text the String to encode, may be null.
+     * @return the text encoded, null if null String input.
+     * @see org.apache.maven.doxia.util.HtmlTools#encodeURL(String)
+     */
+    protected static String encodeURL(String text) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2858,11 +2786,11 @@ Qualifier `java.io` is unnecessary and can be removed
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
 #### Snippet
 ```java
-     * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param stream a {@link java.io.OutputStream} object.
+     * @param outputDirectory a {@link java.io.File} object.
+     * @param outputName a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
-    public RandomAccessSink(SinkFactory sinkFactory, OutputStream stream) throws IOException {
+    public RandomAccessSink(SinkFactory sinkFactory, File outputDirectory, String outputName) throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2878,6 +2806,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     * @param text the String to escape, may be null
+     * @return the text escaped, "" if null String input
+     * @see org.apache.maven.doxia.util.HtmlTools#escapeHTML(String)
+     */
+    protected static String escapeHTML(String text) {
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.io` is unnecessary and can be removed
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
 #### Snippet
@@ -2890,6 +2830,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.util` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     *
+     * <p>
+     * If {@link org.apache.maven.doxia.util.HtmlTools#getHtmlTag(String) HtmlTools.getHtmlTag(name)}
+     * does not return null, the corresponding tag will be written.
+     * </p>
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `java.lang` is unnecessary and can be removed
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
 #### Snippet
@@ -2899,6 +2851,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
      * @param encoding a {@link java.lang.String} object.
      * @throws java.io.IOException if any.
      */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     *
+     * @param name the name of the event. If this is not a valid xhtml tag name
+     *      as defined in {@link org.apache.maven.doxia.markup.HtmlMarkup} then the event is ignored.
+     * @param requiredParams If this is null or the first argument is not an Integer then the event is ignored.
+     *      The first argument should indicate the type of the unknown event, its integer value should be one of
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2921,8 +2885,20 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
      * <p>Constructor for RandomAccessSink.</p>
      *
      * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param outputDirectory a {@link java.io.File} object.
-     * @param outputName a {@link java.lang.String} object.
+     * @param stream a {@link java.io.OutputStream} object.
+     * @throws java.io.IOException if any.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     * @param requiredParams If this is null or the first argument is not an Integer then the event is ignored.
+     *      The first argument should indicate the type of the unknown event, its integer value should be one of
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2932,21 +2908,21 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.j
 ```java
      *
      * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param outputDirectory a {@link java.io.File} object.
-     * @param outputName a {@link java.lang.String} object.
+     * @param stream a {@link java.io.OutputStream} object.
      * @throws java.io.IOException if any.
+     */
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
 #### Snippet
 ```java
-     * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
-     * @param outputDirectory a {@link java.io.File} object.
-     * @param outputName a {@link java.lang.String} object.
-     * @throws java.io.IOException if any.
-     */
+     *      The first argument should indicate the type of the unknown event, its integer value should be one of
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2954,23 +2930,47 @@ Qualifier `java.io` is unnecessary and can be removed
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/RandomAccessSink.java`
 #### Snippet
 ```java
-     * @param outputDirectory a {@link java.io.File} object.
-     * @param outputName a {@link java.lang.String} object.
+     * @param sinkFactory a {@link org.apache.maven.doxia.sink.SinkFactory} object.
+     * @param stream a {@link java.io.OutputStream} object.
      * @throws java.io.IOException if any.
      */
-    public RandomAccessSink(SinkFactory sinkFactory, File outputDirectory, String outputName) throws IOException {
+    public RandomAccessSink(SinkFactory sinkFactory, OutputStream stream) throws IOException {
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
 #### Snippet
 ```java
-     * Parse the next line of the Apt source document.
-     *
-     * @throws org.apache.maven.doxia.module.apt.AptParseException if something goes wrong.
-     */
-    protected void nextLine() throws AptParseException {
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_START TAG_TYPE_START},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_END TAG_TYPE_END},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
+     *      otherwise the event will be ignored.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.markup` is unnecessary and can be removed
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#TAG_TYPE_SIMPLE TAG_TYPE_SIMPLE},
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#ENTITY_TYPE ENTITY_TYPE}, or
+     *      {@link org.apache.maven.doxia.markup.HtmlMarkup#CDATA_TYPE CDATA_TYPE},
+     *      otherwise the event will be ignored.
+     * @param attributes a set of attributes for the event. May be null.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2985,19 +2985,19 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
     protected void doTraverseText(String text, int begin, int end, Sink sink) throws AptParseException {
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.maven.doxia.module.apt` is unnecessary and can be removed
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
-            boolean foundEnd = false;
-            boolean hasSnippetId = StringUtils.isNotEmpty(snippetId);
-            while ((line = reader.readLine()) != null) {
-                if (!hasSnippetId) {
-                    lines.add(line);
+     * Parse the next line of the Apt source document.
+     *
+     * @throws org.apache.maven.doxia.module.apt.AptParseException if something goes wrong.
+     */
+    protected void nextLine() throws AptParseException {
 ```
 
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
@@ -3024,6 +3024,18 @@ in `doxia-modules/doxia-module-xdoc/src/main/java/org/apache/maven/doxia/module/
 
 ### NestedAssignment
 Result of assignment expression used
+in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetReader.java`
+#### Snippet
+```java
+            boolean foundEnd = false;
+            boolean hasSnippetId = StringUtils.isNotEmpty(snippetId);
+            while ((line = withReader.readLine()) != null) {
+                if (!hasSnippetId) {
+                    lines.add(line);
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptParser.java`
 #### Snippet
 ```java
@@ -3035,18 +3047,6 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractParserModule()` of an abstract class should not be declared 'public'
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
-#### Snippet
-```java
-     * @param extension the file extension
-     */
-    public AbstractParserModule(String parserId, String extension) {
-        this(parserId, parserId, new String[] {extension});
-    }
-```
-
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractParserModule()` of an abstract class should not be declared 'public'
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
@@ -3068,6 +3068,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParser
      */
     public AbstractParserModule(String parserId) {
         this(parserId, parserId, parserId);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractParserModule()` of an abstract class should not be declared 'public'
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/module/AbstractParserModule.java`
+#### Snippet
+```java
+     * @param extension the file extension
+     */
+    public AbstractParserModule(String parserId, String extension) {
+        this(parserId, parserId, new String[] {extension});
     }
 ```
 
@@ -3097,42 +3109,6 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
-#### Snippet
-```java
-     * called
-     */
-    private boolean ungetted = false;
-
-    private String name;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/LineBreaker.java`
-#### Snippet
-```java
-
-    /** The current line length. */
-    private int lineLength = 0;
-
-    /** The string buffer to store the current text. */
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/YamlFrontMatterVisitor.java`
-#### Snippet
-```java
-public class YamlFrontMatterVisitor extends AbstractYamlFrontMatterVisitor {
-
-    int endOffset = 0;
-
-    @Override
-```
-
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractParser.java`
@@ -3170,6 +3146,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/snippet/SnippetMacro.j
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/LineBreaker.java`
+#### Snippet
+```java
+
+    /** The current line length. */
+    private int lineLength = 0;
+
+    /** The string buffer to store the current text. */
+```
+
+### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java`
 #### Snippet
@@ -3193,6 +3181,30 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/Xhtml5BaseParser.java
     /** Counts section level. */
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
+#### Snippet
+```java
+     * called
+     */
+    private boolean ungetted = false;
+
+    private String name;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/module/markdown/YamlFrontMatterVisitor.java`
+#### Snippet
+```java
+public class YamlFrontMatterVisitor extends AbstractYamlFrontMatterVisitor {
+
+    int endOffset = 0;
+
+    @Override
+```
+
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `id`
@@ -3204,18 +3216,6 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
         id = id.trim();
 
         int length = id.length();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `attributes`
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-
-                if (attributes == null) {
-                    attributes = new SinkEventAttributeSet();
-                }
-                if (atts != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -3240,6 +3240,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.jav
                 comment += " ";
             }
 
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `attributes`
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+
+                if (attributes == null) {
+                    attributes = new SinkEventAttributeSet();
+                }
+                if (atts != null) {
 ```
 
 ### AssignmentToMethodParameter
@@ -3291,56 +3303,7 @@ public class MarkdownParser extends AbstractTextParser implements TextMarkup {
     /**
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-07-44-35.208.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
-#### Snippet
-```java
-    public static MutableAttributeSet filterAttributes(AttributeSet attributes, String[] valids) {
-        if (attributes == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
-#### Snippet
-```java
-    public final String getNextLine() throws ParseException {
-        if (reader == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
 ### ReturnNull
 Return of `null`
 in `doxia-core/src/main/java/org/apache/maven/doxia/macro/AbstractMacro.java`
@@ -3367,11 +3330,11 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/macro/AbstractMacro.java`
 
 ### ReturnNull
 Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
 #### Snippet
 ```java
-    public static String encodeURL(String url) {
-        if (url == null) {
+
+        if (count < 0) {
             return null;
         }
 
@@ -3379,11 +3342,35 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
 
 ### ReturnNull
 Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/SinkUtils.java`
 #### Snippet
 ```java
-    public static String unescapeHTML(String text, boolean xmlMode) {
-        if (text == null) {
+    public static MutableAttributeSet filterAttributes(AttributeSet attributes, String[] valids) {
+        if (attributes == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/PipelineSink.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+#### Snippet
+```java
+    public String getNextLine() throws AptParseException {
+        if (reader == null) {
             return null;
         }
 
@@ -3403,10 +3390,10 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 
 ### ReturnNull
 Return of `null`
-in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/apt/AptReaderSource.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/ByLineReaderSource.java`
 #### Snippet
 ```java
-    public String getNextLine() throws AptParseException {
+    public final String getNextLine() throws ParseException {
         if (reader == null) {
             return null;
         }
@@ -3415,11 +3402,23 @@ in `doxia-modules/doxia-module-apt/src/main/java/org/apache/maven/doxia/module/a
 
 ### ReturnNull
 Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/AbstractXmlParser.java`
+in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
+#### Snippet
+```java
+    public IndexEntry getPrevEntry() {
+        if (parent == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
 #### Snippet
 ```java
 
-        if (count < 0) {
+        if (index == 0) {
             return null;
         }
 
@@ -3435,6 +3434,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
             return null;
         } else if (entries.size() > 1) {
             throw new IllegalStateException("This index has more than one root entry");
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
+#### Snippet
+```java
+
+        if (entries.size() == 0) {
+            return null;
+        }
+
 ```
 
 ### ReturnNull
@@ -3475,42 +3486,6 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
 
 ### ReturnNull
 Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
-#### Snippet
-```java
-    public IndexEntry getPrevEntry() {
-        if (parent == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
-#### Snippet
-```java
-
-        if (index == 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
-#### Snippet
-```java
-
-        if (entries.size() == 0) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractSink.java`
 #### Snippet
 ```java
@@ -3523,11 +3498,47 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/AbstractSink.java`
 
 ### ReturnNull
 Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+#### Snippet
+```java
+    public static String encodeURL(String url) {
+        if (url == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/HtmlTools.java`
+#### Snippet
+```java
+    public static String unescapeHTML(String text, boolean xmlMode) {
+        if (text == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
 in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
 #### Snippet
 ```java
-    public static String encodeId(final String id, final boolean chop) {
-        if (id == null) {
+    public static String encodeId(final String text, final boolean chop) {
+        if (text == null) {
+            return null;
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
+#### Snippet
+```java
+
+        if (length == 0) {
             return null;
         }
 
@@ -3545,6 +3556,19 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/util/DoxiaUtils.java`
 
 ```
 
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-10-58-21.920.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `style` is redundant
@@ -3560,18 +3584,6 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 
 ## RuleId[id=NonFinalFieldOfException]
 ### NonFinalFieldOfException
-Non-final field `fileName` of exception class
-in `doxia-core/src/main/java/org/apache/maven/doxia/parser/ParseException.java`
-#### Snippet
-```java
-
-    /** The file that caused the ParseException. */
-    private String fileName;
-
-    /** Line number where the parse exception occurred. */
-```
-
-### NonFinalFieldOfException
 Non-final field `columnNumber` of exception class
 in `doxia-core/src/main/java/org/apache/maven/doxia/parser/ParseException.java`
 #### Snippet
@@ -3581,6 +3593,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/parser/ParseException.java`
     private int columnNumber;
 
     /**
+```
+
+### NonFinalFieldOfException
+Non-final field `fileName` of exception class
+in `doxia-core/src/main/java/org/apache/maven/doxia/parser/ParseException.java`
+#### Snippet
+```java
+
+    /** The file that caused the ParseException. */
+    private String fileName;
+
+    /** Line number where the parse exception occurred. */
 ```
 
 ### NonFinalFieldOfException
@@ -3622,18 +3646,6 @@ in `doxia-modules/doxia-module-markdown/src/main/java/org/apache/maven/doxia/mod
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `divAtts` initializer `null` is redundant
-in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
-#### Snippet
-```java
-        }
-
-        SinkEventAttributes divAtts = null;
-        String divClass = "verbatim";
-
-```
-
-### UnusedAssignment
 The value `new ArrayList<>()` assigned to `childEntries` is never used
 in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
 #### Snippet
@@ -3642,6 +3654,18 @@ in `doxia-core/src/main/java/org/apache/maven/doxia/index/IndexEntry.java`
         if (entries == null) {
             childEntries = new ArrayList<>();
         }
+
+```
+
+### UnusedAssignment
+Variable `divAtts` initializer `null` is redundant
+in `doxia-core/src/main/java/org/apache/maven/doxia/sink/impl/Xhtml5BaseSink.java`
+#### Snippet
+```java
+        }
+
+        SinkEventAttributes divAtts = null;
+        String divClass = "verbatim";
 
 ```
 
