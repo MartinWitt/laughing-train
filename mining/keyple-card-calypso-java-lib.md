@@ -227,18 +227,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataFcp.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CmdCardReadBinary' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadBinary.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardReadBinary(CalypsoCardAdapter calypsoCard, byte sfi, int offset, int length) {
-
-    super(CardCommandRef.READ_BINARY, length, calypsoCard, null, null);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'CmdCardAppendRecord' is still used
 in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardAppendRecord.java`
 #### Snippet
@@ -248,6 +236,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardAppendRecord.java`
   CmdCardAppendRecord(CalypsoCardAdapter calypsoCard, byte sfi, byte[] newRecordData) {
 
     super(CardCommandRef.APPEND_RECORD, 0, calypsoCard, null, null);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CmdCardReadBinary' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadBinary.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardReadBinary(CalypsoCardAdapter calypsoCard, byte sfi, int offset, int length) {
+
+    super(CardCommandRef.READ_BINARY, length, calypsoCard, null, null);
 ```
 
 ### DeprecatedIsStillUsed
@@ -275,6 +275,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardUpdateOrWriteBinary.jav
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'CmdCardSearchRecordMultiple' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSearchRecordMultiple.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardSearchRecordMultiple(CalypsoCardAdapter calypsoCard, SearchCommandDataAdapter data) {
+
+    super(CardCommandRef.SEARCH_RECORD_MULTIPLE, 0, calypsoCard, null, null);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'CmdCardInvalidate' is still used
 in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardInvalidate.java`
 #### Snippet
@@ -287,15 +299,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardInvalidate.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'addSuccessfulStatusWord' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+Deprecated member 'CmdCardUpdateRecord' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardUpdateRecord.java`
 #### Snippet
 ```java
-  @Override
+   */
   @Deprecated
-  public CalypsoCardSelection addSuccessfulStatusWord(int statusWord) {
-    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
-    cardSelector.addSuccessfulStatusWord(statusWord);
+  CmdCardUpdateRecord(
+      CalypsoCardAdapter calypsoCard, byte sfi, int recordNumber, byte[] newRecordData) {
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -311,27 +323,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.ja
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CmdCardSearchRecordMultiple' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSearchRecordMultiple.java`
+Deprecated member 'addSuccessfulStatusWord' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
 #### Snippet
 ```java
-   */
+  @Override
   @Deprecated
-  CmdCardSearchRecordMultiple(CalypsoCardAdapter calypsoCard, SearchCommandDataAdapter data) {
-
-    super(CardCommandRef.SEARCH_RECORD_MULTIPLE, 0, calypsoCard, null, null);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CmdCardCloseSecureSession' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardCloseSecureSession.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardCloseSecureSession(
-      CalypsoCardAdapter calypsoCard,
-      boolean isAutoRatificationAsked,
+  public CalypsoCardSelection addSuccessfulStatusWord(int statusWord) {
+    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
+    cardSelector.addSuccessfulStatusWord(statusWord);
 ```
 
 ### DeprecatedIsStillUsed
@@ -344,6 +344,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardVerifyPin.java`
   CmdCardVerifyPin(CalypsoCardAdapter calypsoCard) {
     super(commandRef, 0, calypsoCard, null, null);
     this.isReadCounterMode = true;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CmdCardCloseSecureSession' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardCloseSecureSession.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardCloseSecureSession(
+      CalypsoCardAdapter calypsoCard,
+      boolean isAutoRatificationAsked,
 ```
 
 ### DeprecatedIsStillUsed
@@ -383,18 +395,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadRecordMultiple.java
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CmdCardWriteRecord' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardWriteRecord.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardWriteRecord(
-      CalypsoCardAdapter calypsoCard, byte sfi, int recordNumber, byte[] newRecordData) {
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'CmdCardGetDataTraceabilityInformation' is still used
 in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataTraceabilityInformation.java`
 #### Snippet
@@ -404,6 +404,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataTraceabilityInfo
   CmdCardGetDataTraceabilityInformation(CalypsoCardAdapter calypsoCard) {
     super(CardCommandRef.GET_DATA, 0, calypsoCard, null, null);
     buildCommand(calypsoCard.getCardClass());
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CmdCardWriteRecord' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardWriteRecord.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardWriteRecord(
+      CalypsoCardAdapter calypsoCard, byte sfi, int recordNumber, byte[] newRecordData) {
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -431,6 +443,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSvGet.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'CmdCardSvReload' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSvReload.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardSvReload(
+      CalypsoCardAdapter calypsoCard,
+      int amount,
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'CmdCardRehabilitate' is still used
 in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardRehabilitate.java`
 #### Snippet
@@ -452,18 +476,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardIncreaseOrDecreaseMulti
   CmdCardIncreaseOrDecreaseMultiple(
       boolean isDecreaseCommand,
       CalypsoCardAdapter calypsoCard,
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CmdCardSvReload' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSvReload.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardSvReload(
-      CalypsoCardAdapter calypsoCard,
-      int amount,
 ```
 
 ### DeprecatedIsStillUsed
@@ -491,6 +503,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataEfList.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'CmdCardGetDataFci' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataFci.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardGetDataFci(CalypsoCardAdapter calypsoCard) {
+    super(CardCommandRef.GET_DATA, 0, calypsoCard, null, null);
+    buildCommand(calypsoCard.getCardClass());
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'createSamSecuritySetting' is still used
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
 #### Snippet
@@ -500,18 +524,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
   public SamSecuritySetting createSamSecuritySetting() {
     return new SamSecuritySettingAdapter();
   }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'createSamTransaction' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SamTransactionManager createSamTransaction(
-      CardReader samReader, CalypsoSam calypsoSam, SamSecuritySetting samSecuritySetting) {
-    return createSamTransactionManagerAdapter(samReader, calypsoSam, samSecuritySetting, true);
 ```
 
 ### DeprecatedIsStillUsed
@@ -527,39 +539,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CmdCardUpdateRecord' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardUpdateRecord.java`
+Deprecated member 'createSamTransaction' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  CmdCardUpdateRecord(
-      CalypsoCardAdapter calypsoCard, byte sfi, int recordNumber, byte[] newRecordData) {
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CmdCardGetDataFci' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardGetDataFci.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardGetDataFci(CalypsoCardAdapter calypsoCard) {
-    super(CardCommandRef.GET_DATA, 0, calypsoCard, null, null);
-    buildCommand(calypsoCard.getCardClass());
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CmdCardSelectFile' is still used
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSelectFile.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  CmdCardSelectFile(CalypsoCardAdapter calypsoCard, short lid) {
-    super(commandRef, 0, calypsoCard, null, null);
-    buildCommand(calypsoCard.getCardClass(), calypsoCard.getProductType(), lid);
+  public SamTransactionManager createSamTransaction(
+      CardReader samReader, CalypsoSam calypsoSam, SamSecuritySetting samSecuritySetting) {
+    return createSamTransactionManagerAdapter(samReader, calypsoSam, samSecuritySetting, true);
 ```
 
 ### DeprecatedIsStillUsed
@@ -572,6 +560,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSelectFile.java`
   CmdCardSelectFile(CalypsoCardAdapter calypsoCard, SelectFileControl selectFileControl) {
     super(commandRef, 0, calypsoCard, null, null);
     buildCommand(calypsoCard.getCardClass(), selectFileControl);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CmdCardSelectFile' is still used
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSelectFile.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  CmdCardSelectFile(CalypsoCardAdapter calypsoCard, short lid) {
+    super(commandRef, 0, calypsoCard, null, null);
+    buildCommand(calypsoCard.getCardClass(), calypsoCard.getProductType(), lid);
 ```
 
 ### DeprecatedIsStillUsed
@@ -676,30 +676,6 @@ Assignment to method parameter `cardCommands`
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-
-    if (cardCommands == null) {
-      cardCommands = new ArrayList<CardCommand>();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `fromRecordNumber`
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-                  recordSize,
-                  recordSize));
-          fromRecordNumber++;
-        }
-        for (int i = fromRecordNumber; i <= toRecordNumber; i++) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `cardCommands`
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
       }
     } else {
       cardCommands = cardCommands.subList(fromIndex, toIndex);
@@ -727,6 +703,30 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.
 
     if (cardCommands == null) {
       cardCommands = new ArrayList<CardCommand>(0);
+    }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `fromRecordNumber`
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+                  recordSize,
+                  recordSize));
+          fromRecordNumber++;
+        }
+        for (int i = fromRecordNumber; i <= toRecordNumber; i++) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `cardCommands`
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+
+    if (cardCommands == null) {
+      cardCommands = new ArrayList<CardCommand>();
     }
 
 ```
@@ -867,18 +867,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdSamDigestClose.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
-    cardSelector.addSuccessfulStatusWord(statusWord);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/eclipse/keyple/card/calypso/SamCommand.java`
 #### Snippet
 ```java
@@ -915,26 +903,14 @@ in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
 #### Snippet
 ```java
-      return map.get(kvc);
-    } else {
-      return null;
-    }
+    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
+    cardSelector.addSuccessfulStatusWord(statusWord);
+    return null;
   }
-```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadRecords.java`
-#### Snippet
-```java
-        index += recordSize;
-      } else {
-        return null; // NOSONAR
-      }
-    }
 ```
 
 ### ReturnNull
@@ -959,6 +935,30 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadRecords.java`
       return null; // NOSONAR
     }
     return readMode == CmdCardReadRecords.ReadMode.ONE_RECORD
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardReadRecords.java`
+#### Snippet
+```java
+        index += recordSize;
+      } else {
+        return null; // NOSONAR
+      }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
+#### Snippet
+```java
+      return map.get(kvc);
+    } else {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -1026,6 +1026,18 @@ Return of `null`
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardAdapter.java`
 #### Snippet
 ```java
+      return new SvLoadLogRecordAdapter(logRecord, 0);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardAdapter.java`
+#### Snippet
+```java
   public ElementaryFile getFileBySfi(byte sfi) {
     if (sfi == 0) {
       return null;
@@ -1050,18 +1062,6 @@ Return of `null`
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardAdapter.java`
 #### Snippet
 ```java
-      return svDebitLogRecords.get(0);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardAdapter.java`
-#### Snippet
-```java
     String lidHex = String.format(PATTERN_2_BYTES_HEX, lid);
     logger.warn("EF with LID {} is not found.", lidHex);
     return null;
@@ -1074,7 +1074,7 @@ Return of `null`
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardAdapter.java`
 #### Snippet
 ```java
-      return new SvLoadLogRecordAdapter(logRecord, 0);
+      return svDebitLogRecords.get(0);
     }
     return null;
   }
@@ -1089,9 +1089,9 @@ in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
 ```java
     if (content == null) {
       logger.warn("Record #{} is not set.", numRecord);
-      return new byte[0];
+      content = new byte[0];
     }
-    if (dataOffset >= content.length) {
+    return content;
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1101,9 +1101,9 @@ in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
 ```java
     if (content == null) {
       logger.warn("Record #{} is not set.", numRecord);
-      content = new byte[0];
+      return new byte[0];
     }
-    return content;
+    if (dataOffset >= content.length) {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1147,6 +1147,18 @@ Allocation of zero length array
 in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardOpenSecureSession.java`
 #### Snippet
 ```java
+    isExtendedModeAllowed = true;
+    this.writeAccessLevel = writeAccessLevel;
+    createRev3((byte) (writeAccessLevel.ordinal() + 1), new byte[0]); // with no SAM challenge
+    if (logger.isDebugEnabled()) {
+      addSubName("PREOPEN");
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardOpenSecureSession.java`
+#### Snippet
+```java
       case 4:
         isPreviousSessionRatified = true;
         recordData = new byte[0];
@@ -1164,18 +1176,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardOpenSecureSession.java`
         recordData = new byte[0];
         break;
       case 35:
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardOpenSecureSession.java`
-#### Snippet
-```java
-    isExtendedModeAllowed = true;
-    this.writeAccessLevel = writeAccessLevel;
-    createRev3((byte) (writeAccessLevel.ordinal() + 1), new byte[0]); // with no SAM challenge
-    if (logger.isDebugEnabled()) {
-      addSubName(", PREOPEN");
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1280,18 +1280,6 @@ Can generalize to `? extends CardCommand`
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-   * @throws IllegalStateException if the anticipation process failed
-   */
-  private List<ApduResponseApi> buildAnticipatedResponses(List<CardCommand> cardCommands) {
-    List<ApduResponseApi> apduResponses = new ArrayList<ApduResponseApi>();
-    if (cardCommands != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends CardCommand`
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
    * @throws InconsistentDataException If the number of commands/responses does not match.
    */
   private void parseApduResponses(List<CardCommand> commands, List<ApduResponseApi> apduResponses)
@@ -1309,18 +1297,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.
   private void parseApduResponses(List<CardCommand> commands, List<ApduResponseApi> apduResponses)
       throws CardCommandException {
 
-```
-
-### BoundedWildcard
-Can generalize to `? extends CardCommand`
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-   *     commands to the card.
-   */
-  private boolean synchronizeCryptoServiceBeforeCardProcessing(List<CardCommand> commands) {
-    for (CardCommand command : commands) {
-      if (!command.synchronizeCryptoServiceBeforeCardProcessing()) {
 ```
 
 ### BoundedWildcard
@@ -1352,11 +1328,35 @@ Can generalize to `? extends CardCommand`
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
+   *     commands to the card.
+   */
+  private boolean synchronizeCryptoServiceBeforeCardProcessing(List<CardCommand> commands) {
+    for (CardCommand command : commands) {
+      if (!command.synchronizeCryptoServiceBeforeCardProcessing()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CardCommand`
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
    * @since 2.2.0
    */
   private static List<ApduRequestSpi> getApduRequests(List<CardCommand> commands) {
     List<ApduRequestSpi> apduRequests = new ArrayList<ApduRequestSpi>();
     if (commands != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends CardCommand`
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+   * @throws IllegalStateException if the anticipation process failed
+   */
+  private List<ApduResponseApi> buildAnticipatedResponses(List<CardCommand> cardCommands) {
+    List<ApduResponseApi> apduResponses = new ArrayList<ApduResponseApi>();
+    if (cardCommands != null) {
 ```
 
 ## RuleId[id=ReplaceCallWithBinaryOperator]
@@ -1403,18 +1403,6 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoSamSelectionAdapter.java`
 #### Snippet
 ```java
-  public CalypsoSamSelection filterByProductType(CalypsoSam.ProductType productType) {
-
-    Assert.getInstance().notNull(productType, "productType");
-
-    this.productType = productType;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoSamSelectionAdapter.java`
-#### Snippet
-```java
   public CalypsoSamSelection filterBySerialNumber(String serialNumberRegex) {
 
     Assert.getInstance().notNull(serialNumberRegex, "serialNumberRegex");
@@ -1435,6 +1423,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoSamSelectionAdapter.jav
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoSamSelectionAdapter.java`
+#### Snippet
+```java
+  public CalypsoSamSelection filterByProductType(CalypsoSam.ProductType productType) {
+
+    Assert.getInstance().notNull(productType, "productType");
+
+    this.productType = productType;
+```
+
+### IgnoreResultOfCall
 Result of `Assert.isInRange()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/ContextSettingAdapter.java`
 #### Snippet
@@ -1443,6 +1443,54 @@ in `src/main/java/org/eclipse/keyple/card/calypso/ContextSettingAdapter.java`
   public ContextSetting setContactReaderPayloadCapacity(int payloadCapacity) {
     Assert.getInstance().isInRange(payloadCapacity, 0, 255, "payloadCapacity");
     this.contactReaderPayloadCapacity = payloadCapacity;
+    return this;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
+#### Snippet
+```java
+  public Integer getContentAsCounterValue(int numCounter) {
+
+    Assert.getInstance().greaterOrEqual(numCounter, 1, "numCounter");
+
+    byte[] rec1 = records.get(1);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
+#### Snippet
+```java
+    Assert.getInstance()
+        .greaterOrEqual(dataOffset, 0, "dataOffset")
+        .greaterOrEqual(dataLength, 1, "dataLength");
+
+    byte[] content = records.get(numRecord);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+  @Override
+  public CalypsoCardSelection prepareGetData(GetDataTag tag) {
+    Assert.getInstance().notNull(tag, "tag");
+    switch (tag) {
+      case FCI_FOR_CURRENT_DF:
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isHexString()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+  @Override
+  public CalypsoCardSelection filterByDfName(String aid) {
+    Assert.getInstance().isHexString(aid, "aid format");
+    filterByDfName(HexUtil.toByteArray(aid));
     return this;
 ```
 
@@ -1456,6 +1504,66 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.ja
         .isInRange(
             recordNumber,
             CalypsoCardConstant.NB_REC_MIN,
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+  @Deprecated
+  public CalypsoCardSelection prepareSelectFile(byte[] lid) {
+    Assert.getInstance().notNull(lid, "lid").isEqual(lid.length, 2, "lid length");
+    return prepareSelectFile((short) ByteArrayUtil.extractInt(lid, 0, 2, false));
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+  @Override
+  public CalypsoCardSelection filterByPowerOnData(String powerOnDataRegex) {
+    Assert.getInstance().notEmpty(powerOnDataRegex, "powerOnDataRegex");
+    try {
+      Pattern.compile(powerOnDataRegex);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+      throw new IllegalStateException("'Pre-Open Secure Session' command already prepared");
+    }
+    Assert.getInstance().notNull(writeAccessLevel, "writeAccessLevel");
+    commands.add(new CmdCardOpenSecureSession(writeAccessLevel));
+    isPreOpenPrepared = true;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+  @Override
+  public CalypsoCardSelection setFileOccurrence(FileOccurrence fileOccurrence) {
+    Assert.getInstance().notNull(fileOccurrence, "fileOccurrence");
+    switch (fileOccurrence) {
+      case FIRST:
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
+#### Snippet
+```java
+    Assert.getInstance()
+        .notNull(aid, "aid")
+        .isInRange(aid.length, AID_MIN_LENGTH, AID_MAX_LENGTH, "aid");
+    cardSelector.filterByDfName(aid);
+    return this;
 ```
 
 ### IgnoreResultOfCall
@@ -1483,98 +1591,14 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.ja
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-  @Override
-  public CalypsoCardSelection setFileOccurrence(FileOccurrence fileOccurrence) {
-    Assert.getInstance().notNull(fileOccurrence, "fileOccurrence");
-    switch (fileOccurrence) {
-      case FIRST:
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-      throw new IllegalStateException("'Pre-Open Secure Session' command already prepared");
-    }
-    Assert.getInstance().notNull(writeAccessLevel, "writeAccessLevel");
-    commands.add(new CmdCardOpenSecureSession(writeAccessLevel));
-    isPreOpenPrepared = true;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isHexString()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-  @Override
-  public CalypsoCardSelection filterByDfName(String aid) {
-    Assert.getInstance().isHexString(aid, "aid format");
-    filterByDfName(HexUtil.toByteArray(aid));
-    return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-        .isInRange(
-            offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, "offset")
-        .greaterOrEqual(nbBytesToRead, 1, "nbBytesToRead");
-    if (sfi > 0 && offset > 255) { // FFh
-      // Tips to select the file: add a "Read Binary" command (read one byte at offset 0).
-```
-
-### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
 #### Snippet
 ```java
   @Override
-  public CalypsoCardSelection filterByPowerOnData(String powerOnDataRegex) {
-    Assert.getInstance().notEmpty(powerOnDataRegex, "powerOnDataRegex");
-    try {
-      Pattern.compile(powerOnDataRegex);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-  @Deprecated
-  public CalypsoCardSelection addSuccessfulStatusWord(int statusWord) {
-    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
-    cardSelector.addSuccessfulStatusWord(statusWord);
-    return null;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-  @Override
-  public CalypsoCardSelection prepareGetData(GetDataTag tag) {
-    Assert.getInstance().notNull(tag, "tag");
-    switch (tag) {
-      case FCI_FOR_CURRENT_DF:
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance()
-        .notNull(aid, "aid")
-        .isInRange(aid.length, AID_MIN_LENGTH, AID_MAX_LENGTH, "aid");
-    cardSelector.filterByDfName(aid);
+  public CalypsoCardSelection filterByCardProtocol(String cardProtocol) {
+    Assert.getInstance().notEmpty(cardProtocol, "cardProtocol");
+    cardSelector.filterByCardProtocol(cardProtocol);
     return this;
 ```
 
@@ -1591,51 +1615,27 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.ja
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
-#### Snippet
-```java
-  @Override
-  public CalypsoCardSelection filterByCardProtocol(String cardProtocol) {
-    Assert.getInstance().notEmpty(cardProtocol, "cardProtocol");
-    cardSelector.filterByCardProtocol(cardProtocol);
-    return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isEqual()` is ignored
+Result of `Assert.isInRange()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
 #### Snippet
 ```java
   @Deprecated
-  public CalypsoCardSelection prepareSelectFile(byte[] lid) {
-    Assert.getInstance().notNull(lid, "lid").isEqual(lid.length, 2, "lid length");
-    return prepareSelectFile((short) ByteArrayUtil.extractInt(lid, 0, 2, false));
-  }
+  public CalypsoCardSelection addSuccessfulStatusWord(int statusWord) {
+    Assert.getInstance().isInRange(statusWord, 0, 0xFFFF, "statusWord");
+    cardSelector.addSuccessfulStatusWord(statusWord);
+    return null;
 ```
 
 ### IgnoreResultOfCall
 Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoCardSelectionAdapter.java`
 #### Snippet
 ```java
-  public Integer getContentAsCounterValue(int numCounter) {
-
-    Assert.getInstance().greaterOrEqual(numCounter, 1, "numCounter");
-
-    byte[] rec1 = records.get(1);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/FileDataAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance()
-        .greaterOrEqual(dataOffset, 0, "dataOffset")
-        .greaterOrEqual(dataLength, 1, "dataLength");
-
-    byte[] content = records.get(numRecord);
+        .isInRange(
+            offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, "offset")
+        .greaterOrEqual(nbBytesToRead, 1, "nbBytesToRead");
+    if (sfi > 0 && offset > 255) { // FFh
+      // Tips to select the file: add a "Read Binary" command (read one byte at offset 0).
 ```
 
 ### IgnoreResultOfCall
@@ -1667,35 +1667,23 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
 #### Snippet
 ```java
-  public SymmetricCryptoSecuritySetting assignKif(
-      WriteAccessLevel writeAccessLevel, byte kvc, byte kif) {
-    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
-    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
-    if (map == null) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
-#### Snippet
-```java
-   */
-  Byte getKif(WriteAccessLevel writeAccessLevel, byte kvc) {
-    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
-    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
-    if (map != null) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
-#### Snippet
-```java
   public SymmetricCryptoSecuritySetting assignDefaultKvc(
       WriteAccessLevel writeAccessLevel, byte kvc) {
     Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
     defaultKvcMap.put(writeAccessLevel, kvc);
     return this;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
+#### Snippet
+```java
+  public SymmetricCryptoSecuritySetting assignKif(
+      WriteAccessLevel writeAccessLevel, byte kvc, byte kif) {
+    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
+    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
+    if (map == null) {
 ```
 
 ### IgnoreResultOfCall
@@ -1711,27 +1699,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySetting
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoTransactionManagerAdapter.java`
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoSecuritySettingAdapter.java`
 #### Snippet
 ```java
-              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
-          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
-          .isTrue(
-              dataAdapter.getKeyDiversifier() == null
-                  || (dataAdapter.getKeyDiversifier().length >= 1
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoTransactionManagerAdapter.java`
-#### Snippet
-```java
-                      - (dataAdapter.isPartialSamSerialNumber() ? 7 * 8 : 8 * 8))
-                  + "]")
-          .isTrue(
-              dataAdapter.getKeyDiversifier() == null
-                  || (dataAdapter.getKeyDiversifier().length >= 1
+   */
+  Byte getKif(WriteAccessLevel writeAccessLevel, byte kvc) {
+    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
+    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
+    if (map != null) {
 ```
 
 ### IgnoreResultOfCall
@@ -1771,15 +1747,27 @@ in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoTransactionMana
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardSecuritySettingAdapter.java`
+Result of `Assert.isTrue()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoTransactionManagerAdapter.java`
 #### Snippet
 ```java
-  public CardSecuritySettingAdapter assignKif(
-      WriteAccessLevel writeAccessLevel, byte kvc, byte kif) {
-    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
-    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
-    if (map == null) {
+              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
+          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
+          .isTrue(
+              dataAdapter.getKeyDiversifier() == null
+                  || (dataAdapter.getKeyDiversifier().length >= 1
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isTrue()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/SymmetricCryptoTransactionManagerAdapter.java`
+#### Snippet
+```java
+                      - (dataAdapter.isPartialSamSerialNumber() ? 7 * 8 : 8 * 8))
+                  + "]")
+          .isTrue(
+              dataAdapter.getKeyDiversifier() == null
+                  || (dataAdapter.getKeyDiversifier().length >= 1
 ```
 
 ### IgnoreResultOfCall
@@ -1788,9 +1776,9 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardSecuritySettingAdapter.jav
 #### Snippet
 ```java
   @Override
-  public CardSecuritySettingAdapter assignDefaultKvc(WriteAccessLevel writeAccessLevel, byte kvc) {
+  public CardSecuritySettingAdapter assignDefaultKif(WriteAccessLevel writeAccessLevel, byte kif) {
     Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
-    defaultKvcMap.put(writeAccessLevel, kvc);
+    defaultKifMap.put(writeAccessLevel, kif);
     return this;
 ```
 
@@ -1811,10 +1799,22 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardSecuritySettingAdapter.java`
 #### Snippet
 ```java
-  @Override
-  public CardSecuritySettingAdapter assignDefaultKif(WriteAccessLevel writeAccessLevel, byte kif) {
+  public CardSecuritySettingAdapter assignKif(
+      WriteAccessLevel writeAccessLevel, byte kvc, byte kif) {
     Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
-    defaultKifMap.put(writeAccessLevel, kif);
+    Map<Byte, Byte> map = kifMap.get(writeAccessLevel);
+    if (map == null) {
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardSecuritySettingAdapter.java`
+#### Snippet
+```java
+  @Override
+  public CardSecuritySettingAdapter assignDefaultKvc(WriteAccessLevel writeAccessLevel, byte kvc) {
+    Assert.getInstance().notNull(writeAccessLevel, WRITE_ACCESS_LEVEL);
+    defaultKvcMap.put(writeAccessLevel, kvc);
     return this;
 ```
 
@@ -1844,38 +1844,26 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CommonSecuritySettingAdapter.j
 
 ### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/SamTransactionManagerAdapter.java`
 #### Snippet
 ```java
-        .isTrue(
-            calypsoSam.getProductType() != CalypsoSam.ProductType.UNKNOWN, "product type is known")
-        .isTrue(!isSecureMode || samSecuritySetting != null, "security setting is not null");
-
-    if (!(samReader instanceof ProxyReaderApi)) {
+              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
+          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
+          .isTrue(
+              dataAdapter.getKeyDiversifier() == null
+                  || (dataAdapter.getKeyDiversifier().length >= 1
 ```
 
 ### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/SamTransactionManagerAdapter.java`
 #### Snippet
 ```java
-            calypsoCard.getProductType() != CalypsoCard.ProductType.UNKNOWN,
-            "product type is known")
-        .isTrue(!isSecureMode || cardSecuritySetting != null, "security setting is not null");
-
-    if (!(cardReader instanceof ProxyReaderApi)) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
-#### Snippet
-```java
-  public CardResourceProfileExtension createSamResourceProfileExtension(
-      CalypsoSamSelection calypsoSamSelection) {
-    Assert.getInstance().notNull(calypsoSamSelection, "calypsoSamSelection");
-    return new CalypsoSamResourceProfileExtensionAdapter(calypsoSamSelection);
-  }
+                      - (dataAdapter.isPartialSamSerialNumber() ? 7 * 8 : 8 * 8))
+                  + "]")
+          .isTrue(
+              dataAdapter.getKeyDiversifier() == null
+                  || (dataAdapter.getKeyDiversifier().length >= 1
 ```
 
 ### IgnoreResultOfCall
@@ -1916,26 +1904,38 @@ in `src/main/java/org/eclipse/keyple/card/calypso/SamTransactionManagerAdapter.j
 
 ### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SamTransactionManagerAdapter.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
 #### Snippet
 ```java
-              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
-          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
-          .isTrue(
-              dataAdapter.getKeyDiversifier() == null
-                  || (dataAdapter.getKeyDiversifier().length >= 1
+            calypsoCard.getProductType() != CalypsoCard.ProductType.UNKNOWN,
+            "product type is known")
+        .isTrue(!isSecureMode || cardSecuritySetting != null, "security setting is not null");
+
+    if (!(cardReader instanceof ProxyReaderApi)) {
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
+#### Snippet
+```java
+  public CardResourceProfileExtension createSamResourceProfileExtension(
+      CalypsoSamSelection calypsoSamSelection) {
+    Assert.getInstance().notNull(calypsoSamSelection, "calypsoSamSelection");
+    return new CalypsoSamResourceProfileExtensionAdapter(calypsoSamSelection);
+  }
 ```
 
 ### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/SamTransactionManagerAdapter.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/CalypsoExtensionService.java`
 #### Snippet
 ```java
-                      - (dataAdapter.isPartialSamSerialNumber() ? 7 * 8 : 8 * 8))
-                  + "]")
-          .isTrue(
-              dataAdapter.getKeyDiversifier() == null
-                  || (dataAdapter.getKeyDiversifier().length >= 1
+        .isTrue(
+            calypsoSam.getProductType() != CalypsoSam.ProductType.UNKNOWN, "product type is known")
+        .isTrue(!isSecureMode || samSecuritySetting != null, "security setting is not null");
+
+    if (!(samReader instanceof ProxyReaderApi)) {
 ```
 
 ### IgnoreResultOfCall
@@ -1948,6 +1948,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CmdCardSelectFile.java`
     Assert.getInstance().isEqual(proprietaryInformation.length, 23, "proprietaryInformation");
     return proprietaryInformation;
   }
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+      Assert.getInstance()
+          .notNull(pin, "pin")
+          .isEqual(pin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
+
+      if (!card.isPinFeatureAvailable()) {
 ```
 
 ### IgnoreResultOfCall
@@ -1979,6 +1991,126 @@ Result of `Assert.isInRange()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
+              RECORD_NUMBER)
+          .notNull(recordData, MSG_RECORD_DATA)
+          .isInRange(recordData.length, 0, cardPayloadCapacity, MSG_RECORD_DATA_LENGTH);
+      CmdCardUpdateRecord command =
+          new CmdCardUpdateRecord(
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+      Assert.getInstance()
+          .notNull(newPin, "newPin")
+          .isEqual(newPin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
+      if (!card.isPinFeatureAvailable()) {
+        throw new UnsupportedOperationException(MSG_PIN_NOT_AVAILABLE);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+  public CardTransactionManager prepareGetData(GetDataTag tag) {
+    try {
+      Assert.getInstance().notNull(tag, "tag");
+      switch (tag) {
+        case FCI_FOR_CURRENT_DF:
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+          .isEqual(date.length, 2, "date")
+          .isEqual(time.length, 2, "time")
+          .isEqual(free.length, 2, "free");
+
+      checkSvModifyingCommandPreconditions(SvOperation.RELOAD);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+              RECORD_NUMBER)
+          .notNull(recordData, MSG_RECORD_DATA)
+          .isInRange(recordData.length, 0, cardPayloadCapacity, MSG_RECORD_DATA_LENGTH);
+      CmdCardWriteRecord command =
+          new CmdCardWriteRecord(
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+              toRecordNumber, fromRecordNumber, CalypsoCardConstant.NB_REC_MAX, "toRecordNumber")
+          .isInRange(offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_MAX, OFFSET)
+          .isInRange(
+              nbBytesToRead,
+              CalypsoCardConstant.DATA_LENGTH_MIN,
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+  public CardTransactionManager prepareSelectFile(SelectFileControl selectFileControl) {
+    try {
+      Assert.getInstance().notNull(selectFileControl, "selectFileControl");
+      _cardCommands.add(
+          new CmdCardSelectFile(_transactionContext, getCommandContext(), selectFileControl));
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+          .isInRange(
+              offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, OFFSET)
+          .notEmpty(data, "data");
+
+      if (sfi > 0 && offset > 255) { // FFh
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+  @Deprecated
+  public CardTransactionManager prepareSelectFile(byte[] lid) {
+    Assert.getInstance().notNull(lid, "lid").isEqual(lid.length, 2, "lid length");
+    return prepareSelectFile((short) ByteArrayUtil.extractInt(lid, 0, 2, false));
+  }
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+              cardPayloadCapacity / 3,
+              "counterNumber")
+          .isInRange(
+              incDecValue,
+              CalypsoCardConstant.CNT_VALUE_MIN,
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
       Assert.getInstance()
           .isInRange((int) sfi, CalypsoCardConstant.SFI_MIN, CalypsoCardConstant.SFI_MAX, "sfi")
           .isInRange(
@@ -2003,47 +2135,11 @@ Result of `Assert.isInRange()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-      Assert.getInstance()
           .isInRange((int) sfi, CalypsoCardConstant.SFI_MIN, CalypsoCardConstant.SFI_MAX, "sfi")
-          .isInRange(
-              recordNumber,
-              CalypsoCardConstant.NB_REC_MIN,
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-              RECORD_NUMBER)
           .notNull(recordData, MSG_RECORD_DATA)
           .isInRange(recordData.length, 0, cardPayloadCapacity, MSG_RECORD_DATA_LENGTH);
-      CmdCardWriteRecord command =
-          new CmdCardWriteRecord(
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-  public CardTransactionManager prepareSelectFile(SelectFileControl selectFileControl) {
-    try {
-      Assert.getInstance().notNull(selectFileControl, "selectFileControl");
-      _cardCommands.add(
-          new CmdCardSelectFile(_transactionContext, getCommandContext(), selectFileControl));
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-              RECORD_NUMBER)
-          .notNull(recordData, MSG_RECORD_DATA)
-          .isInRange(recordData.length, 0, cardPayloadCapacity, MSG_RECORD_DATA_LENGTH);
-      CmdCardUpdateRecord command =
-          new CmdCardUpdateRecord(
+      CmdCardAppendRecord command =
+          new CmdCardAppendRecord(_transactionContext, getCommandContext(), sfi, recordData);
 ```
 
 ### IgnoreResultOfCall
@@ -2063,59 +2159,11 @@ Result of `Assert.isEqual()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-      Assert.getInstance()
-          .notNull(pin, "pin")
-          .isEqual(pin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
+          .notNull(time, "time")
+          .isEqual(date.length, 2, "date")
+          .isEqual(time.length, 2, "time");
 
-      if (!card.isPinFeatureAvailable()) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-          .isInRange((int) sfi, CalypsoCardConstant.SFI_MIN, CalypsoCardConstant.SFI_MAX, "sfi")
-          .notNull(recordData, MSG_RECORD_DATA)
-          .isInRange(recordData.length, 0, cardPayloadCapacity, MSG_RECORD_DATA_LENGTH);
-      CmdCardAppendRecord command =
-          new CmdCardAppendRecord(_transactionContext, getCommandContext(), sfi, recordData);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-              toRecordNumber, fromRecordNumber, CalypsoCardConstant.NB_REC_MAX, "toRecordNumber")
-          .isInRange(offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_MAX, OFFSET)
-          .isInRange(
-              nbBytesToRead,
-              CalypsoCardConstant.DATA_LENGTH_MIN,
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-              cardPayloadCapacity / 3,
-              "counterNumber")
-          .isInRange(
-              incDecValue,
-              CalypsoCardConstant.CNT_VALUE_MIN,
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-  public CardTransactionManager prepareGetData(GetDataTag tag) {
-    try {
-      Assert.getInstance().notNull(tag, "tag");
-      switch (tag) {
-        case FCI_FOR_CURRENT_DF:
+      checkSvModifyingCommandPreconditions(SvOperation.DEBIT);
 ```
 
 ### IgnoreResultOfCall
@@ -2128,42 +2176,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.
           .isEqual(newPin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
 
       if (!card.isPinFeatureAvailable()) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-          .isInRange(
-              offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, OFFSET)
-          .greaterOrEqual(nbBytesToRead, 1, "nbBytesToRead");
-
-      if (sfi > 0 && offset > 255) { // FFh
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notNull(newPin, "newPin")
-          .isEqual(newPin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
-      if (!card.isPinFeatureAvailable()) {
-        throw new UnsupportedOperationException(MSG_PIN_NOT_AVAILABLE);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-    try {
-      checkApiLevelCompliance(true);
-      Assert.getInstance().notNull(writeAccessLevel, "writeAccessLevel");
-      checkSymmetricCryptoTransactionManager();
-      checkNoSecureSession();
 ```
 
 ### IgnoreResultOfCall
@@ -2179,63 +2191,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.isEqual()` is ignored
+Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-          .isEqual(date.length, 2, "date")
-          .isEqual(time.length, 2, "time")
-          .isEqual(free.length, 2, "free");
-
-      checkSvModifyingCommandPreconditions(SvOperation.RELOAD);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-          .isInRange(
-              offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, OFFSET)
-          .notEmpty(data, "data");
-
-      if (sfi > 0 && offset > 255) { // FFh
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notNull(pin, "pin")
-          .isEqual(pin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
-      if (!card.isPinFeatureAvailable()) {
-        throw new UnsupportedOperationException(MSG_PIN_NOT_AVAILABLE);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-          .notNull(time, "time")
-          .isEqual(date.length, 2, "date")
-          .isEqual(time.length, 2, "time");
-
-      checkSvModifyingCommandPreconditions(SvOperation.DEBIT);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
-#### Snippet
-```java
-      }
+    try {
+      checkApiLevelCompliance(true);
+      Assert.getInstance().notNull(writeAccessLevel, "writeAccessLevel");
+      checkSymmetricCryptoTransactionManager();
       checkNoSecureSession();
-      Assert.getInstance().isInRange(keyIndex, 1, 3, "keyIndex");
-      // CL-KEY-CHANGE.1
-      _cardCommands.add(new CmdCardGetChallenge(_transactionContext, getCommandContext()));
 ```
 
 ### IgnoreResultOfCall
@@ -2251,14 +2215,50 @@ in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+      }
+      checkNoSecureSession();
+      Assert.getInstance().isInRange(keyIndex, 1, 3, "keyIndex");
+      // CL-KEY-CHANGE.1
+      _cardCommands.add(new CmdCardGetChallenge(_transactionContext, getCommandContext()));
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+          .isInRange(
+              offset, CalypsoCardConstant.OFFSET_MIN, CalypsoCardConstant.OFFSET_BINARY_MAX, OFFSET)
+          .greaterOrEqual(nbBytesToRead, 1, "nbBytesToRead");
+
+      if (sfi > 0 && offset > 255) { // FFh
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
+#### Snippet
+```java
+      Assert.getInstance()
+          .isInRange((int) sfi, CalypsoCardConstant.SFI_MIN, CalypsoCardConstant.SFI_MAX, "sfi")
+          .isInRange(
+              recordNumber,
+              CalypsoCardConstant.NB_REC_MIN,
+```
+
+### IgnoreResultOfCall
 Result of `Assert.isEqual()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/CardTransactionManagerAdapter.java`
 #### Snippet
 ```java
-  @Deprecated
-  public CardTransactionManager prepareSelectFile(byte[] lid) {
-    Assert.getInstance().notNull(lid, "lid").isEqual(lid.length, 2, "lid length");
-    return prepareSelectFile((short) ByteArrayUtil.extractInt(lid, 0, 2, false));
-  }
+      Assert.getInstance()
+          .notNull(pin, "pin")
+          .isEqual(pin.length, CalypsoCardConstant.PIN_LENGTH, "PIN length");
+      if (!card.isPinFeatureAvailable()) {
+        throw new UnsupportedOperationException(MSG_PIN_NOT_AVAILABLE);
 ```
 
