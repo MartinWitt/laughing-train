@@ -14,8 +14,8 @@ I found 42 bad smells with 9 repairable:
 | NestedAssignment | 2 | false |
 | ThrowablePrintStackTrace | 2 | false |
 | DoubleBraceInitialization | 2 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | NonProtectedConstructorInAbstractClass | 1 | true |
 | DuplicateBranchesInSwitch | 1 | false |
@@ -87,18 +87,6 @@ public class IOUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
-in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
-#### Snippet
-```java
- * @author Pavel.Sher
- */
-public class StringUtil {
-  public static final String EMPTY = "";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
 in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 #### Snippet
@@ -110,16 +98,15 @@ public class ReportBuilderFactory {
    * Creates new HTML report builder
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.coverage.report.impl` is unnecessary, and can be replaced with an import
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+### UtilityClassWithoutPrivateConstructor
+Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
+in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 #### Snippet
 ```java
-
-    int lineNum = 0;
-    for (CharSequence line : jetbrains.coverage.report.impl.StringUtil.getLines(source)) {
-      lineNum++;
+ * @author Pavel.Sher
+ */
+public class StringUtil {
+  public static final String EMPTY = "";
 
 ```
 
@@ -134,6 +121,19 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageClassInfo.java
       Integer status = myClassData.getStatus(m);
       if (isCovered(status)) {
         covered++;
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `jetbrains.coverage.report.impl` is unnecessary, and can be replaced with an import
+in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+#### Snippet
+```java
+
+    int lineNum = 0;
+    for (CharSequence line : jetbrains.coverage.report.impl.StringUtil.getLines(source)) {
+      lineNum++;
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -231,6 +231,18 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
+  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
+    public StatEntry getClassStats() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
 
     public StatEntry getMethodStats() {
       return null;
@@ -243,8 +255,8 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
-  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
-    public StatEntry getClassStats() {
+
+    public StatEntry getLineStats() {
       return null;
     }
 
@@ -276,18 +288,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 
 ### ReturnNull
 Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
-    public StatEntry getLineStats() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 #### Snippet
 ```java
@@ -312,6 +312,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/ModuleInfo.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`className.length() == 0` can be replaced with 'className.isEmpty()'
+in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+#### Snippet
+```java
+    for (Map.Entry<String, Collection<String>> classEntry: classAndRelatedClassesMap.entrySet()) {
+      String className = classEntry.getKey();
+      if (className == null || className.length() == 0) continue;
+      if (className.startsWith("com.intellij.rt.coverage")) continue; // ignore coverage implementation classes
+      if (isInnerClass(className)) continue;
+```
+
+### SizeReplaceableByIsEmpty
 `myLines.size() > 0` can be replaced with '!myLines.isEmpty()'
 in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 #### Snippet
@@ -323,16 +335,17 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
         }
 ```
 
-### SizeReplaceableByIsEmpty
-`className.length() == 0` can be replaced with 'className.isEmpty()'
-in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
+## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 #### Snippet
 ```java
-    for (Map.Entry<String, Collection<String>> classEntry: classAndRelatedClassesMap.entrySet()) {
-      String className = classEntry.getKey();
-      if (className == null || className.length() == 0) continue;
-      if (className.startsWith("com.intellij.rt.coverage")) continue; // ignore coverage implementation classes
-      if (isInnerClass(className)) continue;
+          addLine = true;
+          Character next = charAtOrNull(i+1, text);
+          if (next != null && next == '\n') i++;
+          break;
+        case '\n':
 ```
 
 ## RuleId[id=DoubleBraceInitialization]
@@ -358,19 +371,6 @@ in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
     return new HTMLReportBuilderImpl() {{setResourceBundleName("dotNetCoverage");}};
   }
 
-```
-
-## RuleId[id=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
-#### Snippet
-```java
-          addLine = true;
-          Character next = charAtOrNull(i+1, text);
-          if (next != null && next == '\n') i++;
-          break;
-        case '\n':
 ```
 
 ## RuleId[id=ManualMinMaxCalculation]
@@ -412,6 +412,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/BaseGenerator.java`
 ```
 
 ### BoundedWildcard
+Can generalize to `? super ClassDataBean`
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+#### Snippet
+```java
+  }
+
+  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
+    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
+    if (innerClasses != null) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends ClassInfo`
 in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
 #### Snippet
@@ -445,18 +457,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
   private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
     MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
     for (ClassInfo cd: coverageData) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ClassDataBean`
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-  }
-
-  private void collectInnerClasses(final ClassInfo classInfo, final List<ClassDataBean> result) {
-    final Collection<ClassInfo> innerClasses = classInfo.getInnerClasses();
-    if (innerClasses != null) {
 ```
 
 ### BoundedWildcard
@@ -503,9 +503,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class FileDataBean {
-    private final String myCaption;
-    private final Collection<LineDataBean> myLines;
+  public final static class LineDataBean {
+    private int myLineNum;
+    private CharSequence mySourceCode;
 ```
 
 ### MissortedModifiers
@@ -515,9 +515,9 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```java
   }
 
-  public final static class LineDataBean {
-    private int myLineNum;
-    private CharSequence mySourceCode;
+  public final static class FileDataBean {
+    private final String myCaption;
+    private final Collection<LineDataBean> myLines;
 ```
 
 ## RuleId[id=ConstantValue]
