@@ -20,6 +20,18 @@ I found 37 bad smells with 1 repairable:
 | NonFinalFieldOfException | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'sslConfig'
+in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
+#### Snippet
+```java
+    Optional<ProxyConfiguration> proxyConfiguration();
+
+    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
+        return PartialServiceConfiguration.builder()
+                .uris(uris)
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'first'
 in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/ServiceConfigurationFactory.java`
 #### Snippet
@@ -44,27 +56,15 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Se
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sslConfig'
-in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/PartialServiceConfiguration.java`
-#### Snippet
-```java
-    Optional<ProxyConfiguration> proxyConfiguration();
-
-    static PartialServiceConfiguration of(List<String> uris, Optional<SslConfiguration> sslConfig) {
-        return PartialServiceConfiguration.builder()
-                .uris(uris)
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'retryAfter'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        private final Optional<Duration> retryAfter;
+        }
 
-        private Throttle(Optional<Duration> retryAfter) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
-            this.retryAfter = retryAfter;
+        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
+            super(
+                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -74,8 +74,8 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```java
         }
 
-        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
+        private Throttle(Optional<Duration> retryAfter, Throwable cause, QosReason reason) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, cause, reason);
             this.retryAfter = retryAfter;
 ```
 
@@ -98,9 +98,9 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 ```java
         }
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause) {
-            super(
-                    "Suggesting request throttling with optional retryAfter duration: " + retryAfter,
+        private Throttle(Optional<Duration> retryAfter, QosReason reason) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, reason);
+            this.retryAfter = retryAfter;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -108,10 +108,10 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
 ```java
-        }
+        private final Optional<Duration> retryAfter;
 
-        private Throttle(Optional<Duration> retryAfter, Throwable cause, QosReason reason) {
-            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, cause, reason);
+        private Throttle(Optional<Duration> retryAfter) {
+            super("Suggesting request throttling with optional retryAfter duration: " + retryAfter, DEFAULT_REASON);
             this.retryAfter = retryAfter;
 ```
 
@@ -218,18 +218,6 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Pa
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getExceptionClass' is still used
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
-#### Snippet
-```java
-    @Value.Auxiliary
-    @SuppressWarnings("checkstyle:designforextension")
-    abstract Optional<String> getExceptionClass();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getMessage' is still used
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
 #### Snippet
@@ -237,6 +225,18 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.
     @Value.Auxiliary
     @SuppressWarnings("checkstyle:designforextension")
     abstract Optional<String> getMessage();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getExceptionClass' is still used
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/SerializableError.java`
+#### Snippet
+```java
+    @Value.Auxiliary
+    @SuppressWarnings("checkstyle:designforextension")
+    abstract Optional<String> getExceptionClass();
 
     /**
 ```
@@ -255,18 +255,6 @@ in `service-config/src/main/java/com/palantir/conjure/java/api/config/service/Se
 
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'retryAfter' in a Serializable class
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
-
-        private final Optional<Duration> retryAfter;
-
-        private Throttle(Optional<Duration> retryAfter) {
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'reason' in a Serializable class
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
 #### Snippet
@@ -278,7 +266,31 @@ public abstract class QosException extends RuntimeException {
     // Not meant for external subclassing.
 ```
 
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'retryAfter' in a Serializable class
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
+
+        private final Optional<Duration> retryAfter;
+
+        private Throttle(Optional<Duration> retryAfter) {
+```
+
 ## RuleId[id=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `Throttle` does not end with 'Exception'
+in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
+#### Snippet
+```java
+
+    /** See {@link #throttle}. */
+    public static final class Throttle extends QosException implements SafeLoggable {
+        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
+
+```
+
 ### ExceptionNameDoesntEndWithException
 Exception class name `RetryOther` does not end with 'Exception'
 in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
@@ -300,18 +312,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
     /** See {@link #unavailable}. */
     public static final class Unavailable extends QosException implements SafeLoggable {
         private static final QosReason DEFAULT_REASON = QosReason.of("qos-unavailable");
-
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `Throttle` does not end with 'Exception'
-in `errors/src/main/java/com/palantir/conjure/java/api/errors/QosException.java`
-#### Snippet
-```java
-
-    /** See {@link #throttle}. */
-    public static final class Throttle extends QosException implements SafeLoggable {
-        private static final QosReason DEFAULT_REASON = QosReason.of("qos-throttle");
 
 ```
 
@@ -368,18 +368,6 @@ in `errors/src/main/java/com/palantir/conjure/java/api/errors/RemoteException.ja
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Arg`
-in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
-#### Snippet
-```java
-        private final Map<String, Object> unsafeArgs = new HashMap<>();
-
-        private AssertableArgs(List<Arg<?>> args) {
-            args.forEach(arg -> {
-                if (arg.isSafeForLogging()) {
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
 #### Snippet
@@ -389,6 +377,18 @@ in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExcept
         private static void assertPut(Map<String, Object> map, String key, Object value, String name) {
             Object previous = map.put(key, value);
             if (previous != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Arg`
+in `test-utils/src/main/java/com/palantir/conjure/java/api/testing/ServiceExceptionAssert.java`
+#### Snippet
+```java
+        private final Map<String, Object> unsafeArgs = new HashMap<>();
+
+        private AssertableArgs(List<Arg<?>> args) {
+            args.forEach(arg -> {
+                if (arg.isSafeForLogging()) {
 ```
 
 ### BoundedWildcard
