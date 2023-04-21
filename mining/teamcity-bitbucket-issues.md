@@ -53,8 +53,8 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 ```java
   }
 
-  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
+  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
   }
 ```
 
@@ -65,8 +65,8 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 ```java
   }
 
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
+  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
   }
 ```
 
