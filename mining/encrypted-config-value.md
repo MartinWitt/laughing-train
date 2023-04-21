@@ -13,6 +13,18 @@ I found 18 bad smells with 2 repairable:
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/EncryptConfigValueCommand.java`
+#### Snippet
+```java
+
+        // print the resulting encrypted value to the console
+        System.out.println(encryptedValue);
+    }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/GenerateKeyCommand.java`
 #### Snippet
 ```java
@@ -33,18 +45,6 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
             System.out.println("Wrote private key to " + keyPairFiles.decryptionKeyFile());
         }
     }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/crypto/EncryptConfigValueCommand.java`
-#### Snippet
-```java
-
-        // print the resulting encrypted value to the console
-        System.out.println(encryptedValue);
-    }
-}
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -149,15 +149,27 @@ in `encrypted-config-value-bundle-dropwizard1/src/main/java/com/palantir/config/
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `KeyPair` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPair.java`
+Abstract class `KeyWithType` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyWithType.java`
 #### Snippet
 ```java
  */
 @Value.Immutable
-public abstract class KeyPair {
+public abstract class KeyWithType {
 
-    public abstract KeyWithType encryptionKey();
+    public abstract KeyType getType();
+```
+
+### AbstractClassNeverImplemented
+Abstract class `AesEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
+#### Snippet
+```java
+@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
+@JsonSerialize(as = AesEncryptedValue.class)
+public abstract class AesEncryptedValue extends EncryptedValue {
+    public enum Mode {
+        GCM,
 ```
 
 ### AbstractClassNeverImplemented
@@ -173,27 +185,15 @@ public abstract class KeyPairFiles {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `LegacyEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/LegacyEncryptedValue.java`
-#### Snippet
-```java
-
-@Value.Immutable
-public abstract class LegacyEncryptedValue extends EncryptedValue {
-
-    @Value.Parameter
-```
-
-### AbstractClassNeverImplemented
-Abstract class `KeyWithType` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyWithType.java`
+Abstract class `KeyPair` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/KeyPair.java`
 #### Snippet
 ```java
  */
 @Value.Immutable
-public abstract class KeyWithType {
+public abstract class KeyPair {
 
-    public abstract KeyType getType();
+    public abstract KeyWithType encryptionKey();
 ```
 
 ### AbstractClassNeverImplemented
@@ -209,6 +209,18 @@ public abstract class RsaEncryptedValue extends EncryptedValue {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `LegacyEncryptedValue` has no concrete subclass
+in `encrypted-config-value/src/main/java/com/palantir/config/crypto/LegacyEncryptedValue.java`
+#### Snippet
+```java
+
+@Value.Immutable
+public abstract class LegacyEncryptedValue extends EncryptedValue {
+
+    @Value.Parameter
+```
+
+### AbstractClassNeverImplemented
 Abstract class `EncryptedValue` has no concrete subclass
 in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedValue.java`
 #### Snippet
@@ -218,17 +230,5 @@ in `encrypted-config-value/src/main/java/com/palantir/config/crypto/EncryptedVal
 public abstract class EncryptedValue {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     private static final String PREFIX = "enc:";
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AesEncryptedValue` has no concrete subclass
-in `encrypted-config-value/src/main/java/com/palantir/config/crypto/algorithm/aes/AesEncryptedValue.java`
-#### Snippet
-```java
-@JsonDeserialize(as = ImmutableAesEncryptedValue.class)
-@JsonSerialize(as = AesEncryptedValue.class)
-public abstract class AesEncryptedValue extends EncryptedValue {
-    public enum Mode {
-        GCM,
 ```
 
