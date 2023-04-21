@@ -190,6 +190,78 @@ Assignment to method parameter `name`
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 #### Snippet
 ```java
+    @Override
+    public String toModelName(String name) {
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        // model name cannot use reserved keyword, e.g. return
+        if (isReservedWord(name)) {
+            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNamePrefix)) {
+            name = modelNamePrefix + "_" + name;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+
+        if (!StringUtils.isEmpty(modelNameSuffix)) {
+            name = name + "_" + modelNameSuffix;
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
 
         // input[] => input
         name = name.replaceAll("\\[\\]", ""); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
@@ -270,78 +342,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-    @Override
-    public String toModelName(String name) {
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // model name cannot use reserved keyword, e.g. return
-        if (isReservedWord(name)) {
-            name = "model_" + name; // e.g. return => ModelReturn (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNamePrefix)) {
-            name = modelNamePrefix + "_" + name;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        if (!StringUtils.isEmpty(modelNameSuffix)) {
-            name = name + "_" + modelNameSuffix;
-        }
-
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `mediaTypes`
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 #### Snippet
@@ -368,18 +368,6 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `CodegenConfig`
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-import java.util.stream.Stream;
-
-public class TeamCityKotlinCodegen extends KotlinClientCodegen implements CodegenConfig {
-    String X_SUBPACKAGE = "x-subpackage";
-
-```
-
-### RedundantImplements
-Redundant interface declaration `CodegenConfig`
 in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
 #### Snippet
 ```java
@@ -387,6 +375,18 @@ import java.io.File;
 
 public class TeamCityPythonCodegen extends PythonClientCodegen implements CodegenConfig {
     protected String basePackage;
+
+```
+
+### RedundantImplements
+Redundant interface declaration `CodegenConfig`
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+import java.util.stream.Stream;
+
+public class TeamCityKotlinCodegen extends KotlinClientCodegen implements CodegenConfig {
+    String X_SUBPACKAGE = "x-subpackage";
 
 ```
 
@@ -453,6 +453,18 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityExampleGenerator.java`
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
+#### Snippet
+```java
+            this.setProjectName((String)this.additionalProperties.get("projectName"));
+        } else {
+            this.setProjectName(this.packageName.replaceAll("_", "-"));
+        }
+
+```
+
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
@@ -635,26 +647,26 @@ in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
-#### Snippet
-```java
-            this.setProjectName((String)this.additionalProperties.get("projectName"));
-        } else {
-            this.setProjectName(this.packageName.replaceAll("_", "-"));
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 #### Snippet
 ```java
-                //patch LocatorEntity description with a link to <model>.md
-                if (m.vendorExtensions.get("x-is-locator") != null) {
-                    newDescription = newDescription.replace(
-                            "Represents a locator string",
-                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
+        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
+        // remove dollar sign
+        name = name.replaceAll("\\$", "");
+
+        // model name cannot use reserved keyword, e.g. return
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
+#### Snippet
+```java
+
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -742,27 +754,15 @@ in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
 #### Snippet
 ```java
-        name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
-        // remove dollar sign
-        name = name.replaceAll("\\$", "");
-
-        // model name cannot use reserved keyword, e.g. return
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/jetbrains/codegen/docs/TeamCityDocsCodegen.java`
-#### Snippet
-```java
-
-        // model name starts with number
-        if (name.matches("^\\d.*")) {
-            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
-        }
+                //patch LocatorEntity description with a link to <model>.md
+                if (m.vendorExtensions.get("x-is-locator") != null) {
+                    newDescription = newDescription.replace(
+                            "Represents a locator string",
+                            "Represents a [locator string](teamcity-rest-api-documentation.md#Locator)"
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -937,18 +937,6 @@ import io.swagger.codegen.CodegenConstants;
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
-#### Snippet
-```java
-        String sourceFolder = "src/main/kotlin";
-
-        embeddedTemplateDir = templateDir = "teamcity_kotlin";
-        artifactId = "teamcity-kotlin-rest-client";
-        packageName = "org.jetbrains.teamcity.rest";
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
 #### Snippet
 ```java
@@ -957,6 +945,18 @@ in `src/main/java/com/jetbrains/codegen/python/TeamCityPythonCodegen.java`
         embeddedTemplateDir = templateDir = "teamcity_python";
     }
 
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/jetbrains/codegen/kotlin/TeamCityKotlinCodegen.java`
+#### Snippet
+```java
+        String sourceFolder = "src/main/kotlin";
+
+        embeddedTemplateDir = templateDir = "teamcity_kotlin";
+        artifactId = "teamcity-kotlin-rest-client";
+        packageName = "org.jetbrains.teamcity.rest";
 ```
 
 ### NestedAssignment
