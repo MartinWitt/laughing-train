@@ -7,7 +7,7 @@ I found 6 bad smells with 4 repairable:
 | UtilityClassWithoutPrivateConstructor | 4 | true |
 | FieldMayBeStatic | 1 | false |
 | MissortedModifiers | 1 | false |
-## RuleId[ruleID=FieldMayBeStatic]
+## RuleId[id=FieldMayBeStatic]
 ### FieldMayBeStatic
 Field `startServerWithAgentCommand` may be 'static'
 in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/AwsTeamCityTemplateEcs.java`
@@ -20,7 +20,7 @@ in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/AwsTeamCityTempla
     public AwsTeamCityTemplateEcs(@NotNull final Construct scope, @NotNull final Vpc vpc, @NotNull final AwsTeamCityTemplateEfs teamcityTemplateEfs) {
 ```
 
-## RuleId[ruleID=UtilityClassWithoutPrivateConstructor]
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `SetupContainerTask` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerTask.java`
@@ -69,7 +69,7 @@ public class SetupContainerParameters {
             "# Define DATADIR env variable in ECS task\n" +
 ```
 
-## RuleId[ruleID=MissortedModifiers]
+## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
 in `src/main/java/jetbrains/teamcity/aws/template/services/ecs/setup/SetupContainerParameters.java`
