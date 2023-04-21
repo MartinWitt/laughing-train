@@ -583,18 +583,6 @@ Return of `null`
 in `azure-webapp-gradle-plugin/src/main/java/com/microsoft/azure/plugin/webapps/gradle/AzureWebappPlugin.java`
 #### Snippet
 ```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `azure-webapp-gradle-plugin/src/main/java/com/microsoft/azure/plugin/webapps/gradle/AzureWebappPlugin.java`
-#### Snippet
-```java
             return project.getTasks().named(WarPlugin.WAR_TASK_NAME);
         }
         return null;
@@ -616,14 +604,14 @@ in `azure-webapp-gradle-plugin/src/main/java/com/microsoft/azure/plugin/webapps/
 
 ### ReturnNull
 Return of `null`
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/DeployHandler.java`
+in `azure-webapp-gradle-plugin/src/main/java/com/microsoft/azure/plugin/webapps/gradle/AzureWebappPlugin.java`
 #### Snippet
 ```java
-        final GradleRuntimeConfig runtime = ctx.getRuntime();
-        if (runtime == null) {
-            return null;
+            }
         }
-        final OperatingSystem os = Optional.ofNullable(runtime.os()).map(OperatingSystem::fromString).orElse(null);
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -648,6 +636,18 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
         return Objects.isNull(ctx.getRuntime()) ? null : JavaVersion.fromString(ctx.getRuntime().javaVersion());
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/handler/DeployHandler.java`
+#### Snippet
+```java
+        final GradleRuntimeConfig runtime = ctx.getRuntime();
+        if (runtime == null) {
+            return null;
+        }
+        final OperatingSystem os = Optional.ofNullable(runtime.os()).map(OperatingSystem::fromString).orElse(null);
 ```
 
 ### ReturnNull
@@ -825,27 +825,15 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+Primitive type members cannot be annotated
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsPlugin.java`
 #### Snippet
 ```java
     }
 
-    public void setAppServicePlanResourceGroup(String appServicePlanResourceGroup) {
-        this.appServicePlanResourceGroup = appServicePlanResourceGroup;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getPricingTier() {
-        return pricingTier;
-    }
+    @Nullable
+    private static void mergeCommandLineParameters(final AzureFunctionsExtension config) {
+        final JavaPropsMapper mapper = new JavaPropsMapper();
 ```
 
 ### NullableProblems
@@ -861,98 +849,14 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```
 
 ### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setPricingTier(String pricingTier) {
-        this.pricingTier = pricingTier;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setLocalDebug(String localDebug) {
-        this.localDebug = localDebug;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setAllowTelemetry(Boolean allowTelemetry) {
-        this.allowTelemetry = allowTelemetry;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-```
-
-### NullableProblems
 Getter for @Nullable field might be annotated @Nullable itself
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
 #### Snippet
 ```java
     @Input
     @Optional
-    public String getRegion() {
-        return region;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public GradleDeploymentSlotConfig getDeploymentSlot() {
-        return deploymentSlot;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public GradleAuthConfig getAuth() {
-        return auth;
-    }
-```
-
-### NullableProblems
-Setter parameter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    }
-
-    public void setAppServicePlanName(String appServicePlanName) {
-        this.appServicePlanName = appServicePlanName;
+    public Deployment getDeployment() {
+        return deployment;
     }
 ```
 
@@ -987,32 +891,8 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public Boolean getAllowTelemetry() {
-        return allowTelemetry;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public Deployment getDeployment() {
-        return deployment;
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
-#### Snippet
-```java
-    @Input
-    @Optional
-    public String getLocalDebug() {
-        return this.localDebug;
+    public String getPricingTier() {
+        return pricingTier;
     }
 ```
 
@@ -1041,14 +921,14 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```
 
 ### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
+Setter parameter for @Nullable field might be annotated @Nullable itself
 in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
 #### Snippet
 ```java
-    @Input
-    @Optional
-    public String getAppServicePlanName() {
-        return appServicePlanName;
+    }
+
+    public void setPricingTier(String pricingTier) {
+        this.pricingTier = pricingTier;
     }
 ```
 
@@ -1059,8 +939,44 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     @Input
     @Optional
-    public String getResourceGroup() {
-        return resourceGroup;
+    public String getLocalDebug() {
+        return this.localDebug;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setSubscription(String subscription) {
+        this.subscription = subscription;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public GradleAuthConfig getAuth() {
+        return auth;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setAppServicePlanName(String appServicePlanName) {
+        this.appServicePlanName = appServicePlanName;
     }
 ```
 
@@ -1083,21 +999,105 @@ in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/funct
 ```java
     }
 
-    public void setSubscription(String subscription) {
-        this.subscription = subscription;
+    public void setRegion(String region) {
+        this.region = region;
     }
 ```
 
 ### NullableProblems
-Primitive type members cannot be annotated
-in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsPlugin.java`
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getAppServicePlanName() {
+        return appServicePlanName;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getRegion() {
+        return region;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
 #### Snippet
 ```java
     }
 
-    @Nullable
-    private static void mergeCommandLineParameters(final AzureFunctionsExtension config) {
-        final JavaPropsMapper mapper = new JavaPropsMapper();
+    public void setAppServicePlanResourceGroup(String appServicePlanResourceGroup) {
+        this.appServicePlanResourceGroup = appServicePlanResourceGroup;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setLocalDebug(String localDebug) {
+        this.localDebug = localDebug;
+    }
+```
+
+### NullableProblems
+Setter parameter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    }
+
+    public void setAllowTelemetry(Boolean allowTelemetry) {
+        this.allowTelemetry = allowTelemetry;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public GradleDeploymentSlotConfig getDeploymentSlot() {
+        return deploymentSlot;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public String getResourceGroup() {
+        return resourceGroup;
+    }
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `azure-functions-gradle-plugin/src/main/java/com/microsoft/azure/plugin/functions/gradle/AzureFunctionsExtension.java`
+#### Snippet
+```java
+    @Input
+    @Optional
+    public Boolean getAllowTelemetry() {
+        return allowTelemetry;
+    }
 ```
 
 ### NullableProblems
