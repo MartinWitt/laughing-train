@@ -44,8 +44,8 @@ I found 857 bad smells with 569 repairable:
 | UnnecessaryBreak | 1 | false |
 | EmptyMethod | 1 | false |
 | EqualsAndHashcode | 1 | false |
-| DuplicateThrows | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
+| DuplicateThrows | 1 | false |
 | BusyWait | 1 | false |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
@@ -56,7 +56,43 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```java
 
   @CheckForNull
+  public String getComment();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getOwnerType();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Field.java`
+#### Snippet
+```java
+
+  @CheckForNull
   public String getType();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getOwner();
 
   @CheckForNull
 ```
@@ -75,206 +111,62 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Field.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
 #### Snippet
 ```java
 
   @CheckForNull
-  public String getComment();
+  public Integer getCreateTime();
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
 #### Snippet
 ```java
-public @interface RespectsArgumentQueryLogStart {
 
-  public static final String DESCRIPTION = "Start date for query history to dump";
-}
+  @CheckForNull
+  public String getType();
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogStart {
-
-  public static final String DESCRIPTION = "Start date for query history to dump";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogStart {
-
-  public static final String DESCRIPTION = "Start date for query history to dump";
-}
-
+  @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
 #### Snippet
 ```java
 
-  @Nonnull
-  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
+  @CheckForNull
+  public String getFunctionName();
 
-  @Nonnull
+  @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
 #### Snippet
 ```java
 
-  @Nonnull
-  public default Class<? extends Enum<? extends ConnectorProperty>> getConnectorProperties() {
-    return DefaultProperties.class;
-  }
+  @CheckForNull
+  public String getDatabaseName();
+
+  @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
 #### Snippet
 ```java
 
-  @Nonnull
-  public String getDefaultFileName(boolean isAssessment);
+  @CheckForNull
+  public String getClassName();
 
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
-      throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  // Empty
-  public enum DefaultProperties implements ConnectorProperty {}
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public String getName();
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogEnd {
-
-  public static final String DESCRIPTION = "End date for query history to dump";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogEnd {
-
-  public static final String DESCRIPTION = "End date for query history to dump";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogEnd {
-
-  public static final String DESCRIPTION = "End date for query history to dump";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
-#### Snippet
-```java
-public @interface RespectsArgumentDriverClass {
-
-  public static final String DESCRIPTION =
-      "Optionally overrides the vendor-specified JDBC driver class name.";
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
-#### Snippet
-```java
-public @interface RespectsArgumentDriverClass {
-
-  public static final String DESCRIPTION =
-      "Optionally overrides the vendor-specified JDBC driver class name.";
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
-#### Snippet
-```java
-public @interface RespectsArgumentDriverClass {
-
-  public static final String DESCRIPTION =
-      "Optionally overrides the vendor-specified JDBC driver class name.";
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInputs.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public RespectsInput[] value();
-}
-
+  @CheckForNull
 ```
 
 ### UnnecessaryModifier
@@ -296,7 +188,7 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```java
 
   @CheckForNull
-  public Long getTotalSize();
+  public Integer getLastDdlTime();
 
   @CheckForNull
 ```
@@ -308,9 +200,9 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```java
 
   @CheckForNull
-  public Integer getFilesCount();
+  public Boolean isCompressed();
+}
 
-  @CheckForNull
 ```
 
 ### UnnecessaryModifier
@@ -344,31 +236,7 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```java
 
   @CheckForNull
-  public Boolean isCompressed();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Partition.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getLastDdlTime();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Partition.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Long getRawSize();
+  public Integer getFilesCount();
 
   @CheckForNull
 ```
@@ -399,168 +267,12 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Partition.java`
 #### Snippet
 ```java
 
   @CheckForNull
-  public String getFunctionName();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getOwner();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getType();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getClassName();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getCreateTime();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getOwnerType();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Function.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getDatabaseName();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogDays {
-
-  public static final String DESCRIPTION = "The number of days of query history to dump.";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogDays {
-
-  public static final String DESCRIPTION = "The number of days of query history to dump.";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
-#### Snippet
-```java
-public @interface RespectsArgumentQueryLogDays {
-
-  public static final String DESCRIPTION = "The number of days of query history to dump.";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getRetention();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Boolean isCompressed();
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Long getRowsCount();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getFilesCount();
+  public Long getRawSize();
 
   @CheckForNull
 ```
@@ -591,36 +303,12 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public List<? extends Partition> getPartitions() throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Partition.java`
 #### Snippet
 ```java
 
   @CheckForNull
-  public String getLocation();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getExpandedViewText();
+  public Long getTotalSize();
 
   @CheckForNull
 ```
@@ -644,7 +332,7 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```java
 
   @CheckForNull
-  public String getOriginalViewText();
+  public String getExpandedViewText();
 
   @CheckForNull
 ```
@@ -659,6 +347,150 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
   public List<? extends Field> getFields() throws Exception;
 
   @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Boolean isCompressed();
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getFilesCount();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getLastDdlTime();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getLocation();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Long getRowsCount();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getOwner();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getOriginalViewText();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getLastAccessTime();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public List<? extends Partition> getPartitions() throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Long getRawSize();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getRetention();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public Integer getCreateTime();
+
+  @CheckForNull
 ```
 
 ### UnnecessaryModifier
@@ -699,43 +531,43 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
 #### Snippet
 ```java
 
   @CheckForNull
-  public Long getRawSize();
+  public String getLocation();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getDescription();
 
   @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
 #### Snippet
 ```java
-
+public interface Database {
   @CheckForNull
-  public Integer getCreateTime();
+  public String getName();
 
   @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getLastDdlTime();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
 #### Snippet
 ```java
 
@@ -747,86 +579,26 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Table.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
 #### Snippet
 ```java
 
   @CheckForNull
-  public Integer getLastAccessTime();
+  public Integer getOwnerType();
 
   @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInputs.java`
 #### Snippet
 ```java
-public interface OracleLogsDumpFormat {
 
-  public static final String FORMAT_NAME = "oracle.logs.zip";
+  @Nonnull
+  public RespectsInput[] value();
+}
 
-  String ZIP_ENTRY_FILENAME = "query_history.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
-#### Snippet
-```java
-public interface OracleLogsDumpFormat {
-
-  public static final String FORMAT_NAME = "oracle.logs.zip";
-
-  String ZIP_ENTRY_FILENAME = "query_history.csv";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
-#### Snippet
-```java
-public interface OracleLogsDumpFormat {
-
-  public static final String FORMAT_NAME = "oracle.logs.zip";
-
-  String ZIP_ENTRY_FILENAME = "query_history.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SqlServerMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "sqlserver.dump.zip";
-
-  interface SchemataFormat {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SqlServerMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "sqlserver.dump.zip";
-
-  interface SchemataFormat {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SqlServerMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "sqlserver.dump.zip";
-
-  interface SchemataFormat {
 ```
 
 ### UnnecessaryModifier
@@ -867,362 +639,230 @@ public @interface RespectsArgumentDriver {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
 #### Snippet
 ```java
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+public @interface RespectsArgumentQueryLogStart {
 
-    public static enum Header {
-      userid,
-      service_class,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-
-    public static enum Header {
-      userid,
-      service_class,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static interface DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static interface DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static interface DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static boolean isZipEntryName(@Nonnull String name) {
-      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
-    }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryMetricsHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryMetricsHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryMetricsHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface DdlHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface DdlHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface DdlHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static interface QueryHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface QueryMetricsHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface QueryMetricsHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-
-    public static enum Header {
-      userid,
-      xid,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-
-    public static enum Header {
-      userid,
-      xid,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static interface DdlHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static interface DdlHistory {
-
-    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-public interface RedshiftRawLogsDumpFormat {
-
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  public static final String DESCRIPTION = "Start date for query history to dump";
+}
 
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
 #### Snippet
 ```java
-public interface RedshiftRawLogsDumpFormat {
+public @interface RespectsArgumentQueryLogStart {
 
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  public static final String DESCRIPTION = "Start date for query history to dump";
+}
 
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogStart.java`
 #### Snippet
 ```java
-public interface RedshiftRawLogsDumpFormat {
+public @interface RespectsArgumentQueryLogStart {
 
-  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  public static final String DESCRIPTION = "Start date for query history to dump";
+}
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
 #### Snippet
 ```java
-  }
+public @interface RespectsArgumentQueryLogEnd {
 
-  public static interface QueryHistory {
+  public static final String DESCRIPTION = "End date for query history to dump";
+}
 
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
 #### Snippet
 ```java
-  }
+public @interface RespectsArgumentQueryLogEnd {
 
-  public static interface QueryHistory {
+  public static final String DESCRIPTION = "End date for query history to dump";
+}
 
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogEnd.java`
 #### Snippet
 ```java
-    }
+public @interface RespectsArgumentQueryLogEnd {
 
-    public static boolean isZipEntryName(@Nonnull String name) {
-      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
-    }
-```
+  public static final String DESCRIPTION = "End date for query history to dump";
+}
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static boolean isZipEntryName(@Nonnull String name) {
-      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
-    }
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
 #### Snippet
 ```java
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+public @interface RespectsArgumentDriverClass {
 
-    public static enum Header {
-      userid,
-      xid,
+  public static final String DESCRIPTION =
+      "Optionally overrides the vendor-specified JDBC driver class name.";
+}
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
 #### Snippet
 ```java
-    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+public @interface RespectsArgumentDriverClass {
 
-    public static enum Header {
-      userid,
-      xid,
+  public static final String DESCRIPTION =
+      "Optionally overrides the vendor-specified JDBC driver class name.";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentDriverClass.java`
+#### Snippet
+```java
+public @interface RespectsArgumentDriverClass {
+
+  public static final String DESCRIPTION =
+      "Optionally overrides the vendor-specified JDBC driver class name.";
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+  public String defaultValue() default "";
+
+  public int order() default Integer.MAX_VALUE;
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String description();
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String arg() default "";
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String defaultValue() default "";
+
+  public int order() default Integer.MAX_VALUE;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String required() default "";
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String env() default "";
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getType();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getPartitionKeyName();
+
+  @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
+#### Snippet
+```java
+
+  @CheckForNull
+  public String getComment();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskSetState.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public default TaskState getTaskState(@Nonnull Task<?> task) {
+    TaskResult<?> result = getTaskResult(task);
+    return (result == null) ? TaskState.NOT_STARTED : result.getState();
 ```
 
 ### UnnecessaryModifier
@@ -1262,699 +902,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskSetState.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default TaskState getTaskState(@Nonnull Task<?> task) {
-    TaskResult<?> result = getTaskResult(task);
-    return (result == null) ? TaskState.NOT_STARTED : result.getState();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
 #### Snippet
 ```java
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PgUser {
-
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PgUser {
-
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgUser {
-
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgUser {
-
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgUser {
-
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-      username,
-      userid,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-      username,
-      userid,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static final String FORMAT_NAME = "postgresql.dump.zip";
-
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static final String FORMAT_NAME = "postgresql.dump.zip";
-
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgFunctions {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgFunctions {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgFunctions {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-    public static enum Header {
-      Schema,
-      Name,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
-
-    public static enum Header {
-      Schema,
-      Name,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgViews {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgViews {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgViews {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  // functions, functions-11, aggregates, aggregates-11
-  public static interface PgFunctions {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  // functions, functions-11, aggregates, aggregates-11
-  public static interface PgFunctions {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-    public static enum Header {
-      schemaname,
-      viewname,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
-
-    public static enum Header {
-      schemaname,
-      viewname,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PgViews {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PgViews {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "postgresql.dump.zip";
-
-  public static interface InformationSchemaColumns {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "postgresql.dump.zip";
-
-  public static interface InformationSchemaColumns {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "postgresql.dump.zip";
-
-  public static interface InformationSchemaColumns {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface MysqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "mysql.dump.zip";
-
-  /*
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface MysqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "mysql.dump.zip";
-
-  /*
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface MysqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "mysql.dump.zip";
-
-  /*
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  /** Counts 1. */
-  public default void count() {
-    count(1);
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default ConcurrentProgressMonitor withBlockSize(@Nonnegative int blockSize) {
-    return this;
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-  /** Returns the current count. This may be a relatively slow operation. */
-  @Nonnegative
-  public long getCount();
-
-  public void count(@Nonnegative int delta);
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-
-  @Override
-  public void close();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
-#### Snippet
-```java
-  public long getCount();
-
-  public void count(@Nonnegative int delta);
-
-  /** Counts 1. */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getComment();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getPartitionKeyName();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/PartitionKey.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getType();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
-#### Snippet
-```java
-public @interface RespectsArgumentHostUnlessUrl {
-
-  public static final String DESCRIPTION = "The hostname of the database server.";
-
-  // public static final String EXAMPLES[] = {};
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
-#### Snippet
-```java
-public @interface RespectsArgumentHostUnlessUrl {
-
-  public static final String DESCRIPTION = "The hostname of the database server.";
-
-  // public static final String EXAMPLES[] = {};
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
-#### Snippet
-```java
-public @interface RespectsArgumentHostUnlessUrl {
-
-  public static final String DESCRIPTION = "The hostname of the database server.";
-
-  // public static final String EXAMPLES[] = {};
+    }
+
+    public static enum UnavailableClientVersionBehavior {
+      FALLBACK,
+      THROW
 ```
 
 ### UnnecessaryModifier
@@ -1970,2379 +926,843 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
-#### Snippet
-```java
-    }
-
-    public static enum UnavailableClientVersionBehavior {
-      FALLBACK,
-      THROW
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/ConnectorProperty.java`
 #### Snippet
 ```java
-  /** Returns a CharSink on the target file. */
+
   @Nonnull
-  public default CharSink asCharSink(@Nonnull Charset charset) throws IOException {
-    return asByteSink().asCharSink(charset);
+  public default String getDescription() {
+    return StringUtils.EMPTY;
   }
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/ConnectorProperty.java`
 #### Snippet
 ```java
-  /** Returns a ByteSink on the target file. */
+
   @Nonnull
-  public ByteSink asByteSink() throws IOException;
-
-  /** Returns a CharSink on the target file. */
+  public default String getName() {
+    return StringUtils.EMPTY;
+  }
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
 #### Snippet
 ```java
-  /** Returns a ByteSink on the temporary file. */
-  @Nonnull
-  public ByteSink asTemporaryByteSink() throws IOException;
+public interface MysqlMetadataDumpFormat {
 
-  /**
+  public static final String FORMAT_NAME = "mysql.dump.zip";
+
+  /*
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface MysqlMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "mysql.dump.zip";
+
+  /*
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface MysqlMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "mysql.dump.zip";
+
+  /*
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
 #### Snippet
 ```java
-public interface OutputHandle {
+public @interface RespectsArgumentHostUnlessUrl {
 
-  public boolean exists() throws IOException;
+  public static final String DESCRIPTION = "The hostname of the database server.";
 
-  /** Returns a ByteSink on the target file. */
+  // public static final String EXAMPLES[] = {};
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
+#### Snippet
+```java
+public @interface RespectsArgumentHostUnlessUrl {
+
+  public static final String DESCRIPTION = "The hostname of the database server.";
+
+  // public static final String EXAMPLES[] = {};
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentHostUnlessUrl.java`
+#### Snippet
+```java
+public @interface RespectsArgumentHostUnlessUrl {
+
+  public static final String DESCRIPTION = "The hostname of the database server.";
+
+  // public static final String EXAMPLES[] = {};
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
 #### Snippet
 ```java
-   * try-with-resources or finally block, or you risk committing bad data.
-   */
-  public void commit() throws IOException;
+public @interface RespectsArgumentSchemaPredicate {
+
+  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
+#### Snippet
+```java
+public @interface RespectsArgumentSchemaPredicate {
+
+  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
+#### Snippet
+```java
+public @interface RespectsArgumentSchemaPredicate {
+
+  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TableTextVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TableTextVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TableTextVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TableTextVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
 
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PartitioningConstraintsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PartitioningConstraintsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    // ColumnPartitionFormat,ColumnPartitionAC,PseudoUDTFieldId,PseudoUDTFieldType,StorageFormat,DatasetSchemaName,InlineLength,TSColumnType
-    // NOTE: This enum must match not what TD says is in the schema, but what we actually dump.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    // ColumnPartitionFormat,ColumnPartitionAC,PseudoUDTFieldId,PseudoUDTFieldType,StorageFormat,DatasetSchemaName,InlineLength,TSColumnType
-    // NOTE: This enum must match not what TD says is in the schema, but what we actually dump.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static final String FORMAT_NAME = "teradata.dump.zip";
-
-  public static interface VersionFormat {
-
-    public static final String ZIP_ENTRY_NAME = "version.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static final String FORMAT_NAME = "teradata.dump.zip";
-
-  public static interface VersionFormat {
-
-    public static final String ZIP_ENTRY_NAME = "version.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-
-    public static enum Header {
-      RoleName,
-      Grantor,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-
-    public static enum Header {
-      RoleName,
-      Grantor,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DataBaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DataBaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PartitioningConstraintsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface PartitioningConstraintsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      FunctionName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      FunctionName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-
-    public static enum Header {
-      DataBaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
-
-    public static enum Header {
-      DataBaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsJQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
-  }
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsJQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
-  }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-
-    public static enum Header {
-      VProc,
-      DatabaseName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-
-    public static enum Header {
-      VProc,
-      DatabaseName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TableSizeVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TableSizeVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TableSizeVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TableSizeVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsJQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsJQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-
-    public static enum Header {
-      IndexId,
-      IndexName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-
-    public static enum Header {
-      IndexId,
-      IndexName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-
-    public static enum Header {
-      HostNo,
-      SessionNo,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-
-    public static enum Header {
-      HostNo,
-      SessionNo,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface All_RI_ParentsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface All_RI_ParentsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface RoleMembersVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface RoleMembersVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
 
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface AllTempTablesVXFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface AllTempTablesVXFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface TeradataMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "teradata.dump.zip";
-
-  public static interface VersionFormat {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface TeradataMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "teradata.dump.zip";
-
-  public static interface VersionFormat {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface TeradataMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "teradata.dump.zip";
-
-  public static interface VersionFormat {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface DatabasesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface DatabasesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TablesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TablesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface ColumnsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      Vproc,
-      DataBaseName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      Vproc,
-      DataBaseName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface All_RI_ChildrenVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface All_RI_ChildrenVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface VersionFormat {
-
-    public static final String ZIP_ENTRY_NAME = "version.csv";
-  }
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface VersionFormat {
-
-    public static final String ZIP_ENTRY_NAME = "version.csv";
-  }
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-  public static interface VersionFormat {
 
-    public static final String ZIP_ENTRY_NAME = "version.csv";
-  }
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-  }
+  String FORMAT_NAME = "redshift.logs.zip";
 
-  public static interface DatabasesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface DatabasesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface IndicesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
-
-    // TD 16.20.32.09 - complete set.
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-  public static interface IndicesVFormat {
+  String FORMAT_NAME = "redshift.logs.zip";
 
-    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
-
-    // Complete Set for _some_ TD from Issue:5673
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
-
-    // Complete Set for _some_ TD from Issue:5673
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-  public static interface ColumnsFormat {
+  String FORMAT_NAME = "redshift.logs.zip";
 
-    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
-
-    // Complete Set for _some_ TD from Issue:5673
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-  public static interface RoleMembersVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface RoleMembersVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      CreatorName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      CreatorName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // TD 16.20.32.09 - complete set.
-    public static enum Header {
-      DatabaseName,
-      TableName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface All_RI_ParentsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface All_RI_ParentsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface All_RI_ChildrenVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface All_RI_ChildrenVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface DiskSpaceVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface DiskSpaceVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface DiskSpaceVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface DiskSpaceVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface StatsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface StatsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
-  }
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface ColumnsQVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
-  }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface FunctionsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface FunctionsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface FunctionsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface FunctionsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
-
-    // TD 16.20.32.09 - complete set.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-
-    public static enum Header {
-      IndexId,
-      IndexName,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
-
-    public static enum Header {
-      IndexId,
-      IndexName,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface StatsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface StatsVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface AllTempTablesVXFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface AllTempTablesVXFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface IndicesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface IndicesVFormat {
-
-    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SnowflakeMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "snowflake.dump.zip";
-
-  interface DatabasesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SnowflakeMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "snowflake.dump.zip";
-
-  interface DatabasesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface SnowflakeMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "snowflake.dump.zip";
-
-  interface DatabasesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  @Override
-  public void close();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** Returns the time elapsed since creation of this ProgressMonitor */
-  public long timeElapsed(TimeUnit desiredUnit);
-
-  /** Returns the current count. */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default BlockProgressMonitor withBlockSize(@Nonnegative int blockSize) {
-    return new BlockProgressMonitor(this, blockSize);
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** Adds delta to the current count. Returns the number counted so far, including this count. */
-  public long count(@Nonnegative int delta);
-
-  /** Adds 1 to the current count. Returns the number counted so far, including this count. */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** Adds 1 to the current count. Returns the number counted so far, including this count. */
-  public default long count() {
-    return count(1);
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-
-  /** The divisor for memory measurements: 1 Mb. */
-  public static final int MEMDIV = 1024 * 1024;
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
-#### Snippet
-```java
-  /** Returns the current count. */
-  @Nonnegative
-  public default long getCount() {
-    return count(0);
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
+   * $CREDENTIALS delimiter as ',' addquotes escape allowoverwrite ;
    */
-  public static interface SvvTables {
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+  public static interface SvlStatementText {
 
     public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface SvvTables {
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface SvvTables {
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface FunctionsTbl {
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface FunctionsTbl {
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface FunctionsTbl {
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "redshift.dump.zip";
-
-  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "redshift.dump.zip";
-
-  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "redshift.dump.zip";
-
-  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
-  public static interface SvvColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-
-  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
-  public static interface SvvColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface SvvColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface SvvColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface SvvColumnsFormat {
-
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-    public static enum Header {
-      schemaname,
-      tablename,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-    public static enum Header {
-      schemaname,
-      tablename,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  /** Headers for results from pg_user table. */
-  public static interface PgUser {
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  /** Headers for results from pg_user table. */
-  public static interface PgUser {
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  /** Headers for results from pg_user table. */
-  public static interface PgUser {
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  /** Headers for results from pg_user table. */
-  public static interface PgUser {
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  /** Headers for results from pg_user table. */
-  public static interface PgUser {
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
+   * $CREDENTIALS delimiter as ',' addquotes escape allowoverwrite ;
    */
-  public static interface SvvTableInfo {
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface SvvTableInfo {
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
-
-    public static enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   */
-  public static interface SvvTableInfo {
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+  public static interface SvlStatementText {
 
     public static enum Header {
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
-
-    public static enum Header {
-      schema,
-      name,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
-
-    public static enum Header {
-      schema,
-      name,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   * only user-defined tables.
-   */
-  public static interface SvvTableInfo {
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   * only user-defined tables.
-   */
-  public static interface SvvTableInfo {
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
-    public static final String ZIP_ENTRY_NAME =
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-      usename,
-      usesysid,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
-
-    public static enum Header {
-      usename,
-      usesysid,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  public static interface RedshiftEnvironmentFormat {
-    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  public static interface RedshiftEnvironmentFormat {
-    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  public static interface RedshiftEnvironmentFormat {
-    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
   }
 
-  public static interface RedshiftEnvironmentFormat {
-    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface RedshiftEnvironmentFormat {
-    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Root {
-      public String currentDatabase;
-      public String redshiftVersion;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Root {
-      public String currentDatabase;
-      public String redshiftVersion;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
+  public static enum QueryHistory {
+    queryid,
+    xid,
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
   }
 
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface InformationSchemaColumns {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM =
+  public static enum QueryHistory {
+    queryid,
+    xid,
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
-   * catalogs.
-   */
-  public static interface SvvTables {
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   * catalogs.
-   */
-  public static interface SvvTables {
-    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+  public static interface SvlStatementText {
 
     public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface SvlStatementText {
+
+    public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+#### Snippet
+```java
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static enum DdlHistory {
+    userid,
+    starttime,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+#### Snippet
+```java
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static enum DdlHistory {
+    userid,
+    starttime,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+#### Snippet
+```java
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static enum DdlHistory {
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-    public static enum Header {
+  public static enum DdlHistory {
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
 #### Snippet
 ```java
+  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
+  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
-
-    public static enum Header {
+  public static enum DdlHistory {
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
 #### Snippet
 ```java
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+public interface RedshiftRawLogsDumpFormat {
 
-    public static enum Header {
-      database,
-      schema,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
-
-    public static enum Header {
-      database,
-      schema,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-   * suffix to avoid name collision.
-   */
-  public static interface FunctionsTbl {
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
 #### Snippet
 ```java
-   * suffix to avoid name collision.
-   */
-  public static interface FunctionsTbl {
-    public static final String ZIP_ENTRY_NAME = "functions.csv";
+public interface RedshiftRawLogsDumpFormat {
+
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+public interface RedshiftRawLogsDumpFormat {
+
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
 #### Snippet
 ```java
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
-
-    public static enum Header {
-      table_catalog,
-      table_schema,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public String getTargetPath();
-
-  @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public T run(@Nonnull TaskRunContext context) throws Exception;
-
-  // returns true if tasks handles the exception.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-public interface Task<T> {
-
-  public static interface Condition {
-
-    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-public interface Task<T> {
-
-  public static interface Condition {
-
-    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default TaskCategory getCategory() {
-    return TaskCategory.REQUIRED;
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-  }
-
-  public static class AndCondition implements Condition {
-
-    private final List<Condition> conditions;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-  }
-
-  public static class AndCondition implements Condition {
-
-    private final List<Condition> conditions;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-
-    @Nonnull
-    public default String toSkipReason() {
-      return "[" + this + "] was not true";
     }
+
+    public static boolean isZipEntryName(@Nonnull String name) {
+      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    }
+
+    public static boolean isZipEntryName(@Nonnull String name) {
+      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+
+    public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+
+    public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+
+    public static enum Header {
+      userid,
+      service_class,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+
+    public static enum Header {
+      userid,
+      service_class,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryMetricsHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryMetricsHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryMetricsHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface QueryHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface QueryMetricsHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface QueryMetricsHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querymetrics_";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    }
+
+    public static boolean isZipEntryName(@Nonnull String name) {
+      return name.startsWith(ZIP_ENTRY_PREFIX) && name.endsWith(ZIP_ENTRY_SUFFIX);
+    }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface DdlHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface DdlHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static interface DdlHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+
+    public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+
+    public static enum Header {
+      userid,
+      xid,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface QueryHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface QueryHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "querytext_";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static interface DdlHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static interface DdlHistory {
+
+    public static final String ZIP_ENTRY_PREFIX = "ddltext_";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static interface DdlHistory {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static interface DdlHistory {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+
+  public static final String FORMAT_NAME = "redshift-raw.logs.zip";
+  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+
+  public static interface DdlHistory {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String getName();
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
+      throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  // Empty
+  public enum DefaultProperties implements ConnectorProperty {}
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public default Class<? extends Enum<? extends ConnectorProperty>> getConnectorProperties() {
+    return DefaultProperties.class;
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String getDefaultFileName(boolean isAssessment);
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
+#### Snippet
+```java
+public interface OracleLogsDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.logs.zip";
+
+  String ZIP_ENTRY_FILENAME = "query_history.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
+#### Snippet
+```java
+public interface OracleLogsDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.logs.zip";
+
+  String ZIP_ENTRY_FILENAME = "query_history.csv";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleLogsDumpFormat.java`
+#### Snippet
+```java
+public interface OracleLogsDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.logs.zip";
+
+  String ZIP_ENTRY_FILENAME = "query_history.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+  public static interface Condition {
+
+    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
+
+    public boolean evaluate(@Nonnull TaskSetState state);
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+  public static interface Condition {
+
+    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
+
+    public boolean evaluate(@Nonnull TaskSetState state);
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+  public static interface Condition {
+
+    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
+
+    public boolean evaluate(@Nonnull TaskSetState state);
 ```
 
 ### UnnecessaryModifier
@@ -4362,6 +1782,30 @@ Modifier `public` is redundant for interface members
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
+
+  @CheckForNull
+  public T run(@Nonnull TaskRunContext context) throws Exception;
+
+  // returns true if tasks handles the exception.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public String getTargetPath();
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
   }
 
   public static class StateCondition implements Condition {
@@ -4383,38 +1827,14 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Metadata {
 
-      @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Metadata {
-
-      @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Metadata {
-
-      @CheckForNull
+  @Nonnull
+  public default TaskCategory getCategory() {
+    return TaskCategory.REQUIRED;
+  }
 ```
 
 ### UnnecessaryModifier
@@ -4422,71 +1842,11 @@ Modifier `public` is redundant for interface members
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
-  public static interface Condition {
-
     public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
 
     public boolean evaluate(@Nonnull TaskSetState state);
-```
 
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Metadata {
-
-      @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface BigQueryMetadataDumpFormat {
-
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-  public static interface Condition {
-
-    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-
-    public boolean evaluate(@Nonnull TaskSetState state);
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-  public static interface Condition {
-
-    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-
-    public boolean evaluate(@Nonnull TaskSetState state);
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface BigQueryMetadataDumpFormat {
-
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    @Nonnull
 ```
 
 ### UnnecessaryModifier
@@ -4502,15 +1862,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
-public interface BigQueryMetadataDumpFormat {
 
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    @Nonnull
+    public default String toSkipReason() {
+      return "[" + this + "] was not true";
+    }
 ```
 
 ### UnnecessaryModifier
@@ -4527,98 +1887,26 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
-    String ZIP_ENTRY_NAME = "tables.csv";
+  }
 
-    public static class Metadata {
+  public static class AndCondition implements Condition {
 
-      @CheckForNull
+    private final List<Condition> conditions;
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    String ZIP_ENTRY_NAME = "tables.csv";
-
-    public static class Metadata {
-
-      @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      public static class Field {
-
-        public static enum Mode {
-          NULLABLE,
-          REQUIRED,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
   }
 
-  public static interface DatasetsTaskFormat {
+  public static class AndCondition implements Condition {
 
-    String ZIP_ENTRY_NAME = "datasets.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface DatasetsTaskFormat {
-
-    String ZIP_ENTRY_NAME = "datasets.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Use TablesJsonTaskFormat.
-  public static interface ColumnsTaskFormat {
-
-    String ZIP_ENTRY_NAME = "fields.csv";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Use TablesJsonTaskFormat.
-  public static interface ColumnsTaskFormat {
-
-    String ZIP_ENTRY_NAME = "fields.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static enum Header {
-      ProjectId,
-      DatasetId,
+    private final List<Condition> conditions;
 ```
 
 ### UnnecessaryModifier
@@ -4626,227 +1914,23 @@ Modifier `public` is redundant for interface members
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
+public interface Task<T> {
+
+  public static interface Condition {
+
     public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-
-    public boolean evaluate(@Nonnull TaskSetState state);
-
-    @Nonnull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static enum Header {
-      ProjectId,
-      DatasetId,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Use TablesJsonTaskFormat.
-  public static interface TablesTaskFormat {
-
-    String ZIP_ENTRY_NAME = "tables.csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
+public interface Task<T> {
 
-  @Deprecated // Use TablesJsonTaskFormat.
-  public static interface TablesTaskFormat {
+  public static interface Condition {
 
-    String ZIP_ENTRY_NAME = "tables.csv";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static enum Header {
-      ProjectId,
-      DatasetId,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-    }
-
-    public static enum Header {
-      ProjectId,
-      DatasetId,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  String FORMAT_NAME = "bigquery.dump.zip";
-
-  public static enum TimePartitioningType {
-    // See BQ's TimePartitioning.Type
-    HOUR,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-  String FORMAT_NAME = "bigquery.dump.zip";
-
-  public static enum TimePartitioningType {
-    // See BQ's TimePartitioning.Type
-    HOUR,
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface XmlTables {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables-XML.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Tables {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.PartKeyColumns.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.PartKeyColumns.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Operators.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Operators.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Types {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Types.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Types.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Arguments {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Arguments.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Arguments.csv";
-
+    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
 ```
 
 ### UnnecessaryModifier
@@ -4866,93 +1950,9 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface XmlViews {
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Views-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Views-XML.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Types-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Types-XML.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Views-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Views-XML.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Catalog.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Catalog.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Views {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Views.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Views.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Sequences-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Sequences-XML.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Plsql_Types {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.PlsqlTypes.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.PlsqlTypes.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.TabPartitions.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.TabPartitions.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Operators.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Operators.csv";
 
     enum Header {
 ```
@@ -4975,8 +1975,8 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Indexes-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Indexes-XML.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Arguments.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Arguments.csv";
 
     enum Header {
 ```
@@ -4986,11 +1986,95 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
+  interface Types {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Types.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Types.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface OracleMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.dump.zip";
+
+  interface Arguments {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface OracleMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.dump.zip";
+
+  interface Arguments {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface OracleMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "oracle.dump.zip";
+
+  interface Arguments {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface XmlViews {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Views-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Views-XML.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Constraints {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Constraints.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Constraints.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables-XML.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Procedures {
 
     final String ZIP_ENTRY_NAME_DBA = "DBA.Procedures.csv";
     final String ZIP_ENTRY_NAME_ALL = "ALL.Procedures.csv";
 
-    enum Header {
 ```
 
 ### UnnecessaryModifier
@@ -4999,20 +2083,8 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Synonyms-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Synonyms-XML.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Arguments.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Arguments.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.PlsqlTypes.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.PlsqlTypes.csv";
 
     enum Header {
 ```
@@ -5035,8 +2107,8 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables-XML.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables.csv";
 
     enum Header {
 ```
@@ -5046,21 +2118,9 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface V_Pwfile_users {
 
-    final String ZIP_ENTRY_NAME = "V_Pwfile_users.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface XmlFunctions {
-
-    final String ZIP_ENTRY_NAME = "Functions-XML.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Catalog.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Catalog.csv";
 
     enum Header {
 ```
@@ -5070,11 +2130,11 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface Functions {
+  interface Indexes {
 
-    final String ZIP_ENTRY_NAME = "Functions.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Indexes.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Indexes.csv";
 
-    enum Header {
 ```
 
 ### UnnecessaryModifier
@@ -5106,70 +2166,10 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface XmlSequences {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Sequences-XML.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Sequences-XML.csv";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Views.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Views.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface OracleMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "oracle.dump.zip";
-
   interface Arguments {
-```
 
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface OracleMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "oracle.dump.zip";
-
-  interface Arguments {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface OracleMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "oracle.dump.zip";
-
-  interface Arguments {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Catalog {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Catalog.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Catalog.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Arguments.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Arguments.csv";
 
 ```
 
@@ -5190,35 +2190,11 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface V_Parameter2 {
-
-    final String ZIP_ENTRY_NAME = "V_Parameter2.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.PlsqlTypes.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.PlsqlTypes.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Indexes {
 
     final String ZIP_ENTRY_NAME_DBA = "DBA.Indexes.csv";
     final String ZIP_ENTRY_NAME_ALL = "ALL.Indexes.csv";
 
+    enum Header {
 ```
 
 ### UnnecessaryModifier
@@ -5226,9 +2202,9 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface V_Version {
+  interface Functions {
 
-    final String ZIP_ENTRY_NAME = "V_Version.csv";
+    final String ZIP_ENTRY_NAME = "Functions.csv";
 
     enum Header {
 ```
@@ -5238,21 +2214,9 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
+  interface V_Parameter2 {
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Constraints.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Constraints.csv";
-
-    enum Header {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.TabColumns.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.TabColumns.csv";
+    final String ZIP_ENTRY_NAME = "V_Parameter2.csv";
 
     enum Header {
 ```
@@ -5274,9 +2238,141 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.TabColumns.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.TabColumns.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.PartKeyColumns.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.PartKeyColumns.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Catalog {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Catalog.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Catalog.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface XmlFunctions {
+
+    final String ZIP_ENTRY_NAME = "Functions-XML.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
   interface V_Option {
 
     final String ZIP_ENTRY_NAME = "V_Option.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Tab_Partitions {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.TabPartitions.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.TabPartitions.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.TabPartitions.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.TabPartitions.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Plsql_Types {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.PlsqlTypes.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.PlsqlTypes.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface V_Version {
+
+    final String ZIP_ENTRY_NAME = "V_Version.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Views.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Views.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Constraints.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Constraints.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface V_Pwfile_users {
+
+    final String ZIP_ENTRY_NAME = "V_Pwfile_users.csv";
 
     enum Header {
 ```
@@ -5298,10 +2394,10 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface Procedures {
+  interface Tables {
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Procedures.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Procedures.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables.csv";
 
 ```
 
@@ -5311,8 +2407,8 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Indexes.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Indexes.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Views-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Views-XML.csv";
 
     enum Header {
 ```
@@ -5322,11 +2418,83 @@ Modifier `final` is redundant for interface fields
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
 #### Snippet
 ```java
-  interface Constraints {
+  interface XmlTables {
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Constraints.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Constraints.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables-XML.csv";
 
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface Views {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Views.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Views.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Types-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Types-XML.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Sequences-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Sequences-XML.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Indexes-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Indexes-XML.csv";
+
+    enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+  interface XmlSequences {
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Sequences-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Sequences-XML.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Synonyms-XML.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Synonyms-XML.csv";
+
+    enum Header {
 ```
 
 ### UnnecessaryModifier
@@ -5347,418 +2515,1330 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-    final String ZIP_ENTRY_NAME_DBA = "DBA.Tables.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.Tables.csv";
+    final String ZIP_ENTRY_NAME_DBA = "DBA.Procedures.csv";
+    final String ZIP_ENTRY_NAME_ALL = "ALL.Procedures.csv";
 
     enum Header {
 ```
 
 ### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/OracleMetadataDumpFormat.java`
-#### Snippet
-```java
-  interface Tab_Partitions {
-
-    final String ZIP_ENTRY_NAME_DBA = "DBA.TabPartitions.csv";
-    final String ZIP_ENTRY_NAME_ALL = "ALL.TabPartitions.csv";
-
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-          .disable(SerializationFeature.INDENT_OUTPUT);
+public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
 
-  public static final String FORMAT_NAME = "hiveql.dump.zip";
+  public static final String FORMAT_NAME = "redshift.dump.zip";
 
-  interface SchemataFormat {
+  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-          .disable(SerializationFeature.INDENT_OUTPUT);
+public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
 
-  public static final String FORMAT_NAME = "hiveql.dump.zip";
+  public static final String FORMAT_NAME = "redshift.dump.zip";
 
-  interface SchemataFormat {
+  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-          .disable(SerializationFeature.INDENT_OUTPUT);
+public interface RedshiftMetadataDumpFormat extends PostgresqlMetadataDumpFormat {
 
-  public static final String FORMAT_NAME = "hiveql.dump.zip";
+  public static final String FORMAT_NAME = "redshift.dump.zip";
 
-  interface SchemataFormat {
+  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-  }
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
 
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface HiveMetadataDumpFormat {
-
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-public interface HiveMetadataDumpFormat {
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
 
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-public interface HiveMetadataDumpFormat {
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
 
-  public static final ObjectMapper MAPPER =
-      new ObjectMapper()
-          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface TablesJsonTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class TableMetadata {
+    public static class Root {
+      public String currentDatabase;
+      public String redshiftVersion;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Root {
+      public String currentDatabase;
+      public String redshiftVersion;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME_SYSTEM;
+    public static final String ZIP_ENTRY_NAME =
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+      usename,
+      usesysid,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+      usename,
+      usesysid,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  /** Headers for results from pg_user table. */
+  public static interface PgUser {
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  /** Headers for results from pg_user table. */
+  public static interface PgUser {
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  public static interface RedshiftEnvironmentFormat {
+    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  public static interface RedshiftEnvironmentFormat {
+    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  public static interface RedshiftEnvironmentFormat {
+    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * catalogs.
+   */
+  public static interface SvvTables {
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * catalogs.
+   */
+  public static interface SvvTables {
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * suffix to avoid name collision.
+   */
+  public static interface FunctionsTbl {
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * suffix to avoid name collision.
+   */
+  public static interface FunctionsTbl {
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+    public static enum Header {
+      schemaname,
+      tablename,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+    public static enum Header {
+      schemaname,
+      tablename,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+        PostgresqlMetadataDumpFormat.InformationSchemaColumns.ZIP_ENTRY_NAME;
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * only user-defined tables.
+   */
+  public static interface SvvTableInfo {
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   * only user-defined tables.
+   */
+  public static interface SvvTableInfo {
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  /** Headers for results from pg_user table. */
+  public static interface PgUser {
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  /** Headers for results from pg_user table. */
+  public static interface PgUser {
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  /** Headers for results from pg_user table. */
+  public static interface PgUser {
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTables {
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTables {
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTables {
+    public static final String ZIP_ENTRY_NAME = "svv_tables.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface RedshiftEnvironmentFormat {
+    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface RedshiftEnvironmentFormat {
+    public static final String ZIP_ENTRY_NAME = "redshift-environment.yaml";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+    public static enum Header {
+      database,
+      schema,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+    public static enum Header {
+      database,
+      schema,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_table_def_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+    public static enum Header {
+      schema,
+      name,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+    public static enum Header {
+      schema,
+      name,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
+  public static interface SvvColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  /** This appears to be a superset of SVV_COLUMNS_EXTERNAL. */
+  public static interface SvvColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface SvvColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface SvvColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface SvvColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "svv_columns.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM =
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface FunctionsTbl {
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface FunctionsTbl {
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface FunctionsTbl {
+    public static final String ZIP_ENTRY_NAME = "functions.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTableInfo {
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTableInfo {
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
+#### Snippet
+```java
+   */
+  public static interface SvvTableInfo {
+    public static final String ZIP_ENTRY_NAME = "svv_table_info.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+   * try-with-resources or finally block, or you risk committing bad data.
+   */
+  public void commit() throws IOException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+  /** Returns a ByteSink on the target file. */
+  @Nonnull
+  public ByteSink asByteSink() throws IOException;
+
+  /** Returns a CharSink on the target file. */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+public interface OutputHandle {
+
+  public boolean exists() throws IOException;
+
+  /** Returns a ByteSink on the target file. */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+  /** Returns a CharSink on the target file. */
+  @Nonnull
+  public default CharSink asCharSink(@Nonnull Charset charset) throws IOException {
+    return asByteSink().asCharSink(charset);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+  /** Returns a ByteSink on the temporary file. */
+  @Nonnull
+  public ByteSink asTemporaryByteSink() throws IOException;
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface SnowflakeMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "snowflake.dump.zip";
+
+  interface DatabasesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface SnowflakeMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "snowflake.dump.zip";
+
+  interface DatabasesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SnowflakeMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface SnowflakeMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "snowflake.dump.zip";
+
+  interface DatabasesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    }
+
+    public static enum Header {
+      ProjectId,
+      DatasetId,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    }
+
+    public static enum Header {
+      ProjectId,
+      DatasetId,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface BigQueryMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface BigQueryMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface BigQueryMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Metadata {
 
       @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class TableMetadata {
+    public static class Metadata {
 
       @CheckForNull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-public interface VerticaMetadataDumpFormat {
 
-  public static final String FORMAT_NAME = "vertica.dump.zip";
+  @Deprecated // Use TablesJsonTaskFormat.
+  public static interface ColumnsTaskFormat {
 
-  interface AllTablesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface VerticaMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "vertica.dump.zip";
-
-  interface AllTablesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface VerticaMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "vertica.dump.zip";
-
-  interface AllTablesFormat {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static enum QueryHistory {
-    queryid,
-    xid,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-  }
-
-  public static enum QueryHistory {
-    queryid,
-    xid,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static enum DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static enum DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
-
-  public static enum DdlHistory {
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-   * $CREDENTIALS delimiter as ',' addquotes escape allowoverwrite ;
-   */
-  public static interface SvlStatementText {
-
-    public static enum Header {
+    String ZIP_ENTRY_NAME = "fields.csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-   * $CREDENTIALS delimiter as ',' addquotes escape allowoverwrite ;
-   */
-  public static interface SvlStatementText {
 
-    public static enum Header {
+  @Deprecated // Use TablesJsonTaskFormat.
+  public static interface ColumnsTaskFormat {
+
+    String ZIP_ENTRY_NAME = "fields.csv";
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  public static interface SvlStatementText {
+
+  @Deprecated // Use TablesJsonTaskFormat.
+  public static interface TablesTaskFormat {
+
+    String ZIP_ENTRY_NAME = "tables.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  @Deprecated // Use TablesJsonTaskFormat.
+  public static interface TablesTaskFormat {
+
+    String ZIP_ENTRY_NAME = "tables.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    }
 
     public static enum Header {
-      userid,
-      xid,
+      ProjectId,
+      DatasetId,
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  public static interface SvlStatementText {
+    }
 
     public static enum Header {
-      userid,
-      xid,
+      ProjectId,
+      DatasetId,
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  String FORMAT_NAME = "redshift.logs.zip";
+  public static interface TablesJsonTaskFormat {
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  String FORMAT_NAME = "redshift.logs.zip";
+  public static interface TablesJsonTaskFormat {
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  String FORMAT_NAME = "redshift.logs.zip";
+  public static interface TablesJsonTaskFormat {
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+    String ZIP_ENTRY_NAME = "tables.csv";
 
-  public static enum DdlHistory {
-    userid,
-    starttime,
+    public static class Metadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    String ZIP_ENTRY_NAME = "tables.csv";
+
+    public static class Metadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+  String FORMAT_NAME = "bigquery.dump.zip";
+
+  public static enum TimePartitioningType {
+    // See BQ's TimePartitioning.Type
+    HOUR,
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  String FORMAT_NAME = "bigquery.dump.zip";
 
-  public static enum DdlHistory {
-    userid,
-    starttime,
+  public static enum TimePartitioningType {
+    // See BQ's TimePartitioning.Type
+    HOUR,
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DatasetsTaskFormat {
+
+    String ZIP_ENTRY_NAME = "datasets.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DatasetsTaskFormat {
+
+    String ZIP_ENTRY_NAME = "datasets.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Metadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Metadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      public static class Field {
+
+        public static enum Mode {
+          NULLABLE,
+          REQUIRED,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
 #### Snippet
 ```java
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  @Override
+  public void close();
+}
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
+#### Snippet
+```java
+  public long getCount();
+
+  public void count(@Nonnegative int delta);
+
+  /** Counts 1. */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
+#### Snippet
+```java
+  /** Returns the current count. This may be a relatively slow operation. */
+  @Nonnegative
+  public long getCount();
+
+  public void count(@Nonnegative int delta);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
+#### Snippet
+```java
+
+  /** Counts 1. */
+  public default void count() {
+    count(1);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public default ConcurrentProgressMonitor withBlockSize(@Nonnegative int blockSize) {
+    return this;
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
+#### Snippet
+```java
+
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
+
+  @Nonnull
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
 #### Snippet
 ```java
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
 
+  @Nonnull
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentProgressMonitor.java`
 #### Snippet
 ```java
 
-  public static final String ZIP_ENTRY_PREFIX_METRICS = "metrics_history_";
-  public static final String ZIP_ENTRY_PREFIX_SCANS = "scan_history_";
-  public static final String ZIP_ENTRY_SUFFIX = ".csv";
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
 
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+#### Snippet
+```java
+    }
+
+    protected static interface BigQueryConsumer<V> {
+
+      public void accept(@Nonnull V value)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+#### Snippet
+```java
+    protected static interface BigQueryConsumer<V> {
+
+      public void accept(@Nonnull V value)
+          throws BigQueryException, IOException, InterruptedException;
+    }
 ```
 
 ### UnnecessaryModifier
@@ -5792,66 +3872,6 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 ```java
     @JsonIgnoreProperties(ignoreUnknown = true)
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Root {
-
-      public String format;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    public static class Root {
-
-      public String format;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface CompilerWorksDumpMetadataTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface CompilerWorksDumpMetadataTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
-#### Snippet
-```java
-  public static interface CompilerWorksDumpMetadataTaskFormat {
-
-    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
-#### Snippet
-```java
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
     public static class Product {
 
       public String version;
@@ -5874,6 +3894,66 @@ Modifier `public` is redundant for interface members
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
 #### Snippet
 ```java
+  public static interface CompilerWorksDumpMetadataTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface CompilerWorksDumpMetadataTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface CompilerWorksDumpMetadataTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "compilerworks-metadata.yaml";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Root {
+
+      public String format;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class Root {
+
+      public String format;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/CoreMetadataDumpFormat.java`
+#### Snippet
+```java
           .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
           .disable(YAMLGenerator.Feature.SPLIT_LINES);
   public static final ObjectMapper MAPPER =
@@ -5939,126 +4019,6 @@ public interface CoreMetadataDumpFormat {
   public static final YAMLFactory FACTORY =
       new YAMLFactory()
           .enable(YAMLGenerator.Feature.LITERAL_BLOCK_STYLE)
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
-#### Snippet
-```java
-public interface Database {
-  @CheckForNull
-  public String getName();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getDescription();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public Integer getOwnerType();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getLocation();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/Database.java`
-#### Snippet
-```java
-
-  @CheckForNull
-  public String getOwner();
-
-  @CheckForNull
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
-#### Snippet
-```java
-  private static class InputDescriptor implements Comparable<InputDescriptor> {
-
-    public static enum Category {
-      Arg,
-      Env,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-ext-bigquery/src/main/java/com/google/edwmigration/dumper/plugin/ext/bigquery/BigQueryCallable.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public T call() throws BigQueryException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/ConnectorProperty.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default String getName() {
-    return StringUtils.EMPTY;
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/ConnectorProperty.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public default String getDescription() {
-    return StringUtils.EMPTY;
-  }
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandleFactory.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public OutputHandle newOutputFileHandle(@Nonnull String targetPath);
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -6087,122 +4047,14 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandleFactory.java`
 #### Snippet
 ```java
-public @interface RespectsArgumentSchemaPredicate {
 
-  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
+  @Nonnull
+  public OutputHandle newOutputFileHandle(@Nonnull String targetPath);
 }
 
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
-#### Snippet
-```java
-public @interface RespectsArgumentSchemaPredicate {
-
-  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentSchemaPredicate.java`
-#### Snippet
-```java
-public @interface RespectsArgumentSchemaPredicate {
-
-  public static final String DESCRIPTION = "The list of schemas to dump, separated by commas.";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_SUFFIX = "/nz.v_table_dist_map.csv";
-
-    public static enum DistMapHeader {
-      OBJID,
-      TABLENAME,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-    public static final String ZIP_ENTRY_SUFFIX = "/nz.v_table_dist_map.csv";
-
-    public static enum DistMapHeader {
-      OBJID,
-      TABLENAME,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // Not sure of a docref for this.
-    public static enum Header {
-      DATABASE,
-      SCHEMA,
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-
-    // Not sure of a docref for this.
-    public static enum Header {
-      DATABASE,
-      SCHEMA,
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface NetezzaMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "netezza.dump.zip";
-
-  public interface Views {
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface NetezzaMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "netezza.dump.zip";
-
-  public interface Views {
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
-#### Snippet
-```java
-public interface NetezzaMetadataDumpFormat {
-
-  public static final String FORMAT_NAME = "netezza.dump.zip";
-
-  public interface Views {
 ```
 
 ### UnnecessaryModifier
@@ -6270,6 +4122,66 @@ Modifier `public` is redundant for interface members
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
 #### Snippet
 ```java
+
+    // Not sure of a docref for this.
+    public static enum Header {
+      DATABASE,
+      SCHEMA,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // Not sure of a docref for this.
+    public static enum Header {
+      DATABASE,
+      SCHEMA,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface NetezzaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "netezza.dump.zip";
+
+  public interface Views {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface NetezzaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "netezza.dump.zip";
+
+  public interface Views {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface NetezzaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "netezza.dump.zip";
+
+  public interface Views {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
   public interface Views {
 
     public static final String ZIP_ENTRY_SUFFIX = "/nz.v_view.csv";
@@ -6303,98 +4215,2186 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
 #### Snippet
 ```java
-  public String defaultValue() default "";
+    public static final String ZIP_ENTRY_SUFFIX = "/nz.v_table_dist_map.csv";
 
-  public int order() default Integer.MAX_VALUE;
+    public static enum DistMapHeader {
+      OBJID,
+      TABLENAME,
+```
 
-  @Nonnull
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/NetezzaMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_SUFFIX = "/nz.v_table_dist_map.csv";
+
+    public static enum DistMapHeader {
+      OBJID,
+      TABLENAME,
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+      username,
+      userid,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+      username,
+      userid,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgFunctions {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgFunctions {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgFunctions {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface PostgresqlMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "postgresql.dump.zip";
+
+  public static interface InformationSchemaColumns {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface PostgresqlMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "postgresql.dump.zip";
+
+  public static interface InformationSchemaColumns {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface PostgresqlMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "postgresql.dump.zip";
+
+  public static interface InformationSchemaColumns {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PgUser {
+
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PgUser {
+
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static final String FORMAT_NAME = "postgresql.dump.zip";
+
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static final String FORMAT_NAME = "postgresql.dump.zip";
+
+  public static interface InformationSchemaColumns {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+    public static enum Header {
+      table_catalog,
+      table_schema,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PgViews {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PgViews {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  // functions, functions-11, aggregates, aggregates-11
+  public static interface PgFunctions {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+  // functions, functions-11, aggregates, aggregates-11
+  public static interface PgFunctions {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_functions_generic.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "is_columns_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "is_columns_private.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+    public static enum Header {
+      schemaname,
+      viewname,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+    public static enum Header {
+      schemaname,
+      viewname,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgViews {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgViews {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgViews {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_views_generic.csv";
+    public static final String ZIP_ENTRY_NAME = "pg_views_private.csv";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgUser {
+
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgUser {
+
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PgUser {
+
+    public static final String ZIP_ENTRY_NAME = "pg_user.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+    public static enum Header {
+      Schema,
+      Name,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/PostgresqlMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static final String ZIP_ENTRY_NAME = "pg_functions_private.csv";
+
+    public static enum Header {
+      Schema,
+      Name,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TableSizeVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TableSizeVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PartitioningConstraintsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface PartitioningConstraintsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      FunctionName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      FunctionName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DataBaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DataBaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    // ColumnPartitionFormat,ColumnPartitionAC,PseudoUDTFieldId,PseudoUDTFieldType,StorageFormat,DatasetSchemaName,InlineLength,TSColumnType
+    // NOTE: This enum must match not what TD says is in the schema, but what we actually dump.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    // ColumnPartitionFormat,ColumnPartitionAC,PseudoUDTFieldId,PseudoUDTFieldType,StorageFormat,DatasetSchemaName,InlineLength,TSColumnType
+    // NOTE: This enum must match not what TD says is in the schema, but what we actually dump.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PartitioningConstraintsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface PartitioningConstraintsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.PartitioningConstraintsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface All_RI_ChildrenVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface All_RI_ChildrenVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface All_RI_ParentsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface All_RI_ParentsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DiskSpaceVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DiskSpaceVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TableTextVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TableTextVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface VersionFormat {
+
+    public static final String ZIP_ENTRY_NAME = "version.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface VersionFormat {
+
+    public static final String ZIP_ENTRY_NAME = "version.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface VersionFormat {
+
+    public static final String ZIP_ENTRY_NAME = "version.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TablesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TablesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface StatsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface StatsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+
+    public static enum Header {
+      RoleName,
+      Grantor,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+
+    public static enum Header {
+      RoleName,
+      Grantor,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TableSizeVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TableSizeVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableSizeV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TableTextVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TableTextVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+
+    public static enum Header {
+      IndexId,
+      IndexName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+
+    public static enum Header {
+      IndexId,
+      IndexName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface IndicesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface IndicesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface AllTempTablesVXFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface AllTempTablesVXFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+
+    public static enum Header {
+      IndexId,
+      IndexName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+
+    public static enum Header {
+      IndexId,
+      IndexName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface DiskSpaceVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface DiskSpaceVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsQV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static final String FORMAT_NAME = "teradata.dump.zip";
+
+  public static interface VersionFormat {
+
+    public static final String ZIP_ENTRY_NAME = "version.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static final String FORMAT_NAME = "teradata.dump.zip";
+
+  public static interface VersionFormat {
+
+    public static final String ZIP_ENTRY_NAME = "version.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DatabasesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface DatabasesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface All_RI_ParentsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface All_RI_ParentsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ParentsV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface StatsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface StatsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.StatsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsJQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsJQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
+  }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TablesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TablesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.TablesV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface All_RI_ChildrenVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface All_RI_ChildrenVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.All_RI_ChildrenV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+
+    public static enum Header {
+      VProc,
+      DatabaseName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.DiskSpaceV.csv";
+
+    public static enum Header {
+      VProc,
+      DatabaseName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface DatabasesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface DatabasesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.DatabasesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsJQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsJQVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsJQV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.ColumnsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+
+    public static enum Header {
+      DataBaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.TableTextV.csv";
+
+    public static enum Header {
+      DataBaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface IndicesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface IndicesVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.IndicesV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+
+    public static enum Header {
+      HostNo,
+      SessionNo,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+
+    public static enum Header {
+      HostNo,
+      SessionNo,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface AllTempTablesVXFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface AllTempTablesVXFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.AllTempTablesVX.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface RoleMembersVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface RoleMembersVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      CreatorName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      CreatorName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface ColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface TeradataMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "teradata.dump.zip";
+
+  public static interface VersionFormat {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface TeradataMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "teradata.dump.zip";
+
+  public static interface VersionFormat {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface TeradataMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "teradata.dump.zip";
+
+  public static interface VersionFormat {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface RoleMembersVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface RoleMembersVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.RoleMembersV.csv";
+
+    public static enum Header {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      Vproc,
+      DataBaseName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      Vproc,
+      DataBaseName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface FunctionsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface FunctionsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+
+    // TD 16.20.32.09 - complete set.
+    public static enum Header {
+      DatabaseName,
+      TableName,
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
+
+    // Complete Set for _some_ TD from Issue:5673
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
+
+    // Complete Set for _some_ TD from Issue:5673
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface ColumnsFormat {
+
+    public static final String ZIP_ENTRY_NAME = "dbc.Columns.csv";
+
+    // Complete Set for _some_ TD from Issue:5673
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface FunctionsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/TeradataMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface FunctionsVFormat {
+
+    public static String ZIP_ENTRY_NAME = "dbc.FunctionsV.csv";
+
+    // TD 16.20.32.09 - complete set.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-ext-bigquery/src/main/java/com/google/edwmigration/dumper/plugin/ext/bigquery/BigQueryCallable.java`
 #### Snippet
 ```java
 
   @Nonnull
-  public String required() default "";
+  public T call() throws BigQueryException;
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface VerticaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "vertica.dump.zip";
+
+  interface AllTablesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface VerticaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "vertica.dump.zip";
+
+  interface AllTablesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/VerticaMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface VerticaMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "vertica.dump.zip";
+
+  interface AllTablesFormat {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+  /** Returns the current count. */
+  @Nonnegative
+  public default long getCount() {
+    return count(0);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+
+  /** Adds delta to the current count. Returns the number counted so far, including this count. */
+  public long count(@Nonnegative int delta);
+
+  /** Adds 1 to the current count. Returns the number counted so far, including this count. */
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
 #### Snippet
 ```java
 
   @Nonnull
-  public String description();
+  public default BlockProgressMonitor withBlockSize(@Nonnegative int blockSize) {
+    return new BlockProgressMonitor(this, blockSize);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+
+  @Override
+  public void close();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
+
+  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+#### Snippet
+```java
+
+  /** The divisor for memory measurements: 1 Mb. */
+  public static final int MEMDIV = 1024 * 1024;
 
   @Nonnull
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
 #### Snippet
 ```java
 
-  @Nonnull
-  public String defaultValue() default "";
-
-  public int order() default Integer.MAX_VALUE;
+  /** Adds 1 to the current count. Returns the number counted so far, including this count. */
+  public default long count() {
+    return count(1);
+  }
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
 #### Snippet
 ```java
 
-  @Nonnull
-  public String env() default "";
+  /** Returns the time elapsed since creation of this ProgressMonitor */
+  public long timeElapsed(TimeUnit desiredUnit);
 
-  @Nonnull
+  /** Returns the current count. */
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsInput.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
 #### Snippet
 ```java
+public @interface RespectsArgumentQueryLogDays {
 
-  @Nonnull
-  public String arg() default "";
+  public static final String DESCRIPTION = "The number of days of query history to dump.";
+}
 
-  @Nonnull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
+#### Snippet
+```java
+public @interface RespectsArgumentQueryLogDays {
+
+  public static final String DESCRIPTION = "The number of days of query history to dump.";
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/annotations/RespectsArgumentQueryLogDays.java`
+#### Snippet
+```java
+public @interface RespectsArgumentQueryLogDays {
+
+  public static final String DESCRIPTION = "The number of days of query history to dump.";
+}
+
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
 #### Snippet
 ```java
-    protected static interface BigQueryConsumer<V> {
+public interface SqlServerMetadataDumpFormat {
 
-      public void accept(@Nonnull V value)
-          throws BigQueryException, IOException, InterruptedException;
-    }
+  public static final String FORMAT_NAME = "sqlserver.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface SqlServerMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "sqlserver.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/SqlServerMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface SqlServerMetadataDumpFormat {
+
+  public static final String FORMAT_NAME = "sqlserver.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+  }
+
+  public static interface TablesJsonTaskFormat {
+
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
 #### Snippet
 ```java
-    }
+  }
 
-    protected static interface BigQueryConsumer<V> {
+  public static interface TablesJsonTaskFormat {
 
-      public void accept(@Nonnull V value)
+    public static final String ZIP_ENTRY_NAME = "tables.jsonl";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+          .disable(SerializationFeature.INDENT_OUTPUT);
+
+  public static final String FORMAT_NAME = "hiveql.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+          .disable(SerializationFeature.INDENT_OUTPUT);
+
+  public static final String FORMAT_NAME = "hiveql.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+          .disable(SerializationFeature.INDENT_OUTPUT);
+
+  public static final String FORMAT_NAME = "hiveql.dump.zip";
+
+  interface SchemataFormat {
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface HiveMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface HiveMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+public interface HiveMetadataDumpFormat {
+
+  public static final ObjectMapper MAPPER =
+      new ObjectMapper()
+          .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class TableMetadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    public static class TableMetadata {
+
+      @CheckForNull
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+#### Snippet
+```java
+  private static class InputDescriptor implements Comparable<InputDescriptor> {
+
+    public static enum Category {
+      Arg,
+      Env,
 ```
 
 ## RuleId[id=FieldMayBeStatic]
@@ -6425,6 +6425,18 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `TestUtils` has only 'static' members, and lacks a 'private' constructor
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/TestUtils.java`
+#### Snippet
+```java
+import org.slf4j.LoggerFactory;
+
+public class TestUtils {
+
+  private static final Logger LOG = LoggerFactory.getLogger(TestUtils.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `MetastoreConstants` has only 'static' members, and lacks a 'private' constructor
 in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/MetastoreConstants.java`
 #### Snippet
@@ -6437,13 +6449,25 @@ public final class MetastoreConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ZipFileUtils` has only 'static' members, and lacks a 'private' constructor
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/util/ZipFileUtils.java`
+Class `JsonResponseFile` has only 'static' members, and lacks a 'private' constructor
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/JsonResponseFile.java`
 #### Snippet
 ```java
+ * joptsimple.
+ */
+public class JsonResponseFile {
 
-/** @author shevek */
-public class ZipFileUtils {
+  private static final Logger LOG = LoggerFactory.getLogger(JsonResponseFile.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `BigQueryAccessor` has only 'static' members, and lacks a 'private' constructor
+in `dumper/lib-ext-bigquery/src/main/java/com/google/cloud/bigquery/BigQueryAccessor.java`
+#### Snippet
+```java
+ * @author shevek
+ */
+public class BigQueryAccessor {
 
   @SuppressWarnings("UnusedVariable")
 ```
@@ -6461,42 +6485,66 @@ public class BigQueryClientUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `TestUtils` has only 'static' members, and lacks a 'private' constructor
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/TestUtils.java`
+Class `ZipFileUtils` has only 'static' members, and lacks a 'private' constructor
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/util/ZipFileUtils.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
 
-public class TestUtils {
-
-  private static final Logger LOG = LoggerFactory.getLogger(TestUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BigQueryAccessor` has only 'static' members, and lacks a 'private' constructor
-in `dumper/lib-ext-bigquery/src/main/java/com/google/cloud/bigquery/BigQueryAccessor.java`
-#### Snippet
-```java
- * @author shevek
- */
-public class BigQueryAccessor {
+/** @author shevek */
+public class ZipFileUtils {
 
   @SuppressWarnings("UnusedVariable")
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `JsonResponseFile` has only 'static' members, and lacks a 'private' constructor
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/JsonResponseFile.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskState.java`
 #### Snippet
 ```java
- * joptsimple.
- */
-public class JsonResponseFile {
+  SUCCEEDED,
+  FAILED,
+  SKIPPED;
+}
 
-  private static final Logger LOG = LoggerFactory.getLogger(JsonResponseFile.class);
 ```
 
-## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
+#### Snippet
+```java
+      type,
+      text,
+      qid;
+    }
+  }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+      endtime,
+      sequence,
+      text;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+#### Snippet
+```java
+      wlm_total_elapsed,
+      commit_queue_elapsed,
+      commit_exec_time;
+    }
+  }
+```
+
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
@@ -6526,18 +6574,6 @@ Unnecessary semicolon `;`
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
 #### Snippet
 ```java
-      wlm_total_elapsed,
-      commit_queue_elapsed,
-      commit_exec_time;
-    }
-  }
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
-#### Snippet
-```java
       query_priority,
       query_queue_time,
       service_class_name;
@@ -6547,25 +6583,13 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftRawLogsDumpFormat.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
 #### Snippet
 ```java
-      endtime,
-      sequence,
-      text;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskCategory.java`
-#### Snippet
-```java
-  INFORMATIONAL,
-  OPTIONAL,
-  REQUIRED;
-}
+    DAY,
+    MONTH,
+    YEAR;
+  }
 
 ```
 
@@ -6595,36 +6619,12 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskCategory.java`
 #### Snippet
 ```java
-    DAY,
-    MONTH,
-    YEAR;
-  }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftLogsDumpFormat.java`
-#### Snippet
-```java
-      type,
-      text,
-      qid;
-    }
-  }
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskState.java`
-#### Snippet
-```java
-  SUCCEEDED,
-  FAILED,
-  SKIPPED;
+  INFORMATIONAL,
+  OPTIONAL,
+  REQUIRED;
 }
 
 ```
@@ -6644,6 +6644,30 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/h
 
 ### DataFlowIssue
 Argument `arguments.getUser()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/sqlserver/SqlServerMetadataConnector.java`
+#### Snippet
+```java
+        newDriver(arguments.getDriverPaths(), "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+    return new JdbcHandle(dataSource);
+  }
+```
+
+### DataFlowIssue
+Argument `arguments.getPassword()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/sqlserver/SqlServerMetadataConnector.java`
+#### Snippet
+```java
+        newDriver(arguments.getDriverPaths(), "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+    return new JdbcHandle(dataSource);
+  }
+```
+
+### DataFlowIssue
+Argument `arguments.getUser()` might be null
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/mysql/AbstractMysqlConnector.java`
 #### Snippet
 ```java
@@ -6668,25 +6692,85 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ### DataFlowIssue
 Argument `arguments.getUser()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/AbstractSnowflakeConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/AbstractRedshiftConnector.java`
 #### Snippet
 ```java
-        newDriver(arguments.getDriverPaths(), "net.snowflake.client.jdbc.SnowflakeDriver");
+    LOG.trace("URI is " + url);
     DataSource dataSource =
         new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return checkCurrentDatabaseExists(arguments, new JdbcHandle(dataSource));
+
+    return JdbcHandle.newPooledJdbcHandle(dataSource, arguments.getThreadPoolSize());
+```
+
+### DataFlowIssue
+Argument `arguments.getPassword()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/AbstractRedshiftConnector.java`
+#### Snippet
+```java
+    LOG.trace("URI is " + url);
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+
+    return JdbcHandle.newPooledJdbcHandle(dataSource, arguments.getThreadPoolSize());
+```
+
+### DataFlowIssue
+Argument `arguments.getUser()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/netezza/NetezzaMetadataConnector.java`
+#### Snippet
+```java
+    Driver driver = newDriver(arguments.getDriverPaths(), "org.netezza.Driver");
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+    return new JdbcHandle(dataSource);
   }
 ```
 
 ### DataFlowIssue
 Argument `arguments.getPassword()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/AbstractSnowflakeConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/netezza/NetezzaMetadataConnector.java`
 #### Snippet
 ```java
-        newDriver(arguments.getDriverPaths(), "net.snowflake.client.jdbc.SnowflakeDriver");
+    Driver driver = newDriver(arguments.getDriverPaths(), "org.netezza.Driver");
     DataSource dataSource =
         new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return checkCurrentDatabaseExists(arguments, new JdbcHandle(dataSource));
+    return new JdbcHandle(dataSource);
+  }
+```
+
+### DataFlowIssue
+Method invocation `getNextPage` may produce `NullPointerException`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+            while (!currentPageIterator.hasNext()) {
+              try {
+                currentPage = runWithBackOff(() -> currentPage.getNextPage());
+              } catch (IOException e) {
+                throw new BigQueryException(e);
+```
+
+### DataFlowIssue
+Argument `arguments.getUser()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
+#### Snippet
+```java
+    Driver driver = newDriver(arguments.getDriverPaths(), "oracle.jdbc.OracleDriver");
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+    return new JdbcHandle(dataSource);
+  }
+```
+
+### DataFlowIssue
+Argument `arguments.getPassword()` might be null
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
+#### Snippet
+```java
+    Driver driver = newDriver(arguments.getDriverPaths(), "oracle.jdbc.OracleDriver");
+    DataSource dataSource =
+        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
+    return new JdbcHandle(dataSource);
   }
 ```
 
@@ -6716,50 +6800,26 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ### DataFlowIssue
 Argument `arguments.getUser()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/netezza/NetezzaMetadataConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/AbstractSnowflakeConnector.java`
 #### Snippet
 ```java
-    Driver driver = newDriver(arguments.getDriverPaths(), "org.netezza.Driver");
+        newDriver(arguments.getDriverPaths(), "net.snowflake.client.jdbc.SnowflakeDriver");
     DataSource dataSource =
         new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
+    return checkCurrentDatabaseExists(arguments, new JdbcHandle(dataSource));
   }
 ```
 
 ### DataFlowIssue
 Argument `arguments.getPassword()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/netezza/NetezzaMetadataConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/AbstractSnowflakeConnector.java`
 #### Snippet
 ```java
-    Driver driver = newDriver(arguments.getDriverPaths(), "org.netezza.Driver");
+        newDriver(arguments.getDriverPaths(), "net.snowflake.client.jdbc.SnowflakeDriver");
     DataSource dataSource =
         new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
+    return checkCurrentDatabaseExists(arguments, new JdbcHandle(dataSource));
   }
-```
-
-### DataFlowIssue
-Argument `arguments.getUser()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/AbstractRedshiftConnector.java`
-#### Snippet
-```java
-    LOG.trace("URI is " + url);
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-
-    return JdbcHandle.newPooledJdbcHandle(dataSource, arguments.getThreadPoolSize());
-```
-
-### DataFlowIssue
-Argument `arguments.getPassword()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/AbstractRedshiftConnector.java`
-#### Snippet
-```java
-    LOG.trace("URI is " + url);
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-
-    return JdbcHandle.newPooledJdbcHandle(dataSource, arguments.getThreadPoolSize());
 ```
 
 ### DataFlowIssue
@@ -6787,54 +6847,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### DataFlowIssue
-Argument `arguments.getUser()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/sqlserver/SqlServerMetadataConnector.java`
-#### Snippet
-```java
-        newDriver(arguments.getDriverPaths(), "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
-  }
-```
-
-### DataFlowIssue
-Argument `arguments.getPassword()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/sqlserver/SqlServerMetadataConnector.java`
-#### Snippet
-```java
-        newDriver(arguments.getDriverPaths(), "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
-  }
-```
-
-### DataFlowIssue
-Argument `arguments.getUser()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
-#### Snippet
-```java
-    Driver driver = newDriver(arguments.getDriverPaths(), "oracle.jdbc.OracleDriver");
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
-  }
-```
-
-### DataFlowIssue
-Argument `arguments.getPassword()` might be null
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
-#### Snippet
-```java
-    Driver driver = newDriver(arguments.getDriverPaths(), "oracle.jdbc.OracleDriver");
-    DataSource dataSource =
-        new SimpleDriverDataSource(driver, url, arguments.getUser(), arguments.getPassword());
-    return new JdbcHandle(dataSource);
-  }
-```
-
-### DataFlowIssue
 Method invocation `isEmpty` may produce `NullPointerException`
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/teradata/Teradata14LogsConnector.java`
 #### Snippet
@@ -6844,18 +6856,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
     if (!alternates.isEmpty()) {
       if (alternates.size() != 2)
         throw new MetadataDumperUsageException(
-```
-
-### DataFlowIssue
-Method invocation `getNextPage` may produce `NullPointerException`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
-#### Snippet
-```java
-            while (!currentPageIterator.hasNext()) {
-              try {
-                currentPage = runWithBackOff(() -> currentPage.getNextPage());
-              } catch (IOException e) {
-                throw new BigQueryException(e);
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -6872,30 +6872,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'PgTableDef' is still used
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
-#### Snippet
-```java
-
-  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
-  public static interface PgTableDef {
-
-    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getQueryLogEarliestTimestamp' is still used
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
-#### Snippet
-```java
-  @CheckForNull
-  @Deprecated
-  public String getQueryLogEarliestTimestamp() {
-    return getOptions().valueOf(optionQueryLogEarliestTimestamp);
-  }
-```
-
 ### DeprecatedIsStillUsed
 Deprecated member 'VersionTask' is still used
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/VersionTask.java`
@@ -6920,19 +6896,31 @@ public class ArgumentsTask extends AbstractTask<Void> {
   @Nonnull private final ConnectorArguments arguments;
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (5 lines)
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
+### DeprecatedIsStillUsed
+Deprecated member 'PgTableDef' is still used
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/RedshiftMetadataDumpFormat.java`
 #### Snippet
 ```java
-    }
 
-    /*
-    @Override
-    protected Connection getConnectionFromDriver(Properties props) throws SQLException {
+  @Deprecated // Does not give information about column order. TODO: Use SVV_TABLE_INFO.
+  public static interface PgTableDef {
+
+    public static final String ZIP_ENTRY_NAME_SYSTEM = "pg_table_def_generic.csv";
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'getQueryLogEarliestTimestamp' is still used
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+#### Snippet
+```java
+  @CheckForNull
+  @Deprecated
+  public String getQueryLogEarliestTimestamp() {
+    return getOptions().valueOf(optionQueryLogEarliestTimestamp);
+  }
+```
+
+## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (9 lines)
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/MysqlMetadataDumpFormat.java`
@@ -6959,6 +6947,18 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ### CommentedOutCode
 Commented out code (3 lines)
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+#### Snippet
+```java
+
+    private static void addTable(@Nonnull Metadata metadata, @Nonnull Table table) {
+      // printer.printRecord(tableId.getProject(), tableId.getDataset(), tableId.getTable(),
+      // table.getFriendlyName(), tableDefinition.getType(), table.getNumRows(),
+      // table.getNumBytes(), metadataText);
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/generic/GenericConnector.java`
 #### Snippet
 ```java
@@ -6970,15 +6970,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+Commented out code (5 lines)
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
 #### Snippet
 ```java
+    }
 
-    private static void addTable(@Nonnull Metadata metadata, @Nonnull Table table) {
-      // printer.printRecord(tableId.getProject(), tableId.getDataset(), tableId.getTable(),
-      // table.getFriendlyName(), tableDefinition.getType(), table.getNumRows(),
-      // table.getNumBytes(), metadataText);
+    /*
+    @Override
+    protected Connection getConnectionFromDriver(Properties props) throws SQLException {
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -7023,18 +7023,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/u
 
 ### StaticPseudoFunctionalStyleMethod
 Pseudo functional style code
-in `dumper/lib-ext-bigquery/src/main/java/com/google/cloud/bigquery/BigQueryAccessor.java`
-#### Snippet
-```java
-    String cursor = result.x();
-    Iterable<Job> jobs =
-        Iterables.transform(
-            result.y(),
-            new Function<com.google.api.services.bigquery.model.Job, Job>() {
-```
-
-### StaticPseudoFunctionalStyleMethod
-Pseudo functional style code
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
 #### Snippet
 ```java
@@ -7043,6 +7031,18 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
       return "all of " + Lists.transform(conditions, t -> t.toSkipReason());
     }
 
+```
+
+### StaticPseudoFunctionalStyleMethod
+Pseudo functional style code
+in `dumper/lib-ext-bigquery/src/main/java/com/google/cloud/bigquery/BigQueryAccessor.java`
+#### Snippet
+```java
+    String cursor = result.x();
+    Iterable<Job> jobs =
+        Iterables.transform(
+            result.y(),
+            new Function<com.google.api.services.bigquery.model.Job, Job>() {
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -7084,15 +7084,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+Can generalize to `? extends Page`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
 #### Snippet
 ```java
-  }
-
-  private <T> Optional<T> optionAsOptional(OptionSpec<T> spec) {
-    if (!getOptions().has(spec)) {
-      return Optional.empty();
+        @Nonnull BigQuery bigQuery,
+        @Nonnull BigQueryConsumer<? super Dataset> consumer,
+        @Nonnull BigQueryCallable<Page<Dataset>> callable)
+        throws BigQueryException, IOException, InterruptedException {
+      Page<Dataset> datasets = runWithBackOff(callable);
 ```
 
 ### BoundedWildcard
@@ -7108,304 +7108,40 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/J
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Page`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+Can generalize to `? extends T`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
 #### Snippet
 ```java
-        @Nonnull BigQuery bigQuery,
-        @Nonnull BigQueryConsumer<? super Dataset> consumer,
-        @Nonnull BigQueryCallable<Page<Dataset>> callable)
-        throws BigQueryException, IOException, InterruptedException {
-      Page<Dataset> datasets = runWithBackOff(callable);
+  }
+
+  private <T> Optional<T> optionAsOptional(OptionSpec<T> spec) {
+    if (!getOptions().has(spec)) {
+      return Optional.empty();
 ```
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-      throws Exception;
-
-  @Nonnull
-  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
-
-  @Nonnull
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-  public String getName();
-
-  @Nonnull
-  public String getDefaultFileName(boolean isAssessment);
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-  public String getDefaultFileName(boolean isAssessment);
-
-  @Nonnull
-  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
-      throws Exception;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
-      throws Exception;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
-      throws Exception;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
-#### Snippet
-```java
-  public enum DefaultProperties implements ConnectorProperty {}
-
-  @Nonnull
-  public String getName();
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
-#### Snippet
-```java
-  @Override
-  protected Summary doInConnection(
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
-#### Snippet
-```java
-  protected Summary doInConnection(
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
-#### Snippet
-```java
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-      throws SQLException {
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
-#### Snippet
-```java
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-      throws SQLException {
-    ResultSetExtractor<Summary> rse = newCsvResultSetExtractor(sink, -1);
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(JdbcSelectTask.class);
-
-  @Nonnull private final String sql;
-
-  public JdbcSelectTask(@Nonnull String targetPath, @Nonnull String sql) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
-#### Snippet
-```java
-  }
-
-  @Nonnull private final Ticker ticker;
-  private final byte[] mac = getMac();
-  private final long macWord =
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-
-    @GuardedBy("lock")
-    @Nonnull
-    private final List<@NonNull HiveMetastoreThriftClient> builtClients = new ArrayList<>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-
-    @Nonnull private final String name;
-    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
-    @Nonnull private final ExecutorManager executorManager;
-    @Nonnull private final ExecutorService executorService;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-  protected static class ThriftClientHandle extends AbstractHandle {
-
-    @Nonnull private final HiveMetastoreThriftClient.Builder thriftClientBuilder;
-    @Nonnegative private final int threadPoolSize;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-    @Nonnull private final ExecutorManager executorManager;
-    @Nonnull private final ExecutorService executorService;
-    @Nonnull private final Object lock = new Object();
-
-    @GuardedBy("lock")
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-    }
-
-    @Nonnull private final String name;
-    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
-    @Nonnull private final ExecutorManager executorManager;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-    @Nonnull private final String name;
-    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
-    @Nonnull private final ExecutorManager executorManager;
-    @Nonnull private final ExecutorService executorService;
-    @Nonnull private final Object lock = new Object();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
-#### Snippet
-```java
-    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
-    @Nonnull private final ExecutorManager executorManager;
-    @Nonnull private final ExecutorService executorService;
-    @Nonnull private final Object lock = new Object();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient_v2_3_6.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(HiveMetastoreThriftClient_v2_3_6.class);
-
-  @Nonnull
-  private final com.google.edwmigration.dumper.ext.hive.metastore.thrift.api.v2_3_6
-          .ThriftHiveMetastore.Client
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public abstract Database getDatabase(@Nonnull String databaseName) throws Exception;
-
-  @Nonnull
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
 #### Snippet
 ```java
-  }
-
-  @Nonnull private final String name;
-
-  public HiveMetastoreThriftClient(@Nonnull String name) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
-#### Snippet
-```java
-
     @Nonnull private final String requestedVersionString;
     @Nonnull private String name = "unnamed-thrift-client";
     @Nonnull private String host = "localhost";
     @Nonnegative private int port;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull private final String requestedVersionString;
+    @Nonnull private String name = "unnamed-thrift-client";
+    @Nonnull private String host = "localhost";
 ```
 
 ### NullableProblems
@@ -7425,11 +7161,23 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
 #### Snippet
 ```java
-    }
+  }
 
-    @Nonnull private final String requestedVersionString;
-    @Nonnull private String name = "unnamed-thrift-client";
-    @Nonnull private String host = "localhost";
+  @Nonnull private final String name;
+
+  public HiveMetastoreThriftClient(@Nonnull String name) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public abstract Database getDatabase(@Nonnull String databaseName) throws Exception;
+
+  @Nonnull
 ```
 
 ### NullableProblems
@@ -7437,11 +7185,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@ja
 in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
 #### Snippet
 ```java
+
     @Nonnull private final String requestedVersionString;
     @Nonnull private String name = "unnamed-thrift-client";
     @Nonnull private String host = "localhost";
     @Nonnegative private int port;
-
 ```
 
 ### NullableProblems
@@ -7457,27 +7205,39 @@ in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
 #### Snippet
 ```java
 
-  /** Returns a ByteSink on the target file. */
-  @Nonnull
-  public ByteSink asByteSink() throws IOException;
+  /** nothrow */
+  public abstract <T> T runChildTask(@Nonnull Task<T> task) throws MetadataDumperUsageException;
+}
 
 ```
 
 ### NullableProblems
 Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
+#### Snippet
+```java
+  }
+
+  @Nonnull
+  public abstract TaskState getTaskState(@Nonnull Task<?> task);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
 #### Snippet
 ```java
 
-  /** Returns a ByteSink on the temporary file. */
   @Nonnull
-  public ByteSink asTemporaryByteSink() throws IOException;
+  public abstract TaskState getTaskState(@Nonnull Task<?> task);
 
+  // Only used by ParallelTaskGroup at the moment.
 ```
 
 ### NullableProblems
@@ -7493,62 +7253,122 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient_Superset.java`
 #### Snippet
 ```java
-  @CheckForNull
-  // @VisibleForTesting @ForOverride
-  protected abstract T doRun(TaskRunContext context, @Nonnull ByteSink sink, @Nonnull Handle handle)
+      LoggerFactory.getLogger(HiveMetastoreThriftClient_Superset.class);
+
+  @Nonnull
+  private final com.google.edwmigration.dumper.ext.hive.metastore.thrift.api.superset
+          .ThriftHiveMetastore.Client
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/teradata/TeradataUtilityLogsJdbcTask.java`
+#### Snippet
+```java
+  private final SharedState state;
+  private final String utilityTable;
+  @Nonnull private final ZonedInterval interval;
+
+  protected TeradataUtilityLogsJdbcTask(
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient_v2_3_6.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(HiveMetastoreThriftClient_v2_3_6.class);
+
+  @Nonnull
+  private final com.google.edwmigration.dumper.ext.hive.metastore.thrift.api.v2_3_6
+          .ThriftHiveMetastore.Client
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
       throws Exception;
+
+  @Nonnull
+  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
 
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
 #### Snippet
 ```java
-  @CheckForNull
-  // @VisibleForTesting @ForOverride
-  protected abstract T doRun(TaskRunContext context, @Nonnull ByteSink sink, @Nonnull Handle handle)
-      throws Exception;
+
+  @Nonnull
+  public Handle open(@Nonnull ConnectorArguments arguments) throws Exception;
+
+  @Nonnull
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+  public enum DefaultProperties implements ConnectorProperty {}
+
+  @Nonnull
+  public String getName();
 
 ```
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+  public String getDefaultFileName(boolean isAssessment);
+
+  @Nonnull
+  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
+      throws Exception;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
 #### Snippet
 ```java
 
   @Nonnull
-  private static String repeat(@Nonnull char c, @Nonnegative int n) {
-    char[] out = new char[n];
-    Arrays.fill(out, c);
+  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
+      throws Exception;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
+#### Snippet
+```java
+
+  @Nonnull
+  public void addTasksTo(@Nonnull List<? super Task<?>> out, @Nonnull ConnectorArguments arguments)
+      throws Exception;
+
 ```
 
 ### NullableProblems
 Overridden methods are not annotated
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/Connector.java`
 #### Snippet
 ```java
-  public static final int MEMDIV = 1024 * 1024;
+  public String getName();
 
   @Nonnull
-  public default BlockProgressMonitor withBlockSize(@Nonnegative int blockSize) {
-    return new BlockProgressMonitor(this, blockSize);
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-  }
-
-  @Nonnull
-  public String getTargetPath();
+  public String getDefaultFileName(boolean isAssessment);
 
 ```
 
@@ -7572,8 +7392,32 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
   }
 
   @Nonnull
+  public String getTargetPath();
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+  }
+
+  @Nonnull
   public default TaskCategory getCategory() {
     return TaskCategory.REQUIRED;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
+#### Snippet
+```java
+    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
+
+    public boolean evaluate(@Nonnull TaskSetState state);
+
+    @Nonnull
 ```
 
 ### NullableProblems
@@ -7601,555 +7445,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
-#### Snippet
-```java
-    public static final Condition @ArrayLen(0) [] EMPTY_ARRAY = new Condition[0];
-
-    public boolean evaluate(@Nonnull TaskSetState state);
-
-    @Nonnull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String viewQuery;
-      /** In milliseconds, since the epoch. */
-      @CheckForNull public Long creationTime;
-      /** In milliseconds, since the epoch. Null means the table does not expire. */
-      @CheckForNull public Long expirationTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-      @CheckForNull public String friendlyName;
-      // TABLE, VIEW, EXTERNAL, (MODEL?)
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String friendlyName;
-      // TABLE, VIEW, EXTERNAL, (MODEL?)
-      @CheckForNull public String tableType;
-      @CheckForNull public List<Field> schema;
-      @CheckForNull public String timePartitioningField;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long creationTime;
-      /** In milliseconds, since the epoch. Null means the table does not expire. */
-      @CheckForNull public Long expirationTime;
-    }
-  }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      }
-
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      }
-
-      @JsonProperty @CheckForNull
-      public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public List<Field> schema;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-      public boolean timePartitioningRequired;
-      @CheckForNull public String viewQuery;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-      public boolean timePartitioningRequired;
-      @CheckForNull public String viewQuery;
-      /** In milliseconds, since the epoch. */
-      @CheckForNull public Long creationTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-      @CheckForNull public String friendlyName;
-      // TABLE, VIEW, EXTERNAL, (MODEL?)
-      @CheckForNull public String tableType;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String viewQuery;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-      public boolean timePartitioningRequired;
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      // TABLE, VIEW, EXTERNAL, (MODEL?)
-      @CheckForNull public String tableType;
-      @CheckForNull public List<Field> schema;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public String viewQuery;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-      public boolean timePartitioningRequired;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      }
-
-      @CheckForNull public String viewQuery;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String tableType;
-      @CheckForNull public List<Field> schema;
-      @CheckForNull public String timePartitioningField;
-      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
-      public boolean timePartitioningRequired;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-      @CheckForNull public String friendlyName;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractJdbcTask.class);
-
-  @CheckForNull private Class<? extends Enum<?>> headerClass;
-
-  public AbstractJdbcTask(@Nonnull String targetPath) {
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-  }
-
-  @Nonnull
-  protected CSVFormat newCsvFormat(@Nonnull ResultSet rs) throws SQLException {
-    CSVFormat format = FORMAT;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-
-  @Nonnull
-  protected CSVFormat newCsvFormat(@Nonnull ResultSet rs) throws SQLException {
-    CSVFormat format = FORMAT;
-    Class<? extends Enum<?>> headerClass = getHeaderClass();
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-  @CheckForNull
-  protected abstract T doInConnection(
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-  protected abstract T doInConnection(
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-      @Nonnull TaskRunContext context,
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-      throws SQLException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
-#### Snippet
-```java
-      @Nonnull JdbcHandle jdbcHandle,
-      @Nonnull ByteSink sink,
-      @Nonnull Connection connection)
-      throws SQLException;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectIntervalTask.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/ArgumentsTask.java`
 #### Snippet
 ```java
-  private static final Logger LOG = LoggerFactory.getLogger(JdbcSelectIntervalTask.class);
+public class ArgumentsTask extends AbstractTask<Void> {
 
-  @Nonnull private final ZonedInterval interval;
+  @Nonnull private final ConnectorArguments arguments;
 
-  public JdbcSelectIntervalTask(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      }
-
-      @CheckForNull public String schemaName;
-      @CheckForNull public String name;
-      @CheckForNull public String type;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String name;
-      @CheckForNull public String type;
-      @CheckForNull public Integer createTime;
-      @CheckForNull public Integer lastAccessTime;
-      @CheckForNull public String owner;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String owner;
-      @CheckForNull public String viewText;
-      @CheckForNull public String location;
-      @CheckForNull public Integer lastDdlTime;
-      @CheckForNull public Long totalSize;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public String schemaName;
-      @CheckForNull public String name;
-      @CheckForNull public String type;
-      @CheckForNull public Integer createTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Integer lastDdlTime;
-      @CheckForNull public Long totalSize;
-      @CheckForNull public Long rawSize;
-      @CheckForNull public Long rowsCount;
-      @CheckForNull public Integer filesCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String viewText;
-      @CheckForNull public String location;
-      @CheckForNull public Integer lastDdlTime;
-      @CheckForNull public Long totalSize;
-      @CheckForNull public Long rawSize;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String location;
-      @CheckForNull public Integer lastDdlTime;
-      @CheckForNull public Long totalSize;
-      @CheckForNull public Long rawSize;
-      @CheckForNull public Long rowsCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long rawSize;
-      @CheckForNull public Long rowsCount;
-      @CheckForNull public Integer filesCount;
-      @CheckForNull public Integer retention;
-      @CheckForNull public Integer bucketsCount;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String type;
-      @CheckForNull public Integer createTime;
-      @CheckForNull public Integer lastAccessTime;
-      @CheckForNull public String owner;
-      @CheckForNull public String viewText;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String schemaName;
-      @CheckForNull public String name;
-      @CheckForNull public String type;
-      @CheckForNull public Integer createTime;
-      @CheckForNull public Integer lastAccessTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Integer retention;
-      @CheckForNull public Integer bucketsCount;
-      @CheckForNull public Boolean isCompressed;
-
-      @CheckForNull public List<FieldMetadata> fields;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Integer lastAccessTime;
-      @CheckForNull public String owner;
-      @CheckForNull public String viewText;
-      @CheckForNull public String location;
-      @CheckForNull public Integer lastDdlTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Integer createTime;
-      @CheckForNull public Integer lastAccessTime;
-      @CheckForNull public String owner;
-      @CheckForNull public String viewText;
-      @CheckForNull public String location;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long totalSize;
-      @CheckForNull public Long rawSize;
-      @CheckForNull public Long rowsCount;
-      @CheckForNull public Integer filesCount;
-      @CheckForNull public Integer retention;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long rowsCount;
-      @CheckForNull public Integer filesCount;
-      @CheckForNull public Integer retention;
-      @CheckForNull public Integer bucketsCount;
-      @CheckForNull public Boolean isCompressed;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public List<FieldMetadata> fields;
-      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
-      @CheckForNull public List<PartitionMetadata> partitions;
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Integer filesCount;
-      @CheckForNull public Integer retention;
-      @CheckForNull public Integer bucketsCount;
-      @CheckForNull public Boolean isCompressed;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public List<FieldMetadata> fields;
-      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
-      @CheckForNull public List<PartitionMetadata> partitions;
-    }
-  }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Boolean isCompressed;
-
-      @CheckForNull public List<FieldMetadata> fields;
-      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
-      @CheckForNull public List<PartitionMetadata> partitions;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
-#### Snippet
-```java
-
-  protected void doRun(
-      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
-      throws Exception {
-    for (Task<?> task : tasks) {
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
-#### Snippet
-```java
-
-  protected void doRun(
-      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
-      throws Exception {
-    for (Task<?> task : tasks) {
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
-#### Snippet
-```java
-
-  protected void doRun(
-      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
-      throws Exception {
-    for (Task<?> task : tasks) {
+  public ArgumentsTask(String targetPath, @Nonnull ConnectorArguments arguments) {
 ```
 
 ### NullableProblems
@@ -8213,51 +7517,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/SnowflakeLogsConnector.java`
-#### Snippet
-```java
-
-  @ForOverride
-  protected String newQueryFormat(@Nonnull ConnectorArguments arguments)
-      throws MetadataDumperUsageException {
-    // Docref: https://docs.snowflake.net/manuals/sql-reference/functions/query_history.html
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
-#### Snippet
-```java
-
-  /** nothrow */
-  public abstract <T> T runChildTask(@Nonnull Task<T> task) throws MetadataDumperUsageException;
-}
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
 #### Snippet
 ```java
   }
 
-  @Nonnull
-  public abstract TaskState getTaskState(@Nonnull Task<?> task);
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
-#### Snippet
-```java
-
-  @Nonnull
-  public abstract TaskState getTaskState(@Nonnull Task<?> task);
-
-  // Only used by ParallelTaskGroup at the moment.
+  @Nonnull private final Ticker ticker;
+  private final byte[] mac = getMac();
+  private final long macWord =
 ```
 
 ### NullableProblems
@@ -8265,59 +7533,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-    class QueryStatistics {
+      @CheckForNull public Long startTime;
+      /** In milliseconds since epoch. */
+      @CheckForNull public Long endTime;
 
-      @CheckForNull public Integer billingTier;
-      @CheckForNull public Boolean cacheHit;
-      @CheckForNull public Long estimatedBytesProcessed;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
       @CheckForNull public CopyJobConfiguration copyJobConfiguration;
-      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
-      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
-      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public TableId destinationTable;
-
-      @CheckForNull public LoadStatistics statistics;
-    }
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Boolean cacheHit;
-      @CheckForNull public Long estimatedBytesProcessed;
-      @CheckForNull public Long totalBytesBilled;
-      @CheckForNull public Long totalBytesProcessed;
-      @CheckForNull public Long totalSlotMilliseconds;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      /** From JobStatus.BigQueryError. */
-      @CheckForNull public String message;
-      /** From JobStatus.BigQueryError. */
-      @CheckForNull public String reason;
 ```
 
 ### NullableProblems
@@ -8337,11 +7557,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public String project;
-      @CheckForNull public String job;
-      @CheckForNull public Map<String, String> labels;
-      @CheckForNull public String userEmail;
-      @CheckForNull public JobStatus jobStatus;
+      @CheckForNull public Long badRecords;
+      @CheckForNull public Long inputBytes;
+      @CheckForNull public Long inputFiles;
+      @CheckForNull public Long outputBytes;
+      @CheckForNull public Long outputRows;
 ```
 
 ### NullableProblems
@@ -8361,83 +7581,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
-      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
-      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
-    }
-  }
-```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
+      @CheckForNull public String project;
       @CheckForNull public String job;
       @CheckForNull public Map<String, String> labels;
       @CheckForNull public String userEmail;
-      @CheckForNull public JobStatus jobStatus;
-      /** In milliseconds since epoch. */
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long totalSlotMilliseconds;
-      @CheckForNull public Long dmlAffectedRowCount;
-      @CheckForNull public Long totalPartitionsProcessed;
-    }
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long inputFiles;
-      @CheckForNull public Long outputBytes;
-      @CheckForNull public Long outputRows;
-    }
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      // Where the data is written.
-      @CheckForNull public TableId destinationTable;
-      @CheckForNull public String createDisposition;
-      @CheckForNull public String writeDisposition;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public CopyJobConfiguration copyJobConfiguration;
-      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
-      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
-      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-    class LoadStatistics {
-      @CheckForNull public Long badRecords;
-      @CheckForNull public Long inputBytes;
-      @CheckForNull public Long inputFiles;
-      @CheckForNull public Long outputBytes;
 ```
 
 ### NullableProblems
@@ -8457,11 +7605,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-
-      @CheckForNull public Integer billingTier;
-      @CheckForNull public Boolean cacheHit;
-      @CheckForNull public Long estimatedBytesProcessed;
-      @CheckForNull public Long totalBytesBilled;
+      @CheckForNull public String project;
+      @CheckForNull public String job;
+      @CheckForNull public Map<String, String> labels;
+      @CheckForNull public String userEmail;
+      @CheckForNull public JobStatus jobStatus;
 ```
 
 ### NullableProblems
@@ -8469,11 +7617,59 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public String message;
-      /** From JobStatus.BigQueryError. */
-      @CheckForNull public String reason;
+      @CheckForNull public String writeDisposition;
+      // Where the data is loaded.
+      @CheckForNull public TableId destinationTable;
+
+      @CheckForNull public LoadStatistics statistics;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long inputBytes;
+      @CheckForNull public Long inputFiles;
+      @CheckForNull public Long outputBytes;
+      @CheckForNull public Long outputRows;
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
     }
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public JobStatus jobStatus;
+      /** In milliseconds since epoch. */
+      @CheckForNull public Long startTime;
+      /** In milliseconds since epoch. */
+      @CheckForNull public Long endTime;
 ```
 
 ### NullableProblems
@@ -8486,18 +7682,6 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
       @CheckForNull public String createDisposition;
       @CheckForNull public String writeDisposition;
       // Where the data is loaded.
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-    class LoadJobConfiguration {
-      @CheckForNull public List<String> sourceUris;
-      @CheckForNull public String sourceFormat;
-      @CheckForNull public String createDisposition;
-      @CheckForNull public String writeDisposition;
 ```
 
 ### NullableProblems
@@ -8517,107 +7701,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public String project;
-      /** The default dataset in which the job was executed. */
-      @CheckForNull public String defaultDataset;
+    class QueryStatistics {
 
-      @CheckForNull public String userEmail;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String writeDisposition;
-      // Where the data is loaded.
-      @CheckForNull public TableId destinationTable;
-
-      @CheckForNull public LoadStatistics statistics;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public String userEmail;
-      @CheckForNull public String query;
-
-      // Where the data is written.
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-    }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public Long startTime;
-      /** In milliseconds since epoch. */
-      @CheckForNull public Long endTime;
-
-      @CheckForNull public CopyJobConfiguration copyJobConfiguration;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      // Where the data is written.
-      @CheckForNull public TableId destinationTable;
-      @CheckForNull public String createDisposition;
-      @CheckForNull public String writeDisposition;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
-    }
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public JobStatus jobStatus;
-      /** In milliseconds since epoch. */
-      @CheckForNull public Long startTime;
-      /** In milliseconds since epoch. */
-      @CheckForNull public Long endTime;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-
-      // What were the statistics
-      @CheckForNull public QueryStatistics statistics;
-    }
-
+      @CheckForNull public Integer billingTier;
+      @CheckForNull public Boolean cacheHit;
+      @CheckForNull public Long estimatedBytesProcessed;
 ```
 
 ### NullableProblems
@@ -8637,11 +7725,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-    class TableId {
+      @CheckForNull public TableId destinationTable;
 
-      @CheckForNull public String project;
-      @CheckForNull public String dataset;
-      @CheckForNull public String table;
+      @CheckForNull public LoadStatistics statistics;
+    }
+
 ```
 
 ### NullableProblems
@@ -8649,11 +7737,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public Long badRecords;
-      @CheckForNull public Long inputBytes;
-      @CheckForNull public Long inputFiles;
-      @CheckForNull public Long outputBytes;
-      @CheckForNull public Long outputRows;
+      @CheckForNull public String job;
+      @CheckForNull public Map<String, String> labels;
+      @CheckForNull public String userEmail;
+      @CheckForNull public JobStatus jobStatus;
+      /** In milliseconds since epoch. */
 ```
 
 ### NullableProblems
@@ -8661,11 +7749,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
-    class LoadJobConfiguration {
-      @CheckForNull public List<String> sourceUris;
-      @CheckForNull public String sourceFormat;
-      @CheckForNull public String createDisposition;
+      @CheckForNull public String message;
+      /** From JobStatus.BigQueryError. */
+      @CheckForNull public String reason;
+    }
+
 ```
 
 ### NullableProblems
@@ -8673,23 +7761,23 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public Long totalBytesBilled;
-      @CheckForNull public Long totalBytesProcessed;
+
+      @CheckForNull public String userEmail;
+      @CheckForNull public String query;
+
+      // Where the data is written.
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
       @CheckForNull public Long totalSlotMilliseconds;
       @CheckForNull public Long dmlAffectedRowCount;
       @CheckForNull public Long totalPartitionsProcessed;
-```
+    }
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public TableId destinationTable;
-      @CheckForNull public String createDisposition;
-      @CheckForNull public String writeDisposition;
-
-      // What were the statistics
 ```
 
 ### NullableProblems
@@ -8709,11 +7797,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-    class Job {
+      // Where the data is written.
+      @CheckForNull public TableId destinationTable;
+      @CheckForNull public String createDisposition;
+      @CheckForNull public String writeDisposition;
 
-      @CheckForNull public String project;
-      @CheckForNull public String job;
-      @CheckForNull public Map<String, String> labels;
 ```
 
 ### NullableProblems
@@ -8721,23 +7809,47 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
-      @CheckForNull public Long inputBytes;
+      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
+      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
+      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
+    }
+  }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+    class LoadJobConfiguration {
+      @CheckForNull public List<String> sourceUris;
+      @CheckForNull public String sourceFormat;
+      @CheckForNull public String createDisposition;
+      @CheckForNull public String writeDisposition;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Boolean cacheHit;
+      @CheckForNull public Long estimatedBytesProcessed;
+      @CheckForNull public Long totalBytesBilled;
+      @CheckForNull public Long totalBytesProcessed;
+      @CheckForNull public Long totalSlotMilliseconds;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
       @CheckForNull public Long inputFiles;
       @CheckForNull public Long outputBytes;
       @CheckForNull public Long outputRows;
     }
-```
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
-#### Snippet
-```java
-      @CheckForNull public String sourceFormat;
-      @CheckForNull public String createDisposition;
-      @CheckForNull public String writeDisposition;
-      // Where the data is loaded.
-      @CheckForNull public TableId destinationTable;
 ```
 
 ### NullableProblems
@@ -8746,10 +7858,34 @@ in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/li
 #### Snippet
 ```java
 
-      @CheckForNull public String project;
-      @CheckForNull public String job;
-      @CheckForNull public Map<String, String> labels;
-      @CheckForNull public String userEmail;
+      // What were the statistics
+      @CheckForNull public QueryStatistics statistics;
+    }
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+
+      /** From JobStatus.BigQueryError. */
+      @CheckForNull public String message;
+      /** From JobStatus.BigQueryError. */
+      @CheckForNull public String reason;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public CopyJobConfiguration copyJobConfiguration;
+      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
+      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
+      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
 ```
 
 ### NullableProblems
@@ -8769,11 +7905,479 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
 #### Snippet
 ```java
+    class TableId {
+
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public CopyJobConfiguration copyJobConfiguration;
+      @CheckForNull public ExtractJobConfiguration extractJobConfiguration;
+      @CheckForNull public LoadJobConfiguration loadJobConfiguration;
+      @CheckForNull public QueryJobConfiguration queryJobConfiguration;
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
     @JsonInclude(JsonInclude.Include.NON_ABSENT)
     class LoadStatistics {
       @CheckForNull public Long badRecords;
       @CheckForNull public Long inputBytes;
       @CheckForNull public Long inputFiles;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+
+      // Where the data is written.
+      @CheckForNull public TableId destinationTable;
+      @CheckForNull public String createDisposition;
+      @CheckForNull public String writeDisposition;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String project;
+      /** The default dataset in which the job was executed. */
+      @CheckForNull public String defaultDataset;
+
+      @CheckForNull public String userEmail;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public TableId destinationTable;
+      @CheckForNull public String createDisposition;
+      @CheckForNull public String writeDisposition;
+
+      // What were the statistics
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    class LoadJobConfiguration {
+      @CheckForNull public List<String> sourceUris;
+      @CheckForNull public String sourceFormat;
+      @CheckForNull public String createDisposition;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+    class LoadStatistics {
+      @CheckForNull public Long badRecords;
+      @CheckForNull public Long inputBytes;
+      @CheckForNull public Long inputFiles;
+      @CheckForNull public Long outputBytes;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public Integer billingTier;
+      @CheckForNull public Boolean cacheHit;
+      @CheckForNull public Long estimatedBytesProcessed;
+      @CheckForNull public Long totalBytesBilled;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String sourceFormat;
+      @CheckForNull public String createDisposition;
+      @CheckForNull public String writeDisposition;
+      // Where the data is loaded.
+      @CheckForNull public TableId destinationTable;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long totalBytesBilled;
+      @CheckForNull public Long totalBytesProcessed;
+      @CheckForNull public Long totalSlotMilliseconds;
+      @CheckForNull public Long dmlAffectedRowCount;
+      @CheckForNull public Long totalPartitionsProcessed;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryLogsDumpFormat.java`
+#### Snippet
+```java
+    class Job {
+
+      @CheckForNull public String project;
+      @CheckForNull public String job;
+      @CheckForNull public Map<String, String> labels;
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+
+  /** Returns a ByteSink on the target file. */
+  @Nonnull
+  public ByteSink asByteSink() throws IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/io/OutputHandle.java`
+#### Snippet
+```java
+
+  /** Returns a ByteSink on the temporary file. */
+  @Nonnull
+  public ByteSink asTemporaryByteSink() throws IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+
+    @ForOverride
+    protected abstract void run(@Nonnull Writer writer, @Nonnull BigQuery bigQuery)
+        throws Exception;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+
+    @ForOverride
+    protected abstract void run(@Nonnull Writer writer, @Nonnull BigQuery bigQuery)
+        throws Exception;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+      private static class Itr<T> extends UnmodifiableIterator<T> {
+
+        @CheckForNull private Page<T> currentPage;
+        @Nonnull private Iterator<T> currentPageIterator;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+
+        @CheckForNull private Page<T> currentPage;
+        @Nonnull private Iterator<T> currentPageIterator;
+
+        Itr(@Nonnull Page<T> currentPage) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public String viewQuery;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+      public boolean timePartitioningRequired;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      }
+
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String viewQuery;
+      /** In milliseconds, since the epoch. */
+      @CheckForNull public Long creationTime;
+      /** In milliseconds, since the epoch. Null means the table does not expire. */
+      @CheckForNull public Long expirationTime;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public List<Field> schema;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+      public boolean timePartitioningRequired;
+      @CheckForNull public String viewQuery;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String viewQuery;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+      public boolean timePartitioningRequired;
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+      @CheckForNull public String friendlyName;
+      // TABLE, VIEW, EXTERNAL, (MODEL?)
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      // TABLE, VIEW, EXTERNAL, (MODEL?)
+      @CheckForNull public String tableType;
+      @CheckForNull public List<Field> schema;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+      @CheckForNull public String friendlyName;
+      // TABLE, VIEW, EXTERNAL, (MODEL?)
+      @CheckForNull public String tableType;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      }
+
+      @CheckForNull public String viewQuery;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public String project;
+      @CheckForNull public String dataset;
+      @CheckForNull public String table;
+      @CheckForNull public String friendlyName;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      }
+
+      @JsonProperty @CheckForNull
+      public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String tableType;
+      @CheckForNull public List<Field> schema;
+      @CheckForNull public String timePartitioningField;
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+      public boolean timePartitioningRequired;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public TimePartitioningType timePartitioningType = TimePartitioningType.DAY;
+      public boolean timePartitioningRequired;
+      @CheckForNull public String viewQuery;
+      /** In milliseconds, since the epoch. */
+      @CheckForNull public Long creationTime;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long creationTime;
+      /** In milliseconds, since the epoch. Null means the table does not expire. */
+      @CheckForNull public Long expirationTime;
+    }
+  }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/BigQueryMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String friendlyName;
+      // TABLE, VIEW, EXTERNAL, (MODEL?)
+      @CheckForNull public String tableType;
+      @CheckForNull public List<Field> schema;
+      @CheckForNull public String timePartitioningField;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+    @Nonnull private final String name;
+    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
+    @Nonnull private final ExecutorManager executorManager;
+    @Nonnull private final ExecutorService executorService;
+    @Nonnull private final Object lock = new Object();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+
+    @Nonnull private final String name;
+    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
+    @Nonnull private final ExecutorManager executorManager;
+    @Nonnull private final ExecutorService executorService;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+  protected static class ThriftClientHandle extends AbstractHandle {
+
+    @Nonnull private final HiveMetastoreThriftClient.Builder thriftClientBuilder;
+    @Nonnegative private final int threadPoolSize;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+    @Nonnull private final ExecutorManager executorManager;
+    @Nonnull private final ExecutorService executorService;
+    @Nonnull private final Object lock = new Object();
+
+    @GuardedBy("lock")
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+    }
+
+    @Nonnull private final String name;
+    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
+    @Nonnull private final ExecutorManager executorManager;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+
+    @GuardedBy("lock")
+    @Nonnull
+    private final List<@NonNull HiveMetastoreThriftClient> builtClients = new ArrayList<>();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/hive/AbstractHiveConnector.java`
+#### Snippet
+```java
+    @Nonnull private final ThreadLocal<? extends HiveMetastoreThriftClient> threadLocalThriftClient;
+    @Nonnull private final ExecutorManager executorManager;
+    @Nonnull private final ExecutorService executorService;
+    @Nonnull private final Object lock = new Object();
+
 ```
 
 ### NullableProblems
@@ -8801,15 +8405,39 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/i
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/teradata/TeradataUtilityLogsJdbcTask.java`
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
 #### Snippet
 ```java
-  private final SharedState state;
-  private final String utilityTable;
-  @Nonnull private final ZonedInterval interval;
+  @CheckForNull
+  // @VisibleForTesting @ForOverride
+  protected abstract T doRun(TaskRunContext context, @Nonnull ByteSink sink, @Nonnull Handle handle)
+      throws Exception;
 
-  protected TeradataUtilityLogsJdbcTask(
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
+#### Snippet
+```java
+  @CheckForNull
+  // @VisibleForTesting @ForOverride
+  protected abstract T doRun(TaskRunContext context, @Nonnull ByteSink sink, @Nonnull Handle handle)
+      throws Exception;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/SnowflakeLogsConnector.java`
+#### Snippet
+```java
+
+  @ForOverride
+  protected String newQueryFormat(@Nonnull ConnectorArguments arguments)
+      throws MetadataDumperUsageException {
+    // Docref: https://docs.snowflake.net/manuals/sql-reference/functions/query_history.html
 ```
 
 ### NullableProblems
@@ -8825,138 +8453,450 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/D
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/ArgumentsTask.java`
+Overridden methods are not annotated
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ProgressMonitor.java`
 #### Snippet
 ```java
-public class ArgumentsTask extends AbstractTask<Void> {
+  public static final int MEMDIV = 1024 * 1024;
 
-  @Nonnull private final ConnectorArguments arguments;
+  @Nonnull
+  public default BlockProgressMonitor withBlockSize(@Nonnegative int blockSize) {
+    return new BlockProgressMonitor(this, blockSize);
+```
 
-  public ArgumentsTask(String targetPath, @Nonnull ConnectorArguments arguments) {
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
+#### Snippet
+```java
+  @Override
+  protected Summary doInConnection(
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
+#### Snippet
+```java
+  protected Summary doInConnection(
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
+#### Snippet
+```java
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+      throws SQLException {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
+#### Snippet
+```java
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+      throws SQLException {
+    ResultSetExtractor<Summary> rse = newCsvResultSetExtractor(sink, -1);
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectTask.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(JdbcSelectTask.class);
+
+  @Nonnull private final String sql;
+
+  public JdbcSelectTask(@Nonnull String targetPath, @Nonnull String sql) {
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+
+  @Nonnull
+  private static String repeat(@Nonnull char c, @Nonnegative int n) {
+    char[] out = new char[n];
+    Arrays.fill(out, c);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
+#### Snippet
+```java
+
+  protected void doRun(
+      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
+      throws Exception {
+    for (Task<?> task : tasks) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
+#### Snippet
+```java
+
+  protected void doRun(
+      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
+      throws Exception {
+    for (Task<?> task : tasks) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskGroup.java`
+#### Snippet
+```java
+
+  protected void doRun(
+      @Nonnull TaskRunContext context, @Nonnull CSVPrinter printer, @Nonnull Handle handle)
+      throws Exception {
+    for (Task<?> task : tasks) {
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/JdbcSelectIntervalTask.java`
+#### Snippet
+```java
+  private static final Logger LOG = LoggerFactory.getLogger(JdbcSelectIntervalTask.class);
+
+  @Nonnull private final ZonedInterval interval;
+
+  public JdbcSelectIntervalTask(
 ```
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
 #### Snippet
 ```java
-      private static class Itr<T> extends UnmodifiableIterator<T> {
+      @CheckForNull public Integer createTime;
+      @CheckForNull public Integer lastAccessTime;
+      @CheckForNull public String owner;
+      @CheckForNull public String viewText;
+      @CheckForNull public String location;
+```
 
-        @CheckForNull private Page<T> currentPage;
-        @Nonnull private Iterator<T> currentPageIterator;
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      }
 
+      @CheckForNull public String schemaName;
+      @CheckForNull public String name;
+      @CheckForNull public String type;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String type;
+      @CheckForNull public Integer createTime;
+      @CheckForNull public Integer lastAccessTime;
+      @CheckForNull public String owner;
+      @CheckForNull public String viewText;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public String schemaName;
+      @CheckForNull public String name;
+      @CheckForNull public String type;
+      @CheckForNull public Integer createTime;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Integer filesCount;
+      @CheckForNull public Integer retention;
+      @CheckForNull public Integer bucketsCount;
+      @CheckForNull public Boolean isCompressed;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Boolean isCompressed;
+
+      @CheckForNull public List<FieldMetadata> fields;
+      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
+      @CheckForNull public List<PartitionMetadata> partitions;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String name;
+      @CheckForNull public String type;
+      @CheckForNull public Integer createTime;
+      @CheckForNull public Integer lastAccessTime;
+      @CheckForNull public String owner;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public List<FieldMetadata> fields;
+      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
+      @CheckForNull public List<PartitionMetadata> partitions;
+    }
+  }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long rawSize;
+      @CheckForNull public Long rowsCount;
+      @CheckForNull public Integer filesCount;
+      @CheckForNull public Integer retention;
+      @CheckForNull public Integer bucketsCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long totalSize;
+      @CheckForNull public Long rawSize;
+      @CheckForNull public Long rowsCount;
+      @CheckForNull public Integer filesCount;
+      @CheckForNull public Integer retention;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String schemaName;
+      @CheckForNull public String name;
+      @CheckForNull public String type;
+      @CheckForNull public Integer createTime;
+      @CheckForNull public Integer lastAccessTime;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+
+      @CheckForNull public List<FieldMetadata> fields;
+      @CheckForNull public List<PartitionKeyMetadata> partitionKeys;
+      @CheckForNull public List<PartitionMetadata> partitions;
+    }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String location;
+      @CheckForNull public Integer lastDdlTime;
+      @CheckForNull public Long totalSize;
+      @CheckForNull public Long rawSize;
+      @CheckForNull public Long rowsCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String viewText;
+      @CheckForNull public String location;
+      @CheckForNull public Integer lastDdlTime;
+      @CheckForNull public Long totalSize;
+      @CheckForNull public Long rawSize;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Integer lastDdlTime;
+      @CheckForNull public Long totalSize;
+      @CheckForNull public Long rawSize;
+      @CheckForNull public Long rowsCount;
+      @CheckForNull public Integer filesCount;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Long rowsCount;
+      @CheckForNull public Integer filesCount;
+      @CheckForNull public Integer retention;
+      @CheckForNull public Integer bucketsCount;
+      @CheckForNull public Boolean isCompressed;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public String owner;
+      @CheckForNull public String viewText;
+      @CheckForNull public String location;
+      @CheckForNull public Integer lastDdlTime;
+      @CheckForNull public Long totalSize;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Integer lastAccessTime;
+      @CheckForNull public String owner;
+      @CheckForNull public String viewText;
+      @CheckForNull public String location;
+      @CheckForNull public Integer lastDdlTime;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/lib-dumper-spi/src/main/java/com/google/edwmigration/dumper/plugin/lib/dumper/spi/HiveMetadataDumpFormat.java`
+#### Snippet
+```java
+      @CheckForNull public Integer retention;
+      @CheckForNull public Integer bucketsCount;
+      @CheckForNull public Boolean isCompressed;
+
+      @CheckForNull public List<FieldMetadata> fields;
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
 #### Snippet
 ```java
-
-    @ForOverride
-    protected abstract void run(@Nonnull Writer writer, @Nonnull BigQuery bigQuery)
-        throws Exception;
-
+  @CheckForNull
+  protected abstract T doInConnection(
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
 #### Snippet
 ```java
+  protected abstract T doInConnection(
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+```
 
-    @ForOverride
-    protected abstract void run(@Nonnull Writer writer, @Nonnull BigQuery bigQuery)
-        throws Exception;
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
+#### Snippet
+```java
+      @Nonnull TaskRunContext context,
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+      throws SQLException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
+#### Snippet
+```java
+      @Nonnull JdbcHandle jdbcHandle,
+      @Nonnull ByteSink sink,
+      @Nonnull Connection connection)
+      throws SQLException;
 
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.CheckForNull'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
 #### Snippet
 ```java
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractJdbcTask.class);
 
-        @CheckForNull private Page<T> currentPage;
-        @Nonnull private Iterator<T> currentPageIterator;
+  @CheckForNull private Class<? extends Enum<?>> headerClass;
 
-        Itr(@Nonnull Page<T> currentPage) {
+  public AbstractJdbcTask(@Nonnull String targetPath) {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient_Superset.java`
+Overridden methods are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
 #### Snippet
 ```java
-      LoggerFactory.getLogger(HiveMetastoreThriftClient_Superset.class);
+  }
 
   @Nonnull
-  private final com.google.edwmigration.dumper.ext.hive.metastore.thrift.api.superset
-          .ThriftHiveMetastore.Client
+  protected CSVFormat newCsvFormat(@Nonnull ResultSet rs) throws SQLException {
+    CSVFormat format = FORMAT;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
+#### Snippet
+```java
+
+  @Nonnull
+  protected CSVFormat newCsvFormat(@Nonnull ResultSet rs) throws SQLException {
+    CSVFormat format = FORMAT;
+    Class<? extends Enum<?>> headerClass = getHeaderClass();
 ```
 
 ## RuleId[id=UnusedLabel]
-### UnusedLabel
-Unused label `ROOT`
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/util/ZipFileUtils.java`
-#### Snippet
-```java
-    Preconditions.checkNotNull(name, "ZipEntryName was null.");
-
-    ROOT:
-    {
-      ZipArchiveEntry entry = zip.getEntry(name);
-```
-
-### UnusedLabel
-Unused label `CHECK`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-      throws MetadataDumperUsageException {
-    try {
-      CHECK:
-      {
-        TaskState ts = state.getTaskState(task);
-```
-
-### UnusedLabel
-Unused label `PRECONDITION`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-      }
-
-      PRECONDITION:
-      for (Task.Condition condition : task.getConditions()) {
-        if (!condition.evaluate(state)) {
-```
-
-### UnusedLabel
-Unused label `RUN`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-      }
-
-      RUN:
-      {
-        T value = task.run(context);
-```
-
-### UnusedLabel
-Unused label `TASK`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-              }
-            };
-        TASK:
-        for (Task<?> task : tasks) {
-          runTask(runContext, state, task);
-```
-
 ### UnusedLabel
 Unused label `DESTINATION`
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryLogsConnector.java`
@@ -9003,6 +8943,66 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
       STATISTICS:
       {
         QueryHistoryJson.LoadStatistics outStatistics = new QueryHistoryJson.LoadStatistics();
+```
+
+### UnusedLabel
+Unused label `ROOT`
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/util/ZipFileUtils.java`
+#### Snippet
+```java
+    Preconditions.checkNotNull(name, "ZipEntryName was null.");
+
+    ROOT:
+    {
+      ZipArchiveEntry entry = zip.getEntry(name);
+```
+
+### UnusedLabel
+Unused label `TASK`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+              }
+            };
+        TASK:
+        for (Task<?> task : tasks) {
+          runTask(runContext, state, task);
+```
+
+### UnusedLabel
+Unused label `CHECK`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+      throws MetadataDumperUsageException {
+    try {
+      CHECK:
+      {
+        TaskState ts = state.getTaskState(task);
+```
+
+### UnusedLabel
+Unused label `PRECONDITION`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+      }
+
+      PRECONDITION:
+      for (Task.Condition condition : task.getConditions()) {
+        if (!condition.evaluate(state)) {
+```
+
+### UnusedLabel
+Unused label `RUN`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+      }
+
+      RUN:
+      {
+        T value = task.run(context);
 ```
 
 ### UnusedLabel
@@ -9070,6 +9070,18 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'maxRowCountMaybe'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/teradata/TeradataMetadataConnector.java`
+#### Snippet
+```java
+
+  private static void appendSelect(
+      StringBuilder query, OptionalLong maxRowCountMaybe, String selectBody, String orderBy) {
+    query.append(" SELECT ");
+    maxRowCountMaybe.ifPresent(
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'interval'
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Summary.java`
 #### Snippet
@@ -9093,31 +9105,7 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
     Preconditions.checkArgument(
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'maxRowCountMaybe'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/teradata/TeradataMetadataConnector.java`
-#### Snippet
-```java
-
-  private static void appendSelect(
-      StringBuilder query, OptionalLong maxRowCountMaybe, String selectBody, String orderBy) {
-    query.append(" SELECT ");
-    maxRowCountMaybe.ifPresent(
-```
-
 ## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
-#### Snippet
-```java
-  public int getQueryLogDays(@Nonnegative int defaultQueryLogDays) {
-    Integer out = getQueryLogDays();
-    if (out != null) return out.intValue();
-    return defaultQueryLogDays;
-  }
-```
-
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
@@ -9130,29 +9118,41 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/C
   }
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
 #### Snippet
 ```java
-          "Output, including debugging information, has been saved to " + outputFile);
-      if (exitOnError) {
-        System.out.println(STARS);
-        System.exit(1);
-      }
+  public int getQueryLogDays(@Nonnegative int defaultQueryLogDays) {
+    Integer out = getQueryLogDays();
+    if (out != null) return out.intValue();
+    return defaultQueryLogDays;
+  }
+```
+
+## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/DefaultArguments.java`
+#### Snippet
+```java
+    OptionSet o = parser.parse(args);
+    if (o.has(helpOption)) {
+      printHelpOn(System.err, o);
+      System.exit(1);
+    }
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/DefaultArguments.java`
 #### Snippet
 ```java
-
-  private void print(@Nonnull Task<?> task, int indent) {
-    System.out.println(StringUtils.repeat("  ", indent) + task);
-    if (task instanceof TaskGroup) {
-      for (Task<?> subtask : ((TaskGroup) task).getTasks()) print(subtask, indent + 1);
+    }
+    if (o.has(versionOption)) {
+      System.err.println(
+          new ProductMetadata().getModule(PRODUCT_GROUP + ":" + PRODUCT_CORE_MODULE));
+      System.exit(1);
 ```
 
 ### SystemOutErr
@@ -9228,27 +9228,27 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/M
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/DefaultArguments.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
 #### Snippet
 ```java
-    OptionSet o = parser.parse(args);
-    if (o.has(helpOption)) {
-      printHelpOn(System.err, o);
-      System.exit(1);
-    }
+          "Output, including debugging information, has been saved to " + outputFile);
+      if (exitOnError) {
+        System.out.println(STARS);
+        System.exit(1);
+      }
 ```
 
 ### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/DefaultArguments.java`
+Uses of `System.out` should probably be replaced with more robust logging
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
 #### Snippet
 ```java
-    }
-    if (o.has(versionOption)) {
-      System.err.println(
-          new ProductMetadata().getModule(PRODUCT_GROUP + ":" + PRODUCT_CORE_MODULE));
-      System.exit(1);
+
+  private void print(@Nonnull Task<?> task, int indent) {
+    System.out.println(StringUtils.repeat("  ", indent) + task);
+    if (task instanceof TaskGroup) {
+      for (Task<?> subtask : ((TaskGroup) task).getTasks()) print(subtask, indent + 1);
 ```
 
 ## RuleId[id=ClassNameSameAsAncestorName]
@@ -9265,18 +9265,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftLogsConnector.java`
-#### Snippet
-```java
-    for (ZonedInterval interval : intervals) {
-      String query =
-          queryTemplate.replace(
-              "##",
-              newWhereClause(
-```
-
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/Task.java`
@@ -9327,6 +9315,30 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftRawLogsConnector.java`
+#### Snippet
+```java
+    for (ZonedInterval interval : intervals) {
+      String query =
+          queryTemplate.replace(
+              "##",
+              newWhereClause(
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftLogsConnector.java`
+#### Snippet
+```java
+    for (ZonedInterval interval : intervals) {
+      String query =
+          queryTemplate.replace(
+              "##",
+              newWhereClause(
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/generic/GenericConnector.java`
 #### Snippet
 ```java
@@ -9361,18 +9373,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
         out.add(new JdbcSelectTask(finalFile, finalQuery));
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftRawLogsConnector.java`
-#### Snippet
-```java
-    for (ZonedInterval interval : intervals) {
-      String query =
-          queryTemplate.replace(
-              "##",
-              newWhereClause(
-```
-
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -9389,18 +9389,6 @@ in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jd
 ## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `url = url + database` could be simplified to 'url += database'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/vertica/AbstractVerticaConnector.java`
-#### Snippet
-```java
-      String database = Iterables.getFirst(arguments.getDatabases(), null);
-      url = "jdbc:vertica://" + host + ":" + port + "/";
-      if (database != null) url = url + database;
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`url = url + database` could be simplified to 'url += database'
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/postgresql/AbstractPostgresqlConnector.java`
 #### Snippet
 ```java
@@ -9411,17 +9399,53 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractConnector()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractConnector.java`
+### ReplaceAssignmentWithOperatorAssignment
+`url = url + database` could be simplified to 'url += database'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/vertica/AbstractVerticaConnector.java`
 #### Snippet
 ```java
-  private final String name;
+      String database = Iterables.getFirst(arguments.getDatabases(), null);
+      url = "jdbc:vertica://" + host + ":" + port + "/";
+      if (database != null) url = url + database;
+    }
 
-  public AbstractConnector(@Nonnull String name) {
-    this.name = Preconditions.checkNotNull(name, "Name was null.");
+```
+
+## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractPostgresqlConnector()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/postgresql/AbstractPostgresqlConnector.java`
+#### Snippet
+```java
+  public static final int OPT_PORT_DEFAULT = 5432;
+
+  public AbstractPostgresqlConnector(String name) {
+    super(name);
   }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `HiveMetastoreThriftClient()` of an abstract class should not be declared 'public'
+in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
+#### Snippet
+```java
+  @Nonnull private final String name;
+
+  public HiveMetastoreThriftClient(@Nonnull String name) {
+    this.name = Preconditions.checkNotNull(name, "name was null.");
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `TaskRunContext()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
+#### Snippet
+```java
+  private final Executor executorService;
+
+  public TaskRunContext(OutputHandleFactory sinkFactory, Handle handle, int threadPoolSize) {
+    this.sinkFactory = Preconditions.checkNotNull(sinkFactory, "ByteSinkFactory was null.");
+    this.handle = Preconditions.checkNotNull(handle, "Handle was null.");
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9432,6 +9456,66 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
   public static final int OPT_PORT_DEFAULT = 3306;
 
   public AbstractMysqlConnector(String name) {
+    super(name);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractBigQueryConnector()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+  }
+
+  public AbstractBigQueryConnector(@Nonnull String name) {
+    super(name);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractBigQueryTask()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+    }
+
+    public AbstractBigQueryTask(@Nonnull String targetPath) {
+      super(targetPath);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractBigQueryMetadataTask()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+#### Snippet
+```java
+    private final Predicate<? super String> schemaPredicate;
+
+    public AbstractBigQueryMetadataTask(
+        String targetPath,
+        @Nonnull List<? extends String> databaseList,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractOracleConnector()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
+#### Snippet
+```java
+  public static final int OPT_PORT_DEFAULT = 1521;
+
+  public AbstractOracleConnector(@Nonnull String name) {
+    super(name);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractVerticaConnector()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/vertica/AbstractVerticaConnector.java`
+#### Snippet
+```java
+  public static final int OPT_PORT_DEFAULT = 5433;
+
+  public /* pp */ AbstractVerticaConnector(@Nonnull String name) {
     super(name);
   }
 ```
@@ -9461,6 +9545,18 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ### NonProtectedConstructorInAbstractClass
+Constructor `AbstractTask()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
+#### Snippet
+```java
+  protected Condition[] conditions = Condition.EMPTY_ARRAY;
+
+  public AbstractTask(String targetPath) {
+    this.targetPath = targetPath;
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `AbstractSnowflakeConnector()` of an abstract class should not be declared 'public'
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/snowflake/AbstractSnowflakeConnector.java`
 #### Snippet
@@ -9469,6 +9565,18 @@ public abstract class AbstractSnowflakeConnector extends AbstractJdbcConnector {
 
   public AbstractSnowflakeConnector(@Nonnull String name) {
     super(name);
+  }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `AbstractConnector()` of an abstract class should not be declared 'public'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractConnector.java`
+#### Snippet
+```java
+  private final String name;
+
+  public AbstractConnector(@Nonnull String name) {
+    this.name = Preconditions.checkNotNull(name, "Name was null.");
   }
 ```
 
@@ -9485,42 +9593,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `AbstractVerticaConnector()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/vertica/AbstractVerticaConnector.java`
-#### Snippet
-```java
-  public static final int OPT_PORT_DEFAULT = 5433;
-
-  public /* pp */ AbstractVerticaConnector(@Nonnull String name) {
-    super(name);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `HiveMetastoreThriftClient()` of an abstract class should not be declared 'public'
-in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/ext/hive/metastore/HiveMetastoreThriftClient.java`
-#### Snippet
-```java
-  @Nonnull private final String name;
-
-  public HiveMetastoreThriftClient(@Nonnull String name) {
-    this.name = Preconditions.checkNotNull(name, "name was null.");
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTask()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractTask.java`
-#### Snippet
-```java
-  protected Condition[] conditions = Condition.EMPTY_ARRAY;
-
-  public AbstractTask(String targetPath) {
-    this.targetPath = targetPath;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `AbstractJdbcTask()` of an abstract class should not be declared 'public'
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
 #### Snippet
@@ -9530,42 +9602,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/t
   public AbstractJdbcTask(@Nonnull String targetPath) {
     super(targetPath);
   }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractOracleConnector()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/oracle/AbstractOracleConnector.java`
-#### Snippet
-```java
-  public static final int OPT_PORT_DEFAULT = 1521;
-
-  public AbstractOracleConnector(@Nonnull String name) {
-    super(name);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPostgresqlConnector()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/postgresql/AbstractPostgresqlConnector.java`
-#### Snippet
-```java
-  public static final int OPT_PORT_DEFAULT = 5432;
-
-  public AbstractPostgresqlConnector(String name) {
-    super(name);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TaskRunContext()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/TaskRunContext.java`
-#### Snippet
-```java
-  private final Executor executorService;
-
-  public TaskRunContext(OutputHandleFactory sinkFactory, Handle handle, int threadPoolSize) {
-    this.sinkFactory = Preconditions.checkNotNull(sinkFactory, "ByteSinkFactory was null.");
-    this.handle = Preconditions.checkNotNull(handle, "Handle was null.");
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -9580,67 +9616,20 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
         SharedState state,
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractBigQueryMetadataTask()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+## RuleId[id=UnnecessaryBreak]
+### UnnecessaryBreak
+`break` statement is unnecessary
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
 #### Snippet
 ```java
-    private final Predicate<? super String> schemaPredicate;
-
-    public AbstractBigQueryMetadataTask(
-        String targetPath,
-        @Nonnull List<? extends String> databaseList,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractBigQueryTask()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
-#### Snippet
-```java
-    }
-
-    public AbstractBigQueryTask(@Nonnull String targetPath) {
-      super(targetPath);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractBigQueryConnector()` of an abstract class should not be declared 'public'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
-#### Snippet
-```java
-  }
-
-  public AbstractBigQueryConnector(@Nonnull String name) {
-    super(name);
-  }
+      byte[] data = getMacOrNull();
+      if (data != null) return data;
+      break IFACE;
+    } catch (Exception e) {
+      // Notionally, this is an IOException, but it might also be an (unexpected) SecurityException
 ```
 
 ## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new PrivilegedExceptionAction() can be replaced with lambda
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
-#### Snippet
-```java
-    final URL[] urls_array = urls.toArray(new URL[0]);
-    return AccessController.doPrivileged(
-        new PrivilegedExceptionAction<ClassLoader>() {
-          @Override
-          public ClassLoader run() throws Exception {
-```
-
-### Convert2Lambda
-Anonymous new PrivilegedExceptionAction\>() can be replaced with lambda
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
-#### Snippet
-```java
-      throws PrivilegedActionException {
-    return AccessController.doPrivileged(
-        new PrivilegedExceptionAction<Class<?>>() {
-          @Override
-          public Class<?> run() throws Exception {
-```
-
 ### Convert2Lambda
 Anonymous new PrivilegedAction() can be replaced with lambda
 in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/SystemPropertyValue.java`
@@ -9690,6 +9679,30 @@ in `dumper/lib-ext-bigquery/src/main/java/com/google/cloud/bigquery/BigQueryAcce
 ```
 
 ### Convert2Lambda
+Anonymous new PrivilegedExceptionAction\>() can be replaced with lambda
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
+#### Snippet
+```java
+      throws PrivilegedActionException {
+    return AccessController.doPrivileged(
+        new PrivilegedExceptionAction<Class<?>>() {
+          @Override
+          public Class<?> run() throws Exception {
+```
+
+### Convert2Lambda
+Anonymous new PrivilegedExceptionAction() can be replaced with lambda
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
+#### Snippet
+```java
+    final URL[] urls_array = urls.toArray(new URL[0]);
+    return AccessController.doPrivileged(
+        new PrivilegedExceptionAction<ClassLoader>() {
+          @Override
+          public ClassLoader run() throws Exception {
+```
+
+### Convert2Lambda
 Anonymous new IntUnaryOperator() can be replaced with lambda
 in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/concurrent/ExecutorManager.java`
 #### Snippet
@@ -9699,19 +9712,6 @@ in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jd
       new IntUnaryOperator() {
         @Override
         public int applyAsInt(int operand) {
-```
-
-## RuleId[id=UnnecessaryBreak]
-### UnnecessaryBreak
-`break` statement is unnecessary
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
-#### Snippet
-```java
-      byte[] data = getMacOrNull();
-      if (data != null) return data;
-      break IFACE;
-    } catch (Exception e) {
-      // Notionally, this is an IOException, but it might also be an (unexpected) SecurityException
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -9753,15 +9753,15 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/u
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+Field initialization to `0` is redundant
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
 #### Snippet
 ```java
-          .ofType(String.class)
-          .describedAs("define");
-  private Map<String, String> definitionMap = null;
+  // Progress
+  private long nextCount = 0;
+  private long nextSeconds = 0;
+  private long nextMinSeconds = 0;
 
-  // because of quoting of special characeters on command line... the -password is made optional,
 ```
 
 ### RedundantFieldInitialization
@@ -9781,23 +9781,23 @@ Field initialization to `0` is redundant
 in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
 #### Snippet
 ```java
-  // Progress
-  private long nextCount = 0;
-  private long nextSeconds = 0;
-  private long nextMinSeconds = 0;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
-#### Snippet
-```java
   private final Stopwatch stopwatch = Stopwatch.createStarted();
   // Progress
   private long nextCount = 0;
   private long nextSeconds = 0;
   private long nextMinSeconds = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+#### Snippet
+```java
+          .ofType(String.class)
+          .describedAs("define");
+  private Map<String, String> definitionMap = null;
+
+  // because of quoting of special characeters on command line... the -password is made optional,
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -9826,30 +9826,6 @@ in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/commo
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-    try {
-      MetadataDumper main = new MetadataDumper();
-      args = JsonResponseFile.addResponseFiles(args);
-      // LOG.debug("Arguments are: [" + String.join("] [", args) + "]");
-      // Without this, the dumper prints "Missing required arguments:[connector]"
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `args`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
-#### Snippet
-```java
-      // Without this, the dumper prints "Missing required arguments:[connector]"
-      if (args.length == 0) {
-        args = new String[] {"--help"};
-      }
-      main.run(args);
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `argument`
 in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/JsonResponseFile.java`
 #### Snippet
@@ -9871,6 +9847,30 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/J
         argument = argument.substring(2);
         String[] tokens = StringUtils.split(argument, "-");
         put(tokens, value);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+    try {
+      MetadataDumper main = new MetadataDumper();
+      args = JsonResponseFile.addResponseFiles(args);
+      // LOG.debug("Arguments are: [" + String.join("] [", args) + "]");
+      // Without this, the dumper prints "Missing required arguments:[connector]"
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `args`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+      // Without this, the dumper prints "Missing required arguments:[connector]"
+      if (args.length == 0) {
+        args = new String[] {"--help"};
+      }
+      main.run(args);
 ```
 
 ## RuleId[id=EqualsAndHashcode]
@@ -9911,43 +9911,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
             datasetId.getProject(),
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
-#### Snippet
-```java
-    @Override
-    public String valuePattern() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
-#### Snippet
-```java
-  @PolyNull
-  private static String toEnumName(@PolyNull Enum<?> value) {
-    return value == null ? null : value.name();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
-#### Snippet
-```java
-  @PolyNull
-  private static String toEnumName(@PolyNull StringEnumValue value) {
-    return value == null ? null : value.name();
-  }
-
-```
-
 ## RuleId[id=InstanceofCatchParameter]
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
@@ -9973,19 +9936,44 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/M
       // TaskGroup is an attempt to get rid of this condition.
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `time` is redundant
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
+## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
 #### Snippet
 ```java
-  private long newTime() {
-    long deltaNanos = ticker.read() - initNanos;
-    long time = (initMillis * 1000 * 10) + (deltaNanos / 100);
-    // LOG.info("Time is           " + time);
-    return time;
+  @PolyNull
+  private static String toEnumName(@PolyNull Enum<?> value) {
+    return value == null ? null : value.name();
+  }
+
 ```
 
+### ReturnNull
+Return of `null`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/BigQueryMetadataConnector.java`
+#### Snippet
+```java
+  @PolyNull
+  private static String toEnumName(@PolyNull StringEnumValue value) {
+    return value == null ? null : value.name();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+#### Snippet
+```java
+    @Override
+    public String valuePattern() {
+      return null;
+    }
+
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `out` is redundant
 in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/SystemPropertyValue.java`
@@ -9996,6 +9984,18 @@ in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/
             boolean out = Boolean.getBoolean(name);
             // LOG.debug("SystemPropertyValue {} -> {}", name, out);
             return out;
+```
+
+### UnnecessaryLocalVariable
+Local variable `time` is redundant
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
+#### Snippet
+```java
+  private long newTime() {
+    long deltaNanos = ticker.read() - initNanos;
+    long time = (initMillis * 1000 * 10) + (deltaNanos / 100);
+    // LOG.info("Time is           " + time);
+    return time;
 ```
 
 ### UnnecessaryLocalVariable
@@ -10010,19 +10010,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
     return sql;
 ```
 
-## RuleId[id=DuplicateThrows]
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/JsonResponseFile.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  /* pp */ static List<? extends String> to_arguments(@Nonnull String text)
-      throws IOException, JsonProcessingException {
-    return convert(newObjectMapper().readTree(text));
-  }
-```
-
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
@@ -10034,6 +10021,19 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
     final URL[] urls_array = urls.toArray(new URL[0]);
     return AccessController.doPrivileged(
         new PrivilegedExceptionAction<ClassLoader>() {
+```
+
+## RuleId[id=DuplicateThrows]
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/JsonResponseFile.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  /* pp */ static List<? extends String> to_arguments(@Nonnull String text)
+      throws IOException, JsonProcessingException {
+    return convert(newObjectMapper().readTree(text));
+  }
 ```
 
 ## RuleId[id=BusyWait]
@@ -10051,15 +10051,15 @@ in `dumper/lib-ext-bigquery/src/main/java/com/google/edwmigration/dumper/plugin/
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
+Variable `nextSeconds` initializer `0` is redundant
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
 #### Snippet
 ```java
-      }
+  // Progress
+  private long nextCount = 0;
+  private long nextSeconds = 0;
+  private long nextMinSeconds = 0;
 
-      T result = null;
-      ResultSet rs = null;
-      try {
 ```
 
 ### UnusedAssignment
@@ -10075,18 +10075,6 @@ in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jd
 ```
 
 ### UnusedAssignment
-Variable `nextSeconds` initializer `0` is redundant
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
-#### Snippet
-```java
-  // Progress
-  private long nextCount = 0;
-  private long nextSeconds = 0;
-  private long nextMinSeconds = 0;
-
-```
-
-### UnusedAssignment
 Variable `nextCount` initializer `0` is redundant
 in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/RecordProgressMonitor.java`
 #### Snippet
@@ -10098,31 +10086,19 @@ in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jd
   private long nextMinSeconds = 0;
 ```
 
+### UnusedAssignment
+Variable `result` initializer `null` is redundant
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/task/AbstractJdbcTask.java`
+#### Snippet
+```java
+      }
+
+      T result = null;
+      ResultSet rs = null;
+      try {
+```
+
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `ifaces == null` is always `false`
-in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
-#### Snippet
-```java
-  public static byte[] getMacOrNull() throws SocketException {
-    Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces();
-    if (ifaces == null) // This happens in no-network jails.
-    return null;
-
-```
-
-### ConstantValue
-Condition `driverClass != null` is always `true`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
-#### Snippet
-```java
-          try {
-            driverClass = newDriverClass(driverClassLoader, driverClassName);
-            if (driverClass != null) break CLASS;
-          } catch (PrivilegedActionException e) {
-            if (e.getCause() instanceof ClassNotFoundException)
-```
-
 ### ConstantValue
 Condition `resourcesDir == null` is always `false`
 in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/TestUtils.java`
@@ -10133,18 +10109,6 @@ in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/test/
     if (resourcesDir == null) {
       throw new IllegalStateException("Cannot find resources dir " + resourcesDir);
     }
-```
-
-### ConstantValue
-Condition `val == null` is always `false`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/JdbcPropBuilder.java`
-#### Snippet
-```java
-  public JdbcPropBuilder prop(@Nonnull String prop, @Nonnull String val)
-      throws UnsupportedEncodingException {
-    if (val == null) {
-      throw new InternalError("Not checked for null: " + val);
-    } else {
 ```
 
 ### ConstantValue
@@ -10160,51 +10124,39 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/u
 ```
 
 ### ConstantValue
-Condition `connectorName == null` is always `false`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+Condition `val == null` is always `false`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/JdbcPropBuilder.java`
 #### Snippet
 ```java
-
-    String connectorName = arguments.getConnectorName();
-    if (connectorName == null) {
-      LOG.error("Target DBMS is required");
-      return;
+  public JdbcPropBuilder prop(@Nonnull String prop, @Nonnull String val)
+      throws UnsupportedEncodingException {
+    if (val == null) {
+      throw new InternalError("Not checked for null: " + val);
+    } else {
 ```
 
 ### ConstantValue
-Condition is always false
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftLogsConnector.java`
+Condition `ifaces == null` is always `false`
+in `dumper/lib-common/src/testFixtures/java/com/google/edwmigration/dumper/common/UUIDGenerator.java`
 #### Snippet
 ```java
-        parallelTask);
+  public static byte[] getMacOrNull() throws SocketException {
+    Enumeration<NetworkInterface> ifaces = NetworkInterface.getNetworkInterfaces();
+    if (ifaces == null) // This happens in no-network jails.
+    return null;
 
-    if (false) {
-      // Metric Dance.... S3 logs has xid ..  .. so Above wil have to be used to map xid's to query
-      //  1. SVL_QUERY_METRICS doesn't have starttime
 ```
 
 ### ConstantValue
-Condition `this.entryName != null` is always `true`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/generic/GenericConnector.java`
+Condition `currentPage == null` is always `false`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
 #### Snippet
 ```java
-          errors.add("Query string must contain where clause with date_column < " + PERIOD_END);
-      }
-      if (this.entryName != null) {
-        if (!this.entryName.contains(PERIOD_NAME))
-          errors.add("Entry name must have " + PERIOD_NAME + " in the name");
-```
-
-### ConstantValue
-Result of `Boolean.parseBoolean(OPT_HIVE_METASTORE_DUMP_PARTITION_METADATA_DEFAULT)` is always 'true'
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
-#### Snippet
-```java
-          .withOptionalArg()
-          .withValuesConvertedBy(BooleanValueConverter.INSTANCE)
-          .defaultsTo(Boolean.parseBoolean(OPT_HIVE_METASTORE_DUMP_PARTITION_METADATA_DEFAULT));
-
-  // Threading / Pooling
+                    HttpStatusCodes.STATUS_CODE_CONFLICT, "Interrupted while retrying: " + e, e);
+              }
+              if (currentPage == null) {
+                return false;
+              }
 ```
 
 ### ConstantValue
@@ -10232,15 +10184,63 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/c
 ```
 
 ### ConstantValue
-Condition `currentPage == null` is always `false`
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+Condition is always false
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/redshift/RedshiftLogsConnector.java`
 #### Snippet
 ```java
-                    HttpStatusCodes.STATUS_CODE_CONFLICT, "Interrupted while retrying: " + e, e);
-              }
-              if (currentPage == null) {
-                return false;
-              }
+        parallelTask);
+
+    if (false) {
+      // Metric Dance.... S3 logs has xid ..  .. so Above wil have to be used to map xid's to query
+      //  1. SVL_QUERY_METRICS doesn't have starttime
+```
+
+### ConstantValue
+Condition `this.entryName != null` is always `true`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/generic/GenericConnector.java`
+#### Snippet
+```java
+          errors.add("Query string must contain where clause with date_column < " + PERIOD_END);
+      }
+      if (this.entryName != null) {
+        if (!this.entryName.contains(PERIOD_NAME))
+          errors.add("Entry name must have " + PERIOD_NAME + " in the name");
+```
+
+### ConstantValue
+Condition `connectorName == null` is always `false`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/MetadataDumper.java`
+#### Snippet
+```java
+
+    String connectorName = arguments.getConnectorName();
+    if (connectorName == null) {
+      LOG.error("Target DBMS is required");
+      return;
+```
+
+### ConstantValue
+Condition `driverClass != null` is always `true`
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/AbstractJdbcConnector.java`
+#### Snippet
+```java
+          try {
+            driverClass = newDriverClass(driverClassLoader, driverClassName);
+            if (driverClass != null) break CLASS;
+          } catch (PrivilegedActionException e) {
+            if (e.getCause() instanceof ClassNotFoundException)
+```
+
+### ConstantValue
+Result of `Boolean.parseBoolean(OPT_HIVE_METASTORE_DUMP_PARTITION_METADATA_DEFAULT)` is always 'true'
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/ConnectorArguments.java`
+#### Snippet
+```java
+          .withOptionalArg()
+          .withValuesConvertedBy(BooleanValueConverter.INSTANCE)
+          .defaultsTo(Boolean.parseBoolean(OPT_HIVE_METASTORE_DUMP_PARTITION_METADATA_DEFAULT));
+
+  // Threading / Pooling
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -10266,6 +10266,30 @@ in `dumper/lib-ext-hive-metastore/src/main/java/com/google/edwmigration/dumper/e
     return Streams.zip(
             partitionKeys.stream(),
             partitionValues.stream(),
+```
+
+### UnstableApiUsage
+'getExitingScheduledExecutorService(java.util.concurrent.ScheduledThreadPoolExecutor)' is marked unstable with @Beta
+in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentRecordProgressMonitor.java`
+#### Snippet
+```java
+            .build();
+    private static final ScheduledExecutorService EXECUTOR_SERVICE =
+        MoreExecutors.getExitingScheduledExecutorService(
+            new ScheduledThreadPoolExecutor(1, THREAD_FACTORY));
+  }
+```
+
+### UnstableApiUsage
+'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
+in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
+#### Snippet
+```java
+
+    protected void shutdown(@Nonnull ExecutorService executor) {
+      MoreExecutors.shutdownAndAwaitTermination(executor, 30, TimeUnit.SECONDS);
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -10338,30 +10362,6 @@ in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/M
         Handle handle = closer.register(connector.open(arguments));
 
         TaskRunContext runContext =
-```
-
-### UnstableApiUsage
-'getExitingScheduledExecutorService(java.util.concurrent.ScheduledThreadPoolExecutor)' is marked unstable with @Beta
-in `dumper/lib-common/src/main/java/com/google/edwmigration/dumper/plugin/ext/jdk/progress/ConcurrentRecordProgressMonitor.java`
-#### Snippet
-```java
-            .build();
-    private static final ScheduledExecutorService EXECUTOR_SERVICE =
-        MoreExecutors.getExitingScheduledExecutorService(
-            new ScheduledThreadPoolExecutor(1, THREAD_FACTORY));
-  }
-```
-
-### UnstableApiUsage
-'shutdownAndAwaitTermination(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
-in `dumper/app/src/main/java/com/google/edwmigration/dumper/application/dumper/connector/bigquery/AbstractBigQueryConnector.java`
-#### Snippet
-```java
-
-    protected void shutdown(@Nonnull ExecutorService executor) {
-      MoreExecutors.shutdownAndAwaitTermination(executor, 30, TimeUnit.SECONDS);
-    }
-
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
