@@ -1,7 +1,7 @@
 # camel-kafka-connector 
  
 # Bad smells
-I found 335 bad smells with 17 repairable:
+I found 336 bad smells with 17 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UNUSED_IMPORT | 164 | false |
@@ -37,31 +37,8 @@ I found 335 bad smells with 17 repairable:
 | UnnecessarySuperQualifier | 1 | false |
 | NestedAssignment | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
-## RuleId[ruleID=DataFlowIssue]
-### DataFlowIssue
-Argument `UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel")` might be null
-in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
-#### Snippet
-```java
-        try {
-            String template = null;
-            template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel"));
-            String out = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
-            return out;
-```
-
-### DataFlowIssue
-Argument `UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("nav.mvel")` might be null
-in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
-#### Snippet
-```java
-        String changed = null;
-        try {
-            String template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("nav.mvel"));
-            changed = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
-        } catch (Exception e) {
-```
-
+| HtmlWrongAttributeValue | 1 | false |
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `connectorModelInputSream` might be null
 in `camel-kafka-connector-catalog/src/main/java/org/apache/camel/kafkaconnector/catalog/CamelKafkaConnectorCatalog.java`
@@ -87,6 +64,30 @@ in `camel-kafka-connector-catalog/src/main/java/org/apache/camel/kafkaconnector/
 ```
 
 ### DataFlowIssue
+Argument `UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("nav.mvel")` might be null
+in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
+#### Snippet
+```java
+        String changed = null;
+        try {
+            String template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("nav.mvel"));
+            changed = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Argument `UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel")` might be null
+in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
+#### Snippet
+```java
+        try {
+            String template = null;
+            template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel"));
+            String out = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            return out;
+```
+
+### DataFlowIssue
 Argument `KameletsCatalog.class.getResourceAsStream(pathInJar)` might be null
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
@@ -98,7 +99,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
                     .collect(Collectors.joining("\n"));
 ```
 
-## RuleId[ruleID=SimplifyStreamApiCallChains]
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with 'java.util.ArrayList' constructor
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
@@ -147,7 +148,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeader
     }
 ```
 
-## RuleId[ruleID=AssignmentToStaticFieldFromInstanceMethod]
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `typeConverter` from instance context
 in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/CamelTypeConverterTransform.java`
@@ -160,7 +161,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/CamelTypeConve
 
 ```
 
-## RuleId[ruleID=Convert2MethodRef]
+## RuleId[id=Convert2MethodRef]
 ### Convert2MethodRef
 Lambda can be replaced with method reference
 in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/catalog/descriptor/CollectConnectorDescriptorMojo.java`
@@ -197,19 +198,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeader
 
 ```
 
-## RuleId[ruleID=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\:` in RegExp
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
-#### Snippet
-```java
-
-        for (String dep : colonSeparatedDependeciesToExclude) {
-            String[] tokens = dep.split("\\:");
-            String groupIdStr = tokens[0];
-            String artifactIdStr = tokens[1];
-```
-
+## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\:` in RegExp
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
@@ -222,7 +211,19 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
                 String artifactIdStr = comps[1];
 ```
 
-## RuleId[ruleID=KeySetIterationMayUseEntrySet]
+### RegExpRedundantEscape
+Redundant character escape `\\:` in RegExp
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
+#### Snippet
+```java
+
+        for (String dep : colonSeparatedDependeciesToExclude) {
+            String[] tokens = dep.split("\\:");
+            String groupIdStr = tokens[0];
+            String artifactIdStr = tokens[1];
+```
+
+## RuleId[id=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `options` may be replaced with 'values()' iteration
 in `camel-kafka-connector-catalog/src/main/java/org/apache/camel/kafkaconnector/catalog/CamelKafkaConnectorCatalog.java`
@@ -247,7 +248,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
                     plugin(
 ```
 
-## RuleId[ruleID=SizeReplaceableByIsEmpty]
+## RuleId[id=SizeReplaceableByIsEmpty]
 ### SizeReplaceableByIsEmpty
 `csv.trim().length() == 0` can be replaced with 'csv.trim().isEmpty()'
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
@@ -258,18 +259,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         if (csv == null || csv.trim().length() == 0) {
             return new TreeSet<>();
         }
-```
-
-### SizeReplaceableByIsEmpty
-`additionalProp.trim().length() > 0` can be replaced with '!additionalProp.trim().isEmpty()'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
-        if (additionalProp != null && additionalProp.trim().length() > 0) {
-            for (String prop : additionalProp.split(",")) {
-                getLog().debug("Additional property before key value split: " + prop);
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -287,6 +276,18 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 ### SizeReplaceableByIsEmpty
 `additionalProp.trim().length() > 0` can be replaced with '!additionalProp.trim().isEmpty()'
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+#### Snippet
+```java
+
+    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
+        if (additionalProp != null && additionalProp.trim().length() > 0) {
+            for (String prop : additionalProp.split(",")) {
+                getLog().debug("Additional property before key value split: " + prop);
+```
+
+### SizeReplaceableByIsEmpty
+`additionalProp.trim().length() > 0` can be replaced with '!additionalProp.trim().isEmpty()'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
 
@@ -332,7 +333,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeader
         }
 ```
 
-## RuleId[ruleID=UnnecessaryToStringCall]
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
@@ -345,7 +346,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         }
 ```
 
-## RuleId[ruleID=RedundantEscapeInRegexReplacement]
+## RuleId[id=RedundantEscapeInRegexReplacement]
 ### RedundantEscapeInRegexReplacement
 Redundant escape of '?'
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
@@ -356,42 +357,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         content = content.replaceFirst("-->", "-->\n").replaceFirst("\\?><!--", "\\?>\n<!--");
 
         writeFileIfChanged(content, destination, log);
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        confMethod.setBody(confMethod.getBody() + "return conf;");
-
-        String javaClassConnectorConfigFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorConfigName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassConnectorConfig, javaClassConnectorConfigFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        getSinkOrSourceKameletMethod.addAnnotation(Override.class);
-
-        String javaClassTaskFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassTaskName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassTask, javaClassTaskFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
-```
-
-### RedundantEscapeInRegexReplacement
-Redundant escape of '/'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
-
-        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassConnector, javaClassConnectorFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
 ```
 
 ### RedundantEscapeInRegexReplacement
@@ -430,19 +395,43 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ```
 
-## RuleId[ruleID=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `MapRecordValue` may be 'static'
-in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeadersTransform.java`
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
-    }
+        confMethod.setBody(confMethod.getBody() + "return conf;");
 
-    public class MapRecordValue implements RecordValue {
+        String javaClassConnectorConfigFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorConfigName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassConnectorConfig, javaClassConnectorConfigFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
 
-        private Map<String, Object> map;
 ```
 
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        getSinkOrSourceKameletMethod.addAnnotation(Override.class);
+
+        String javaClassTaskFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassTaskName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassTask, javaClassTaskFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
+
+```
+
+### RedundantEscapeInRegexReplacement
+Redundant escape of '/'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
+
+        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassConnector, javaClassConnectorFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
+
+```
+
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `WholeRecordValue` may be 'static'
 in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeadersTransform.java`
@@ -453,6 +442,18 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeader
     public class WholeRecordValue implements RecordValue {
         private Object value;
         private Schema schema;
+```
+
+### InnerClassMayBeStatic
+Inner class `MapRecordValue` may be 'static'
+in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeadersTransform.java`
+#### Snippet
+```java
+    }
+
+    public class MapRecordValue implements RecordValue {
+
+        private Map<String, Object> map;
 ```
 
 ### InnerClassMayBeStatic
@@ -479,7 +480,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/SourcePojoToSc
         private ObjectWriter objectWriter;
 ```
 
-## RuleId[ruleID=BoundedWildcard]
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends KameletPropertyModel`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/model/KameletModel.java`
@@ -542,6 +543,42 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### BoundedWildcard
 Can generalize to `? super CamelKafkaConnectorOptionModel`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+#### Snippet
+```java
+
+    private void addConnectorOptions(String sanitizedName, ConnectorType ct, JavaClass javaClass, Method confMethod, String propertyQualifier, String firstNamespace,
+                                     String secondNamespace, BaseOptionModel baseOptionModel, List<CamelKafkaConnectorOptionModel> listOptions) {
+        String propertyName = baseOptionModel.getName();
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+#### Snippet
+```java
+    }
+
+    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
+        if (additionalProp != null && additionalProp.trim().length() > 0) {
+            for (String prop : additionalProp.split(",")) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+#### Snippet
+```java
+    }
+
+    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
+        if (additionalProp != null && additionalProp.trim().length() > 0) {
+            for (String prop : additionalProp.split(",")) {
+```
+
+### BoundedWildcard
+Can generalize to `? super CamelKafkaConnectorOptionModel`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
@@ -590,42 +627,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
-#### Snippet
-```java
-    }
-
-    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
-        if (additionalProp != null && additionalProp.trim().length() > 0) {
-            for (String prop : additionalProp.split(",")) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
-#### Snippet
-```java
-    }
-
-    private void addProperties(Map<String, String> additionalProperties, String additionalProp) {
-        if (additionalProp != null && additionalProp.trim().length() > 0) {
-            for (String prop : additionalProp.split(",")) {
-```
-
-### BoundedWildcard
-Can generalize to `? super CamelKafkaConnectorOptionModel`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
-#### Snippet
-```java
-
-    private void addConnectorOptions(String sanitizedName, ConnectorType ct, JavaClass javaClass, Method confMethod, String propertyQualifier, String firstNamespace,
-                                     String secondNamespace, BaseOptionModel baseOptionModel, List<CamelKafkaConnectorOptionModel> listOptions) {
-        String propertyName = baseOptionModel.getName();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSinkTask.java`
 #### Snippet
 ```java
@@ -636,7 +637,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSinkTask.java`
         final Schema schema = header.schema();
 ```
 
-## RuleId[ruleID=PublicFieldAccessedInSynchronizedContext]
+## RuleId[id=PublicFieldAccessedInSynchronizedContext]
 ### PublicFieldAccessedInSynchronizedContext
 Non-private field `this.producerTemplate` accessed in synchronized context
 in `core/src/main/java/org/apache/camel/kafkaconnector/utils/CamelKafkaConnectMain.java`
@@ -685,7 +686,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/utils/CamelKafkaConnectMa
             }
 ```
 
-## RuleId[ruleID=RedundantSuppression]
+## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
 in `connectors/camel-syslog-kafka-connector/src/generated/java/org/apache/camel/kafkaconnector/syslog/converters/CamelStreamCacheConverterLoader.java`
@@ -698,7 +699,7 @@ public final class CamelStreamCacheConverterLoader implements TypeConverterLoade
     private CamelContext camelContext;
 ```
 
-## RuleId[ruleID=IgnoreResultOfCall]
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/catalog/descriptor/CollectConnectorDescriptorMojo.java`
@@ -735,13 +736,13 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ```
 
-## RuleId[ruleID=DefaultAnnotationParam]
+## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorCreateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletCreateMojo.java`
 #### Snippet
 ```java
-    protected String componentJson;
+    protected String name;
 
     @Parameter(property = "overridePomFile", required = false, defaultValue = "false")
     protected Boolean overridePomFile;
@@ -750,10 +751,10 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletCreateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorCreateMojo.java`
 #### Snippet
 ```java
-    protected String name;
+    protected String componentJson;
 
     @Parameter(property = "overridePomFile", required = false, defaultValue = "false")
     protected Boolean overridePomFile;
@@ -777,10 +778,10 @@ Redundant default parameter value assignment
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
 ```java
-     * The Camel Component Filter to select for which components generate the corresponding camel kafka connector.
+     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
      */
     @Parameter(defaultValue = "", readonly = true)
-    private String filter;
+    private String additionalKameletDependencies;
 
 ```
 
@@ -801,10 +802,10 @@ Redundant default parameter value assignment
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
 ```java
-     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
+     * The Camel Kamelets Exclusion List to select for which kamelet must be skipped while generating kafka connector.
      */
     @Parameter(defaultValue = "", readonly = true)
-    protected String additionalComponentDependencies;
+    private List excludedKamelets = Collections.EMPTY_LIST;
 
 ```
 
@@ -825,10 +826,10 @@ Redundant default parameter value assignment
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
 ```java
-     * The Camel Kamelets Exclusion List to select for which kamelet must be skipped while generating kafka connector.
+     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
      */
     @Parameter(defaultValue = "", readonly = true)
-    private List excludedKamelets = Collections.EMPTY_LIST;
+    protected String additionalComponentDependencies;
 
 ```
 
@@ -837,22 +838,10 @@ Redundant default parameter value assignment
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
 ```java
-     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
+     * The Camel Component Filter to select for which components generate the corresponding camel kafka connector.
      */
     @Parameter(defaultValue = "", readonly = true)
-    private String additionalKameletDependencies;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
-     */
-    @Parameter(defaultValue = "", readonly = true)
-    private String additionalDependencies;
+    private String filter;
 
 ```
 
@@ -868,19 +857,19 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ```
 
-## RuleId[ruleID=ImplicitArrayToString]
-### ImplicitArrayToString
-Implicit call to 'toString()' on array `keyValue`
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
-                getLog().debug("Additional property before key value split: " + prop);
-                String[] keyValue = prop.split("=");
-                getLog().debug("Additional property key value: " + keyValue);
-                additionalProperties.put(keyValue[0], keyValue[1]);
-            }
+     * groupId:ArtifactId:version,groupId_2:ArtifactId_2:version_2)
+     */
+    @Parameter(defaultValue = "", readonly = true)
+    private String additionalDependencies;
+
 ```
 
+## RuleId[id=ImplicitArrayToString]
 ### ImplicitArrayToString
 Implicit call to 'toString()' on array `keyValue`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
@@ -893,29 +882,29 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
             }
 ```
 
-## RuleId[ruleID=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
+### ImplicitArrayToString
+Implicit call to 'toString()' on array `keyValue`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
-
-        // Fix header formatting problem
-        content = content.replaceFirst("-->", "-->\n").replaceFirst("\\?><!--", "\\?>\n<!--");
-
-        writeFileIfChanged(content, destination, log);
+                getLog().debug("Additional property before key value split: " + prop);
+                String[] keyValue = prop.split("=");
+                getLog().debug("Additional property key value: " + keyValue);
+                additionalProperties.put(keyValue[0], keyValue[1]);
+            }
 ```
 
+## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
 #### Snippet
 ```java
-
-        // Fix header formatting problem
-        content = content.replaceFirst("-->", "-->\n").replaceFirst("\\?><!--", "\\?>\n<!--");
-
-        writeFileIfChanged(content, destination, log);
+                        kameletModel.getDependencies().stream()
+                                .filter(d -> d.startsWith("camel:"))
+                                .map(d -> d.replaceFirst("camel:", ""))
+                                .collect(Collectors.toSet())
+                );
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -932,206 +921,38 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
 #### Snippet
 ```java
-                        kameletModel.getDependencies().stream()
-                                .filter(d -> d.startsWith("camel:"))
-                                .map(d -> d.replaceFirst("camel:", ""))
-                                .collect(Collectors.toSet())
-                );
+
+        // Fix header formatting problem
+        content = content.replaceFirst("-->", "-->\n").replaceFirst("\\?><!--", "\\?>\n<!--");
+
+        writeFileIfChanged(content, destination, log);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
 #### Snippet
 ```java
-        Set<String> gavDeps = deps.stream().map(stringDep -> {
-            if (stringDep.startsWith("mvn:")) {
-                return stringDep.replaceFirst("mvn:", "");
-            } else if (stringDep.startsWith("camel:")) {
-                return getMainDepGroupId() + ":" + stringDep.replaceFirst(":", "-");
-```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-                return stringDep.replaceFirst("mvn:", "");
-            } else if (stringDep.startsWith("camel:")) {
-                return getMainDepGroupId() + ":" + stringDep.replaceFirst(":", "-");
-            } else {
-                getLog().warn("Dependency " + stringDep + "is used as is. Might not be the intended behaviour!");
+        // Fix header formatting problem
+        content = content.replaceFirst("-->", "-->\n").replaceFirst("\\?><!--", "\\?>\n<!--");
+
+        writeFileIfChanged(content, destination, log);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
 ```java
         String replacement = "$1_";
 
         String propertyPrefix = "CAMEL_" + ct + "_" + sanitizedName.replace("-", "").toUpperCase() + "_" + propertyQualifier.toUpperCase() + "_"
                                 + StringUtils.capitalize(propertyName).replaceAll(regex, replacement).toUpperCase();
-        String propertyValue = "camel.kamelet." + name + "." + propertyName;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-        String docFieldName = propertyPrefix + "DOC";
-        String docLiteralInitializer = kameletProperty.getDescription().replace("\n", " ");
-        if (kameletProperty.getExample() != null) {
-            docLiteralInitializer = docLiteralInitializer + " Example: " + kameletProperty.getExample().replace("\n", " ");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        String docLiteralInitializer = kameletProperty.getDescription().replace("\n", " ");
-        if (kameletProperty.getExample() != null) {
-            docLiteralInitializer = docLiteralInitializer + " Example: " + kameletProperty.getExample().replace("\n", " ");
-        }
-        javaClass.addField().setFinal(true).setPublic().setStatic(true).setName(docFieldName).setType(String.class).setStringInitializer(docLiteralInitializer);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        String ctCapitalizedName = StringUtils.capitalize(ct.name().toLowerCase());
-        String ctLowercaseName = ct.name().toLowerCase();
-        String packageName = "org.apache.camel.kafkaconnector." + RESERVED_WORDS_SUBSTITUTION_MAP.getOrDefault(sanitizedName.replace("-", ""), sanitizedName.replace("-", ""));
-        Map<String, String> additionalProperties = new HashMap<>();
-        Properties properties = new Properties();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        String ctCapitalizedName = StringUtils.capitalize(ct.name().toLowerCase());
-        String ctLowercaseName = ct.name().toLowerCase();
-        String packageName = "org.apache.camel.kafkaconnector." + RESERVED_WORDS_SUBSTITUTION_MAP.getOrDefault(sanitizedName.replace("-", ""), sanitizedName.replace("-", ""));
-        Map<String, String> additionalProperties = new HashMap<>();
-        Properties properties = new Properties();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-        // Camel{sanitizedName}{Sink,Source}ConnectorConfig.java
-        String javaClassConnectorConfigName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig";
-        final JavaClass javaClassConnectorConfig = new JavaClass(getProjectClassLoader());
-        javaClassConnectorConfig.setPackage(packageName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        confMethod.setBody(confMethod.getBody() + "return conf;");
-
-        String javaClassConnectorConfigFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorConfigName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassConnectorConfig, javaClassConnectorConfigFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-        // Camel{sanitizedName}{Sink,Source}Task.java
-        String javaClassTaskName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task";
-        final JavaClass javaClassTask = new JavaClass(getProjectClassLoader());
-        javaClassTask.setPackage(packageName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        javaClassTask.addMethod().setConstructor(false).setName("getCamel" + ctCapitalizedName + "ConnectorConfig").setProtected().addParameter("Map<String, String>", "props")
-            .setReturnType("Camel" + ctCapitalizedName + "ConnectorConfig")
-            .setBody("return new Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig(props);").addAnnotation(Override.class);
-
-        if (!additionalProperties.keySet().isEmpty()) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-        getSinkOrSourceKameletMethod.addAnnotation(Override.class);
-
-        String javaClassTaskFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassTaskName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassTask, javaClassTaskFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-        // Camel{sanitizedName}{Sink,Source}Connector.java
-        String javaClassConnectorName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Connector";
-        final JavaClass javaClassConnector = new JavaClass(getProjectClassLoader());
-        javaClassConnector.setPackage(packageName);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-        javaClassConnector.addMethod().setConstructor(false).setName("config").setPublic().setReturnType("ConfigDef")
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig.conf();").addAnnotation(Override.class);
-        javaClassConnector.addMethod().setConstructor(false).setName("taskClass").setPublic().setReturnType("Class<? extends Task>")
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig.conf();").addAnnotation(Override.class);
-        javaClassConnector.addMethod().setConstructor(false).setName("taskClass").setPublic().setReturnType("Class<? extends Task>")
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
-
-        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
-
-        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
-        MavenUtils.writeSourceIfChanged(javaClassConnector, javaClassConnectorFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
-
+        String propertyValue = "camel." + firstNamespace + "." + secondNamespace + "." + baseOptionModel.getName();
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1268,17 +1089,197 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        String ctCapitalizedName = StringUtils.capitalize(ct.name().toLowerCase());
+        String ctLowercaseName = ct.name().toLowerCase();
+        String packageName = "org.apache.camel.kafkaconnector." + RESERVED_WORDS_SUBSTITUTION_MAP.getOrDefault(sanitizedName.replace("-", ""), sanitizedName.replace("-", ""));
+        Map<String, String> additionalProperties = new HashMap<>();
+        Properties properties = new Properties();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        String ctCapitalizedName = StringUtils.capitalize(ct.name().toLowerCase());
+        String ctLowercaseName = ct.name().toLowerCase();
+        String packageName = "org.apache.camel.kafkaconnector." + RESERVED_WORDS_SUBSTITUTION_MAP.getOrDefault(sanitizedName.replace("-", ""), sanitizedName.replace("-", ""));
+        Map<String, String> additionalProperties = new HashMap<>();
+        Properties properties = new Properties();
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+        // Camel{sanitizedName}{Sink,Source}ConnectorConfig.java
+        String javaClassConnectorConfigName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig";
+        final JavaClass javaClassConnectorConfig = new JavaClass(getProjectClassLoader());
+        javaClassConnectorConfig.setPackage(packageName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        confMethod.setBody(confMethod.getBody() + "return conf;");
+
+        String javaClassConnectorConfigFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorConfigName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassConnectorConfig, javaClassConnectorConfigFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+        // Camel{sanitizedName}{Sink,Source}Task.java
+        String javaClassTaskName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task";
+        final JavaClass javaClassTask = new JavaClass(getProjectClassLoader());
+        javaClassTask.setPackage(packageName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        javaClassTask.addMethod().setConstructor(false).setName("getCamel" + ctCapitalizedName + "ConnectorConfig").setProtected().addParameter("Map<String, String>", "props")
+            .setReturnType("Camel" + ctCapitalizedName + "ConnectorConfig")
+            .setBody("return new Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig(props);").addAnnotation(Override.class);
+
+        if (!additionalProperties.keySet().isEmpty()) {
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        getSinkOrSourceKameletMethod.addAnnotation(Override.class);
+
+        String javaClassTaskFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassTaskName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassTask, javaClassTaskFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+        // Camel{sanitizedName}{Sink,Source}Connector.java
+        String javaClassConnectorName = "Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Connector";
+        final JavaClass javaClassConnector = new JavaClass(getProjectClassLoader());
+        javaClassConnector.setPackage(packageName);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+        javaClassConnector.addMethod().setConstructor(false).setName("config").setPublic().setReturnType("ConfigDef")
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig.conf();").addAnnotation(Override.class);
+        javaClassConnector.addMethod().setConstructor(false).setName("taskClass").setPublic().setReturnType("Class<? extends Task>")
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "ConnectorConfig.conf();").addAnnotation(Override.class);
+        javaClassConnector.addMethod().setConstructor(false).setName("taskClass").setPublic().setReturnType("Class<? extends Task>")
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
+
+        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+            .setBody("return Camel" + StringUtils.capitalize(sanitizedName.replace("-", "")) + ctCapitalizedName + "Task.class;").addAnnotation(Override.class);
+
+        String javaClassConnectorFileName = packageName.replaceAll("\\.", "\\/") + File.separator + javaClassConnectorName + ".java";
+        MavenUtils.writeSourceIfChanged(javaClassConnector, javaClassConnectorFileName, false, connectorDir, rm.getResourceAsFile(javaFilesHeader));
+
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
         String replacement = "$1_";
 
         String propertyPrefix = "CAMEL_" + ct + "_" + sanitizedName.replace("-", "").toUpperCase() + "_" + propertyQualifier.toUpperCase() + "_"
                                 + StringUtils.capitalize(propertyName).replaceAll(regex, replacement).toUpperCase();
-        String propertyValue = "camel." + firstNamespace + "." + secondNamespace + "." + baseOptionModel.getName();
+        String propertyValue = "camel.kamelet." + name + "." + propertyName;
 ```
 
-## RuleId[ruleID=UnnecessarySuperQualifier]
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+        String docFieldName = propertyPrefix + "DOC";
+        String docLiteralInitializer = kameletProperty.getDescription().replace("\n", " ");
+        if (kameletProperty.getExample() != null) {
+            docLiteralInitializer = docLiteralInitializer + " Example: " + kameletProperty.getExample().replace("\n", " ");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        String docLiteralInitializer = kameletProperty.getDescription().replace("\n", " ");
+        if (kameletProperty.getExample() != null) {
+            docLiteralInitializer = docLiteralInitializer + " Example: " + kameletProperty.getExample().replace("\n", " ");
+        }
+        javaClass.addField().setFinal(true).setPublic().setStatic(true).setName(docFieldName).setType(String.class).setStringInitializer(docLiteralInitializer);
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+        Set<String> gavDeps = deps.stream().map(stringDep -> {
+            if (stringDep.startsWith("mvn:")) {
+                return stringDep.replaceFirst("mvn:", "");
+            } else if (stringDep.startsWith("camel:")) {
+                return getMainDepGroupId() + ":" + stringDep.replaceFirst(":", "-");
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+                return stringDep.replaceFirst("mvn:", "");
+            } else if (stringDep.startsWith("camel:")) {
+                return getMainDepGroupId() + ":" + stringDep.replaceFirst(":", "-");
+            } else {
+                getLog().warn("Dependency " + stringDep + "is used as is. Might not be the intended behaviour!");
+```
+
+## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/DynamicClassLoader.java`
@@ -1291,10 +1292,10 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ```
 
-## RuleId[ruleID=UnnecessaryFullyQualifiedName]
+## RuleId[id=UnnecessaryFullyQualifiedName]
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
 ```java
             try {
@@ -1306,7 +1307,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.maven.artifact` is unnecessary, and can be replaced with an import
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
             try {
@@ -1376,7 +1377,7 @@ in `connectors/camel-syslog-kafka-connector/src/generated/java/org/apache/camel/
 
 ```
 
-## RuleId[ruleID=UNUSED_IMPORT]
+## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import java.util.HashMap;`
 in `connectors/camel-aws-cloudtrail-source-kafka-connector/src/main/java/org/apache/camel/kafkaconnector/awscloudtrailsource/CamelAwscloudtrailsourceSourceTask.java`
@@ -3345,43 +3346,7 @@ import java.util.Map;
 import javax.annotation.Generated;
 ```
 
-## RuleId[ruleID=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "L"` could be simplified to 'defaultValueClassLiteralInitializer += "L"'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-                if (defaultValueClass.equals(Long.class) && !defaultValueClassLiteralInitializer.endsWith("L")) {
-                    defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "L";
-                }
-            }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "F"` could be simplified to 'defaultValueClassLiteralInitializer += "F"'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-            if (defaultValueClass.equals(Float.class)) {
-                defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "F";
-            }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "D"` could be simplified to 'defaultValueClassLiteralInitializer += "D"'
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-
-            if (defaultValueClass.equals(Double.class)) {
-                defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "D";
-            }
-        }
-```
-
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
 ### ReplaceAssignmentWithOperatorAssignment
 `docLiteralInitializer = docLiteralInitializer + " One of:"` could be simplified to 'docLiteralInitializer += " One of:"'
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
@@ -3442,7 +3407,43 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         }
 ```
 
-## RuleId[ruleID=ThrowablePrintStackTrace]
+### ReplaceAssignmentWithOperatorAssignment
+`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "L"` could be simplified to 'defaultValueClassLiteralInitializer += "L"'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+                if (defaultValueClass.equals(Long.class) && !defaultValueClassLiteralInitializer.endsWith("L")) {
+                    defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "L";
+                }
+            }
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "F"` could be simplified to 'defaultValueClassLiteralInitializer += "F"'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+            if (defaultValueClass.equals(Float.class)) {
+                defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "F";
+            }
+
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "D"` could be simplified to 'defaultValueClassLiteralInitializer += "D"'
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+
+            if (defaultValueClass.equals(Double.class)) {
+                defaultValueClassLiteralInitializer = defaultValueClassLiteralInitializer + "D";
+            }
+        }
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `connectors/camel-file-kafka-connector/src/main/java/org/apache/camel/kafkaconnector/file/transformers/FileTransforms.java`
@@ -3479,7 +3480,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
                 }
 ```
 
-## RuleId[ruleID=NestedAssignment]
+## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
 in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/catalog/descriptor/CollectConnectorDescriptorMojo.java`
@@ -3492,7 +3493,7 @@ in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/
                     sb.append(System.lineSeparator());
 ```
 
-## RuleId[ruleID=MismatchedCollectionQueryUpdate]
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `loggingImpl` are queried, but never updated
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
@@ -3505,31 +3506,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         // excluded dependencies
 ```
 
-## RuleId[ruleID=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `consumer` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-
-    private CamelKafkaConnectMain cms;
-    private PollingConsumer consumer;
-    private String[] topics;
-    private Long maxBatchPollSize;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxPollDuration` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    private String[] topics;
-    private Long maxBatchPollSize;
-    private Long maxPollDuration;
-    private Integer maxNotCommittedRecords;
-    private String camelMessageHeaderKey;
-```
-
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `freeSlots` is accessed in both synchronized and unsynchronized contexts
 in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
@@ -3540,66 +3517,6 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
     private SpscArrayQueue<Integer> freeSlots;
     private boolean mapProperties;
     private boolean mapHeaders;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mapHeaders` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    private SpscArrayQueue<Integer> freeSlots;
-    private boolean mapProperties;
-    private boolean mapHeaders;
-
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `mapProperties` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    //the assumption is that at most 1 thread is running poll() method and at most 1 thread is running commitRecord()
-    private SpscArrayQueue<Integer> freeSlots;
-    private boolean mapProperties;
-    private boolean mapHeaders;
-
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `camelMessageHeaderKey` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    private Long maxPollDuration;
-    private Integer maxNotCommittedRecords;
-    private String camelMessageHeaderKey;
-    private LoggingLevel loggingLevel = LoggingLevel.OFF;
-    private Exchange[] exchangesWaitingForAck;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `topics` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    private CamelKafkaConnectMain cms;
-    private PollingConsumer consumer;
-    private String[] topics;
-    private Long maxBatchPollSize;
-    private Long maxPollDuration;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxBatchPollSize` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
-#### Snippet
-```java
-    private PollingConsumer consumer;
-    private String[] topics;
-    private Long maxBatchPollSize;
-    private Long maxPollDuration;
-    private Integer maxNotCommittedRecords;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -3615,6 +3532,42 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `topics` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    private CamelKafkaConnectMain cms;
+    private PollingConsumer consumer;
+    private String[] topics;
+    private Long maxBatchPollSize;
+    private Long maxPollDuration;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mapProperties` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    //the assumption is that at most 1 thread is running poll() method and at most 1 thread is running commitRecord()
+    private SpscArrayQueue<Integer> freeSlots;
+    private boolean mapProperties;
+    private boolean mapHeaders;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `mapHeaders` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    private SpscArrayQueue<Integer> freeSlots;
+    private boolean mapProperties;
+    private boolean mapHeaders;
+
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `loggingLevel` is accessed in both synchronized and unsynchronized contexts
 in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
 #### Snippet
@@ -3626,7 +3579,55 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
     //the assumption is that at most 1 thread is running poll() method and at most 1 thread is running commitRecord()
 ```
 
-## RuleId[ruleID=Convert2Lambda]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxBatchPollSize` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    private PollingConsumer consumer;
+    private String[] topics;
+    private Long maxBatchPollSize;
+    private Long maxPollDuration;
+    private Integer maxNotCommittedRecords;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `consumer` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+
+    private CamelKafkaConnectMain cms;
+    private PollingConsumer consumer;
+    private String[] topics;
+    private Long maxBatchPollSize;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `camelMessageHeaderKey` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    private Long maxPollDuration;
+    private Integer maxNotCommittedRecords;
+    private String camelMessageHeaderKey;
+    private LoggingLevel loggingLevel = LoggingLevel.OFF;
+    private Exchange[] exchangesWaitingForAck;
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `maxPollDuration` is accessed in both synchronized and unsynchronized contexts
+in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceTask.java`
+#### Snippet
+```java
+    private String[] topics;
+    private Long maxBatchPollSize;
+    private Long maxPollDuration;
+    private Integer maxNotCommittedRecords;
+    private String camelMessageHeaderKey;
+```
+
+## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
 Anonymous new Predicate() can be replaced with lambda
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
@@ -3663,7 +3664,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/SourcePojoToSc
                 public CacheEntry apply(String s) {
 ```
 
-## RuleId[ruleID=AssignmentToMethodParameter]
+## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
 Assignment to method parameter `changed`
 in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
@@ -3702,42 +3703,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### AssignmentToMethodParameter
 Assignment to method parameter `changed`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-            if (!file.exists()) {
-                // include markers for new files
-                changed = "// kafka-connector options: START\n" + changed + "\n// kafka-connector options: END\n";
-                writeText(file, changed);
-                return true;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `changed`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-                // remove leading line breaks etc
-                existing = existing.trim();
-                changed = changed.trim();
-                if (existing.equals(changed)) {
-                    return false;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `changed`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-                // remove leading line breaks etc
-                existing = existing.trim();
-                changed = changed.trim();
-                if (existing.equals(changed)) {
-                    getLog().debug("No change to the file " + file.getName());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `changed`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
 ```java
@@ -3772,7 +3737,56 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
                     return false;
 ```
 
-## RuleId[ruleID=ReturnNull]
+### AssignmentToMethodParameter
+Assignment to method parameter `changed`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+            if (!file.exists()) {
+                // include markers for new files
+                changed = "// kafka-connector options: START\n" + changed + "\n// kafka-connector options: END\n";
+                writeText(file, changed);
+                return true;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `changed`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+                // remove leading line breaks etc
+                existing = existing.trim();
+                changed = changed.trim();
+                if (existing.equals(changed)) {
+                    return false;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `changed`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+                // remove leading line breaks etc
+                existing = existing.trim();
+                changed = changed.trim();
+                if (existing.equals(changed)) {
+                    getLog().debug("No change to the file " + file.getName());
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-21-23-43-08.608.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
+```
+
+## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
 in `camel-kafka-connector-catalog/src/main/java/org/apache/camel/kafkaconnector/catalog/CamelKafkaConnectorCatalog.java`
@@ -3790,6 +3804,18 @@ Return of `null`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
 #### Snippet
 ```java
+
+    public static String sanitizeMavenArtifactId(String toBesanitizedArtifactId) {
+        return toBesanitizedArtifactId != null ? toBesanitizedArtifactId.toLowerCase().replaceAll("[^A-Za-z0-9]", "-") : null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
+#### Snippet
+```java
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                     return null;
@@ -3799,14 +3825,14 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### ReturnNull
 Return of `null`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/utils/MavenUtils.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
 ```java
-
-    public static String sanitizeMavenArtifactId(String toBesanitizedArtifactId) {
-        return toBesanitizedArtifactId != null ? toBesanitizedArtifactId.toLowerCase().replaceAll("[^A-Za-z0-9]", "-") : null;
+            getLog().error("Cannot create package.xml file from Template: " + packageTemplate + " with properties: " + props, e);
+        }
+        return null;
     }
-}
+
 ```
 
 ### ReturnNull
@@ -3831,18 +3857,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
         return null;
     }
 }
-```
-
-### ReturnNull
-Return of `null`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
-#### Snippet
-```java
-            getLog().error("Cannot create package.xml file from Template: " + packageTemplate + " with properties: " + props, e);
-        }
-        return null;
-    }
-
 ```
 
 ### ReturnNull
@@ -3881,7 +3895,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/FieldsToHeader
     }
 ```
 
-## RuleId[ruleID=UnnecessaryLocalVariable]
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `out` is redundant
 in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
@@ -3907,30 +3921,6 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `gavDeps` is redundant
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-    private Set<String> getKameletDependencies(KameletModel kamelet) throws XPathExpressionException {
-        Set<String> deps = new HashSet<>(kamelet.getDependencies());
-        Set<String> gavDeps = deps.stream().map(stringDep -> {
-            if (stringDep.startsWith("mvn:")) {
-                return stringDep.replaceFirst("mvn:", "");
-```
-
-### UnnecessaryLocalVariable
-Local variable `text` is redundant
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
-#### Snippet
-```java
-            }
-
-            String text = loadText(new FileInputStream(file));
-
-            String existing = text;
-```
-
-### UnnecessaryLocalVariable
 Local variable `text` is redundant
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
@@ -3942,7 +3932,31 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
             String existing = text;
 ```
 
-## RuleId[ruleID=SynchronizeOnThis]
+### UnnecessaryLocalVariable
+Local variable `text` is redundant
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+            }
+
+            String text = loadText(new FileInputStream(file));
+
+            String existing = text;
+```
+
+### UnnecessaryLocalVariable
+Local variable `gavDeps` is redundant
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+#### Snippet
+```java
+    private Set<String> getKameletDependencies(KameletModel kamelet) throws XPathExpressionException {
+        Set<String> deps = new HashSet<>(kamelet.getDependencies());
+        Set<String> gavDeps = deps.stream().map(stringDep -> {
+            if (stringDep.startsWith("mvn:")) {
+                return stringDep.replaceFirst("mvn:", "");
+```
+
+## RuleId[id=SynchronizeOnThis]
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
 in `core/src/main/java/org/apache/camel/kafkaconnector/utils/CamelKafkaConnectMain.java`
@@ -3967,17 +3981,17 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/utils/CamelKafkaConnectMa
                     this.consumerTemplate = getCamelContext().createConsumerTemplate();
 ```
 
-## RuleId[ruleID=UnusedAssignment]
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `template` initializer `null` is redundant
-in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
+Variable `line` initializer `null` is redundant
+in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/catalog/descriptor/CollectConnectorDescriptorMojo.java`
 #### Snippet
 ```java
-
-        try {
-            String template = null;
-            template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel"));
-            String out = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
+        if (fileToRead.exists()) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileToRead), StandardCharsets.UTF_8))) {
+                String line = null;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
 ```
 
 ### UnusedAssignment
@@ -3993,15 +4007,15 @@ in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/cam
 ```
 
 ### UnusedAssignment
-Variable `line` initializer `null` is redundant
-in `tooling/camel-kafka-connector-catalog-descriptor-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/catalog/descriptor/CollectConnectorDescriptorMojo.java`
+Variable `template` initializer `null` is redundant
+in `tooling/camel-kafka-connector-docs-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/docs/UpdateDocComponentsListMojo.java`
 #### Snippet
 ```java
-        if (fileToRead.exists()) {
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileToRead), StandardCharsets.UTF_8))) {
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
+
+        try {
+            String template = null;
+            template = loadText(UpdateDocComponentsListMojo.class.getClassLoader().getResourceAsStream("connectors.mvel"));
+            String out = (String)TemplateRuntime.eval(template, model, Collections.singletonMap("util", MvelHelper.INSTANCE));
 ```
 
 ### UnusedAssignment
@@ -4016,7 +4030,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/transforms/SourcePojoToSc
                 byte[] avroDataByte = cacheEntry.getObjectWriter().writeValueAsBytes(r.value());
 ```
 
-## RuleId[ruleID=ConstantValue]
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `excludedComponents == null` is always `false`
 in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/GenerateCamelKafkaConnectorsMojo.java`
@@ -4031,7 +4045,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### ConstantValue
 Condition `existing != null` is always `true`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
 #### Snippet
 ```java
 
@@ -4043,7 +4057,7 @@ in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apach
 
 ### ConstantValue
 Condition `existing != null` is always `true`
-in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorUpdateMojo.java`
+in `tooling/camel-kafka-connector-generator-maven-plugin/src/main/java/org/apache/camel/kafkaconnector/maven/CamelKafkaConnectorKameletUpdateMojo.java`
 #### Snippet
 ```java
 
@@ -4065,7 +4079,7 @@ in `core/src/main/java/org/apache/camel/kafkaconnector/CamelSourceConnectorConfi
         .define(CAMEL_SOURCE_COMPONENT_CONF, Type.STRING, CAMEL_SOURCE_COMPONENT_DEFAULT, Importance.MEDIUM, CAMEL_SOURCE_COMPONENT_DOC)
 ```
 
-## RuleId[ruleID=MethodOverridesStaticMethod]
+## RuleId[id=MethodOverridesStaticMethod]
 ### MethodOverridesStaticMethod
 Method `conf()` tries to override a static method of a superclass
 in `connectors/camel-syslog-kafka-connector/src/main/java/org/apache/camel/kafkaconnector/syslog/CamelSyslogSinkConnectorConfig.java`
