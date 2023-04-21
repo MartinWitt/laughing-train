@@ -87,18 +87,6 @@ public class IOUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
-in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
-#### Snippet
-```java
- * Factory for report builder classes
- */
-public class ReportBuilderFactory {
-  /**
-   * Creates new HTML report builder
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `StringUtil` has only 'static' members, and lacks a 'private' constructor
 in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 #### Snippet
@@ -108,6 +96,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
 public class StringUtil {
   public static final String EMPTY = "";
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ReportBuilderFactory` has only 'static' members, and lacks a 'private' constructor
+in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
+#### Snippet
+```java
+ * Factory for report builder classes
+ */
+public class ReportBuilderFactory {
+  /**
+   * Creates new HTML report builder
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -232,6 +232,30 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
+    public StatEntry getStatementStats() {
+      return null;
+    }
+  };
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+
+    public StatEntry getLineStats() {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+
     public StatEntry getMethodStats() {
       return null;
     }
@@ -257,30 +281,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 ```java
 
     public StatEntry getBlockStats() {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
-    public StatEntry getStatementStats() {
-      return null;
-    }
-  };
-```
-
-### ReturnNull
-Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
-    public StatEntry getLineStats() {
       return null;
     }
 
@@ -335,19 +335,6 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
       if (isInnerClass(className)) continue;
 ```
 
-## RuleId[id=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
-#### Snippet
-```java
-          addLine = true;
-          Character next = charAtOrNull(i+1, text);
-          if (next != null && next == '\n') i++;
-          break;
-        case '\n':
-```
-
 ## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
@@ -371,6 +358,19 @@ in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
     return new HTMLReportBuilderImpl() {{setResourceBundleName("koverCoverage");}};
   }
 
+```
+
+## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `report-builder/src/jetbrains/coverage/report/impl/StringUtil.java`
+#### Snippet
+```java
+          addLine = true;
+          Character next = charAtOrNull(i+1, text);
+          if (next != null && next == '\n') i++;
+          break;
+        case '\n':
 ```
 
 ## RuleId[id=ManualMinMaxCalculation]
@@ -412,15 +412,15 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/BaseGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ClassInfo`
+Can generalize to `? super ModuleInfo`
 in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
 #### Snippet
 ```java
-  }
-
-  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
-    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
-    for (ClassInfo info : coverageData) {
+                                       @NotNull final TemplateProcessorFactory fac,
+                                       @NotNull final LocalGeneratorPaths paths,
+                                       @NotNull MapToSet<ModuleInfo, ClassInfo> moduleToClassesMap,
+                                       @NotNull ModuleInfo info) throws IOException {
+    MapToSet<String, ClassInfo> namespaceToClassMap = groupByNamespace(moduleToClassesMap.getValues(info));
 ```
 
 ### BoundedWildcard
@@ -436,15 +436,15 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ModuleInfo`
+Can generalize to `? extends ClassInfo`
 in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
 #### Snippet
 ```java
-                                       @NotNull final TemplateProcessorFactory fac,
-                                       @NotNull final LocalGeneratorPaths paths,
-                                       @NotNull MapToSet<ModuleInfo, ClassInfo> moduleToClassesMap,
-                                       @NotNull ModuleInfo info) throws IOException {
-    MapToSet<String, ClassInfo> namespaceToClassMap = groupByNamespace(moduleToClassesMap.getValues(info));
+  }
+
+  private MapToSet<ModuleInfo, ClassInfo> groupByModules(final Collection<ClassInfo> coverageData) {
+    MapToSet<ModuleInfo, ClassInfo> set = new MapToSet<ModuleInfo, ClassInfo>();
+    for (ClassInfo info : coverageData) {
 ```
 
 ### BoundedWildcard
