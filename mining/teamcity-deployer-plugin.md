@@ -22,8 +22,8 @@ I found 124 bad smells with 23 repairable:
 | RedundantSuppression | 2 | false |
 | DuplicateCondition | 2 | false |
 | UnnecessaryBoxing | 2 | false |
-| ReplaceAssignmentWithOperatorAssignment | 2 | false |
 | NestedAssignment | 2 | false |
+| ReplaceAssignmentWithOperatorAssignment | 2 | false |
 | AssignmentToMethodParameter | 2 | false |
 | RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | BusyWait | 2 | false |
@@ -94,18 +94,6 @@ public class CargoRunnerConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `DeployerRunnerConstants` has only 'static' members, and lacks a 'private' constructor
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
-#### Snippet
-```java
- * Date: 24.03.12 - 17:09
- */
-public class DeployerRunnerConstants {
-  public static final String SSH_RUN_TYPE = "ssh-deploy-runner";
-  public static final String SMB_RUN_TYPE = "smb-deploy-runner";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ScpExecUtil` has only 'static' members, and lacks a 'private' constructor
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
 #### Snippet
@@ -115,6 +103,18 @@ import java.io.InputStream;
 public class ScpExecUtil {
 
   public static int checkScpAck(InputStream in) throws IOException {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `DeployerRunnerConstants` has only 'static' members, and lacks a 'private' constructor
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
+#### Snippet
+```java
+ * Date: 24.03.12 - 17:09
+ */
+public class DeployerRunnerConstants {
+  public static final String SSH_RUN_TYPE = "ssh-deploy-runner";
+  public static final String SMB_RUN_TYPE = "smb-deploy-runner";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -191,42 +191,6 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```
 
 ### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/DeployerPropertiesProcessor.java`
-#### Snippet
-```java
-  public Collection<InvalidProperty> process(Map<String, String> properties) {
-    Collection<InvalidProperty> result = new HashSet<InvalidProperty>();
-    if (StringUtil.isEmptyOrSpaces(properties.get(DeployerRunnerConstants.PARAM_TARGET_URL))) {
-      result.add(new InvalidProperty(DeployerRunnerConstants.PARAM_TARGET_URL, "The target must be specified."));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/DeployerPropertiesProcessor.java`
-#### Snippet
-```java
-    }
-
-    if (StringUtil.isEmptyOrSpaces(properties.get(DeployerRunnerConstants.PARAM_SOURCE_PATH))) {
-      result.add(new InvalidProperty(DeployerRunnerConstants.PARAM_SOURCE_PATH, "Artifact to deploy must be specified"));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
-#### Snippet
-```java
-
-  public String getSessionString() {
-    return (StringUtil.isNotEmpty(myRemotePath) ? "[" + myRemotePath + "] on " : "") + "host [" + myHost + ":" + myPort + "]";
-  }
-
-```
-
-### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
 #### Snippet
@@ -256,6 +220,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 #### Snippet
 ```java
 
+  public String getSessionString() {
+    return (StringUtil.isNotEmpty(myRemotePath) ? "[" + myRemotePath + "] on " : "") + "host [" + myHost + ":" + myPort + "]";
+  }
+
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHSessionProvider.java`
+#### Snippet
+```java
+
     try {
       jsch.addIdentity(key.getName(), key.getPrivateKey(), null, StringUtil.isNotEmpty(password) ? password.getBytes("UTF-8") : new byte[0]);
     } catch (UnsupportedEncodingException e) {
@@ -275,6 +251,30 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 ```
 
 ### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/DeployerPropertiesProcessor.java`
+#### Snippet
+```java
+  public Collection<InvalidProperty> process(Map<String, String> properties) {
+    Collection<InvalidProperty> result = new HashSet<InvalidProperty>();
+    if (StringUtil.isEmptyOrSpaces(properties.get(DeployerRunnerConstants.PARAM_TARGET_URL))) {
+      result.add(new InvalidProperty(DeployerRunnerConstants.PARAM_TARGET_URL, "The target must be specified."));
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/DeployerPropertiesProcessor.java`
+#### Snippet
+```java
+    }
+
+    if (StringUtil.isEmptyOrSpaces(properties.get(DeployerRunnerConstants.PARAM_SOURCE_PATH))) {
+      result.add(new InvalidProperty(DeployerRunnerConstants.PARAM_SOURCE_PATH, "Artifact to deploy must be specified"));
+    }
+```
+
+### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo/CargoBuildProcessAdapter.java`
 #### Snippet
@@ -284,42 +284,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/cargo
       if (!StringUtil.isEmpty(myPort)) {
         configuration.setProperty(ServletPropertySet.PORT, myPort);
       }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpProcessAdapter.java`
-#### Snippet
-```java
-
-    // exec 'scp -rt <remoteBase>' remotely
-    final String command = "scp -rt " + (StringUtil.isEmptyOrSpaces(escapedRemoteBase) ? "." : escapedRemoteBase);
-    final ChannelExec execChannel = (ChannelExec) session.openChannel("exec");
-    execChannel.setCommand(command);
-```
-
-### StaticCallOnSubclass
-Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/InterruptibleUploadProcess.java`
-#### Snippet
-```java
-    myRetryCount++;
-    try {
-      if (!StringUtil.isEmpty(myPath)) {
-        createPath(myPath);
-        checkResult(myClient.changeWorkingDirectory(myPath));
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/InterruptibleUploadProcess.java`
-#### Snippet
-```java
-          final String destinationDir = fileStringEntry.getValue();
-
-          if (StringUtil.isNotEmpty(destinationDir)) {
-            createPath(destinationDir);
-            checkResult(myClient.changeWorkingDirectory(destinationDir));
 ```
 
 ### StaticCallOnSubclass
@@ -455,6 +419,42 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
 ```
 
 ### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpProcessAdapter.java`
+#### Snippet
+```java
+
+    // exec 'scp -rt <remoteBase>' remotely
+    final String command = "scp -rt " + (StringUtil.isEmptyOrSpaces(escapedRemoteBase) ? "." : escapedRemoteBase);
+    final ChannelExec execChannel = (ChannelExec) session.openChannel("exec");
+    execChannel.setCommand(command);
+```
+
+### StaticCallOnSubclass
+Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/InterruptibleUploadProcess.java`
+#### Snippet
+```java
+    myRetryCount++;
+    try {
+      if (!StringUtil.isEmpty(myPath)) {
+        createPath(myPath);
+        checkResult(myClient.changeWorkingDirectory(myPath));
+```
+
+### StaticCallOnSubclass
+Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/InterruptibleUploadProcess.java`
+#### Snippet
+```java
+          final String destinationDir = fileStringEntry.getValue();
+
+          if (StringUtil.isNotEmpty(destinationDir)) {
+            createPath(destinationDir);
+            checkResult(myClient.changeWorkingDirectory(destinationDir));
+```
+
+### StaticCallOnSubclass
 Static method `isEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/FtpBuildProcessAdapter.java`
 #### Snippet
@@ -507,18 +507,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'PARAM_DOMAIN' is still used
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
-#### Snippet
-```java
-  public static final String PARAM_PLAIN_PASSWORD = "jetbrains.buildServer.deployer.password";
-  @Deprecated
-  public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
-  public static final String PARAM_TARGET_URL = "jetbrains.buildServer.deployer.targetUrl";
-  public static final String PARAM_SOURCE_PATH = "jetbrains.buildServer.deployer.sourcePath";
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'PARAM_PLAIN_PASSWORD' is still used
 in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
 #### Snippet
@@ -528,6 +516,18 @@ in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/Dep
   public static final String PARAM_PLAIN_PASSWORD = "jetbrains.buildServer.deployer.password";
   @Deprecated
   public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PARAM_DOMAIN' is still used
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
+#### Snippet
+```java
+  public static final String PARAM_PLAIN_PASSWORD = "jetbrains.buildServer.deployer.password";
+  @Deprecated
+  public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
+  public static final String PARAM_TARGET_URL = "jetbrains.buildServer.deployer.targetUrl";
+  public static final String PARAM_SOURCE_PATH = "jetbrains.buildServer.deployer.sourcePath";
 ```
 
 ### DeprecatedIsStillUsed
@@ -543,6 +543,18 @@ in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSH
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
+#### Snippet
+```java
+  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
+                                                    @Nullable final ScpOperation chainTailOperation) {
+    String parts[] = remotePath.replace('\\', '/').split("\\/");
+    ScpOperation rootOperation = null;
+    DirScpOperation currentOperation = null;
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpProcessAdapter.java`
@@ -565,18 +577,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
       if (filePath.size() > 0 && filePath.get(0).matches("\\w\\:")) {
         // cases to of specific windows drive, like C:
         escapedRemoteBase = "/" + filePath.get(0);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
-#### Snippet
-```java
-  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
-                                                    @Nullable final ScpOperation chainTailOperation) {
-    String parts[] = remotePath.replace('\\', '/').split("\\/");
-    ScpOperation rootOperation = null;
-    DirScpOperation currentOperation = null;
 ```
 
 ## RuleId[id=ObsoleteCollection]
@@ -643,18 +643,6 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
 ```
 
 ### SizeReplaceableByIsEmpty
-`components.size() > 0` can be replaced with '!components.isEmpty()'
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-    final List<String> components = StringUtil.split(target, "\\");
-    final String host = components.remove(0);
-    final String shareName = components.size() > 0 ? components.remove(0) : "";
-    final String pathInShare = StringUtil.join(components, "\\");
-
-```
-
-### SizeReplaceableByIsEmpty
 `existingPrefix.length() > 0` can be replaced with '!existingPrefix.isEmpty()'
 in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
 #### Snippet
@@ -676,6 +664,18 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
       existingPrefix = (existingPrefix.length() > 0 ? existingPrefix + "\\" : "") + toCreate.pop();
       diskShare.mkdir(existingPrefix);
     }
+```
+
+### SizeReplaceableByIsEmpty
+`components.size() > 0` can be replaced with '!components.isEmpty()'
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+    final List<String> components = StringUtil.split(target, "\\");
+    final String host = components.remove(0);
+    final String shareName = components.size() > 0 ? components.remove(0) : "";
+    final String pathInShare = StringUtil.join(components, "\\");
+
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -817,6 +817,18 @@ in `deploy-runner-agent-smb/src/main/java/jetbrains/buildServer/deployer/agent/s
 
 ### BoundedWildcard
 Can generalize to `? extends ArtifactsCollection`
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/sftp/SftpBuildProcessAdapter.java`
+#### Snippet
+```java
+
+  public SftpBuildProcessAdapter(@NotNull final BuildRunnerContext context,
+                                 @NotNull final List<ArtifactsCollection> artifactsCollections,
+                                 @NotNull final SSHSessionProvider sessionProvider) {
+    super(context.getBuild().getBuildLogger());
+```
+
+### BoundedWildcard
+Can generalize to `? extends ArtifactsCollection`
 in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
 #### Snippet
 ```java
@@ -853,18 +865,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 
 ### BoundedWildcard
 Can generalize to `? extends ArtifactsCollection`
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/sftp/SftpBuildProcessAdapter.java`
-#### Snippet
-```java
-
-  public SftpBuildProcessAdapter(@NotNull final BuildRunnerContext context,
-                                 @NotNull final List<ArtifactsCollection> artifactsCollections,
-                                 @NotNull final SSHSessionProvider sessionProvider) {
-    super(context.getBuild().getBuildLogger());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArtifactsCollection`
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/InterruptibleUploadProcess.java`
 #### Snippet
 ```java
@@ -876,6 +876,30 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/I
 ```
 
 ## RuleId[id=MissortedModifiers]
+### MissortedModifiers
+Missorted modifiers `final static`
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/FileScpOperation.java`
+#### Snippet
+```java
+class FileScpOperation implements ScpOperation {
+  private static final Logger logger = Logger.getInstance(FileScpOperation.class.getCanonicalName());
+  private final static String ZEROES = "000";
+  final File myFile;
+  final int myPermission;
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SmbDeployerRunType.java`
+#### Snippet
+```java
+public class SmbDeployerRunType extends RunType {
+
+  final private Pattern SIMPLE_UNC_REGEX = Pattern.compile("^(?:(\\\\\\\\)?%[^\\\\%\\s]+%)|(?:\\\\\\\\[^\\\\]+\\\\[^\\\\]+(\\\\[^\\\\]+)*)$");
+
+  private final PluginDescriptor myDescriptor;
+```
+
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpProcessAdapter.java`
@@ -910,30 +934,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
                       final @NotNull List<ArtifactsCollection> artifacts) throws IOException, JSchException {
 
     assert session.isConnected();
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SmbDeployerRunType.java`
-#### Snippet
-```java
-public class SmbDeployerRunType extends RunType {
-
-  final private Pattern SIMPLE_UNC_REGEX = Pattern.compile("^(?:(\\\\\\\\)?%[^\\\\%\\s]+%)|(?:\\\\\\\\[^\\\\]+\\\\[^\\\\]+(\\\\[^\\\\]+)*)$");
-
-  private final PluginDescriptor myDescriptor;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/FileScpOperation.java`
-#### Snippet
-```java
-class FileScpOperation implements ScpOperation {
-  private static final Logger logger = Logger.getInstance(FileScpOperation.class.getCanonicalName());
-  private final static String ZEROES = "000";
-  final File myFile;
-  final int myPermission;
 ```
 
 ### MissortedModifiers
@@ -1100,18 +1100,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-    }
-
-    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
-    if (!target.endsWith("\\")) {
-      target = target + "\\";
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `deploy-runner-agent-smb/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBBuildProcessAdapter.java`
 #### Snippet
 ```java
@@ -1132,6 +1120,30 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
       myRemotePath = remotePath.trim().replaceAll("\\\\", "/");
       if (new File(myRemotePath).isAbsolute() && !myRemotePath.startsWith("/")) {
         myRemotePath = "/" + myRemotePath;
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+    }
+
+    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
+    if (!target.endsWith("\\")) {
+      target = target + "\\";
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSHExecRunType.java`
+#### Snippet
+```java
+    final String commands = parameters.get(SSHRunnerConstants.PARAM_COMMAND);
+    if (commands != null) {
+      final List<String> commandsList = Arrays.asList(commands.split("\\\\n"));
+      final int size = commandsList.size();
+      if (size > 0) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -1158,31 +1170,7 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/I
     if (path.startsWith("/")) {
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSHExecRunType.java`
-#### Snippet
-```java
-    final String commands = parameters.get(SSHRunnerConstants.PARAM_COMMAND);
-    if (commands != null) {
-      final List<String> commandsList = Arrays.asList(commands.split("\\\\n"));
-      final int size = commandsList.size();
-      if (size > 0) {
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.regex` is unnecessary, and can be replaced with an import
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-    }
-
-    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
-    if (!target.endsWith("\\")) {
-      target = target + "\\";
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `jcifs` is unnecessary, and can be replaced with an import
 in `deploy-runner-agent-smb/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBBuildProcessAdapter.java`
@@ -1229,6 +1217,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
     } catch (com.jcraft.jsch.AgentProxyException e) {
       throw new JSchException("Failed to connect to ssh agent.", e);
     }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.regex` is unnecessary, and can be replaced with an import
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+    }
+
+    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
+    if (!target.endsWith("\\")) {
+      target = target + "\\";
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -1304,31 +1304,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 ```
 
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`targetWithProtocol = targetWithProtocol + "/"` could be simplified to 'targetWithProtocol += "/"'
-in `deploy-runner-agent-smb/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBBuildProcessAdapter.java`
-#### Snippet
-```java
-    // Share and directories names require trailing /
-    if (!targetWithProtocol.endsWith("/")) {
-      targetWithProtocol = targetWithProtocol + "/";
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`target = target + "\\"` could be simplified to 'target += "\\\\"'
-in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
-#### Snippet
-```java
-    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
-    if (!target.endsWith("\\")) {
-      target = target + "\\";
-    }
-
-```
-
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -1352,6 +1327,31 @@ in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/
     while ((read = inputStream.read(buf)) > -1) {
       checkIsInterrupted();
       outputStream.write(buf, 0, read);
+```
+
+## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
+### ReplaceAssignmentWithOperatorAssignment
+`targetWithProtocol = targetWithProtocol + "/"` could be simplified to 'targetWithProtocol += "/"'
+in `deploy-runner-agent-smb/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBBuildProcessAdapter.java`
+#### Snippet
+```java
+    // Share and directories names require trailing /
+    if (!targetWithProtocol.endsWith("/")) {
+      targetWithProtocol = targetWithProtocol + "/";
+    }
+
+```
+
+### ReplaceAssignmentWithOperatorAssignment
+`target = target + "\\"` could be simplified to 'target += "\\\\"'
+in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
+#### Snippet
+```java
+    target = target.replaceAll("/", java.util.regex.Matcher.quoteReplacement("\\"));
+    if (!target.endsWith("\\")) {
+      target = target + "\\";
+    }
+
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -1469,7 +1469,7 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/F
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-17-38-34.009.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-22-05-14.710.html`
 #### Snippet
 ```java
               <td>0</td>
