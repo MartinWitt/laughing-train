@@ -59,18 +59,6 @@ class DataSerializer {
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'withSeed' is still used
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Parameters withSeed(long seed) {
-      if (serializedData != null) {
-        System.err.println("withSeed ignored, because 'rechecking' is used");
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'recheckingIteration' is still used
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -80,6 +68,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters recheckingIteration(long seed, int sizeHint) {
       return withForcedIterationCount(1).withSeed(seed).withSizeHint(whatever -> sizeHint);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withSeed' is still used
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Parameters withSeed(long seed) {
+      if (serializedData != null) {
+        System.err.println("withSeed ignored, because 'rechecking' is used");
 ```
 
 ### DeprecatedIsStillUsed
@@ -197,18 +197,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyFalsified.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/jetbrains/jetCheck/CounterExampleImpl.java`
-#### Snippet
-```java
-      return new CounterExampleImpl<>(node, value, e, iteration);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 #### Snippet
 ```java
@@ -221,12 +209,12 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+in `src/main/java/org/jetbrains/jetCheck/CounterExampleImpl.java`
 #### Snippet
 ```java
-      minValue = Math.max(minValue, distribution.getMin());
+      return new CounterExampleImpl<>(node, value, e, iteration);
     }
-    return tryInt(minValue, () -> null, this::tryNegation);
+    return null;
   }
 
 ```
@@ -248,6 +236,18 @@ Return of `null`
 in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 #### Snippet
 ```java
+      minValue = Math.max(minValue, distribution.getMin());
+    }
+    return tryInt(minValue, () -> null, this::tryNegation);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
+#### Snippet
+```java
 
   private ShrinkStep divisionLoop(int value) {
     if (value == 0) return null;
@@ -258,7 +258,7 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-17-05-47-36.025.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-06-55-15.589.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -321,6 +321,18 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
+Can generalize to `? super Random`
+in `src/main/java/org/jetbrains/jetCheck/BoundedIntDistribution.java`
+#### Snippet
+```java
+  private final ToIntFunction<Random> producer;
+
+  BoundedIntDistribution(int min, int max, ToIntFunction<Random> producer) {
+    if (min > max) throw new IllegalArgumentException(min + ">" + max);
+    this.min = min;
+```
+
+### BoundedWildcard
 Can generalize to `? super StructureNode`
 in `src/main/java/org/jetbrains/jetCheck/ShrinkStep.java`
 #### Snippet
@@ -357,30 +369,6 @@ in `src/main/java/org/jetbrains/jetCheck/ShrinkStep.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Random`
-in `src/main/java/org/jetbrains/jetCheck/BoundedIntDistribution.java`
-#### Snippet
-```java
-  private final ToIntFunction<Random> producer;
-
-  BoundedIntDistribution(int min, int max, ToIntFunction<Random> producer) {
-    if (min > max) throw new IllegalArgumentException(min + ">" + max);
-    this.min = min;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CustomizedNode`
-in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
-#### Snippet
-```java
-
-  @Nullable
-  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
-    Collections.sort(delayed);
-
-```
-
-### BoundedWildcard
 Can generalize to `? super String`
 in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 #### Snippet
@@ -402,6 +390,18 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
       private void innerCommandLists(final Generator<List<Object>> listGen) {
         data.generate(Generator.from(new EquivalentGenerator<List<Object>>() {
           @Override
+```
+
+### BoundedWildcard
+Can generalize to `? extends CustomizedNode`
+in `src/main/java/org/jetbrains/jetCheck/PropertyFailureImpl.java`
+#### Snippet
+```java
+
+  @Nullable
+  private ShrinkStep processDelayedCombinations(List<CustomizedNode> delayed) {
+    Collections.sort(delayed);
+
 ```
 
 ### BoundedWildcard
@@ -467,6 +467,18 @@ in `src/main/java/org/jetbrains/jetCheck/Scenario.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Value `serializedData` is always 'null'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+      }
+
+      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    }
+
+```
+
+### ConstantValue
 Value `printValues` is always 'false'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -497,30 +509,6 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 ```java
       }
 
-      return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
-    }
-
-```
-
-### ConstantValue
-Value `silent` is always 'false'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-    public Parameters printGeneratedValues() {
-      if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
-    }
-
-```
-
-### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
@@ -534,6 +522,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters printRawData() {
       if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
       return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
+    }
+
+```
+
+### ConstantValue
+Value `silent` is always 'false'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+    public Parameters printGeneratedValues() {
+      if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
     }
 
 ```
