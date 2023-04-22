@@ -2,7 +2,6 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import org.bson.BsonString;
 
 /**
  * This class is used to migrate the database to the latest version.
@@ -49,6 +47,7 @@ public class DataBaseMigration {
 
     @Inject
     Vertx vertx;
+
     /**
      * This method is called by the quarkus framework to migrate the database.
      */
@@ -144,22 +143,9 @@ public class DataBaseMigration {
      */
     private void updateBadSmellsWithWrongProjectUrl() {
         logger.atInfo().log("Updating bad smells with wrong project url");
-        // mongodb bson filter get a field value as string
-        // so we need to use a regex to match the end of the string
-
-        // badSmellRepositoryImpl
-        //         .mongoCollection()
-        //         .updateMany(
-        //                 Filters.regex("projectUrl", Pattern.compile(".git$")),
-        //                 Updates.set("projectUrl", new BsonString("$projectUrl.substring(0, $projectUrl.length() -
-        // 4")));
-        logger.atInfo().log("Finished updating bad smells with wrong project url");
-        projectRepositoryImpl
+        var result = projectRepositoryImpl
                 .mongoCollection()
-                .updateMany(
-                        Filters.regex("projectUrl", Pattern.compile(".git$")),
-                        Updates.set(
-                                "projectUrl", new BsonString("$projectUrl.substring(0, $projectUrl.length() - 4)")));
-        logger.atInfo().log("Finished updating projects with wrong project url");
+                .deleteMany(Filters.regex("projectUrl", Pattern.compile(".*projectUrl.subString.*")));
+        logger.atInfo().log("Deleted %s projects", result.getDeletedCount());
     }
 }
