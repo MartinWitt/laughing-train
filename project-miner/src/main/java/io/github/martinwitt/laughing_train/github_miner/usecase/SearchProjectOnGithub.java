@@ -4,6 +4,7 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.github_miner.data.GitHubProject;
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Random;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -11,6 +12,7 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
 import org.kohsuke.github.GitHub;
 
+@ApplicationScoped
 public class SearchProjectOnGithub {
 
     @SuppressWarnings("NullAway")

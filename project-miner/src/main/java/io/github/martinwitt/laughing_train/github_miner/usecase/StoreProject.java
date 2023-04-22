@@ -3,7 +3,9 @@ package io.github.martinwitt.laughing_train.github_miner.usecase;
 import io.github.martinwitt.laughing_train.github_miner.data.GitHubProject;
 import io.github.martinwitt.laughing_train.github_miner.persistence.GitHubProjectRepository;
 import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
 
+@ApplicationScoped
 public class StoreProject {
 
     private final GitHubProjectRepository projectRepository;
