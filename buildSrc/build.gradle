@@ -12,5 +12,5 @@ repositories {
         implementation "org.kordamp.gradle:jandex-gradle-plugin:1.1.0"
         implementation "net.ltgt.gradle:gradle-errorprone-plugin:3.1.0"
         implementation 'io.smallrye:jandex:3.1.1'
-        implementation "io.quarkus:gradle-application-plugin:3.0.0.CR2"
+        implementation "io.quarkus:gradle-application-plugin:3.0.0.Final"
         }
