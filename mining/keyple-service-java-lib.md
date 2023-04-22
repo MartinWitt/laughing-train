@@ -555,30 +555,6 @@ in `src/main/java/org/eclipse/keyple/core/service/LocalPoolPluginAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/AbstractObservableLocalPluginAdapter.java`
-#### Snippet
-```java
-  @Override
-  public void removeObserver(PluginObserverSpi observer) {
-    Assert.getInstance().notNull(observer, "observer");
-    if (observationManager.getObservers().contains(observer)) {
-      observationManager.removeObserver(observer);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/RemoteReaderAdapter.java`
-#### Snippet
-```java
-          executeReaderServiceRemotely(input, remoteReaderSpi, getName(), getPluginName(), logger);
-
-      Assert.getInstance().notNull(output, OUTPUT);
-
-      return JsonUtil.getParser()
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/RemoteReaderAdapter.java`
 #### Snippet
 ```java
@@ -603,11 +579,23 @@ in `src/main/java/org/eclipse/keyple/core/service/RemoteReaderAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/RemoteReaderAdapter.java`
+#### Snippet
+```java
+          executeReaderServiceRemotely(input, remoteReaderSpi, getName(), getPluginName(), logger);
+
+      Assert.getInstance().notNull(output, OUTPUT);
+
+      return JsonUtil.getParser()
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/AbstractObservableLocalPluginAdapter.java`
 #### Snippet
 ```java
   @Override
-  public void removeObserver(CardReaderObserverSpi observer) {
+  public void removeObserver(PluginObserverSpi observer) {
     Assert.getInstance().notNull(observer, "observer");
     if (observationManager.getObservers().contains(observer)) {
       observationManager.removeObserver(observer);
@@ -615,14 +603,26 @@ in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
 #### Snippet
 ```java
-          detectionMode);
-    }
-    Assert.getInstance().notNull(detectionMode, "detectionMode");
+  public Plugin registerPlugin(KeyplePluginExtensionFactory pluginFactory) {
 
-    // Build the input JSON data.
+    Assert.getInstance().notNull(pluginFactory, "pluginFactory");
+
+    AbstractPluginAdapter plugin = null;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
+#### Snippet
+```java
+
+    Assert.getInstance()
+        .notNull(
+            distributedLocalServiceExtensionFactory, "distributedLocalServiceExtensionFactory");
+
 ```
 
 ### IgnoreResultOfCall
@@ -651,26 +651,26 @@ in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
 #### Snippet
 ```java
+          detectionMode);
+    }
+    Assert.getInstance().notNull(detectionMode, "detectionMode");
 
-    Assert.getInstance()
-        .notNull(
-            distributedLocalServiceExtensionFactory, "distributedLocalServiceExtensionFactory");
-
+    // Build the input JSON data.
 ```
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
 #### Snippet
 ```java
-  public Plugin registerPlugin(KeyplePluginExtensionFactory pluginFactory) {
-
-    Assert.getInstance().notNull(pluginFactory, "pluginFactory");
-
-    AbstractPluginAdapter plugin = null;
+  @Override
+  public void removeObserver(CardReaderObserverSpi observer) {
+    Assert.getInstance().notNull(observer, "observer");
+    if (observationManager.getObservers().contains(observer)) {
+      observationManager.removeObserver(observer);
 ```
 
 ### IgnoreResultOfCall
@@ -703,6 +703,54 @@ in `src/main/java/org/eclipse/keyple/core/service/RemotePluginAdapter.java`
 #### Snippet
 ```java
       logger.debug("Plugin '{}' receives a reader event : {}", getName(), jsonData);
+    }
+    Assert.getInstance().notEmpty(jsonData, "jsonData");
+
+    // Extract the event.
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
+#### Snippet
+```java
+  @Override
+  public void removeObserver(PluginObserverSpi observer) {
+    Assert.getInstance().notNull(observer, "observer");
+    if (observationManager.getObservers().contains(observer)) {
+      observationManager.removeObserver(observer);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
+#### Snippet
+```java
+          remoteReaderSpi != null ? remoteReaderSpi.getName() : null);
+    }
+    Assert.getInstance().notNull(remoteReaderSpi, "remoteReaderSpi");
+
+    // Create the reader.
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
+#### Snippet
+```java
+      logger.debug("Plugin '{}' unregisters the reader '{}'.", getName(), remoteReaderName);
+    }
+    Assert.getInstance().notEmpty(remoteReaderName, "remoteReaderName");
+
+    CardReader reader = getReader(remoteReaderName);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
+#### Snippet
+```java
+      logger.debug("Plugin '{}' receives a plugin event : {}", getName(), jsonData);
     }
     Assert.getInstance().notEmpty(jsonData, "jsonData");
 
@@ -743,54 +791,6 @@ in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
         .isInRange(cardSelector.getAid().length, 0, 16, "aid");
 
     if (readerSpi instanceof AutonomousSelectionReaderSpi) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
-#### Snippet
-```java
-          remoteReaderSpi != null ? remoteReaderSpi.getName() : null);
-    }
-    Assert.getInstance().notNull(remoteReaderSpi, "remoteReaderSpi");
-
-    // Create the reader.
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
-#### Snippet
-```java
-  @Override
-  public void removeObserver(PluginObserverSpi observer) {
-    Assert.getInstance().notNull(observer, "observer");
-    if (observationManager.getObservers().contains(observer)) {
-      observationManager.removeObserver(observer);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
-#### Snippet
-```java
-      logger.debug("Plugin '{}' receives a plugin event : {}", getName(), jsonData);
-    }
-    Assert.getInstance().notEmpty(jsonData, "jsonData");
-
-    // Extract the event.
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
-#### Snippet
-```java
-      logger.debug("Plugin '{}' unregisters the reader '{}'.", getName(), remoteReaderName);
-    }
-    Assert.getInstance().notEmpty(remoteReaderName, "remoteReaderName");
-
-    CardReader reader = getReader(remoteReaderName);
 ```
 
 ### IgnoreResultOfCall
