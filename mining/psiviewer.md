@@ -17,8 +17,8 @@ I found 88 bad smells with 10 repairable:
 | IOResource | 2 | false |
 | StringEquality | 2 | false |
 | MarkedForRemoval | 2 | false |
-| CStyleArrayDeclaration | 2 | false |
 | CommentedOutCode | 2 | false |
+| CStyleArrayDeclaration | 2 | false |
 | SizeReplaceableByIsEmpty | 2 | true |
 | UNUSED_IMPORT | 2 | false |
 | ThrowablePrintStackTrace | 2 | false |
@@ -97,18 +97,6 @@ in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-import java.lang.reflect.Method;
-
-public class IntrospectionUtil
-{
-    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Helpers` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
 #### Snippet
@@ -118,6 +106,18 @@ import java.net.URL;
 public final class Helpers
 {
     private static final Logger LOG = Logger.getInstance(Helpers.class);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `IntrospectionUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+import java.lang.reflect.Method;
+
+public class IntrospectionUtil
+{
+    private static final Logger LOG = Logger.getInstance(IntrospectionUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -219,31 +219,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/CookieManager.java`
     }
 ```
 
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `args`
-in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
-#### Snippet
-```java
-        try
-        {
-            Object args[] = {};
-            getter.setAccessible(true);
-
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `token`
-in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
-#### Snippet
-```java
-    {
-        int red = 0, green = 0, blue = 0, alpha = 128;
-        String token[] = rgba.split(" ");
-        if (token.length > 0) red = getSample(token[0]);
-        if (token.length > 1) green = getSample(token[1]);
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (7 lines)
@@ -269,19 +244,32 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 //                status = DUPLICATE;
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'myElementVisitor' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `token`
+in `src/main/java/idea/plugin/psiviewer/util/Helpers.java`
 #### Snippet
 ```java
+    {
+        int red = 0, green = 0, blue = 0, alpha = 128;
+        String token[] = rgba.split(" ");
+        if (token.length > 0) red = getSample(token[0]);
+        if (token.length > 1) green = getSample(token[1]);
+```
 
-class PropertySheetHeaderRenderer extends JLabel implements TableCellRenderer, PsiViewerConstants {
-    private final ElementVisitor myElementVisitor = new ElementVisitor();
-    private final XmlElementVisitor myElementVisitorXml = new ElementVisitorXml();
+### CStyleArrayDeclaration
+C-style array declaration of local variable `args`
+in `src/main/java/idea/plugin/psiviewer/util/IntrospectionUtil.java`
+#### Snippet
+```java
+        try
+        {
+            Object args[] = {};
+            getter.setAccessible(true);
 
 ```
 
+## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field '_elementVisitor' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PsiViewerTreeCellRenderer.java`
@@ -295,6 +283,18 @@ class PsiViewerTreeCellRenderer extends DefaultTreeCellRenderer implements PsiVi
 ```
 
 ### NonSerializableFieldInSerializableClass
+Non-serializable field 'myElementVisitor' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PropertySheetHeaderRenderer.java`
+#### Snippet
+```java
+
+class PropertySheetHeaderRenderer extends JLabel implements TableCellRenderer, PsiViewerConstants {
+    private final ElementVisitor myElementVisitor = new ElementVisitor();
+    private final XmlElementVisitor myElementVisitorXml = new ElementVisitorXml();
+
+```
+
+### NonSerializableFieldInSerializableClass
 Non-serializable field 'myTarget' in a Serializable class
 in `src/main/java/idea/plugin/psiviewer/view/PropertySheetPanel.java`
 #### Snippet
@@ -304,42 +304,6 @@ public class PropertySheetPanel extends JPanel {
     private Object myTarget;
     private JTable myTable;
 
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_caretMover' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private JSplitPane _splitPane;
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_projectComponent' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
-            new PropertySheetHeaderRenderer(Helpers.getIcon(PsiViewerConstants.ICON_PSI),
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field '_highlighter' in a Serializable class
-in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
-#### Snippet
-```java
-    private final ViewerTreeSelectionListener _treeSelectionListener;
-    private final EditorCaretMover _caretMover;
-    private final EditorPsiElementHighlighter _highlighter;
-    private final PsiViewerProjectService _projectComponent;
-    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -364,6 +328,42 @@ in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
     private PsiViewerTreeModel _model;
     private PsiElement _rootElement; // The root element of the tree
     private PsiElement _selectedElement; // The currently selected element in the tree
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field '_highlighter' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field '_projectComponent' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
+    private final PropertySheetHeaderRenderer _propertyHeaderRenderer =
+            new PropertySheetHeaderRenderer(Helpers.getIcon(PsiViewerConstants.ICON_PSI),
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field '_caretMover' in a Serializable class
+in `src/main/java/idea/plugin/psiviewer/view/PsiViewerPanel.java`
+#### Snippet
+```java
+    private JSplitPane _splitPane;
+    private final ViewerTreeSelectionListener _treeSelectionListener;
+    private final EditorCaretMover _caretMover;
+    private final EditorPsiElementHighlighter _highlighter;
+    private final PsiViewerProjectService _projectComponent;
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
@@ -786,6 +786,54 @@ for (int i=1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+        public int SPLIT_DIVIDER_POSITION = 300;
+        public boolean AUTOSCROLL_TO_SOURCE = false;
+        public boolean AUTOSCROLL_FROM_SOURCE = false;
+    }
+    private State myState = new State();
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
+#### Snippet
+```java
+    static class State {
+        public boolean HIGHLIGHT = false;
+        public boolean FILTER_WHITESPACE = false;
+        public boolean SHOW_PROPERTIES = true;
+        public int SPLIT_DIVIDER_POSITION = 300;
+```
+
+### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
 #### Snippet
@@ -807,54 +855,6 @@ in `src/main/java/com/sylvanaar/idea/errorreporting/YouTrackBugReporter.java`
     private String myDescription = null;
     private String myExtraInformation = "";
     private String myAffectedVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public boolean SHOW_PROPERTIES = true;
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-        public int SPLIT_DIVIDER_POSITION = 300;
-        public boolean AUTOSCROLL_TO_SOURCE = false;
-        public boolean AUTOSCROLL_FROM_SOURCE = false;
-    }
-    private State myState = new State();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/idea/plugin/psiviewer/controller/project/PsiViewerProjectService.java`
-#### Snippet
-```java
-
-    static class State {
-        public boolean HIGHLIGHT = false;
-        public boolean FILTER_WHITESPACE = false;
-        public boolean SHOW_PROPERTIES = true;
 ```
 
 ### RedundantFieldInitialization
