@@ -47,35 +47,35 @@ Redundant default parameter value assignment
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
 ```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+	String output;
+
+	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
+	FormatOption formatOption = new FormatOption();
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
 			description = "Path to the output file. If no path is provided but the flag is, the result will be stored in flacoco_result.{extension}",
 			arity = "0..1",
 			fallbackValue = ""
 	)
 	String output;
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-	String output;
-
-	@CommandLine.ArgGroup(exclusive = true, multiplicity = "0..1")
-	FormatOption formatOption = new FormatOption();
-
 ```
 
 ### DefaultAnnotationParam
@@ -104,18 +104,6 @@ public interface TestDetectionStrategy {
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
-#### Snippet
-```java
-	private final Formula formula;
-
-	private SpectrumFormula(Formula formula) {
-		this.formula = formula;
-	}
-```
-
-### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/formulas/Formula.java`
 #### Snippet
@@ -125,6 +113,18 @@ public interface Formula {
 	public double compute(int nPassingNotExecuting, int nFailingNotExecuting, int nPassingExecuting,
 			int nFailingExecuting);
 }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumFormula.java`
+#### Snippet
+```java
+	private final Formula formula;
+
+	private SpectrumFormula(Formula formula) {
+		this.formula = formula;
+	}
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -143,18 +143,6 @@ public class StackTraceParser {
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
-#### Snippet
-```java
-		for (String iClassNameCovered : covLine.getDetailedCoverage().keySet()) {
-
-			String className = iClassNameCovered.replace("/", ".");
-			if (!config.isCoverTests() && testClasses.contains(className)) {
-				continue;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
 #### Snippet
 ```java
@@ -165,17 +153,29 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
             if (new File(new File(dir), path).exists()) {
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.junit` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/CoverageMatrix.java`
 #### Snippet
 ```java
-        try {
-            for (Method method : clazz.getMethods()) {
-                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
-                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
-                }
+		for (String iClassNameCovered : covLine.getDetailedCoverage().keySet()) {
+
+			String className = iClassNameCovered.replace("/", ".");
+			if (!config.isCoverTests() && testClasses.contains(className)) {
+				continue;
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+#### Snippet
+```java
+
+		// Warn if system memory is lower than 4GiB
+		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
+				.getTotalPhysicalMemorySize();
+		if (memorySize < 4294967296L) {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -191,15 +191,15 @@ in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/f
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.management` is unnecessary, and can be replaced with an import
-in `src/main/java/fr/spoonlabs/flacoco/localization/spectrum/SpectrumRunner.java`
+Qualifier `org.junit` is unnecessary, and can be replaced with an import
+in `src/main/java/fr/spoonlabs/flacoco/core/test/strategies/classloader/finder/filters/TestMethodFilter.java`
 #### Snippet
 ```java
-
-		// Warn if system memory is lower than 4GiB
-		long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean())
-				.getTotalPhysicalMemorySize();
-		if (memorySize < 4294967296L) {
+        try {
+            for (Method method : clazz.getMethods()) {
+                if (method.getAnnotation(org.junit.Test.class) != null && !isIgnoredMethod(clazz, method)) {
+                    testMethods.add(new StringTestMethod(clazz.getCanonicalName(), method.getName()));
+                }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -254,30 +254,6 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 ```
 
 ## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EntryPoint.jUnit5Mode` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
-#### Snippet
-```java
-
-		// test-runner needs a flag for JUnit5 tests
-		EntryPoint.jUnit5Mode = true;
-
-		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
-#### Snippet
-```java
-        }
-
-        found = bestFit;
-    }
-}
-```
-
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `EntryPoint.useOptionsFile` from instance context
 in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStrategy.java`
@@ -400,14 +376,26 @@ in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/TestFrameworkStra
 
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `found` from instance context
-in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockLocationsFinder.java`
 #### Snippet
 ```java
-	public void process(CtType<?> ctType) {
-		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
-		found = filterResult(result);
-	}
+        }
 
+        found = bestFit;
+    }
+}
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `EntryPoint.jUnit5Mode` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/core/coverage/framework/JUnit5Strategy.java`
+#### Snippet
+```java
+
+		// test-runner needs a flag for JUnit5 tests
+		EntryPoint.jUnit5Mode = true;
+
+		return EntryPoint.runOnlineCoveredTestResultPerTestMethods(
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -456,6 +444,18 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonBlockInspector.java`
         SpoonBlockLocationsFinder.found = null;
 
         return locations;
+```
+
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `found` from instance context
+in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonLocalizedFaultFinder.java`
+#### Snippet
+```java
+	public void process(CtType<?> ctType) {
+		List<CtStatement> result = ctType.filterChildren(new SpoonLineFilter(lineNumber)).list();
+		found = filterResult(result);
+	}
+
 ```
 
 ### AssignmentToStaticFieldFromInstanceMethod
@@ -545,42 +545,6 @@ in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
-	boolean testRunnerVerbose = false;
-
-	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
-	boolean includeZeros = false;
-
-	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
-#### Snippet
-```java
-
-	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
-	boolean coverTest = false;
-
-	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
-```
-
-### RedundantFieldInitialization
 Field initialization to `0.0` is redundant
 in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 #### Snippet
@@ -604,6 +568,42 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 	@Option(names = {"--threshold"}, description = "Threshold for suspiciousness score. Flacoco will only return suspicious results with score >= threshold. Results with a score of 0 are only included if the -includeZeros flag is set.", defaultValue = "0.0")
 ```
 
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--includeZeros"}, description = "Flag for including lines with a suspiciousness sore of 0.", defaultValue = "false")
+	boolean includeZeros = false;
+
+	@Option(names = {"--complianceLevel"}, description = "Compliance level for Spoon. Default value is 8", defaultValue = "8")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+	boolean testRunnerVerbose = false;
+
+	@Option(names = {"--testRunnerTimeoutInMs"}, description = "Timeout for each test execution with test-runner. Must be greater than 0. Default value is 1000000", defaultValue = "1000000")
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
+#### Snippet
+```java
+
+	@Option(names = {"--coverTest"}, description = "Indicates if coverage must also cover the tests.", defaultValue = "false")
+	boolean coverTest = false;
+
+	@Option(names = {"--testRunnerVerbose"}, description = "Test-runner verbose mode.", defaultValue = "false")
+```
+
 ## RuleId[id=KeySetIterationMayUseEntrySet]
 ### KeySetIterationMayUseEntrySet
 Iteration over `original.keySet()` may be replaced with 'entrySet()' iteration
@@ -620,7 +620,7 @@ in `src/main/java/fr/spoonlabs/flacoco/utils/spoon/SpoonConverter.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-18-15-08-08.100.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-15-54-37.716.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -890,6 +890,19 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 			return exporterClass.newInstance();
 ```
 
+## RuleId[id=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
+#### Snippet
+```java
+                int lineNumber = -1;
+                if (matcher.group(6) != null) {
+                    lineNumber = Integer.valueOf(matcher.group(6));
+                }
+
+```
+
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
@@ -913,18 +926,5 @@ in `src/main/java/fr/spoonlabs/flacoco/cli/FlacocoMain.java`
 				file.createNewFile();
 			}
 			return new OutputStreamWriter(new FileOutputStream(file));
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `src/main/java/ch/scheitlin/alex/java/StackTraceParser.java`
-#### Snippet
-```java
-                int lineNumber = -1;
-                if (matcher.group(6) != null) {
-                    lineNumber = Integer.valueOf(matcher.group(6));
-                }
-
 ```
 
