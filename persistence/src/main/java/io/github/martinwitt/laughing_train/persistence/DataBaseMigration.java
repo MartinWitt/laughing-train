@@ -145,7 +145,7 @@ public class DataBaseMigration {
         logger.atInfo().log("Updating bad smells with wrong project url");
         var result = projectRepositoryImpl
                 .mongoCollection()
-                .deleteMany(Filters.regex("projectUrl", Pattern.compile(".*projectUrl.subbtring.*")));
+                .deleteMany(Filters.regex("projectUrl", Pattern.compile(".*projectUrl.substring.*")));
         logger.atInfo().log("Deleted %s projects", result.getDeletedCount());
     }
 }
