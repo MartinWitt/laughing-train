@@ -7,9 +7,9 @@ import io.github.martinwitt.laughing_train.persistence.converter.BadSmellDaoConv
 import io.github.martinwitt.laughing_train.persistence.dao.BadSmellDao;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.stream.Stream;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class MongoBadSmellRepository implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {

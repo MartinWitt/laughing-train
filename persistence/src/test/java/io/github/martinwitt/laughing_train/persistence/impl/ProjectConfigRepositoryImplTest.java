@@ -2,19 +2,17 @@ package io.github.martinwitt.laughing_train.persistence.impl;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class ProjectConfigRepositoryImplTest {
     @Inject
     ProjectConfigRepository projectConfigRepository;
-
-    private Faker faker = new Faker();
 
     @Test
     void testCreate() {
@@ -43,9 +41,6 @@ class ProjectConfigRepositoryImplTest {
     }
 
     private ProjectConfig createMockProjectConfig() {
-        String projectUrl = faker.internet().url();
-        String folder = faker.file().fileName();
-        ProjectConfig config = new ProjectConfig(folder, projectUrl);
-        return config;
+        return Instancio.create(ProjectConfig.class);
     }
 }
