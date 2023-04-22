@@ -11,8 +11,8 @@ I found 42 bad smells with 9 repairable:
 | MissortedModifiers | 3 | false |
 | SystemOutErr | 2 | false |
 | UnnecessaryModifier | 2 | true |
-| NestedAssignment | 2 | false |
 | ThrowablePrintStackTrace | 2 | false |
+| NestedAssignment | 2 | false |
 | DoubleBraceInitialization | 2 | false |
 | DataFlowIssue | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
@@ -149,31 +149,6 @@ import org.jetbrains.annotations.NotNull;
 
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `report-builder/src/jetbrains/coverage/report/impl/html/MapToSet.java`
-#### Snippet
-```java
-    Collection<V> vs = myMap.get(k);
-    if (vs == null) {
-      myMap.put(k, vs = new HashSet<V>());
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `report-builder/src/jetbrains/coverage/report/impl/IOUtil.java`
-#### Snippet
-```java
-    int count;
-    int total = 0;
-    while ((count = inputStream.read(buffer)) > 0) {
-      outputStream.write(buffer, 0, count);
-      total += count;
-```
-
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -197,6 +172,31 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
       e.printStackTrace();
       return null;
     }
+```
+
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `report-builder/src/jetbrains/coverage/report/impl/html/MapToSet.java`
+#### Snippet
+```java
+    Collection<V> vs = myMap.get(k);
+    if (vs == null) {
+      myMap.put(k, vs = new HashSet<V>());
+    }
+
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `report-builder/src/jetbrains/coverage/report/impl/IOUtil.java`
+#### Snippet
+```java
+    int count;
+    int total = 0;
+    while ((count = inputStream.read(buffer)) > 0) {
+      outputStream.write(buffer, 0, count);
+      total += count;
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
@@ -232,10 +232,22 @@ in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.jav
 #### Snippet
 ```java
 
-    public StatEntry getStatementStats() {
+    public StatEntry getBlockStats() {
       return null;
     }
-  };
+
+```
+
+### ReturnNull
+Return of `null`
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
+    public StatEntry getClassStats() {
+      return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -267,23 +279,11 @@ Return of `null`
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
 ```java
-  private static final CoverageStatistics NULL_STATS = new CoverageStatistics() {
-    public StatEntry getClassStats() {
+
+    public StatEntry getStatementStats() {
       return null;
     }
-
-```
-
-### ReturnNull
-Return of `null`
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-
-    public StatEntry getBlockStats() {
-      return null;
-    }
-
+  };
 ```
 
 ### ReturnNull
@@ -312,18 +312,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/ModuleInfo.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`myLines.size() > 0` can be replaced with '!myLines.isEmpty()'
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-
-      public void codeWriteFinished() {
-        if (myLines.size() > 0 || myCaption != null) {
-          data.add(new FileDataBean(myCaption, myLines));
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `className.length() == 0` can be replaced with 'className.isEmpty()'
 in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
 #### Snippet
@@ -335,6 +323,18 @@ in `report-builder/src/jetbrains/coverage/report/idea/IDEACoverageData.java`
       if (isInnerClass(className)) continue;
 ```
 
+### SizeReplaceableByIsEmpty
+`myLines.size() > 0` can be replaced with '!myLines.isEmpty()'
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+#### Snippet
+```java
+
+      public void codeWriteFinished() {
+        if (myLines.size() > 0 || myCaption != null) {
+          data.add(new FileDataBean(myCaption, myLines));
+        }
+```
+
 ## RuleId[id=DoubleBraceInitialization]
 ### DoubleBraceInitialization
 Double brace initialization
@@ -342,8 +342,8 @@ in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 #### Snippet
 ```java
    */
-  public static HTMLReportBuilder createHTMLReportBuilderForDotNet() {
-    return new HTMLReportBuilderImpl() {{setResourceBundleName("dotNetCoverage");}};
+  public static HTMLReportBuilder createHTMLReportBuilderForKover() {
+    return new HTMLReportBuilderImpl() {{setResourceBundleName("koverCoverage");}};
   }
 
 ```
@@ -354,8 +354,8 @@ in `report-builder/src/jetbrains/coverage/report/ReportBuilderFactory.java`
 #### Snippet
 ```java
    */
-  public static HTMLReportBuilder createHTMLReportBuilderForKover() {
-    return new HTMLReportBuilderImpl() {{setResourceBundleName("koverCoverage");}};
+  public static HTMLReportBuilder createHTMLReportBuilderForDotNet() {
+    return new HTMLReportBuilderImpl() {{setResourceBundleName("dotNetCoverage");}};
   }
 
 ```
@@ -412,18 +412,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/BaseGenerator.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super ModuleInfo`
-in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
-#### Snippet
-```java
-                                       @NotNull final TemplateProcessorFactory fac,
-                                       @NotNull final LocalGeneratorPaths paths,
-                                       @NotNull MapToSet<ModuleInfo, ClassInfo> moduleToClassesMap,
-                                       @NotNull ModuleInfo info) throws IOException {
-    MapToSet<String, ClassInfo> namespaceToClassMap = groupByNamespace(moduleToClassesMap.getValues(info));
-```
-
-### BoundedWildcard
 Can generalize to `? extends ClassInfo`
 in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
 #### Snippet
@@ -433,6 +421,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl
   private MapToSet<String, ClassInfo> groupByNamespace(final Collection<ClassInfo> coverageData) {
     MapToSet<String, ClassInfo> set = new MapToSet<String, ClassInfo>();
     for (ClassInfo cd: coverageData) {
+```
+
+### BoundedWildcard
+Can generalize to `? super ModuleInfo`
+in `report-builder/src/jetbrains/coverage/report/impl/html/HTMLReportBuilderImpl.java`
+#### Snippet
+```java
+                                       @NotNull final TemplateProcessorFactory fac,
+                                       @NotNull final LocalGeneratorPaths paths,
+                                       @NotNull MapToSet<ModuleInfo, ClassInfo> moduleToClassesMap,
+                                       @NotNull ModuleInfo info) throws IOException {
+    MapToSet<String, ClassInfo> namespaceToClassMap = groupByNamespace(moduleToClassesMap.getValues(info));
 ```
 
 ### BoundedWildcard
