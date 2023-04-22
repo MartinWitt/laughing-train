@@ -133,7 +133,7 @@ jobs:
           cosign-release: 'v1.13.1'
       # Build Quarkus
       - name: Build
-        run: cd ./project-miner/ && gradle assemble -Dquarkus.package.type=native -Dquarkus.native.additional-build-args="--static","--libc=musl" -Dquarkus.native.container-build=true
+        run: cd ./project-miner/ && gradle assemble -Dquarkus.package.type=native -Dquarkus.native.container-build=true
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@a946f06b5ddbde456d0115dc585e8dc3c7a0c3e0
