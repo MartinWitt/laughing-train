@@ -1,0 +1,25 @@
+plugins {
+	id 'xyz.keksdose.spoon.code_solver.java-service-conventions'
+}
+
+dependencies {
+	implementation 'io.quarkus:quarkus-mongodb-panache:3.0.0.CR2'
+	annotationProcessor("io.quarkus:quarkus-panache-common")
+	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
+
+	implementation project(":application")
+	implementation project(":commons")
+	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.314.1'
+	implementation 'io.quarkus:quarkus-mutiny:3.0.0.Final'
+	implementation("io.quarkus:quarkus-resteasy-reactive")
+	implementation("io.quarkus:quarkus-oidc")
+	implementation("io.quarkus:quarkus-keycloak-authorization")
+	implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+	implementation("io.quarkus:quarkus-smallrye-openapi")
+	testImplementation 'org.instancio:instancio-junit:2.14.0'
+	implementation("io.quarkus:quarkus-scheduler")
+}
+
+group 'io.github.martinwitt'
+version '0.0.1'

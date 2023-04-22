@@ -9,11 +9,11 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.logging.Log;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.HealthCheckResponse;

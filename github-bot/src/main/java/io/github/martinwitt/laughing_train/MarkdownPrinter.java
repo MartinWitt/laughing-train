@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class MarkdownPrinter {

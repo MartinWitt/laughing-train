@@ -1,0 +1,21 @@
+plugins {
+    // Apply the common convention plugin for shared build configuration between library and application projects.
+    id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+    // Apply the java-library plugin for API and implementation separation.
+    id 'java-library'
+    id "io.quarkus"
+}
+def quarkusPlatformGroupId="io.quarkus.platform"
+def quarkusPlatformArtifactId="quarkus-bom"
+def quarkusPlatformVersion="3.0.0.CR2"
+dependencies {
+
+  implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+	implementation 'io.quarkus:quarkus-arc'
+	implementation "io.quarkus:quarkus-scheduler"
+	implementation 'io.quarkus:quarkus-smallrye-health'
+	testImplementation 'io.quarkus:quarkus-junit5'
+}
+quarkusDependenciesBuild {
+	dependsOn("jandex")
+}

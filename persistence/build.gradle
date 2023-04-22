@@ -1,21 +1,14 @@
 plugins {
 	id 'java'
-	id "io.quarkus" version "2.16.6.Final"
-	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+	id 'xyz.keksdose.spoon.code_solver.java-service-conventions'
 }
 
 dependencies {
-	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-	implementation 'io.quarkus:quarkus-arc'
-	implementation "io.quarkus:quarkus-scheduler"
-	implementation 'io.quarkus:quarkus-smallrye-health'
-	testImplementation 'io.quarkus:quarkus-junit5'
 
-	implementation 'io.quarkus:quarkus-mongodb-panache:2.16.6.Final'
+	implementation 'io.quarkus:quarkus-mongodb-panache:3.0.0.CR2'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
-	testImplementation 'com.github.javafaker:javafaker:1.0.2'
 
 	implementation project(":application")
 	implementation project(":commons")
