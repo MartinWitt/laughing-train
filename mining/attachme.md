@@ -43,30 +43,6 @@ in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
 ```
 
 ### IOResource
-'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/EchoServer.java`
-#### Snippet
-```java
-        try (Socket client = sock.accept()) {
-          InputStream inputStream = client.getInputStream();
-          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-          String msg = (String) objectInputStream.readObject();
-          System.out.println("Received message " + msg);
-```
-
-### IOResource
-'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `agent/src/main/java/EchoServer.java`
-#### Snippet
-```java
-          String msg = (String) objectInputStream.readObject();
-          System.out.println("Received message " + msg);
-          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-          objectOutputStream.writeObject(msg);
-        }
-```
-
-### IOResource
 'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `agent/src/main/java/EchoServer.java`
 #### Snippet
@@ -90,6 +66,30 @@ in `agent/src/main/java/EchoServer.java`
       System.out.println("Received message " + echo);
 ```
 
+### IOResource
+'ObjectInputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `agent/src/main/java/EchoServer.java`
+#### Snippet
+```java
+        try (Socket client = sock.accept()) {
+          InputStream inputStream = client.getInputStream();
+          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+          String msg = (String) objectInputStream.readObject();
+          System.out.println("Received message " + msg);
+```
+
+### IOResource
+'ObjectOutputStream' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `agent/src/main/java/EchoServer.java`
+#### Snippet
+```java
+          String msg = (String) objectInputStream.readObject();
+          System.out.println("Received message " + msg);
+          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+          objectOutputStream.writeObject(msg);
+        }
+```
+
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.err` should probably be replaced with more robust logging
@@ -101,6 +101,30 @@ in `agent/src/main/java/com/attachme/agent/AttachmeClient.java`
     System.err.println("[attachme] Successfully notified attachme listener");
   }
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void info(String str) {
+        System.out.println(str);
+      }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
+#### Snippet
+```java
+      @Override
+      public void error(String str) {
+        System.out.println(str);
+      }
+    };
 ```
 
 ### SystemOutErr
@@ -129,42 +153,6 @@ in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void error(String str) {
-        System.out.println(str);
-      }
-    };
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/com/attachme/agent/AttachmeServer.java`
-#### Snippet
-```java
-      @Override
-      public void info(String str) {
-        System.out.println(str);
-      }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `agent/src/main/java/EchoServer.java`
-#### Snippet
-```java
-          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-          String msg = (String) objectInputStream.readObject();
-          System.out.println("Received message " + msg);
-          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-          objectOutputStream.writeObject(msg);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
@@ -185,6 +173,18 @@ in `agent/src/main/java/EchoServer.java`
       System.out.println("Received message " + echo);
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `agent/src/main/java/EchoServer.java`
+#### Snippet
+```java
+          ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+          String msg = (String) objectInputStream.readObject();
+          System.out.println("Received message " + msg);
+          ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+          objectOutputStream.writeObject(msg);
 ```
 
 ### SystemOutErr
@@ -375,18 +375,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
-#### Snippet
-```java
-      return;
-    }
-    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
-    AttachmeDebugger.attach(project, config, msg.getPid());
-  }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
 #### Snippet
 ```java
@@ -395,6 +383,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
     portField.setText(s.getPort() + "");
   }
 
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
+#### Snippet
+```java
+      return;
+    }
+    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
+    AttachmeDebugger.attach(project, config, msg.getPid());
+  }
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -423,19 +423,6 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
 
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
-#### Snippet
-```java
-      String line;
-      Function<String, Optional<Integer>> parser = portCommandHandler.outputParser(pid);
-      while ((line = script.readLine()) != null) {
-        parser.apply(line).ifPresent(ans::add);
-      }
-```
-
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -454,7 +441,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
-      }
+      System.out.println("Received message " + echo);
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       throw new IllegalStateException(e);
@@ -466,7 +453,7 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `agent/src/main/java/EchoServer.java`
 #### Snippet
 ```java
-      System.out.println("Received message " + echo);
+      }
     } catch (IOException | ClassNotFoundException e) {
       e.printStackTrace();
       throw new IllegalStateException(e);
@@ -519,6 +506,19 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
     task.setUncaughtExceptionHandler((t, e) -> e.printStackTrace());
     task.start();
   }
+```
+
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `agent/src/main/java/com/attachme/agent/CommandPortResolver.java`
+#### Snippet
+```java
+      String line;
+      Function<String, Optional<Integer>> parser = portCommandHandler.outputParser(pid);
+      while ((line = script.readLine()) != null) {
+        parser.apply(line).ifPresent(ans::add);
+      }
 ```
 
 ## RuleId[id=UnusedAssignment]
