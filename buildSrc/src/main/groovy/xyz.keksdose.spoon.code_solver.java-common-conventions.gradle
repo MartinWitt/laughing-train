@@ -20,6 +20,7 @@ dependencies {
 	errorprone("com.google.errorprone:error_prone_core:2.18.0")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	annotationProcessor "com.uber.nullaway:nullaway:+"
+	testImplementation "org.instancio:instancio-junit:2.14.0"
 }
 testing {
     suites {
@@ -43,7 +44,6 @@ spotless {
 
 	groovyGradle {
 		target '*.gradle' // default target of groovyGradle
-		greclipse()
 	}
 	java {
         palantirJavaFormat()

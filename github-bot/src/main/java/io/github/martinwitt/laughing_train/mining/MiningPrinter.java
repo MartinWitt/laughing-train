@@ -5,6 +5,8 @@ import io.github.martinwitt.laughing_train.MarkdownPrinter;
 import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,8 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
 @ApplicationScoped

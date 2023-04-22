@@ -12,15 +12,15 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 
 /**
  * This class is used to migrate the database to the latest version.
