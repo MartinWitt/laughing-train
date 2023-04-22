@@ -118,8 +118,8 @@ jobs:
       - name: GitHub Action for GraalVM
         uses: graalvm/setup-graalvm@v1
         with:
-            version: 'dev'
-            java-version: 'dev'
+            version: 'latest'
+            java-version: '19'
             components: 'native-image'
             github-token: ${{ secrets.GITHUB_TOKEN }}
       # Install the cosign tool except on PR
