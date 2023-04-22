@@ -303,23 +303,11 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
-#### Snippet
-```java
-    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
-
-    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
-      return null;
-    }
+  private String tryGetFirstNotEmpty(String ... values) {
+    for(String value: values) {
+      if(!StringUtil.isEmptyOrSpaces(value)) {
+        return value;
+      }
 ```
 
 ### StaticCallOnSubclass
@@ -375,11 +363,11 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
-  private String tryGetFirstNotEmpty(String ... values) {
-    for(String value: values) {
-      if(!StringUtil.isEmptyOrSpaces(value)) {
-        return value;
-      }
+
+    String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
+    if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
+      additionalArgs = "";
+    }
 ```
 
 ### StaticCallOnSubclass
@@ -387,11 +375,47 @@ Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.t
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
 #### Snippet
 ```java
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
 
-    String additionalArgs = tryGetFirstNotEmpty(getParam(profileName, Constants.ADDITIONAL_ARGS, isPredefined));
-    if(StringUtil.isEmptyOrSpaces(additionalArgs)) {
-      additionalArgs = "";
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
     }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/UserCredentialsServiceImpl.java`
+#### Snippet
+```java
+    final String password = tryGetFirstNotEmpty(myParametersService.tryGetParameter(Constants.PASSWORD), myParametersService.tryGetParameter(Constants.CONFIG_PASSWORD));
+
+    if(StringUtil.isEmptyOrSpaces(userName) || StringUtil.isEmptyOrSpaces(password)) {
+      return null;
+    }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+      for (String propertySet : propertySets) {
+        final String propertyValue = myProfileParametersService.tryGetProperty(propertySet, protectedPropertyName);
+        if (StringUtil.isEmptyOrSpaces(propertyValue)) {
+          continue;
+        }
+```
+
+### StaticCallOnSubclass
+Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ProfileParametersServiceImpl.java`
+#### Snippet
+```java
+    myProfiles.clear();
+    final String credentialsDirectoryStr = myAgentParametersService.tryGetConfigParameter(jetbrains.buildServer.runAs.common.Constants.CREDENTIALS_DIRECTORY);
+    if(StringUtil.isEmptyOrSpaces(credentialsDirectoryStr)) {
+      LOG.error("Configuration parameter \"" + Constants.CREDENTIALS_DIRECTORY + "\" was not defined");
+      return;
 ```
 
 ### StaticCallOnSubclass
@@ -440,30 +464,6 @@ in `runAs-server/src/main/java/jetbrains/buildServer/runAs/server/RunAsRunTypeEx
           if (StringUtil.isEmpty(password)) {
             result.add(new InvalidProperty(RunAsBean.Shared.getRunAsPasswordKey(), "The password must be specified."));
           }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-      for (String propertySet : propertySets) {
-        final String propertyValue = myProfileParametersService.tryGetProperty(propertySet, protectedPropertyName);
-        if (StringUtil.isEmptyOrSpaces(propertyValue)) {
-          continue;
-        }
-```
-
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/ProfileParametersServiceImpl.java`
-#### Snippet
-```java
-    myProfiles.clear();
-    final String credentialsDirectoryStr = myAgentParametersService.tryGetConfigParameter(jetbrains.buildServer.runAs.common.Constants.CREDENTIALS_DIRECTORY);
-    if(StringUtil.isEmptyOrSpaces(credentialsDirectoryStr)) {
-      LOG.error("Configuration parameter \"" + Constants.CREDENTIALS_DIRECTORY + "\" was not defined");
-      return;
 ```
 
 ### StaticCallOnSubclass
@@ -703,6 +703,54 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/CmdGenerator.jav
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
+      try {
+        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
+#### Snippet
+```java
+    }
+
+    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
+      try {
+        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
+```
+
+### BoundedWildcard
 Can generalize to `? extends AccessControlEntry`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlList.java`
 #### Snippet
@@ -712,54 +760,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/AccessControlLis
   AccessControlList(final Iterable<AccessControlEntry> accessControlEntries) {
     for (AccessControlEntry entry: accessControlEntries) {
       myAccessControlEntries.add(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onWindows(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider) {
-      try {
-        myCommandLineExecutor.runProcess(OurIcaclsCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
-#### Snippet
-```java
-    }
-
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
 ```
 
 ### BoundedWildcard
@@ -834,19 +834,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPlatformSpe
     myUserCredentialsService = userCredentialsService;
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-Primitive type members cannot be annotated
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
-#### Snippet
-```java
-
-public class Result<TContext, TValue> {
-  @NotNull private final boolean myIsSuccessful;
-  @NotNull private TContext myContext;
-  @Nullable private TValue myValue;
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final @NotNull`
@@ -865,11 +852,11 @@ Missorted modifiers `final @NotNull`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
+    }
 
-  private void protectProperty(
-    final @NotNull AgentRunningBuild runningBuild,
-    final String propertyValue) {
-    if (myIsHidingOfPropertyIsNotSupported) {
+    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
+      try {
+        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
 ```
 
 ### MissortedModifiers
@@ -901,11 +888,24 @@ Missorted modifiers `final @NotNull`
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
-    }
 
-    private void onLinuxBased(final @NotNull Map<String, String> parameters, final ToolProvider toolProvider, final String script) {
-      try {
-        myCommandLineExecutor.runProcess(OurChmodHelpCmdLineSetup, 600);
+  private void protectProperty(
+    final @NotNull AgentRunningBuild runningBuild,
+    final String propertyValue) {
+    if (myIsHidingOfPropertyIsNotSupported) {
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Primitive type members cannot be annotated
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/Result.java`
+#### Snippet
+```java
+
+public class Result<TContext, TValue> {
+  @NotNull private final boolean myIsSuccessful;
+  @NotNull private TContext myContext;
+  @Nullable private TValue myValue;
 ```
 
 ## RuleId[id=RedundantSuppression]
@@ -948,30 +948,6 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/WindowsArgumentC
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
-#### Snippet
-```java
-  @Override
-  public String convert(@NotNull final String arg) {
-    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
-  }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
 `split()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser.java`
 #### Snippet
@@ -993,6 +969,30 @@ in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/FileAccessParser
       for (String pathItem: antPatternsStr.split(",")) {
           final File path = new File(pathItem.trim());
           accessControlEntries.add(new AccessControlEntry(path, account, permissions, scope));
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
+#### Snippet
+```java
+  @Override
+  public String convert(@NotNull final String arg) {
+    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
+  }
+}
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/LinuxArgumentConverter.java`
+#### Snippet
+```java
+  @Override
+  public String convert(@NotNull final String arg) {
+    return "$'" + arg.replace("\\", "\\\\").replace("'", "\\'") + "'";
+  }
+}
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -1120,7 +1120,7 @@ import jetbrains.buildServer.runAs.common.Constants;
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-08-57-23.810.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-13-41-34.925.html`
 #### Snippet
 ```java
               <td>0</td>
