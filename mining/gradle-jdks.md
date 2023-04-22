@@ -111,18 +111,6 @@ public abstract class JdkDistributionExtension {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
-#### Snippet
-```java
-
-@Value.Immutable
-abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
-    protected abstract Provider<Directory> installationPathProvider();
-
-```
-
-### AbstractClassNeverImplemented
 Abstract class `JdksExtension` has no concrete subclass
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 #### Snippet
@@ -134,19 +122,19 @@ public abstract class JdksExtension {
     private final LazilyConfiguredMapping<JavaLanguageVersion, JdkExtension, Project> jdks;
 ```
 
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains array `byte[]`
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
+### AbstractClassNeverImplemented
+Abstract class `GradleJdksJavaInstallationMetadata` has no concrete subclass
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/GradleJdksJavaInstallationMetadata.java`
 #### Snippet
 ```java
-    }
 
-    private Optional<byte[]> systemCertificates() {
-        Os currentOs = Os.current();
+@Value.Immutable
+abstract class GradleJdksJavaInstallationMetadata implements JavaInstallationMetadata {
+    protected abstract Provider<Directory> installationPathProvider();
 
 ```
 
+## RuleId[id=OptionalContainsCollection]
 ### OptionalContainsCollection
 'Optional' contains array `byte[]`
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
@@ -157,6 +145,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
     private Optional<byte[]> linuxSystemCertificates() {
         List<Path> possibleCaCertificatePaths = List.of(
                 // Ubuntu/debian
+```
+
+### OptionalContainsCollection
+'Optional' contains array `byte[]`
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/PalantirCaPlugin.java`
+#### Snippet
+```java
+    }
+
+    private Optional<byte[]> systemCertificates() {
+        Os currentOs = Os.current();
+
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -246,18 +246,6 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdksExtension.java`
 ```
 
 ## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
-#### Snippet
-```java
-    private static final class PathLock implements Closeable {
-        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
-        private final Closer closer;
-
-        PathLock(Path path) throws IOException {
-```
-
 ### UnstableApiUsage
 'com.google.common.io.Closer' is marked unstable with @Beta
 in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
@@ -376,6 +364,18 @@ in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
         private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
         private final Closer closer;
 
+```
+
+### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `gradle-jdks/src/main/java/com/palantir/gradle/jdks/JdkManager.java`
+#### Snippet
+```java
+    private static final class PathLock implements Closeable {
+        private static final Striped<Lock> JVM_LOCKS = Striped.lock(16);
+        private final Closer closer;
+
+        PathLock(Path path) throws IOException {
 ```
 
 ### UnstableApiUsage
