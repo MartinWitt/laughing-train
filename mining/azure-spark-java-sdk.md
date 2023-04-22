@@ -37,35 +37,35 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/microsoft/azure/spark/tools/ux/IdeSchedulers.java`
 #### Snippet
 ```java
-    public Scheduler processBarVisibleSync(String title);
-
-    public Scheduler dispatchUIThread();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/azure/spark/tools/ux/IdeSchedulers.java`
-#### Snippet
-```java
-    public Scheduler processBarVisibleAsync(String title);
-
-    public Scheduler processBarVisibleSync(String title);
-
-    public Scheduler dispatchUIThread();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/azure/spark/tools/ux/IdeSchedulers.java`
-#### Snippet
-```java
 
 public interface IdeSchedulers {
     public Scheduler processBarVisibleAsync(String title);
 
     public Scheduler processBarVisibleSync(String title);
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/azure/spark/tools/ux/IdeSchedulers.java`
+#### Snippet
+```java
+    public Scheduler processBarVisibleAsync(String title);
+
+    public Scheduler processBarVisibleSync(String title);
+
+    public Scheduler dispatchUIThread();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/azure/spark/tools/ux/IdeSchedulers.java`
+#### Snippet
+```java
+    public Scheduler processBarVisibleSync(String title);
+
+    public Scheduler dispatchUIThread();
+}
+
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
@@ -124,8 +124,8 @@ Double-checked locking
 in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-    @Override
-    public T get() {
+
+    public T getOrEvaluate(final Supplier<T> evaluate) {
         if (this.value == null) {
             synchronized (this) {
                 if (this.value == null) {
@@ -136,8 +136,8 @@ Double-checked locking
 in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-
-    public T getOrEvaluate(final Supplier<T> evaluate) {
+    @Override
+    public T get() {
         if (this.value == null) {
             synchronized (this) {
                 if (this.value == null) {
@@ -311,11 +311,11 @@ Can generalize to `? extends T`
 in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("uninitialized")
-    public Lazy(final @Nullable Supplier<T> supplier) {
-        this.supplier = supplier;
     }
+
+    public T getOrEvaluate(final Supplier<T> evaluate) {
+        if (this.value == null) {
+            synchronized (this) {
 ```
 
 ### BoundedWildcard
@@ -323,11 +323,11 @@ Can generalize to `? extends T`
 in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-    }
 
-    public T getOrEvaluate(final Supplier<T> evaluate) {
-        if (this.value == null) {
-            synchronized (this) {
+    @SuppressWarnings("uninitialized")
+    public Lazy(final @Nullable Supplier<T> supplier) {
+        this.supplier = supplier;
+    }
 ```
 
 ### BoundedWildcard
@@ -372,18 +372,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/http/UserAgentEntity.java`
 #### Snippet
 ```java
-    private final String product;
-    private final @Nullable String version;
-    private final @Nullable String comment;
-
-    /**
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/http/UserAgentEntity.java`
-#### Snippet
-```java
 public class UserAgentEntity {
     private final String product;
     private final @Nullable String version;
@@ -393,26 +381,14 @@ public class UserAgentEntity {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
+in `src/main/java/com/microsoft/azure/spark/tools/http/UserAgentEntity.java`
 #### Snippet
 ```java
-    private final URI yarnNMConnectUri;
-    
-    private @Nullable String currentLogUrl;
-    private final String applicationId;
-    private final YarnCluster cluster;
-```
+    private final String product;
+    private final @Nullable String version;
+    private final @Nullable String comment;
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
-#### Snippet
-```java
- */
-public class YarnContainerLogFetcher implements SparkLogFetcher, Logger {
-    private @Nullable App lastAppRawResponse = null;
-    private final Map<String, Long> unfetchedOffsetByType = new HashMap<>();
-
+    /**
 ```
 
 ### NullableProblems
@@ -441,18 +417,6 @@ public class Lazy<T> implements Supplier<T> {
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/http/status/HttpErrorStatus.java`
-#### Snippet
-```java
-
-
-    private final @Nullable HttpEntity entity;
-
-    public HttpErrorStatus(
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
 #### Snippet
 ```java
@@ -461,6 +425,18 @@ in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteP
         private @Nullable File artifact = null;
         private final SparkBatchJobFactory batchJobFactory;
         private final LaterInit<Observer<Pair<MessageInfoType, String>>> ctrlSubject = new LaterInit<>();
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+#### Snippet
+```java
+
+    private IdeSchedulers schedulers;
+    private @Nullable File artifactPath;
+    private final String title;
+    private final Observer<Pair<MessageInfoType, String>> ctrlSubject;
 ```
 
 ### NullableProblems
@@ -477,14 +453,38 @@ in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteP
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
+#### Snippet
+```java
+ */
+public class YarnContainerLogFetcher implements SparkLogFetcher, Logger {
+    private @Nullable App lastAppRawResponse = null;
+    private final Map<String, Long> unfetchedOffsetByType = new HashMap<>();
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
+#### Snippet
+```java
+    private final URI yarnNMConnectUri;
+    
+    private @Nullable String currentLogUrl;
+    private final String applicationId;
+    private final YarnCluster cluster;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/http/status/HttpErrorStatus.java`
 #### Snippet
 ```java
 
-    private IdeSchedulers schedulers;
-    private @Nullable File artifactPath;
-    private final String title;
-    private final Observer<Pair<MessageInfoType, String>> ctrlSubject;
+
+    private final @Nullable HttpEntity entity;
+
+    public HttpErrorStatus(
 ```
 
 ### NullableProblems
@@ -504,42 +504,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private @Nullable String artifactUri = null;
-
-        private @Nullable String className = null;
-
-        private List<String> referenceFiles = new ArrayList<>();
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable MemorySize driverMemory = null;
-
-        private @Nullable Integer driverCores = null;
-
-        private @Nullable MemorySize executorMemory = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable Integer driverCores = null;
-
-        private @Nullable MemorySize executorMemory = null;
-
-        private @Nullable Integer executorCores = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
     }
 
     private @Nullable String name;
@@ -552,11 +516,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-    private @Nullable Integer driverCores;
+        private @Nullable MemorySize executorMemory = null;
 
-    private @Nullable MemorySize executorMemory;
+        private @Nullable Integer executorCores = null;
 
-    private @Nullable Integer executorCores;
+        private @Nullable Integer yarnNumExecutors = null;
 ```
 
 ### NullableProblems
@@ -576,23 +540,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private @Nullable MemorySize executorMemory = null;
-
-        private @Nullable Integer executorCores = null;
-
-        private @Nullable Integer yarnNumExecutors = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-    private @Nullable MemorySize driverMemory;
-
-    private @Nullable Integer driverCores;
-
     private @Nullable MemorySize executorMemory;
+
+    private @Nullable Integer executorCores;
+
+    @JsonProperty("numExecutors")
 ```
 
 ### NullableProblems
@@ -612,54 +564,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private Map<String, String> jobConfig = new HashMap<>();
-
-        private @Nullable String yarnQueue = null;
-
-        private @Nullable MemorySize driverMemory = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-    private @Nullable MemorySize executorMemory;
-
-    private @Nullable Integer executorCores;
-
-    @JsonProperty("numExecutors")
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-
-    @JsonProperty("numExecutors")
-    private @Nullable Integer yarnNumExecutors;
-
-    private static final String DRIVER_MEMORY = "driverMemory";
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable String name = null;
-
-        private @Nullable String proxyUser = null;
-
-        private @Nullable String artifactUri = null;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
 
     public static class Options {
         private @Nullable String name = null;
@@ -672,23 +576,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-    private @Nullable String yarnQueue;
-
-    private @Nullable MemorySize driverMemory;
-
-    private @Nullable Integer driverCores;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable String proxyUser = null;
-
         private @Nullable String artifactUri = null;
 
         private @Nullable String className = null;
+
+        private List<String> referenceFiles = new ArrayList<>();
 ```
 
 ### NullableProblems
@@ -713,6 +605,114 @@ in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostB
         private @Nullable MemorySize driverMemory = null;
 
         private @Nullable Integer driverCores = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable MemorySize driverMemory = null;
+
+        private @Nullable Integer driverCores = null;
+
+        private @Nullable MemorySize executorMemory = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private Map<String, String> jobConfig = new HashMap<>();
+
+        private @Nullable String yarnQueue = null;
+
+        private @Nullable MemorySize driverMemory = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable String name = null;
+
+        private @Nullable String proxyUser = null;
+
+        private @Nullable String artifactUri = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable String proxyUser = null;
+
+        private @Nullable String artifactUri = null;
+
+        private @Nullable String className = null;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+
+    @JsonProperty("numExecutors")
+    private @Nullable Integer yarnNumExecutors;
+
+    private static final String DRIVER_MEMORY = "driverMemory";
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+    private @Nullable Integer driverCores;
+
+    private @Nullable MemorySize executorMemory;
+
+    private @Nullable Integer executorCores;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+    private @Nullable String yarnQueue;
+
+    private @Nullable MemorySize driverMemory;
+
+    private @Nullable Integer driverCores;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+    private @Nullable MemorySize driverMemory;
+
+    private @Nullable Integer driverCores;
+
+    private @Nullable MemorySize executorMemory;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable Integer driverCores = null;
+
+        private @Nullable MemorySize executorMemory = null;
+
+        private @Nullable Integer executorCores = null;
 ```
 
 ### NullableProblems
@@ -787,9 +787,9 @@ in `src/main/java/com/microsoft/azure/spark/tools/job/LivySparkBatchFactory.java
 ```java
     }
 
-    private PublishSubject<Pair<MessageInfoType, String>> createLogAsControlSubject(final org.slf4j.Logger log) {
-        PublishSubject<Pair<MessageInfoType, String>> logAsCtrlSubject = PublishSubject.create();
-        logAsCtrlSubject.subscribe(
+    protected org.slf4j.Logger getLoggerForControlSubject() {
+        return LoggerFactory.getLogger(LivySparkBatch.class);
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -799,9 +799,9 @@ in `src/main/java/com/microsoft/azure/spark/tools/job/LivySparkBatchFactory.java
 ```java
     }
 
-    protected org.slf4j.Logger getLoggerForControlSubject() {
-        return LoggerFactory.getLogger(LivySparkBatch.class);
-    }
+    private PublishSubject<Pair<MessageInfoType, String>> createLogAsControlSubject(final org.slf4j.Logger log) {
+        PublishSubject<Pair<MessageInfoType, String>> logAsCtrlSubject = PublishSubject.create();
+        logAsCtrlSubject.subscribe(
 ```
 
 ## RuleId[id=CodeBlock2Expr]
@@ -892,14 +892,14 @@ in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkJobLogInputStre
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
+Field initialization to `false` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
 #### Snippet
 ```java
- */
-public class YarnContainerLogFetcher implements SparkLogFetcher, Logger {
-    private @Nullable App lastAppRawResponse = null;
-    private final Map<String, Long> unfetchedOffsetByType = new HashMap<>();
+    private final SparkBatchJob sparkJob;
+    private final PublishSubject<SparkBatchJobSubmissionEvent> eventSubject = PublishSubject.create();
+    private boolean isDestroyed = false;
+    private @Nullable Integer exitValue = null;
 
 ```
 
@@ -928,14 +928,14 @@ in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteP
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/job/YarnContainerLogFetcher.java`
 #### Snippet
 ```java
-    private final SparkBatchJob sparkJob;
-    private final PublishSubject<SparkBatchJobSubmissionEvent> eventSubject = PublishSubject.create();
-    private boolean isDestroyed = false;
-    private @Nullable Integer exitValue = null;
+ */
+public class YarnContainerLogFetcher implements SparkLogFetcher, Logger {
+    private @Nullable App lastAppRawResponse = null;
+    private final Map<String, Long> unfetchedOffsetByType = new HashMap<>();
 
 ```
 
@@ -944,71 +944,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private Map<String, String> jobConfig = new HashMap<>();
-
-        private @Nullable String yarnQueue = null;
-
-        private @Nullable MemorySize driverMemory = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable String artifactUri = null;
-
-        private @Nullable String className = null;
-
-        private List<String> referenceFiles = new ArrayList<>();
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable MemorySize driverMemory = null;
-
-        private @Nullable Integer driverCores = null;
-
-        private @Nullable MemorySize executorMemory = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable Integer driverCores = null;
-
         private @Nullable MemorySize executorMemory = null;
 
         private @Nullable Integer executorCores = null;
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-        private @Nullable String name = null;
-
-        private @Nullable String proxyUser = null;
-
-        private @Nullable String artifactUri = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
-#### Snippet
-```java
-
-    public static class Options {
-        private @Nullable String name = null;
-
-        private @Nullable String proxyUser = null;
+        private @Nullable Integer yarnNumExecutors = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1028,11 +968,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private @Nullable MemorySize executorMemory = null;
 
-        private @Nullable Integer executorCores = null;
+    public static class Options {
+        private @Nullable String name = null;
 
-        private @Nullable Integer yarnNumExecutors = null;
+        private @Nullable String proxyUser = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1040,11 +980,11 @@ Field initialization to `null` is redundant
 in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
 #### Snippet
 ```java
-        private @Nullable String proxyUser = null;
-
         private @Nullable String artifactUri = null;
 
         private @Nullable String className = null;
+
+        private List<String> referenceFiles = new ArrayList<>();
 ```
 
 ### RedundantFieldInitialization
@@ -1057,6 +997,66 @@ in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostB
         private @Nullable MemorySize driverMemory = null;
 
         private @Nullable Integer driverCores = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable MemorySize driverMemory = null;
+
+        private @Nullable Integer driverCores = null;
+
+        private @Nullable MemorySize executorMemory = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private Map<String, String> jobConfig = new HashMap<>();
+
+        private @Nullable String yarnQueue = null;
+
+        private @Nullable MemorySize driverMemory = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable Integer driverCores = null;
+
+        private @Nullable MemorySize executorMemory = null;
+
+        private @Nullable Integer executorCores = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable String name = null;
+
+        private @Nullable String proxyUser = null;
+
+        private @Nullable String artifactUri = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/com/microsoft/azure/spark/tools/restapi/livy/batches/api/PostBatches.java`
+#### Snippet
+```java
+        private @Nullable String proxyUser = null;
+
+        private @Nullable String artifactUri = null;
+
+        private @Nullable String className = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1109,30 +1109,6 @@ in `src/main/java/com/microsoft/azure/spark/tools/http/status/ServerError.java`
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `ForbiddenHttpErrorStatus` does not end with 'Exception'
-in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
-#### Snippet
-```java
-    }
-
-    public static class ForbiddenHttpErrorStatus extends ClientError {
-        public ForbiddenHttpErrorStatus(
-                final String message,
-```
-
-### ExceptionNameDoesntEndWithException
-Exception class name `NotFoundHttpErrorStatus` does not end with 'Exception'
-in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
-#### Snippet
-```java
-    }
-
-    public static class NotFoundHttpErrorStatus extends ClientError {
-        public NotFoundHttpErrorStatus(
-                final String message,
-```
-
-### ExceptionNameDoesntEndWithException
 Exception class name `BadRequestHttpErrorStatus` does not end with 'Exception'
 in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
 #### Snippet
@@ -1141,6 +1117,30 @@ in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
 
     public static class BadRequestHttpErrorStatus extends ClientError {
         public BadRequestHttpErrorStatus(
+                final String message,
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `MethodNotAllowedHttpErrorStatus` does not end with 'Exception'
+in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
+#### Snippet
+```java
+    }
+
+    public static class MethodNotAllowedHttpErrorStatus extends ClientError {
+        public MethodNotAllowedHttpErrorStatus(
+                final String message,
+```
+
+### ExceptionNameDoesntEndWithException
+Exception class name `ForbiddenHttpErrorStatus` does not end with 'Exception'
+in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
+#### Snippet
+```java
+    }
+
+    public static class ForbiddenHttpErrorStatus extends ClientError {
+        public ForbiddenHttpErrorStatus(
                 final String message,
 ```
 
@@ -1157,14 +1157,14 @@ public class ClientError extends HttpErrorStatus {
 ```
 
 ### ExceptionNameDoesntEndWithException
-Exception class name `MethodNotAllowedHttpErrorStatus` does not end with 'Exception'
+Exception class name `NotFoundHttpErrorStatus` does not end with 'Exception'
 in `src/main/java/com/microsoft/azure/spark/tools/http/status/ClientError.java`
 #### Snippet
 ```java
     }
 
-    public static class MethodNotAllowedHttpErrorStatus extends ClientError {
-        public MethodNotAllowedHttpErrorStatus(
+    public static class NotFoundHttpErrorStatus extends ClientError {
+        public NotFoundHttpErrorStatus(
                 final String message,
 ```
 
@@ -1195,7 +1195,7 @@ public class HttpErrorStatus extends HttpException {
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-06-42-30.421.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-20-50-12.017.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -1211,18 +1211,6 @@ Lock operations on 'this' may have unforeseen side-effects
 in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-    public T get() {
-        if (this.value == null) {
-            synchronized (this) {
-                if (this.value == null) {
-                    if (this.supplier == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
-#### Snippet
-```java
     public T getOrEvaluate(final Supplier<T> evaluate) {
         if (this.value == null) {
             synchronized (this) {
@@ -1232,26 +1220,14 @@ in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 
 ### SynchronizeOnThis
 Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+in `src/main/java/com/microsoft/azure/spark/tools/utils/Lazy.java`
 #### Snippet
 ```java
-        }
-
-        synchronized (this) {
-            exitValue = code;
-            notifyAll();
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
-#### Snippet
-```java
-        synchronized (this) {
-            exitValue = code;
-            notifyAll();
-        }
-    }
+    public T get() {
+        if (this.value == null) {
+            synchronized (this) {
+                if (this.value == null) {
+                    if (this.supplier == null) {
 ```
 
 ### SynchronizeOnThis
@@ -1276,6 +1252,30 @@ in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteP
                 wait();
             }
         }
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+#### Snippet
+```java
+        }
+
+        synchronized (this) {
+            exitValue = code;
+            notifyAll();
+```
+
+### SynchronizeOnThis
+Lock operations on 'this' may have unforeseen side-effects
+in `src/main/java/com/microsoft/azure/spark/tools/processes/SparkBatchJobRemoteProcess.java`
+#### Snippet
+```java
+        synchronized (this) {
+            exitValue = code;
+            notifyAll();
+        }
+    }
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
