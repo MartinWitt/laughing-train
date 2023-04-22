@@ -115,10 +115,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: release-candidate
-      - uses: actions/setup-java@v3
+      - name: GitHub Action for GraalVM
+        uses: graalvm/setup-graalvm@v1
         with:
-          distribution: 'temurin'
-          java-version: '19'
+            version: 'dev'
+            java-version: 'dev'
+            components: 'native-image'
+            github-token: ${{ secrets.GITHUB_TOKEN }}
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
