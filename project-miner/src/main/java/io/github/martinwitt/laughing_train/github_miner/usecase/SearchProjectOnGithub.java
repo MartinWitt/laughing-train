@@ -1,6 +1,5 @@
 package io.github.martinwitt.laughing_train.github_miner.usecase;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.github_miner.data.GitHubProject;
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;

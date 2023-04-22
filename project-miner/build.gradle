@@ -8,8 +8,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 
-	implementation project(":application")
-	implementation project(":commons")
+
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.314.1'
 	implementation 'io.quarkus:quarkus-mutiny:3.0.0.Final'
 	implementation("io.quarkus:quarkus-resteasy-reactive")
