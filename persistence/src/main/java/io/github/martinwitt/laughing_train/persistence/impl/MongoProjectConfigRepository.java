@@ -5,8 +5,8 @@ import io.github.martinwitt.laughing_train.persistence.converter.ProjectConfigCo
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectConfigDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class MongoProjectConfigRepository implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {

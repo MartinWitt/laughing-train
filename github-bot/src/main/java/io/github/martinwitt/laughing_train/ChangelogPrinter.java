@@ -6,13 +6,13 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.history.Change;
 

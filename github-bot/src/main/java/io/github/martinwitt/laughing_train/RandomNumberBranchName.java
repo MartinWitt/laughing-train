@@ -1,7 +1,7 @@
 package io.github.martinwitt.laughing_train;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Random;
-import javax.enterprise.context.ApplicationScoped;
 
 /**
  * RandomNumberBranchName

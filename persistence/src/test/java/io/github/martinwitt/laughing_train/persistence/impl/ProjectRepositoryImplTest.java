@@ -2,11 +2,11 @@ package io.github.martinwitt.laughing_train.persistence.impl;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.github.javafaker.Faker;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +15,6 @@ import org.junit.jupiter.api.Test;
 public class ProjectRepositoryImplTest {
     @Inject
     ProjectRepository projectRepository;
-
-    private Faker faker = new Faker();
 
     @Test
     void testCreate() {
@@ -47,15 +45,14 @@ public class ProjectRepositoryImplTest {
     }
 
     private Project createMockProject() {
-        return new Project(faker.name().name(), faker.internet().url());
+        return Instancio.create(Project.class);
     }
 
     @Test
     void addCommitHashTest() {
         Project project = createMockProject();
         assertThat(projectRepository.create(project)).isEqualTo(project);
-        ;
-        project.addCommitHash(faker.lorem().characters(10));
+        project.addCommitHash("aaaa231adasdas");
         projectRepository.save(project);
 
         assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
