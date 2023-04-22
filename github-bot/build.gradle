@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.313.1'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app:1.17.0'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:1.17.0'
+	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.314.1'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app:2.0.0'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:2.0.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'

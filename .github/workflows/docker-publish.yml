@@ -121,6 +121,8 @@ jobs:
             version: 'latest'
             java-version: '17'
             components: 'native-image'
+            native-image-musl: true
+            native-image-job-reports: true
             github-token: ${{ secrets.GITHUB_TOKEN }}
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
