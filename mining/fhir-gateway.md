@@ -24,27 +24,15 @@ I found 44 bad smells with 6 repairable:
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
+Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
 #### Snippet
 ```java
-@SpringBootApplication(scanBasePackages = {"com.google.fhir.gateway.plugin"})
-@ServletComponentScan(basePackages = "com.google.fhir.gateway")
-public class MainApp {
+import org.slf4j.LoggerFactory;
 
-  public static void main(String[] args) {
-```
+public class FhirUtil {
 
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
+  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -60,6 +48,18 @@ public class ExceptionUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
+Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
+in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
+#### Snippet
+```java
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+public class JwtUtil {
+  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
+    Claim claim = jwt.getClaim(claimName);
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
 in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
 #### Snippet
@@ -72,15 +72,15 @@ public class ProxyConstants {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
+Class `MainApp` has only 'static' members, and lacks a 'private' constructor
+in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
+@SpringBootApplication(scanBasePackages = {"com.google.fhir.gateway.plugin"})
+@ServletComponentScan(basePackages = "com.google.fhir.gateway")
+public class MainApp {
 
-public class FhirUtil {
-
-  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
+  public static void main(String[] args) {
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -122,30 +122,6 @@ in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getIssuer` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Failed to decode JWT: " + e.getMessage(), e, AuthenticationException.class);
-    }
-    String issuer = jwt.getIssuer();
-    String algorithm = jwt.getAlgorithm();
-    JWTVerifier jwtVerifier = buildJwtVerifier(issuer);
-```
-
-### DataFlowIssue
-Method invocation `verify` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    DecodedJWT verifiedJwt = null;
-    try {
-      verifiedJwt = jwtVerifier.verify(jwt);
-    } catch (JWTVerificationException e) {
-      // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
-```
-
-### DataFlowIssue
 Argument `authHeader` might be null
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
@@ -167,6 +143,30 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
     AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
     if (!outcome.canAccess()) {
       ExceptionUtil.throwRuntimeExceptionAndLog(
+```
+
+### DataFlowIssue
+Method invocation `getIssuer` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Failed to decode JWT: " + e.getMessage(), e, AuthenticationException.class);
+    }
+    String issuer = jwt.getIssuer();
+    String algorithm = jwt.getAlgorithm();
+    JWTVerifier jwtVerifier = buildJwtVerifier(issuer);
+```
+
+### DataFlowIssue
+Method invocation `verify` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+    DecodedJWT verifiedJwt = null;
+    try {
+      verifiedJwt = jwtVerifier.verify(jwt);
+    } catch (JWTVerificationException e) {
+      // Throwing an AuthenticationException instead since it is handled by HAPI and a 401
 ```
 
 ## RuleId[id=NestedAssignment]
@@ -235,18 +235,6 @@ in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
-
-  private AllowedQueriesConfig config = null;
-
-  AllowedQueriesChecker(String configFile) throws IOException {
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
@@ -256,6 +244,18 @@ in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
     private boolean patientsToCreate = false;
 
     public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
+#### Snippet
+```java
+  private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
+
+  private AllowedQueriesConfig config = null;
+
+  AllowedQueriesChecker(String configFile) throws IOException {
 ```
 
 ### RedundantFieldInitialization
@@ -286,7 +286,7 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-19-13-29-05.311.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-22-16-06-29.529.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -303,7 +303,7 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 #### Snippet
 ```java
   @Override
-  public RequestMutation getRequestMutation(RequestDetailsReader requestDetailsReader) {
+  public String postProcess(HttpResponse response) {
     return null;
   }
 
@@ -315,19 +315,7 @@ in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.j
 #### Snippet
 ```java
   @Override
-  public String postProcess(HttpResponse response) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
-#### Snippet
-```java
-          logger, "Error in building URI for resource " + uriString);
-    }
+  public RequestMutation getRequestMutation(RequestDetailsReader requestDetailsReader) {
     return null;
   }
 
@@ -343,6 +331,18 @@ in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
       return null;
     }
     return requestDetails.getId().getIdPart();
+```
+
+### ReturnNull
+Return of `null`
+in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
+#### Snippet
+```java
+          logger, "Error in building URI for resource " + uriString);
+    }
+    return null;
+  }
+
 ```
 
 ### ReturnNull
