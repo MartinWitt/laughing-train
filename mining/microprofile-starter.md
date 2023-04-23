@@ -20,8 +20,8 @@ I found 109 bad smells with 2 repairable:
 | WrapperTypeMayBePrimitive | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | RegExpRedundantEscape | 1 | false |
-| CatchMayIgnoreException | 1 | false |
 | OctalLiteral | 1 | false |
+| CatchMayIgnoreException | 1 | false |
 | NonShortCircuitBoolean | 1 | false |
 | SetReplaceableByEnumSet | 1 | false |
 | UnnecessaryBoxing | 1 | false |
@@ -85,18 +85,6 @@ in `src/main/java/org/eclipse/microprofile/starter/core/templates/TemplateModelL
 ```
 
 ### DataFlowIssue
-Argument `FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst")` might be null
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-        Set<String> resources = new HashSet<>();
-
-        try (Scanner scanner = new Scanner(FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst"))) {
-
-            while (scanner.hasNext()) {
-```
-
-### DataFlowIssue
 Argument `stream` might be null
 in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
 #### Snippet
@@ -131,6 +119,18 @@ in `src/main/java/org/eclipse/microprofile/starter/Version.java`
                 .getResourceAsStream("/version.txt")).useDelimiter("\\A")) {
             git = s.hasNext() ? s.next() : "";
         } catch (Exception e) {
+```
+
+### DataFlowIssue
+Argument `FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst")` might be null
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+        Set<String> resources = new HashSet<>();
+
+        try (Scanner scanner = new Scanner(FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst"))) {
+
+            while (scanner.hasNext()) {
 ```
 
 ### DataFlowIssue
@@ -175,26 +175,98 @@ public class PackageNameValidator {
 ## RuleId[id=DuplicateBranchesInSwitch]
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/PayaraMicroServer.java`
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                return "2.2.3.Final";
+            case MP40:
+                break;
+            case MP33:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                break;
+            case MP33:
+                break;
+            case MP32:
+                return "1.7.6.Final";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                return "1.7.6.Final";
+            case MP22:
+                break;
+            case MP21:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                break;
+            case MP21:
+                break;
+            case MP20:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                break;
+            case MP20:
+                break;
+            case MP14:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
 #### Snippet
 ```java
                 break;
             case MP14:
-                payaraVersion = "5.183";
                 break;
             case MP13:
+                break;
 ```
 
 ### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
 #### Snippet
 ```java
-
-            case NONE:
                 break;
-            case MP40: case MP41: case MP50:
-                jaegerClientVersion="1.5.0";
+            case MP13:
+                break;
+            case MP12:
+                break;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+                break;
+            case MP12:
+                break;
+            default:
+        }
 ```
 
 ### DuplicateBranchesInSwitch
@@ -391,102 +463,6 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                return "2.2.3.Final";
-            case MP40:
-                break;
-            case MP33:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP33:
-                break;
-            case MP32:
-                return "1.7.6.Final";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                return "1.7.6.Final";
-            case MP22:
-                break;
-            case MP21:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP21:
-                break;
-            case MP20:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP20:
-                break;
-            case MP14:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP14:
-                break;
-            case MP13:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP13:
-                break;
-            case MP12:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-                break;
-            case MP12:
-                break;
-            default:
-        }
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/ThorntailServer.java`
 #### Snippet
 ```java
@@ -521,17 +497,53 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
                 thorntailVersion = "2.1.0.Final";
 ```
 
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/PayaraMicroServer.java`
+#### Snippet
+```java
+                break;
+            case MP14:
+                payaraVersion = "5.183";
+                break;
+            case MP13:
+```
+
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
+#### Snippet
+```java
+
+            case NONE:
+                break;
+            case MP40: case MP41: case MP50:
+                jaegerClientVersion="1.5.0";
+```
+
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'modelManager' in a Serializable class
+Non-serializable field 'errorLogger' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
 ```java
 
     @Inject
-    private ModelManager modelManager;
+    private ErrorLogger errorLogger;
 
-    @Inject
+    @Resource
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'engineData' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+    private ManagedExecutorService managedExecutorService;
+
+    private EngineData engineData;
+
+    private MicroProfileVersion microProfileVersion;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -542,6 +554,18 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 
     @Inject
     private Version version;
+
+    @Inject
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'modelManager' in a Serializable class
+in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+#### Snippet
+```java
+
+    @Inject
+    private ModelManager modelManager;
 
     @Inject
 ```
@@ -559,18 +583,6 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'engineData' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-    private ManagedExecutorService managedExecutorService;
-
-    private EngineData engineData;
-
-    private MicroProfileVersion microProfileVersion;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'creator' in a Serializable class
 in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 #### Snippet
@@ -580,31 +592,6 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
     private Creator creator;
 
     @Inject
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'errorLogger' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-
-    @Inject
-    private ErrorLogger errorLogger;
-
-    @Resource
-```
-
-## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
-#### Snippet
-```java
-                try {
-                    in.close();
-                } catch (IOException e1) {
-
-                }
 ```
 
 ## RuleId[id=OctalLiteral]
@@ -618,6 +605,19 @@ in `src/main/java/org/eclipse/microprofile/starter/ZipFileCreator.java`
                     zipEntry.setUnixMode(0755);
                 }
                 archive.putArchiveEntry(zipEntry);
+```
+
+## RuleId[id=CatchMayIgnoreException]
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
+#### Snippet
+```java
+                try {
+                    in.close();
+                } catch (IOException e1) {
+
+                }
 ```
 
 ## RuleId[id=NonShortCircuitBoolean]
@@ -648,39 +648,15 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/deserializer/ViewT
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/eclipse/microprofile/starter/core/addon/AddonManager.java`
+Can generalize to `? extends ConstraintViolation`
+in `src/main/java/org/eclipse/microprofile/starter/core/validation/ModelValidationException.java`
 #### Snippet
 ```java
     }
 
-    private <T> List<T> getProviders(Iterator<T> alternativesIterator) {
-        List<T> result = new ArrayList<>();
-        while (alternativesIterator.hasNext()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super SupportedServer`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/JDKSelector.java`
-#### Snippet
-```java
-    }
-
-    private void fillJavaSEVersion(Map<SupportedServer, Map<MicroProfileVersion, List<JavaSEVersion>>> data,
-                                   SupportedServer supportedServer,
-                                   JavaSEVersion seVersion,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileIdentification`
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-    }
-
-    private int selectBasedOnAlternatives(List<FileIdentification> candidates, Set<String> alternatives) {
-        int result = -1;
-        boolean multipleMatch = false;
+    private static String defineMessages(Set<ConstraintViolation<Object>> violations) {
+        StringBuilder result = new StringBuilder();
+        for (ConstraintViolation<Object> violation : violations) {
 ```
 
 ### BoundedWildcard
@@ -714,9 +690,9 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```java
     }
 
-    private void orderAddons(List<JessieAddon> allAddons) {
-        allAddons.sort(Comparator.comparing(JessieAddon::priority));
-    }
+    private void setAddonOptions(List<JessieAddon> allAddons, Map<String, OptionValue> options) {
+
+        for (JessieAddon addon : allAddons) {
 ```
 
 ### BoundedWildcard
@@ -738,9 +714,9 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```java
     }
 
-    private void setAddonOptions(List<JessieAddon> allAddons, Map<String, OptionValue> options) {
+    private Set<String> determineAlternatives(JessieModel model, List<JessieAddon> allAddons) {
+        Set<String> alternatives = alternativesProvider.determineAlternatives(model);
 
-        for (JessieAddon addon : allAddons) {
 ```
 
 ### BoundedWildcard
@@ -750,21 +726,45 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
 ```java
     }
 
-    private Set<String> determineAlternatives(JessieModel model, List<JessieAddon> allAddons) {
-        Set<String> alternatives = alternativesProvider.determineAlternatives(model);
-
+    private void orderAddons(List<JessieAddon> allAddons) {
+        allAddons.sort(Comparator.comparing(JessieAddon::priority));
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends ConstraintViolation`
-in `src/main/java/org/eclipse/microprofile/starter/core/validation/ModelValidationException.java`
+Can generalize to `? super SupportedServer`
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/JDKSelector.java`
 #### Snippet
 ```java
     }
 
-    private static String defineMessages(Set<ConstraintViolation<Object>> violations) {
-        StringBuilder result = new StringBuilder();
-        for (ConstraintViolation<Object> violation : violations) {
+    private void fillJavaSEVersion(Map<SupportedServer, Map<MicroProfileVersion, List<JavaSEVersion>>> data,
+                                   SupportedServer supportedServer,
+                                   JavaSEVersion seVersion,
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `src/main/java/org/eclipse/microprofile/starter/core/addon/AddonManager.java`
+#### Snippet
+```java
+    }
+
+    private <T> List<T> getProviders(Iterator<T> alternativesIterator) {
+        List<T> result = new ArrayList<>();
+        while (alternativesIterator.hasNext()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends FileIdentification`
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+    }
+
+    private int selectBasedOnAlternatives(List<FileIdentification> candidates, Set<String> alternatives) {
+        int result = -1;
+        boolean multipleMatch = false;
 ```
 
 ### BoundedWildcard
@@ -786,6 +786,18 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
 #### Snippet
 ```java
 
+    @JsonDeserialize(using = OptionsDeserializer.class)
+    final private Map<String, OptionValue> options = new HashMap<>();
+
+    @JsonIgnore
+```
+
+### MissortedModifiers
+Missorted modifiers `final private`
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
+#### Snippet
+```java
+
     @JsonIgnore
     final private Map<String, String> variables = new HashMap<>();
 
@@ -800,18 +812,6 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
 
     @JsonIgnore
     final private Map<String, Object> parameters = new HashMap<>();
-
-    @JsonIgnore
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
-#### Snippet
-```java
-
-    @JsonDeserialize(using = OptionsDeserializer.class)
-    final private Map<String, OptionValue> options = new HashMap<>();
 
     @JsonIgnore
 ```
@@ -845,12 +845,12 @@ in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/DirectoryCreator.java`
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieMaven.java`
 #### Snippet
 ```java
 
-    public String createPathForGroupAndArtifact(JessieMaven mavenModel) {
-        return (mavenModel.getGroupId() + '.' + mavenModel.getPackage()).replaceAll("\\.", "/");
+    public String getPackage() {
+        return artifactId.replaceAll("-", ".");
     }
 
 ```
@@ -881,12 +881,12 @@ in `src/main/java/org/eclipse/microprofile/starter/core/TemplateVariableProvider
 
 ### DynamicRegexReplaceableByCompiledPattern
 `replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieMaven.java`
+in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/DirectoryCreator.java`
 #### Snippet
 ```java
 
-    public String getPackage() {
-        return artifactId.replaceAll("-", ".");
+    public String createPathForGroupAndArtifact(JessieMaven mavenModel) {
+        return (mavenModel.getGroupId() + '.' + mavenModel.getPackage()).replaceAll("\\.", "/");
     }
 
 ```
@@ -929,31 +929,6 @@ in `src/main/java/org/eclipse/microprofile/starter/validation/PackageValidator.j
      * @return CDI instance matching the class type and qualifiers (if specified).
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getErrorStream()))) {
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            LOG.log(Level.FINE, line);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    LOG.log(Level.FINE, line);
-                }
-```
-
 ## RuleId[id=RegExpSingleCharAlternation]
 ### RegExpSingleCharAlternation
 Single character alternation in RegExp
@@ -980,19 +955,32 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
     
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/eclipse/microprofile/starter/ZipFileCreator.java`
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
 #### Snippet
 ```java
-            archive.finish();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            archiveContent.clear();
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getErrorStream()))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            LOG.log(Level.FINE, line);
+                        }
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
+#### Snippet
+```java
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    LOG.log(Level.FINE, line);
+                }
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
 in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
@@ -1003,6 +991,18 @@ in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
             ex.printStackTrace();
         }
 
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/main/java/org/eclipse/microprofile/starter/ZipFileCreator.java`
+#### Snippet
+```java
+            archive.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            archiveContent.clear();
 ```
 
 ## RuleId[id=EmptyMethod]
@@ -1132,11 +1132,47 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
+    private MicroProfileVersion mpVersion = null;
+    private JavaSEVersion javaSEVersion = null;
+    private SupportedServer supportedServer = null;
+    private List<String> selectedSpecs = null;
+    private List<MicroprofileSpec> selectedSpecEnums;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
 public class Project {
     private String groupId = null;
     private String artifactId = null;
     private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
+    private JavaSEVersion javaSEVersion = null;
+    private SupportedServer supportedServer = null;
+    private List<String> selectedSpecs = null;
+    private List<MicroprofileSpec> selectedSpecEnums;
+    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
+#### Snippet
+```java
+    private List<String> selectedSpecs = null;
+    private List<MicroprofileSpec> selectedSpecEnums;
+    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
+    private BuildTool buildTool = BuildTool.MAVEN;
+    private boolean selectAllSpecs = false;
 ```
 
 ### RedundantFieldInitialization
@@ -1149,42 +1185,6 @@ in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
     private boolean selectAllSpecs = false;
 
     public String getGroupId() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-    private BuildTool buildTool = BuildTool.MAVEN;
-    private boolean selectAllSpecs = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
 ```
 
 ### RedundantFieldInitialization
@@ -1216,11 +1216,11 @@ Field initialization to `null` is redundant
 in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
 #### Snippet
 ```java
+    private String artifactId = null;
+    private MicroProfileVersion mpVersion = null;
     private JavaSEVersion javaSEVersion = null;
     private SupportedServer supportedServer = null;
     private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
 ```
 
 ### RedundantFieldInitialization
@@ -1238,6 +1238,18 @@ in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
+#### Snippet
+```java
+            default:
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/WildFlyServer.java`
 #### Snippet
 ```java
@@ -1246,6 +1258,30 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
         return null;
     }
 }
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
+#### Snippet
+```java
+        } catch (NoSuchAlgorithmException e) {
+            LOG.log(Level.SEVERE, "SHA-256 not available.", e);
+            return null;
+        }
+        digest.update(StandardCharsets.UTF_8.encode(dynamoDBJSON));
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
+#### Snippet
+```java
+        } catch (NoSuchAlgorithmException e) {
+            LOG.log(Level.SEVERE, "SHA-1 not available.", e);
+            return null;
+        }
+        final String timestamp = logMessageTimeFormat.format(date);
 ```
 
 ### ReturnNull
@@ -1272,46 +1308,10 @@ in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
         final byte[] signatureBytes = mac.doFinal(stringToSign.getBytes(StandardCharsets.US_ASCII));
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-1 not available.", e);
-            return null;
-        }
-        final String timestamp = logMessageTimeFormat.format(date);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-256 not available.", e);
-            return null;
-        }
-        digest.update(StandardCharsets.UTF_8.encode(dynamoDBJSON));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-            default:
-        }
-        return null;
-    }
-}
-```
-
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-17-18-31.297.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-07-58-03.388.html`
 #### Snippet
 ```java
               <td>0</td>
