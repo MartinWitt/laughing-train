@@ -1,14 +1,15 @@
 # logging-log4j-transform 
  
 # Bad smells
-I found 8 bad smells with 1 repairable:
+I found 9 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | RedundantFieldInitialization | 2 | false |
 | BoundedWildcard | 2 | false |
-| UnnecessaryModifier | 1 | true |
 | NonSerializableFieldInSerializableClass | 1 | false |
+| UnnecessaryModifier | 1 | true |
 | ReturnNull | 1 | false |
+| HtmlWrongAttributeValue | 1 | false |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
@@ -35,19 +36,6 @@ in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/loggi
 
 ```
 
-## RuleId[id=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
-#### Snippet
-```java
-    private final Type[] argumentTypes;
-
-    private SupplierLambdaType(final Type... argumentTypes) {
-        this.argumentTypes = argumentTypes;
-    }
-```
-
 ## RuleId[id=NonSerializableFieldInSerializableClass]
 ### NonSerializableFieldInSerializableClass
 Non-serializable field 'argumentTypes' in a Serializable class
@@ -61,6 +49,19 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaTyp
     private SupplierLambdaType(final Type... argumentTypes) {
 ```
 
+## RuleId[id=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/SupplierLambdaType.java`
+#### Snippet
+```java
+    private final Type[] argumentTypes;
+
+    private SupplierLambdaType(final Type... argumentTypes) {
+        this.argumentTypes = argumentTypes;
+    }
+```
+
 ## RuleId[id=ReturnNull]
 ### ReturnNull
 Return of `null`
@@ -72,6 +73,19 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationClassVisi
                 : null;
     }
 
+```
+
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-00-04-04.602.html`
+#### Snippet
+```java
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -89,18 +103,6 @@ in `log4j-weaver/src/main/java/org/apache/logging/log4j/weaver/LocationCacheGene
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends Path`
-in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
-#### Snippet
-```java
-    }
-
-    private void convertClassfiles(List<Path> classFiles, LocationClassConverter converter,
-            LocationCacheGenerator locationCache) {
-        final Path sourceDirectory = this.sourceDirectory.toPath();
-```
-
-### BoundedWildcard
 Can generalize to `? extends Relocator`
 in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/logging/log4j/maven/plugins/shade/transformer/Log4j2PluginCacheFileTransformer.java`
 #### Snippet
@@ -110,5 +112,17 @@ in `log4j-transform-maven-shade-plugin-extensions/src/main/java/org/apache/loggi
                                                  final List<Relocator> relocators) {
         Relocator result = null;
         for (final Relocator relocator : relocators) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Path`
+in `log4j-transform-maven-plugin/src/main/java/org/apache/logging/log4j/transform/maven/LocationMojo.java`
+#### Snippet
+```java
+    }
+
+    private void convertClassfiles(List<Path> classFiles, LocationClassConverter converter,
+            LocationCacheGenerator locationCache) {
+        final Path sourceDirectory = this.sourceDirectory.toPath();
 ```
 
