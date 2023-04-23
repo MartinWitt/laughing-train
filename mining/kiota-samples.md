@@ -8,24 +8,24 @@ I found 5 bad smells with 0 repairable:
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Assignment is not used
-in `petstore/java/app/build.gradle`
-#### Snippet
-```java
-}
-
-archivesBaseName = 'app'
-
-dependencies {
-```
-
-### GroovyUnusedAssignment
-Assignment is not used
 in `petstore/java/utilities/build.gradle`
 #### Snippet
 ```java
 }
 
 archivesBaseName = 'utilities'
+
+dependencies {
+```
+
+### GroovyUnusedAssignment
+Assignment is not used
+in `petstore/java/app/build.gradle`
+#### Snippet
+```java
+}
+
+archivesBaseName = 'app'
 
 dependencies {
 ```
