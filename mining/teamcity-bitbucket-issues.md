@@ -35,15 +35,15 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProvider.java`
+Can generalize to `? extends SBuildType`
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
 #### Snippet
 ```java
-    }
+  }
 
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
+  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
+    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
+  }
 ```
 
 ### BoundedWildcard
@@ -71,14 +71,14 @@ in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTra
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+Can generalize to `? super InvalidProperty`
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProvider.java`
 #### Snippet
 ```java
-  }
+    }
 
-  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
-  }
+    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
+                                       @NotNull final Map<String, String> map,
+                                       @NotNull final String propertyName,
 ```
 
