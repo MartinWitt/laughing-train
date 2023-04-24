@@ -104,6 +104,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
+Deprecated member 'LOOKUP_CACHE_TTL' is still used
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcConnectorOptions.java`
+#### Snippet
+```java
+    /** @deprecated please use {@link LookupOptions#PARTIAL_CACHE_EXPIRE_AFTER_WRITE} instead. */
+    @Deprecated
+    public static final ConfigOption<Duration> LOOKUP_CACHE_TTL =
+            ConfigOptions.key("lookup.cache.ttl")
+                    .durationType()
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'LOOKUP_CACHE_MAX_ROWS' is still used
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcConnectorOptions.java`
 #### Snippet
@@ -113,18 +125,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/Jdb
     public static final ConfigOption<Long> LOOKUP_CACHE_MAX_ROWS =
             ConfigOptions.key("lookup.cache.max-rows")
                     .longType()
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'LOOKUP_CACHE_MISSING_KEY' is still used
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcConnectorOptions.java`
-#### Snippet
-```java
-    /** @deprecated please use {@link LookupOptions#PARTIAL_CACHE_CACHE_MISSING_KEY} instead. */
-    @Deprecated
-    public static final ConfigOption<Boolean> LOOKUP_CACHE_MISSING_KEY =
-            ConfigOptions.key("lookup.cache.caching-missing-key")
-                    .booleanType()
 ```
 
 ### DeprecatedIsStillUsed
@@ -140,15 +140,15 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/Jdb
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'LOOKUP_CACHE_TTL' is still used
+Deprecated member 'LOOKUP_CACHE_MISSING_KEY' is still used
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcConnectorOptions.java`
 #### Snippet
 ```java
-    /** @deprecated please use {@link LookupOptions#PARTIAL_CACHE_EXPIRE_AFTER_WRITE} instead. */
+    /** @deprecated please use {@link LookupOptions#PARTIAL_CACHE_CACHE_MISSING_KEY} instead. */
     @Deprecated
-    public static final ConfigOption<Duration> LOOKUP_CACHE_TTL =
-            ConfigOptions.key("lookup.cache.ttl")
-                    .durationType()
+    public static final ConfigOption<Boolean> LOOKUP_CACHE_MISSING_KEY =
+            ConfigOptions.key("lookup.cache.caching-missing-key")
+                    .booleanType()
 ```
 
 ### DeprecatedIsStillUsed
@@ -329,18 +329,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Xid`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/JdbcXaSinkFunctionState.java`
-#### Snippet
-```java
-
-    static JdbcXaSinkFunctionState of(
-            Collection<CheckpointAndXid> prepared, Collection<Xid> hanging) {
-        return new JdbcXaSinkFunctionState(
-                unmodifiableCollection(new ArrayList<>(prepared)),
-```
-
-### BoundedWildcard
 Can generalize to `? super V`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/executor/SimpleBatchStatementExecutor.java`
 #### Snippet
@@ -386,6 +374,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaGrou
     public GroupXaOperationResult<Xid> failOrRollback(Collection<Xid> xids) {
         GroupXaOperationResult<Xid> result = new GroupXaOperationResult<>();
         if (xids.isEmpty()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Xid`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/JdbcXaSinkFunctionState.java`
+#### Snippet
+```java
+
+    static JdbcXaSinkFunctionState of(
+            Collection<CheckpointAndXid> prepared, Collection<Xid> hanging) {
+        return new JdbcXaSinkFunctionState(
+                unmodifiableCollection(new ArrayList<>(prepared)),
 ```
 
 ### BoundedWildcard
@@ -533,6 +533,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/catalog/AbstractJdbcCatalog.java`
+#### Snippet
+```java
+            String sql,
+            int columnIndex,
+            Predicate<String> filterFunc,
+            Object... params) {
+
+```
+
+### BoundedWildcard
 Can generalize to `? extends JdbcBatchStatementExecutor`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/TableJdbcUpsertOutputFormat.java`
 #### Snippet
@@ -546,18 +558,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 
 ### BoundedWildcard
 Can generalize to `? super String`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/catalog/AbstractJdbcCatalog.java`
-#### Snippet
-```java
-            String sql,
-            int columnIndex,
-            Predicate<String> filterFunc,
-            Object... params) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/statement/FieldNamedPreparedStatementImpl.java`
 #### Snippet
 ```java
@@ -566,30 +566,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/statement
     public static String parseNamedStatement(String sql, Map<String, List<Integer>> paramMap) {
         StringBuilder parsedSql = new StringBuilder();
         int fieldIndex = 1; // SQL statement parameter index starts from 1
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResolvedExpression`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
-#### Snippet
-```java
-
-    private Optional<ParameterizedPredicate> renderBinaryOperator(
-            String operator, List<ResolvedExpression> allOperands) {
-        Optional<ParameterizedPredicate> leftOperandString = allOperands.get(0).accept(this);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
-#### Snippet
-```java
-
-    public JdbcFilterPushdownPreparedStatementVisitor(
-            Function<String, String> quoteIdentifierFunction) {
-        this.quoteIdentifierFunction = quoteIdentifierFunction;
-    }
 ```
 
 ### BoundedWildcard
@@ -629,6 +605,42 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaSink
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends ResolvedExpression`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
+#### Snippet
+```java
+
+    private Optional<ParameterizedPredicate> renderBinaryOperator(
+            String operator, List<ResolvedExpression> allOperands) {
+        Optional<ParameterizedPredicate> leftOperandString = allOperands.get(0).accept(this);
+
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
+#### Snippet
+```java
+
+    public JdbcFilterPushdownPreparedStatementVisitor(
+            Function<String, String> quoteIdentifierFunction) {
+        this.quoteIdentifierFunction = quoteIdentifierFunction;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super XAException`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
+#### Snippet
+```java
+                Xid xid,
+                ThrowingRunnable<XAException> runnable,
+                Function<XAException, Optional<String>> err2msg) {
+            return fromRunnable(
+                    action,
+```
+
+### BoundedWildcard
 Can generalize to `? extends XAException`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
 #### Snippet
@@ -652,18 +664,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFaca
                     action,
 ```
 
-### BoundedWildcard
-Can generalize to `? super XAException`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
-#### Snippet
-```java
-                Xid xid,
-                ThrowingRunnable<XAException> runnable,
-                Function<XAException, Optional<String>> err2msg) {
-            return fromRunnable(
-                    action,
-```
-
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `private final @Nullable`
@@ -679,15 +679,15 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XidImpl.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/options/InternalJdbcConnectionOptions.java`
 #### Snippet
 ```java
+    private final String tableName;
+    private final JdbcDialect dialect;
+    private final @Nullable Integer parallelism;
 
-    private final int formatId;
-    @Nonnull private final byte[] globalTransactionId;
-    @Nonnull private final byte[] branchQualifier;
-
+    private InternalJdbcConnectionOptions(
 ```
 
 ### NullableProblems
@@ -703,15 +703,15 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XidImp
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/options/InternalJdbcConnectionOptions.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XidImpl.java`
 #### Snippet
 ```java
-    private final String tableName;
-    private final JdbcDialect dialect;
-    private final @Nullable Integer parallelism;
 
-    private InternalJdbcConnectionOptions(
+    private final int formatId;
+    @Nonnull private final byte[] globalTransactionId;
+    @Nonnull private final byte[] branchQualifier;
+
 ```
 
 ### NullableProblems
@@ -743,11 +743,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/JdbcConnectionOptions.java`
 #### Snippet
 ```java
-
-    protected final String url;
-    @Nullable protected final String driverName;
     protected final int connectionCheckTimeoutSeconds;
     @Nullable protected final String username;
+    @Nullable protected final String password;
+
+    protected JdbcConnectionOptions(
 ```
 
 ### NullableProblems
@@ -755,11 +755,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/JdbcConnectionOptions.java`
 #### Snippet
 ```java
+
+    protected final String url;
+    @Nullable protected final String driverName;
     protected final int connectionCheckTimeoutSeconds;
     @Nullable protected final String username;
-    @Nullable protected final String password;
-
-    protected JdbcConnectionOptions(
 ```
 
 ### NullableProblems
@@ -888,18 +888,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaGrou
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
 #### Snippet
 ```java
-        private Command(
-                String name,
-                Optional<Xid> xid,
-                Callable<T> callable,
-                Function<XAException, Optional<T>> recover) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'xid'
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
-#### Snippet
-```java
 
     private static String formatErrorMessage(
             String action, Optional<Xid> xid, Optional<Integer> errorCode, String... more) {
@@ -920,6 +908,30 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFaca
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'xid'
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
+#### Snippet
+```java
+
+    private static FlinkRuntimeException wrapException(
+            String action, Optional<Xid> xid, Exception ex) {
+        if (ex instanceof XAException) {
+            XAException xa = (XAException) ex;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'xid'
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
+#### Snippet
+```java
+        }
+
+        private Command(String name, Optional<Xid> xid, Callable<T> callable) {
+            this(name, xid, callable, e -> empty());
+        }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'xid'
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
 #### Snippet
@@ -936,23 +948,11 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFaca
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
 #### Snippet
 ```java
-        }
-
-        private Command(String name, Optional<Xid> xid, Callable<T> callable) {
-            this(name, xid, callable, e -> empty());
-        }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'xid'
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFacadeImpl.java`
-#### Snippet
-```java
-
-    private static FlinkRuntimeException wrapException(
-            String action, Optional<Xid> xid, Exception ex) {
-        if (ex instanceof XAException) {
-            XAException xa = (XAException) ex;
+        private Command(
+                String name,
+                Optional<Xid> xid,
+                Callable<T> callable,
+                Function<XAException, Optional<T>> recover) {
 ```
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
@@ -1036,9 +1036,9 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/statement/FieldNamedPreparedStatement.java`
 #### Snippet
 ```java
-     * @see PreparedStatement#setTime(int, Time)
+     * @see PreparedStatement#setTimestamp(int, Timestamp)
      */
-    void setTime(int fieldIndex, java.sql.Time x) throws SQLException;
+    void setTimestamp(int fieldIndex, java.sql.Timestamp x) throws SQLException;
 
     /**
 ```
@@ -1060,23 +1060,11 @@ Qualifier `java.sql` is unnecessary and can be removed
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/statement/FieldNamedPreparedStatement.java`
 #### Snippet
 ```java
-     * @see PreparedStatement#setTimestamp(int, Timestamp)
+     * @see PreparedStatement#setTime(int, Time)
      */
-    void setTimestamp(int fieldIndex, java.sql.Timestamp x) throws SQLException;
+    void setTime(int fieldIndex, java.sql.Time x) throws SQLException;
 
     /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.sql` is unnecessary, and can be replaced with an import
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
-#### Snippet
-```java
-                return Optional.of(predicate);
-            case TIME_WITHOUT_TIME_ZONE:
-                params[0] = litExp.getValueAs(java.sql.Time.class).orElse(null);
-                predicate.setParameters(params);
-                return Optional.of(predicate);
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -1403,6 +1391,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/utils/Jdb
                         break;
 ```
 
+### UnnecessaryFullyQualifiedName
+Qualifier `java.sql` is unnecessary, and can be replaced with an import
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcFilterPushdownPreparedStatementVisitor.java`
+#### Snippet
+```java
+                return Optional.of(predicate);
+            case TIME_WITHOUT_TIME_ZONE:
+                params[0] = litExp.getValueAs(java.sql.Time.class).orElse(null);
+                predicate.setParameters(params);
+                return Optional.of(predicate);
+```
+
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
 Constructor `AbstractJdbcCatalog()` of an abstract class should not be declared 'public'
@@ -1430,15 +1430,15 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/converter
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `serializer` is accessed in both synchronized and unsynchronized contexts
+Field `scheduler` is accessed in both synchronized and unsynchronized contexts
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
 #### Snippet
 ```java
+    private transient volatile boolean closed = false;
 
-    protected final JdbcConnectionProvider connectionProvider;
-    @Nullable private TypeSerializer<In> serializer;
-
-    @Override
+    private transient ScheduledExecutorService scheduler;
+    private transient ScheduledFuture<?> scheduledFuture;
+    private transient volatile Exception flushException;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1454,6 +1454,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
+Field `serializer` is accessed in both synchronized and unsynchronized contexts
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
+#### Snippet
+```java
+
+    protected final JdbcConnectionProvider connectionProvider;
+    @Nullable private TypeSerializer<In> serializer;
+
+    @Override
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
 Field `jdbcStatementExecutor` is accessed in both synchronized and unsynchronized contexts
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
 #### Snippet
@@ -1463,18 +1475,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
     private transient JdbcExec jdbcStatementExecutor;
     private transient int batchCount = 0;
     private transient volatile boolean closed = false;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `scheduler` is accessed in both synchronized and unsynchronized contexts
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
-#### Snippet
-```java
-    private transient volatile boolean closed = false;
-
-    private transient ScheduledExecutorService scheduler;
-    private transient ScheduledFuture<?> scheduledFuture;
-    private transient volatile Exception flushException;
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
@@ -1503,6 +1503,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
+#### Snippet
+```java
+    private transient JdbcExec jdbcStatementExecutor;
+    private transient int batchCount = 0;
+    private transient volatile boolean closed = false;
+
+    private transient ScheduledExecutorService scheduler;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
 #### Snippet
@@ -1514,16 +1526,17 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/
 
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/JdbcOutputFormat.java`
+## RuleId[id=EqualsAndHashcode]
+### EqualsAndHashcode
+Class has `equals()` defined but does not define `hashCode()`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/options/JdbcReadOptions.java`
 #### Snippet
 ```java
-    private transient JdbcExec jdbcStatementExecutor;
-    private transient int batchCount = 0;
-    private transient volatile boolean closed = false;
 
-    private transient ScheduledExecutorService scheduler;
+/** Options for the JDBC scan. */
+public class JdbcReadOptions implements Serializable {
+
+    private final String query;
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
@@ -1563,17 +1576,17 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/split/Jdb
         this.batchNum = batchNum;
 ```
 
-## RuleId[id=EqualsAndHashcode]
-### EqualsAndHashcode
-Class has `equals()` defined but does not define `hashCode()`
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/internal/options/JdbcReadOptions.java`
+## RuleId[id=HtmlWrongAttributeValue]
+### HtmlWrongAttributeValue
+Wrong attribute value
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-03-43-29.228.html`
 #### Snippet
 ```java
-
-/** Options for the JDBC scan. */
-public class JdbcReadOptions implements Serializable {
-
-    private final String query;
+              <td>0</td>
+              <td>0</td>
+              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
+            </tr>
+          </tbody>
 ```
 
 ## RuleId[id=ReturnNull]
@@ -1606,11 +1619,11 @@ Return of `null`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/converter/AbstractJdbcRowConverter.java`
 #### Snippet
 ```java
-        return val -> {
-            if (val == null) {
-                return null;
-            } else {
-                return jdbcDeserializationConverter.deserialize(val);
+        switch (type.getTypeRoot()) {
+            case NULL:
+                return val -> null;
+            case BOOLEAN:
+            case FLOAT:
 ```
 
 ### ReturnNull
@@ -1618,11 +1631,11 @@ Return of `null`
 in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/converter/AbstractJdbcRowConverter.java`
 #### Snippet
 ```java
-        switch (type.getTypeRoot()) {
-            case NULL:
-                return val -> null;
-            case BOOLEAN:
-            case FLOAT:
+        return val -> {
+            if (val == null) {
+                return null;
+            } else {
+                return jdbcDeserializationConverter.deserialize(val);
 ```
 
 ### ReturnNull
@@ -1659,19 +1672,6 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XaFaca
                         return null;
                     },
                     e -> {
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-21-17-18-54.304.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=SynchronizeOnThis]
@@ -1714,14 +1714,26 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/xa/XidSer
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/ParameterizedPredicate.java`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSource.java`
 #### Snippet
 ```java
-    public ParameterizedPredicate(String predicate) {
-        this.predicate = predicate;
-        this.parameters = new Serializable[0];
-    }
+                        options,
+                        lookupMaxRetryTimes,
+                        DataType.getFieldNames(physicalRowDataType).toArray(new String[0]),
+                        DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]),
+                        keyNames,
+```
 
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSource.java`
+#### Snippet
+```java
+                        lookupMaxRetryTimes,
+                        DataType.getFieldNames(physicalRowDataType).toArray(new String[0]),
+                        DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]),
+                        keyNames,
+                        rowType);
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1762,38 +1774,14 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/Jdb
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSource.java`
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/ParameterizedPredicate.java`
 #### Snippet
 ```java
-                        options,
-                        lookupMaxRetryTimes,
-                        DataType.getFieldNames(physicalRowDataType).toArray(new String[0]),
-                        DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]),
-                        keyNames,
-```
+    public ParameterizedPredicate(String predicate) {
+        this.predicate = predicate;
+        this.parameters = new Serializable[0];
+    }
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSource.java`
-#### Snippet
-```java
-                        lookupMaxRetryTimes,
-                        DataType.getFieldNames(physicalRowDataType).toArray(new String[0]),
-                        DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]),
-                        keyNames,
-                        rowType);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSink.java`
-#### Snippet
-```java
-        builder.setRowDataTypeInfo(rowDataTypeInformation);
-        builder.setFieldDataTypes(
-                DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]));
-        return SinkFunctionProvider.of(
-                new GenericJdbcSinkFunction<>(builder.build()), jdbcOptions.getParallelism());
 ```
 
 ### ZeroLengthArrayInitialization
@@ -1806,6 +1794,18 @@ in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/Jdb
                 .withFieldNames(DataType.getFieldNames(dataType).toArray(new String[0]))
                 .withKeyFields(keyFields.length > 0 ? keyFields : null)
                 .build();
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `flink-connector-jdbc/src/main/java/org/apache/flink/connector/jdbc/table/JdbcDynamicTableSink.java`
+#### Snippet
+```java
+        builder.setRowDataTypeInfo(rowDataTypeInformation);
+        builder.setFieldDataTypes(
+                DataType.getFieldDataTypes(physicalRowDataType).toArray(new DataType[0]));
+        return SinkFunctionProvider.of(
+                new GenericJdbcSinkFunction<>(builder.build()), jdbcOptions.getParallelism());
 ```
 
 ## RuleId[id=ArrayHashCode]
