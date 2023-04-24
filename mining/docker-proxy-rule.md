@@ -11,6 +11,42 @@ I found 23 bad smells with 0 repairable:
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
+#### Snippet
+```java
+
+    public NetworkBasedDockerContainerInfo(
+            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
+        this.docker = docker;
+        this.networkName = networkName;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
+#### Snippet
+```java
+    private final DockerExecutable docker;
+    private final String networkName;
+    private final Optional<String> imageNameOverride;
+
+    public NetworkBasedDockerContainerInfo(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+#### Snippet
+```java
+    private final DockerExecutable docker;
+    private final ProjectName projectName;
+    private final Optional<String> imageNameOverride;
+    private final Optional<String> networkNameOverride;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'imageNameOverride'
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
 #### Snippet
 ```java
@@ -43,42 +79,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedD
     private final Optional<String> networkNameOverride;
 
     public ProjectBasedDockerContainerInfo(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
-#### Snippet
-```java
-    private final DockerExecutable docker;
-    private final ProjectName projectName;
-    private final Optional<String> imageNameOverride;
-    private final Optional<String> networkNameOverride;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
-#### Snippet
-```java
-    private final DockerExecutable docker;
-    private final String networkName;
-    private final Optional<String> imageNameOverride;
-
-    public NetworkBasedDockerContainerInfo(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedDockerContainerInfo.java`
-#### Snippet
-```java
-
-    public NetworkBasedDockerContainerInfo(
-            DockerExecutable docker, String networkName, Optional<String> imageNameOverride) {
-        this.docker = docker;
-        this.networkName = networkName;
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -120,30 +120,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyMa
 ```
 
 ## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameService.java`
-#### Snippet
-```java
-
-        if (containerIp.isPresent()) {
-            return new InetAddress[] {InetAddresses.forString(containerIp.get())};
-        }
-        throw new UnknownHostException(hostname);
-```
-
-### UnstableApiUsage
-'forString(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameService.java`
-#### Snippet
-```java
-
-        if (containerIp.isPresent()) {
-            return new InetAddress[] {InetAddresses.forString(containerIp.get())};
-        }
-        throw new UnknownHostException(hostname);
-```
-
 ### UnstableApiUsage
 'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
@@ -214,6 +190,30 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContain
             return CharStreams.readLines(inputStreamReader);
         }
     }
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameService.java`
+#### Snippet
+```java
+
+        if (containerIp.isPresent()) {
+            return new InetAddress[] {InetAddresses.forString(containerIp.get())};
+        }
+        throw new UnknownHostException(hostname);
+```
+
+### UnstableApiUsage
+'forString(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameService.java`
+#### Snippet
+```java
+
+        if (containerIp.isPresent()) {
+            return new InetAddress[] {InetAddresses.forString(containerIp.get())};
+        }
+        throw new UnknownHostException(hostname);
 ```
 
 ### UnstableApiUsage
