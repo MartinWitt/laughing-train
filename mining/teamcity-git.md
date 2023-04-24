@@ -95,8 +95,8 @@ Call to `toArray()` with pre-sized array argument 'new Class\[classes.size()\]'
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.java`
 #### Snippet
 ```java
-  public String getFetchClasspath() {
-    Set<Class> classes = fetchProcessClasses();
+    classes.add(LfsBlobLoader.class);
+    classes.add(Counter.class);
     return ClasspathUtil.composeClasspath(classes.toArray(new Class[classes.size()]), null, null);
   }
 
@@ -107,8 +107,8 @@ Call to `toArray()` with pre-sized array argument 'new Class\[classes.size()\]'
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.java`
 #### Snippet
 ```java
-    classes.add(LfsBlobLoader.class);
-    classes.add(Counter.class);
+  public String getFetchClasspath() {
+    Set<Class> classes = fetchProcessClasses();
     return ClasspathUtil.composeClasspath(classes.toArray(new Class[classes.size()]), null, null);
   }
 
@@ -241,11 +241,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
 
-  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
 
-  //path to internal properties to use in Fetcher
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -253,11 +253,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
 
-  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
 
-  //path to internal properties to use in Fetcher
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -265,11 +265,11 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
 
-  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
 
-  //path to internal properties to use in Fetcher
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -277,11 +277,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The property that specifies when working tree should be cleaned on agent
+   * The password property name
    */
-  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
+  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
   /**
-   * The property that specifies what part of working tree should be cleaned
+   * The vcs name
 ```
 
 ### UnnecessaryModifier
@@ -289,11 +289,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The property that specifies when working tree should be cleaned on agent
+   * The password property name
    */
-  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
+  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
   /**
-   * The property that specifies what part of working tree should be cleaned
+   * The vcs name
 ```
 
 ### UnnecessaryModifier
@@ -301,11 +301,11 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The property that specifies when working tree should be cleaned on agent
+   * The password property name
    */
-  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
+  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
   /**
-   * The property that specifies what part of working tree should be cleaned
+   * The vcs name
 ```
 
 ### UnnecessaryModifier
@@ -313,11 +313,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+   * A prefix for build parameter with vcs branch name of git root
+   */
+  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
 
+  String RECORD_SEPARATOR = new String(new char[]{30});
 ```
 
 ### UnnecessaryModifier
@@ -325,11 +325,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+   * A prefix for build parameter with vcs branch name of git root
+   */
+  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
 
+  String RECORD_SEPARATOR = new String(new char[]{30});
 ```
 
 ### UnnecessaryModifier
@@ -337,11 +337,11 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+   * A prefix for build parameter with vcs branch name of git root
+   */
+  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
 
+  String RECORD_SEPARATOR = new String(new char[]{30});
 ```
 
 ### UnnecessaryModifier
@@ -349,11 +349,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The push URL property
    */
-  public static final String PUSH_URL = "push_url";
-  /**
-   * The path property
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
 ```
 
 ### UnnecessaryModifier
@@ -361,11 +361,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The push URL property
    */
-  public static final String PUSH_URL = "push_url";
-  /**
-   * The path property
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
 ```
 
 ### UnnecessaryModifier
@@ -373,11 +373,47 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The push URL property
    */
-  public static final String PUSH_URL = "push_url";
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The password property name
+   */
+  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
   /**
-   * The path property
+   * The password property name
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The password property name
+   */
+  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
+  /**
+   * The password property name
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The password property name
+   */
+  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
+  /**
+   * The password property name
 ```
 
 ### UnnecessaryModifier
@@ -414,6 +450,258 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
   public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
 
   public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Refspec to fetch, used in communication with Fetcher
+   */
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Refspec to fetch, used in communication with Fetcher
+   */
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Refspec to fetch, used in communication with Fetcher
+   */
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME_STYLE = "usernameStyle";
+  /**
+   * The ignore known hosts property
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME_STYLE = "usernameStyle";
+  /**
+   * The ignore known hosts property
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME_STYLE = "usernameStyle";
+  /**
+   * The ignore known hosts property
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * (Refreshable) token id
+   */
+  public static final String TOKEN_ID = "tokenId";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * (Refreshable) token id
+   */
+  public static final String TOKEN_ID = "tokenId";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * (Refreshable) token id
+   */
+  public static final String TOKEN_ID = "tokenId";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+   * Path to bare repository dir, used in communication with Fetcher
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+   * Path to bare repository dir, used in communication with Fetcher
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String AGENT_GIT_PATH = "agentGitPath";
+  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
+  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  /**
+   * Path to bare repository dir, used in communication with Fetcher
 ```
 
 ### UnnecessaryModifier
@@ -459,115 +747,7 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 ```java
    * The user name property
    */
-  public static final String USERNAME_STYLE = "usernameStyle";
-  /**
-   * The ignore known hosts property
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String USERNAME_STYLE = "usernameStyle";
-  /**
-   * The ignore known hosts property
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String USERNAME_STYLE = "usernameStyle";
-  /**
-   * The ignore known hosts property
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
-  /**
-   * The vcs name
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
-  /**
-   * The vcs name
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSPHRASE = VcsRoot.SECURE_PROPERTY_PREFIX + "passphrase";
-  /**
-   * The vcs name
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The vcs name
-   */
-  public static final String VCS_NAME = "jetbrains.git";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The vcs name
-   */
-  public static final String VCS_NAME = "jetbrains.git";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The vcs name
-   */
-  public static final String VCS_NAME = "jetbrains.git";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String USERNAME = "username";
+  public static final String AUTH_METHOD = "authMethod";
   /**
    * The user name property
 ```
@@ -579,7 +759,7 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 ```java
    * The user name property
    */
-  public static final String USERNAME = "username";
+  public static final String AUTH_METHOD = "authMethod";
   /**
    * The user name property
 ```
@@ -591,7 +771,7 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 ```java
    * The user name property
    */
-  public static final String USERNAME = "username";
+  public static final String AUTH_METHOD = "authMethod";
   /**
    * The user name property
 ```
@@ -601,119 +781,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
-
-  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
-
-  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String FETCHER_INTERNAL_PROPERTIES_FILE = "fetcherInternalPropertiesFile";
-
-  public static final String GIT_TRUST_STORE_PROVIDER = "gitTrustStoreProvider";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * A prefix for build parameter with vcs branch name of git root
-   */
-  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
-
-  String RECORD_SEPARATOR = new String(new char[]{30});
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * A prefix for build parameter with vcs branch name of git root
-   */
-  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
-
-  String RECORD_SEPARATOR = new String(new char[]{30});
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * A prefix for build parameter with vcs branch name of git root
-   */
-  public static final String GIT_ROOT_BUILD_BRANCH_PREFIX = "teamcity.git.build.vcs.branch.";
-
-  String RECORD_SEPARATOR = new String(new char[]{30});
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * Refspec to fetch, used in communication with Fetcher
-   */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * Refspec to fetch, used in communication with Fetcher
-   */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * Refspec to fetch, used in communication with Fetcher
-   */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The branch name property
-   */
   public static final String BRANCH_NAME = "branch";
 
   public static final String BRANCH_SPEC = "teamcity:branchSpec";
+
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -721,11 +793,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The branch name property
-   */
   public static final String BRANCH_NAME = "branch";
 
   public static final String BRANCH_SPEC = "teamcity:branchSpec";
+
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -733,153 +805,9 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * The branch name property
-   */
   public static final String BRANCH_NAME = "branch";
 
   public static final String BRANCH_SPEC = "teamcity:branchSpec";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * (Refreshable) token id
-   */
-  public static final String TOKEN_ID = "tokenId";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * (Refreshable) token id
-   */
-  public static final String TOKEN_ID = "tokenId";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * (Refreshable) token id
-   */
-  public static final String TOKEN_ID = "tokenId";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
-
-  public static final String USERNAME_FOR_TAGS = "userForTags";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
-
-  public static final String USERNAME_FOR_TAGS = "userForTags";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
-
-  public static final String USERNAME_FOR_TAGS = "userForTags";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
-  /**
-   * The password property name
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
-  /**
-   * The password property name
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The password property name
-   */
-  public static final String PASSWORD = VcsRoot.SECURE_PROPERTY_PREFIX + "password";
-  /**
-   * The password property name
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String PRIVATE_KEY_PATH = "privateKeyPath";
 
   /**
 ```
@@ -925,11 +853,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-  /**
-   * Path to bare repository dir, used in communication with Fetcher
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+  public static final String USERNAME_FOR_TAGS = "userForTags";
 ```
 
 ### UnnecessaryModifier
@@ -937,11 +865,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-  /**
-   * Path to bare repository dir, used in communication with Fetcher
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+  public static final String USERNAME_FOR_TAGS = "userForTags";
 ```
 
 ### UnnecessaryModifier
@@ -949,11 +877,191 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+  public static final String USERNAME_FOR_TAGS = "userForTags";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String BRANCH_NAME = "branch";
+
+  public static final String BRANCH_SPEC = "teamcity:branchSpec";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String BRANCH_NAME = "branch";
+
+  public static final String BRANCH_SPEC = "teamcity:branchSpec";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String BRANCH_NAME = "branch";
+
+  public static final String BRANCH_SPEC = "teamcity:branchSpec";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+  public static final String REFSPEC = "REFSPEC";
+  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
+  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
+  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The property that specifies when working tree should be cleaned on agent
+   */
+  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
   /**
-   * Path to bare repository dir, used in communication with Fetcher
+   * The property that specifies what part of working tree should be cleaned
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The property that specifies when working tree should be cleaned on agent
+   */
+  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
+  /**
+   * The property that specifies what part of working tree should be cleaned
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The property that specifies when working tree should be cleaned on agent
+   */
+  public static final String AGENT_CLEAN_POLICY = "agentCleanPolicy";
+  /**
+   * The property that specifies what part of working tree should be cleaned
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
+  /**
+   * The user name property
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
+  /**
+   * The user name property
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The branch name property
+   */
+  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
+  /**
+   * The user name property
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME = "username";
+  /**
+   * The user name property
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME = "username";
+  /**
+   * The user name property
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * The user name property
+   */
+  public static final String USERNAME = "username";
+  /**
+   * The user name property
 ```
 
 ### UnnecessaryModifier
@@ -997,11 +1105,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * Path to bare repository dir, used in communication with Fetcher
+   * The vcs name
    */
-  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  public static final String VCS_NAME = "jetbrains.git";
   /**
-   * Refspec to fetch, used in communication with Fetcher
+   * The user name property
 ```
 
 ### UnnecessaryModifier
@@ -1009,11 +1117,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * Path to bare repository dir, used in communication with Fetcher
+   * The vcs name
    */
-  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  public static final String VCS_NAME = "jetbrains.git";
   /**
-   * Refspec to fetch, used in communication with Fetcher
+   * The user name property
 ```
 
 ### UnnecessaryModifier
@@ -1021,11 +1129,11 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   * Path to bare repository dir, used in communication with Fetcher
+   * The vcs name
    */
-  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  public static final String VCS_NAME = "jetbrains.git";
   /**
-   * Refspec to fetch, used in communication with Fetcher
+   * The user name property
 ```
 
 ### UnnecessaryModifier
@@ -1033,11 +1141,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String BRANCH_NAME = "branch";
-
-  public static final String BRANCH_SPEC = "teamcity:branchSpec";
-
+   * The push URL property
+   */
+  public static final String PUSH_URL = "push_url";
   /**
+   * The path property
 ```
 
 ### UnnecessaryModifier
@@ -1045,11 +1153,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String BRANCH_NAME = "branch";
-
-  public static final String BRANCH_SPEC = "teamcity:branchSpec";
-
+   * The push URL property
+   */
+  public static final String PUSH_URL = "push_url";
   /**
+   * The path property
 ```
 
 ### UnnecessaryModifier
@@ -1057,11 +1165,11 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-  public static final String BRANCH_NAME = "branch";
-
-  public static final String BRANCH_SPEC = "teamcity:branchSpec";
-
+   * The push URL property
+   */
+  public static final String PUSH_URL = "push_url";
   /**
+   * The path property
 ```
 
 ### UnnecessaryModifier
@@ -1069,11 +1177,11 @@ Modifier `public` is redundant for interface members
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+
+  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+
+  //path to internal properties to use in Fetcher
 ```
 
 ### UnnecessaryModifier
@@ -1081,11 +1189,11 @@ Modifier `static` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
-   */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+
+  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+
+  //path to internal properties to use in Fetcher
 ```
 
 ### UnnecessaryModifier
@@ -1093,11 +1201,47 @@ Modifier `final` is redundant for interface fields
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
 #### Snippet
 ```java
+  public static final String SERVER_SIDE_AUTO_CRLF = "serverSideAutoCrlf";
+
+  public static final String REPORT_TAG_REVISIONS = "reportTagRevisions";
+
+  //path to internal properties to use in Fetcher
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Path to bare repository dir, used in communication with Fetcher
    */
-  public static final String REFSPEC = "REFSPEC";
-  public static final String VCS_DEBUG_ENABLED = "VCS_DEBUG_ENABLED";
-  public static final String THREAD_DUMP_FILE = "THREAD_DUMP_FILE";
-  public static final String GC_DUMP_FILE = "GC_DUMP_FILE";
+  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  /**
+   * Refspec to fetch, used in communication with Fetcher
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Path to bare repository dir, used in communication with Fetcher
+   */
+  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  /**
+   * Refspec to fetch, used in communication with Fetcher
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
+#### Snippet
+```java
+   * Path to bare repository dir, used in communication with Fetcher
+   */
+  public static final String REPOSITORY_DIR_PROPERTY_NAME = "REPOSITORY_DIR";
+  /**
+   * Refspec to fetch, used in communication with Fetcher
 ```
 
 ### UnnecessaryModifier
@@ -1170,150 +1314,6 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
   public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
 
   public static final String AGENT_GIT_PATH = "agentGitPath";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String AUTH_METHOD = "authMethod";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String AUTH_METHOD = "authMethod";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The user name property
-   */
-  public static final String AUTH_METHOD = "authMethod";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The branch name property
-   */
-  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The branch name property
-   */
-  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-   * The branch name property
-   */
-  public static final String SUBMODULES_CHECKOUT = "submoduleCheckout";
-  /**
-   * The user name property
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-  public static final String AGENT_CLEAN_FILES_POLICY = "agentCleanFilesPolicy";
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/Constants.java`
-#### Snippet
-```java
-
-  public static final String AGENT_GIT_PATH = "agentGitPath";
-  public static final String TEAMCITY_AGENT_GIT_PATH = "TEAMCITY_GIT_PATH";
-  public static final String TEAMCITY_AGENT_GIT_VERSION = "TEAMCITY_GIT_VERSION";
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -1563,18 +1563,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`line.length() == 0` can be replaced with 'line.isEmpty()'
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
-#### Snippet
-```java
-      while ((line = in.readLine()) != null) {
-        line = line.trim();
-        if (line.length() == 0 || line.startsWith("#")) {
-          continue;
-        }
-```
-
-### SizeReplaceableByIsEmpty
 `a.length() == 0` can be replaced with 'a.isEmpty()'
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
@@ -1587,6 +1575,18 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`line.length() == 0` can be replaced with 'line.isEmpty()'
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
+#### Snippet
+```java
+      while ((line = in.readLine()) != null) {
+        line = line.trim();
+        if (line.length() == 0 || line.startsWith("#")) {
+          continue;
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `pattern.length() == 0` can be replaced with 'pattern.isEmpty()'
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
@@ -1596,18 +1596,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
         if (pattern.length() == 0) {
           continue;
         }
-```
-
-### SizeReplaceableByIsEmpty
-`line.length() == 0` can be replaced with 'line.isEmpty()'
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
-#### Snippet
-```java
-          return true;
-        }
-        if (line.length() == 0) {
-          // empty line means end of the mime headers
-          break;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1635,15 +1623,15 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 ```
 
 ### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
+`line.length() == 0` can be replaced with 'line.isEmpty()'
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 #### Snippet
 ```java
-    }
-
-    File targetDir = path.length() == 0 ? checkoutDir : new File(checkoutDir, path.replace('/', File.separatorChar));
-    if (!targetDir.exists()) {
-      //noinspection ResultOfMethodCallIgnored
+          return true;
+        }
+        if (line.length() == 0) {
+          // empty line means end of the mime headers
+          break;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1656,6 +1644,18 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.j
     return s != null && s.length() > 0;
   }
 
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
+#### Snippet
+```java
+    }
+
+    File targetDir = path.length() == 0 ? checkoutDir : new File(checkoutDir, path.replace('/', File.separatorChar));
+    if (!targetDir.exists()) {
+      //noinspection ResultOfMethodCallIgnored
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -1909,11 +1909,11 @@ Can generalize to `? extends Ref`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/Refs.java`
 #### Snippet
 ```java
-  private final Map<String, Ref> myRefs = new HashMap<String, Ref>();
+  }
 
-  public Refs(@NotNull final List<Ref> refs) {
-    for (Ref r : refs)
-      myRefs.put(r.getName(), r);
+  public Refs(@NotNull Map<String, Ref> refMap) {
+    myRefs.putAll(refMap);
+  }
 ```
 
 ### BoundedWildcard
@@ -1921,11 +1921,11 @@ Can generalize to `? extends Ref`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/Refs.java`
 #### Snippet
 ```java
-  }
+  private final Map<String, Ref> myRefs = new HashMap<String, Ref>();
 
-  public Refs(@NotNull Map<String, Ref> refMap) {
-    myRefs.putAll(refMap);
-  }
+  public Refs(@NotNull final List<Ref> refs) {
+    for (Ref r : refs)
+      myRefs.put(r.getName(), r);
 ```
 
 ### BoundedWildcard
@@ -1971,9 +1971,9 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.
 ```java
   }
 
-  private void addHttpsProxyPort(List<String> proxySettings) {
-    int httpsProxyPort = getFirstNotNullIntegerProperty("teamcity.https.proxyPort", "https.proxyPort");
-    if (httpsProxyPort != -1)
+  private void addHttpProxyPort(List<String> proxySettings) {
+    int httpProxyPort = getFirstNotNullIntegerProperty("teamcity.http.proxyPort", "http.proxyPort");
+    if (httpProxyPort != -1)
 ```
 
 ### BoundedWildcard
@@ -1983,9 +1983,9 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.
 ```java
   }
 
-  private void addHttpProxyPort(List<String> proxySettings) {
-    int httpProxyPort = getFirstNotNullIntegerProperty("teamcity.http.proxyPort", "http.proxyPort");
-    if (httpProxyPort != -1)
+  private void addHttpsProxyPort(List<String> proxySettings) {
+    int httpsProxyPort = getFirstNotNullIntegerProperty("teamcity.https.proxyPort", "https.proxyPort");
+    if (httpsProxyPort != -1)
 ```
 
 ### BoundedWildcard
@@ -2063,14 +2063,14 @@ public class AgentMirrorCleaner implements DirectoryCleanersProvider {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/PluginConfigImpl.java`
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
+   * User home directory
+   */
+  @NonNls public final static String USER_HOME;
 
-  public static final String IGNORE_CHECKOUT_RULES_POSIFIX_CHECK_PARAMETER = "teamcity.internal.git.agent.ignoreCheckoutRulesPostfixCheck";
-  private final static Logger LOG = Logger.getInstance(PluginConfigImpl.class);
-
-  private static final Pattern NEW_LINE = Pattern.compile("(\r\n|\r|\n)");
+  static {
 ```
 
 ### MissortedModifiers
@@ -2087,14 +2087,14 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/PluginConfigImpl.java`
 #### Snippet
 ```java
-   * User home directory
-   */
-  @NonNls public final static String USER_HOME;
 
-  static {
+  public static final String IGNORE_CHECKOUT_RULES_POSIFIX_CHECK_PARAMETER = "teamcity.internal.git.agent.ignoreCheckoutRulesPostfixCheck";
+  private final static Logger LOG = Logger.getInstance(PluginConfigImpl.class);
+
+  private static final Pattern NEW_LINE = Pattern.compile("(\r\n|\r|\n)");
 ```
 
 ### MissortedModifiers
@@ -2119,54 +2119,6 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentCommitL
   private static abstract class AbstractAgentCommitLoader implements AgentCommitLoader {
 
     @NotNull private final GitVcsRoot myRoot;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
-#### Snippet
-```java
-  private final static String JSCH_SSH_LIB = "jsch";
-  private final static String TRILEAD_SSH_LIB = "trilead";
-  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
-
-  private final BuildAgent myAgent;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
-#### Snippet
-```java
-  private final static Logger LOG = Logger.getLogger(GitAgentSSHService.class);
-
-  private final static String JSCH_SSH_LIB = "jsch";
-  private final static String TRILEAD_SSH_LIB = "trilead";
-  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
-#### Snippet
-```java
-
-  private final static String JSCH_SSH_LIB = "jsch";
-  private final static String TRILEAD_SSH_LIB = "trilead";
-  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
-#### Snippet
-```java
-public class GitAgentSSHService extends GitSSHService {
-
-  private final static Logger LOG = Logger.getLogger(GitAgentSSHService.class);
-
-  private final static String JSCH_SSH_LIB = "jsch";
 ```
 
 ### MissortedModifiers
@@ -2195,6 +2147,54 @@ public class UpdaterWithMirror extends UpdaterImpl {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
+#### Snippet
+```java
+
+  private final static String JSCH_SSH_LIB = "jsch";
+  private final static String TRILEAD_SSH_LIB = "trilead";
+  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
+#### Snippet
+```java
+  private final static Logger LOG = Logger.getLogger(GitAgentSSHService.class);
+
+  private final static String JSCH_SSH_LIB = "jsch";
+  private final static String TRILEAD_SSH_LIB = "trilead";
+  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
+#### Snippet
+```java
+  private final static String JSCH_SSH_LIB = "jsch";
+  private final static String TRILEAD_SSH_LIB = "trilead";
+  private final static String DEFAULT_SSH_LIB = JSCH_SSH_LIB;
+
+  private final BuildAgent myAgent;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentSSHService.java`
+#### Snippet
+```java
+public class GitAgentSSHService extends GitSSHService {
+
+  private final static Logger LOG = Logger.getLogger(GitAgentSSHService.class);
+
+  private final static String JSCH_SSH_LIB = "jsch";
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentStartupGitDetector.java`
 #### Snippet
 ```java
@@ -2207,14 +2207,14 @@ public class AgentStartupGitDetector implements AgentParametersSupplier {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/CheckoutDirectoryCleaner.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/SubmoduleManagerImpl.java`
 #### Snippet
 ```java
-  public static final int DEFAULT_COMMAND_TIMEOUT_SEC = 1200;
-  public static final int COMMAND_OUTPUT_THRESHOLD = 8 * 1024 * 1024;
-  private final static Logger LOG = Logger.getInstance(CheckoutDirectoryCleaner.class.getName());
-  @NotNull private final DirectoryMap myDirectoryMap;
-  @NotNull private final GitDetector myGitDetector;
+public class SubmoduleManagerImpl implements SubmoduleManager {
+
+  private final static Logger LOG = Logger.getInstance(SubmoduleManagerImpl.class.getName());
+
+  @NotNull private final MirrorManager myMirrorManager;
 ```
 
 ### MissortedModifiers
@@ -2231,14 +2231,26 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/CheckoutDire
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/SubmoduleManagerImpl.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/CheckoutDirectoryCleaner.java`
 #### Snippet
 ```java
-public class SubmoduleManagerImpl implements SubmoduleManager {
+  public static final int DEFAULT_COMMAND_TIMEOUT_SEC = 1200;
+  public static final int COMMAND_OUTPUT_THRESHOLD = 8 * 1024 * 1024;
+  private final static Logger LOG = Logger.getInstance(CheckoutDirectoryCleaner.class.getName());
+  @NotNull private final DirectoryMap myDirectoryMap;
+  @NotNull private final GitDetector myGitDetector;
+```
 
-  private final static Logger LOG = Logger.getInstance(SubmoduleManagerImpl.class.getName());
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+public class JSchClient {
 
-  @NotNull private final MirrorManager myMirrorManager;
+  private final static int BUF_SIZE = 32 * 1024;
+
+  private final String myHost;
 ```
 
 ### MissortedModifiers
@@ -2251,30 +2263,6 @@ public class SSLInvestigator {
   private final static Logger LOG = Logger.getLogger(SSLInvestigator.class);
 
   private final URIish myFetchURL;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
-#### Snippet
-```java
-  private final ConcurrentMap<VcsRoot, VcsException> myConfigErrorsCache = new ConcurrentHashMap<VcsRoot, VcsException>();//cached error thrown during config creation per root
-
-  final static String switchCheckoutModeMessage = "Fix the checkout rules to use them with agent-side checkout or enable \"Auto\" VCS checkout mode.";
-
-  final static String agentCheckoutRulesErrorMessage = "The checkout rule '%s' is unsupported for agent-side checkout mode. " +
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
-#### Snippet
-```java
-  final static String switchCheckoutModeMessage = "Fix the checkout rules to use them with agent-side checkout or enable \"Auto\" VCS checkout mode.";
-
-  final static String agentCheckoutRulesErrorMessage = "The checkout rule '%s' is unsupported for agent-side checkout mode. " +
-                                                       "The rules 'a=>[prefix/]a/postfix' are unsupported. Only the rules 'a=>[prefix/]a' are supported for agent-side checkout, the [prefix/] must be the same for all rules. " + switchCheckoutModeMessage;
-
 ```
 
 ### MissortedModifiers
@@ -2303,158 +2291,26 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
 #### Snippet
 ```java
-public class JSchClient {
+  private final ConcurrentMap<VcsRoot, VcsException> myConfigErrorsCache = new ConcurrentHashMap<VcsRoot, VcsException>();//cached error thrown during config creation per root
 
-  private final static int BUF_SIZE = 32 * 1024;
+  final static String switchCheckoutModeMessage = "Fix the checkout rules to use them with agent-side checkout or enable \"Auto\" VCS checkout mode.";
 
-  private final String myHost;
+  final static String agentCheckoutRulesErrorMessage = "The checkout rule '%s' is unsupported for agent-side checkout mode. " +
 ```
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitAgentVcsSupport.java`
 #### Snippet
 ```java
-  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
-  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
-  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
-  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
-  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
-```
+  final static String switchCheckoutModeMessage = "Fix the checkout rules to use them with agent-side checkout or enable \"Auto\" VCS checkout mode.";
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-   * Git version supporting an empty credential helper - the only way to disable system/global/local cred helper
-   */
-  public final static GitVersion EMPTY_CRED_HELPER = new GitVersion(2, 9, 0);
-  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
-  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
-```
+  final static String agentCheckoutRulesErrorMessage = "The checkout rule '%s' is unsupported for agent-side checkout mode. " +
+                                                       "The rules 'a=>[prefix/]a/postfix' are unsupported. Only the rules 'a=>[prefix/]a' are supported for agent-side checkout, the [prefix/] must be the same for all rules. " + switchCheckoutModeMessage;
 
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
-  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
-  public final static GitVersion REV_PARSE_LEARNED_SHALLOW_CLONE = new GitVersion(2, 15, 0);
-
-  protected final FS myFS;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
-  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
-  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
-  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
-  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  private final static Logger LOG = Logger.getLogger(UpdaterImpl.class);
-  /** Git version which supports --progress option in the fetch command */
-  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
-  //--force option in git submodule update introduced in 1.7.6
-  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
-  //--force option in git submodule update introduced in 1.7.6
-  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
-  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
-  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  public final static GitVersion EMPTY_CRED_HELPER = new GitVersion(2, 9, 0);
-  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
-  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
-  public final static GitVersion REV_PARSE_LEARNED_SHALLOW_CLONE = new GitVersion(2, 15, 0);
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-public class UpdaterImpl implements Updater {
-
-  private final static Logger LOG = Logger.getLogger(UpdaterImpl.class);
-  /** Git version which supports --progress option in the fetch command */
-  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
-  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
-  public final static GitVersion GIT_INIT_STDERR_DEFAULT_BRANCH_HINT = new GitVersion(2, 30, 0);
-  /**
-   * Git version supporting an empty credential helper - the only way to disable system/global/local cred helper
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
-  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
-  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
-  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
-  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
-  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
-  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
-  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
-  public final static GitVersion GIT_INIT_STDERR_DEFAULT_BRANCH_HINT = new GitVersion(2, 30, 0);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  //--force option in git submodule update introduced in 1.7.6
-  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
-  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
-  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
-  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
 ```
 
 ### MissortedModifiers
@@ -2495,6 +2351,150 @@ public class SslOperations {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
+  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
+  public final static GitVersion REV_PARSE_LEARNED_SHALLOW_CLONE = new GitVersion(2, 15, 0);
+
+  protected final FS myFS;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+public class UpdaterImpl implements Updater {
+
+  private final static Logger LOG = Logger.getLogger(UpdaterImpl.class);
+  /** Git version which supports --progress option in the fetch command */
+  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
+  //--force option in git submodule update introduced in 1.7.6
+  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
+  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
+  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
+  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
+  public final static GitVersion GIT_INIT_STDERR_DEFAULT_BRANCH_HINT = new GitVersion(2, 30, 0);
+  /**
+   * Git version supporting an empty credential helper - the only way to disable system/global/local cred helper
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+   * Git version supporting an empty credential helper - the only way to disable system/global/local cred helper
+   */
+  public final static GitVersion EMPTY_CRED_HELPER = new GitVersion(2, 9, 0);
+  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
+  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  //--force option in git submodule update introduced in 1.7.6
+  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
+  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
+  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
+  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  private final static Logger LOG = Logger.getLogger(UpdaterImpl.class);
+  /** Git version which supports --progress option in the fetch command */
+  private final static GitVersion GIT_WITH_PROGRESS_VERSION = new GitVersion(1, 7, 1, 0);
+  //--force option in git submodule update introduced in 1.7.6
+  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
+  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
+  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
+  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
+  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
+  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
+  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
+  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
+  public final static GitVersion GIT_INIT_STDERR_DEFAULT_BRANCH_HINT = new GitVersion(2, 30, 0);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  private final static GitVersion GIT_WITH_FORCE_SUBMODULE_UPDATE = new GitVersion(1, 7, 6);
+  public final static GitVersion GIT_WITH_SPARSE_CHECKOUT = new GitVersion(1, 7, 4);
+  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
+  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
+  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  public final static GitVersion EMPTY_CRED_HELPER = new GitVersion(2, 9, 0);
+  /** Git version supporting [credential] section in config (the first version including a6fc9fd3f4b42cd97b5262026e18bd451c28ee3c) */
+  public final static GitVersion CREDENTIALS_SECTION_VERSION = new GitVersion(1, 7, 10);
+  public final static GitVersion REV_PARSE_LEARNED_SHALLOW_CLONE = new GitVersion(2, 15, 0);
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  public final static GitVersion BROKEN_SPARSE_CHECKOUT = new GitVersion(2, 7, 0);
+  public final static GitVersion MIN_GIT_SSH_COMMAND = new GitVersion(2, 3, 0);//GIT_SSH_COMMAND was introduced in git 2.3.0
+  public final static GitVersion GIT_UPDATE_REFS_STDIN = new GitVersion(1, 8, 5); // update-refs with '--stdin' support
+  public final static GitVersion GIT_CLEAN_LEARNED_EXCLUDE = new GitVersion(1, 7, 3); // clean first learned -e <pattern> and --exclude=<pattern> in 1.7.3
+  // in 2.30 git init started reporing hint about defaut initial branch renaming to stderr, see https://github.com/git/git/commit/675704c74dd4476f455bfa91e72eb9e163317c10
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/InitCommandImpl.java`
 #### Snippet
 ```java
@@ -2519,6 +2519,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Base
 
 ### MissortedModifiers
 Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TestConnectionCommand.java`
+#### Snippet
+```java
+public class TestConnectionCommand {
+
+  private final static Logger LOG = Logger.getInstance(TestConnectionCommand.class.getName());
+
+  private final GitVcsSupport myGit;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
 in `git-server/src/org/eclipse/jgit/internal/storage/file/MemoryMappedPackIndex.java`
 #### Snippet
 ```java
@@ -2531,14 +2543,14 @@ public class MemoryMappedPackIndex extends PackIndex.PackIndexFactory {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TestConnectionCommand.java`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
 #### Snippet
 ```java
-public class TestConnectionCommand {
 
-  private final static Logger LOG = Logger.getInstance(TestConnectionCommand.class.getName());
 
-  private final GitVcsSupport myGit;
+    private final static class Cred {
+      private final String myUsername;
+      private final String myPassword;
 ```
 
 ### MissortedModifiers
@@ -2570,18 +2582,6 @@ Missorted modifiers `final static`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.java`
 #### Snippet
 ```java
-  private static final String FETCH_DURATION_METRIC_REPOS = "teamcity.git.fetch.durationMetricRepos";
-
-  private final static Logger LOG = Logger.getInstance(PluginConfigImpl.class.getName());
-  private final static int GB = 1024 * 1024 * 1024;//bytes
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.java`
-#### Snippet
-```java
 
   private final static Logger LOG = Logger.getInstance(PluginConfigImpl.class.getName());
   private final static int GB = 1024 * 1024 * 1024;//bytes
@@ -2591,14 +2591,14 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.java`
 #### Snippet
 ```java
+  private static final String FETCH_DURATION_METRIC_REPOS = "teamcity.git.fetch.durationMetricRepos";
 
+  private final static Logger LOG = Logger.getInstance(PluginConfigImpl.class.getName());
+  private final static int GB = 1024 * 1024 * 1024;//bytes
 
-    private final static class Cred {
-      private final String myUsername;
-      private final String myPassword;
 ```
 
 ### MissortedModifiers
@@ -2650,66 +2650,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitCollectChanges
 ```
 
 ### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
-#### Snippet
-```java
-public class ProcessXmxProvider {
-
-  private final static Logger LOG = Logger.getInstance(ProcessXmxProvider.class.getName());
-
-  @NotNull private final XmxStorage myStorage;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
-#### Snippet
-```java
-
-
-  private final static class PackHeuristicsFailed extends RuntimeException {
-    public PackHeuristicsFailed(final String message) {
-      super(message);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
-#### Snippet
-```java
-public class GitLabelingSupport implements TagCommand {
-
-  private final static Logger LOG = Logger.getInstance(GitLabelingSupport.class.getName());
-
-  private final GitVcsSupport myVcs;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ResetRevisionsCacheHandler.java`
-#### Snippet
-```java
-
-  private final static Logger LOG = Logger.getInstance(ResetRevisionsCacheHandler.class.getName());
-  private final static String CACHE_NAME = "git revisions cache";
-  private final RevisionsCache myCache;
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ResetRevisionsCacheHandler.java`
-#### Snippet
-```java
-public class ResetRevisionsCacheHandler implements ResetCacheHandler {
-
-  private final static Logger LOG = Logger.getInstance(ResetRevisionsCacheHandler.class.getName());
-  private final static String CACHE_NAME = "git revisions cache";
-  private final RevisionsCache myCache;
-```
-
-### MissortedModifiers
 Missorted modifiers `final @NotNull`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
 #### Snippet
@@ -2719,18 +2659,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.jav
   private static FetchResult fetchWithRetry(final @NotNull ServerPluginConfig config,
                                             final @NotNull Repository r,
                                             final @NotNull URIish url,
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
-#### Snippet
-```java
-public class TransportFactoryImpl implements TransportFactory, SshSessionMetaFactory {
-
-  private final static Logger LOG = Logger.getInstance(TransportFactoryImpl.class.getName());
-
-  private final ServerPluginConfig myConfig;
 ```
 
 ### MissortedModifiers
@@ -2807,13 +2735,25 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.jav
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitResetCacheHandler.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ResetRevisionsCacheHandler.java`
 #### Snippet
 ```java
-public class GitResetCacheHandler implements ResetCacheHandler {
+public class ResetRevisionsCacheHandler implements ResetCacheHandler {
 
-  private final static Logger LOG = Logger.getInstance(GitResetCacheHandler.class.getName());
-  private final static String GIT_CACHE_NAME = "git";
+  private final static Logger LOG = Logger.getInstance(ResetRevisionsCacheHandler.class.getName());
+  private final static String CACHE_NAME = "git revisions cache";
+  private final RevisionsCache myCache;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ResetRevisionsCacheHandler.java`
+#### Snippet
+```java
+
+  private final static Logger LOG = Logger.getInstance(ResetRevisionsCacheHandler.class.getName());
+  private final static String CACHE_NAME = "git revisions cache";
+  private final RevisionsCache myCache;
 
 ```
 
@@ -2831,14 +2771,62 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitResetCacheHand
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchBuilderDispatcher.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitResetCacheHandler.java`
 #### Snippet
 ```java
-public final class GitPatchBuilderDispatcher {
+public class GitResetCacheHandler implements ResetCacheHandler {
 
-  private final static Logger LOG = Logger.getInstance(GitPatchBuilderDispatcher.class.getName());
+  private final static Logger LOG = Logger.getInstance(GitResetCacheHandler.class.getName());
+  private final static String GIT_CACHE_NAME = "git";
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+#### Snippet
+```java
+public class ProcessXmxProvider {
+
+  private final static Logger LOG = Logger.getInstance(ProcessXmxProvider.class.getName());
+
+  @NotNull private final XmxStorage myStorage;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
+#### Snippet
+```java
+public class TransportFactoryImpl implements TransportFactory, SshSessionMetaFactory {
+
+  private final static Logger LOG = Logger.getInstance(TransportFactoryImpl.class.getName());
 
   private final ServerPluginConfig myConfig;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+public class GitLabelingSupport implements TagCommand {
+
+  private final static Logger LOG = Logger.getInstance(GitLabelingSupport.class.getName());
+
+  private final GitVcsSupport myVcs;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+
+
+  private final static class PackHeuristicsFailed extends RuntimeException {
+    public PackHeuristicsFailed(final String message) {
+      super(message);
 ```
 
 ### MissortedModifiers
@@ -2854,6 +2842,18 @@ public class GitPatchBuilder {
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final static`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchBuilderDispatcher.java`
+#### Snippet
+```java
+public final class GitPatchBuilderDispatcher {
+
+  private final static Logger LOG = Logger.getInstance(GitPatchBuilderDispatcher.class.getName());
+
+  private final ServerPluginConfig myConfig;
+```
+
+### MissortedModifiers
 Missorted modifiers `static abstract`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/LoadContentAction.java`
 #### Snippet
@@ -2866,6 +2866,30 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/LoadContent
 ```
 
 ### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
+#### Snippet
+```java
+  }
+
+  public Collection<VcsClientMapping> getClientMapping(final @NotNull VcsRoot root, final @NotNull IncludeRule rule) throws VcsException {
+
+    // Using more verbose code as constructor of GitVcsRoot in CPU-hungry, see TW-67881
+```
+
+### MissortedModifiers
+Missorted modifiers `final @NotNull`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
+#### Snippet
+```java
+  }
+
+  public Collection<VcsClientMapping> getClientMapping(final @NotNull VcsRoot root, final @NotNull IncludeRule rule) throws VcsException {
+
+    // Using more verbose code as constructor of GitVcsRoot in CPU-hungry, see TW-67881
+```
+
+### MissortedModifiers
 Missorted modifiers `final static`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
 #### Snippet
@@ -2875,30 +2899,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchPro
   private final static class PrintFile extends PatchFileAction {
     @Override
     void call(@NotNull final String action, @NotNull final String file) {
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
-#### Snippet
-```java
-  }
-
-  public Collection<VcsClientMapping> getClientMapping(final @NotNull VcsRoot root, final @NotNull IncludeRule rule) throws VcsException {
-
-    // Using more verbose code as constructor of GitVcsRoot in CPU-hungry, see TW-67881
-```
-
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
-#### Snippet
-```java
-  }
-
-  public Collection<VcsClientMapping> getClientMapping(final @NotNull VcsRoot root, final @NotNull IncludeRule rule) throws VcsException {
-
-    // Using more verbose code as constructor of GitVcsRoot in CPU-hungry, see TW-67881
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
@@ -2920,11 +2920,11 @@ Result of `File.mkdirs()` is ignored
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithAlternates.java`
 #### Snippet
 ```java
-      throw new IllegalStateException(gitDir.getAbsolutePath() + " doesn't exist");
-    File objectsInfo = new File(new File(gitDir, "objects"), "info");
-    objectsInfo.mkdirs();
-    File alternates = new File(objectsInfo, "alternates");
-    try {
+        final AgentGitFacade gitFacade = myGitFactory.create(submoduleDir);
+        if (!submoduleGitDir.exists())  {
+          submoduleGitDir.mkdirs();
+          gitFacade.init().call();
+        }
 ```
 
 ### IgnoreResultOfCall
@@ -2932,11 +2932,11 @@ Result of `File.mkdirs()` is ignored
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithAlternates.java`
 #### Snippet
 ```java
-        final AgentGitFacade gitFacade = myGitFactory.create(submoduleDir);
-        if (!submoduleGitDir.exists())  {
-          submoduleGitDir.mkdirs();
-          gitFacade.init().call();
-        }
+      throw new IllegalStateException(gitDir.getAbsolutePath() + " doesn't exist");
+    File objectsInfo = new File(new File(gitDir, "objects"), "info");
+    objectsInfo.mkdirs();
+    File alternates = new File(objectsInfo, "alternates");
+    try {
 ```
 
 ### IgnoreResultOfCall
@@ -3047,6 +3047,19 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Cleanup.java`
 
 ```
 
+## RuleId[id=AccessStaticViaInstance]
+### AccessStaticViaInstance
+Static member 'jetbrains.buildServer.buildTriggers.vcs.git.command.ssl.SslOperations.deleteSslOption(jetbrains.buildServer.buildTriggers.vcs.git.command.GitFacade)' accessed via instance reference
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
+#### Snippet
+```java
+  public void setCertificateOptions(@NotNull final AgentGitFacade gitFacade) {
+    if (!isNeedCustomCertificates()) {
+      mySslOperations.deleteSslOption(gitFacade);
+      return;
+    }
+```
+
 ## RuleId[id=UnnecessaryUnboxing]
 ### UnnecessaryUnboxing
 Unnecessary unboxing
@@ -3062,26 +3075,14 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
-          exitStatus = 1;
-        }
-        System.exit(exitStatus.intValue() == 0 ? myExitCode : exitStatus.intValue());
-      }
-      finally {
-```
+    @SuppressWarnings({"NullableProblems"})
+    public boolean isBatchMode() {
+      return notNull(myBatchMode).booleanValue();
+    }
 
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
-#### Snippet
-```java
-          exitStatus = 1;
-        }
-        System.exit(exitStatus.intValue() == 0 ? myExitCode : exitStatus.intValue());
-      }
-      finally {
 ```
 
 ### UnnecessaryUnboxing
@@ -3114,18 +3115,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
      */
-    public boolean supportsPubkeyAuthentication() {
-      return notNull(myPubkeyAuthentication).booleanValue();
-    }
-
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
-#### Snippet
-```java
-     */
     public boolean supportsPasswordAuthentication() {
       return notNull(myPasswordAuthentication).booleanValue();
     }
@@ -3137,24 +3126,35 @@ Unnecessary unboxing
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
-    @SuppressWarnings({"NullableProblems"})
-    public boolean isBatchMode() {
-      return notNull(myBatchMode).booleanValue();
+     */
+    public boolean supportsPubkeyAuthentication() {
+      return notNull(myPubkeyAuthentication).booleanValue();
     }
 
 ```
 
-## RuleId[id=AccessStaticViaInstance]
-### AccessStaticViaInstance
-Static member 'jetbrains.buildServer.buildTriggers.vcs.git.command.ssl.SslOperations.deleteSslOption(jetbrains.buildServer.buildTriggers.vcs.git.command.GitFacade)' accessed via instance reference
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 #### Snippet
 ```java
-  public void setCertificateOptions(@NotNull final AgentGitFacade gitFacade) {
-    if (!isNeedCustomCertificates()) {
-      mySslOperations.deleteSslOption(gitFacade);
-      return;
-    }
+          exitStatus = 1;
+        }
+        System.exit(exitStatus.intValue() == 0 ? myExitCode : exitStatus.intValue());
+      }
+      finally {
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
+#### Snippet
+```java
+          exitStatus = 1;
+        }
+        System.exit(exitStatus.intValue() == 0 ? myExitCode : exitStatus.intValue());
+      }
+      finally {
 ```
 
 ## RuleId[id=ClassNameSameAsAncestorName]
@@ -3171,18 +3171,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/commitInfo/Cached
 ```
 
 ## RuleId[id=OptionalAssignedToNull]
-### OptionalAssignedToNull
-Null is used for 'Optional' type in assignment
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitRepoOperationsImpl.java`
-#### Snippet
-```java
-
-    void reset() {
-      myRef = null;
-    }
-  }
-```
-
 ### OptionalAssignedToNull
 Optional value is compared with null
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitRepoOperationsImpl.java`
@@ -3217,6 +3205,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitR
     private volatile Optional<GitExec> myRef = null;
 
     @Nullable
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in assignment
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitRepoOperationsImpl.java`
+#### Snippet
+```java
+
+    void reset() {
+      myRef = null;
+    }
+  }
 ```
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
@@ -3358,6 +3358,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.jav
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
+#### Snippet
+```java
+      Host host = null;
+      String line;
+      while ((line = in.readLine()) != null) {
+        line = line.trim();
+        if (line.length() == 0 || line.startsWith("#")) {
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 #### Snippet
 ```java
@@ -3382,18 +3394,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
-#### Snippet
-```java
-      Host host = null;
-      String line;
-      while ((line = in.readLine()) != null) {
-        line = line.trim();
-        if (line.length() == 0 || line.startsWith("#")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
 #### Snippet
 ```java
@@ -3406,18 +3406,6 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevWalk.java`
-#### Snippet
-```java
-
-      RevCommit next;
-      while ((next = walk.next()) != null) {
-        result.add(next.name());
-      }
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
 #### Snippet
 ```java
@@ -3426,6 +3414,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentia
       while ((line = reader.readLine()) != null) {
         if (line.length() == 0) {
           break;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevWalk.java`
+#### Snippet
+```java
+
+      RevCommit next;
+      while ((next = walk.next()) != null) {
+        result.add(next.name());
+      }
 ```
 
 ### NestedAssignment
@@ -3454,14 +3454,14 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitMergeSupport.j
 
 ### NestedAssignment
 Result of assignment expression used
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
 #### Snippet
 ```java
-    if (xmx == null) return null;
-    myStorage.write(xmx);
-    return myPrev = xmx;
-  }
-
+    Reader processInput = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+    int count = 0;
+    while ((count = processInput.read(chars)) != -1) {
+      final String str = new String(chars, 0, count);
+      sb.append(str);
 ```
 
 ### NestedAssignment
@@ -3478,26 +3478,14 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvide
 
 ### NestedAssignment
 Result of assignment expression used
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
 #### Snippet
 ```java
+    if (xmx == null) return null;
+    myStorage.write(xmx);
+    return myPrev = xmx;
+  }
 
-      try {
-        while ((c = walk.next()) != null) {
-          if (c.equals(commit))
-            return true;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
-#### Snippet
-```java
-    Reader processInput = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
-    int count = 0;
-    while ((count = processInput.read(chars)) != -1) {
-      final String str = new String(chars, 0, count);
-      sb.append(str);
 ```
 
 ### NestedAssignment
@@ -3514,6 +3502,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ModificationDataR
 
 ### NestedAssignment
 Result of assignment expression used
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+
+      try {
+        while ((c = walk.next()) != null) {
+          if (c.equals(commit))
+            return true;
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitMapFullPath.java`
 #### Snippet
 ```java
@@ -3521,18 +3521,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitMapFullPath.ja
       RevCommit newCommit;
       while ((newCommit = revWalk.next()) != null) {
         newCommits.add(newCommit.name());
-      }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/LoadContentAction.java`
-#### Snippet
-```java
-      int size = 0;
-      byte[] buf = new byte[8096];
-      while ((count = objectStream.read(buf)) != -1) {
-        size += count;
       }
 ```
 
@@ -3546,6 +3534,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/github/GitHubRawF
     while ((read = is.read(buffer, 0, buffer.length)) != -1) {
       out.write(buffer, 0, read);
     }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/LoadContentAction.java`
+#### Snippet
+```java
+      int size = 0;
+      byte[] buf = new byte[8096];
+      while ((count = objectStream.read(buf)) != -1) {
+        size += count;
+      }
 ```
 
 ### NestedAssignment
@@ -3590,11 +3590,11 @@ Statement lambda can be replaced with expression lambda
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/NativeGitCommands.java`
 #### Snippet
 ```java
-  protected <R> R executeCommand(@NotNull Context ctx, @NotNull String action, @NotNull String debugInfo, @NotNull FuncThrow<R, VcsException> cmd, @NotNull GitFacade gitFacade) throws VcsException{
-    return executeWithSslHandling(() ->  {
-      return NamedThreadFactory.executeWithNewThreadNameFuncThrow(
-        String.format("Running native git %s process for : %s", action, debugInfo),
-        () -> {
+    try {
+      currentTags = executeCommand(ctx, "ls-remote", debugInfo, () -> {
+        return gitFacade.lsRemote()
+                        .setTags()
+                        .setBranches(tag)
 ```
 
 ### CodeBlock2Expr
@@ -3602,11 +3602,11 @@ Statement lambda can be replaced with expression lambda
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/NativeGitCommands.java`
 #### Snippet
 ```java
-    try {
-      currentTags = executeCommand(ctx, "ls-remote", debugInfo, () -> {
-        return gitFacade.lsRemote()
-                        .setTags()
-                        .setBranches(tag)
+  protected <R> R executeCommand(@NotNull Context ctx, @NotNull String action, @NotNull String debugInfo, @NotNull FuncThrow<R, VcsException> cmd, @NotNull GitFacade gitFacade) throws VcsException{
+    return executeWithSslHandling(() ->  {
+      return NamedThreadFactory.executeWithNewThreadNameFuncThrow(
+        String.format("Running native git %s process for : %s", action, debugInfo),
+        () -> {
 ```
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
@@ -3690,11 +3690,11 @@ Field initialization to `0` is redundant
 in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
 #### Snippet
 ```java
+  private final LinkedList<byte[]> buffers = new LinkedList<byte[]>();
 
   private int alreadyBufferedSize = 0;
   private int index = 0;
 
-  private int nextBlockSize = 512;
 ```
 
 ### RedundantFieldInitialization
@@ -3702,11 +3702,11 @@ Field initialization to `0` is redundant
 in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
 #### Snippet
 ```java
-  private final LinkedList<byte[]> buffers = new LinkedList<byte[]>();
 
   private int alreadyBufferedSize = 0;
   private int index = 0;
 
+  private int nextBlockSize = 512;
 ```
 
 ### RedundantFieldInitialization
@@ -3726,6 +3726,18 @@ Field initialization to `0` is redundant
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 #### Snippet
 ```java
+     * Prompt count
+     */
+    int myPromptCount = 0;
+    /**
+     * true if keyboard interactive method was cancelled.
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
+#### Snippet
+```java
    * the exit code
    */
   private int myExitCode = 0;
@@ -3734,15 +3746,15 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
+Field initialization to `false` is redundant
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/RevParseCommandImpl.java`
 #### Snippet
 ```java
-     * Prompt count
-     */
-    int myPromptCount = 0;
-    /**
-     * true if keyboard interactive method was cancelled.
+public class RevParseCommandImpl extends BaseCommandImpl implements RevParseCommand {
+    private String ref;
+    private boolean myShallowRepository = false;
+    private String myVerifyParam;
+
 ```
 
 ### RedundantFieldInitialization
@@ -3766,18 +3778,6 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInves
 
   private volatile Boolean myNeedCustomCertificate = null;
   private volatile String myCAInfoPath = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/RevParseCommandImpl.java`
-#### Snippet
-```java
-public class RevParseCommandImpl extends BaseCommandImpl implements RevParseCommand {
-    private String ref;
-    private boolean myShallowRepository = false;
-    private String myVerifyParam;
 
 ```
 
@@ -3807,6 +3807,18 @@ public class ResetCommandImpl extends BaseAuthCommandImpl<ResetCommand> implemen
 
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/CreateBranchCommandImpl.java`
+#### Snippet
+```java
+  private String myName;
+  private String myStartPoint;
+  private boolean myTrack = false;
+
+  public CreateBranchCommandImpl(@NotNull GitCommandLine cmd) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/MergeCommandImpl.java`
 #### Snippet
 ```java
@@ -3827,18 +3839,6 @@ public class MergeCommandImpl extends BaseCommandImpl implements MergeCommand {
   private boolean myAbort = false;
   private boolean myQuiet = false;
 
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/CreateBranchCommandImpl.java`
-#### Snippet
-```java
-  private String myName;
-  private String myStartPoint;
-  private boolean myTrack = false;
-
-  public CreateBranchCommandImpl(@NotNull GitCommandLine cmd) {
 ```
 
 ### RedundantFieldInitialization
@@ -3870,11 +3870,11 @@ Field initialization to `false` is redundant
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/LsRemoteCommandImpl.java`
 #### Snippet
 ```java
+public class LsRemoteCommandImpl extends BaseAuthCommandImpl<LsRemoteCommand> implements LsRemoteCommand {
 
   private boolean myPeelRefs = false;
   private boolean myTags = false;
 
-  private final List<String> myLsRemoteBranches = new ArrayList<>();
 ```
 
 ### RedundantFieldInitialization
@@ -3882,11 +3882,11 @@ Field initialization to `false` is redundant
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/LsRemoteCommandImpl.java`
 #### Snippet
 ```java
-public class LsRemoteCommandImpl extends BaseAuthCommandImpl<LsRemoteCommand> implements LsRemoteCommand {
 
   private boolean myPeelRefs = false;
   private boolean myTags = false;
 
+  private final List<String> myLsRemoteBranches = new ArrayList<>();
 ```
 
 ### RedundantFieldInitialization
@@ -3914,18 +3914,6 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Init
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
-#### Snippet
-```java
-  private boolean myHasProgress = false;
-  private boolean myRepeatOnEmptyOutput = false;
-  @Nullable private Integer myMaxOutputSize = null;
-
-  private boolean myAbnormalExitExpected = false;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
 #### Snippet
@@ -3947,6 +3935,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitComman
   private boolean myAbnormalExitExpected = false;
   private boolean myStdErrExpected = true;
   private String myStdErrLogLevel = "warn";
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
+#### Snippet
+```java
+  private boolean myHasProgress = false;
+  private boolean myRepeatOnEmptyOutput = false;
+  @Nullable private Integer myMaxOutputSize = null;
+
+  private boolean myAbnormalExitExpected = false;
 ```
 
 ### RedundantFieldInitialization
@@ -3974,18 +3974,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/LimitingRevWalk.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `git-server/src/org/eclipse/jgit/internal/storage/file/MemoryMappedPackIndex.java`
-#### Snippet
-```java
-      class V2MutableEntry extends MutableEntry {
-
-        private long position = 0;
-
-        @Override
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `git-server/src/org/eclipse/jgit/internal/storage/file/MemoryMappedPackIndex.java`
 #### Snippet
@@ -3998,15 +3986,15 @@ in `git-server/src/org/eclipse/jgit/internal/storage/file/MemoryMappedPackIndex.
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevWalk.java`
+Field initialization to `0` is redundant
+in `git-server/src/org/eclipse/jgit/internal/storage/file/MemoryMappedPackIndex.java`
 #### Snippet
 ```java
-  private final Set<String> myStopRevisions = new HashSet<>();
-  private final Set<String> myVisitedRevisions = new HashSet<>();
-  private String myClosestPartiallyAffectedMergeCommit = null;
+      class V2MutableEntry extends MutableEntry {
 
-  CheckoutRulesRevWalk(@NotNull final ServerPluginConfig config,
+        private long position = 0;
+
+        @Override
 ```
 
 ### RedundantFieldInitialization
@@ -4022,15 +4010,27 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentia
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevWalk.java`
+#### Snippet
+```java
+  private final Set<String> myStopRevisions = new HashSet<>();
+  private final Set<String> myVisitedRevisions = new HashSet<>();
+  private String myClosestPartiallyAffectedMergeCommit = null;
+
+  CheckoutRulesRevWalk(@NotNull final ServerPluginConfig config,
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConnection.java`
 #### Snippet
 ```java
-  private TemporaryBufferEntity entity;
-
-  private boolean isUsingProxy = false;
-
   private Proxy proxy;
+
+  private Integer timeout = null;
+
+  private Integer readTimeout;
 ```
 
 ### RedundantFieldInitialization
@@ -4046,15 +4046,15 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConn
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
+Field initialization to `false` is redundant
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConnection.java`
 #### Snippet
 ```java
+  private TemporaryBufferEntity entity;
+
+  private boolean isUsingProxy = false;
+
   private Proxy proxy;
-
-  private Integer timeout = null;
-
-  private Integer readTimeout;
 ```
 
 ### RedundantFieldInitialization
@@ -4082,15 +4082,51 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvide
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProcessExecutor.java`
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
 #### Snippet
 ```java
+    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
+    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
+    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
+    private static Method ourGcInfo_getGcDuration = null;
+    private static boolean isGcEventListenerInitialized = false;
+```
 
-  @NotNull private final ExecResult myEmptyResult;
-  private volatile boolean myInterrupted = false;
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+    private static Method ourGarbageCollectionNotificationInfo_from = null;
+    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
+    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
+    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
+    private static Method ourGcInfo_getGcDuration = null;
+```
 
-  public GitProcessExecutor(@NotNull final GeneralCommandLine commandLine) {
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+  private static class GcListener implements NotificationListener {
+    private static Method ourGarbageCollectionNotificationInfo_from = null;
+    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
+    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
+    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
+    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
+    private static Method ourGcInfo_getGcDuration = null;
+    private static boolean isGcEventListenerInitialized = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -4110,18 +4146,6 @@ Field initialization to `null` is redundant
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
 #### Snippet
 ```java
-  private static class GcListener implements NotificationListener {
-    private static Method ourGarbageCollectionNotificationInfo_from = null;
-    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
-    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
-    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
 
   private static class GcListener implements NotificationListener {
     private static Method ourGarbageCollectionNotificationInfo_from = null;
@@ -4130,39 +4154,15 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+Field initialization to `false` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProcessExecutor.java`
 #### Snippet
 ```java
-    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
-    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
-    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
-    private static Method ourGcInfo_getGcDuration = null;
-    private static boolean isGcEventListenerInitialized = false;
-```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-    private static Method ourGarbageCollectionNotificationInfo_from = null;
-    private static Method ourGarbageCollectionNotificationInfo_getGcInfo = null;
-    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
-    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
-    private static Method ourGcInfo_getGcDuration = null;
-```
+  @NotNull private final ExecResult myEmptyResult;
+  private volatile boolean myInterrupted = false;
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-    private static Method ourGcInfo_getMemoryUsageAfterGc = null;
-    private static Method ourGcInfo_getMemoryUsageBeforeGc = null;
-    private static Method ourGcInfo_getGcDuration = null;
-    private static boolean isGcEventListenerInitialized = false;
-
+  public GitProcessExecutor(@NotNull final GeneralCommandLine commandLine) {
 ```
 
 ### RedundantFieldInitialization
@@ -4175,6 +4175,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProces
   private volatile boolean myInterrupted = false;
 
   private long lastDumpActivity = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProcessStuckMonitor.java`
+#### Snippet
+```java
+  private final int myCriticalMemoryCleanedPercent;
+
+  private volatile boolean myFinished = false;
+
+  private volatile boolean myInterrupted = false;
 ```
 
 ### RedundantFieldInitialization
@@ -4190,15 +4202,15 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProces
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/GitProcessStuckMonitor.java`
+Field initialization to `null` is redundant
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
 #### Snippet
 ```java
-  private final int myCriticalMemoryCleanedPercent;
-
-  private volatile boolean myFinished = false;
-
-  private volatile boolean myInterrupted = false;
+  private final GitRepoOperations myGitRepoOperations;
+  private ExtensionHolder myExtensionHolder;
+  private volatile String myDisplayName = null;
+  private final ServerPluginConfig myConfig;
+  private final TransportFactory myTransportFactory;
 ```
 
 ### RedundantFieldInitialization
@@ -4238,18 +4250,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/submodules/Submod
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
-#### Snippet
-```java
-  private final GitRepoOperations myGitRepoOperations;
-  private ExtensionHolder myExtensionHolder;
-  private volatile String myDisplayName = null;
-  private final ServerPluginConfig myConfig;
-  private final TransportFactory myTransportFactory;
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitMainConfigProcessor.java`
 #### Snippet
@@ -4266,11 +4266,11 @@ Field initialization to `0` is redundant
 in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/CachingNativeGitTestConnectionRunner.java`
 #### Snippet
 ```java
+  private final GitVcsSupport myVcsSupport;
   private final Map<Integer, String> myCachedResults = new HashMap<>();
   private int myCacheHits = 0;
   private int myProcessed = 0;
 
-  public CachingNativeGitTestConnectionRunner(GitVcsSupport vcsSupport) {
 ```
 
 ### RedundantFieldInitialization
@@ -4278,11 +4278,11 @@ Field initialization to `0` is redundant
 in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/CachingNativeGitTestConnectionRunner.java`
 #### Snippet
 ```java
-  private final GitVcsSupport myVcsSupport;
   private final Map<Integer, String> myCachedResults = new HashMap<>();
   private int myCacheHits = 0;
   private int myProcessed = 0;
 
+  public CachingNativeGitTestConnectionRunner(GitVcsSupport vcsSupport) {
 ```
 
 ## RuleId[id=EqualsAndHashcode]
@@ -4314,7 +4314,7 @@ public class TransportFactoryImpl implements TransportFactory, SshSessionMetaFac
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-23-16-14-50.500.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-16-38-27.612.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -4367,11 +4367,11 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.j
 in `git-server/src/org/eclipse/jgit/treewalk/SubmoduleAwareTreeIterator.java`
 #### Snippet
 ```java
-        p.reset(or, mySubmoduleCommit.getTree().getId());
-      } catch (Exception e) {
-        if (e instanceof IOException)
-          throw (IOException) e;
-        IOException ioe = new IOException("Submodule error");
+          mode = wrappedMode;
+        } else {
+          if (e instanceof CorruptObjectException) {
+            throw (CorruptObjectException) e;
+          } else {
 ```
 
 ### InstanceofCatchParameter
@@ -4379,11 +4379,11 @@ in `git-server/src/org/eclipse/jgit/treewalk/SubmoduleAwareTreeIterator.java`
 in `git-server/src/org/eclipse/jgit/treewalk/SubmoduleAwareTreeIterator.java`
 #### Snippet
 ```java
-          mode = wrappedMode;
-        } else {
-          if (e instanceof CorruptObjectException) {
-            throw (CorruptObjectException) e;
-          } else {
+        p.reset(or, mySubmoduleCommit.getTree().getId());
+      } catch (Exception e) {
+        if (e instanceof IOException)
+          throw (IOException) e;
+        IOException ioe = new IOException("Submodule error");
 ```
 
 ### InstanceofCatchParameter
@@ -4514,18 +4514,6 @@ Allocation of zero length array
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithMirror.java`
 #### Snippet
 ```java
-          return asRef(s.getBranch(), s.getRevision());
-        }
-      }).toArray(new Ref[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithMirror.java`
-#### Snippet
-```java
           return s.getName();
         }
       }).toArray(new String[0]);
@@ -4535,14 +4523,14 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithM
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentStartupGitDetector.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithMirror.java`
 #### Snippet
 ```java
-      cmd.addParameter("-V");
+          return asRef(s.getBranch(), s.getRevision());
+        }
+      }).toArray(new Ref[0]);
+    }
 
-      final ExecResult result = SimpleCommandLineProcessRunner.runCommand(cmd, new byte[0]);
-      if (result.getExitCode() == 0) {
-        final String line = result.getStderr();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4555,6 +4543,18 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentStartup
       ExecResult result = SimpleCommandLineProcessRunner.runCommand(cmd, new byte[0]);
       if (result.getExitCode() != 0)
         return;
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentStartupGitDetector.java`
+#### Snippet
+```java
+      cmd.addParameter("-V");
+
+      final ExecResult result = SimpleCommandLineProcessRunner.runCommand(cmd, new byte[0]);
+      if (result.getExitCode() == 0) {
+        final String line = result.getStderr();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -4627,31 +4627,7 @@ in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalCha
       final VcsHostingRepo finalVcsHostingRepo = vcsHostingRepo;
       return new HashMap<String, String>() {{
         put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commit/${changeSetId}");
-        put(PropertyType.LINK_TEXT, "Open in Azure DevOps Services");
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalChangeViewerExtension.java`
-#### Snippet
-```java
-    if (vcsHostingRepo != null) {
-      final VcsHostingRepo finalVcsHostingRepo = vcsHostingRepo;
-      return new HashMap<String, String>() {{
-        put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commit/${changeSetId}");
         put(PropertyType.LINK_TEXT, "Open in Gitlab.com");
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalChangeViewerExtension.java`
-#### Snippet
-```java
-    if (vcsHostingRepo != null) {
-      final VcsHostingRepo finalVcsHostingRepo = vcsHostingRepo;
-      return new HashMap<String, String>() {{
-        put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commits/${changeSetId}");
-        put(PropertyType.LINK_TEXT, "Open in Bitbucket Cloud");
 ```
 
 ### DoubleBraceInitialization
@@ -4676,6 +4652,30 @@ in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalCha
       return new HashMap<String, String>() {{
         put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commits/${changeSetId}");
         put(PropertyType.LINK_TEXT, "Open in Bitbucket Server");
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalChangeViewerExtension.java`
+#### Snippet
+```java
+    if (vcsHostingRepo != null) {
+      final VcsHostingRepo finalVcsHostingRepo = vcsHostingRepo;
+      return new HashMap<String, String>() {{
+        put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commit/${changeSetId}");
+        put(PropertyType.LINK_TEXT, "Open in Azure DevOps Services");
+```
+
+### DoubleBraceInitialization
+Double brace initialization
+in `git-server-tc/src/jetbrains/buildServer/buildTriggers/vcs/git/GitExternalChangeViewerExtension.java`
+#### Snippet
+```java
+    if (vcsHostingRepo != null) {
+      final VcsHostingRepo finalVcsHostingRepo = vcsHostingRepo;
+      return new HashMap<String, String>() {{
+        put(PropertyType.CHANGE_SET_TYPE, finalVcsHostingRepo.repositoryUrl() + "/commits/${changeSetId}");
+        put(PropertyType.LINK_TEXT, "Open in Bitbucket Cloud");
 ```
 
 ## RuleId[id=CastConflictsWithInstanceof]
@@ -4984,27 +4984,27 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Base
 ```
 
 ### ConstantValue
-Condition `e instanceof VcsException` is always `true`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
+Value `e` is always 'null'
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
 #### Snippet
 ```java
-      if (privateKey != null)
-        FileUtil.delete(privateKey);
-      if (e instanceof VcsException)
-        throw (VcsException) e;
-      throw new VcsException(e);
+
+  public static boolean shouldFetchFromScratch(@NotNull VcsException e) {
+    if (e instanceof GitExecTimeout || CommandUtil.isCanceledError(e)) return false;
+    return !isRemoteAccessError(e);
+  }
 ```
 
 ### ConstantValue
-Condition `e instanceof VcsException` is always `true`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
+Value `e` is always 'null'
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
 #### Snippet
 ```java
-      if (privateKey != null)
-        FileUtil.delete(privateKey);
-      if (e instanceof VcsException)
-        throw (VcsException) e;
-      throw new VcsException(e);
+  public static boolean shouldFetchFromScratch(@NotNull VcsException e) {
+    if (e instanceof GitExecTimeout || CommandUtil.isCanceledError(e)) return false;
+    return !isRemoteAccessError(e);
+  }
+
 ```
 
 ### ConstantValue
@@ -5068,27 +5068,27 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Comm
 ```
 
 ### ConstantValue
-Value `e` is always 'null'
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
+Condition `e instanceof VcsException` is always `true`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
 #### Snippet
 ```java
-
-  public static boolean shouldFetchFromScratch(@NotNull VcsException e) {
-    if (e instanceof GitExecTimeout || CommandUtil.isCanceledError(e)) return false;
-    return !isRemoteAccessError(e);
-  }
+      if (privateKey != null)
+        FileUtil.delete(privateKey);
+      if (e instanceof VcsException)
+        throw (VcsException) e;
+      throw new VcsException(e);
 ```
 
 ### ConstantValue
-Value `e` is always 'null'
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
+Condition `e instanceof VcsException` is always `true`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitCommandLine.java`
 #### Snippet
 ```java
-  public static boolean shouldFetchFromScratch(@NotNull VcsException e) {
-    if (e instanceof GitExecTimeout || CommandUtil.isCanceledError(e)) return false;
-    return !isRemoteAccessError(e);
-  }
-
+      if (privateKey != null)
+        FileUtil.delete(privateKey);
+      if (e instanceof VcsException)
+        throw (VcsException) e;
+      throw new VcsException(e);
 ```
 
 ### ConstantValue
@@ -5312,18 +5312,6 @@ public class SshPubkeyAcceptedAlgorithms {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `SslOperations` has only 'static' members, and lacks a 'private' constructor
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ssl/SslOperations.java`
-#### Snippet
-```java
-import org.jetbrains.annotations.NotNull;
-
-public class SslOperations {
-  public final static String CERT_DIR = "ssl";
-  public final static String CERT_FILE = "git_custom_certificates.crt";
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `GitUtils` has only 'static' members, and lacks a 'private' constructor
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUtils.java`
 #### Snippet
@@ -5336,15 +5324,15 @@ public class GitUtils {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `CommandUtil` has only 'static' members, and lacks a 'private' constructor
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
+Class `SslOperations` has only 'static' members, and lacks a 'private' constructor
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ssl/SslOperations.java`
 #### Snippet
 ```java
-import static jetbrains.buildServer.util.FileUtil.normalizeSeparator;
+import org.jetbrains.annotations.NotNull;
 
-public class CommandUtil {
-  private static final Logger LOG = Logger.getInstance(CommandUtil.class);
-  
+public class SslOperations {
+  public final static String CERT_DIR = "ssl";
+  public final static String CERT_FILE = "git_custom_certificates.crt";
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5357,6 +5345,18 @@ import org.jetbrains.annotations.NotNull;
 public class Errors {
 
   private static final Pattern OUTDATED_INDEX_PATTERN = Pattern.compile(".*Entry '.+' not uptodate\\. Cannot merge\\..*", Pattern.DOTALL);
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CommandUtil` has only 'static' members, and lacks a 'private' constructor
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
+#### Snippet
+```java
+import static jetbrains.buildServer.util.FileUtil.normalizeSeparator;
+
+public class CommandUtil {
+  private static final Logger LOG = Logger.getInstance(CommandUtil.class);
+  
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5384,18 +5384,6 @@ public class GitServerUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `GitGcProcess` has only 'static' members, and lacks a 'private' constructor
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
-#### Snippet
-```java
-import java.io.PrintWriter;
-
-public class GitGcProcess {
-
-  public static void main(String... args) throws Exception {
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PersonIdentFactory` has only 'static' members, and lacks a 'private' constructor
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PersonIdentFactory.java`
 #### Snippet
@@ -5405,6 +5393,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PersonIdentFactor
 public class PersonIdentFactory {
 
   @NotNull
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `GitGcProcess` has only 'static' members, and lacks a 'private' constructor
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
+#### Snippet
+```java
+import java.io.PrintWriter;
+
+public class GitGcProcess {
+
+  public static void main(String... args) throws Exception {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -5481,18 +5481,6 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Fetc
 ```
 
 ### DataFlowIssue
-Condition `e instanceof ProcessTimeoutException` is redundant and can be replaced with a null check
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
-#### Snippet
-```java
-    boolean attemptsLeft = attempt < maxAttempts;
-
-    if (e instanceof ProcessTimeoutException || e instanceof GitExecTimeout) return attemptsLeft;
-
-    if (!(e instanceof VcsException)) return false;
-```
-
-### DataFlowIssue
 Method invocation `getCause` will produce `NullPointerException`
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
 #### Snippet
@@ -5514,6 +5502,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Comm
     return !isRemoteAccessError(e);
   }
 
+```
+
+### DataFlowIssue
+Condition `e instanceof ProcessTimeoutException` is redundant and can be replaced with a null check
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/CommandUtil.java`
+#### Snippet
+```java
+    boolean attemptsLeft = attempt < maxAttempts;
+
+    if (e instanceof ProcessTimeoutException || e instanceof GitExecTimeout) return attemptsLeft;
+
+    if (!(e instanceof VcsException)) return false;
 ```
 
 ### DataFlowIssue
@@ -5960,18 +5960,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/RepositoryRevisio
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
-#### Snippet
-```java
-      File localRepository = new File(url.getPath());
-      if (!localRepository.exists()) {
-        String error = "Cannot access the '" + url.toString() + "' repository";
-        if (SystemInfo.isWindows) {
-          error += ". If TeamCity is run as a Windows service, it cannot access network mapped drives. Make sure this is not your case.";
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
 #### Snippet
 ```java
@@ -5980,6 +5968,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.jav
       throw new VcsException("The repository at directory '" + dir + "' cannot be opened or created, reason: " + ex.toString(), ex);
     }
   }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
+#### Snippet
+```java
+      File localRepository = new File(url.getPath());
+      if (!localRepository.exists()) {
+        String error = "Cannot access the '" + url.toString() + "' repository";
+        if (SystemInfo.isWindows) {
+          error += ". If TeamCity is run as a Windows service, it cannot access network mapped drives. Make sure this is not your case.";
 ```
 
 ### UnnecessaryToStringCall
@@ -6686,487 +6686,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitR
     @Nullable
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      channel.setCommand(myCommand);
-      channel.setInputStream(System.in);
-      channel.setErrStream(System.err);
-
-      final String sendEnv = System.getenv(GitSSHHandler.TEAMCITY_SSH_REQUEST_TOKEN);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      synchronized (myLogEntries) {
-        for (LogEntry entry : myLogEntries) {
-          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
-          System.err.print(" ");
-          System.err.print(getLevel(entry.myLogLevel));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-        for (LogEntry entry : myLogEntries) {
-          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
-          System.err.print(" ");
-          System.err.print(getLevel(entry.myLogLevel));
-          System.err.print(" ");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
-          System.err.print(" ");
-          System.err.print(getLevel(entry.myLogLevel));
-          System.err.print(" ");
-          System.err.println(entry.myMessage);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-          System.err.print(" ");
-          System.err.print(getLevel(entry.myLogLevel));
-          System.err.print(" ");
-          System.err.println(entry.myMessage);
-        }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-          System.err.print(getLevel(entry.myLogLevel));
-          System.err.print(" ");
-          System.err.println(entry.myMessage);
-        }
-      }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-        ((InMemoryLogger)logger).printLog();
-      }
-      System.err.println(t.getMessage());
-      if (t instanceof NullPointerException || debug)
-        t.printStackTrace();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      try {
-        while ((count = myInput.read(buffer)) != -1) {
-          System.out.write(buffer, 0, count);
-          myTimestamp.set(System.nanoTime());
-          if (System.out.checkError()) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-          System.out.write(buffer, 0, count);
-          myTimestamp.set(System.nanoTime());
-          if (System.out.checkError()) {
-            myLogger.log(Logger.ERROR, "Error while writing to stdout");
-            throw new IOException("Error while writing to stdout");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-    @Override
-    public void log(final int level, final String message) {
-      System.err.print(getTimestamp());
-      System.err.print(" ");
-      System.err.print(getLevel(level));
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-    public void log(final int level, final String message) {
-      System.err.print(getTimestamp());
-      System.err.print(" ");
-      System.err.print(getLevel(level));
-      System.err.print(" ");
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      System.err.print(getTimestamp());
-      System.err.print(" ");
-      System.err.print(getLevel(level));
-      System.err.print(" ");
-      System.err.println(message);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      System.err.print(" ");
-      System.err.print(getLevel(level));
-      System.err.print(" ");
-      System.err.println(message);
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
-#### Snippet
-```java
-      System.err.print(getLevel(level));
-      System.err.print(" ");
-      System.err.println(message);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
-#### Snippet
-```java
-        display(totalWork);
-      myPrintStream.println();
-      System.out.println();
-    }
-    output = false;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
-#### Snippet
-```java
-    }
-
-    System.out.println(m);
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
-#### Snippet
-```java
-      display(cmp);
-      myPrintStream.flush();
-      System.out.flush();
-    } else {
-      if ((cmp * 100 / totalWork) != (lastWorked * 100) / totalWork) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
-#### Snippet
-```java
-        display(cmp);
-        myPrintStream.flush();
-        System.out.flush();
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/JSchLoggers.java`
-#### Snippet
-```java
-            case FATAL:
-            case ERROR:
-              System.err.println(message);
-              break;
-            case WARN:
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/JSchLoggers.java`
-#### Snippet
-```java
-            case DEBUG:
-            default:
-              System.out.println(message);
-              break;
-          }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
-#### Snippet
-```java
-
-  public static void main(String... args) throws Exception {
-    new CredentialsHelper(System.in, System.out, System.getenv(), args).run();
-  }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
-#### Snippet
-```java
-    try {
-      String gitDir = args[0];
-      System.out.println("run gc in " + gitDir);
-      Repository r = new RepositoryBuilder().setBare().setGitDir(new File(gitDir)).build();
-      Git git = new Git(r);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
-#### Snippet
-```java
-      Git git = new Git(r);
-      GarbageCollectCommand gc = git.gc();
-      gc.setProgressMonitor(new TextProgressMonitor(new PrintWriter(System.out)));
-      gc.call();
-    } catch (Throwable t) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
-#### Snippet
-```java
-    } catch (Throwable t) {
-      if (isImportant(t)) {
-        t.printStackTrace(System.err);
-      } else {
-        System.err.println(t.getMessage());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
-#### Snippet
-```java
-        t.printStackTrace(System.err);
-      } else {
-        System.err.println(t.getMessage());
-      }
-      System.exit(1);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        .append(", new object id: ").append(update.getNewObjectId().name())
-        .append(", result: ").append(update.getResult());
-      System.out.println(msg);
-    }
-    String additionalMsgs = result.getMessages();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-    String additionalMsgs = result.getMessages();
-    if (additionalMsgs.length() > 0) {
-      System.out.println("Remote process messages: " + additionalMsgs);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-      GitServerUtil.pruneRemovedBranches(config, transportFactory, db, uri, authSettings);
-    } catch (Exception e) {
-      System.err.println("Error while pruning removed branches in " + db + ": " + e.getMessage());
-      if (debug) {
-        e.printStackTrace(System.err);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-      System.err.println("Error while pruning removed branches in " + db + ": " + e.getMessage());
-      if (debug) {
-        e.printStackTrace(System.err);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        isGcEventListenerInitialized = true;
-      } catch (ClassNotFoundException ignore) {
-        System.err.println("Cannot initialize GC listener: class not found");
-      } catch (Throwable t) {
-        System.err.println("Cannot initialize GC listener \n" + t);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        System.err.println("Cannot initialize GC listener: class not found");
-      } catch (Throwable t) {
-        System.err.println("Cannot initialize GC listener \n" + t);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        }
-      } catch (Throwable t) {
-        System.err.println("Exception while persisting gc notification " + notification + " to " + myGcDumpFile.getAbsolutePath() + "\n" + t);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        FileUtil.writeFile(myFile, threadDump + "\ngit progress:\n" + gitProgress + "\nmemory usage (MB):\n" + memoryUsage, "UTF-8");
-      } catch (IOException e) {
-        System.err.println("Exception while persisting thread dump to " + myFile.getAbsolutePath() + "\n" + e);
-      }
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-    } catch (Throwable t) {
-      if (debug || isImportant(t)) {
-        t.printStackTrace(System.err);
-      } else {
-        System.err.println(t.getMessage());
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
-#### Snippet
-```java
-        t.printStackTrace(System.err);
-      } else {
-        System.err.println(t.getMessage());
-      }
-    } finally {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
-#### Snippet
-```java
-    @Override
-    void call(@NotNull final String action, @NotNull final String file) {
-      System.out.println(action + " " + file);
-    }
-  }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
-#### Snippet
-```java
-    } catch (Throwable t) {
-      if (settings.isDebugEnabled() || isImportant(t)) {
-        System.err.println(t.getMessage());
-        t.printStackTrace(System.err);
-      } else {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
-#### Snippet
-```java
-      if (settings.isDebugEnabled() || isImportant(t)) {
-        System.err.println(t.getMessage());
-        t.printStackTrace(System.err);
-      } else {
-        String msg = t.getMessage();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
-#### Snippet
-```java
-          printStackTrace = cause != null && isImportant(cause);
-        }
-        System.err.println(msg);
-        if (printStackTrace)
-          t.printStackTrace(System.err);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
-#### Snippet
-```java
-        System.err.println(msg);
-        if (printStackTrace)
-          t.printStackTrace(System.err);
-      }
-      System.exit(1);
-```
-
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.ISO_8859_1 can be used instead
@@ -7264,6 +6783,487 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchPro
         return null;
 ```
 
+## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+    @Override
+    public void log(final int level, final String message) {
+      System.err.print(getTimestamp());
+      System.err.print(" ");
+      System.err.print(getLevel(level));
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+    public void log(final int level, final String message) {
+      System.err.print(getTimestamp());
+      System.err.print(" ");
+      System.err.print(getLevel(level));
+      System.err.print(" ");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      System.err.print(getTimestamp());
+      System.err.print(" ");
+      System.err.print(getLevel(level));
+      System.err.print(" ");
+      System.err.println(message);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      System.err.print(" ");
+      System.err.print(getLevel(level));
+      System.err.print(" ");
+      System.err.println(message);
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      System.err.print(getLevel(level));
+      System.err.print(" ");
+      System.err.println(message);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+        ((InMemoryLogger)logger).printLog();
+      }
+      System.err.println(t.getMessage());
+      if (t instanceof NullPointerException || debug)
+        t.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      synchronized (myLogEntries) {
+        for (LogEntry entry : myLogEntries) {
+          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
+          System.err.print(" ");
+          System.err.print(getLevel(entry.myLogLevel));
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+        for (LogEntry entry : myLogEntries) {
+          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
+          System.err.print(" ");
+          System.err.print(getLevel(entry.myLogLevel));
+          System.err.print(" ");
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+          System.err.print(dateFormat.format(new Date(entry.myTimestamp)));
+          System.err.print(" ");
+          System.err.print(getLevel(entry.myLogLevel));
+          System.err.print(" ");
+          System.err.println(entry.myMessage);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+          System.err.print(" ");
+          System.err.print(getLevel(entry.myLogLevel));
+          System.err.print(" ");
+          System.err.println(entry.myMessage);
+        }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+          System.err.print(getLevel(entry.myLogLevel));
+          System.err.print(" ");
+          System.err.println(entry.myMessage);
+        }
+      }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      channel.setCommand(myCommand);
+      channel.setInputStream(System.in);
+      channel.setErrStream(System.err);
+
+      final String sendEnv = System.getenv(GitSSHHandler.TEAMCITY_SSH_REQUEST_TOKEN);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+      try {
+        while ((count = myInput.read(buffer)) != -1) {
+          System.out.write(buffer, 0, count);
+          myTimestamp.set(System.nanoTime());
+          if (System.out.checkError()) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.java`
+#### Snippet
+```java
+          System.out.write(buffer, 0, count);
+          myTimestamp.set(System.nanoTime());
+          if (System.out.checkError()) {
+            myLogger.log(Logger.ERROR, "Error while writing to stdout");
+            throw new IOException("Error while writing to stdout");
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
+#### Snippet
+```java
+        display(totalWork);
+      myPrintStream.println();
+      System.out.println();
+    }
+    output = false;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
+#### Snippet
+```java
+    }
+
+    System.out.println(m);
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
+#### Snippet
+```java
+      display(cmp);
+      myPrintStream.flush();
+      System.out.flush();
+    } else {
+      if ((cmp * 100 / totalWork) != (lastWorked * 100) / totalWork) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchProgressMonitor.java`
+#### Snippet
+```java
+        display(cmp);
+        myPrintStream.flush();
+        System.out.flush();
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
+#### Snippet
+```java
+
+  public static void main(String... args) throws Exception {
+    new CredentialsHelper(System.in, System.out, System.getenv(), args).run();
+  }
+
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/JSchLoggers.java`
+#### Snippet
+```java
+            case FATAL:
+            case ERROR:
+              System.err.println(message);
+              break;
+            case WARN:
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/JSchLoggers.java`
+#### Snippet
+```java
+            case DEBUG:
+            default:
+              System.out.println(message);
+              break;
+          }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
+#### Snippet
+```java
+    try {
+      String gitDir = args[0];
+      System.out.println("run gc in " + gitDir);
+      Repository r = new RepositoryBuilder().setBare().setGitDir(new File(gitDir)).build();
+      Git git = new Git(r);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
+#### Snippet
+```java
+      Git git = new Git(r);
+      GarbageCollectCommand gc = git.gc();
+      gc.setProgressMonitor(new TextProgressMonitor(new PrintWriter(System.out)));
+      gc.call();
+    } catch (Throwable t) {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
+#### Snippet
+```java
+    } catch (Throwable t) {
+      if (isImportant(t)) {
+        t.printStackTrace(System.err);
+      } else {
+        System.err.println(t.getMessage());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitGcProcess.java`
+#### Snippet
+```java
+        t.printStackTrace(System.err);
+      } else {
+        System.err.println(t.getMessage());
+      }
+      System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        .append(", new object id: ").append(update.getNewObjectId().name())
+        .append(", result: ").append(update.getResult());
+      System.out.println(msg);
+    }
+    String additionalMsgs = result.getMessages();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+    String additionalMsgs = result.getMessages();
+    if (additionalMsgs.length() > 0) {
+      System.out.println("Remote process messages: " + additionalMsgs);
+    }
+  }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+    } catch (Throwable t) {
+      if (debug || isImportant(t)) {
+        t.printStackTrace(System.err);
+      } else {
+        System.err.println(t.getMessage());
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        t.printStackTrace(System.err);
+      } else {
+        System.err.println(t.getMessage());
+      }
+    } finally {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        FileUtil.writeFile(myFile, threadDump + "\ngit progress:\n" + gitProgress + "\nmemory usage (MB):\n" + memoryUsage, "UTF-8");
+      } catch (IOException e) {
+        System.err.println("Exception while persisting thread dump to " + myFile.getAbsolutePath() + "\n" + e);
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        }
+      } catch (Throwable t) {
+        System.err.println("Exception while persisting gc notification " + notification + " to " + myGcDumpFile.getAbsolutePath() + "\n" + t);
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        isGcEventListenerInitialized = true;
+      } catch (ClassNotFoundException ignore) {
+        System.err.println("Cannot initialize GC listener: class not found");
+      } catch (Throwable t) {
+        System.err.println("Cannot initialize GC listener \n" + t);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+        System.err.println("Cannot initialize GC listener: class not found");
+      } catch (Throwable t) {
+        System.err.println("Cannot initialize GC listener \n" + t);
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+      GitServerUtil.pruneRemovedBranches(config, transportFactory, db, uri, authSettings);
+    } catch (Exception e) {
+      System.err.println("Error while pruning removed branches in " + db + ": " + e.getMessage());
+      if (debug) {
+        e.printStackTrace(System.err);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Fetcher.java`
+#### Snippet
+```java
+      System.err.println("Error while pruning removed branches in " + db + ": " + e.getMessage());
+      if (debug) {
+        e.printStackTrace(System.err);
+      }
+    }
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
+#### Snippet
+```java
+    } catch (Throwable t) {
+      if (settings.isDebugEnabled() || isImportant(t)) {
+        System.err.println(t.getMessage());
+        t.printStackTrace(System.err);
+      } else {
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
+#### Snippet
+```java
+      if (settings.isDebugEnabled() || isImportant(t)) {
+        System.err.println(t.getMessage());
+        t.printStackTrace(System.err);
+      } else {
+        String msg = t.getMessage();
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
+#### Snippet
+```java
+          printStackTrace = cause != null && isImportant(cause);
+        }
+        System.err.println(msg);
+        if (printStackTrace)
+          t.printStackTrace(System.err);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
+#### Snippet
+```java
+        System.err.println(msg);
+        if (printStackTrace)
+          t.printStackTrace(System.err);
+      }
+      System.exit(1);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchProcess.java`
+#### Snippet
+```java
+    @Override
+    void call(@NotNull final String action, @NotNull final String file) {
+      System.out.println(action + " " + file);
+    }
+  }
+```
+
 ## RuleId[id=ExcessiveRangeCheck]
 ### ExcessiveRangeCheck
 Can be replaced with 'includeRules.size() != 1'
@@ -7320,11 +7320,11 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentCommitL
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
-          continue;
-        }
-        final String[] parts = line.split("[ \t]*[= \t]", 2);
-        final String keyword = parts[0];
-        final String argument = unquoteIfNeeded(parts[1]);
+  private static LinkedList<String> parseList(final String arg) {
+    LinkedList<String> values = new LinkedList<String>();
+    for (String a : arg.split("[ \t,]+")) {
+      if (a.length() == 0) {
+        continue;
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7332,11 +7332,11 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 #### Snippet
 ```java
-  private static LinkedList<String> parseList(final String arg) {
-    LinkedList<String> values = new LinkedList<String>();
-    for (String a : arg.split("[ \t,]+")) {
-      if (a.length() == 0) {
-        continue;
+          continue;
+        }
+        final String[] parts = line.split("[ \t]*[= \t]", 2);
+        final String keyword = parts[0];
+        final String argument = unquoteIfNeeded(parts[1]);
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7364,15 +7364,15 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithM
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
 #### Snippet
 ```java
-      }
-      String path = credHelper.getCanonicalPath();
-      path = path.replaceAll("\\\\", "/");
-      command.addConfig("credential.helper", path);
-      if (myPluginConfig.isCleanCredHelperScript()) {
+      path = targetDir.getAbsolutePath();
+    }
+    return ".".equals(path) ? "" : path.replace("\\", "/");
+  }
+
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7388,15 +7388,15 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
 #### Snippet
 ```java
-      path = targetDir.getAbsolutePath();
-    }
-    return ".".equals(path) ? "" : path.replace("\\", "/");
-  }
-
+      }
+      String path = credHelper.getCanonicalPath();
+      path = path.replaceAll("\\\\", "/");
+      command.addConfig("credential.helper", path);
+      if (myPluginConfig.isCleanCredHelperScript()) {
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -7766,18 +7766,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHMain.java`
 ```
 
 ### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-      command.addConfig("credential.helper", path);
-      if (myPluginConfig.isCleanCredHelperScript()) {
-        command.addPostAction(new Runnable() {
-          @Override
-          public void run() {
-```
-
-### Convert2Lambda
 Anonymous new FileFilter() can be replaced with lambda
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/MirrorManagerImpl.java`
 #### Snippet
@@ -7787,6 +7775,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/MirrorManagerImpl
     final File[] dirs = myBaseMirrorsDir.listFiles(new FileFilter() {
       public boolean accept(File f) {
         return f.isDirectory() && new File(f, "config").exists();
+```
+
+### Convert2Lambda
+Anonymous new FileFilter() can be replaced with lambda
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUtils.java`
+#### Snippet
+```java
+      return;
+    }
+    final Collection<File> locks = FileUtil.findFiles(new FileFilter() {
+      public boolean accept(File f) {
+        return f.isFile() && f.getName().endsWith(".lock");
 ```
 
 ### Convert2Lambda
@@ -7802,15 +7802,15 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUtils.java`
 ```
 
 ### Convert2Lambda
-Anonymous new FileFilter() can be replaced with lambda
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUtils.java`
+Anonymous new Runnable() can be replaced with lambda
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
 #### Snippet
 ```java
-      return;
-    }
-    final Collection<File> locks = FileUtil.findFiles(new FileFilter() {
-      public boolean accept(File f) {
-        return f.isFile() && f.getName().endsWith(".lock");
+      command.addConfig("credential.helper", path);
+      if (myPluginConfig.isCleanCredHelperScript()) {
+        command.addPostAction(new Runnable() {
+          @Override
+          public void run() {
 ```
 
 ## RuleId[id=CaughtExceptionImmediatelyRethrown]
@@ -7840,90 +7840,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/GitR
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-
-  private static int nextPowerOf2(int val) {
-    --val;
-    val |= val >> 1;
-    val |= val >> 2;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-  private static int nextPowerOf2(int val) {
-    --val;
-    val |= val >> 1;
-    val |= val >> 2;
-    val |= val >> 4;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-    --val;
-    val |= val >> 1;
-    val |= val >> 2;
-    val |= val >> 4;
-    val |= val >> 8;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-    val |= val >> 1;
-    val |= val >> 2;
-    val |= val >> 4;
-    val |= val >> 8;
-    val |= val >> 16;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-    val |= val >> 2;
-    val |= val >> 4;
-    val |= val >> 8;
-    val |= val >> 16;
-    ++val;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-    val |= val >> 4;
-    val |= val >> 8;
-    val |= val >> 16;
-    ++val;
-    return val;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `val`
-in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
-#### Snippet
-```java
-    val |= val >> 8;
-    val |= val >> 16;
-    ++val;
-    return val;
-  }
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `length`
 in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
 #### Snippet
@@ -7932,6 +7848,90 @@ in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
       index += copyLength;
       length -= copyLength;
     } while (length > 0);
+  }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+
+  private static int nextPowerOf2(int val) {
+    --val;
+    val |= val >> 1;
+    val |= val >> 2;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+  private static int nextPowerOf2(int val) {
+    --val;
+    val |= val >> 1;
+    val |= val >> 2;
+    val |= val >> 4;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+    --val;
+    val |= val >> 1;
+    val |= val >> 2;
+    val |= val >> 4;
+    val |= val >> 8;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+    val |= val >> 1;
+    val |= val >> 2;
+    val |= val >> 4;
+    val |= val >> 8;
+    val |= val >> 16;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+    val |= val >> 2;
+    val |= val >> 4;
+    val |= val >> 8;
+    val |= val >> 16;
+    ++val;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+    val |= val >> 4;
+    val |= val >> 8;
+    val |= val >> 16;
+    ++val;
+    return val;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `val`
+in `git-agent/src/org/jetbrains/git4idea/util/FastByteArrayBuilder.java`
+#### Snippet
+```java
+    val |= val >> 8;
+    val |= val >> 16;
+    ++val;
+    return val;
   }
 ```
 
@@ -8097,6 +8097,18 @@ Return of `null`
 in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
 #### Snippet
 ```java
+                                         final String lastError) {
+    if (myClient == null) {
+      return null;
+    }
+    Vector parameters = new Vector();
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
+#### Snippet
+```java
                               final String lastError) {
     if (myClient == null) {
       return null;
@@ -8142,18 +8154,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
 
 ### ReturnNull
 Return of `null`
-in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHXmlRcpClient.java`
-#### Snippet
-```java
-                                         final String lastError) {
-    if (myClient == null) {
-      return null;
-    }
-    Vector parameters = new Vector();
-```
-
-### ReturnNull
-Return of `null`
 in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHService.java`
 #### Snippet
 ```java
@@ -8162,18 +8162,6 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/GitSSHService.java`
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/PluginConfigImpl.java`
-#### Snippet
-```java
-    String useDefault = myBuild.getSharedConfigParameters().get(USE_DEFAULT_CHARSET);
-    if (Boolean.valueOf(useDefault))
-      return null;
-    String charsetName = myBuild.getSharedConfigParameters().get(GIT_OUTPUT_CHARSET);
-    return StringUtil.isNotEmpty(charsetName) ? charsetName : "UTF-8";
 ```
 
 ### ReturnNull
@@ -8193,9 +8181,9 @@ Return of `null`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/BuildContext.java`
 #### Snippet
 ```java
-      }
-    }
-    return null;
+  public String getInterruptionReason() {
+    final BuildInterruptReason reason = myBuild.getInterruptReason();
+    return reason == null ? null : reason.getUserDescription();
   }
 
 ```
@@ -8205,9 +8193,9 @@ Return of `null`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/BuildContext.java`
 #### Snippet
 ```java
-  public String getInterruptionReason() {
-    final BuildInterruptReason reason = myBuild.getInterruptReason();
-    return reason == null ? null : reason.getUserDescription();
+      }
+    }
+    return null;
   }
 
 ```
@@ -8250,6 +8238,18 @@ in `git-agent/src/org/jetbrains/git4idea/ssh/SSHConfig.java`
 
 ### ReturnNull
 Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/PluginConfigImpl.java`
+#### Snippet
+```java
+    String useDefault = myBuild.getSharedConfigParameters().get(USE_DEFAULT_CHARSET);
+    if (Boolean.valueOf(useDefault))
+      return null;
+    String charsetName = myBuild.getSharedConfigParameters().get(GIT_OUTPUT_CHARSET);
+    return StringUtil.isNotEmpty(charsetName) ? charsetName : "UTF-8";
+```
+
+### ReturnNull
+Return of `null`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/SshKeyManagerProviderImpl.java`
 #### Snippet
 ```java
@@ -8270,6 +8270,18 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/AgentCommitL
       return refs.isEmpty() ? null : refs.get(ref);
     }
 
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithMirror.java`
+#### Snippet
+```java
+    LsTreeResult lsTreeResult = git.lsTree().setRevision(revision).setPath(path).call();
+    if (lsTreeResult == null) {
+      return null;
+    }
+    return lsTreeResult.getObject();
 ```
 
 ### ReturnNull
@@ -8358,84 +8370,12 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/GitDetectorI
 
 ### ReturnNull
 Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterWithMirror.java`
-#### Snippet
-```java
-    LsTreeResult lsTreeResult = git.lsTree().setRevision(revision).setPath(path).call();
-    if (lsTreeResult == null) {
-      return null;
-    }
-    return lsTreeResult.getObject();
-```
-
-### ReturnNull
-Return of `null`
 in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/CheckoutDirectoryCleaner.java`
 #### Snippet
 ```java
       LOG.warn("Failed to detect git, no cleaners will be registered", e);
     }
     return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/URIishHelperImpl.java`
-#### Snippet
-```java
-      //ignore
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
-#### Snippet
-```java
-      final KeyStore trustStore = trustStore(agentConfiguration);
-      if (trustStore == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
-#### Snippet
-```java
-      LOG.error("Can not write file with certificates", e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
-#### Snippet
-```java
-      final X509TrustManager manager = trustManager(agentConfiguration);
-      if (manager == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/LsTreeCommandImpl.java`
-#### Snippet
-```java
-    ExecResult r = CommandUtil.runCommand(cmd);
-    String stdout = r.getStdout().trim();
-    return StringUtil.isEmpty(stdout) ? null : parseLsTreeOutput(stdout);
   }
 
 ```
@@ -8478,35 +8418,11 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/JSchClient.j
 
 ### ReturnNull
 Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/LogCommandImpl.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/URIishHelperImpl.java`
 #### Snippet
 ```java
-      return CommandUtil.runCommand(cmd.stdErrExpected(false)).getStdout().trim();
-    } catch (VcsException e) {
-      return null;
+      //ignore
     }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
-#### Snippet
-```java
-  public String askPassphrase(String username, String keyPath, boolean resetPassword, String lastError) {
-    if (resetPassword) {
-      return null;
-    }
-    return myAuthSettings.getPassphrase();
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
-#### Snippet
-```java
-                                         Vector<Boolean> echo,
-                                         String lastError) {
     return null;
   }
 
@@ -8514,11 +8430,59 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl
 
 ### ReturnNull
 Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
 #### Snippet
 ```java
-      return "TeamCity Agent " + version.getDisplayVersion();
-    } catch (Exception e) {
+      LOG.error("Can not write file with certificates", e);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
+#### Snippet
+```java
+      final KeyStore trustStore = trustStore(agentConfiguration);
+      if (trustStore == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/ssl/SSLInvestigator.java`
+#### Snippet
+```java
+      final X509TrustManager manager = trustManager(agentConfiguration);
+      if (manager == null) {
+        return null;
+      }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/LsTreeCommandImpl.java`
+#### Snippet
+```java
+    ExecResult r = CommandUtil.runCommand(cmd);
+    String stdout = r.getStdout().trim();
+    return StringUtil.isEmpty(stdout) ? null : parseLsTreeOutput(stdout);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/LogCommandImpl.java`
+#### Snippet
+```java
+      return CommandUtil.runCommand(cmd.stdErrExpected(false)).getStdout().trim();
+    } catch (VcsException e) {
       return null;
     }
   }
@@ -8538,6 +8502,42 @@ in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl
 
 ### ReturnNull
 Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
+#### Snippet
+```java
+  public String askPassphrase(String username, String keyPath, boolean resetPassword, String lastError) {
+    if (resetPassword) {
+      return null;
+    }
+    return myAuthSettings.getPassphrase();
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
+#### Snippet
+```java
+      return "TeamCity Agent " + version.getDisplayVersion();
+    } catch (Exception e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/command/impl/SshHandler.java`
+#### Snippet
+```java
+                                         Vector<Boolean> echo,
+                                         String lastError) {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/CommandLineUtil.java`
 #### Snippet
 ```java
@@ -8550,66 +8550,6 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/CommandLineUtil.j
 
 ### ReturnNull
 Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  private String getUpperLimitRevision() {
-    String rootExtId = getVcsRootExtId();
-    return rootExtId != null ? myBuild.getSharedConfigParameters().get("teamcity.upperLimitRevision." + rootExtId) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-          LOG.debug("Build has more than one VCS root with same revision " + myRevision + ": " + vcsRootExtId + " and " +
-                    extId + ", cannot deduce VCS root extId");
-          return null;
-        } else {
-          vcsRootExtId = extId;
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-      LOG.debug("Cannot get lfs auth config", e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  protected Ref getRef(@NotNull File repositoryDir, @NotNull String ref) {
-    Map<String, Ref> refs = myGitFactory.create(repositoryDir).showRef().setPattern(ref).call().getValidRefs();
-    return refs.isEmpty() ? null : refs.get(ref);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
-#### Snippet
-```java
-  protected Config readGitModules(@NotNull File repoDir) throws VcsException {
-    final File dotGitModules = new File(repoDir, ".gitmodules");
-    if (!dotGitModules.exists()) return null;
-
-    try {
-```
-
-### ReturnNull
-Return of `null`
 in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/MirrorManagerImpl.java`
 #### Snippet
 ```java
@@ -8618,6 +8558,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/MirrorManagerImpl
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsRoot.java`
+#### Snippet
+```java
+  @Nullable
+  protected ExpiringAccessToken getOrRefreshToken(@NotNull String tokenId) {
+    return null;
+  }
+}
 ```
 
 ### ReturnNull
@@ -8646,14 +8598,86 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsRoot.java`
 
 ### ReturnNull
 Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsRoot.java`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
 #### Snippet
 ```java
-  @Nullable
-  protected ExpiringAccessToken getOrRefreshToken(@NotNull String tokenId) {
+  private String getUpperLimitRevision() {
+    String rootExtId = getVcsRootExtId();
+    return rootExtId != null ? myBuild.getSharedConfigParameters().get("teamcity.upperLimitRevision." + rootExtId) : null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  protected Ref getRef(@NotNull File repositoryDir, @NotNull String ref) {
+    Map<String, Ref> refs = myGitFactory.create(repositoryDir).showRef().setPattern(ref).call().getValidRefs();
+    return refs.isEmpty() ? null : refs.get(ref);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+          LOG.debug("Build has more than one VCS root with same revision " + myRevision + ": " + vcsRootExtId + " and " +
+                    extId + ", cannot deduce VCS root extId");
+          return null;
+        } else {
+          vcsRootExtId = extId;
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+  protected Config readGitModules(@NotNull File repoDir) throws VcsException {
+    final File dotGitModules = new File(repoDir, ".gitmodules");
+    if (!dotGitModules.exists()) return null;
+
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `git-agent/src/jetbrains/buildServer/buildTriggers/vcs/git/agent/UpdaterImpl.java`
+#### Snippet
+```java
+      LOG.debug("Cannot get lfs auth config", e);
+    }
     return null;
   }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/StubContext.java`
+#### Snippet
+```java
+  @Override
+  public String getPreferredSshAuthMethods() {
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/StubContext.java`
+#### Snippet
+```java
+  @Override
+  public Charset getCharset() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -8687,30 +8711,6 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/Stub
 ```java
   @Override
   public String getInterruptionReason() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/StubContext.java`
-#### Snippet
-```java
-  @Override
-  public Charset getCharset() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/impl/StubContext.java`
-#### Snippet
-```java
-  @Override
-  public String getPreferredSshAuthMethods() {
     return null;
   }
 
@@ -8766,6 +8766,18 @@ in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/GitComman
 
 ### ReturnNull
 Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevWalk.java`
 #### Snippet
 ```java
@@ -8774,6 +8786,30 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CheckoutRulesRevW
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/AuthSettingsImpl.java`
+#### Snippet
+```java
+  private String readUsername(Map<String, String> properties) {
+    if (myAuthMethod == AuthenticationMethod.ANONYMOUS) {
+      return null;
+    }
+    String explicitUsername = properties.get(Constants.USERNAME);
+```
+
+### ReturnNull
+Return of `null`
+in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/AuthSettingsImpl.java`
+#### Snippet
+```java
+    myToken = myTokenRetriever.apply(myTokenId);
+    if (myToken == null)
+      return null;
+
+    return myToken.getAccessToken();
 ```
 
 ### ReturnNull
@@ -8862,66 +8898,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/PluginConfigImpl.
 
 ### ReturnNull
 Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/AuthSettingsImpl.java`
-#### Snippet
-```java
-  private String readUsername(Map<String, String> properties) {
-    if (myAuthMethod == AuthenticationMethod.ANONYMOUS) {
-      return null;
-    }
-    String explicitUsername = properties.get(Constants.USERNAME);
-```
-
-### ReturnNull
-Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/AuthSettingsImpl.java`
-#### Snippet
-```java
-    myToken = myTokenRetriever.apply(myTokenId);
-    if (myToken == null)
-      return null;
-
-    return myToken.getAccessToken();
-```
-
-### ReturnNull
-Return of `null`
-in `git-common/src/jetbrains/buildServer/buildTriggers/vcs/git/command/credentials/CredentialsHelper.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/VcsPropertiesProcessor.java`
-#### Snippet
-```java
-  public InvalidProperty validateBranchSpec(@Nullable String branchSpec) {
-    if (isEmpty(branchSpec))
-      return null;
-
-    assert branchSpec != null;
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/VcsPropertiesProcessor.java`
-#### Snippet
-```java
-      i++;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/AutoCloseRepositoryCache.java`
 #### Snippet
 ```java
@@ -8958,14 +8934,122 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitAbstractVcsFil
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/EmptyVcsRootSshKeyManager.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/VcsPropertiesProcessor.java`
 #### Snippet
 ```java
-  @Nullable
-  public TeamCitySshKey getKey(@NotNull VcsRoot root) {
+  public InvalidProperty validateBranchSpec(@Nullable String branchSpec) {
+    if (isEmpty(branchSpec))
+      return null;
+
+    assert branchSpec != null;
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/VcsPropertiesProcessor.java`
+#### Snippet
+```java
+      i++;
+    }
     return null;
   }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+    String path = uri.getPath();
+    if (path == null)
+      return null;
+    if (path.startsWith("/"))
+      path = path.substring(1);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+    int idx = path.indexOf("/");
+    if (idx <= 0)
+      return null;
+    String owner = path.substring(0, idx);
+    String repo = path.substring(idx + 1);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+  public static VcsHostingRepo getGitlabRepo(@NotNull URIish uri) {
+    if (!"gitlab.com".equals(uri.getHost()))
+      return null;
+
+    return ownerProjectStyleRepo("https://gitlab.com/", uri);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+  public static VcsHostingRepo getGitHubRepo(@NotNull URIish uri) {
+    if (!"github.com".equals(uri.getHost()))
+      return null;
+
+    return ownerProjectStyleRepo("https://github.com/", uri);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+    String host = uri.getHost();
+    if (host == null)
+      return null;
+
+    final int idx = host.indexOf(".visualstudio.com");
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+    final int idx = host.indexOf(".visualstudio.com");
+    if (idx <= 0)
+      return null;
+
+    String owner = host.substring(0, idx);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+    String path = uri.getPath();
+    if (path == null)
+      return null;
+
+    int gitPrefixIdx = path.indexOf("_git/");
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+#### Snippet
+```java
+
+    int gitPrefixIdx = path.indexOf("_git/");
+    if (gitPrefixIdx == -1) return null;
+
+    String repoName = path.substring(gitPrefixIdx + "_git/".length());
 ```
 
 ### ReturnNull
@@ -9030,110 +9114,14 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostings
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/EmptyVcsRootSshKeyManager.java`
 #### Snippet
 ```java
-    String path = uri.getPath();
-    if (path == null)
-      return null;
-    if (path.startsWith("/"))
-      path = path.substring(1);
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-    int idx = path.indexOf("/");
-    if (idx <= 0)
-      return null;
-    String owner = path.substring(0, idx);
-    String repo = path.substring(idx + 1);
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-    String host = uri.getHost();
-    if (host == null)
-      return null;
-
-    final int idx = host.indexOf(".visualstudio.com");
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CommitLoaderImpl.java`
-#### Snippet
-```java
-      return getCommit(r, ObjectId.fromString(sha));
-    } catch (Exception e) {
-      return null;
-    }
+  @Nullable
+  public TeamCitySshKey getKey(@NotNull VcsRoot root) {
+    return null;
   }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-    final int idx = host.indexOf(".visualstudio.com");
-    if (idx <= 0)
-      return null;
-
-    String owner = host.substring(0, idx);
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-    String path = uri.getPath();
-    if (path == null)
-      return null;
-
-    int gitPrefixIdx = path.indexOf("_git/");
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-
-    int gitPrefixIdx = path.indexOf("_git/");
-    if (gitPrefixIdx == -1) return null;
-
-    String repoName = path.substring(gitPrefixIdx + "_git/".length());
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-  public static VcsHostingRepo getGitlabRepo(@NotNull URIish uri) {
-    if (!"gitlab.com".equals(uri.getHost()))
-      return null;
-
-    return ownerProjectStyleRepo("https://gitlab.com/", uri);
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/WellKnownHostingsUtil.java`
-#### Snippet
-```java
-  public static VcsHostingRepo getGitHubRepo(@NotNull URIish uri) {
-    if (!"github.com".equals(uri.getHost()))
-      return null;
-
-    return ownerProjectStyleRepo("https://github.com/", uri);
+}
 ```
 
 ### ReturnNull
@@ -9143,6 +9131,18 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/RemoteRepositoryU
 ```java
     } catch (Exception e) {
       LOG.warn("Error while trying to get remote repository url at " + repositoryDir.getAbsolutePath(), e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/CommitLoaderImpl.java`
+#### Snippet
+```java
+      return getCommit(r, ObjectId.fromString(sha));
+    } catch (Exception e) {
       return null;
     }
   }
@@ -9189,18 +9189,6 @@ Return of `null`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConnection.java`
 #### Snippet
 ```java
-  public String getHeaderField(@NonNull String name) {
-    Header header = resp.getFirstHeader(name);
-    return (header == null) ? null : header.getValue();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConnection.java`
-#### Snippet
-```java
         return contentType.getValue();
     }
     return null;
@@ -9210,122 +9198,14 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConn
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/SSLHttpClientConnection.java`
 #### Snippet
 ```java
-
-    } else if (isExplicitXmxProvided() || isXmxIncreaseDisabled() || myIsLimitReached) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
-#### Snippet
-```java
-  @Nullable
-  private Integer saveAndReturn(@Nullable Integer xmx) {
-    if (xmx == null) return null;
-    myStorage.write(xmx);
-    return myPrev = xmx;
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
-#### Snippet
-```java
-  @Nullable
-  private Integer logIncreasedXmx(@Nullable Integer xmx) {
-    if (xmx == null) return null;
-    if (myPrev != null && xmx > myPrev) {
-      info("There is not enough memory (attempted -Xmx" + myPrev + "M), will use increased -Xmx=" + xmx + "M");
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
-#### Snippet
-```java
-  private static Integer getInMB(@Nullable String val) {
-    final Long bytes = GitServerUtil.convertMemorySizeToBytes(val);
-    return bytes == null ? null : (int)(bytes / MB);
+  public String getHeaderField(@NonNull String name) {
+    Header header = resp.getFirstHeader(name);
+    return (header == null) ? null : header.getValue();
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
-#### Snippet
-```java
-      return r.resolve(tagRef.getName());
-    } catch (IOException e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
-#### Snippet
-```java
-    ObjectId tagId = tagRef.getObjectId();
-    if (tagId == null)
-      return null;
-    RevWalk walk = new RevWalk(r);
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
-#### Snippet
-```java
-      return walk.parseTag(tagId);
-    } catch (Exception e) {
-      return null;
-    } finally {
-      walk.close();
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
-#### Snippet
-```java
-      return "TeamCity Server " + version.getDisplayVersion();
-    } catch (Exception e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
-#### Snippet
-```java
-      Class.forName("com.sun.management.OperatingSystemMXBean");
-    } catch (ClassNotFoundException e) {
-      return null;
-    }
-    OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
-#### Snippet
-```java
-      return ((com.sun.management.OperatingSystemMXBean) osBean).getFreePhysicalMemorySize();
-    }
-    return null;
-
-  }
 ```
 
 ### ReturnNull
@@ -9390,6 +9270,30 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.jav
 
 ### ReturnNull
 Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
+#### Snippet
+```java
+      Class.forName("com.sun.management.OperatingSystemMXBean");
+    } catch (ClassNotFoundException e) {
+      return null;
+    }
+    OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitServerUtil.java`
+#### Snippet
+```java
+      return ((com.sun.management.OperatingSystemMXBean) osBean).getFreePhysicalMemorySize();
+    }
+    return null;
+
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitTrustStoreProviderStatic.java`
 #### Snippet
 ```java
@@ -9414,6 +9318,66 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitTrustStoreProv
 
 ### ReturnNull
 Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+#### Snippet
+```java
+  @Nullable
+  private Integer saveAndReturn(@Nullable Integer xmx) {
+    if (xmx == null) return null;
+    myStorage.write(xmx);
+    return myPrev = xmx;
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+#### Snippet
+```java
+  private static Integer getInMB(@Nullable String val) {
+    final Long bytes = GitServerUtil.convertMemorySizeToBytes(val);
+    return bytes == null ? null : (int)(bytes / MB);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+#### Snippet
+```java
+  @Nullable
+  private Integer logIncreasedXmx(@Nullable Integer xmx) {
+    if (xmx == null) return null;
+    if (myPrev != null && xmx > myPrev) {
+      info("There is not enough memory (attempted -Xmx" + myPrev + "M), will use increased -Xmx=" + xmx + "M");
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ProcessXmxProvider.java`
+#### Snippet
+```java
+
+    } else if (isExplicitXmxProvided() || isXmxIncreaseDisabled() || myIsLimitReached) {
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/TransportFactoryImpl.java`
+#### Snippet
+```java
+      return "TeamCity Server " + version.getDisplayVersion();
+    } catch (Exception e) {
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
 in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/ModificationDataRevWalk.java`
 #### Snippet
 ```java
@@ -9434,6 +9398,42 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/URIishHelperImpl.
     return null;
   }
 
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+    ObjectId tagId = tagRef.getObjectId();
+    if (tagId == null)
+      return null;
+    RevWalk walk = new RevWalk(r);
+    try {
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+      return walk.parseTag(tagId);
+    } catch (Exception e) {
+      return null;
+    } finally {
+      walk.close();
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitLabelingSupport.java`
+#### Snippet
+```java
+      return r.resolve(tagRef.getName());
+    } catch (IOException e) {
+      return null;
+    }
+  }
 ```
 
 ### ReturnNull
@@ -9469,6 +9469,90 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchBui
     if (key == null)
       return null;
     return new String(key.getPrivateKey());
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/github/GitHubListFilesSupport.java`
+#### Snippet
+```java
+  private String getDirectChildName(@NotNull String parentDir, @NotNull String path) {
+    if (!isUnder(parentDir, path))
+      return null;
+    if (parentDir.equals("") && !path.contains("/"))
+      return path;
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/github/GitHubListFilesSupport.java`
+#### Snippet
+```java
+    String subPath = parentDir.endsWith("/") ? path.substring(parentDir.length()) : path.substring(parentDir.length() + 1);
+    if (subPath.contains("/"))
+      return null;
+    return subPath;
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+#### Snippet
+```java
+    MavenVcsUrl mavenUrl = url.asMavenVcsUrl();
+    if (mavenUrl == null)
+      return null;
+    return mavenUrl.getProviderSchema();
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+#### Snippet
+```java
+    String scmName = getMavenScmName(url);
+    if (scmName != null && !"git".equals(scmName) && !"ssh".equals(scmName)) //some other scm provider
+      return null;
+
+    String fetchUrl = getFetchUrl(url);
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+#### Snippet
+```java
+      // probably not git
+      Loggers.VCS.infoAndDebugDetails("Failed to recognize " + url.getUrl() + " as a git repository", e);
+      return null;
+    }
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+#### Snippet
+```java
+  @Nullable
+  private synchronized ServerSshKeyManager getSshKeyManager() {
+    if (myExtensionsProvider == null) return null;
+    Collection<ServerSshKeyManager> managers = myExtensionsProvider.getExtensions(ServerSshKeyManager.class);
+    if (managers.isEmpty())
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+#### Snippet
+```java
+    Collection<ServerSshKeyManager> managers = myExtensionsProvider.getExtensions(ServerSshKeyManager.class);
+    if (managers.isEmpty())
+      return null;
+    return managers.iterator().next();
   }
 ```
 
@@ -9522,26 +9606,26 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/FetchCommandImpl.
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/github/GitHubListFilesSupport.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextImpl.java`
 #### Snippet
 ```java
-  private String getDirectChildName(@NotNull String parentDir, @NotNull String path) {
-    if (!isUnder(parentDir, path))
-      return null;
-    if (parentDir.equals("") && !path.contains("/"))
-      return path;
+  @Override
+  public String getSshMacType() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/github/GitHubListFilesSupport.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextImpl.java`
 #### Snippet
 ```java
-    String subPath = parentDir.endsWith("/") ? path.substring(parentDir.length()) : path.substring(parentDir.length() + 1);
-    if (subPath.contains("/"))
-      return null;
-    return subPath;
-  }
+  public Charset getCharset() {
+    final String charsetName = myConfig.getGitOutputCharsetName();
+    if (charsetName == null) return null;
+    try {
+      return Charset.forName(charsetName);
 ```
 
 ### ReturnNull
@@ -9598,18 +9682,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextIm
 #### Snippet
 ```java
   @Override
-  public String getSshMacType() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextImpl.java`
-#### Snippet
-```java
-  @Override
   public String getInterruptionReason() {
     return null;
   }
@@ -9618,59 +9690,23 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextIm
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/command/ContextImpl.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Cleanup.java`
 #### Snippet
 ```java
-  public Charset getCharset() {
-    final String charsetName = myConfig.getGitOutputCharsetName();
-    if (charsetName == null) return null;
-    try {
-      return Charset.forName(charsetName);
+        }
+        public Integer getMaxAcceptedOutputSize() {
+          return null;
+        }
+        @Override
 ```
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/commitInfo/DotGitModulesResolverImpl.java`
 #### Snippet
 ```java
-  @Nullable
-  private synchronized ServerSshKeyManager getSshKeyManager() {
-    if (myExtensionsProvider == null) return null;
-    Collection<ServerSshKeyManager> managers = myExtensionsProvider.getExtensions(ServerSshKeyManager.class);
-    if (managers.isEmpty())
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
-#### Snippet
-```java
-    Collection<ServerSshKeyManager> managers = myExtensionsProvider.getExtensions(ServerSshKeyManager.class);
-    if (managers.isEmpty())
-      return null;
-    return managers.iterator().next();
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
-#### Snippet
-```java
-    String scmName = getMavenScmName(url);
-    if (scmName != null && !"git".equals(scmName) && !"ssh".equals(scmName)) //some other scm provider
-      return null;
-
-    String fetchUrl = getFetchUrl(url);
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
-#### Snippet
-```java
-      // probably not git
-      Loggers.VCS.infoAndDebugDetails("Failed to recognize " + url.getUrl() + " as a git repository", e);
+    } catch (ConfigInvalidException e) {
+      LOG.info("Invalid submodule config: " + e.getMessage(), e);
       return null;
     }
   }
@@ -9678,14 +9714,26 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.jav
 
 ### ReturnNull
 Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitUrlSupport.java`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
 #### Snippet
 ```java
-    MavenVcsUrl mavenUrl = url.asMavenVcsUrl();
-    if (mavenUrl == null)
-      return null;
-    return mavenUrl.getProviderSchema();
+  public String getDefaultBranchName(@NotNull VcsRoot vcsRoot) {
+    final String prop = vcsRoot.getProperty(Constants.BRANCH_NAME);
+    return prop == null ? null : GitUtils.expandRef(prop);
   }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
+#### Snippet
+```java
+  @Override
+  public UrlSupport getUrlSupport() {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -9734,30 +9782,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/process/Repositor
     return null;
   }
 
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/commitInfo/DotGitModulesResolverImpl.java`
-#### Snippet
-```java
-    } catch (ConfigInvalidException e) {
-      LOG.info("Invalid submodule config: " + e.getMessage(), e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/Cleanup.java`
-#### Snippet
-```java
-        }
-        public Integer getMaxAcceptedOutputSize() {
-          return null;
-        }
-        @Override
 ```
 
 ### ReturnNull
@@ -9818,30 +9842,6 @@ in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/patch/GitPatchPro
         return null;
       return new TeamCitySshKey(""/*doesn't matter*/, myKeyBytes, false/*doesn't matter*/);
     }
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
-#### Snippet
-```java
-  @Override
-  public UrlSupport getUrlSupport() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `git-server/src/jetbrains/buildServer/buildTriggers/vcs/git/GitVcsSupport.java`
-#### Snippet
-```java
-  public String getDefaultBranchName(@NotNull VcsRoot vcsRoot) {
-    final String prop = vcsRoot.getProperty(Constants.BRANCH_NAME);
-    return prop == null ? null : GitUtils.expandRef(prop);
-  }
-}
 ```
 
 ### ReturnNull
