@@ -28,11 +28,47 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
 #### Snippet
 ```java
+            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
+            if (Files.exists(targetFile)) {
+                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+            } else {
+                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
+                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
+                Files.move(sourceFile, targetFile);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
             throw new IllegalStateException(message);
         }
         System.out.format("moving changelog directory `%s` to `%s`%n", unreleasedDirectory, releaseDirectory);
         Files.move(unreleasedDirectory, releaseDirectory);
         Files.createDirectories(unreleasedDirectory);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
+#### Snippet
+```java
+        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
+        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
+        System.out.format("using `%s` for the release date%n", releaseDate);
+
+        try {
 ```
 
 ### SystemOutErr
@@ -69,42 +105,6 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/Ch
                 System.out.format(
                         "moving changelog entry file `%s` to `%s`%n",
                         unreleasedChangelogEntryFile, releasedChangelogEntryFile);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-            final Path targetFile = releaseDirectory.resolve(releaseChangelogTemplateFileName);
-            if (Files.exists(targetFile)) {
-                System.out.format("keeping the existing changelog template file: `%s`%n", targetFile);
-            } else {
-                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-            } else {
-                final Path sourceFile = unreleasedDirectory.resolve(releaseChangelogTemplateFileName);
-                System.out.format("moving the changelog template file `%s` to `%s`%n", sourceFile, targetFile);
-                Files.move(sourceFile, targetFile);
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/releaser/ChangelogReleaser.java`
-#### Snippet
-```java
-        final String releaseDate = ISO_DATE.format(args.releaseDate != null ? args.releaseDate : LocalDate.now());
-        final int releaseVersionMajor = VersionUtils.versionMajor(args.releaseVersion);
-        System.out.format("using `%s` for the release date%n", releaseDate);
-
-        try {
 ```
 
 ### SystemOutErr
@@ -146,7 +146,7 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/exporter/Ch
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-17-06-14-13.091.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-09-30-04.125.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -167,6 +167,18 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/util/String
         return input == null || input.matches("\\s*");
     }
 
+```
+
+### DynamicRegexReplaceableByCompiledPattern
+`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
+in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChangesImporter.java`
+#### Snippet
+```java
+        // Create the `author`s
+        final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
+        for (final String authorId : action.dev.split("\\s*,\\s*")) {
+            if (!isBlank(authorId)) {
+                authors.add(new ChangelogEntry.Author(authorId, null));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
@@ -215,18 +227,6 @@ in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/Ma
                 .replaceAll("[^A-Za-z0-9]*$", "");
         final String shortenedSanitizedDescription = sanitizedDescription.length() > 60
                 ? sanitizedDescription.substring(0, 60)
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChangesImporter.java`
-#### Snippet
-```java
-        // Create the `author`s
-        final List<ChangelogEntry.Author> authors = new ArrayList<>(2);
-        for (final String authorId : action.dev.split("\\s*,\\s*")) {
-            if (!isBlank(authorId)) {
-                authors.add(new ChangelogEntry.Author(authorId, null));
 ```
 
 ### DynamicRegexReplaceableByCompiledPattern
