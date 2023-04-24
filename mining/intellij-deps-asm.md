@@ -406,18 +406,6 @@ in `asm-tree/src/main/java/org/objectweb/asm/tree/Util.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Dereference of `directory.listFiles()` may produce `NullPointerException`
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
-#### Snippet
-```java
-  private static void findClasses(final File directory, final ArrayList<byte[]> classFiles)
-      throws IOException {
-    for (File file : directory.listFiles()) {
-      if (file.isDirectory()) {
-        findClasses(file, classFiles);
-```
-
-### DataFlowIssue
 Argument `getResourceAsStream(name.replace('.', '/') + ".class")` might be null
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
 #### Snippet
@@ -427,6 +415,18 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
           classFile = readInputStream(getResourceAsStream(name.replace('.', '/') + ".class"));
         } catch (IOException e) {
           throw new ClassNotFoundException(name, e);
+```
+
+### DataFlowIssue
+Dereference of `directory.listFiles()` may produce `NullPointerException`
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
+#### Snippet
+```java
+  private static void findClasses(final File directory, final ArrayList<byte[]> classFiles)
+      throws IOException {
+    for (File file : directory.listFiles()) {
+      if (file.isDirectory()) {
+        findClasses(file, classFiles);
 ```
 
 ### DataFlowIssue
@@ -502,19 +502,32 @@ in `asm/src/main/java/org/objectweb/asm/Constants.java`
       minorVersion = callerClassStream.readUnsignedShort();
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `references` from instance context
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/MemoryProfiler.java`
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
 #### Snippet
 ```java
-    }
-    long usedMemoryAfterIteration = memoryProbe.getUsedMemory();
-    references = null;
-
-    long usedMemoryInIteration = usedMemoryAfterIteration - usedMemoryBeforeIteration;
+  private static int checkTypeVariableSignature(final String signature, final int startPos) {
+    // From https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.9.1:
+    // TypeVariableSignature:
+    //  T Identifier ;
+    int pos = startPos;
 ```
 
+### CommentedOutCode
+Commented out code (2 lines)
+in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
+#### Snippet
+```java
+    if (checkClassVersion && readShort(classFileOffset + 6) > Opcodes.V21) {
+      //[JB: accept any version]
+      //throw new IllegalArgumentException(
+      //    "Unsupported class file major version " + readShort(classFileOffset + 6));
+    }
+```
+
+## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
 ### AssignmentToStaticFieldFromInstanceMethod
 Assignment to static field `references` from instance context
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/MemoryProfiler.java`
@@ -551,29 +564,16 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/MemoryProfiler.java`
 
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
+### AssignmentToStaticFieldFromInstanceMethod
+Assignment to static field `references` from instance context
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/MemoryProfiler.java`
 #### Snippet
 ```java
-  private static int checkTypeVariableSignature(final String signature, final int startPos) {
-    // From https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.9.1:
-    // TypeVariableSignature:
-    //  T Identifier ;
-    int pos = startPos;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
-#### Snippet
-```java
-    if (checkClassVersion && readShort(classFileOffset + 6) > Opcodes.V21) {
-      //[JB: accept any version]
-      //throw new IllegalArgumentException(
-      //    "Unsupported class file major version " + readShort(classFileOffset + 6));
     }
+    long usedMemoryAfterIteration = memoryProbe.getUsedMemory();
+    references = null;
+
+    long usedMemoryInIteration = usedMemoryAfterIteration - usedMemoryBeforeIteration;
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -615,78 +615,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-      case DCMPL:
-      case DCMPG:
-        return BasicValue.INT_VALUE;
-      case IF_ICMPEQ:
-      case IF_ICMPNE:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-        return newValue(Type.getType("[" + Type.getObjectType(((TypeInsnNode) insn).desc)));
-      case ARRAYLENGTH:
-        return BasicValue.INT_VALUE;
-      case ATHROW:
-        return null;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-        return BasicValue.INT_VALUE;
-      case ATHROW:
-        return null;
-      case CHECKCAST:
-        return newValue(Type.getObjectType(((TypeInsnNode) insn).desc));
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-        return newValue(Type.getObjectType(((TypeInsnNode) insn).desc));
-      case INSTANCEOF:
-        return BasicValue.INT_VALUE;
-      case MONITORENTER:
-      case MONITOREXIT:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-      case IFNULL:
-      case IFNONNULL:
-        return null;
-      default:
-        throw new AssertionError();
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-      case BIPUSH:
-      case SIPUSH:
-        return BasicValue.INT_VALUE;
-      case LDC:
-        Object value = ((LdcInsnNode) insn).cst;
-```
-
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Frame.java`
@@ -853,6 +781,78 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Frame.java`
         interpreter.unaryOperation(insn, pop());
         break;
       default:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+      case DCMPL:
+      case DCMPG:
+        return BasicValue.INT_VALUE;
+      case IF_ICMPEQ:
+      case IF_ICMPNE:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+      case BIPUSH:
+      case SIPUSH:
+        return BasicValue.INT_VALUE;
+      case LDC:
+        Object value = ((LdcInsnNode) insn).cst;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+        return newValue(Type.getType("[" + Type.getObjectType(((TypeInsnNode) insn).desc)));
+      case ARRAYLENGTH:
+        return BasicValue.INT_VALUE;
+      case ATHROW:
+        return null;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+        return BasicValue.INT_VALUE;
+      case ATHROW:
+        return null;
+      case CHECKCAST:
+        return newValue(Type.getObjectType(((TypeInsnNode) insn).desc));
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+        return newValue(Type.getObjectType(((TypeInsnNode) insn).desc));
+      case INSTANCEOF:
+        return BasicValue.INT_VALUE;
+      case MONITORENTER:
+      case MONITOREXIT:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+      case IFNULL:
+      case IFNONNULL:
+        return null;
+      default:
+        throw new AssertionError();
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1530,6 +1530,18 @@ in `asm/src/main/java/org/objectweb/asm/Frame.java`
 ```
 
 ### NonShortCircuitBoolean
+Non-short-circuit boolean expression `changed |= oldSubroutine.merge(subroutineBeforeJsr)`
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
+#### Snippet
+```java
+    Subroutine oldSubroutine = subroutines[insnIndex];
+    if (oldSubroutine != null && subroutineBeforeJsr != null) {
+      changed |= oldSubroutine.merge(subroutineBeforeJsr);
+    }
+    if (changed && !inInstructionsToProcess[insnIndex]) {
+```
+
+### NonShortCircuitBoolean
 Non-short-circuit boolean expression `changed |= oldSubroutine.merge(subroutine)`
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
 #### Snippet
@@ -1542,15 +1554,15 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `changed |= oldSubroutine.merge(subroutineBeforeJsr)`
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
+Non-short-circuit boolean expression `hasAsmInstructions |= label.resolve(code.data, code.length)`
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
-    Subroutine oldSubroutine = subroutines[insnIndex];
-    if (oldSubroutine != null && subroutineBeforeJsr != null) {
-      changed |= oldSubroutine.merge(subroutineBeforeJsr);
-    }
-    if (changed && !inInstructionsToProcess[insnIndex]) {
+  public void visitLabel(final Label label) {
+    // Resolve the forward references to this label, if any.
+    hasAsmInstructions |= label.resolve(code.data, code.length);
+    // visitLabel starts a new basic block (except for debug only labels), so we need to update the
+    // previous and current block references and list of successors.
 ```
 
 ### NonShortCircuitBoolean
@@ -1575,18 +1587,6 @@ in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
       hasAsmInstructions |= methodWriter.hasAsmInstructions();
       methodWriter.putMethodInfo(result);
       methodWriter = (MethodWriter) methodWriter.mv;
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasAsmInstructions |= label.resolve(code.data, code.length)`
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  public void visitLabel(final Label label) {
-    // Resolve the forward references to this label, if any.
-    hasAsmInstructions |= label.resolve(code.data, code.length);
-    // visitLabel starts a new basic block (except for debug only labels), so we need to update the
-    // previous and current block references and list of successors.
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -1633,11 +1633,11 @@ Can generalize to `? extends V`
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
 #### Snippet
 ```java
-   * @throws AnalyzerException if the frames have incompatible sizes.
-   */
-  private void merge(final int insnIndex, final Frame<V> frame, final Subroutine subroutine)
-      throws AnalyzerException {
-    boolean changed;
+  private void merge(
+      final int insnIndex,
+      final Frame<V> frameBeforeJsr,
+      final Frame<V> frameAfterRet,
+      final Subroutine subroutineBeforeJsr,
 ```
 
 ### BoundedWildcard
@@ -1657,11 +1657,35 @@ Can generalize to `? extends V`
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
 #### Snippet
 ```java
-  private void merge(
-      final int insnIndex,
-      final Frame<V> frameBeforeJsr,
-      final Frame<V> frameAfterRet,
-      final Subroutine subroutineBeforeJsr,
+   * @throws AnalyzerException if the frames have incompatible sizes.
+   */
+  private void merge(final int insnIndex, final Frame<V> frame, final Subroutine subroutine)
+      throws AnalyzerException {
+    boolean changed;
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
+#### Snippet
+```java
+   *     {@literal null} otherwise.
+   */
+  private String checkMerge(final Frame<V> srcFrame, final Frame<V> dstFrame) {
+    int numLocals = srcFrame.getLocals();
+    if (numLocals != dstFrame.getLocals()) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends V`
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
+#### Snippet
+```java
+   *     {@literal null} otherwise.
+   */
+  private String checkMerge(final Frame<V> srcFrame, final Frame<V> dstFrame) {
+    int numLocals = srcFrame.getLocals();
+    if (numLocals != dstFrame.getLocals()) {
 ```
 
 ### BoundedWildcard
@@ -1674,30 +1698,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
       final String owner, final Frame<V> previousFrame, final FrameNode frameNode)
       throws AnalyzerException {
     Frame<V> frame = newFrame(previousFrame);
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
-#### Snippet
-```java
-   *     {@literal null} otherwise.
-   */
-  private String checkMerge(final Frame<V> srcFrame, final Frame<V> dstFrame) {
-    int numLocals = srcFrame.getLocals();
-    if (numLocals != dstFrame.getLocals()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends V`
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
-#### Snippet
-```java
-   *     {@literal null} otherwise.
-   */
-  private String checkMerge(final Frame<V> srcFrame, final Frame<V> dstFrame) {
-    int numLocals = srcFrame.getLocals();
-    if (numLocals != dstFrame.getLocals()) {
 ```
 
 ### BoundedWildcard
@@ -1786,18 +1786,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/Method.java`
 ```
 
 ## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `asm-util/src/main/java/org/objectweb/asm/util/Textifier.java`
-#### Snippet
-```java
-        }
-      } else if (frameTypes[i] instanceof Integer) {
-        stringBuilder.append(FRAME_TYPES.get(((Integer) frameTypes[i]).intValue()));
-      } else {
-        appendLabel((Label) frameTypes[i]);
-```
-
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `asm-util/src/main/java/org/objectweb/asm/util/Textifier.java`
@@ -1896,6 +1884,30 @@ in `asm-util/src/main/java/org/objectweb/asm/util/Textifier.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
+in `asm-util/src/main/java/org/objectweb/asm/util/Textifier.java`
+#### Snippet
+```java
+        }
+      } else if (frameTypes[i] instanceof Integer) {
+        stringBuilder.append(FRAME_TYPES.get(((Integer) frameTypes[i]).intValue()));
+      } else {
+        appendLabel((Label) frameTypes[i]);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `asm/src/main/java/org/objectweb/asm/Frame.java`
+#### Snippet
+```java
+  static int getAbstractTypeFromApiFormat(final SymbolTable symbolTable, final Object type) {
+    if (type instanceof Integer) {
+      return CONSTANT_KIND | ((Integer) type).intValue();
+    } else if (type instanceof String) {
+      String descriptor = Type.getObjectType((String) type).getDescriptor();
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
 in `asm/src/main/java/org/objectweb/asm/AnnotationWriter.java`
 #### Snippet
 ```java
@@ -1944,18 +1956,6 @@ in `asm/src/main/java/org/objectweb/asm/AnnotationWriter.java`
 
 ### UnnecessaryUnboxing
 Unnecessary unboxing
-in `asm/src/main/java/org/objectweb/asm/Frame.java`
-#### Snippet
-```java
-  static int getAbstractTypeFromApiFormat(final SymbolTable symbolTable, final Object type) {
-    if (type instanceof Integer) {
-      return CONSTANT_KIND | ((Integer) type).intValue();
-    } else if (type instanceof String) {
-      String descriptor = Type.getObjectType((String) type).getDescriptor();
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
 in `asm-commons/src/main/java/org/objectweb/asm/commons/InstructionAdapter.java`
 #### Snippet
 ```java
@@ -1995,6 +1995,18 @@ Unnecessary unboxing
 in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
 #### Snippet
 ```java
+        appendConstant(frameTypes[i]);
+      } else if (frameTypes[i] instanceof Integer) {
+        stringBuilder.append(FRAME_TYPES.get(((Integer) frameTypes[i]).intValue()));
+      } else {
+        appendLabel((Label) frameTypes[i]);
+```
+
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
+#### Snippet
+```java
       stringBuilder.append("new Byte((byte)").append(value).append(')');
     } else if (value instanceof Boolean) {
       stringBuilder.append(((Boolean) value).booleanValue() ? "Boolean.TRUE" : "Boolean.FALSE");
@@ -2012,18 +2024,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
           .append((int) ((Character) value).charValue())
           .append(')');
     } else if (value instanceof Integer) {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
-#### Snippet
-```java
-        appendConstant(frameTypes[i]);
-      } else if (frameTypes[i] instanceof Integer) {
-        stringBuilder.append(FRAME_TYPES.get(((Integer) frameTypes[i]).intValue()));
-      } else {
-        appendLabel((Label) frameTypes[i]);
 ```
 
 ### UnnecessaryUnboxing
@@ -2457,18 +2457,6 @@ Qualifier `org.objectweb.asm` is unnecessary and can be removed
 in `asm-tree/src/main/java/org/objectweb/asm/tree/FieldNode.java`
 #### Snippet
 ```java
-   * @param api the ASM API version implemented by this visitor. Must be one of the {@code
-   *     ASM}<i>x</i> values in {@link Opcodes}.
-   * @param access the field's access flags (see {@link org.objectweb.asm.Opcodes}). This parameter
-   *     also indicates if the field is synthetic and/or deprecated.
-   * @param name the field's name.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.objectweb.asm` is unnecessary and can be removed
-in `asm-tree/src/main/java/org/objectweb/asm/tree/FieldNode.java`
-#### Snippet
-```java
 
   /**
    * The field's access flags (see {@link org.objectweb.asm.Opcodes}). This field also indicates if
@@ -2478,14 +2466,14 @@ in `asm-tree/src/main/java/org/objectweb/asm/tree/FieldNode.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.objectweb.asm` is unnecessary and can be removed
-in `asm/src/main/java/org/objectweb/asm/ClassTooLargeException.java`
+in `asm-tree/src/main/java/org/objectweb/asm/tree/FieldNode.java`
 #### Snippet
 ```java
-   *
-   * @param className the internal name of the class (see {@link
-   *     org.objectweb.asm.Type#getInternalName()}).
-   * @param constantPoolCount the number of constant pool items of the class.
-   */
+   * @param api the ASM API version implemented by this visitor. Must be one of the {@code
+   *     ASM}<i>x</i> values in {@link Opcodes}.
+   * @param access the field's access flags (see {@link org.objectweb.asm.Opcodes}). This parameter
+   *     also indicates if the field is synthetic and/or deprecated.
+   * @param name the field's name.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2498,6 +2486,18 @@ in `asm/src/main/java/org/objectweb/asm/ClassTooLargeException.java`
    * Returns the internal name of the class (see {@link org.objectweb.asm.Type#getInternalName()}).
    *
    * @return the internal name of the class.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.objectweb.asm` is unnecessary and can be removed
+in `asm/src/main/java/org/objectweb/asm/ClassTooLargeException.java`
+#### Snippet
+```java
+   *
+   * @param className the internal name of the class (see {@link
+   *     org.objectweb.asm.Type#getInternalName()}).
+   * @param constantPoolCount the number of constant pool items of the class.
+   */
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -2681,11 +2681,11 @@ Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/signature/SignatureReader.java`
 #### Snippet
 ```java
-        // While the character after the class bound or after the last parsed interface bound
-        // is ':', we need to parse another interface bound.
-        while ((currentChar = signature.charAt(offset++)) == ':') {
-          offset = parseType(signature, offset, signatureVistor.visitInterfaceBound());
-        }
+            visited = true;
+            // Now, parse the TypeArgument(s), one at a time.
+            while ((currentChar = signature.charAt(offset)) != '>') {
+              switch (currentChar) {
+                case '*':
 ```
 
 ### NestedAssignment
@@ -2693,11 +2693,11 @@ Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/signature/SignatureReader.java`
 #### Snippet
 ```java
-            visited = true;
-            // Now, parse the TypeArgument(s), one at a time.
-            while ((currentChar = signature.charAt(offset)) != '>') {
-              switch (currentChar) {
-                case '*':
+        // While the character after the class bound or after the last parsed interface bound
+        // is ':', we need to parse another interface bound.
+        while ((currentChar = signature.charAt(offset++)) == ':') {
+          offset = parseType(signature, offset, signatureVistor.visitInterfaceBound());
+        }
 ```
 
 ### NestedAssignment
@@ -2783,10 +2783,10 @@ Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/SymbolTable.java`
 #### Snippet
 ```java
-    int index = entry.hashCode % entries.length;
-    entry.next = entries[index];
-    return entries[index] = entry;
-  }
+    ByteVector bootstrapMethodsAttribute = bootstrapMethods;
+    if (bootstrapMethodsAttribute == null) {
+      bootstrapMethodsAttribute = bootstrapMethods = new ByteVector();
+    }
 
 ```
 
@@ -2795,10 +2795,10 @@ Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/SymbolTable.java`
 #### Snippet
 ```java
-    ByteVector bootstrapMethodsAttribute = bootstrapMethods;
-    if (bootstrapMethodsAttribute == null) {
-      bootstrapMethodsAttribute = bootstrapMethods = new ByteVector();
-    }
+    int index = entry.hashCode % entries.length;
+    entry.next = entries[index];
+    return entries[index] = entry;
+  }
 
 ```
 
@@ -2816,14 +2816,234 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/Method.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastCodeRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+    typeAnnotation.putShort(symbolTable.addConstantUtf8(descriptor)).putShort(0);
+    if (visible) {
+      return lastCodeRuntimeVisibleTypeAnnotation =
+          new AnnotationWriter(
+              symbolTable,
+              /* useNamedValues = */ true,
+              typeAnnotation,
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+          new AnnotationWriter(
+              symbolTable,
+              /* useNamedValues = */ true,
+              typeAnnotation,
+              lastCodeRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+            || constantSymbol.tag == Symbol.CONSTANT_DOUBLE_TAG
+            || (constantSymbol.tag == Symbol.CONSTANT_DYNAMIC_TAG
+                && ((firstDescriptorChar = constantSymbol.value.charAt(0)) == 'J'
+                    || firstDescriptorChar == 'D'));
+    if (isLongOrDouble) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastCodeRuntimeVisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable,
+              (typeRef & 0xFF0000FF) | (lastBytecodeOffset << 8),
+              typePath,
+              descriptor,
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+              lastCodeRuntimeVisibleTypeAnnotation);
+    } else {
+      return lastCodeRuntimeInvisibleTypeAnnotation =
+          AnnotationWriter.create(
+              symbolTable,
+              (typeRef & 0xFF0000FF) | (lastBytecodeOffset << 8),
+              typePath,
+              descriptor,
+              lastCodeRuntimeInvisibleTypeAnnotation);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+            new AnnotationWriter[Type.getArgumentTypes(descriptor).length];
+      }
+      return lastRuntimeVisibleParameterAnnotations[parameter] =
+          AnnotationWriter.create(
+              symbolTable, annotationDescriptor, lastRuntimeVisibleParameterAnnotations[parameter]);
+    } else {
+      if (lastRuntimeInvisibleParameterAnnotations == null) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+            new AnnotationWriter[Type.getArgumentTypes(descriptor).length];
+      }
+      return lastRuntimeInvisibleParameterAnnotations[parameter] =
+          AnnotationWriter.create(
+              symbolTable,
+              annotationDescriptor,
+              lastRuntimeInvisibleParameterAnnotations[parameter]);
+    }
+  }
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
 #### Snippet
 ```java
-      lastField.fv = fieldWriter;
+      lastMethod.mv = methodWriter;
     }
-    return lastField = fieldWriter;
+    return lastMethod = methodWriter;
   }
 
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+#### Snippet
+```java
+  public final AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
+    if (visible) {
+      return lastRuntimeVisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+#### Snippet
+```java
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
+    } else {
+      return lastRuntimeInvisibleAnnotation =
+          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+    }
+  }
 ```
 
 ### NestedAssignment
@@ -2876,35 +3096,9 @@ Result of assignment expression used
 in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
 #### Snippet
 ```java
-  public final AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
+      lastField.fv = fieldWriter;
     }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
-#### Snippet
-```java
-      lastMethod.mv = methodWriter;
-    }
-    return lastMethod = methodWriter;
+    return lastField = fieldWriter;
   }
 
 ```
@@ -2919,224 +3113,6 @@ in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
     return lastRecordComponent = recordComponentWriter;
   }
 
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-            new AnnotationWriter[Type.getArgumentTypes(descriptor).length];
-      }
-      return lastRuntimeVisibleParameterAnnotations[parameter] =
-          AnnotationWriter.create(
-              symbolTable, annotationDescriptor, lastRuntimeVisibleParameterAnnotations[parameter]);
-    } else {
-      if (lastRuntimeInvisibleParameterAnnotations == null) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-            new AnnotationWriter[Type.getArgumentTypes(descriptor).length];
-      }
-      return lastRuntimeInvisibleParameterAnnotations[parameter] =
-          AnnotationWriter.create(
-              symbolTable,
-              annotationDescriptor,
-              lastRuntimeInvisibleParameterAnnotations[parameter]);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-    typeAnnotation.putShort(symbolTable.addConstantUtf8(descriptor)).putShort(0);
-    if (visible) {
-      return lastCodeRuntimeVisibleTypeAnnotation =
-          new AnnotationWriter(
-              symbolTable,
-              /* useNamedValues = */ true,
-              typeAnnotation,
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-          new AnnotationWriter(
-              symbolTable,
-              /* useNamedValues = */ true,
-              typeAnnotation,
-              lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  public AnnotationVisitor visitAnnotation(final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastRuntimeVisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeVisibleAnnotation);
-    } else {
-      return lastRuntimeInvisibleAnnotation =
-          AnnotationWriter.create(symbolTable, descriptor, lastRuntimeInvisibleAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastCodeRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable, typeRef, typePath, descriptor, lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-      final int typeRef, final TypePath typePath, final String descriptor, final boolean visible) {
-    if (visible) {
-      return lastCodeRuntimeVisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable,
-              (typeRef & 0xFF0000FF) | (lastBytecodeOffset << 8),
-              typePath,
-              descriptor,
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-              lastCodeRuntimeVisibleTypeAnnotation);
-    } else {
-      return lastCodeRuntimeInvisibleTypeAnnotation =
-          AnnotationWriter.create(
-              symbolTable,
-              (typeRef & 0xFF0000FF) | (lastBytecodeOffset << 8),
-              typePath,
-              descriptor,
-              lastCodeRuntimeInvisibleTypeAnnotation);
-    }
-  }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-            || constantSymbol.tag == Symbol.CONSTANT_DOUBLE_TAG
-            || (constantSymbol.tag == Symbol.CONSTANT_DYNAMIC_TAG
-                && ((firstDescriptorChar = constantSymbol.value.charAt(0)) == 'J'
-                    || firstDescriptorChar == 'D'));
-    if (isLongOrDouble) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
-#### Snippet
-```java
-    final int bytecodeStartOffset = currentOffset;
-    final int bytecodeEndOffset = currentOffset + codeLength;
-    final Label[] labels = context.currentMethodLabels = new Label[codeLength + 1];
-    while (currentOffset < bytecodeEndOffset) {
-      final int bytecodeOffset = currentOffset - bytecodeStartOffset;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
-#### Snippet
-```java
-      int bytesRead;
-      int readCount = 0;
-      while ((bytesRead = inputStream.read(data, 0, bufferSize)) != -1) {
-        outputStream.write(data, 0, bytesRead);
-        readCount++;
 ```
 
 ### NestedAssignment
@@ -3163,6 +3139,30 @@ in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
         readUtf(cpInfoOffset + 2, readUnsignedShort(cpInfoOffset), charBuffer);
   }
 
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
+#### Snippet
+```java
+    final int bytecodeStartOffset = currentOffset;
+    final int bytecodeEndOffset = currentOffset + codeLength;
+    final Label[] labels = context.currentMethodLabels = new Label[codeLength + 1];
+    while (currentOffset < bytecodeEndOffset) {
+      final int bytecodeOffset = currentOffset - bytecodeStartOffset;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
+#### Snippet
+```java
+      int bytesRead;
+      int readCount = 0;
+      while ((bytesRead = inputStream.read(data, 0, bufferSize)) != -1) {
+        outputStream.write(data, 0, bytesRead);
+        readCount++;
 ```
 
 ### NestedAssignment
@@ -3293,150 +3293,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/TextifierSupport.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  // ASM API versions.
-
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-  /**
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
-
-  /**
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
 
   int V1_1 = 3 << 16 | 45;
   int V1_2 = 0 << 16 | 46;
@@ -3445,54 +3301,6 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 ```
 
 ### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-```
-
-### PointlessBitwiseExpression
 `0 << 8` can be replaced with '0'
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
@@ -3509,59 +3317,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V17 = 0 << 16 | 61;
   int V18 = 0 << 16 | 62;
   int V19 = 0 << 16 | 63;
   int V20 = 0 << 16 | 64;
   int V21 = 0 << 16 | 65;
-```
 
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
 ```
 
 ### PointlessBitwiseExpression
@@ -3581,11 +3341,239 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  // ASM API versions.
+
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
   int V1_7 = 0 << 16 | 51;
   int V1_8 = 0 << 16 | 52;
   int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
 ```
 
 ### PointlessBitwiseExpression
@@ -3601,15 +3589,27 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 ```
 
 ### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
+`0 << 8` can be replaced with '0'
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+```
 
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
 ```
 
 ## RuleId[id=UnnecessaryContinue]
@@ -3656,8 +3656,8 @@ in `asm-util/src/main/java/org/objectweb/asm/util/TraceSignatureVisitor.java`
 #### Snippet
 ```java
    */
-  public String getExceptions() {
-    return exceptions == null ? null : exceptions.toString();
+  public String getReturnType() {
+    return returnType == null ? null : returnType.toString();
   }
 
 ```
@@ -3668,8 +3668,20 @@ in `asm-util/src/main/java/org/objectweb/asm/util/TraceSignatureVisitor.java`
 #### Snippet
 ```java
    */
-  public String getReturnType() {
-    return returnType == null ? null : returnType.toString();
+  public String getExceptions() {
+    return exceptions == null ? null : exceptions.toString();
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/SimpleVerifier.java`
+#### Snippet
+```java
+    }
+    Class<?> superClass = getClass(type).getSuperclass();
+    return superClass == null ? null : Type.getType(superClass);
   }
 
 ```
@@ -3700,18 +3712,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/FieldRemapper.java`
 
 ### ReturnNull
 Return of `null`
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/SimpleVerifier.java`
-#### Snippet
-```java
-    }
-    Class<?> superClass = getClass(type).getSuperclass();
-    return superClass == null ? null : Type.getType(superClass);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
 #### Snippet
 ```java
@@ -3720,6 +3720,18 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.
         return null;
       default:
         throw new AssertionError();
+```
+
+### ReturnNull
+Return of `null`
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
+      final BasicValue value3)
+      throws AnalyzerException {
+    return null;
+  }
+
 ```
 
 ### ReturnNull
@@ -3772,18 +3784,6 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.
 
 ### ReturnNull
 Return of `null`
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
-#### Snippet
-```java
-      final BasicValue value3)
-      throws AnalyzerException {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
 in `asm/src/main/java/org/objectweb/asm/RecordComponentVisitor.java`
 #### Snippet
 ```java
@@ -3823,10 +3823,46 @@ Return of `null`
 in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
 #### Snippet
 ```java
+            remapper.mapSignature(signature, false),
+            exceptions == null ? null : remapper.mapTypes(exceptions));
+    return methodVisitor == null ? null : createMethodRemapper(methodVisitor);
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
+#### Snippet
+```java
         super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? null
         : createAnnotationRemapper(descriptor, annotationVisitor);
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
+#### Snippet
+```java
+        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
+    return annotationVisitor == null
+        ? null
+        : createAnnotationRemapper(descriptor, annotationVisitor);
+  }
+```
+
+### ReturnNull
+Return of `null`
+in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
+#### Snippet
+```java
+            remapper.mapSignature(signature, true));
+    return recordComponentVisitor == null
+        ? null
+        : createRecordComponentRemapper(recordComponentVisitor);
   }
 ```
 
@@ -3847,30 +3883,6 @@ Return of `null`
 in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
 #### Snippet
 ```java
-            remapper.mapSignature(signature, true));
-    return recordComponentVisitor == null
-        ? null
-        : createRecordComponentRemapper(recordComponentVisitor);
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
-#### Snippet
-```java
-            remapper.mapSignature(signature, false),
-            exceptions == null ? null : remapper.mapTypes(exceptions));
-    return methodVisitor == null ? null : createMethodRemapper(methodVisitor);
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
-#### Snippet
-```java
   public ModuleVisitor visitModule(final String name, final int flags, final String version) {
     ModuleVisitor moduleVisitor = super.visitModule(remapper.mapModuleName(name), flags, version);
     return moduleVisitor == null ? null : createModuleRemapper(moduleVisitor);
@@ -3880,13 +3892,13 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
 
 ### ReturnNull
 Return of `null`
-in `asm-commons/src/main/java/org/objectweb/asm/commons/ClassRemapper.java`
+in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
 #### Snippet
 ```java
-        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
-    return annotationVisitor == null
-        ? null
-        : createAnnotationRemapper(descriptor, annotationVisitor);
+        return value;
+      }
+      return parent == null ? null : parent.get(key);
+    }
   }
 ```
 
@@ -3916,22 +3928,10 @@ in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
 
 ### ReturnNull
 Return of `null`
-in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
-#### Snippet
-```java
-        return value;
-      }
-      return parent == null ? null : parent.get(key);
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
 in `asm-commons/src/main/java/org/objectweb/asm/commons/RecordComponentRemapper.java`
 #### Snippet
 ```java
-        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? null
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3943,7 +3943,7 @@ Return of `null`
 in `asm-commons/src/main/java/org/objectweb/asm/commons/RecordComponentRemapper.java`
 #### Snippet
 ```java
-        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
+        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? null
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3979,19 +3979,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
 #### Snippet
 ```java
-      return cv.visitMethod(access, name, descriptor, signature, exceptions);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
-#### Snippet
-```java
-      return cv.visitAnnotation(descriptor, visible);
+      return cv.visitField(access, name, descriptor, signature, value);
     }
     return null;
   }
@@ -4015,6 +4003,18 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
 #### Snippet
 ```java
+      return cv.visitRecordComponent(name, descriptor, signature);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
+#### Snippet
+```java
       return cv.visitModule(name, access, version);
     }
     return null;
@@ -4027,7 +4027,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
 #### Snippet
 ```java
-      return cv.visitField(access, name, descriptor, signature, value);
+      return cv.visitMethod(access, name, descriptor, signature, exceptions);
     }
     return null;
   }
@@ -4039,7 +4039,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/ClassVisitor.java`
 #### Snippet
 ```java
-      return cv.visitRecordComponent(name, descriptor, signature);
+      return cv.visitAnnotation(descriptor, visible);
     }
     return null;
   }
@@ -4063,43 +4063,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
 #### Snippet
 ```java
-      return mv.visitParameterAnnotation(parameter, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitInsnAnnotation(typeRef, typePath, descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
-#### Snippet
-```java
-      return mv.visitAnnotation(descriptor, visible);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
-#### Snippet
-```java
-          typeRef, typePath, start, end, index, descriptor, visible);
+      return mv.visitTryCatchAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -4123,6 +4087,30 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
 #### Snippet
 ```java
+      return mv.visitParameterAnnotation(parameter, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitAnnotation(descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
+#### Snippet
+```java
       return mv.visitAnnotationDefault();
     }
     return null;
@@ -4135,7 +4123,19 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
 #### Snippet
 ```java
-      return mv.visitTryCatchAnnotation(typeRef, typePath, descriptor, visible);
+          typeRef, typePath, start, end, index, descriptor, visible);
+    }
+    return null;
+  }
+
+```
+
+### ReturnNull
+Return of `null`
+in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
+#### Snippet
+```java
+      return mv.visitInsnAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -4168,6 +4168,18 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/Remapper.java`
 
 ### ReturnNull
 Return of `null`
+in `asm-commons/src/main/java/org/objectweb/asm/commons/JSRInlinerAdapter.java`
+#### Snippet
+```java
+    Instantiation findOwner(final int insnIndex) {
+      if (!subroutineInsns.get(insnIndex)) {
+        return null;
+      }
+      if (!sharedSubroutineInsns.get(insnIndex)) {
+```
+
+### ReturnNull
+Return of `null`
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmAdapter.java`
 #### Snippet
 ```java
@@ -4188,18 +4200,6 @@ in `asm/src/main/java/org/objectweb/asm/TypePath.java`
       return null;
     }
     int typePathLength = typePath.length();
-```
-
-### ReturnNull
-Return of `null`
-in `asm-commons/src/main/java/org/objectweb/asm/commons/JSRInlinerAdapter.java`
-#### Snippet
-```java
-    Instantiation findOwner(final int insnIndex) {
-      if (!subroutineInsns.get(insnIndex)) {
-        return null;
-      }
-      if (!sharedSubroutineInsns.get(insnIndex)) {
 ```
 
 ### ReturnNull
@@ -4231,7 +4231,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/FieldVisitor.java`
 #### Snippet
 ```java
-      return fv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
+      return fv.visitAnnotation(descriptor, visible);
     }
     return null;
   }
@@ -4243,7 +4243,7 @@ Return of `null`
 in `asm/src/main/java/org/objectweb/asm/FieldVisitor.java`
 #### Snippet
 ```java
-      return fv.visitAnnotation(descriptor, visible);
+      return fv.visitTypeAnnotation(typeRef, typePath, descriptor, visible);
     }
     return null;
   }
@@ -4312,18 +4312,6 @@ in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `otherEnd` is redundant
-in `asm/src/main/java/org/objectweb/asm/Type.java`
-#### Snippet
-```java
-    int end = valueEnd;
-    int otherBegin = other.valueBegin;
-    int otherEnd = other.valueEnd;
-    // Compare the values.
-    if (end - begin != otherEnd - otherBegin) {
-```
-
-### UnnecessaryLocalVariable
 Local variable `end` is redundant
 in `asm/src/main/java/org/objectweb/asm/Type.java`
 #### Snippet
@@ -4333,6 +4321,18 @@ in `asm/src/main/java/org/objectweb/asm/Type.java`
       for (int i = valueBegin, end = valueEnd; i < end; i++) {
         hashCode = 17 * (hashCode + valueBuffer.charAt(i));
       }
+```
+
+### UnnecessaryLocalVariable
+Local variable `otherEnd` is redundant
+in `asm/src/main/java/org/objectweb/asm/Type.java`
+#### Snippet
+```java
+    int end = valueEnd;
+    int otherBegin = other.valueBegin;
+    int otherEnd = other.valueEnd;
+    // Compare the values.
+    if (end - begin != otherEnd - otherBegin) {
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -4568,30 +4568,6 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmFactory.java`
 ```
 
 ### ConstantValue
-Value `isInstanceMethod` is always 'true'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
-#### Snippet
-```java
-      Type ownerType = Type.getObjectType(owner);
-      frame.setLocal(
-          currentLocal, interpreter.newParameterValue(isInstanceMethod, currentLocal, ownerType));
-      currentLocal++;
-    }
-```
-
-### ConstantValue
-Value `annotationVisitor` is always 'null'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
-#### Snippet
-```java
-            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
-    return annotationVisitor == null
-        ? annotationVisitor
-        : createAnnotationRemapper(descriptor, annotationVisitor);
-  }
-```
-
-### ConstantValue
 Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
@@ -4600,18 +4576,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
-  }
-```
-
-### ConstantValue
-Value `annotationVisitor` is always 'null'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
-#### Snippet
-```java
-    AnnotationVisitor annotationVisitor = super.visitAnnotationDefault();
-    return annotationVisitor == null
-        ? annotationVisitor
-        : createAnnotationRemapper(/* descriptor = */ null, annotationVisitor);
   }
 ```
 
@@ -4632,6 +4596,30 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
+            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
+    return annotationVisitor == null
+        ? annotationVisitor
+        : createAnnotationRemapper(descriptor, annotationVisitor);
+  }
+```
+
+### ConstantValue
+Value `annotationVisitor` is always 'null'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
+#### Snippet
+```java
+    AnnotationVisitor annotationVisitor = super.visitAnnotationDefault();
+    return annotationVisitor == null
+        ? annotationVisitor
+        : createAnnotationRemapper(/* descriptor = */ null, annotationVisitor);
+  }
+```
+
+### ConstantValue
+Value `annotationVisitor` is always 'null'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
+#### Snippet
+```java
         super.visitParameterAnnotation(parameter, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
@@ -4644,7 +4632,7 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -4668,11 +4656,23 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-        super.visitAnnotation(remapper.mapDesc(descriptor), visible);
+        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
   }
+```
+
+### ConstantValue
+Value `isInstanceMethod` is always 'true'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
+#### Snippet
+```java
+      Type ownerType = Type.getObjectType(owner);
+      frame.setLocal(
+          currentLocal, interpreter.newParameterValue(isInstanceMethod, currentLocal, ownerType));
+      currentLocal++;
+    }
 ```
 
 ### ConstantValue
