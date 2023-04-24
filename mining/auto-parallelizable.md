@@ -14,6 +14,66 @@ I found 34 bad smells with 4 repairable:
 ## RuleId[id=SystemOutErr]
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
+    static void action(Params params) {
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+    static void action(Params params) {
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("string: " + params.getStringValue().get());
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
+        System.out.println("ints: " + params.getIntsValue().get());
+        System.out.println("files: "
+                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `integ-test/src/main/java/integtest/DoItNested.java`
 #### Snippet
 ```java
@@ -192,66 +252,6 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
     }
 ```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static void action(Params params) {
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-    static void action(Params params) {
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("string: " + params.getStringValue().get());
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("file: " + params.getFileValue().get().getAsFile().getName());
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-        System.out.println("dir: " + params.getDirValue().get().getAsFile().getName());
-        System.out.println("ints: " + params.getIntsValue().get());
-        System.out.println("files: "
-                + params.getFilesValue().getFiles().stream().map(File::getName).collect(Collectors.joining(", ")));
-    }
-```
-
 ## RuleId[id=StaticCallOnSubclass]
 ### StaticCallOnSubclass
 Static method `get()` declared in class 'com.squareup.javapoet.TypeName' but referenced via subclass 'com.squareup.javapoet.ClassName'
@@ -267,15 +267,15 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
 ## RuleId[id=AbstractClassNeverImplemented]
 ### AbstractClassNeverImplemented
-Abstract class `AbstractNested` has no concrete subclass
-in `integ-test/src/main/java/integtest/DoItNested.java`
+Abstract class `DoItTask` has no concrete subclass
+in `integ-test/src/main/java/integtest/DoIt.java`
 #### Snippet
 ```java
-    }
-
-    public abstract static class AbstractNested {
-        @OutputFile
-        abstract RegularFileProperty getFileValue();
+@AutoParallelizable
+public final class DoIt {
+    public abstract static class DoItTask extends DoItTaskImpl {
+        public DoItTask() {
+            setDescription("lol");
 ```
 
 ### AbstractClassNeverImplemented
@@ -291,6 +291,18 @@ public final class DoItNested {
 ```
 
 ### AbstractClassNeverImplemented
+Abstract class `AbstractNested` has no concrete subclass
+in `integ-test/src/main/java/integtest/DoItNested.java`
+#### Snippet
+```java
+    }
+
+    public abstract static class AbstractNested {
+        @OutputFile
+        abstract RegularFileProperty getFileValue();
+```
+
+### AbstractClassNeverImplemented
 Abstract class `DoItInjectedParameterTask` has no concrete subclass
 in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 #### Snippet
@@ -299,18 +311,6 @@ in `integ-test/src/main/java/integtest/DoItInjectedParameter.java`
 public final class DoItInjectedParameter {
     public abstract static class DoItInjectedParameterTask extends DoItInjectedParameterTaskImpl {
         public DoItInjectedParameterTask() {
-            setDescription("lol");
-```
-
-### AbstractClassNeverImplemented
-Abstract class `DoItTask` has no concrete subclass
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-@AutoParallelizable
-public final class DoIt {
-    public abstract static class DoItTask extends DoItTaskImpl {
-        public DoItTask() {
             setDescription("lol");
 ```
 
@@ -328,6 +328,18 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 ```
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
+### NonProtectedConstructorInAbstractClass
+Constructor `DoItTask()` of an abstract class should not be declared 'public'
+in `integ-test/src/main/java/integtest/DoIt.java`
+#### Snippet
+```java
+public final class DoIt {
+    public abstract static class DoItTask extends DoItTaskImpl {
+        public DoItTask() {
+            setDescription("lol");
+        }
+```
+
 ### NonProtectedConstructorInAbstractClass
 Constructor `DoItNestedTask()` of an abstract class should not be declared 'public'
 in `integ-test/src/main/java/integtest/DoItNested.java`
@@ -352,18 +364,6 @@ public final class DoItInjectedParameter {
         }
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `DoItTask()` of an abstract class should not be declared 'public'
-in `integ-test/src/main/java/integtest/DoIt.java`
-#### Snippet
-```java
-public final class DoIt {
-    public abstract static class DoItTask extends DoItTaskImpl {
-        public DoItTask() {
-            setDescription("lol");
-        }
-```
-
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -384,30 +384,6 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 #### Snippet
 ```java
 
-    private static boolean isInjectable(VariableElement parameter) {
-        return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
-    }
-
-```
-
-### UnstableApiUsage
-'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-
-    private static boolean isInjectable(VariableElement parameter) {
-        return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
-    }
-
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-
     private static boolean isNested(Element element) {
         return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
     }
@@ -422,6 +398,30 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
     private static boolean isNested(Element element) {
         return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
+#### Snippet
+```java
+
+    private static boolean isInjectable(VariableElement parameter) {
+        return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
+    }
+
+```
+
+### UnstableApiUsage
+'isAnnotationPresent(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
+#### Snippet
+```java
+
+    private static boolean isInjectable(VariableElement parameter) {
+        return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
     }
 
 ```
