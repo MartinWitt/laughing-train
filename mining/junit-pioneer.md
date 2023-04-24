@@ -1,17 +1,18 @@
 # junit-pioneer 
  
 # Bad smells
-I found 60 bad smells with 2 repairable:
+I found 63 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 15 | false |
 | UnnecessaryFullyQualifiedName | 13 | false |
-| UnstableApiUsage | 8 | false |
+| UnstableApiUsage | 9 | false |
 | SimplifyOptionalCallChains | 6 | false |
 | SystemOutErr | 3 | false |
 | MarkedForRemoval | 3 | false |
-| Java9ReflectionClassVisibility | 1 | false |
+| KotlinAnnotator | 2 | false |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
+| Java9ReflectionClassVisibility | 1 | false |
 | RedundantMethodOverride | 1 | false |
 | UtilityClassWithoutPrivateConstructor | 1 | true |
 | DynamicRegexReplaceableByCompiledPattern | 1 | false |
@@ -22,19 +23,6 @@ I found 60 bad smells with 2 repairable:
 | FuseStreamOperations | 1 | false |
 | RedundantSuppression | 1 | false |
 | RedundantSemicolon | 1 | false |
-## RuleId[id=Java9ReflectionClassVisibility]
-### Java9ReflectionClassVisibility
-The module 'java.base' does not open the package 'java.lang' to the module 'org.junitpioneer'
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
-		// The order of operations is critical here: On some operating systems, theEnvironment is present but
-		// theCaseInsensitiveEnvironment is not present. In such cases, this method must throw a
-```
-
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for parameter 'type'
@@ -48,15 +36,28 @@ in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
 		if (!type.isPresent())
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
+## RuleId[id=Java9ReflectionClassVisibility]
+### Java9ReflectionClassVisibility
+The module 'java.base' does not open the package 'java.lang' to the module 'org.junitpioneer'
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+		// The order of operations is critical here: On some operating systems, theEnvironment is present but
+		// theCaseInsensitiveEnvironment is not present. In such cases, this method must throw a
+```
 
-	private void storeStdErr(ExtensionContext context) {
-		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
+## RuleId[id=SystemOutErr]
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
+#### Snippet
+```java
+		// System.out seemed like a good compromise.
+		context.publishReportEntry(WARNING_KEY, WARNING_VALUE);
+		System.out.println(WARNING_KEY + ": " + WARNING_VALUE); //NOSONAR
 	}
 
 ```
@@ -74,13 +75,13 @@ in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 ```
 
 ### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableExtension.java`
+Uses of `System.err` should probably be replaced with more robust logging
+in `src/main/java/org/junitpioneer/jupiter/StdIoExtension.java`
 #### Snippet
 ```java
-		// System.out seemed like a good compromise.
-		context.publishReportEntry(WARNING_KEY, WARNING_VALUE);
-		System.out.println(WARNING_KEY + ": " + WARNING_VALUE); //NOSONAR
+
+	private void storeStdErr(ExtensionContext context) {
+		context.getStore(NAMESPACE).put(SYSTEM_ERR_KEY, System.err); //NOSONAR never writing to System.err, only storing it
 	}
 
 ```
@@ -114,18 +115,6 @@ class JsonConverterProvider {
 ## RuleId[id=MarkedForRemoval]
 ### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
-#### Snippet
-```java
- *
- * <p>WARNING: Java considers environment variables to be immutable, so this extension
- * uses reflection to change them. This requires that the {@link SecurityManager}
- * allows modifications and can potentially break on different operating systems and
- * Java versions. Be aware that this is a fragile solution and consider finding a
-```
-
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/org/junitpioneer/jupiter/SetEnvironmentVariable.java`
 #### Snippet
 ```java
@@ -148,6 +137,18 @@ in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 class EnvironmentVariableUtils {
 ```
 
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/main/java/org/junitpioneer/jupiter/ClearEnvironmentVariable.java`
+#### Snippet
+```java
+ *
+ * <p>WARNING: Java considers environment variables to be immutable, so this extension
+ * uses reflection to change them. This requires that the {@link SecurityManager}
+ * allows modifications and can potentially break on different operating systems and
+ * Java versions. Be aware that this is a fragile solution and consider finding a
+```
+
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
 ### DynamicRegexReplaceableByCompiledPattern
 `matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
@@ -162,6 +163,18 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntryExtension.java`
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
+#### Snippet
+```java
+	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
+			boolean findRepeated, boolean findAllEnclosing) {
+		if (!type.isPresent())
+			return Stream.empty();
+
+```
+
 ### SimplifyOptionalCallChains
 Optional chain can be simplified
 in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
@@ -188,6 +201,18 @@ in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
+in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
+#### Snippet
+```java
+			method = findMethod(current, methodName, parameterTypes);
+			current = current.getEnclosingClass();
+		} while (!method.isPresent() && current != null);
+		return method;
+	}
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
 in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.java`
 #### Snippet
 ```java
@@ -210,55 +235,7 @@ in `src/main/java/org/junitpioneer/jupiter/params/DisableIfArgumentExtension.jav
 			throw new ExtensionConfigurationException(
 ```
 
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/internal/PioneerAnnotationUtils.java`
-#### Snippet
-```java
-	private static <A extends Annotation> Stream<A> findOnOuterClasses(Optional<Class<?>> type, Class<A> annotationType,
-			boolean findRepeated, boolean findAllEnclosing) {
-		if (!type.isPresent())
-			return Stream.empty();
-
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
-#### Snippet
-```java
-			method = findMethod(current, methodName, parameterTypes);
-			current = current.getEnclosingClass();
-		} while (!method.isPresent() && current != null);
-		return method;
-	}
-```
-
 ## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.stream` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.stream.Stream Stream}.
-	 *
-	 * @param arguments the objects that should be passed to the parameter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
-#### Snippet
-```java
-	 * {@link Object#equals(Object) equals}) for the first parameter of
-	 * a {@code CartesianTest} from the elements of the passed
-	 * {@link java.util.Collection Collection}.
-	 * <p>
-	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
-```
-
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
@@ -269,18 +246,6 @@ in `src/main/java/org/junitpioneer/jupiter/ReportEntry.java`
 	 * Defaults to {@link org.junitpioneer.jupiter.ReportEntry.PublishCondition#ALWAYS ALWAYS}.
 	 * @see PublishCondition
 	 */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
-#### Snippet
-```java
-	/**
-	 * Disable test cases whose display name matches the specified regular expression
-	 * (according to {@link String#matches(java.lang.String)}).
-	 *
-	 * @return test case display name regular expressions
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -320,6 +285,18 @@ in `src/main/java/org/junitpioneer/jupiter/IssueTestSuite.java`
 ```
 
 ### UnnecessaryFullyQualifiedName
+Qualifier `java.lang` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/params/DisableIfDisplayName.java`
+#### Snippet
+```java
+	/**
+	 * Disable test cases whose display name matches the specified regular expression
+	 * (according to {@link String#matches(java.lang.String)}).
+	 *
+	 * @return test case display name regular expressions
+```
+
+### UnnecessaryFullyQualifiedName
 Qualifier `org.junitpioneer.jupiter` is unnecessary and can be removed
 in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 #### Snippet
@@ -341,6 +318,30 @@ in `src/main/java/org/junitpioneer/jupiter/RetryingTest.java`
 	 * - {@link org.junitpioneer.jupiter.RetryingTest#INDEX_PLACEHOLDER}
 	 *
 	 * <p>You may use {@link java.text.MessageFormat} patterns
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util.stream` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.stream.Stream Stream}.
+	 *
+	 * @param arguments the objects that should be passed to the parameter
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `src/main/java/org/junitpioneer/jupiter/cartesian/ArgumentSets.java`
+#### Snippet
+```java
+	 * {@link Object#equals(Object) equals}) for the first parameter of
+	 * a {@code CartesianTest} from the elements of the passed
+	 * {@link java.util.Collection Collection}.
+	 * <p>
+	 * The passed argument does not have to be an instance of {@link java.util.Set Set}.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -430,6 +431,31 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianFactoryArgumentsPr
 			return methodFactoryName.substring(methodFactoryName.indexOf('#') + 1);
 ```
 
+## RuleId[id=KotlinAnnotator]
+### KotlinAnnotator
+Unresolved reference: sonatype
+in `build.gradle.kts`
+#### Snippet
+```java
+nexusPublishing {
+	repositories {
+		sonatype()
+	}
+}
+```
+
+### KotlinAnnotator
+Unresolved reference: isSkipProject
+in `build.gradle.kts`
+#### Snippet
+```java
+	project(":demo") {
+		sonar {
+			isSkipProject = true
+		}
+	}
+```
+
 ## RuleId[id=RedundantImplements]
 ### RedundantImplements
 Redundant interface declaration `Extension`
@@ -458,15 +484,39 @@ in `src/main/java/org/junitpioneer/jupiter/issue/IssueExtensionExecutionListener
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? extends DisableIfTestFails`
-in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
 #### Snippet
 ```java
+	 * Works on Linux and OSX
+	 */
+	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+```
 
-	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
-			List<DisableIfTestFails> annotations) {
-		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
-		if (annotations.isEmpty())
+### BoundedWildcard
+Can generalize to `? super Map`
+in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
+#### Snippet
+```java
+	 * Works on Windows
+	 */
+	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
+			throws ReflectiveOperationException {
+		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
+```
+
+### BoundedWildcard
+Can generalize to `? extends Source`
+in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+#### Snippet
+```java
+	private List<Source> sources;
+
+	protected void accept(List<Source> sources, String dataLocation) {
+		this.sources = sources;
+		this.dataLocation = dataLocation;
 ```
 
 ### BoundedWildcard
@@ -491,18 +541,6 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 		public EntriesBackup(Collection<K> entriesToClear, Collection<K> entriesToSet) {
 			Stream.concat(entriesToClear.stream(), entriesToSet.stream()).forEach(entry -> {
 				V backup = AbstractEntryBasedExtension.this.getEntry(entry);
-```
-
-### BoundedWildcard
-Can generalize to `? extends K`
-in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
-#### Snippet
-```java
-	}
-
-	private void clearEntries(Collection<K> entriesToClear) {
-		entriesToClear.forEach(this::clearEntry);
-	}
 ```
 
 ### BoundedWildcard
@@ -526,6 +564,18 @@ in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
 
 	private void setEntries(Map<K, V> entriesToSet) {
 		entriesToSet.forEach(this::setEntry);
+	}
+```
+
+### BoundedWildcard
+Can generalize to `? extends K`
+in `src/main/java/org/junitpioneer/jupiter/AbstractEntryBasedExtension.java`
+#### Snippet
+```java
+	}
+
+	private void clearEntries(Collection<K> entriesToClear) {
+		entriesToClear.forEach(this::clearEntry);
 	}
 ```
 
@@ -554,27 +604,15 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianTest.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Source`
-in `src/main/java/org/junitpioneer/jupiter/json/AbstractJsonSourceBasedArgumentsProvider.java`
+Can generalize to `? extends DisableIfTestFails`
+in `src/main/java/org/junitpioneer/jupiter/DisableIfTestFailsExtension.java`
 #### Snippet
 ```java
-	private List<Source> sources;
 
-	protected void accept(List<Source> sources, String dataLocation) {
-		this.sources = sources;
-		this.dataLocation = dataLocation;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Shared`
-in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
-#### Snippet
-```java
-	}
-
-	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
-			ExtensionContext extensionContext) {
-		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
+	private static Stream<Configuration> createConfigurationFor(ExtensionContext context,
+			List<DisableIfTestFails> annotations) {
+		// annotations can be empty if a nested class isn't annotated itself (but an outer class is)
+		if (annotations.isEmpty())
 ```
 
 ### BoundedWildcard
@@ -590,39 +628,15 @@ in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends N`
-in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+Can generalize to `? extends Shared`
+in `src/main/java/org/junitpioneer/jupiter/resource/ResourceExtension.java`
 #### Snippet
 ```java
 	}
 
-	private Stream<N> asStream(Range<N> range) {
-		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
-	}
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Windows
-	 */
-	private static void setInProcessEnvironmentClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Class<?> processEnvironmentClass = Class.forName("java.lang.ProcessEnvironment");
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `src/main/java/org/junitpioneer/jupiter/EnvironmentVariableUtils.java`
-#### Snippet
-```java
-	 * Works on Linux and OSX
-	 */
-	private static void setInSystemEnvClass(Consumer<Map<String, String>> consumer)
-			throws ReflectiveOperationException {
-		Map<String, String> env = System.getenv(); //NOSONAR access required to implement the extension
+	private List<ReentrantLock> sortedLocksForSharedResources(Collection<Shared> sharedAnnotations,
+			ExtensionContext extensionContext) {
+		List<Shared> sortedAnnotations = sharedAnnotations.stream().sorted(comparing(Shared::name)).collect(toList());
 ```
 
 ### BoundedWildcard
@@ -637,6 +651,18 @@ in `src/main/java/org/junitpioneer/internal/PioneerUtils.java`
 		if (lists.isEmpty()) {
 ```
 
+### BoundedWildcard
+Can generalize to `? extends N`
+in `src/main/java/org/junitpioneer/jupiter/params/RangeSourceArgumentsProvider.java`
+#### Snippet
+```java
+	}
+
+	private Stream<N> asStream(Range<N> range) {
+		return StreamSupport.stream(Spliterators.spliteratorUnknownSize(range, Spliterator.ORDERED), false);
+	}
+```
+
 ## RuleId[id=RedundantSuppression]
 ### RedundantSuppression
 Redundant suppression
@@ -648,19 +674,6 @@ in `src/main/java/org/junitpioneer/jupiter/cartesian/CartesianArgumentsSource.ja
 	Class<? extends CartesianArgumentsProvider> value();
 
 }
-```
-
-## RuleId[id=RedundantSemicolon]
-### RedundantSemicolon
-Redundant semicolon
-in `build.gradle.kts`
-#### Snippet
-```java
-		if (project.version != "unspecified") {
-			// Add version to Java modules
-			options.javaModuleVersion.set(project.version.toString());
-		}
-	}
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -709,7 +722,7 @@ in `build.gradle.kts`
 			val demoTests by registering(JvmTestSuite::class) {
 				dependencies {
 					implementation(project(project.path))
-					implementation("com.google.jimfs:jimfs:1.2")
+					implementation("com.google.jimfs:jimfs:$jimfsVersion")
 ```
 
 ### UnstableApiUsage
@@ -720,7 +733,19 @@ in `build.gradle.kts`
 			val demoTests by registering(JvmTestSuite::class) {
 				dependencies {
 					implementation(project(project.path))
-					implementation("com.google.jimfs:jimfs:1.2")
+					implementation("com.google.jimfs:jimfs:$jimfsVersion")
+					implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+```
+
+### UnstableApiUsage
+'getProject()' is declared in unstable interface 'org.gradle.api.artifacts.dsl.Dependencies' marked with @Incubating
+in `build.gradle.kts`
+#### Snippet
+```java
+			val demoTests by registering(JvmTestSuite::class) {
+				dependencies {
+					implementation(project(project.path))
+					implementation("com.google.jimfs:jimfs:$jimfsVersion")
 					implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
 ```
 
@@ -758,5 +783,18 @@ in `build.gradle.kts`
 		dependsOn(javadoc, validateYaml, testing.suites.named("demoTests"))
 	}
 
+```
+
+## RuleId[id=RedundantSemicolon]
+### RedundantSemicolon
+Redundant semicolon
+in `build.gradle.kts`
+#### Snippet
+```java
+		if (project.version != "unspecified") {
+			// Add version to Java modules
+			options.javaModuleVersion.set(project.version.toString());
+		}
+	}
 ```
 
