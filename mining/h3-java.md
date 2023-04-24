@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-12-30-21.792.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-17-31-03.927.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -116,19 +116,6 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-
-    int read;
-    while ((read = in.read(buf)) != -1) {
-      out.write(buf, 0, read);
-    }
-```
-
 ## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
@@ -152,6 +139,19 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
   static final OperatingSystem detectOs(String javaVendor, String osName) {
     // Detecting Android using the properties from:
     // https://developer.android.com/reference/java/lang/System.html
+```
+
+## RuleId[id=NestedAssignment]
+### NestedAssignment
+Result of assignment expression used
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+
+    int read;
+    while ((read = in.read(buf)) != -1) {
+      out.write(buf, 0, read);
+    }
 ```
 
 ## RuleId[id=BoundedWildcard]
