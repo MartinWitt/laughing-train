@@ -33,18 +33,6 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 ```java
 
     @OSGiService
-    protected List<RestrictionProvider> restrictionProviders = null;
-
-    @OSGiService
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-
-    @OSGiService
     public GetAcl getAcl = null;
 
     /**
@@ -64,14 +52,26 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
 
     @OSGiService
-    public GetAcl getAcl = null;
+    protected List<RestrictionProvider> restrictionProviders = null;
 
-    public Collection<PrincipalPrivilege> getPrincipals() throws RepositoryException {
+    @OSGiService
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
+#### Snippet
+```java
+    private Set<String> allowRestrictionsToDelete;
+    private Set<String> denyRestrictionsToDelete;
+    private boolean allowExists = false;
+    private boolean denyExists = false;
+
 ```
 
 ### RedundantFieldInitialization
@@ -87,15 +87,15 @@ in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
+Field initialization to `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Acl.java`
 #### Snippet
 ```java
-    private Set<String> allowRestrictionsToDelete;
-    private Set<String> denyRestrictionsToDelete;
-    private boolean allowExists = false;
-    private boolean denyExists = false;
 
+    @OSGiService
+    public GetAcl getAcl = null;
+
+    public Collection<PrincipalPrivilege> getPrincipals() throws RepositoryException {
 ```
 
 ### RedundantFieldInitialization
@@ -129,11 +129,11 @@ Argument `jcrSession` might be null
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-        if (persistedPrivilegesMap == null) {
-            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-            Map<Privilege, String> privilegeToLongestPath = AceUtils.getPrivilegeLongestPathMap(jcrSession);
-            String acePath = getAcePath();
-            persistedPrivilegesMap = initialPrivilegesMap(privilegeToLongestPath, acePath);
+
+        Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
+        Map<Privilege, String> privilegeToLongestPath = AceUtils.getPrivilegeLongestPathMap(jcrSession);
+        Privilege[] supported = getSupportedOrRegisteredPrivileges(jcrSession, resource.getPath());
+        for (Privilege privilege : supported) {
 ```
 
 ### DataFlowIssue
@@ -161,30 +161,6 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-                    String[] strings = entry.getValue();
-                    if (rd.getRequiredType().isArray()) {
-                        value = strings;
-                    } else if (strings.length > 0) {
-                        //use the first one?
-```
-
-### DataFlowIssue
-Argument `jcrSession` might be null
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-
-        Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-        Map<Privilege, String> privilegeToLongestPath = AceUtils.getPrivilegeLongestPathMap(jcrSession);
-        Privilege[] supported = getSupportedOrRegisteredPrivileges(jcrSession, resource.getPath());
-        for (Privilege privilege : supported) {
-```
-
-### DataFlowIssue
 Method invocation `getPrincipalManager` may produce `NullPointerException`
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
@@ -194,6 +170,30 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
         PrincipalManager principalManager = ((JackrabbitSession)jcrSession).getPrincipalManager();
         String pid = getPrincipalId();
         JsonObject acl = getAcl.getAcl(jcrSession, getAcePath());
+```
+
+### DataFlowIssue
+Argument `jcrSession` might be null
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+        if (persistedPrivilegesMap == null) {
+            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
+            Map<Privilege, String> privilegeToLongestPath = AceUtils.getPrivilegeLongestPathMap(jcrSession);
+            String acePath = getAcePath();
+            persistedPrivilegesMap = initialPrivilegesMap(privilegeToLongestPath, acePath);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+                    String[] strings = entry.getValue();
+                    if (rd.getRequiredType().isArray()) {
+                        value = strings;
+                    } else if (strings.length > 0) {
+                        //use the first one?
 ```
 
 ### DataFlowIssue
@@ -253,11 +253,11 @@ Can generalize to `? extends RestrictionDefinition`
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-    protected Map<String, String[]> populateEntriesFromPreviousFailedPost(Map<String, List<RestrictionItem>> allowMap,
-            Map<String, List<RestrictionItem>> denyMap,
-            Map<String, RestrictionDefinition> srMap) {
-        Map<String, String[]> toDeleteFieldValues = getFieldValuesForPattern(RESTRICTION_PATTERN_DELETE);
-        Map<String, String[]> fieldValues = getFieldValuesForPattern(RESTRICTION_PATTERN);
+     * @return a map where the key is the restriction name and the value is the restriction definition
+     */
+    protected Map<String, RestrictionDefinition> toSrMap(Set<RestrictionDefinition> supportedRestrictions) {
+        Map<String, RestrictionDefinition> srMap = new HashMap<>();
+        for (RestrictionDefinition restrictionDefinition : supportedRestrictions) {
 ```
 
 ### BoundedWildcard
@@ -277,11 +277,11 @@ Can generalize to `? extends RestrictionDefinition`
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-     * @return a map where the key is the restriction name and the value is the restriction definition
-     */
-    protected Map<String, RestrictionDefinition> toSrMap(Set<RestrictionDefinition> supportedRestrictions) {
-        Map<String, RestrictionDefinition> srMap = new HashMap<>();
-        for (RestrictionDefinition restrictionDefinition : supportedRestrictions) {
+    }
+
+    protected List<RestrictionItem> jsonToRestrictionItems(Map<String, RestrictionDefinition> srMap,
+            JsonObject restrictionsObj) {
+        List<RestrictionItem> restrictionItems = new ArrayList<>();
 ```
 
 ### BoundedWildcard
@@ -289,11 +289,11 @@ Can generalize to `? extends RestrictionDefinition`
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
 ```java
-    }
-
-    protected List<RestrictionItem> jsonToRestrictionItems(Map<String, RestrictionDefinition> srMap,
-            JsonObject restrictionsObj) {
-        List<RestrictionItem> restrictionItems = new ArrayList<>();
+    protected Map<String, String[]> populateEntriesFromPreviousFailedPost(Map<String, List<RestrictionItem>> allowMap,
+            Map<String, List<RestrictionItem>> denyMap,
+            Map<String, RestrictionDefinition> srMap) {
+        Map<String, String[]> toDeleteFieldValues = getFieldValuesForPattern(RESTRICTION_PATTERN_DELETE);
+        Map<String, String[]> fieldValues = getFieldValuesForPattern(RESTRICTION_PATTERN);
 ```
 
 ### BoundedWildcard
@@ -310,18 +310,6 @@ in `src/main/java/org/apache/sling/starter/access/models/AceUtils.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `supportedPrivileges` initializer `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-            Map<Privilege, String> privilegeToLongestPath, String acePath) {
-        Map<Privilege, PrivilegeItem> newMap = new HashMap<>();
-        Privilege[] supportedPrivileges = null;
-        try {
-            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-```
-
-### UnusedAssignment
 Variable `fieldValues` initializer `null` is redundant
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
@@ -331,6 +319,18 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
         String[] fieldValues = null;
         fieldValues = new String[paramValues.length];
         for (int i=0; i < paramValues.length; i++) {
+```
+
+### UnusedAssignment
+Variable `supportedPrivileges` initializer `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+            Map<Privilege, String> privilegeToLongestPath, String acePath) {
+        Map<Privilege, PrivilegeItem> newMap = new HashMap<>();
+        Privilege[] supportedPrivileges = null;
+        try {
+            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
 ```
 
 ## RuleId[id=ComparatorCombinators]
