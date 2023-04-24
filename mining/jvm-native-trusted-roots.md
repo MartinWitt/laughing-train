@@ -12,18 +12,6 @@ I found 17 bad smells with 7 repairable:
 | BoundedWildcard | 1 | false |
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
-Class `NativeTrustedCertificates` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedCertificates.java`
-#### Snippet
-```java
-import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.*;
-
-public class NativeTrustedCertificates {
-    private static final Logger LOGGER = Logger.getLogger(NativeTrustedCertificates.class.getName());
-
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `PemReaderUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
 #### Snippet
@@ -33,6 +21,18 @@ import java.util.List;
 public class PemReaderUtil {
     private static final String BEGIN_CERT = "-----BEGIN CERTIFICATE-----";
     private static final String END_CERT = "-----END CERTIFICATE-----";
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NativeTrustedCertificates` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedCertificates.java`
+#### Snippet
+```java
+import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.*;
+
+public class NativeTrustedCertificates {
+    private static final Logger LOGGER = Logger.getLogger(NativeTrustedCertificates.class.getName());
+
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -60,18 +60,6 @@ public class LinuxTrustedCertificatesUtil {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `NativeTrustedRootsDebugMain` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
-#### Snippet
-```java
-import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.sha256hex;
-
-public class NativeTrustedRootsDebugMain {
-    private final static Logger rootLogger = Logger.getLogger("");
-    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Crypt32ExtUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/jetbrains/nativecerts/win32/Crypt32ExtUtil.java`
 #### Snippet
@@ -81,6 +69,18 @@ import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.renderEx
 public class Crypt32ExtUtil {
     private final static Logger LOGGER = Logger.getLogger(Crypt32ExtUtil.class.getName());
 
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `NativeTrustedRootsDebugMain` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
+#### Snippet
+```java
+import static org.jetbrains.nativecerts.NativeTrustedRootsInternalUtils.sha256hex;
+
+public class NativeTrustedRootsDebugMain {
+    private final static Logger rootLogger = Logger.getLogger("");
+    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -98,11 +98,11 @@ public class SecurityFrameworkUtil {
 ## RuleId[id=UnnecessarySuperQualifier]
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/jetbrains/nativecerts/mac/CFStringRefByReference.java`
+in `src/main/java/org/jetbrains/nativecerts/mac/CFArrayRefByReference.java`
 #### Snippet
 ```java
     @Nullable
-    public CoreFoundation.CFStringRef getStringRef() {
+    public CoreFoundation.CFArrayRef getArray() {
         Pointer value = super.getValue();
         if (value == null) {
             return null;
@@ -110,11 +110,11 @@ in `src/main/java/org/jetbrains/nativecerts/mac/CFStringRefByReference.java`
 
 ### UnnecessarySuperQualifier
 Qualifier `super` is unnecessary in this context
-in `src/main/java/org/jetbrains/nativecerts/mac/CFArrayRefByReference.java`
+in `src/main/java/org/jetbrains/nativecerts/mac/CFStringRefByReference.java`
 #### Snippet
 ```java
     @Nullable
-    public CoreFoundation.CFArrayRef getArray() {
+    public CoreFoundation.CFStringRef getStringRef() {
         Pointer value = super.getValue();
         if (value == null) {
             return null;
@@ -174,30 +174,6 @@ public class LinuxTrustedCertificatesUtil {
 
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
-#### Snippet
-```java
-public class NativeTrustedRootsDebugMain {
-    private final static Logger rootLogger = Logger.getLogger("");
-    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
-
-    public static void main(String[] args) throws Exception {
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
-#### Snippet
-```java
-
-public class NativeTrustedRootsDebugMain {
-    private final static Logger rootLogger = Logger.getLogger("");
-    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
-
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `src/main/java/org/jetbrains/nativecerts/win32/Crypt32ExtUtil.java`
 #### Snippet
 ```java
@@ -206,6 +182,30 @@ public class Crypt32ExtUtil {
     private final static Logger LOGGER = Logger.getLogger(Crypt32ExtUtil.class.getName());
 
     private static final Map<String, Integer> customTrustedCertificatesLocations = Map.of(
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
+#### Snippet
+```java
+
+public class NativeTrustedRootsDebugMain {
+    private final static Logger rootLogger = Logger.getLogger("");
+    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
+
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
+#### Snippet
+```java
+public class NativeTrustedRootsDebugMain {
+    private final static Logger rootLogger = Logger.getLogger("");
+    private final static Logger LOG = Logger.getLogger(NativeTrustedRootsDebugMain.class.getName());
+
+    public static void main(String[] args) throws Exception {
 ```
 
 ### MissortedModifiers
