@@ -30,7 +30,7 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 ## RuleId[id=HtmlWrongAttributeValue]
 ### HtmlWrongAttributeValue
 Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-19-17-07-51.504.html`
+in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-12-30-21.792.html`
 #### Snippet
 ```java
               <td>0</td>
@@ -55,18 +55,6 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `out` is redundant
-in `src/main/java/com/uber/h3core/H3Core.java`
-#### Snippet
-```java
-    double[] coords = new double[2];
-    h3Api.cellToLatLng(h3, coords);
-    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
-    return out;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `src/main/java/com/uber/h3core/H3Core.java`
 #### Snippet
@@ -76,6 +64,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
     long result = h3Api.cellToCenterChild(h3, childRes);
 
     return result;
+```
+
+### UnnecessaryLocalVariable
+Local variable `out` is redundant
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+    double[] coords = new double[2];
+    h3Api.cellToLatLng(h3, coords);
+    LatLng out = new LatLng(toDegrees(coords[0]), toDegrees(coords[1]));
+    return out;
+  }
 ```
 
 ## RuleId[id=ZeroLengthArrayInitialization]
@@ -116,31 +116,6 @@ public class H3Exception extends RuntimeException {
   public H3Exception(int code) {
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-   * @param osName Value of system property "os.name"
-   */
-  static final OperatingSystem detectOs(String javaVendor, String osName) {
-    // Detecting Android using the properties from:
-    // https://developer.android.com/reference/java/lang/System.html
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/h3core/H3CoreLoader.java`
-#### Snippet
-```java
-   * @param osArch Value of system property "os.arch"
-   */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
-```
-
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
@@ -154,19 +129,32 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
     }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends LatLng`
-in `src/main/java/com/uber/h3core/H3Core.java`
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @return Next offset to begin filling from
+   * @param osArch Value of system property "os.arch"
    */
-  private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
-    assert arr.length >= (original.size() * 2) + offset;
-
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/h3core/H3CoreLoader.java`
+#### Snippet
+```java
+   * @param osName Value of system property "os.name"
+   */
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
+```
+
+## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? extends List`
 in `src/main/java/com/uber/h3core/H3Core.java`
@@ -176,6 +164,18 @@ in `src/main/java/com/uber/h3core/H3Core.java`
    */
   public List<Long> polygonToCells(List<LatLng> points, List<List<LatLng>> holes, int res) {
     checkResolution(res);
+
+```
+
+### BoundedWildcard
+Can generalize to `? extends LatLng`
+in `src/main/java/com/uber/h3core/H3Core.java`
+#### Snippet
+```java
+   * @return Next offset to begin filling from
+   */
+  private static int packGeofenceVertices(double[] arr, List<LatLng> original, int offset) {
+    assert arr.length >= (original.size() * 2) + offset;
 
 ```
 
