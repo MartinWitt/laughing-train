@@ -8,23 +8,11 @@ I found 14 bad smells with 2 repairable:
 | IgnoreResultOfCall | 3 | false |
 | RedundantFieldInitialization | 2 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| UnnecessaryFullyQualifiedName | 1 | false |
 | DataFlowIssue | 1 | false |
+| UnnecessaryFullyQualifiedName | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | CodeBlock2Expr | 1 | true |
 ## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
-#### Snippet
-```java
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(DaprSampleApplication.class);
-	private int i = 0;
-
-	@Bean
-```
-
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
@@ -35,6 +23,18 @@ in `samples/azure-container-app-dapr/src/main/java/com/azure/spring/cloud/stream
 	private int i = 0;
 	public static void main(String[] args) {
 		SpringApplication.run(DaprSampleApplication.class, args);
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `samples/local-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/sample/DaprSampleApplication.java`
+#### Snippet
+```java
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(DaprSampleApplication.class);
+	private int i = 0;
+
+	@Bean
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -50,19 +50,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 	}
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `io.grpc` is unnecessary and can be removed
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/properties/DaprBinderConfigurationProperties.java`
-#### Snippet
-```java
-		 *  this is the compressor used by the stub to compress messages to the server.  To get
-		 *  compressed responses from the server, set the appropriate {@link io.grpc.DecompressorRegistry}
-		 *  on the {@link io.grpc.ManagedChannelBuilder}.
-		 */
-		private String compression;
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `setTopic` may produce `NullPointerException`
@@ -74,6 +61,19 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 		builder.setTopic(topic);
 		builder.setPubsubName(pubsubName);
 		daprStub.publishEvent(builder.build(), createDaprStreamObserver());
+```
+
+## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `io.grpc` is unnecessary and can be removed
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/properties/DaprBinderConfigurationProperties.java`
+#### Snippet
+```java
+		 *  this is the compressor used by the stub to compress messages to the server.  To get
+		 *  compressed responses from the server, set the appropriate {@link io.grpc.DecompressorRegistry}
+		 *  on the {@link io.grpc.ManagedChannelBuilder}.
+		 */
+		private String compression;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
