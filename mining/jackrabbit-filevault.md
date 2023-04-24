@@ -1,7 +1,7 @@
 # jackrabbit-filevault 
  
 # Bad smells
-I found 1843 bad smells with 495 repairable:
+I found 1842 bad smells with 495 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryModifier | 280 | true |
@@ -84,7 +84,6 @@ I found 1843 bad smells with 495 repairable:
 | ReplaceAssignmentWithOperatorAssignment | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | PointlessBitwiseExpression | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | MethodOverloadsParentMethod | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
 | SwitchStatementWithConfusingDeclaration | 1 | false |
@@ -94,8 +93,8 @@ I found 1843 bad smells with 495 repairable:
 | UnnecessaryEmptyArrayUsage | 1 | false |
 | InstanceofIncompatibleInterface | 1 | false |
 | IfStatementMissingBreakInLoop | 1 | false |
-| MalformedFormatString | 1 | false |
 | WhileLoopSpinsOnField | 1 | false |
+| MalformedFormatString | 1 | false |
 | UnnecessarySuperQualifier | 1 | false |
 | GroovyUnusedAssignment | 1 | false |
 | ExceptionNameDoesntEndWithException | 1 | false |
@@ -111,378 +110,6 @@ I found 1843 bad smells with 495 repairable:
 | UnnecessaryContinue | 1 | false |
 | ThreadStartInConstruction | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[rts.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
-#### Snippet
-```java
-                rts.add(p.getRoot());
-            }
-            String[] filterRoots = rts.toArray(new String[rts.size()]);
-            addManifestAttribute(mf, MF_PACKAGE_ID, id.toString());
-            addManifestAttribute(mf, MF_PACKAGE_DESC, properties.getProperty(NAME_DESCRIPTION));
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new NodeTypeDefinition\[nodeTypes.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JcrNodeTypeInstaller.java`
-#### Snippet
-```java
-        if (nodeTypes.size() > 0) {
-            try {
-                ntMgr.registerNodeTypes(nodeTypes.toArray(new NodeTypeDefinition[nodeTypes.size()]), true);
-            } catch (UnsupportedOperationException e) {
-                log.error("Unable to install node types.");
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[namespaces.keySet().size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/ContentAnalyzer.java`
-#### Snippet
-```java
-
-    public String[] getNamespaceURIs() {
-        return namespaces.keySet().toArray(new String[namespaces.keySet().size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Principal\[existingPrincipals.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-                // remove existing policy for 'overwrite'
-                if (aclHandling == AccessControlHandling.OVERWRITE) {
-                    psPolicy.removePrincipals(existingPrincipals.toArray(new Principal[existingPrincipals.size()]));
-                }
-            } else {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[prefixes.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
-#### Snippet
-```java
-                // need to traverse the nodes to get all namespaces
-                loadNamespaces(prefixes, "", getNode());
-                namespacePrefixes = prefixes.toArray(new String[prefixes.size()]);
-            } catch (RepositoryException e) {
-                throw new IllegalStateException("Internal error while loading namespaces", e);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[strings.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-
-        // return string array
-        return strings.toArray(new String[strings.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[segs.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
-#### Snippet
-```java
-            }
-        }
-        return new Version(str.toString(), segs.toArray(new String[segs.size()]));
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-            }
-        }
-        return deps.toArray(new Dependency[deps.size()]);
-    }
-    
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-            }
-        }
-        return deps.toArray(new Dependency[deps.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[vals.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-                values = Constants.EMPTY_STRING_ARRAY;
-            } else {
-                values = vals.toArray(new String[vals.size()]);
-            }
-        } else {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[rules.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
-#### Snippet
-```java
-            rules.add(type + ":" + patt);
-        }
-        setNode.setProperty(propertyName, rules.toArray(new String[rules.size()]));
-    }
-}
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[installState.getDependencies().size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FsPackageProperties.java`
-#### Snippet
-```java
-            return Dependency.EMPTY;
-        } else {
-            return installState.getDependencies().toArray(new Dependency[installState.getDependencies().size()]);
-        } 
-    }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[usages.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-            }
-        }
-        return usages.toArray(new PackageId[usages.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-        }
-
-        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
-                resolved.toArray(new PackageId[resolved.size()])
-        );
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-
-        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
-                resolved.toArray(new PackageId[resolved.size()])
-        );
-    }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[installState.getDependencies().size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
-#### Snippet
-```java
-    public FSRegisteredPackage(FSPackageRegistry registry, FSInstallState installState) throws IOException {
-        this.id = installState.getPackageId();
-        this.dependencies = installState.getDependencies().toArray(new Dependency[installState.getDependencies().size()]);
-        this.filter = installState.getFilter();
-        this.packageProperties = new FsPackageProperties(installState);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-                    }
-                }
-                return deps.toArray(new Dependency[deps.size()]);
-            }
-        } catch (RepositoryException e) {
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[ds.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-                    }
-                }
-                defNode.setProperty(PN_DEPENDENCIES, ds.toArray(new String[ds.size()]));
-            }
-            defNode.setProperty(PN_DESCRIPTION, props.getDescription());
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Value\[values.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-                }
-            }
-            defNode.setProperty(PN_DEPENDENCIES, values.toArray(new Value[values.size()]));
-            if (autoSave) {
-                defNode.getSession().save();
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[ids.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return ids.toArray(new PackageId[ids.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[pendingJcrChanges.size()\]'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-    public void prepareForSync() {
-        // assert locked
-        preparedJcrChanges = pendingJcrChanges.toArray(new String[pendingJcrChanges.size()]);
-        pendingJcrChanges.clear();
-        pendingFsChanges.clear();
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new SyncHandler\[newSyncSpecs.size()\]'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
-#### Snippet
-```java
-            log.info("Added sync specification: {}", spec);
-        }
-        syncHandlers = newSyncSpecs.toArray(new SyncHandler[newSyncSpecs.size()]);
-        enabled = config.vault_sync_enabled();
-        checkDelay = config.vault_sync_fscheckinterval() * 1000;
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[subpackages.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-            Dependency autoDependency = hasOwnContent ? new Dependency(pkg.getId()) : null;
-            registerSubPackages(pkg, packagesRoot, DEFAULT_PACKAGE_ROOT_PATH, replace, subpackages, autoDependency);
-            dispatch(Type.EXTRACT_SUB_PACKAGES, pkg.getId(), subpackages.keySet().toArray(new PackageId[subpackages.size()]));
-        }
-        return subpackages;
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-        }
-
-        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
-                resolved.toArray(new PackageId[resolved.size()])
-        );
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-
-        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
-                resolved.toArray(new PackageId[resolved.size()])
-        );
-    }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[uninstallTasks.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-        }
-
-        for (PackageId id: uninstallTasks.keySet().toArray(new PackageId[uninstallTasks.size()])) {
-            resolveUninstall(id, packageTasks, uninstallTasks, new HashSet<>(), uninstallTasks.get(id).getOptions());
-        }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[installTasks.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-        packageTasks.addAll(removeTasks.values());
-
-        for (PackageId id: installTasks.keySet().toArray(new PackageId[installTasks.size()])) {
-            PackageTask task = installTasks.get(id);
-            resolveInstall(id, packageTasks, installTasks, new HashSet<>(), task.getType(), task.getOptions());
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return resolved.toArray(new PackageId[resolved.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new PackageId\[processed.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        Set<PackageId> processed = new HashSet<PackageId>();
-        extractSubpackages(opts, processed);
-        PackageId[] ret = processed.toArray(new PackageId[processed.size()]);
-        Arrays.sort(ret);
-        mgr.dispatch(PackageEvent.Type.EXTRACT_SUB_PACKAGES, getDefinition().getId(), ret);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return unresolved.toArray(new Dependency[unresolved.size()]);
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Value\[values.size()\]'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/DocViewPropertyValueFactory.java`
-#### Snippet
-```java
-            values.add(getValue(value, property.getType()));
-        }
-        return values.toArray(new Value[values.size()]);
-    }
-}
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new WordElement\[lines.size()\]'
 in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElementsFactory.java`
@@ -567,7 +194,534 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
 
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Value\[values.size()\]'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/DocViewPropertyValueFactory.java`
+#### Snippet
+```java
+            values.add(getValue(value, property.getType()));
+        }
+        return values.toArray(new Value[values.size()]);
+    }
+}
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new SyncHandler\[newSyncSpecs.size()\]'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
+#### Snippet
+```java
+            log.info("Added sync specification: {}", spec);
+        }
+        syncHandlers = newSyncSpecs.toArray(new SyncHandler[newSyncSpecs.size()]);
+        enabled = config.vault_sync_enabled();
+        checkDelay = config.vault_sync_fscheckinterval() * 1000;
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[pendingJcrChanges.size()\]'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+    public void prepareForSync() {
+        // assert locked
+        preparedJcrChanges = pendingJcrChanges.toArray(new String[pendingJcrChanges.size()]);
+        pendingJcrChanges.clear();
+        pendingFsChanges.clear();
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[rts.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
+#### Snippet
+```java
+                rts.add(p.getRoot());
+            }
+            String[] filterRoots = rts.toArray(new String[rts.size()]);
+            addManifestAttribute(mf, MF_PACKAGE_ID, id.toString());
+            addManifestAttribute(mf, MF_PACKAGE_DESC, properties.getProperty(NAME_DESCRIPTION));
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new NodeTypeDefinition\[nodeTypes.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JcrNodeTypeInstaller.java`
+#### Snippet
+```java
+        if (nodeTypes.size() > 0) {
+            try {
+                ntMgr.registerNodeTypes(nodeTypes.toArray(new NodeTypeDefinition[nodeTypes.size()]), true);
+            } catch (UnsupportedOperationException e) {
+                log.error("Unable to install node types.");
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[namespaces.keySet().size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/ContentAnalyzer.java`
+#### Snippet
+```java
+
+    public String[] getNamespaceURIs() {
+        return namespaces.keySet().toArray(new String[namespaces.keySet().size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Principal\[existingPrincipals.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+                // remove existing policy for 'overwrite'
+                if (aclHandling == AccessControlHandling.OVERWRITE) {
+                    psPolicy.removePrincipals(existingPrincipals.toArray(new Principal[existingPrincipals.size()]));
+                }
+            } else {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[prefixes.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
+#### Snippet
+```java
+                // need to traverse the nodes to get all namespaces
+                loadNamespaces(prefixes, "", getNode());
+                namespacePrefixes = prefixes.toArray(new String[prefixes.size()]);
+            } catch (RepositoryException e) {
+                throw new IllegalStateException("Internal error while loading namespaces", e);
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[strings.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+
+        // return string array
+        return strings.toArray(new String[strings.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[vals.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+                values = Constants.EMPTY_STRING_ARRAY;
+            } else {
+                values = vals.toArray(new String[vals.size()]);
+            }
+        } else {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[segs.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
+#### Snippet
+```java
+            }
+        }
+        return new Version(str.toString(), segs.toArray(new String[segs.size()]));
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+            }
+        }
+        return deps.toArray(new Dependency[deps.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+            }
+        }
+        return deps.toArray(new Dependency[deps.size()]);
+    }
+    
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[rules.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
+#### Snippet
+```java
+            rules.add(type + ":" + patt);
+        }
+        setNode.setProperty(propertyName, rules.toArray(new String[rules.size()]));
+    }
+}
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[installState.getDependencies().size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FsPackageProperties.java`
+#### Snippet
+```java
+            return Dependency.EMPTY;
+        } else {
+            return installState.getDependencies().toArray(new Dependency[installState.getDependencies().size()]);
+        } 
+    }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+        }
+
+        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
+                resolved.toArray(new PackageId[resolved.size()])
+        );
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+
+        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
+                resolved.toArray(new PackageId[resolved.size()])
+        );
+    }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[usages.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+            }
+        }
+        return usages.toArray(new PackageId[usages.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new String\[ds.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+                    }
+                }
+                defNode.setProperty(PN_DEPENDENCIES, ds.toArray(new String[ds.size()]));
+            }
+            defNode.setProperty(PN_DESCRIPTION, props.getDescription());
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Value\[values.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+                }
+            }
+            defNode.setProperty(PN_DEPENDENCIES, values.toArray(new Value[values.size()]));
+            if (autoSave) {
+                defNode.getSession().save();
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[deps.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+                    }
+                }
+                return deps.toArray(new Dependency[deps.size()]);
+            }
+        } catch (RepositoryException e) {
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[installState.getDependencies().size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
+#### Snippet
+```java
+    public FSRegisteredPackage(FSPackageRegistry registry, FSInstallState installState) throws IOException {
+        this.id = installState.getPackageId();
+        this.dependencies = installState.getDependencies().toArray(new Dependency[installState.getDependencies().size()]);
+        this.filter = installState.getFilter();
+        this.packageProperties = new FsPackageProperties(installState);
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[ids.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return ids.toArray(new PackageId[ids.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[uninstallTasks.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+        }
+
+        for (PackageId id: uninstallTasks.keySet().toArray(new PackageId[uninstallTasks.size()])) {
+            resolveUninstall(id, packageTasks, uninstallTasks, new HashSet<>(), uninstallTasks.get(id).getOptions());
+        }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[installTasks.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+        packageTasks.addAll(removeTasks.values());
+
+        for (PackageId id: installTasks.keySet().toArray(new PackageId[installTasks.size()])) {
+            PackageTask task = installTasks.get(id);
+            resolveInstall(id, packageTasks, installTasks, new HashSet<>(), task.getType(), task.getOptions());
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+        }
+
+        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
+                resolved.toArray(new PackageId[resolved.size()])
+        );
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+
+        return new DependencyReportImpl(id, unresolved.toArray(new Dependency[unresolved.size()]),
+                resolved.toArray(new PackageId[resolved.size()])
+        );
+    }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[subpackages.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+            Dependency autoDependency = hasOwnContent ? new Dependency(pkg.getId()) : null;
+            registerSubPackages(pkg, packagesRoot, DEFAULT_PACKAGE_ROOT_PATH, replace, subpackages, autoDependency);
+            dispatch(Type.EXTRACT_SUB_PACKAGES, pkg.getId(), subpackages.keySet().toArray(new PackageId[subpackages.size()]));
+        }
+        return subpackages;
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[resolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return resolved.toArray(new PackageId[resolved.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new PackageId\[processed.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        Set<PackageId> processed = new HashSet<PackageId>();
+        extractSubpackages(opts, processed);
+        PackageId[] ret = processed.toArray(new PackageId[processed.size()]);
+        Arrays.sort(ret);
+        mgr.dispatch(PackageEvent.Type.EXTRACT_SUB_PACKAGES, getDefinition().getId(), ret);
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Dependency\[unresolved.size()\]'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return unresolved.toArray(new Dependency[unresolved.size()]);
+    }
+
+```
+
 ## RuleId[id=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/ElementsFactory.java`
+#### Snippet
+```java
+     * @return an array of elements
+     */
+    public Document.Element[] getElements();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Document.java`
+#### Snippet
+```java
+     * to create an annotated document. 
+     */
+    public static interface AnnotatedElement extends Element {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Document.java`
+#### Snippet
+```java
+     * Elements form a document.
+     */
+    public static interface Element {
+
+        /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
+#### Snippet
+```java
+public interface ConsoleFile {
+
+    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
+
+    Object unwrap();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
+#### Snippet
+```java
+public interface ConsoleFile {
+
+    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
+
+    Object unwrap();
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
+#### Snippet
+```java
+public interface ConsoleFile {
+
+    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
+
+    Object unwrap();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleCommand.java`
+#### Snippet
+```java
+public interface ConsoleCommand extends CliCommand {
+
+    public boolean execute(ConsoleExecutionContext ctx, CommandLine cl)
+            throws Exception;
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFileSystem.java`
+#### Snippet
+```java
+    ConsoleFile getRoot();
+
+    public String getSchemePrefix();
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+
+    @ObjectClassDefinition(name = "Apache Jackrabbit FileVault RCP Task Manager", description = "Manages tasks for RCP (remote copy)")
+    public static @interface ComponentPropertyType {
+        @AttributeDefinition(name = "Serialized Tasks", description = "The JSON serialization of all tasks. Credentials are not stored in here, but rather in the bundle context data file.")
+        String serialized_tasks_json() default "";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
+#### Snippet
+```java
+     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
+     */
+    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
+    /**
+     * Creates a new validator for the given context.
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
+#### Snippet
+```java
+     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
+     */
+    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
+    /**
+     * Creates a new validator for the given context.
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
+#### Snippet
+```java
+     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
+     */
+    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
+    /**
+     * Creates a new validator for the given context.
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/DependencyResolver.java`
+#### Snippet
+```java
+     * @throws IOException in case some error happened during resolving
+     */
+    public @NotNull Collection<PackageInfo> resolvePackageInfo(@NotNull Dependency[] dependencies, @NotNull Map<PackageId, URI> dependencyLocations) throws IOException;
+}
+
+```
+
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/ImportInfo.java`
@@ -608,18 +762,6 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/AggregateManager.java`
 #### Snippet
 ```java
-     * Stops tracking of aggregate lifecycle
-     */
-    public void stopTracking();
-
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/AggregateManager.java`
-#### Snippet
-```java
      * @param listener optional listener
      */
     public void startTracking(ProgressTrackerListener listener);
@@ -628,15 +770,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/AggregateManager
 ```
 
 ### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/SerializationType.java`
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/AggregateManager.java`
 #### Snippet
 ```java
-     * @param contentType the default content type
+     * Stops tracking of aggregate lifecycle
      */
-    private SerializationType(String name, String contentType) {
-        this.name = name;
-        this.contentType = contentType;
+    public void stopTracking();
+
+
 ```
 
 ### UnnecessaryModifier
@@ -649,6 +791,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryFactor
     public Repository createRepository(RepositoryAddress address)
             throws RepositoryException;
     
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryFactory.java`
+#### Snippet
+```java
+public interface RepositoryFactory {
+
+    public Set<String> getSupportedSchemes();
+
+    public Repository createRepository(RepositoryAddress address)
 ```
 
 ### UnnecessaryModifier
@@ -664,15 +818,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryFactor
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryFactory.java`
+Modifier `private` is redundant for enum constructors
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/SerializationType.java`
 #### Snippet
 ```java
-public interface RepositoryFactory {
-
-    public Set<String> getSupportedSchemes();
-
-    public Repository createRepository(RepositoryAddress address)
+     * @param contentType the default content type
+     */
+    private SerializationType(String name, String contentType) {
+        this.name = name;
+        this.contentType = contentType;
 ```
 
 ### UnnecessaryModifier
@@ -799,6 +953,18 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/Artifact.java`
 #### Snippet
 ```java
+     * @return the type of this artifact.
+     */
+    public ArtifactType getType();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/Artifact.java`
+#### Snippet
+```java
      * @return the serialization type of this artifact.
      */
     public SerializationType getSerializationType();
@@ -835,18 +1001,6 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/Artifact.java`
 #### Snippet
 ```java
-     * @return the type of this artifact.
-     */
-    public ArtifactType getType();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/Artifact.java`
-#### Snippet
-```java
      * @return the relative platform path
      */
     public String getPlatformPath();
@@ -861,9 +1015,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWal
 ```java
      * @throws RepositoryException if a repository error occurs.
      */
-    public void onNodeEnd(Node node, boolean included, int depth)
-            throws RepositoryException;
+    public void onWalkBegin(Node root) throws RepositoryException;
 
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -876,6 +1030,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWal
     public void onNodeBegin(Node node, boolean included, int depth)
             throws RepositoryException;
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWalkListener.java`
+#### Snippet
+```java
+     * @throws RepositoryException if a repository error occurs.
+     */
+    public void onChildren(Node node, int depth) throws RepositoryException;
+
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -909,30 +1075,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWal
 ```java
      * @throws RepositoryException if a repository error occurs.
      */
-    public void onChildren(Node node, int depth) throws RepositoryException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWalkListener.java`
-#### Snippet
-```java
-     * @throws RepositoryException if a repository error occurs.
-     */
-    public void onWalkBegin(Node root) throws RepositoryException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWalkListener.java`
-#### Snippet
-```java
-     * @throws RepositoryException if a repository error occurs.
-     */
     public void onWalkEnd(Node root) throws RepositoryException;
 
 }
@@ -940,614 +1082,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWal
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AggregateWalkListener.java`
 #### Snippet
 ```java
-     * jcr:frozenPrimaryType
+     * @throws RepositoryException if a repository error occurs.
      */
-    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
-    /**
-     * jcr:frozenUuid
-```
+    public void onNodeEnd(Node node, boolean included, int depth)
+            throws RepositoryException;
 
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenPrimaryType
-     */
-    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
-    /**
-     * jcr:frozenUuid
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenPrimaryType
-     */
-    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
-    /**
-     * jcr:frozenUuid
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenNode
-     */
-    public static final String JCR_FROZENNODE = "jcr:frozenNode";
-    /**
-     * jcr:frozenPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenNode
-     */
-    public static final String JCR_FROZENNODE = "jcr:frozenNode";
-    /**
-     * jcr:frozenPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenNode
-     */
-    public static final String JCR_FROZENNODE = "jcr:frozenNode";
-    /**
-     * jcr:frozenPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionHistory
-     */
-    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
-    /**
-     * jcr:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionHistory
-     */
-    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
-    /**
-     * jcr:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionHistory
-     */
-    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
-    /**
-     * jcr:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:nodeTypeName
-     */
-    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
-    /**
-     * jcr:onParentVersion
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:nodeTypeName
-     */
-    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
-    /**
-     * jcr:onParentVersion
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:nodeTypeName
-     */
-    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
-    /**
-     * jcr:onParentVersion
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:versionable
-     */
-    public static final String MIX_VERSIONABLE = "mix:versionable";
-    /**
-     * nt:base
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:versionable
-     */
-    public static final String MIX_VERSIONABLE = "mix:versionable";
-    /**
-     * nt:base
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:versionable
-     */
-    public static final String MIX_VERSIONABLE = "mix:versionable";
-    /**
-     * nt:base
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:hasOrderableChildNodes
-     */
-    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
-    /**
-     * jcr:isCheckedOut
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:hasOrderableChildNodes
-     */
-    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
-    /**
-     * jcr:isCheckedOut
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:hasOrderableChildNodes
-     */
-    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
-    /**
-     * jcr:isCheckedOut
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:valueConstraints
-     */
-    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
-    /**
-     * jcr:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:valueConstraints
-     */
-    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
-    /**
-     * jcr:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:valueConstraints
-     */
-    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
-    /**
-     * jcr:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionLabels
-     */
-    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
-    /**
-     * jcr:versionStorage
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionLabels
-     */
-    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
-    /**
-     * jcr:versionStorage
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionLabels
-     */
-    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
-    /**
-     * jcr:versionStorage
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:encoding
-     */
-    public static final String JCR_ENCODING = "jcr:encoding";
-    /**
-     * jcr:frozenMixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:encoding
-     */
-    public static final String JCR_ENCODING = "jcr:encoding";
-    /**
-     * jcr:frozenMixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:encoding
-     */
-    public static final String JCR_ENCODING = "jcr:encoding";
-    /**
-     * jcr:frozenMixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:child
-     */
-    public static final String JCR_CHILD = "jcr:child";
-    /**
-     * jcr:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:child
-     */
-    public static final String JCR_CHILD = "jcr:child";
-    /**
-     * jcr:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:child
-     */
-    public static final String JCR_CHILD = "jcr:child";
-    /**
-     * jcr:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:propertyDefinition
-     */
-    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
-    /**
-     * jcr:protected
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:propertyDefinition
-     */
-    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
-    /**
-     * jcr:protected
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:propertyDefinition
-     */
-    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
-    /**
-     * jcr:protected
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModified
-     */
-    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
-    /**
-     * jcr:lockIsDeep
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModified
-     */
-    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
-    /**
-     * jcr:lockIsDeep
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModified
-     */
-    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
-    /**
-     * jcr:lockIsDeep
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModifiedBy
-     */
-    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
-    /**
-     * mix:title
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModifiedBy
-     */
-    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
-    /**
-     * mix:title
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lastModifiedBy
-     */
-    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
-    /**
-     * mix:title
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isCheckedOut
-     */
-    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
-    /**
-     * jcr:isMixin
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isCheckedOut
-     */
-    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
-    /**
-     * jcr:isMixin
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isCheckedOut
-     */
-    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
-    /**
-     * jcr:isMixin
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenUuid
-     */
-    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
-    /**
-     * jcr:hasOrderableChildNodes
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenUuid
-     */
-    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
-    /**
-     * jcr:hasOrderableChildNodes
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:frozenUuid
-     */
-    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
-    /**
-     * jcr:hasOrderableChildNodes
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:version
-     */
-    public static final String NT_VERSION = "nt:version";
-    /**
-     * nt:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:version
-     */
-    public static final String NT_VERSION = "nt:version";
-    /**
-     * nt:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:version
-     */
-    public static final String NT_VERSION = "nt:version";
-    /**
-     * nt:versionHistory
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:hierarchyNode
-     */
-    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
-    /**
-     * nt:linkedFile
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:hierarchyNode
-     */
-    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
-    /**
-     * nt:linkedFile
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:hierarchyNode
-     */
-    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
-    /**
-     * nt:linkedFile
 ```
 
 ### UnnecessaryModifier
@@ -1591,654 +1133,6 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:primaryItemName
-     */
-    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
-    /**
-     * jcr:primaryType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:primaryItemName
-     */
-    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
-    /**
-     * jcr:primaryType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:primaryItemName
-     */
-    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
-    /**
-     * jcr:primaryType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:title
-     */
-    public static final String JCR_TITLE = "jcr:title";
-    /**
-     * jcr:description
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:title
-     */
-    public static final String JCR_TITLE = "jcr:title";
-    /**
-     * jcr:description
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:title
-     */
-    public static final String JCR_TITLE = "jcr:title";
-    /**
-     * jcr:description
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:score used with query results
-     */
-    public static final String JCR_SCORE = "jcr:score";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:score used with query results
-     */
-    public static final String JCR_SCORE = "jcr:score";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:score used with query results
-     */
-    public static final String JCR_SCORE = "jcr:score";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:query
-     */
-    public static final String NT_QUERY = "nt:query";
-    /**
-     * nt:resource
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:query
-     */
-    public static final String NT_QUERY = "nt:query";
-    /**
-     * nt:resource
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:query
-     */
-    public static final String NT_QUERY = "nt:query";
-    /**
-     * nt:resource
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:rootVersion
-     */
-    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
-    /**
-     * jcr:sameNameSiblings
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:rootVersion
-     */
-    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
-    /**
-     * jcr:sameNameSiblings
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:rootVersion
-     */
-    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
-    /**
-     * jcr:sameNameSiblings
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultPrimaryType
-     */
-    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
-    /**
-     * jcr:defaultValues
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultPrimaryType
-     */
-    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
-    /**
-     * jcr:defaultValues
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultPrimaryType
-     */
-    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
-    /**
-     * jcr:defaultValues
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:base
-     */
-    public static final String NT_BASE = "nt:base";
-    /**
-     * nt:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:base
-     */
-    public static final String NT_BASE = "nt:base";
-    /**
-     * nt:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:base
-     */
-    public static final String NT_BASE = "nt:base";
-    /**
-     * nt:childNodeDefinition
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredType
-     */
-    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
-    /**
-     * jcr:rootVersion
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredType
-     */
-    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
-    /**
-     * jcr:rootVersion
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredType
-     */
-    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
-    /**
-     * jcr:rootVersion
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:content
-     */
-    public static final String JCR_CONTENT = "jcr:content";
-    /**
-     * jcr:created
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:content
-     */
-    public static final String JCR_CONTENT = "jcr:content";
-    /**
-     * jcr:created
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:content
-     */
-    public static final String JCR_CONTENT = "jcr:content";
-    /**
-     * jcr:created
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:primaryType
-     */
-    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
-    /**
-     * jcr:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:primaryType
-     */
-    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
-    /**
-     * jcr:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:primaryType
-     */
-    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
-    /**
-     * jcr:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:successors
-     */
-    public static final String JCR_SUCCESSORS = "jcr:successors";
-    /**
-     * jcr:supertypes
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:successors
-     */
-    public static final String JCR_SUCCESSORS = "jcr:successors";
-    /**
-     * jcr:supertypes
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:successors
-     */
-    public static final String JCR_SUCCESSORS = "jcr:successors";
-    /**
-     * jcr:supertypes
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:onParentVersion
-     */
-    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
-    /**
-     * jcr:predecessors
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:onParentVersion
-     */
-    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
-    /**
-     * jcr:predecessors
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:onParentVersion
-     */
-    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
-    /**
-     * jcr:predecessors
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mandatory
-     */
-    public static final String JCR_MANDATORY = "jcr:mandatory";
-    /**
-     * jcr:mergeFailed
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mandatory
-     */
-    public static final String JCR_MANDATORY = "jcr:mandatory";
-    /**
-     * jcr:mergeFailed
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mandatory
-     */
-    public static final String JCR_MANDATORY = "jcr:mandatory";
-    /**
-     * jcr:mergeFailed
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredPrimaryTypes
-     */
-    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
-    /**
-     * jcr:requiredType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredPrimaryTypes
-     */
-    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
-    /**
-     * jcr:requiredType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:requiredPrimaryTypes
-     */
-    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
-    /**
-     * jcr:requiredType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:predecessors
-     */
-    public static final String JCR_PREDECESSORS = "jcr:predecessors";
-    /**
-     * jcr:primaryItemName
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:predecessors
-     */
-    public static final String JCR_PREDECESSORS = "jcr:predecessors";
-    /**
-     * jcr:primaryItemName
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:predecessors
-     */
-    public static final String JCR_PREDECESSORS = "jcr:predecessors";
-    /**
-     * jcr:primaryItemName
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultValues
-     */
-    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
-    /**
-     * jcr:encoding
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultValues
-     */
-    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
-    /**
-     * jcr:encoding
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:defaultValues
-     */
-    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
-    /**
-     * jcr:encoding
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionableUuid
-     */
-    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionableUuid
-     */
-    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionableUuid
-     */
-    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mimeType
-     */
-    public static final String JCR_MIMETYPE = "jcr:mimeType";
-    /**
-     * jcr:mixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mimeType
-     */
-    public static final String JCR_MIMETYPE = "jcr:mimeType";
-    /**
-     * jcr:mixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mimeType
-     */
-    public static final String JCR_MIMETYPE = "jcr:mimeType";
-    /**
-     * jcr:mixinTypes
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
      * nt:versionedChild
      */
     public static final String NT_VERSIONEDCHILD = "nt:versionedChild";
@@ -2268,438 +1162,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
     public static final String NT_VERSIONEDCHILD = "nt:versionedChild";
 
     // future JSR283 item and node type names
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:created
-     */
-    public static final String MIX_CREATED = "mix:created";
-    /**
-     * mix:lastModified
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:created
-     */
-    public static final String MIX_CREATED = "mix:created";
-    /**
-     * mix:lastModified
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:created
-     */
-    public static final String MIX_CREATED = "mix:created";
-    /**
-     * mix:lastModified
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:linkedFile
-     */
-    public static final String NT_LINKEDFILE = "nt:linkedFile";
-    /**
-     * nt:nodeType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:linkedFile
-     */
-    public static final String NT_LINKEDFILE = "nt:linkedFile";
-    /**
-     * nt:nodeType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:linkedFile
-     */
-    public static final String NT_LINKEDFILE = "nt:linkedFile";
-    /**
-     * nt:nodeType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:statement
-     */
-    public static final String JCR_STATEMENT = "jcr:statement";
-    /**
-     * jcr:successors
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:statement
-     */
-    public static final String JCR_STATEMENT = "jcr:statement";
-    /**
-     * jcr:successors
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:statement
-     */
-    public static final String JCR_STATEMENT = "jcr:statement";
-    /**
-     * jcr:successors
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:baseVersion
-     */
-    public static final String JCR_BASEVERSION = "jcr:baseVersion";
-    /**
-     * jcr:child
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:baseVersion
-     */
-    public static final String JCR_BASEVERSION = "jcr:baseVersion";
-    /**
-     * jcr:child
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:baseVersion
-     */
-    public static final String JCR_BASEVERSION = "jcr:baseVersion";
-    /**
-     * jcr:child
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:createdBy
-     */
-    public static final String JCR_CREATED_BY = "jcr:createdBy";
-    /**
-     * jcr:lastModifiedBy
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:createdBy
-     */
-    public static final String JCR_CREATED_BY = "jcr:createdBy";
-    /**
-     * jcr:lastModifiedBy
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:createdBy
-     */
-    public static final String JCR_CREATED_BY = "jcr:createdBy";
-    /**
-     * jcr:lastModifiedBy
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mergeFailed
-     */
-    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
-    /**
-     * jcr:mimeType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mergeFailed
-     */
-    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
-    /**
-     * jcr:mimeType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mergeFailed
-     */
-    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
-    /**
-     * jcr:mimeType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:data
-     */
-    public static final String JCR_DATA = "jcr:data";
-    /**
-     * jcr:defaultPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:data
-     */
-    public static final String JCR_DATA = "jcr:data";
-    /**
-     * jcr:defaultPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:data
-     */
-    public static final String JCR_DATA = "jcr:data";
-    /**
-     * jcr:defaultPrimaryType
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:uuid
-     */
-    public static final String JCR_UUID = "jcr:uuid";
-    /**
-     * jcr:valueConstraints
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:uuid
-     */
-    public static final String JCR_UUID = "jcr:uuid";
-    /**
-     * jcr:valueConstraints
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:uuid
-     */
-    public static final String JCR_UUID = "jcr:uuid";
-    /**
-     * jcr:valueConstraints
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:nodeType
-     */
-    public static final String NT_NODETYPE = "nt:nodeType";
-    /**
-     * nt:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:nodeType
-     */
-    public static final String NT_NODETYPE = "nt:nodeType";
-    /**
-     * nt:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:nodeType
-     */
-    public static final String NT_NODETYPE = "nt:nodeType";
-    /**
-     * nt:propertyDefinition
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:sameNameSiblings
-     */
-    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
-    /**
-     * jcr:statement
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:sameNameSiblings
-     */
-    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
-    /**
-     * jcr:statement
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:sameNameSiblings
-     */
-    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
-    /**
-     * jcr:statement
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:referenceable
-     */
-    public static final String MIX_REFERENCEABLE = "mix:referenceable";
-    /**
-     * mix:versionable
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:referenceable
-     */
-    public static final String MIX_REFERENCEABLE = "mix:referenceable";
-    /**
-     * mix:versionable
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:referenceable
-     */
-    public static final String MIX_REFERENCEABLE = "mix:referenceable";
-    /**
-     * mix:versionable
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:folder
-     */
-    public static final String NT_FOLDER = "nt:folder";
-    /**
-     * nt:frozenNode
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:folder
-     */
-    public static final String NT_FOLDER = "nt:folder";
-    /**
-     * nt:frozenNode
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:folder
-     */
-    public static final String NT_FOLDER = "nt:folder";
-    /**
-     * nt:frozenNode
 ```
 
 ### UnnecessaryModifier
@@ -2743,11 +1205,11 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:frozenMixinTypes
+     * jcr:name
      */
-    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    public static final String JCR_NAME = "jcr:name";
     /**
-     * jcr:frozenNode
+     * jcr:nodeTypeName
 ```
 
 ### UnnecessaryModifier
@@ -2755,11 +1217,11 @@ Modifier `static` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:frozenMixinTypes
+     * jcr:name
      */
-    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    public static final String JCR_NAME = "jcr:name";
     /**
-     * jcr:frozenNode
+     * jcr:nodeTypeName
 ```
 
 ### UnnecessaryModifier
@@ -2767,371 +1229,11 @@ Modifier `final` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:frozenMixinTypes
+     * jcr:name
      */
-    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    public static final String JCR_NAME = "jcr:name";
     /**
-     * jcr:frozenNode
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:unstructured
-     */
-    public static final String NT_UNSTRUCTURED = "nt:unstructured";
-    /**
-     * nt:version
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:unstructured
-     */
-    public static final String NT_UNSTRUCTURED = "nt:unstructured";
-    /**
-     * nt:version
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:unstructured
-     */
-    public static final String NT_UNSTRUCTURED = "nt:unstructured";
-    /**
-     * nt:version
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:created
-     */
-    public static final String JCR_CREATED = "jcr:created";
-    /**
-     * jcr:data
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:created
-     */
-    public static final String JCR_CREATED = "jcr:created";
-    /**
-     * jcr:data
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:created
-     */
-    public static final String JCR_CREATED = "jcr:created";
-    /**
-     * jcr:data
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:childNodeDefinition
-     */
-    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
-    /**
-     * nt:file
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:childNodeDefinition
-     */
-    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
-    /**
-     * nt:file
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:childNodeDefinition
-     */
-    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
-    /**
-     * nt:file
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:childNodeDefinition
-     */
-    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
-    /**
-     * jcr:content
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:childNodeDefinition
-     */
-    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
-    /**
-     * jcr:content
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:childNodeDefinition
-     */
-    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
-    /**
-     * jcr:content
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:title
-     */
-    public static final String MIX_TITLE = "mix:title";
-    /**
-     * mix:created
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:title
-     */
-    public static final String MIX_TITLE = "mix:title";
-    /**
-     * mix:created
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:title
-     */
-    public static final String MIX_TITLE = "mix:title";
-    /**
-     * mix:created
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:file
-     */
-    public static final String NT_FILE = "nt:file";
-    /**
-     * nt:folder
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:file
-     */
-    public static final String NT_FILE = "nt:file";
-    /**
-     * nt:folder
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:file
-     */
-    public static final String NT_FILE = "nt:file";
-    /**
-     * nt:folder
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:path used with query results
-     */
-    public static final String JCR_PATH = "jcr:path";
-    /**
-     * Pseudo property jcr:score used with query results
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:path used with query results
-     */
-    public static final String JCR_PATH = "jcr:path";
-    /**
-     * Pseudo property jcr:score used with query results
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * Pseudo property jcr:path used with query results
-     */
-    public static final String JCR_PATH = "jcr:path";
-    /**
-     * Pseudo property jcr:score used with query results
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:propertyDefinition
-     */
-    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
-    /**
-     * nt:query
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:propertyDefinition
-     */
-    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
-    /**
-     * nt:query
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:propertyDefinition
-     */
-    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
-    /**
-     * nt:query
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionStorage
-     */
-    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
-    /**
-     * jcr:versionableUuid
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionStorage
-     */
-    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
-    /**
-     * jcr:versionableUuid
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:versionStorage
-     */
-    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
-    /**
-     * jcr:versionableUuid
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:language
-     */
-    public static final String JCR_LANGUAGE = "jcr:language";
-    /**
-     * jcr:lastModified
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:language
-     */
-    public static final String JCR_LANGUAGE = "jcr:language";
-    /**
-     * jcr:lastModified
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:language
-     */
-    public static final String JCR_LANGUAGE = "jcr:language";
-    /**
-     * jcr:lastModified
+     * jcr:nodeTypeName
 ```
 
 ### UnnecessaryModifier
@@ -3175,11 +1277,11 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * nt:frozenNode
+     * jcr:frozenUuid
      */
-    public static final String NT_FROZENNODE = "nt:frozenNode";
+    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
     /**
-     * nt:hierarchyNode
+     * jcr:hasOrderableChildNodes
 ```
 
 ### UnnecessaryModifier
@@ -3187,11 +1289,11 @@ Modifier `static` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * nt:frozenNode
+     * jcr:frozenUuid
      */
-    public static final String NT_FROZENNODE = "nt:frozenNode";
+    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
     /**
-     * nt:hierarchyNode
+     * jcr:hasOrderableChildNodes
 ```
 
 ### UnnecessaryModifier
@@ -3199,263 +1301,11 @@ Modifier `final` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * nt:frozenNode
+     * jcr:frozenUuid
      */
-    public static final String NT_FROZENNODE = "nt:frozenNode";
+    public static final String JCR_FROZENUUID = "jcr:frozenUuid";
     /**
-     * nt:hierarchyNode
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:versionHistory
-     */
-    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
-    /**
-     * nt:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:versionHistory
-     */
-    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
-    /**
-     * nt:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * nt:versionHistory
-     */
-    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
-    /**
-     * nt:versionLabels
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isMixin
-     */
-    public static final String JCR_ISMIXIN = "jcr:isMixin";
-    /**
-     * jcr:language
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isMixin
-     */
-    public static final String JCR_ISMIXIN = "jcr:isMixin";
-    /**
-     * jcr:language
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:isMixin
-     */
-    public static final String JCR_ISMIXIN = "jcr:isMixin";
-    /**
-     * jcr:language
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mixinTypes
-     */
-    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
-    /**
-     * jcr:multiple
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mixinTypes
-     */
-    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
-    /**
-     * jcr:multiple
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:mixinTypes
-     */
-    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
-    /**
-     * jcr:multiple
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:lockable
-     */
-    public static final String MIX_LOCKABLE = "mix:lockable";
-    /**
-     * mix:referenceable
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:lockable
-     */
-    public static final String MIX_LOCKABLE = "mix:lockable";
-    /**
-     * mix:referenceable
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * mix:lockable
-     */
-    public static final String MIX_LOCKABLE = "mix:lockable";
-    /**
-     * mix:referenceable
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockIsDeep
-     */
-    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
-    /**
-     * jcr:lockOwner
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockIsDeep
-     */
-    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
-    /**
-     * jcr:lockOwner
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockIsDeep
-     */
-    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
-    /**
-     * jcr:lockOwner
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockOwner
-     */
-    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
-    /**
-     * jcr:mandatory
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockOwner
-     */
-    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
-    /**
-     * jcr:mandatory
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:lockOwner
-     */
-    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
-    /**
-     * jcr:mandatory
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:system
-     */
-    public static final String JCR_SYSTEM = "jcr:system";
-    /**
-     * jcr:uuid
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:system
-     */
-    public static final String JCR_SYSTEM = "jcr:system";
-    /**
-     * jcr:uuid
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
-#### Snippet
-```java
-     * jcr:system
-     */
-    public static final String JCR_SYSTEM = "jcr:system";
-    /**
-     * jcr:uuid
+     * jcr:hasOrderableChildNodes
 ```
 
 ### UnnecessaryModifier
@@ -3499,11 +1349,11 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:supertypes
+     * nt:nodeType
      */
-    public static final String JCR_SUPERTYPES = "jcr:supertypes";
+    public static final String NT_NODETYPE = "nt:nodeType";
     /**
-     * jcr:system
+     * nt:propertyDefinition
 ```
 
 ### UnnecessaryModifier
@@ -3511,11 +1361,11 @@ Modifier `static` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:supertypes
+     * nt:nodeType
      */
-    public static final String JCR_SUPERTYPES = "jcr:supertypes";
+    public static final String NT_NODETYPE = "nt:nodeType";
     /**
-     * jcr:system
+     * nt:propertyDefinition
 ```
 
 ### UnnecessaryModifier
@@ -3523,11 +1373,371 @@ Modifier `final` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:supertypes
+     * nt:nodeType
      */
-    public static final String JCR_SUPERTYPES = "jcr:supertypes";
+    public static final String NT_NODETYPE = "nt:nodeType";
     /**
+     * nt:propertyDefinition
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
      * jcr:system
+     */
+    public static final String JCR_SYSTEM = "jcr:system";
+    /**
+     * jcr:uuid
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:system
+     */
+    public static final String JCR_SYSTEM = "jcr:system";
+    /**
+     * jcr:uuid
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:system
+     */
+    public static final String JCR_SYSTEM = "jcr:system";
+    /**
+     * jcr:uuid
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:content
+     */
+    public static final String JCR_CONTENT = "jcr:content";
+    /**
+     * jcr:created
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:content
+     */
+    public static final String JCR_CONTENT = "jcr:content";
+    /**
+     * jcr:created
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:content
+     */
+    public static final String JCR_CONTENT = "jcr:content";
+    /**
+     * jcr:created
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenPrimaryType
+     */
+    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
+    /**
+     * jcr:frozenUuid
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenPrimaryType
+     */
+    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
+    /**
+     * jcr:frozenUuid
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenPrimaryType
+     */
+    public static final String JCR_FROZENPRIMARYTYPE = "jcr:frozenPrimaryType";
+    /**
+     * jcr:frozenUuid
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultValues
+     */
+    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
+    /**
+     * jcr:encoding
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultValues
+     */
+    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
+    /**
+     * jcr:encoding
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultValues
+     */
+    public static final String JCR_DEFAULTVALUES = "jcr:defaultValues";
+    /**
+     * jcr:encoding
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:created
+     */
+    public static final String MIX_CREATED = "mix:created";
+    /**
+     * mix:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:created
+     */
+    public static final String MIX_CREATED = "mix:created";
+    /**
+     * mix:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:created
+     */
+    public static final String MIX_CREATED = "mix:created";
+    /**
+     * mix:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:nodeTypeName
+     */
+    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
+    /**
+     * jcr:onParentVersion
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:nodeTypeName
+     */
+    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
+    /**
+     * jcr:onParentVersion
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:nodeTypeName
+     */
+    public static final String JCR_NODETYPENAME = "jcr:nodeTypeName";
+    /**
+     * jcr:onParentVersion
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModified
+     */
+    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
+    /**
+     * jcr:lockIsDeep
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModified
+     */
+    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
+    /**
+     * jcr:lockIsDeep
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModified
+     */
+    public static final String JCR_LASTMODIFIED = "jcr:lastModified";
+    /**
+     * jcr:lockIsDeep
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:baseVersion
+     */
+    public static final String JCR_BASEVERSION = "jcr:baseVersion";
+    /**
+     * jcr:child
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:baseVersion
+     */
+    public static final String JCR_BASEVERSION = "jcr:baseVersion";
+    /**
+     * jcr:child
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:baseVersion
+     */
+    public static final String JCR_BASEVERSION = "jcr:baseVersion";
+    /**
+     * jcr:child
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:created
+     */
+    public static final String JCR_CREATED = "jcr:created";
+    /**
+     * jcr:data
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:created
+     */
+    public static final String JCR_CREATED = "jcr:created";
+    /**
+     * jcr:data
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:created
+     */
+    public static final String JCR_CREATED = "jcr:created";
+    /**
+     * jcr:data
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:linkedFile
+     */
+    public static final String NT_LINKEDFILE = "nt:linkedFile";
+    /**
+     * nt:nodeType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:linkedFile
+     */
+    public static final String NT_LINKEDFILE = "nt:linkedFile";
+    /**
+     * nt:nodeType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:linkedFile
+     */
+    public static final String NT_LINKEDFILE = "nt:linkedFile";
+    /**
+     * nt:nodeType
 ```
 
 ### UnnecessaryModifier
@@ -3571,11 +1781,11 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:name
+     * jcr:supertypes
      */
-    public static final String JCR_NAME = "jcr:name";
+    public static final String JCR_SUPERTYPES = "jcr:supertypes";
     /**
-     * jcr:nodeTypeName
+     * jcr:system
 ```
 
 ### UnnecessaryModifier
@@ -3583,11 +1793,11 @@ Modifier `static` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:name
+     * jcr:supertypes
      */
-    public static final String JCR_NAME = "jcr:name";
+    public static final String JCR_SUPERTYPES = "jcr:supertypes";
     /**
-     * jcr:nodeTypeName
+     * jcr:system
 ```
 
 ### UnnecessaryModifier
@@ -3595,11 +1805,11 @@ Modifier `final` is redundant for interface fields
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
-     * jcr:name
+     * jcr:supertypes
      */
-    public static final String JCR_NAME = "jcr:name";
+    public static final String JCR_SUPERTYPES = "jcr:supertypes";
     /**
-     * jcr:nodeTypeName
+     * jcr:system
 ```
 
 ### UnnecessaryModifier
@@ -3643,6 +1853,726 @@ Modifier `public` is redundant for interface members
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
 #### Snippet
 ```java
+     * mix:lockable
+     */
+    public static final String MIX_LOCKABLE = "mix:lockable";
+    /**
+     * mix:referenceable
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:lockable
+     */
+    public static final String MIX_LOCKABLE = "mix:lockable";
+    /**
+     * mix:referenceable
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:lockable
+     */
+    public static final String MIX_LOCKABLE = "mix:lockable";
+    /**
+     * mix:referenceable
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionLabels
+     */
+    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
+    /**
+     * jcr:versionStorage
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionLabels
+     */
+    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
+    /**
+     * jcr:versionStorage
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionLabels
+     */
+    public static final String JCR_VERSIONLABELS = "jcr:versionLabels";
+    /**
+     * jcr:versionStorage
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:base
+     */
+    public static final String NT_BASE = "nt:base";
+    /**
+     * nt:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:base
+     */
+    public static final String NT_BASE = "nt:base";
+    /**
+     * nt:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:base
+     */
+    public static final String NT_BASE = "nt:base";
+    /**
+     * nt:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:score used with query results
+     */
+    public static final String JCR_SCORE = "jcr:score";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:score used with query results
+     */
+    public static final String JCR_SCORE = "jcr:score";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:score used with query results
+     */
+    public static final String JCR_SCORE = "jcr:score";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:propertyDefinition
+     */
+    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
+    /**
+     * nt:query
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:propertyDefinition
+     */
+    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
+    /**
+     * nt:query
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:propertyDefinition
+     */
+    public static final String NT_PROPERTYDEFINITION = "nt:propertyDefinition";
+    /**
+     * nt:query
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockOwner
+     */
+    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
+    /**
+     * jcr:mandatory
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockOwner
+     */
+    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
+    /**
+     * jcr:mandatory
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockOwner
+     */
+    public static final String JCR_LOCKOWNER = "jcr:lockOwner";
+    /**
+     * jcr:mandatory
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:childNodeDefinition
+     */
+    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
+    /**
+     * nt:file
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:childNodeDefinition
+     */
+    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
+    /**
+     * nt:file
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:childNodeDefinition
+     */
+    public static final String NT_CHILDNODEDEFINITION = "nt:childNodeDefinition";
+    /**
+     * nt:file
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mandatory
+     */
+    public static final String JCR_MANDATORY = "jcr:mandatory";
+    /**
+     * jcr:mergeFailed
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mandatory
+     */
+    public static final String JCR_MANDATORY = "jcr:mandatory";
+    /**
+     * jcr:mergeFailed
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mandatory
+     */
+    public static final String JCR_MANDATORY = "jcr:mandatory";
+    /**
+     * jcr:mergeFailed
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:createdBy
+     */
+    public static final String JCR_CREATED_BY = "jcr:createdBy";
+    /**
+     * jcr:lastModifiedBy
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:createdBy
+     */
+    public static final String JCR_CREATED_BY = "jcr:createdBy";
+    /**
+     * jcr:lastModifiedBy
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:createdBy
+     */
+    public static final String JCR_CREATED_BY = "jcr:createdBy";
+    /**
+     * jcr:lastModifiedBy
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionHistory
+     */
+    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
+    /**
+     * jcr:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionHistory
+     */
+    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
+    /**
+     * jcr:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionHistory
+     */
+    public static final String JCR_VERSIONHISTORY = "jcr:versionHistory";
+    /**
+     * jcr:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:sameNameSiblings
+     */
+    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
+    /**
+     * jcr:statement
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:sameNameSiblings
+     */
+    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
+    /**
+     * jcr:statement
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:sameNameSiblings
+     */
+    public static final String JCR_SAMENAMESIBLINGS = "jcr:sameNameSiblings";
+    /**
+     * jcr:statement
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:language
+     */
+    public static final String JCR_LANGUAGE = "jcr:language";
+    /**
+     * jcr:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:language
+     */
+    public static final String JCR_LANGUAGE = "jcr:language";
+    /**
+     * jcr:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:language
+     */
+    public static final String JCR_LANGUAGE = "jcr:language";
+    /**
+     * jcr:lastModified
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:rootVersion
+     */
+    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
+    /**
+     * jcr:sameNameSiblings
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:rootVersion
+     */
+    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
+    /**
+     * jcr:sameNameSiblings
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:rootVersion
+     */
+    public static final String JCR_ROOTVERSION = "jcr:rootVersion";
+    /**
+     * jcr:sameNameSiblings
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mergeFailed
+     */
+    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
+    /**
+     * jcr:mimeType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mergeFailed
+     */
+    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
+    /**
+     * jcr:mimeType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mergeFailed
+     */
+    public static final String JCR_MERGEFAILED = "jcr:mergeFailed";
+    /**
+     * jcr:mimeType
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:title
+     */
+    public static final String JCR_TITLE = "jcr:title";
+    /**
+     * jcr:description
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:title
+     */
+    public static final String JCR_TITLE = "jcr:title";
+    /**
+     * jcr:description
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:title
+     */
+    public static final String JCR_TITLE = "jcr:title";
+    /**
+     * jcr:description
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:version
+     */
+    public static final String NT_VERSION = "nt:version";
+    /**
+     * nt:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:version
+     */
+    public static final String NT_VERSION = "nt:version";
+    /**
+     * nt:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:version
+     */
+    public static final String NT_VERSION = "nt:version";
+    /**
+     * nt:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:query
+     */
+    public static final String NT_QUERY = "nt:query";
+    /**
+     * nt:resource
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:query
+     */
+    public static final String NT_QUERY = "nt:query";
+    /**
+     * nt:resource
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:query
+     */
+    public static final String NT_QUERY = "nt:query";
+    /**
+     * nt:resource
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:title
+     */
+    public static final String MIX_TITLE = "mix:title";
+    /**
+     * mix:created
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:title
+     */
+    public static final String MIX_TITLE = "mix:title";
+    /**
+     * mix:created
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:title
+     */
+    public static final String MIX_TITLE = "mix:title";
+    /**
+     * mix:created
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:versionable
+     */
+    public static final String MIX_VERSIONABLE = "mix:versionable";
+    /**
+     * nt:base
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:versionable
+     */
+    public static final String MIX_VERSIONABLE = "mix:versionable";
+    /**
+     * nt:base
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:versionable
+     */
+    public static final String MIX_VERSIONABLE = "mix:versionable";
+    /**
+     * nt:base
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:onParentVersion
+     */
+    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
+    /**
+     * jcr:predecessors
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:onParentVersion
+     */
+    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
+    /**
+     * jcr:predecessors
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:onParentVersion
+     */
+    public static final String JCR_ONPARENTVERSION = "jcr:onParentVersion";
+    /**
+     * jcr:predecessors
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
      * nt:resource
      */
     public static final String NT_RESOURCE = "nt:resource";
@@ -3672,6 +2602,1230 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
     public static final String NT_RESOURCE = "nt:resource";
     /**
      * nt:unstructured
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:uuid
+     */
+    public static final String JCR_UUID = "jcr:uuid";
+    /**
+     * jcr:valueConstraints
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:uuid
+     */
+    public static final String JCR_UUID = "jcr:uuid";
+    /**
+     * jcr:valueConstraints
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:uuid
+     */
+    public static final String JCR_UUID = "jcr:uuid";
+    /**
+     * jcr:valueConstraints
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:path used with query results
+     */
+    public static final String JCR_PATH = "jcr:path";
+    /**
+     * Pseudo property jcr:score used with query results
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:path used with query results
+     */
+    public static final String JCR_PATH = "jcr:path";
+    /**
+     * Pseudo property jcr:score used with query results
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * Pseudo property jcr:path used with query results
+     */
+    public static final String JCR_PATH = "jcr:path";
+    /**
+     * Pseudo property jcr:score used with query results
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:hierarchyNode
+     */
+    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
+    /**
+     * nt:linkedFile
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:hierarchyNode
+     */
+    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
+    /**
+     * nt:linkedFile
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:hierarchyNode
+     */
+    public static final String NT_HIERARCHYNODE = "nt:hierarchyNode";
+    /**
+     * nt:linkedFile
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredType
+     */
+    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
+    /**
+     * jcr:rootVersion
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredType
+     */
+    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
+    /**
+     * jcr:rootVersion
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredType
+     */
+    public static final String JCR_REQUIREDTYPE = "jcr:requiredType";
+    /**
+     * jcr:rootVersion
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:propertyDefinition
+     */
+    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
+    /**
+     * jcr:protected
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:propertyDefinition
+     */
+    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
+    /**
+     * jcr:protected
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:propertyDefinition
+     */
+    public static final String JCR_PROPERTYDEFINITION = "jcr:propertyDefinition";
+    /**
+     * jcr:protected
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryItemName
+     */
+    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
+    /**
+     * jcr:primaryType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryItemName
+     */
+    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
+    /**
+     * jcr:primaryType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryItemName
+     */
+    public static final String JCR_PRIMARYITEMNAME = "jcr:primaryItemName";
+    /**
+     * jcr:primaryType
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenNode
+     */
+    public static final String JCR_FROZENNODE = "jcr:frozenNode";
+    /**
+     * jcr:frozenPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenNode
+     */
+    public static final String JCR_FROZENNODE = "jcr:frozenNode";
+    /**
+     * jcr:frozenPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenNode
+     */
+    public static final String JCR_FROZENNODE = "jcr:frozenNode";
+    /**
+     * jcr:frozenPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModifiedBy
+     */
+    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
+    /**
+     * mix:title
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModifiedBy
+     */
+    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
+    /**
+     * mix:title
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lastModifiedBy
+     */
+    public static final String JCR_LAST_MODIFIED_BY = "jcr:lastModifiedBy";
+    /**
+     * mix:title
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:versionHistory
+     */
+    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
+    /**
+     * nt:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:versionHistory
+     */
+    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
+    /**
+     * nt:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:versionHistory
+     */
+    public static final String NT_VERSIONHISTORY = "nt:versionHistory";
+    /**
+     * nt:versionLabels
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockIsDeep
+     */
+    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
+    /**
+     * jcr:lockOwner
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockIsDeep
+     */
+    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
+    /**
+     * jcr:lockOwner
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:lockIsDeep
+     */
+    public static final String JCR_LOCKISDEEP = "jcr:lockIsDeep";
+    /**
+     * jcr:lockOwner
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:folder
+     */
+    public static final String NT_FOLDER = "nt:folder";
+    /**
+     * nt:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:folder
+     */
+    public static final String NT_FOLDER = "nt:folder";
+    /**
+     * nt:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:folder
+     */
+    public static final String NT_FOLDER = "nt:folder";
+    /**
+     * nt:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredPrimaryTypes
+     */
+    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
+    /**
+     * jcr:requiredType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredPrimaryTypes
+     */
+    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
+    /**
+     * jcr:requiredType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:requiredPrimaryTypes
+     */
+    public static final String JCR_REQUIREDPRIMARYTYPES = "jcr:requiredPrimaryTypes";
+    /**
+     * jcr:requiredType
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionStorage
+     */
+    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
+    /**
+     * jcr:versionableUuid
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionStorage
+     */
+    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
+    /**
+     * jcr:versionableUuid
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionStorage
+     */
+    public static final String JCR_VERSIONSTORAGE = "jcr:versionStorage";
+    /**
+     * jcr:versionableUuid
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:childNodeDefinition
+     */
+    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
+    /**
+     * jcr:content
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:childNodeDefinition
+     */
+    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
+    /**
+     * jcr:content
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:childNodeDefinition
+     */
+    public static final String JCR_CHILDNODEDEFINITION = "jcr:childNodeDefinition";
+    /**
+     * jcr:content
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:hasOrderableChildNodes
+     */
+    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
+    /**
+     * jcr:isCheckedOut
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:hasOrderableChildNodes
+     */
+    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
+    /**
+     * jcr:isCheckedOut
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:hasOrderableChildNodes
+     */
+    public static final String JCR_HASORDERABLECHILDNODES = "jcr:hasOrderableChildNodes";
+    /**
+     * jcr:isCheckedOut
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionableUuid
+     */
+    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionableUuid
+     */
+    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:versionableUuid
+     */
+    public static final String JCR_VERSIONABLEUUID = "jcr:versionableUuid";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mixinTypes
+     */
+    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
+    /**
+     * jcr:multiple
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mixinTypes
+     */
+    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
+    /**
+     * jcr:multiple
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mixinTypes
+     */
+    public static final String JCR_MIXINTYPES = "jcr:mixinTypes";
+    /**
+     * jcr:multiple
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:statement
+     */
+    public static final String JCR_STATEMENT = "jcr:statement";
+    /**
+     * jcr:successors
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:statement
+     */
+    public static final String JCR_STATEMENT = "jcr:statement";
+    /**
+     * jcr:successors
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:statement
+     */
+    public static final String JCR_STATEMENT = "jcr:statement";
+    /**
+     * jcr:successors
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:predecessors
+     */
+    public static final String JCR_PREDECESSORS = "jcr:predecessors";
+    /**
+     * jcr:primaryItemName
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:predecessors
+     */
+    public static final String JCR_PREDECESSORS = "jcr:predecessors";
+    /**
+     * jcr:primaryItemName
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:predecessors
+     */
+    public static final String JCR_PREDECESSORS = "jcr:predecessors";
+    /**
+     * jcr:primaryItemName
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:unstructured
+     */
+    public static final String NT_UNSTRUCTURED = "nt:unstructured";
+    /**
+     * nt:version
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:unstructured
+     */
+    public static final String NT_UNSTRUCTURED = "nt:unstructured";
+    /**
+     * nt:version
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:unstructured
+     */
+    public static final String NT_UNSTRUCTURED = "nt:unstructured";
+    /**
+     * nt:version
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:data
+     */
+    public static final String JCR_DATA = "jcr:data";
+    /**
+     * jcr:defaultPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:data
+     */
+    public static final String JCR_DATA = "jcr:data";
+    /**
+     * jcr:defaultPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:data
+     */
+    public static final String JCR_DATA = "jcr:data";
+    /**
+     * jcr:defaultPrimaryType
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenMixinTypes
+     */
+    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    /**
+     * jcr:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenMixinTypes
+     */
+    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    /**
+     * jcr:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:frozenMixinTypes
+     */
+    public static final String JCR_FROZENMIXINTYPES = "jcr:frozenMixinTypes";
+    /**
+     * jcr:frozenNode
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:encoding
+     */
+    public static final String JCR_ENCODING = "jcr:encoding";
+    /**
+     * jcr:frozenMixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:encoding
+     */
+    public static final String JCR_ENCODING = "jcr:encoding";
+    /**
+     * jcr:frozenMixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:encoding
+     */
+    public static final String JCR_ENCODING = "jcr:encoding";
+    /**
+     * jcr:frozenMixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:referenceable
+     */
+    public static final String MIX_REFERENCEABLE = "mix:referenceable";
+    /**
+     * mix:versionable
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:referenceable
+     */
+    public static final String MIX_REFERENCEABLE = "mix:referenceable";
+    /**
+     * mix:versionable
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * mix:referenceable
+     */
+    public static final String MIX_REFERENCEABLE = "mix:referenceable";
+    /**
+     * mix:versionable
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mimeType
+     */
+    public static final String JCR_MIMETYPE = "jcr:mimeType";
+    /**
+     * jcr:mixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mimeType
+     */
+    public static final String JCR_MIMETYPE = "jcr:mimeType";
+    /**
+     * jcr:mixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:mimeType
+     */
+    public static final String JCR_MIMETYPE = "jcr:mimeType";
+    /**
+     * jcr:mixinTypes
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isMixin
+     */
+    public static final String JCR_ISMIXIN = "jcr:isMixin";
+    /**
+     * jcr:language
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isMixin
+     */
+    public static final String JCR_ISMIXIN = "jcr:isMixin";
+    /**
+     * jcr:language
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isMixin
+     */
+    public static final String JCR_ISMIXIN = "jcr:isMixin";
+    /**
+     * jcr:language
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:file
+     */
+    public static final String NT_FILE = "nt:file";
+    /**
+     * nt:folder
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:file
+     */
+    public static final String NT_FILE = "nt:file";
+    /**
+     * nt:folder
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:file
+     */
+    public static final String NT_FILE = "nt:file";
+    /**
+     * nt:folder
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:frozenNode
+     */
+    public static final String NT_FROZENNODE = "nt:frozenNode";
+    /**
+     * nt:hierarchyNode
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:frozenNode
+     */
+    public static final String NT_FROZENNODE = "nt:frozenNode";
+    /**
+     * nt:hierarchyNode
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * nt:frozenNode
+     */
+    public static final String NT_FROZENNODE = "nt:frozenNode";
+    /**
+     * nt:hierarchyNode
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isCheckedOut
+     */
+    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
+    /**
+     * jcr:isMixin
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isCheckedOut
+     */
+    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
+    /**
+     * jcr:isMixin
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:isCheckedOut
+     */
+    public static final String JCR_ISCHECKEDOUT = "jcr:isCheckedOut";
+    /**
+     * jcr:isMixin
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryType
+     */
+    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
+    /**
+     * jcr:propertyDefinition
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryType
+     */
+    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
+    /**
+     * jcr:propertyDefinition
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:primaryType
+     */
+    public static final String JCR_PRIMARYTYPE = "jcr:primaryType";
+    /**
+     * jcr:propertyDefinition
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultPrimaryType
+     */
+    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
+    /**
+     * jcr:defaultValues
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultPrimaryType
+     */
+    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
+    /**
+     * jcr:defaultValues
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:defaultPrimaryType
+     */
+    public static final String JCR_DEFAULTPRIMARYTYPE = "jcr:defaultPrimaryType";
+    /**
+     * jcr:defaultValues
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:child
+     */
+    public static final String JCR_CHILD = "jcr:child";
+    /**
+     * jcr:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:child
+     */
+    public static final String JCR_CHILD = "jcr:child";
+    /**
+     * jcr:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:child
+     */
+    public static final String JCR_CHILD = "jcr:child";
+    /**
+     * jcr:childNodeDefinition
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:valueConstraints
+     */
+    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
+    /**
+     * jcr:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:valueConstraints
+     */
+    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
+    /**
+     * jcr:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:valueConstraints
+     */
+    public static final String JCR_VALUECONSTRAINTS = "jcr:valueConstraints";
+    /**
+     * jcr:versionHistory
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:successors
+     */
+    public static final String JCR_SUCCESSORS = "jcr:successors";
+    /**
+     * jcr:supertypes
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:successors
+     */
+    public static final String JCR_SUCCESSORS = "jcr:successors";
+    /**
+     * jcr:supertypes
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/JcrConstants.java`
+#### Snippet
+```java
+     * jcr:successors
+     */
+    public static final String JCR_SUCCESSORS = "jcr:successors";
+    /**
+     * jcr:supertypes
 ```
 
 ### UnnecessaryModifier
@@ -3687,18 +3841,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileAction.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/VltEntry.java`
-#### Snippet
-```java
-     * Describes the state of an entry
-     */
-    public enum State {
-
-        CLEAN(" "),
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/VltEntry.java`
 #### Snippet
@@ -3708,6 +3850,18 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/VltEntry.java`
         private State(String shortName) {
             this.letter = shortName;
         }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/VltEntry.java`
+#### Snippet
+```java
+     * Describes the state of an entry
+     */
+    public enum State {
+
+        CLEAN(" "),
 ```
 
 ### UnnecessaryModifier
@@ -3739,11 +3893,10 @@ Modifier `public` is redundant for interface members
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Action.java`
 #### Snippet
 ```java
-     * @throws VltException if an error occurs
+     * @return {@code true} if proceed; {@code false} to abort
      */
-    public void run(VltDirectory dir, VltFile file, VaultFile remoteFile)
-            throws VltException;
-
+    public boolean run(VltDirectory dir, VaultFile remoteDir) throws VltException;
+}
 ```
 
 ### UnnecessaryModifier
@@ -3751,10 +3904,11 @@ Modifier `public` is redundant for interface members
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Action.java`
 #### Snippet
 ```java
-     * @return {@code true} if proceed; {@code false} to abort
+     * @throws VltException if an error occurs
      */
-    public boolean run(VltDirectory dir, VaultFile remoteDir) throws VltException;
-}
+    public void run(VltDirectory dir, VltFile file, VaultFile remoteFile)
+            throws VltException;
+
 ```
 
 ### UnnecessaryModifier
@@ -3769,162 +3923,19 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Action.java`
     /**
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
-#### Snippet
-```java
-     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
-     */
-    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
-    /**
-     * Creates a new validator for the given context.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
-#### Snippet
-```java
-     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
-     */
-    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
-    /**
-     * Creates a new validator for the given context.
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorFactory.java`
-#### Snippet
-```java
-     * Reserved prefix for all validator ids integrated in this JAR. No custom validator ids must start with this prefix.
-     */
-    public static final String ID_PREFIX_JACKRABBIT = "jackrabbit-";
-    /**
-     * Creates a new validator for the given context.
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
-#### Snippet
-```java
-
-    @ObjectClassDefinition(name = "Apache Jackrabbit FileVault RCP Task Manager", description = "Manages tasks for RCP (remote copy)")
-    public static @interface ComponentPropertyType {
-        @AttributeDefinition(name = "Serialized Tasks", description = "The JSON serialization of all tasks. Credentials are not stored in here, but rather in the bundle context data file.")
-        String serialized_tasks_json() default "";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/DependencyResolver.java`
-#### Snippet
-```java
-     * @throws IOException in case some error happened during resolving
-     */
-    public @NotNull Collection<PackageInfo> resolvePackageInfo(@NotNull Dependency[] dependencies, @NotNull Map<PackageId, URI> dependencyLocations) throws IOException;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/ElementsFactory.java`
-#### Snippet
-```java
-     * @return an array of elements
-     */
-    public Document.Element[] getElements();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Document.java`
-#### Snippet
-```java
-     * Elements form a document.
-     */
-    public static interface Element {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Document.java`
-#### Snippet
-```java
-     * to create an annotated document. 
-     */
-    public static interface AnnotatedElement extends Element {
-
-        /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
-#### Snippet
-```java
-public interface ConsoleFile {
-
-    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
-
-    Object unwrap();
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
-#### Snippet
-```java
-public interface ConsoleFile {
-
-    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
-
-    Object unwrap();
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFile.java`
-#### Snippet
-```java
-public interface ConsoleFile {
-
-    public static final ConsoleFile[] EMPTY_ARRAY = new ConsoleFile[0];
-
-    Object unwrap();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleCommand.java`
-#### Snippet
-```java
-public interface ConsoleCommand extends CliCommand {
-
-    public boolean execute(ConsoleExecutionContext ctx, CommandLine cl)
-            throws Exception;
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ConsoleFileSystem.java`
-#### Snippet
-```java
-    ConsoleFile getRoot();
-
-    public String getSchemePrefix();
-}
-```
-
 ## RuleId[id=EmptyStatementBody]
+### EmptyStatementBody
+`else` statement has empty body
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
+#### Snippet
+```java
+            if (type.equals("jar")) {
+                localPath += "-" + FMT.format(Instant.now()) + ".jar";
+            } else {
+
+            }
+```
+
 ### EmptyStatementBody
 `while` statement has empty body
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/CompressionUtil.java`
@@ -3949,29 +3960,17 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/InputStreamPump.ja
                     error = e;
 ```
 
-### EmptyStatementBody
-`else` statement has empty body
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
-#### Snippet
-```java
-            if (type.equals("jar")) {
-                localPath += "-" + FMT.format(Instant.now()) + ".jar";
-            } else {
-
-            }
-```
-
 ## RuleId[id=WhileCanBeForeach]
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
 #### Snippet
 ```java
-                        .withMaximum(1);
-                Iterator iter = commands.iterator();
-                while (iter.hasNext()) {
-                    CliCommand c = (CliCommand) iter.next();
-                    gbuilder.withOption(c.getCommand());
+    public boolean execute(CommandLine cl) {
+        Iterator iter = commands.iterator();
+        while (iter.hasNext()) {
+            CliCommand c = (CliCommand) iter.next();
+            try {
 ```
 
 ### WhileCanBeForeach
@@ -3991,23 +3990,11 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionCo
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
 #### Snippet
 ```java
-    public boolean execute(CommandLine cl) {
-        Iterator iter = commands.iterator();
-        while (iter.hasNext()) {
-            CliCommand c = (CliCommand) iter.next();
-            try {
-```
-
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdEnv.java`
-#### Snippet
-```java
-        Table t = new Table(2);
-        Iterator iter = ctx.getPropertyKeys().iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            t.addRow(key, ctx.getProperty(key));
+                        .withMaximum(1);
+                Iterator iter = commands.iterator();
+                while (iter.hasNext()) {
+                    CliCommand c = (CliCommand) iter.next();
+                    gbuilder.withOption(c.getCommand());
 ```
 
 ### WhileCanBeForeach
@@ -4024,14 +4011,26 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdSet.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdEnv.java`
 #### Snippet
 ```java
-            Table t = new Table(2);
-            Iterator iter = ctx.getPropertyKeys().iterator();
-            while (iter.hasNext()) {
-                key = (String) iter.next();
-                t.addRow(key, ctx.getProperty(key));
+        Table t = new Table(2);
+        Iterator iter = ctx.getPropertyKeys().iterator();
+        while (iter.hasNext()) {
+            String key = (String) iter.next();
+            t.addRow(key, ctx.getProperty(key));
+```
+
+### WhileCanBeForeach
+`while` loop can be replaced with enhanced 'for'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+        }
+        Iterator iter = globalEnv.keySet().iterator();
+        while (iter.hasNext()) {
+            String key = (String) iter.next();
+            if (!props.containsKey(key)) {
 ```
 
 ### WhileCanBeForeach
@@ -4048,14 +4047,14 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApp
 
 ### WhileCanBeForeach
 `while` loop can be replaced with enhanced 'for'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdSet.java`
 #### Snippet
 ```java
-        }
-        Iterator iter = globalEnv.keySet().iterator();
-        while (iter.hasNext()) {
-            String key = (String) iter.next();
-            if (!props.containsKey(key)) {
+            Table t = new Table(2);
+            Iterator iter = ctx.getPropertyKeys().iterator();
+            while (iter.hasNext()) {
+                key = (String) iter.next();
+                t.addRow(key, ctx.getProperty(key));
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -4121,54 +4120,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/Norm
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (3 lines)
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileOutputImpl.java`
-#### Snippet
-```java
-    }
-
-    /*
-    public void setArtfiactType(ArtifactType artfiactType) {
-        this.artfiactType = artfiactType;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
-#### Snippet
-```java
-                }
-            }
-            //node.invalidate();
-            //init(node, artifact);
-        }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileNode.java`
-#### Snippet
-```java
-        ctx.println(isLast, "VaultFileNode");
-        ctx.indent(isLast);
-        //ctx.printf(false, "# pending: %d", pendingChildNodes == null ? -1 : pendingChildNodes.size());
-        //ctx.printf(false, "# children: %d", children == null ? -1 : children.size());
-        if (aggregate != null) {
-```
-
-### CommentedOutCode
-Commented out code (12 lines)
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntries.java`
-#### Snippet
-```java
-    }
-
-    /*
-    public void save(File file) throws VltException {
-        if (file.exists() && !isDirty()) {
-```
-
-### CommentedOutCode
 Commented out code (5 lines)
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
 #### Snippet
@@ -4178,18 +4129,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
         /*
         List excludeList = cl.getValues(optExclude);
         String[] excludes = Constants.EMPTY_STRING_ARRAY;
-```
-
-### CommentedOutCode
-Commented out code (9 lines)
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
-#### Snippet
-```java
-    public void prepare(CommandLine cl) throws ExecutionException {
-        super.prepare(cl);
-        /*
-        if (cl.getValue(optURI) != null) {
-            setProperty(KEY_DEFAULT_RMIURI, (String) cl.getValue(optURI));
 ```
 
 ### CommentedOutCode
@@ -4241,6 +4180,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
 ```
 
 ### CommentedOutCode
+Commented out code (9 lines)
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+    public void prepare(CommandLine cl) throws ExecutionException {
+        super.prepare(cl);
+        /*
+        if (cl.getValue(optURI) != null) {
+            setProperty(KEY_DEFAULT_RMIURI, (String) cl.getValue(optURI));
+```
+
+### CommentedOutCode
 Commented out code (8 lines)
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
 #### Snippet
@@ -4250,18 +4201,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
         /*
         if ((flags & LS_FLAG_DEF) > 0) {
             StringBuffer buf = new StringBuffer();
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
-#### Snippet
-```java
-
-        boolean verbose = cl.hasOption(OPT_VERBOSE);
-        /*
-        List excludeList = cl.getValues(optExclude);
-        String[] excludes = Constants.EMPTY_STRING_ARRAY;
 ```
 
 ### CommentedOutCode
@@ -4277,15 +4216,15 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
+Commented out code (5 lines)
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
 #### Snippet
 ```java
-    protected void initJLine() {
-        History history = new History();
+
+        boolean verbose = cl.hasOption(OPT_VERBOSE);
         /*
-        try {
-            history = new History(new File(".consolehistory"));
+        List excludeList = cl.getValues(optExclude);
+        String[] excludes = Constants.EMPTY_STRING_ARRAY;
 ```
 
 ### CommentedOutCode
@@ -4298,18 +4237,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApp
         /*
         Properties props = new Properties();
         Iterator iter = globalEnv.keySet().iterator();
-```
-
-### CommentedOutCode
-Commented out code (5 lines)
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
-#### Snippet
-```java
-
-    public void prepare(CommandLine cl) throws ExecutionException {
-        /*
-        try {
-            loadConfig((String) cl.getValue(optPropertyFile));
 ```
 
 ### CommentedOutCode
@@ -4336,6 +4263,78 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApp
             gbuilder.withOption(optInteractive);
 ```
 
+### CommentedOutCode
+Commented out code (5 lines)
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+
+    public void prepare(CommandLine cl) throws ExecutionException {
+        /*
+        try {
+            loadConfig((String) cl.getValue(optPropertyFile));
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
+#### Snippet
+```java
+    protected void initJLine() {
+        History history = new History();
+        /*
+        try {
+            history = new History(new File(".consolehistory"));
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileOutputImpl.java`
+#### Snippet
+```java
+    }
+
+    /*
+    public void setArtfiactType(ArtifactType artfiactType) {
+        this.artfiactType = artfiactType;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
+#### Snippet
+```java
+                }
+            }
+            //node.invalidate();
+            //init(node, artifact);
+        }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileNode.java`
+#### Snippet
+```java
+        ctx.println(isLast, "VaultFileNode");
+        ctx.indent(isLast);
+        //ctx.printf(false, "# pending: %d", pendingChildNodes == null ? -1 : pendingChildNodes.size());
+        //ctx.printf(false, "# children: %d", children == null ? -1 : children.size());
+        if (aggregate != null) {
+```
+
+### CommentedOutCode
+Commented out code (12 lines)
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntries.java`
+#### Snippet
+```java
+    }
+
+    /*
+    public void save(File file) throws VltException {
+        if (file.exists() && !isDirty()) {
+```
+
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
@@ -4350,6 +4349,18 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ## RuleId[id=KeySetIterationMayUseEntrySet]
+### KeySetIterationMayUseEntrySet
+Iteration over `pendingFsChanges.keySet()` may be replaced with 'entrySet()' iteration
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+
+    private void syncToJcr(Session session, SyncResult res) throws RepositoryException, IOException {
+        for (String filePath: pendingFsChanges.keySet()) {
+            if (res.getByFsPath(filePath) != null) {
+                log.debug("ignoring change triggered by previous JCR->FS update. {}", filePath);
+```
+
 ### KeySetIterationMayUseEntrySet
 Iteration over `memberships.keySet()` may be replaced with 'entrySet()' iteration
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
@@ -4396,18 +4407,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
                 for (String propName : blobs.keySet()) {
                     BlobInfo info = blobs.get(propName);
                     if (info.isFile()) {
-```
-
-### KeySetIterationMayUseEntrySet
-Iteration over `pendingFsChanges.keySet()` may be replaced with 'entrySet()' iteration
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-
-    private void syncToJcr(Session session, SyncResult res) throws RepositoryException, IOException {
-        for (String filePath: pendingFsChanges.keySet()) {
-            if (res.getByFsPath(filePath) != null) {
-                log.debug("ignoring change triggered by previous JCR->FS update. {}", filePath);
 ```
 
 ### KeySetIterationMayUseEntrySet
@@ -4486,978 +4485,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```
 
 ## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`chRoot.length() > 0` can be replaced with '!chRoot.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/JcrArchive.java`
-#### Snippet
-```java
-
-                // if archive is ch-rooted, create intermediate entries
-                if (chRoot != null && chRoot.length() > 0) {
-                    String[] roots = Text.explode(rootPath, '/');
-                    if (roots.length > 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/MultiPathMapping.java`
-#### Snippet
-```java
-    @NotNull
-    public String map(@NotNull String path, boolean reverse) {
-        if (path.length() == 0 || "/".equals(path)) {
-            return path;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`mountPath.length() > 0` can be replaced with '!mountPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
-#### Snippet
-```java
-                rootPath = "";
-            }
-            if (mountPath.length() > 0 || rootPath.length() > 0) {
-                filter = filter.translate(new SimplePathMapping(mountPath, rootPath));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`rootPath.length() > 0` can be replaced with '!rootPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
-#### Snippet
-```java
-                rootPath = "";
-            }
-            if (mountPath.length() > 0 || rootPath.length() > 0) {
-                filter = filter.translate(new SimplePathMapping(mountPath, rootPath));
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() > 0` can be replaced with '!value.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
-#### Snippet
-```java
-     */
-    private static void addManifestAttribute(Manifest manifest, String key, String value) {
-        if (value != null && value.length() > 0) {
-            Attributes.Name name = new Attributes.Name(key);
-            manifest.getMainAttributes().put(name, value);
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-    @NotNull
-    public RepositoryAddress resolve(@Nullable String path) {
-        if (path == null || path.length() == 0 || ".".equals(path) || "./".equals(path)) {
-            return this;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-        String localPath = "/";
-
-        if (path.length() == 0 || "/".equals(path)) {
-            workspace = "-";
-            localPath = "/";
-```
-
-### SizeReplaceableByIsEmpty
-`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-            }
-        }
-        if (prefix.length() == 0) {
-            prefix = "/";
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`nodeTypes.size() > 0` can be replaced with '!nodeTypes.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JcrNodeTypeInstaller.java`
-#### Snippet
-```java
-        NodeTypeDefinitionFactory fac = new NodeTypeDefinitionFactory(session);
-        List<NodeTypeDefinition> nodeTypes = fac.create(set.getNodeTypes().values());
-        if (nodeTypes.size() > 0) {
-            try {
-                ntMgr.registerNodeTypes(nodeTypes.toArray(new NodeTypeDefinition[nodeTypes.size()]), true);
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/SubPackageFilterArchive.java`
-#### Snippet
-```java
-    @Nullable
-    public Entry getEntry(@NotNull String path) throws IOException {
-        if (path.length() == 0 || "/".equals(path)) {
-            return getRoot();
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`rootPath.length() > 0` can be replaced with '!rootPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-            throw new IOException("Only absolute paths allowed");
-        }
-        if (rootPath.length() > 0) {
-            if (!path.equals(rootPath) && !path.startsWith(rootPattern)) {
-                throw new IOException("Path not under mountpoint.");
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() == 0` can be replaced with 'name.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
-#### Snippet
-```java
-    public String getPath() {
-        if (parent == null) {
-            return name.length() == 0 ? "/" : name;
-        } else {
-            return internalGetPath().toString();
-```
-
-### SizeReplaceableByIsEmpty
-`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-            String rootPath = sets.getRoot();
-            // make filter root relative to import root
-            if (parentPath.length() > 0 && rootPath.startsWith(parentPath)) {
-                rootPath = rootPath.substring(parentPath.length());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`filter.getFilterSets().size() > 0` can be replaced with '!filter.getFilterSets().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-        track("Collecting import information...", "");
-        TxInfo root = prepare(archive.getJcrRoot(), parentPath, new SessionNamespaceResolver(session));
-        if (filter!=null && filter.getFilterSets() != null && filter.getFilterSets().size() > 0 ) {
-            root = postFilter(root);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-
-        private static String emptyPathToRoot(String path) {
-            return path == null || path.length() == 0 ? "/" : path;
-        }
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`dir.getRelativePath().length() == 0` can be replaced with 'dir.getRelativePath().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FolderArtifactHandler.java`
-#### Snippet
-```java
-        }
-        ImportInfoImpl info = new ImportInfoImpl();
-        if (dir.getRelativePath().length() == 0) {
-            // special check if artifact addresses itself
-            return info;
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() == 0` can be replaced with 'name.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AbstractArtifactHandler.java`
-#### Snippet
-```java
-        String name = node.getName();
-        return accept(new ImportOptions(), true, file.getManager().getWorkspaceFilter(),
-                name.length() == 0 ? node : node.getParent(),
-                name, (ArtifactSetImpl) artifacts);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() == 0` can be replaced with 'name.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/GenericArtifactHandler.java`
-#### Snippet
-```java
-            info = new ImportInfoImpl();
-            String path = PathUtil.getPath(parent, name);
-            if (name.length() == 0 || parent.hasNode(name)) {
-                if (wspFilter.getImportMode(path) == ImportMode.MERGE) {
-                    // do import the content if node is an authorizable or ACL
-```
-
-### SizeReplaceableByIsEmpty
-`primary.getRelativePath().length() == 0` can be replaced with 'primary.getRelativePath().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
-#### Snippet
-```java
-                ImportMode mode = ImportMode.REPLACE;
-                String path = PathUtil.getPath(parent, primary.getRelativePath());
-                if (primary.getRelativePath().length() == 0 || parent.hasNode(primary.getRelativePath())) {
-                    mode = wspFilter.getImportMode(path);
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
-#### Snippet
-```java
-                    String newName = Text.getName(file.getRelativePath());
-                    Node newParent = parent;
-                    if (relPath.length() > 0) {
-                        if (parent.hasNode(relPath)) {
-                            newParent = parent.getNode(relPath);
-```
-
-### SizeReplaceableByIsEmpty
-`newName.length() == 0` can be replaced with 'newName.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
-#### Snippet
-```java
-                    ImportMode mode = ImportMode.REPLACE;
-                    String path = PathUtil.getPath(newParent, newName);
-                    if (newName.length() == 0 || newParent.hasNode(newName)) {
-                        mode = wspFilter.getImportMode(path);
-                    }
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
-#### Snippet
-```java
-
-    public Node getNode() throws RepositoryException {
-        if (path.length() == 0) {
-            return mgr.getSession().getRootNode();
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
-#### Snippet
-```java
-    public boolean hasNode() throws RepositoryException {
-        return nodeRef != null && nodeRef.get() != null
-                || path.length() == 0 || mgr.getSession().nodeExists(path);
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                        }
-                        while ((parent == null || parent.getAggregate() == null)
-                                && parentPath.length() > 0) {
-                            String parentName = Text.getName(parentPath);
-                            if (parentName.endsWith(".dir")) {
-```
-
-### SizeReplaceableByIsEmpty
-`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                    // at the end.
-                    while ((parent == null || parent.getAggregate() == null)
-                            && parentPath.length() > 0) {
-                        String parentName = Text.getName(parentPath);
-                        if (parentName.endsWith(".dir")) {
-```
-
-### SizeReplaceableByIsEmpty
-`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-            this.repoPath = file.getAggregatePath();
-            String relPath = file.getRepoRelPath();
-            if (relPath != null && relPath.length() > 0) {
-                this.repoPath += "/" + relPath;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`clazz.length() > 0` can be replaced with '!clazz.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
-#### Snippet
-```java
-                    ItemFilter filter = null;
-                    String clazz = child.getAttribute("class");
-                    if (clazz != null && clazz.length() > 0) {
-                        filter = (ItemFilter) helper.create(child);
-                    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
-#### Snippet
-```java
-        String[] elems = Text.explode(repoPath, '/', true);
-        for (int i=0; i<elems.length; i++) {
-            if (elems[i].length() > 0) {
-                elems[i] = getPlatformName(elems[i]);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
-#### Snippet
-```java
-        String[] elems = Text.explode(path, '/', true);
-        for (int i=0; i<elems.length; i++) {
-            if (elems[i].length() > 0) {
-                if (respectDotDir && elems[i].endsWith(".dir")) {
-                    elems[i] = getRepositoryName(elems[i].substring(0, elems[i].length() - 4));
-```
-
-### SizeReplaceableByIsEmpty
-`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
-#### Snippet
-```java
-        String[] elems = Text.explode(path, '/', true);
-        for (int i=0; i<elems.length; i++) {
-            if (elems[i].length() > 0) {
-                elems[i] = getRepositoryName(elems[i]);
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`relPath.length() == 0` can be replaced with 'relPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
-#### Snippet
-```java
-
-    public static String append(String parent, String relPath) {
-        if (relPath == null || relPath.length() == 0) {
-            return parent == null ? "" : parent;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
-#### Snippet
-```java
-    public static String getPath(Node parent, String relPath) throws RepositoryException {
-        String path = parent.getPath();
-        if (relPath.length() > 0) {
-            if (path.endsWith("/")) {
-                path += relPath;
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-     */
-    public static String[] explode(String str, int ch, boolean respectEmpty) {
-        if (str == null || str.length() == 0) {
-            return new String[0];
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`getName().getPrefix().length() > 0` can be replaced with '!getName().getPrefix().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/NormalizingSaxFilter.java`
-#### Snippet
-```java
-        public void addToAttributes(AttributesImpl attributes) {
-            StringBuilder qName = new StringBuilder();
-            if (getName().getPrefix().length() > 0) {
-                qName.append(getName().getPrefix()).append(":");
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`namespaceUri.length()>0` can be replaced with '!namespaceUri.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
-#### Snippet
-```java
-        String encodedLocalName = ISO9075.encode(localName);
-       
-        if (namespaceUri.length()>0) {
-            writer.writeStartElement(nsResolver.getPrefix(namespaceUri), encodedLocalName, namespaceUri);
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`attributeNamespaceUri.length()>0` can be replaced with '!attributeNamespaceUri.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
-#### Snippet
-```java
-            String attributeLocalName = ISO9075.encode(prop.getName().getLocalName());
-            String attributeNamespaceUri = prop.getName().getNamespaceURI();
-            if (attributeNamespaceUri.length()>0) {
-                writer.writeAttribute(nsResolver.getPrefix(attributeNamespaceUri), attributeNamespaceUri, attributeLocalName, 
-                        prop.formatValue());
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
-#### Snippet
-```java
-        for (int i=0;i<values.size();i++) {
-            String value = values.get(i);
-            if (values.size() == 1 && value.length() == 0) {
-                // special case for empty string MV value (JCR-3661)
-                attrValue.append("\\0");
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
-#### Snippet
-```java
-    @NotNull
-    public static Version create(@Nullable String str) {
-        if (str == null || str.length() == 0) {
-            return Version.EMPTY;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-        this.range = range == null ? VersionRange.INFINITE : range;
-        StringBuilder b = new StringBuilder();
-        if (groupId.length() > 0 || !VersionRange.INFINITE.equals(this.range)) {
-            b.append(groupId);
-            b.append(":");
-```
-
-### SizeReplaceableByIsEmpty
-`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-    public String getPath() {
-        StringBuilder b = new StringBuilder();
-        if (groupId.length() > 0) {
-            if (groupId.charAt(0) != '/') {
-                b.append(PackageId.ETC_PACKAGES_PREFIX);
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-    @Nullable
-    public static Dependency fromString(@Nullable String str) {
-        if (str == null || str.length() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() > 0` can be replaced with '!name.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-            name = segs[1];
-            boolean isVersion = true;
-            if (name.length() > 0) {
-                char c = name.charAt(0);
-                isVersion = Character.isDigit(c) || c == '[' || c == ')';
-```
-
-### SizeReplaceableByIsEmpty
-`groupId.length() == 0` can be replaced with 'groupId.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-            // be backward compatible, respect group in name
-            int idx = name.lastIndexOf('/');
-            if (idx >= 0 && groupId.length() == 0) {
-                groupId = name.substring(0, idx);
-                name = name.substring(idx + 1);
-```
-
-### SizeReplaceableByIsEmpty
-`low.length() == 0` can be replaced with 'low.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
-#### Snippet
-```java
-            String low = str.substring(lm + 1, idx).trim();
-            String high = str.substring(idx+1, hm).trim();
-            Version vLow = low.length() == 0 ? null : Version.create(low);
-            Version vHigh = high.length() == 0 ? null : Version.create(high);
-            return new VersionRange(vLow, linc, vHigh, hinc);
-```
-
-### SizeReplaceableByIsEmpty
-`high.length() == 0` can be replaced with 'high.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
-#### Snippet
-```java
-            String high = str.substring(idx+1, hm).trim();
-            Version vLow = low.length() == 0 ? null : Version.create(low);
-            Version vHigh = high.length() == 0 ? null : Version.create(high);
-            return new VersionRange(vLow, linc, vHigh, hinc);
-        } else if (str.length() == 0) {
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
-#### Snippet
-```java
-            Version vHigh = high.length() == 0 ? null : Version.create(high);
-            return new VersionRange(vLow, linc, vHigh, hinc);
-        } else if (str.length() == 0) {
-            // infinite range
-            return new VersionRange(null, false, null, false);
-```
-
-### SizeReplaceableByIsEmpty
-`version.length() > 0` can be replaced with '!version.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        b.append(group).append(':');
-        b.append(name);
-        if (version.length() > 0) {
-            b.append(':').append(version);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`group.length() > 0` can be replaced with '!group.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-    public String getInstallationPath() {
-        StringBuilder b = new StringBuilder(ETC_PACKAGES_PREFIX);
-        if (group.length() > 0) {
-            b.append(group);
-            b.append("/");
-```
-
-### SizeReplaceableByIsEmpty
-`version.toString().length() > 0` can be replaced with '!version.toString().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        }
-        b.append(name);
-        if (version.toString().length() > 0) {
-            b.append("-").append(version);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`version.toString().length() == 0` can be replaced with 'version.toString().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        }
-        // sanitize version
-        if (version == null || version.toString().length() == 0) {
-            version = Version.EMPTY;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tmp.length() == 0` can be replaced with 'tmp.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-                if (state == STATE_URI_START || state == STATE_URI) {
-                    String tmp = jcrName.substring(1, i);
-                    if (tmp.length() == 0 || tmp.indexOf(':') != -1) {
-                        // The leading "{...}" part is empty or contains
-                        // a colon, so we treat it as a valid namespace URI.
-```
-
-### SizeReplaceableByIsEmpty
-`str.length() == 0` can be replaced with 'str.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-     */
-    public static PackageId fromString(String str) {
-        if (str == null || str.length() == 0) {
-            return null;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`version.toString().length() > 0` can be replaced with '!version.toString().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-    public String getDownloadName() {
-        StringBuilder str = new StringBuilder(name);
-        if (version.toString().length() > 0) {
-            str.append("-").append(version);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`deps.length() == 0` can be replaced with 'deps.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackagePropertiesImpl.java`
-#### Snippet
-```java
-    public Map<PackageId, URI> getDependenciesLocations() {
-        String deps = getProperty(NAME_DEPENDENCIES_LOCATIONS);
-        if (deps == null || deps.length() == 0) {
-            return Collections.emptyMap();
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`value.length() == 0` can be replaced with 'value.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-        for (int i=0;i<values.length;i++) {
-            String value = values[i];
-            if (values.length == 1 && value.length() == 0) {
-                // special case for empty string MV value (JCR-3661)
-                attrValue.append("\\0");
-```
-
-### SizeReplaceableByIsEmpty
-`root.length() == 0` can be replaced with 'root.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-    private void readDef(Element elem) throws ConfigurationException {
-        String root = elem.getAttribute("root");
-        if (root == null || root.length() == 0) {
-            root = "/";
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`mode.length() > 0` can be replaced with '!mode.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-        // check for import mode
-        String mode = elem.getAttribute("mode");
-        if (mode != null && mode.length() > 0) {
-            try {
-                ImportMode importMode = ImportMode.valueOf(mode.toUpperCase());
-```
-
-### SizeReplaceableByIsEmpty
-`type.length() > 0` can be replaced with '!type.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-        }
-        String type = elem.getAttribute("type");
-        if (type != null && type.length() > 0) {
-            nodeFilters.setType(type);
-            propFilters.setType(type);
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/DefaultPackageInfo.java`
-#### Snippet
-```java
-                // check for legacy packages that only contains a 'path' property
-                String path = props.getProperty("path");
-                if (path == null || path.length() == 0) {
-                    path = "/etc/packages/unknown";
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`mountPath.length() == 0` can be replaced with 'mountPath.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
-#### Snippet
-```java
-            try {
-                String mountPath = opts.getMountPath();
-                if (mountPath == null || mountPath.length() == 0) {
-                    mountPath = "/";
-                }
-```
-
-### SizeReplaceableByIsEmpty
-`root.length() == 0` can be replaced with 'root.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
-#### Snippet
-```java
-                    ? filter.getProperty(JcrPackageDefinitionImpl.PN_ROOT).getString()
-                    : "";
-            if (root.length() == 0) {
-                continue;
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`mode.length() > 0` can be replaced with '!mode.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
-#### Snippet
-```java
-            PathFilterSet set = new PathFilterSet(root);
-            PathFilterSet propertySet = new PathFilterSet(root);
-            if (mode.length() > 0) {
-                set.setImportMode(ImportMode.valueOf(mode.toUpperCase()));
-                propertySet.setImportMode(ImportMode.valueOf(mode.toUpperCase()));
-```
-
-### SizeReplaceableByIsEmpty
-`subPackages.size() > 0` can be replaced with '!subPackages.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
-            }
-        }
-        if (subPackages.size() > 0) {
-            // now remove the filters with the sub-package information and create distinct ones for the sub packages
-            DefaultWorkspaceFilter newFilter = (DefaultWorkspaceFilter) filter.translate(PathMapping.IDENTITY);
-```
-
-### SizeReplaceableByIsEmpty
-`id.getGroup().length() > 0` can be replaced with '!id.getGroup().isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-    public static String getRelativeInstallationPath(PackageId id) {
-        StringBuilder b = new StringBuilder();
-        if (id.getGroup().length() > 0) {
-            b.append(id.getGroup());
-            b.append("/");
-```
-
-### SizeReplaceableByIsEmpty
-`v.length() > 0` can be replaced with '!v.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-        b.append(id.getName());
-        String v = id.getVersion().toString();
-        if (v.length() > 0) {
-            b.append("-").append(v);
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`name.length() == 0` can be replaced with 'name.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-        String name = get(PN_NAME);
-        String version = get(PN_VERSION);
-        if (group == null || name == null || name.length() == 0) {
-            // backward compatible
-            String path = getInstallationPath();
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() == 0` can be replaced with 'path.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-        try {
-            String path = get("path");
-            if (path == null || path.length() == 0) {
-                // get grand parent
-                path = defNode.getParent().getParent().getPath();
-```
-
-### SizeReplaceableByIsEmpty
-`group.length() == 0` can be replaced with 'group.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-     */
-    private void listPackages(Node pkgRoot, List<JcrPackage> packages, String group, boolean built) throws RepositoryException {
-        if (group == null || group.length() == 0) {
-            listPackages(pkgRoot, packages, null, built, false);
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`group.length() > 0` can be replaced with '!group.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            }
-            Node root = pkgRoot;
-            if (group.length() > 0) {
-                if (root.hasNode(group)) {
-                    root = root.getNode(group);
-```
-
-### SizeReplaceableByIsEmpty
-`properties.size() > 0` can be replaced with '!properties.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSInstallState.java`
-#### Snippet
-```java
-                }
-            }
-            if (properties.size() > 0) {
-                writer.writeStartElement(TAG_PACKAGEPROPERTIES);
-                for (String key : properties.stringPropertyNames()) {
-```
-
-### SizeReplaceableByIsEmpty
-`trimmed.length() == 0` can be replaced with 'trimmed.isEmpty()'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-            if (trimmed.startsWith("#")) {
-                name = "comment-" + UUID.randomUUID();
-            } else if (trimmed.length() == 0) {
-                name = "blank-" + UUID.randomUUID();
-            } else {
-```
-
-### SizeReplaceableByIsEmpty
-`sm.length() > 0` can be replaced with '!sm.isEmpty()'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-        String sm = getString(PROP_SYNC_ONCE, "");
-        syncOnce = null;
-        if (sm.length() > 0) {
-            try {
-                syncOnce = SyncMode.valueOf(sm.toUpperCase());
-```
-
-### SizeReplaceableByIsEmpty
-`copyFrom.length() == 0` can be replaced with 'copyFrom.isEmpty()'
-in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
-#### Snippet
-```java
-        Properties props = ctx.getPackage().getMetaInf().getProperties();
-        String copyFrom = props.getProperty(PROP_COPY_FROM, "");
-        if (copyFrom.length() == 0) {
-            throw new PackageException("hook-example needs " + PROP_COPY_FROM + " property set in properties.xml");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`copyTo.length() == 0` can be replaced with 'copyTo.isEmpty()'
-in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
-#### Snippet
-```java
-        }
-        String copyTo = props.getProperty(PROP_COPY_TO, "");
-        if (copyTo.length() == 0) {
-            throw new PackageException("hook-example needs " + PROP_COPY_TO + " property set in properties.xml");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`testNodePath.length() == 0` can be replaced with 'testNodePath.isEmpty()'
-in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
-#### Snippet
-```java
-        }
-        testNodePath = props.getProperty(PROP_TEST_NODE, "");
-        if (testNodePath.length() == 0) {
-            throw new PackageException("hook-example needs " + PROP_TEST_NODE + " property set in properties.xml");
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`id.length() == 0` can be replaced with 'id.isEmpty()'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskImpl.java`
-#### Snippet
-```java
-        this.dst = dst;
-        this.srcCreds = srcCreds;
-        this.id = id == null || id.length() == 0
-                ? UUID.randomUUID().toString()
-                : id;
-```
-
-### SizeReplaceableByIsEmpty
-`fsRoot.length() > 0` can be replaced with '!fsRoot.isEmpty()'
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-        try {
-            String url = addr.toString();
-            if (fsRoot.length() > 0 && url.endsWith(fsRoot)) {
-                url = url.substring(0, url.length() - fsRoot.length());
-            }
-```
-
-### SizeReplaceableByIsEmpty
-`subPackages.size() > 0` can be replaced with '!subPackages.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            Session s = getNode().getSession();
-            // check for recursive uninstall
-            if (!opts.isNonRecursive() && subPackages.size() > 0) {
-                JcrPackageManagerImpl packMgr = new JcrPackageManagerImpl(mgr);
-                for (PackageId id : subPackages) {
-```
-
-### SizeReplaceableByIsEmpty
-`group.length() == 0` can be replaced with 'group.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        PackageId id = getDefinition().getId();
-        String group = id.getGroup();
-        if (group.length() == 0) {
-            group = ".snapshot";
-        } else {
-```
-
-### SizeReplaceableByIsEmpty
-`unresolved.size() > 0` can be replaced with '!unresolved.isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            }
-            // if the package is not installed at all, abort for required and strict handling
-            if ((opts.getDependencyHandling() == DependencyHandling.STRICT && unresolved.size() > 0)
-                    || (opts.getDependencyHandling() == DependencyHandling.REQUIRED && unresolved.size() > uninstalled.size())) {
-                String msg = String.format("Refusing to install package %s: required dependencies missing: %s", def.getId(), unresolved);
-```
-
-### SizeReplaceableByIsEmpty
-`rcpTask.getExcludes().size() > 0` can be replaced with '!rcpTask.getExcludes().isEmpty()'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
-#### Snippet
-```java
-        w.key(RcpServlet.PARAM_RESUME_FROM).value(rcpTask.getRcp().getResumeFrom());
-        if (rcpTask.getExcludes() != null) {
-            if (rcpTask.getExcludes().size() > 0) {
-                w.key(RcpServlet.PARAM_EXCLUDES).array();
-                for (String exclude: rcpTask.getExcludes()) {
-```
-
 ### SizeReplaceableByIsEmpty
 `id.length() == 0` can be replaced with 'id.isEmpty()'
 in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
@@ -5543,27 +4570,27 @@ in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java
 ```
 
 ### SizeReplaceableByIsEmpty
-`id.length() > 0` can be replaced with '!id.isEmpty()'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+`rcpTask.getExcludes().size() > 0` can be replaced with '!rcpTask.getExcludes().isEmpty()'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
 #### Snippet
 ```java
-    public RcpTask addTask(RepositoryAddress src, ConnectionOptions connectionOptions, Credentials srcCreds, String dst, String id, List<String> excludes, @Nullable Boolean recursive)
-            throws ConfigurationException {
-        if (id != null && id.length() > 0 && tasks.containsKey(id)) {
-            throw new IllegalArgumentException("Task with id " + id + " already exists.");
-        }
+        w.key(RcpServlet.PARAM_RESUME_FROM).value(rcpTask.getRcp().getResumeFrom());
+        if (rcpTask.getExcludes() != null) {
+            if (rcpTask.getExcludes().size() > 0) {
+                w.key(RcpServlet.PARAM_EXCLUDES).array();
+                for (String exclude: rcpTask.getExcludes()) {
 ```
 
 ### SizeReplaceableByIsEmpty
-`id.length() > 0` can be replaced with '!id.isEmpty()'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+`id.length() == 0` can be replaced with 'id.isEmpty()'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskImpl.java`
 #### Snippet
 ```java
-    public RcpTask addTask(RepositoryAddress src, ConnectionOptions connectionOptions, Credentials srcCreds, String dst, String id, WorkspaceFilter srcFilter,
-            @Nullable Boolean recursive) {
-        if (id != null && id.length() > 0 && tasks.containsKey(id)) {
-            throw new IllegalArgumentException("Task with id " + id + " already exists.");
-        }
+        this.dst = dst;
+        this.srcCreds = srcCreds;
+        this.id = id == null || id.length() == 0
+                ? UUID.randomUUID().toString()
+                : id;
 ```
 
 ### SizeReplaceableByIsEmpty
@@ -5591,6 +4618,30 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSync.java`
 ```
 
 ### SizeReplaceableByIsEmpty
+`id.length() > 0` can be replaced with '!id.isEmpty()'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    public RcpTask addTask(RepositoryAddress src, ConnectionOptions connectionOptions, Credentials srcCreds, String dst, String id, WorkspaceFilter srcFilter,
+            @Nullable Boolean recursive) {
+        if (id != null && id.length() > 0 && tasks.containsKey(id)) {
+            throw new IllegalArgumentException("Task with id " + id + " already exists.");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`id.length() > 0` can be replaced with '!id.isEmpty()'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    public RcpTask addTask(RepositoryAddress src, ConnectionOptions connectionOptions, Credentials srcCreds, String dst, String id, List<String> excludes, @Nullable Boolean recursive)
+            throws ConfigurationException {
+        if (id != null && id.length() > 0 && tasks.containsKey(id)) {
+            throw new IllegalArgumentException("Task with id " + id + " already exists.");
+        }
+```
+
+### SizeReplaceableByIsEmpty
 `line.length() > 0` can be replaced with '!line.isEmpty()'
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
 #### Snippet
@@ -5602,17 +4653,965 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
                             // re-execute event from history
 ```
 
+### SizeReplaceableByIsEmpty
+`sm.length() > 0` can be replaced with '!sm.isEmpty()'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+        String sm = getString(PROP_SYNC_ONCE, "");
+        syncOnce = null;
+        if (sm.length() > 0) {
+            try {
+                syncOnce = SyncMode.valueOf(sm.toUpperCase());
+```
+
+### SizeReplaceableByIsEmpty
+`trimmed.length() == 0` can be replaced with 'trimmed.isEmpty()'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+            if (trimmed.startsWith("#")) {
+                name = "comment-" + UUID.randomUUID();
+            } else if (trimmed.length() == 0) {
+                name = "blank-" + UUID.randomUUID();
+            } else {
+```
+
+### SizeReplaceableByIsEmpty
+`copyFrom.length() == 0` can be replaced with 'copyFrom.isEmpty()'
+in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
+#### Snippet
+```java
+        Properties props = ctx.getPackage().getMetaInf().getProperties();
+        String copyFrom = props.getProperty(PROP_COPY_FROM, "");
+        if (copyFrom.length() == 0) {
+            throw new PackageException("hook-example needs " + PROP_COPY_FROM + " property set in properties.xml");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`copyTo.length() == 0` can be replaced with 'copyTo.isEmpty()'
+in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
+#### Snippet
+```java
+        }
+        String copyTo = props.getProperty(PROP_COPY_TO, "");
+        if (copyTo.length() == 0) {
+            throw new PackageException("hook-example needs " + PROP_COPY_TO + " property set in properties.xml");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`testNodePath.length() == 0` can be replaced with 'testNodePath.isEmpty()'
+in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
+#### Snippet
+```java
+        }
+        testNodePath = props.getProperty(PROP_TEST_NODE, "");
+        if (testNodePath.length() == 0) {
+            throw new PackageException("hook-example needs " + PROP_TEST_NODE + " property set in properties.xml");
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`mountPath.length() > 0` can be replaced with '!mountPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
+#### Snippet
+```java
+                rootPath = "";
+            }
+            if (mountPath.length() > 0 || rootPath.length() > 0) {
+                filter = filter.translate(new SimplePathMapping(mountPath, rootPath));
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`rootPath.length() > 0` can be replaced with '!rootPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
+#### Snippet
+```java
+                rootPath = "";
+            }
+            if (mountPath.length() > 0 || rootPath.length() > 0) {
+                filter = filter.translate(new SimplePathMapping(mountPath, rootPath));
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() > 0` can be replaced with '!value.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
+#### Snippet
+```java
+     */
+    private static void addManifestAttribute(Manifest manifest, String key, String value) {
+        if (value != null && value.length() > 0) {
+            Attributes.Name name = new Attributes.Name(key);
+            manifest.getMainAttributes().put(name, value);
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/MultiPathMapping.java`
+#### Snippet
+```java
+    @NotNull
+    public String map(@NotNull String path, boolean reverse) {
+        if (path.length() == 0 || "/".equals(path)) {
+            return path;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`chRoot.length() > 0` can be replaced with '!chRoot.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/JcrArchive.java`
+#### Snippet
+```java
+
+                // if archive is ch-rooted, create intermediate entries
+                if (chRoot != null && chRoot.length() > 0) {
+                    String[] roots = Text.explode(rootPath, '/');
+                    if (roots.length > 0) {
+```
+
+### SizeReplaceableByIsEmpty
+`nodeTypes.size() > 0` can be replaced with '!nodeTypes.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JcrNodeTypeInstaller.java`
+#### Snippet
+```java
+        NodeTypeDefinitionFactory fac = new NodeTypeDefinitionFactory(session);
+        List<NodeTypeDefinition> nodeTypes = fac.create(set.getNodeTypes().values());
+        if (nodeTypes.size() > 0) {
+            try {
+                ntMgr.registerNodeTypes(nodeTypes.toArray(new NodeTypeDefinition[nodeTypes.size()]), true);
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+    @NotNull
+    public RepositoryAddress resolve(@Nullable String path) {
+        if (path == null || path.length() == 0 || ".".equals(path) || "./".equals(path)) {
+            return this;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+        String localPath = "/";
+
+        if (path.length() == 0 || "/".equals(path)) {
+            workspace = "-";
+            localPath = "/";
+```
+
+### SizeReplaceableByIsEmpty
+`prefix.length() == 0` can be replaced with 'prefix.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+            }
+        }
+        if (prefix.length() == 0) {
+            prefix = "/";
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`name.length() == 0` can be replaced with 'name.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
+#### Snippet
+```java
+    public String getPath() {
+        if (parent == null) {
+            return name.length() == 0 ? "/" : name;
+        } else {
+            return internalGetPath().toString();
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/SubPackageFilterArchive.java`
+#### Snippet
+```java
+    @Nullable
+    public Entry getEntry(@NotNull String path) throws IOException {
+        if (path.length() == 0 || "/".equals(path)) {
+            return getRoot();
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+            String rootPath = sets.getRoot();
+            // make filter root relative to import root
+            if (parentPath.length() > 0 && rootPath.startsWith(parentPath)) {
+                rootPath = rootPath.substring(parentPath.length());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+
+        private static String emptyPathToRoot(String path) {
+            return path == null || path.length() == 0 ? "/" : path;
+        }
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`filter.getFilterSets().size() > 0` can be replaced with '!filter.getFilterSets().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+        track("Collecting import information...", "");
+        TxInfo root = prepare(archive.getJcrRoot(), parentPath, new SessionNamespaceResolver(session));
+        if (filter!=null && filter.getFilterSets() != null && filter.getFilterSets().size() > 0 ) {
+            root = postFilter(root);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`rootPath.length() > 0` can be replaced with '!rootPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+            throw new IOException("Only absolute paths allowed");
+        }
+        if (rootPath.length() > 0) {
+            if (!path.equals(rootPath) && !path.startsWith(rootPattern)) {
+                throw new IOException("Path not under mountpoint.");
+```
+
+### SizeReplaceableByIsEmpty
+`dir.getRelativePath().length() == 0` can be replaced with 'dir.getRelativePath().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FolderArtifactHandler.java`
+#### Snippet
+```java
+        }
+        ImportInfoImpl info = new ImportInfoImpl();
+        if (dir.getRelativePath().length() == 0) {
+            // special check if artifact addresses itself
+            return info;
+```
+
+### SizeReplaceableByIsEmpty
+`name.length() == 0` can be replaced with 'name.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AbstractArtifactHandler.java`
+#### Snippet
+```java
+        String name = node.getName();
+        return accept(new ImportOptions(), true, file.getManager().getWorkspaceFilter(),
+                name.length() == 0 ? node : node.getParent(),
+                name, (ArtifactSetImpl) artifacts);
+    }
+```
+
+### SizeReplaceableByIsEmpty
+`name.length() == 0` can be replaced with 'name.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/GenericArtifactHandler.java`
+#### Snippet
+```java
+            info = new ImportInfoImpl();
+            String path = PathUtil.getPath(parent, name);
+            if (name.length() == 0 || parent.hasNode(name)) {
+                if (wspFilter.getImportMode(path) == ImportMode.MERGE) {
+                    // do import the content if node is an authorizable or ACL
+```
+
+### SizeReplaceableByIsEmpty
+`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+            this.repoPath = file.getAggregatePath();
+            String relPath = file.getRepoRelPath();
+            if (relPath != null && relPath.length() > 0) {
+                this.repoPath += "/" + relPath;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                        }
+                        while ((parent == null || parent.getAggregate() == null)
+                                && parentPath.length() > 0) {
+                            String parentName = Text.getName(parentPath);
+                            if (parentName.endsWith(".dir")) {
+```
+
+### SizeReplaceableByIsEmpty
+`parentPath.length() > 0` can be replaced with '!parentPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                    // at the end.
+                    while ((parent == null || parent.getAggregate() == null)
+                            && parentPath.length() > 0) {
+                        String parentName = Text.getName(parentPath);
+                        if (parentName.endsWith(".dir")) {
+```
+
+### SizeReplaceableByIsEmpty
+`primary.getRelativePath().length() == 0` can be replaced with 'primary.getRelativePath().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
+#### Snippet
+```java
+                ImportMode mode = ImportMode.REPLACE;
+                String path = PathUtil.getPath(parent, primary.getRelativePath());
+                if (primary.getRelativePath().length() == 0 || parent.hasNode(primary.getRelativePath())) {
+                    mode = wspFilter.getImportMode(path);
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
+#### Snippet
+```java
+                    String newName = Text.getName(file.getRelativePath());
+                    Node newParent = parent;
+                    if (relPath.length() > 0) {
+                        if (parent.hasNode(relPath)) {
+                            newParent = parent.getNode(relPath);
+```
+
+### SizeReplaceableByIsEmpty
+`newName.length() == 0` can be replaced with 'newName.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/FileArtifactHandler.java`
+#### Snippet
+```java
+                    ImportMode mode = ImportMode.REPLACE;
+                    String path = PathUtil.getPath(newParent, newName);
+                    if (newName.length() == 0 || newParent.hasNode(newName)) {
+                        mode = wspFilter.getImportMode(path);
+                    }
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
+#### Snippet
+```java
+
+    public Node getNode() throws RepositoryException {
+        if (path.length() == 0) {
+            return mgr.getSession().getRootNode();
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
+#### Snippet
+```java
+    public boolean hasNode() throws RepositoryException {
+        return nodeRef != null && nodeRef.get() != null
+                || path.length() == 0 || mgr.getSession().nodeExists(path);
+    }
+
+```
+
+### SizeReplaceableByIsEmpty
+`clazz.length() > 0` can be replaced with '!clazz.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
+#### Snippet
+```java
+                    ItemFilter filter = null;
+                    String clazz = child.getAttribute("class");
+                    if (clazz != null && clazz.length() > 0) {
+                        filter = (ItemFilter) helper.create(child);
+                    } else {
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+     */
+    public static String[] explode(String str, int ch, boolean respectEmpty) {
+        if (str == null || str.length() == 0) {
+            return new String[0];
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
+#### Snippet
+```java
+        String[] elems = Text.explode(repoPath, '/', true);
+        for (int i=0; i<elems.length; i++) {
+            if (elems[i].length() > 0) {
+                elems[i] = getPlatformName(elems[i]);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
+#### Snippet
+```java
+        String[] elems = Text.explode(path, '/', true);
+        for (int i=0; i<elems.length; i++) {
+            if (elems[i].length() > 0) {
+                if (respectDotDir && elems[i].endsWith(".dir")) {
+                    elems[i] = getRepositoryName(elems[i].substring(0, elems[i].length() - 4));
+```
+
+### SizeReplaceableByIsEmpty
+`elems[i].length() > 0` can be replaced with '!elems\[i\].isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
+#### Snippet
+```java
+        String[] elems = Text.explode(path, '/', true);
+        for (int i=0; i<elems.length; i++) {
+            if (elems[i].length() > 0) {
+                elems[i] = getRepositoryName(elems[i]);
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`relPath.length() > 0` can be replaced with '!relPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
+#### Snippet
+```java
+    public static String getPath(Node parent, String relPath) throws RepositoryException {
+        String path = parent.getPath();
+        if (relPath.length() > 0) {
+            if (path.endsWith("/")) {
+                path += relPath;
+```
+
+### SizeReplaceableByIsEmpty
+`relPath.length() == 0` can be replaced with 'relPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
+#### Snippet
+```java
+
+    public static String append(String parent, String relPath) {
+        if (relPath == null || relPath.length() == 0) {
+            return parent == null ? "" : parent;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`namespaceUri.length()>0` can be replaced with '!namespaceUri.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
+#### Snippet
+```java
+        String encodedLocalName = ISO9075.encode(localName);
+       
+        if (namespaceUri.length()>0) {
+            writer.writeStartElement(nsResolver.getPrefix(namespaceUri), encodedLocalName, namespaceUri);
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`attributeNamespaceUri.length()>0` can be replaced with '!attributeNamespaceUri.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
+#### Snippet
+```java
+            String attributeLocalName = ISO9075.encode(prop.getName().getLocalName());
+            String attributeNamespaceUri = prop.getName().getNamespaceURI();
+            if (attributeNamespaceUri.length()>0) {
+                writer.writeAttribute(nsResolver.getPrefix(attributeNamespaceUri), attributeNamespaceUri, attributeLocalName, 
+                        prop.formatValue());
+```
+
+### SizeReplaceableByIsEmpty
+`root.length() == 0` can be replaced with 'root.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+    private void readDef(Element elem) throws ConfigurationException {
+        String root = elem.getAttribute("root");
+        if (root == null || root.length() == 0) {
+            root = "/";
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`mode.length() > 0` can be replaced with '!mode.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+        // check for import mode
+        String mode = elem.getAttribute("mode");
+        if (mode != null && mode.length() > 0) {
+            try {
+                ImportMode importMode = ImportMode.valueOf(mode.toUpperCase());
+```
+
+### SizeReplaceableByIsEmpty
+`type.length() > 0` can be replaced with '!type.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+        }
+        String type = elem.getAttribute("type");
+        if (type != null && type.length() > 0) {
+            nodeFilters.setType(type);
+            propFilters.setType(type);
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+        for (int i=0;i<values.length;i++) {
+            String value = values[i];
+            if (values.length == 1 && value.length() == 0) {
+                // special case for empty string MV value (JCR-3661)
+                attrValue.append("\\0");
+```
+
+### SizeReplaceableByIsEmpty
+`getName().getPrefix().length() > 0` can be replaced with '!getName().getPrefix().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/NormalizingSaxFilter.java`
+#### Snippet
+```java
+        public void addToAttributes(AttributesImpl attributes) {
+            StringBuilder qName = new StringBuilder();
+            if (getName().getPrefix().length() > 0) {
+                qName.append(getName().getPrefix()).append(":");
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
+#### Snippet
+```java
+    @NotNull
+    public static Version create(@Nullable String str) {
+        if (str == null || str.length() == 0) {
+            return Version.EMPTY;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`low.length() == 0` can be replaced with 'low.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
+#### Snippet
+```java
+            String low = str.substring(lm + 1, idx).trim();
+            String high = str.substring(idx+1, hm).trim();
+            Version vLow = low.length() == 0 ? null : Version.create(low);
+            Version vHigh = high.length() == 0 ? null : Version.create(high);
+            return new VersionRange(vLow, linc, vHigh, hinc);
+```
+
+### SizeReplaceableByIsEmpty
+`high.length() == 0` can be replaced with 'high.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
+#### Snippet
+```java
+            String high = str.substring(idx+1, hm).trim();
+            Version vLow = low.length() == 0 ? null : Version.create(low);
+            Version vHigh = high.length() == 0 ? null : Version.create(high);
+            return new VersionRange(vLow, linc, vHigh, hinc);
+        } else if (str.length() == 0) {
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
+#### Snippet
+```java
+            Version vHigh = high.length() == 0 ? null : Version.create(high);
+            return new VersionRange(vLow, linc, vHigh, hinc);
+        } else if (str.length() == 0) {
+            // infinite range
+            return new VersionRange(null, false, null, false);
+```
+
+### SizeReplaceableByIsEmpty
+`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+        this.range = range == null ? VersionRange.INFINITE : range;
+        StringBuilder b = new StringBuilder();
+        if (groupId.length() > 0 || !VersionRange.INFINITE.equals(this.range)) {
+            b.append(groupId);
+            b.append(":");
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+    @Nullable
+    public static Dependency fromString(@Nullable String str) {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`name.length() > 0` can be replaced with '!name.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+            name = segs[1];
+            boolean isVersion = true;
+            if (name.length() > 0) {
+                char c = name.charAt(0);
+                isVersion = Character.isDigit(c) || c == '[' || c == ')';
+```
+
+### SizeReplaceableByIsEmpty
+`groupId.length() == 0` can be replaced with 'groupId.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+            // be backward compatible, respect group in name
+            int idx = name.lastIndexOf('/');
+            if (idx >= 0 && groupId.length() == 0) {
+                groupId = name.substring(0, idx);
+                name = name.substring(idx + 1);
+```
+
+### SizeReplaceableByIsEmpty
+`groupId.length() > 0` can be replaced with '!groupId.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+    public String getPath() {
+        StringBuilder b = new StringBuilder();
+        if (groupId.length() > 0) {
+            if (groupId.charAt(0) != '/') {
+                b.append(PackageId.ETC_PACKAGES_PREFIX);
+```
+
+### SizeReplaceableByIsEmpty
+`value.length() == 0` can be replaced with 'value.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
+#### Snippet
+```java
+        for (int i=0;i<values.size();i++) {
+            String value = values.get(i);
+            if (values.size() == 1 && value.length() == 0) {
+                // special case for empty string MV value (JCR-3661)
+                attrValue.append("\\0");
+```
+
+### SizeReplaceableByIsEmpty
+`deps.length() == 0` can be replaced with 'deps.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackagePropertiesImpl.java`
+#### Snippet
+```java
+    public Map<PackageId, URI> getDependenciesLocations() {
+        String deps = getProperty(NAME_DEPENDENCIES_LOCATIONS);
+        if (deps == null || deps.length() == 0) {
+            return Collections.emptyMap();
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`version.length() > 0` can be replaced with '!version.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        b.append(group).append(':');
+        b.append(name);
+        if (version.length() > 0) {
+            b.append(':').append(version);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`version.toString().length() == 0` can be replaced with 'version.toString().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        }
+        // sanitize version
+        if (version == null || version.toString().length() == 0) {
+            version = Version.EMPTY;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`str.length() == 0` can be replaced with 'str.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+     */
+    public static PackageId fromString(String str) {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`version.toString().length() > 0` can be replaced with '!version.toString().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+    public String getDownloadName() {
+        StringBuilder str = new StringBuilder(name);
+        if (version.toString().length() > 0) {
+            str.append("-").append(version);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`tmp.length() == 0` can be replaced with 'tmp.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+                if (state == STATE_URI_START || state == STATE_URI) {
+                    String tmp = jcrName.substring(1, i);
+                    if (tmp.length() == 0 || tmp.indexOf(':') != -1) {
+                        // The leading "{...}" part is empty or contains
+                        // a colon, so we treat it as a valid namespace URI.
+```
+
+### SizeReplaceableByIsEmpty
+`group.length() > 0` can be replaced with '!group.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+    public String getInstallationPath() {
+        StringBuilder b = new StringBuilder(ETC_PACKAGES_PREFIX);
+        if (group.length() > 0) {
+            b.append(group);
+            b.append("/");
+```
+
+### SizeReplaceableByIsEmpty
+`version.toString().length() > 0` can be replaced with '!version.toString().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        }
+        b.append(name);
+        if (version.toString().length() > 0) {
+            b.append("-").append(version);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`subPackages.size() > 0` can be replaced with '!subPackages.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
+#### Snippet
+```java
+            }
+        }
+        if (subPackages.size() > 0) {
+            // now remove the filters with the sub-package information and create distinct ones for the sub packages
+            DefaultWorkspaceFilter newFilter = (DefaultWorkspaceFilter) filter.translate(PathMapping.IDENTITY);
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/DefaultPackageInfo.java`
+#### Snippet
+```java
+                // check for legacy packages that only contains a 'path' property
+                String path = props.getProperty("path");
+                if (path == null || path.length() == 0) {
+                    path = "/etc/packages/unknown";
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`root.length() == 0` can be replaced with 'root.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
+#### Snippet
+```java
+                    ? filter.getProperty(JcrPackageDefinitionImpl.PN_ROOT).getString()
+                    : "";
+            if (root.length() == 0) {
+                continue;
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`mode.length() > 0` can be replaced with '!mode.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
+#### Snippet
+```java
+            PathFilterSet set = new PathFilterSet(root);
+            PathFilterSet propertySet = new PathFilterSet(root);
+            if (mode.length() > 0) {
+                set.setImportMode(ImportMode.valueOf(mode.toUpperCase()));
+                propertySet.setImportMode(ImportMode.valueOf(mode.toUpperCase()));
+```
+
+### SizeReplaceableByIsEmpty
+`mountPath.length() == 0` can be replaced with 'mountPath.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
+#### Snippet
+```java
+            try {
+                String mountPath = opts.getMountPath();
+                if (mountPath == null || mountPath.length() == 0) {
+                    mountPath = "/";
+                }
+```
+
+### SizeReplaceableByIsEmpty
+`id.getGroup().length() > 0` can be replaced with '!id.getGroup().isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+    public static String getRelativeInstallationPath(PackageId id) {
+        StringBuilder b = new StringBuilder();
+        if (id.getGroup().length() > 0) {
+            b.append(id.getGroup());
+            b.append("/");
+```
+
+### SizeReplaceableByIsEmpty
+`v.length() > 0` can be replaced with '!v.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+        b.append(id.getName());
+        String v = id.getVersion().toString();
+        if (v.length() > 0) {
+            b.append("-").append(v);
+        }
+```
+
+### SizeReplaceableByIsEmpty
+`name.length() == 0` can be replaced with 'name.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        String name = get(PN_NAME);
+        String version = get(PN_VERSION);
+        if (group == null || name == null || name.length() == 0) {
+            // backward compatible
+            String path = getInstallationPath();
+```
+
+### SizeReplaceableByIsEmpty
+`path.length() == 0` can be replaced with 'path.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        try {
+            String path = get("path");
+            if (path == null || path.length() == 0) {
+                // get grand parent
+                path = defNode.getParent().getParent().getPath();
+```
+
+### SizeReplaceableByIsEmpty
+`properties.size() > 0` can be replaced with '!properties.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSInstallState.java`
+#### Snippet
+```java
+                }
+            }
+            if (properties.size() > 0) {
+                writer.writeStartElement(TAG_PACKAGEPROPERTIES);
+                for (String key : properties.stringPropertyNames()) {
+```
+
+### SizeReplaceableByIsEmpty
+`group.length() == 0` can be replaced with 'group.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+     */
+    private void listPackages(Node pkgRoot, List<JcrPackage> packages, String group, boolean built) throws RepositoryException {
+        if (group == null || group.length() == 0) {
+            listPackages(pkgRoot, packages, null, built, false);
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`group.length() > 0` can be replaced with '!group.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            }
+            Node root = pkgRoot;
+            if (group.length() > 0) {
+                if (root.hasNode(group)) {
+                    root = root.getNode(group);
+```
+
+### SizeReplaceableByIsEmpty
+`fsRoot.length() > 0` can be replaced with '!fsRoot.isEmpty()'
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
+#### Snippet
+```java
+        try {
+            String url = addr.toString();
+            if (fsRoot.length() > 0 && url.endsWith(fsRoot)) {
+                url = url.substring(0, url.length() - fsRoot.length());
+            }
+```
+
+### SizeReplaceableByIsEmpty
+`subPackages.size() > 0` can be replaced with '!subPackages.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            Session s = getNode().getSession();
+            // check for recursive uninstall
+            if (!opts.isNonRecursive() && subPackages.size() > 0) {
+                JcrPackageManagerImpl packMgr = new JcrPackageManagerImpl(mgr);
+                for (PackageId id : subPackages) {
+```
+
+### SizeReplaceableByIsEmpty
+`group.length() == 0` can be replaced with 'group.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        PackageId id = getDefinition().getId();
+        String group = id.getGroup();
+        if (group.length() == 0) {
+            group = ".snapshot";
+        } else {
+```
+
+### SizeReplaceableByIsEmpty
+`unresolved.size() > 0` can be replaced with '!unresolved.isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            }
+            // if the package is not installed at all, abort for required and strict handling
+            if ((opts.getDependencyHandling() == DependencyHandling.STRICT && unresolved.size() > 0)
+                    || (opts.getDependencyHandling() == DependencyHandling.REQUIRED && unresolved.size() > uninstalled.size())) {
+                String msg = String.format("Refusing to install package %s: required dependencies missing: %s", def.getId(), unresolved);
+```
+
 ## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationViolation.java`
 #### Snippet
 ```java
-    }
+    private final String validatorId; // may only be null if message was not bound to a validator
 
-    private static final Element getFirstElementByTagName(String name, Element element) {
-        NodeList nodeList = element.getElementsByTagName(name);
-        if (nodeList.getLength() == 0) {
+    public static final Collection<ValidationViolation> wrapMessages(String validatorId, Collection<? extends ValidationMessage> messages, Path filePath, Path basePath, String nodePath, int line, int column) {
+        Collection<ValidationViolation> violations = new LinkedList<>();
+        for (ValidationMessage message : messages) {
 ```
 
 ### FinalStaticMethod
@@ -5629,27 +5628,159 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/Valida
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationViolation.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
 #### Snippet
 ```java
-    private final String validatorId; // may only be null if message was not bound to a validator
+    }
 
-    public static final Collection<ValidationViolation> wrapMessages(String validatorId, Collection<? extends ValidationMessage> messages, Path filePath, Path basePath, String nodePath, int line, int column) {
-        Collection<ValidationViolation> violations = new LinkedList<>();
-        for (ValidationMessage message : messages) {
+    private static final Element getFirstElementByTagName(String name, Element element) {
+        NodeList nodeList = element.getElementsByTagName(name);
+        if (nodeList.getLength() == 0) {
 ```
 
 ## RuleId[id=NullableProblems]
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/RcpTaskManager.java`
+#### Snippet
+```java
+            throws ConfigurationException;
+
+    void setSourceCredentials(@NotNull String taskId, Credentials srcCreds);
+
+    RcpTask editTask(@NotNull String taskId, @Nullable RepositoryAddress src, @Nullable ConnectionOptions connectionOptions, @Nullable Credentials srcCreds, @Nullable String dst,
+```
+
+### NullableProblems
+Constructor parameter for @NotNull field might be annotated @NotNull itself
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+            boolean prohibitMutableContent, boolean prohibitImmutableContent, boolean allowComplexFilterRulesInApplicationPackages,
+            boolean allowInstallHooksInApplicationPackages, @NotNull PackageType type, @NotNull Pattern jcrInstallerNodePathRegex, 
+            Pattern jcrInstallerAdditionalFileNodePathRegex, @NotNull Set<String> immutableRootNodeNames, @Nullable ValidationContext containerValidationContext) {
+        this.type = type;
+        this.severity = severity;
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
+#### Snippet
+```java
+            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider, @NotNull ValidationMessageSeverity severity, 
+            @NotNull ValidationMessageSeverity severityForDefaultNodeTypeViolations, @NotNull WorkspaceFilter filter) throws NamespaceException;
+    @NotNull Name getPrimaryNodeType();
+    String getQualifiedPath(NamePathResolver resolver) throws NamespaceException;
+    void setNodeTypes(@NotNull NameResolver nameResolver, @NotNull EffectiveNodeTypeProvider effectiveNodeTypeProvider,  boolean isFallbackPrimaryType,
+```
+
+### NullableProblems
+Nullability annotation is not applicable to wildcard type
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
+#### Snippet
+```java
+    
+    // navigate
+    @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren();
+    Optional<JcrNodeTypeMetaData> getNode(NamePathResolver nameResolver, String path)
+            throws ItemNotFoundException, RepositoryException;
+```
+
+### NullableProblems
+Nullability annotation is not applicable to wildcard type
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren() {
+        return childNodesByName.values();
+    }
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+
+    private JcrNodeTypeMetaDataImpl(boolean isIncremental, @NotNull NodeContext context, @NotNull Name name, @Nullable Name primaryNodeType, @Nullable EffectiveNodeType effectiveNodeType,
+            JcrNodeTypeMetaDataImpl parentNode, boolean isAuthenticationOrAuthorizationContext, boolean isImplicit) {
+        super();
+        this.context = context;
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public Name getPrimaryNodeType() {
+        return primaryNodeType;
+    }
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
+#### Snippet
+```java
+        }
+
+        public MavenCoordinates(@NotNull String groupId, @NotNull String artifactId, String version,@NotNull String packaging, String classifier) {
+            super();
+            this.groupId = groupId;
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
+#### Snippet
+```java
+        }
+
+        public MavenCoordinates(@NotNull String groupId, @NotNull String artifactId, String version,@NotNull String packaging, String classifier) {
+            super();
+            this.groupId = groupId;
+```
+
+### NullableProblems
+Nullability annotation is not applicable to type parameters
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+    }
+
+    static <@NotNull T> @NotNull Map<@NotNull String, @NotNull T> filterValidatorsByClass(@NotNull Map<@NotNull String, @NotNull Validator> allValidators, @NotNull Class<T> type) {
+        return allValidators.entrySet().stream()
+                .filter(x -> type.isInstance(x.getValue()))
+```
+
 ### NullableProblems
 Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
 #### Snippet
 ```java
-         * @return a collection of child entries.
-         */
-        @NotNull
-        Collection<? extends Entry> getChildren();
+     * @throws IOException if an error occurs
+     */
+    @NotNull
+    Entry getRoot() throws IOException;
 
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    Archive getSubArchive(@NotNull String root, boolean asJcrRoot) throws IOException;
+
+    /**
 ```
 
 ### NullableProblems
@@ -5681,10 +5812,10 @@ Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
 #### Snippet
 ```java
-     * @throws IOException if an error occurs
-     */
-    @NotNull
-    Entry getRoot() throws IOException;
+         * @return a collection of child entries.
+         */
+        @NotNull
+        Collection<? extends Entry> getChildren();
 
 ```
 
@@ -5701,18 +5832,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    Archive getSubArchive(@NotNull String root, boolean asJcrRoot) throws IOException;
-
-    /**
-```
-
-### NullableProblems
 Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
 #### Snippet
@@ -5725,18 +5844,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Archive.java`
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Serializer.java`
-#### Snippet
-```java
-    void writeContent(@NotNull OutputStream out) throws IOException, RepositoryException;
-
-    @NotNull
-    SerializationType getType();
-}
-```
-
-### NullableProblems
 Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Serializer.java`
 #### Snippet
@@ -5746,6 +5853,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Serializer.java`
     void writeContent(@NotNull OutputStream out) throws IOException, RepositoryException;
 
     @NotNull
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Serializer.java`
+#### Snippet
+```java
+    void writeContent(@NotNull OutputStream out) throws IOException, RepositoryException;
+
+    @NotNull
+    SerializationType getType();
+}
 ```
 
 ### NullableProblems
@@ -5768,6 +5887,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java
      * @return the mapped path.
      */
     @NotNull
+    String map(@NotNull String path, boolean reverse);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    String map(@NotNull String path, boolean reverse);
+
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java`
+#### Snippet
+```java
+     * @return the mapped path.
+     */
+    @NotNull
     String map(@NotNull String path);
 
 ```
@@ -5782,30 +5925,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java
     String map(@NotNull String path);
 
     /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java`
-#### Snippet
-```java
-     * @return the mapped path.
-     */
-    @NotNull
-    String map(@NotNull String path, boolean reverse);
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathMapping.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    String map(@NotNull String path, boolean reverse);
-
-
 ```
 
 ### NullableProblems
@@ -5837,35 +5956,23 @@ Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @return {@code true} if the given path is covered by this filter.
+     * @return {@code true} if the item is globally ignored.
      */
-    boolean covers(@NotNull String path);
+    boolean isGloballyIgnored(@NotNull String path);
 
     /**
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
+Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @return the source xml
      */
-    @NotNull
-    InputStream getSource();
+    @Nullable
+    PathFilterSet getCoveringFilterSet(@NotNull String path);
 
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
-#### Snippet
-```java
-     * @return the source xml
-     */
-    @NotNull
-    String getSourceAsString();
-
+    /**
 ```
 
 ### NullableProblems
@@ -5875,7 +5982,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.
 ```java
      * @throws RepositoryException if an error occurs
      */
-    void dumpCoverage(@NotNull Node rootNode, @NotNull ProgressTrackerListener listener)
+    void dumpCoverage(@NotNull Session session, @NotNull ProgressTrackerListener listener, boolean skipJcrContent)
             throws RepositoryException;
 
 ```
@@ -5887,7 +5994,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.
 ```java
      * @throws RepositoryException if an error occurs
      */
-    void dumpCoverage(@NotNull Node rootNode, @NotNull ProgressTrackerListener listener)
+    void dumpCoverage(@NotNull Session session, @NotNull ProgressTrackerListener listener, boolean skipJcrContent)
             throws RepositoryException;
 
 ```
@@ -5909,10 +6016,10 @@ Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @return the list of path filter sets.
+     * @return the source xml
      */
     @NotNull
-    List<PathFilterSet> getFilterSets();
+    String getSourceAsString();
 
 ```
 
@@ -5921,21 +6028,33 @@ Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
+     * @return {@code true} if the given path is covered by this filter.
      */
-    @Nullable
-    PathFilterSet getCoveringFilterSet(@NotNull String path);
+    boolean covers(@NotNull String path);
 
     /**
 ```
 
 ### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
+#### Snippet
+```java
+     * @since 2.4.10
+     */
+    @NotNull
+    WorkspaceFilter translate(@Nullable PathMapping mapping);
+
+```
+
+### NullableProblems
 Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @return {@code true} if the item is globally ignored.
+     * @return {@code true} if the given path is included in this filter.
      */
-    boolean isGloballyIgnored(@NotNull String path);
+    boolean contains(@NotNull String path);
 
     /**
 ```
@@ -5969,42 +6088,6 @@ Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @return {@code true} if the given path is included in this filter.
-     */
-    boolean contains(@NotNull String path);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs
-     */
-    void dumpCoverage(@NotNull Session session, @NotNull ProgressTrackerListener listener, boolean skipJcrContent)
-            throws RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs
-     */
-    void dumpCoverage(@NotNull Session session, @NotNull ProgressTrackerListener listener, boolean skipJcrContent)
-            throws RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
-#### Snippet
-```java
      * @return {@code true} if the given item is an ancestor
      */
     boolean isAncestor(@NotNull String path);
@@ -6017,10 +6100,46 @@ Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
 #### Snippet
 ```java
-     * @since 2.4.10
+     * @return the source xml
      */
     @NotNull
-    WorkspaceFilter translate(@Nullable PathMapping mapping);
+    InputStream getSource();
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
+#### Snippet
+```java
+     * @return the list of path filter sets.
+     */
+    @NotNull
+    List<PathFilterSet> getFilterSets();
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs
+     */
+    void dumpCoverage(@NotNull Node rootNode, @NotNull ProgressTrackerListener listener)
+            throws RepositoryException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/WorkspaceFilter.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs
+     */
+    void dumpCoverage(@NotNull Node rootNode, @NotNull ProgressTrackerListener listener)
+            throws RepositoryException;
 
 ```
 
@@ -6041,10 +6160,10 @@ Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/MetaInf.java`
 #### Snippet
 ```java
-     * @return the node types
+     * @return the package properties
      */
     @NotNull
-    Collection<NodeTypeSet> getNodeTypes();
+    PackageProperties getPackageProperties();
 
 ```
 
@@ -6053,10 +6172,10 @@ Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/MetaInf.java`
 #### Snippet
 ```java
-     * @return the package properties
+     * @return the node types
      */
     @NotNull
-    PackageProperties getPackageProperties();
+    Collection<NodeTypeSet> getNodeTypes();
 
 ```
 
@@ -6073,6 +6192,66 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
 ```
 
 ### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
+#### Snippet
+```java
+    }
+
+    public DocViewNode(@NotNull String name, @NotNull String label, String uuid, Map<String, DocViewProperty> props, String[] mixins, String primary) {
+        this.name = name;
+        this.label = label;
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
+#### Snippet
+```java
+    }
+
+    public DocViewNode(@NotNull String name, @NotNull String label, String uuid, Map<String, DocViewProperty> props, String[] mixins, String primary) {
+        this.name = name;
+        this.label = label;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
+#### Snippet
+```java
+     * @throws IllegalStateException if the package is not new.
+     */
+    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
+            throws IOException, RepositoryException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
+#### Snippet
+```java
+     * @throws IllegalStateException if the package is not new.
+     */
+    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
+            throws IOException, RepositoryException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
+#### Snippet
+```java
+     * @throws IllegalStateException if the package is not new.
+     */
+    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
+            throws IOException, RepositoryException;
+
+```
+
+### NullableProblems
 Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
 #### Snippet
@@ -6145,42 +6324,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManage
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
-#### Snippet
-```java
-     * @throws IllegalStateException if the package is not new.
-     */
-    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
-            throws IOException, RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
-#### Snippet
-```java
-     * @throws IllegalStateException if the package is not new.
-     */
-    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
-            throws IOException, RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
-#### Snippet
-```java
-     * @throws IllegalStateException if the package is not new.
-     */
-    void assemble(@NotNull Session s, @NotNull ExportOptions opts, @NotNull OutputStream out)
-            throws IOException, RepositoryException;
-
-```
-
-### NullableProblems
 Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
 #### Snippet
@@ -6214,30 +6357,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManage
     @NotNull VaultPackage assemble(@NotNull Session s, @NotNull ExportOptions opts, @Nullable File file)
             throws IOException, RepositoryException;
 
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an error occurs
-     */
-    @NotNull VaultPackage open(@NotNull File file, boolean strict) throws IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an error occurs
-     */
-    @NotNull VaultPackage open(@NotNull File file, boolean strict) throws IOException;
-
-    /**
 ```
 
 ### NullableProblems
@@ -6266,132 +6385,36 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManage
 
 ### NullableProblems
 Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
 #### Snippet
 ```java
-     * @since 2.2.5
+     * @throws IOException if an error occurs
      */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name)
-            throws RepositoryException, IOException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name)
-            throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name)
-            throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurs
-     */
-    void assemble(@NotNull Node packNode, @NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener)
-            throws PackageException, RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurs
-     */
-    void assemble(@NotNull Node packNode, @NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener)
-            throws PackageException, RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    PackageId[] usage(@NotNull PackageId id) throws RepositoryException;
+    @NotNull VaultPackage open(@NotNull File file, boolean strict) throws IOException;
 
     /**
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageManager.java`
 #### Snippet
 ```java
+     * @throws IOException if an error occurs
      */
-    @Nullable
-    PackageId resolve(@NotNull Dependency dependency, boolean onlyInstalled) throws RepositoryException;
+    @NotNull VaultPackage open(@NotNull File file, boolean strict) throws IOException;
 
     /**
 ```
 
 ### NullableProblems
 Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageProperties.java`
 #### Snippet
 ```java
-     * @since 2.0
+     * @return dependencies locations as map
      */
-    @NotNull
-    JcrPackage rename(@NotNull JcrPackage pack, @Nullable String groupId, @Nullable String name)
-            throws PackageException, RepositoryException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage rename(@NotNull JcrPackage pack, @Nullable String groupId, @Nullable String name)
-            throws PackageException, RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @since 2.2.7
-     */
-    void remove(@NotNull JcrPackage pack) throws RepositoryException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    JcrPackage open(@NotNull Node node, boolean allowInvalid) throws RepositoryException;
+    @NotNull Map<PackageId, URI> getDependenciesLocations();
 
     /**
 ```
@@ -6421,126 +6444,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageMan
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurs
-     */
-    void assemble(@NotNull JcrPackage pack, @Nullable ProgressTrackerListener listener)
-            throws PackageException, RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurrs
-     */
-    @NotNull
-    JcrPackage upload(@NotNull InputStream in, boolean replace) throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage upload(@NotNull InputStream in, boolean replace) throws RepositoryException, IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurs
-     */
-    void rewrap(@NotNull JcrPackage pack, @Nullable ProgressTrackerListener listener)
-            throws PackageException, RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurrs
-     */
-    @NotNull
-    JcrPackage upload(@NotNull InputStream in, boolean replace, boolean strict) throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage upload(@NotNull InputStream in, boolean replace, boolean strict) throws RepositoryException, IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @since 2.3
-     */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
-            throws RepositoryException, IOException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
-            throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
-            throws RepositoryException, IOException;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs
-     */
-    @NotNull
-    List<JcrPackage> listPackages(@Nullable WorkspaceFilter filter) throws RepositoryException;
-
-```
-
-### NullableProblems
 Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
 #### Snippet
@@ -6562,42 +6465,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageMan
     JcrPackage rename(@NotNull JcrPackage pack, @Nullable String groupId, @Nullable String name, @Nullable String version)
             throws PackageException, RepositoryException;
 
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws PackageException if a package error occurs
-     */
-    void assemble(@NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener, @NotNull OutputStream out)
-            throws IOException, RepositoryException, PackageException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     * @throws PackageException if a package error occurs
-     */
-    void assemble(@NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener, @NotNull OutputStream out)
-            throws IOException, RepositoryException, PackageException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    JcrPackage open(@NotNull Node node) throws RepositoryException;
-
-    /**
 ```
 
 ### NullableProblems
@@ -6613,15 +6480,27 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageMan
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
+Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
 #### Snippet
 ```java
-     * @throws IOException if an I/O exception occurs
      */
-    @NotNull
-    JcrPackage create(@Nullable Node folder, @NotNull String name)
-            throws RepositoryException, IOException;
+    @Nullable
+    PackageId resolve(@NotNull Dependency dependency, boolean onlyInstalled) throws RepositoryException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    JcrPackage open(@NotNull Node node) throws RepositoryException;
+
+    /**
 ```
 
 ### NullableProblems
@@ -6631,9 +6510,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageMan
 ```java
      */
     @NotNull
-    JcrPackage create(@Nullable Node folder, @NotNull String name)
-            throws RepositoryException, IOException;
+    PackageId[] usage(@NotNull PackageId id) throws RepositoryException;
 
+    /**
 ```
 
 ### NullableProblems
@@ -6653,9 +6532,21 @@ Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
 #### Snippet
 ```java
+     * @throws IOException if an I/O error occurs
      */
-    @Nullable
-    JcrPackage open(@NotNull PackageId id) throws RepositoryException;
+    void rewrap(@NotNull JcrPackage pack, @Nullable ProgressTrackerListener listener)
+            throws PackageException, RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @since 2.2.7
+     */
+    void remove(@NotNull JcrPackage pack) throws RepositoryException;
 
     /**
 ```
@@ -6697,26 +6588,422 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageMan
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageProperties.java`
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
 #### Snippet
 ```java
-     * @return dependencies locations as map
+     * @throws PackageException if a package error occurs
      */
-    @NotNull Map<PackageId, URI> getDependenciesLocations();
+    void assemble(@NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener, @NotNull OutputStream out)
+            throws IOException, RepositoryException, PackageException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws PackageException if a package error occurs
+     */
+    void assemble(@NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener, @NotNull OutputStream out)
+            throws IOException, RepositoryException, PackageException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurs
+     */
+    void assemble(@NotNull Node packNode, @NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener)
+            throws PackageException, RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurs
+     */
+    void assemble(@NotNull Node packNode, @NotNull JcrPackageDefinition definition, @Nullable ProgressTrackerListener listener)
+            throws PackageException, RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O exception occurs
+     */
+    @NotNull
+    JcrPackage create(@Nullable Node folder, @NotNull String name)
+            throws RepositoryException, IOException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage create(@Nullable Node folder, @NotNull String name)
+            throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs
+     */
+    @NotNull
+    List<JcrPackage> listPackages(@Nullable WorkspaceFilter filter) throws RepositoryException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @since 2.3
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
+            throws RepositoryException, IOException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
+            throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name, @Nullable String version)
+            throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurrs
+     */
+    @NotNull
+    JcrPackage upload(@NotNull InputStream in, boolean replace) throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage upload(@NotNull InputStream in, boolean replace) throws RepositoryException, IOException;
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurrs
+     */
+    @NotNull
+    JcrPackage upload(@NotNull InputStream in, boolean replace, boolean strict) throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage upload(@NotNull InputStream in, boolean replace, boolean strict) throws RepositoryException, IOException;
 
     /**
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    JcrPackage open(@NotNull Node node, boolean allowInvalid) throws RepositoryException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurs
+     */
+    void assemble(@NotNull JcrPackage pack, @Nullable ProgressTrackerListener listener)
+            throws PackageException, RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    JcrPackage open(@NotNull PackageId id) throws RepositoryException;
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    @NotNull
+    JcrPackage rename(@NotNull JcrPackage pack, @Nullable String groupId, @Nullable String name)
+            throws PackageException, RepositoryException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage rename(@NotNull JcrPackage pack, @Nullable String groupId, @Nullable String name)
+            throws PackageException, RepositoryException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     * @since 2.2.5
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name)
+            throws RepositoryException, IOException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name)
+            throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageManager.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    JcrPackage create(@NotNull String group, @NotNull String name)
+            throws RepositoryException, IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
+#### Snippet
+```java
+     * @return the filter
+     */
+    @NotNull WorkspaceFilter getFilter();
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
+#### Snippet
+```java
+     * @return the package type
+     */
+    @NotNull PackageType getPackageType();
+}
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
+#### Snippet
+```java
+     * @return the package id.
+     */
+    @NotNull PackageId getId();
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs.
+     */
+    @NotNull
+    MetaInf getMetaInf() throws RepositoryException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @param autoSave if {@code true} the modifications are saved automatically.
+     */
+    void set(@NotNull String name, @Nullable String value, boolean autoSave);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    String get(@NotNull String name);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurrs
+     */
+    void dumpCoverage(@NotNull ProgressTrackerListener listener) throws RepositoryException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @since 2.2
+     */
+    void setId(@NotNull PackageId id, boolean autoSave);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @param autoSave if {@code true} the modifications are saved automatically.
+     */
+    void set(@NotNull String name, boolean value, boolean autoSave);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    Calendar getCalendar(@NotNull String name);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @return the property value or {@code null} if it does not exist.
+     */
+    boolean getBoolean(@NotNull String name);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
+#### Snippet
+```java
+     * @param autoSave if {@code true} the modifications are saved automatically.
+     */
+    void set(@NotNull String name, @Nullable Calendar value, boolean autoSave);
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
 #### Snippet
 ```java
-     * @since 2.3.14
+     * @throws IOException if an I/O error occurs
      */
-    void uninstall(@NotNull ImportOptions opts)
-            throws RepositoryException, PackageException, IOException;
+    @NotNull
+    VaultPackage getPackage() throws RepositoryException, IOException;
 
 ```
 
@@ -6757,195 +7044,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.ja
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
+Overridden method parameters are not annotated
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
 #### Snippet
 ```java
-     * @throws IOException if an I/O error occurs
+     * @since 2.3.14
      */
-    @NotNull
-    VaultPackage getPackage() throws RepositoryException, IOException;
+    void uninstall(@NotNull ImportOptions opts)
+            throws RepositoryException, PackageException, IOException;
 
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
-#### Snippet
-```java
-     * @return the package id.
-     */
-    @NotNull PackageId getId();
-
-    /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
-#### Snippet
-```java
-     * @return the package type
-     */
-    @NotNull PackageType getPackageType();
-}
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageInfo.java`
-#### Snippet
-```java
-     * @return the filter
-     */
-    @NotNull WorkspaceFilter getFilter();
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @return the property value or {@code null} if it does not exist.
-     */
-    boolean getBoolean(@NotNull String name);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    Calendar getCalendar(@NotNull String name);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @param autoSave if {@code true} the modifications are saved automatically.
-     */
-    void set(@NotNull String name, @Nullable Calendar value, boolean autoSave);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @param autoSave if {@code true} the modifications are saved automatically.
-     */
-    void set(@NotNull String name, boolean value, boolean autoSave);
-
-    /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs.
-     */
-    @NotNull
-    MetaInf getMetaInf() throws RepositoryException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    String get(@NotNull String name);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @param autoSave if {@code true} the modifications are saved automatically.
-     */
-    void set(@NotNull String name, @Nullable String value, boolean autoSave);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @since 2.2
-     */
-    void setId(@NotNull PackageId id, boolean autoSave);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackageDefinition.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurrs
-     */
-    void dumpCoverage(@NotNull ProgressTrackerListener listener) throws RepositoryException;
-
-    /**
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-    }
-
-    public DocViewNode(@NotNull String name, @NotNull String label, String uuid, Map<String, DocViewProperty> props, String[] mixins, String primary) {
-        this.name = name;
-        this.label = label;
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-    }
-
-    public DocViewNode(@NotNull String name, @NotNull String label, String uuid, Map<String, DocViewProperty> props, String[] mixins, String primary) {
-        this.name = name;
-        this.label = label;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    PackageId[] usage(@NotNull PackageId id) throws IOException;
-
-    /**
 ```
 
 ### NullableProblems
@@ -6962,134 +7069,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/Exec
 
 ### NullableProblems
 Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/ExecutionPlanBuilder.java`
 #### Snippet
 ```java
-     * @throws IOException if an I/O error occurs.
+     * @throws PackageException if the plan is not valid.
      */
     @NotNull
-    Set<PackageId> packages() throws IOException;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
-     */
-    @NotNull
-    PackageId register(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    PackageId register(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    PackageId resolve(@NotNull Dependency dependency, boolean onlyInstalled) throws IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
-     */
-    @NotNull
-    PackageId register(@NotNull InputStream in, boolean replace) throws IOException, PackageExistsException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    PackageId register(@NotNull InputStream in, boolean replace) throws IOException, PackageExistsException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @Nullable
-    RegisteredPackage open(@NotNull PackageId id) throws IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     * @throws NoSuchPackageException if the package does not exist
-     */
-    void remove(@NotNull PackageId id) throws IOException, NoSuchPackageException;
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     * @throws IOException if an I/O error occurs.
-     */
-    boolean contains(@NotNull PackageId id) throws IOException;
-
-    /**
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
-     */
-    @NotNull
-    PackageId registerExternal(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
-#### Snippet
-```java
-     */
-    @NotNull
-    PackageId registerExternal(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
-
-    /**
+    Set<PackageId> preview() throws IOException, PackageException;
+    
 ```
 
 ### NullableProblems
@@ -7117,27 +7104,147 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/Exec
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/ExecutionPlanBuilder.java`
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
 #### Snippet
 ```java
-     * @throws PackageException if the plan is not valid.
+     * @throws NoSuchPackageException if the package does not exist
      */
-    @NotNull
-    Set<PackageId> preview() throws IOException, PackageException;
-    
+    void remove(@NotNull PackageId id) throws IOException, NoSuchPackageException;
+
+    /**
 ```
 
 ### NullableProblems
 Overridden methods are not annotated
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageTaskBuilder.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
 #### Snippet
 ```java
-     * @return this.
+     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
      */
     @NotNull
-    PackageTaskBuilder with(@NotNull PackageId id);
+    PackageId register(@NotNull InputStream in, boolean replace) throws IOException, PackageExistsException;
 
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    PackageId register(@NotNull InputStream in, boolean replace) throws IOException, PackageExistsException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurs.
+     */
+    boolean contains(@NotNull PackageId id) throws IOException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    PackageId resolve(@NotNull Dependency dependency, boolean onlyInstalled) throws IOException;
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     * @throws IOException if an I/O error occurs.
+     */
+    @NotNull
+    Set<PackageId> packages() throws IOException;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
+     */
+    @NotNull
+    PackageId registerExternal(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    PackageId registerExternal(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    PackageId[] usage(@NotNull PackageId id) throws IOException;
+
+    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     * @throws PackageExistsException if the package exists and {@code replace} is {@code false}.
+     */
+    @NotNull
+    PackageId register(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @NotNull
+    PackageId register(@NotNull File file, boolean replace) throws IOException, PackageExistsException;
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageRegistry.java`
+#### Snippet
+```java
+     */
+    @Nullable
+    RegisteredPackage open(@NotNull PackageId id) throws IOException;
+
+    /**
 ```
 
 ### NullableProblems
@@ -7162,6 +7269,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/Regi
     @NotNull
     WorkspaceFilter getWorkspaceFilter();
     
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/PackageTaskBuilder.java`
+#### Snippet
+```java
+     * @return this.
+     */
+    @NotNull
+    PackageTaskBuilder with(@NotNull PackageId id);
+
 ```
 
 ### NullableProblems
@@ -7255,8 +7374,8 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```java
     }
 
-    public PackageId getPackageId() {
-        return packageId;
+    public FSPackageStatus getStatus() {
+        return status;
     }
 ```
 
@@ -7279,21 +7398,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```java
     }
 
-    public FSPackageStatus getStatus() {
-        return status;
+    public PackageId getPackageId() {
+        return packageId;
     }
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/RcpTaskManager.java`
-#### Snippet
-```java
-            throws ConfigurationException;
-
-    void setSourceCredentials(@NotNull String taskId, Credentials srcCreds);
-
-    RcpTask editTask(@NotNull String taskId, @Nullable RepositoryAddress src, @Nullable ConnectionOptions connectionOptions, @Nullable Credentials srcCreds, @Nullable String dst,
 ```
 
 ### NullableProblems
@@ -7308,115 +7415,67 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
     }
 ```
 
-### NullableProblems
-Overridden methods are not annotated
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
-#### Snippet
-```java
-            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider, @NotNull ValidationMessageSeverity severity, 
-            @NotNull ValidationMessageSeverity severityForDefaultNodeTypeViolations, @NotNull WorkspaceFilter filter) throws NamespaceException;
-    @NotNull Name getPrimaryNodeType();
-    String getQualifiedPath(NamePathResolver resolver) throws NamespaceException;
-    void setNodeTypes(@NotNull NameResolver nameResolver, @NotNull EffectiveNodeTypeProvider effectiveNodeTypeProvider,  boolean isFallbackPrimaryType,
-```
-
-### NullableProblems
-Nullability annotation is not applicable to wildcard type
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
-#### Snippet
-```java
-    
-    // navigate
-    @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren();
-    Optional<JcrNodeTypeMetaData> getNode(NamePathResolver nameResolver, String path)
-            throws ItemNotFoundException, RepositoryException;
-```
-
-### NullableProblems
-Constructor parameter for @NotNull field might be annotated @NotNull itself
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-            boolean prohibitMutableContent, boolean prohibitImmutableContent, boolean allowComplexFilterRulesInApplicationPackages,
-            boolean allowInstallHooksInApplicationPackages, @NotNull PackageType type, @NotNull Pattern jcrInstallerNodePathRegex, 
-            Pattern jcrInstallerAdditionalFileNodePathRegex, @NotNull Set<String> immutableRootNodeNames, @Nullable ValidationContext containerValidationContext) {
-        this.type = type;
-        this.severity = severity;
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-
-    private JcrNodeTypeMetaDataImpl(boolean isIncremental, @NotNull NodeContext context, @NotNull Name name, @Nullable Name primaryNodeType, @Nullable EffectiveNodeType effectiveNodeType,
-            JcrNodeTypeMetaDataImpl parentNode, boolean isAuthenticationOrAuthorizationContext, boolean isImplicit) {
-        super();
-        this.context = context;
-```
-
-### NullableProblems
-Nullability annotation is not applicable to wildcard type
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren() {
-        return childNodesByName.values();
-    }
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public Name getPrimaryNodeType() {
-        return primaryNodeType;
-    }
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
-        }
-
-        public MavenCoordinates(@NotNull String groupId, @NotNull String artifactId, String version,@NotNull String packaging, String classifier) {
-            super();
-            this.groupId = groupId;
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
-        }
-
-        public MavenCoordinates(@NotNull String groupId, @NotNull String artifactId, String version,@NotNull String packaging, String classifier) {
-            super();
-            this.groupId = groupId;
-```
-
-### NullableProblems
-Nullability annotation is not applicable to type parameters
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-    }
-
-    static <@NotNull T> @NotNull Map<@NotNull String, @NotNull T> filterValidatorsByClass(@NotNull Map<@NotNull String, @NotNull Validator> allValidators, @NotNull Class<T> type) {
-        return allValidators.entrySet().stream()
-                .filter(x -> type.isInstance(x.getValue()))
-```
-
 ## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckout.java`
+#### Snippet
+```java
+        }
+        if (!localFile.exists()) {
+            localFile.mkdir();
+        }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.setLastModified()` is ignored
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
+#### Snippet
+```java
+            long lastMod = remote.lastModified();
+            if (lastMod > 0) {
+                local.setLastModified(lastMod);
+            }
+        } catch (IOException e) {
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckoutCli.java`
+#### Snippet
+```java
+        }
+        if (!localFile.exists()) {
+            localFile.mkdir();
+        }
+        VltContext vCtx = app.createVaultContext(localFile);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExport.java`
+#### Snippet
+```java
+            if (type.equals("platform")) {
+                if (!localFile.exists()) {
+                    localFile.mkdirs();
+                }
+                exporter = new PlatformExporter(localFile);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
+#### Snippet
+```java
+            if (type.equals("platform")) {
+                if (!localFile.exists()) {
+                    localFile.mkdirs();
+                }
+                exporter = new PlatformExporter(localFile);
+```
+
 ### IgnoreResultOfCall
 Result of `File.setLastModified()` is ignored
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
@@ -7430,15 +7489,39 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/PlatformExporter.java`
+Result of `File.setLastModified()` is ignored
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+            if (preserveFileDate) {
+                Calendar lastModified = e.node.getProperty("jcr:content/jcr:lastModified").getDate();
+                e.file.setLastModified(lastModified.getTimeInMillis());
+            }
+            syncLog.log("%s file://%s", action, e.file.getAbsolutePath());
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+            }
+        }
+        directory.delete();
+        syncLog.log("D file://%s/", directory.getAbsolutePath());
+        res.addEntry(jcrPath, directory.getAbsolutePath(), SyncResult.Operation.DELETE_FS);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
 #### Snippet
 ```java
 
-    private void mkdirs(File dir) throws IOException {
-        dir.mkdirs();
-        exportInfo.update(ExportInfo.Type.MKDIR, dir.getPath());
-    }
+    private void createDirectory(SyncResult res, Entry e) throws RepositoryException {
+        e.file.mkdir();
+        syncLog.log("A file://%s/", e.getFsPath());
+        res.addEntry(e.getJcrPath(), e.getFsPath(), SyncResult.Operation.UPDATE_FS);
 ```
 
 ### IgnoreResultOfCall
@@ -7450,6 +7533,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/PlatformExporter.
         if (a.getLastModified() >= 0) {
             local.setLastModified(a.getLastModified());
         }
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/PlatformExporter.java`
+#### Snippet
+```java
+
+    private void mkdirs(File dir) throws IOException {
+        dir.mkdirs();
+        exportInfo.update(ExportInfo.Type.MKDIR, dir.getPath());
     }
 ```
 
@@ -7530,18 +7625,6 @@ Result of `JcrPackageManagerImpl.getInternalRegistry()` is ignored
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
 #### Snippet
 ```java
-                    continue;
-                }
-                mgr.getInternalRegistry();
-                String etcPath = DEFAULT_PACKAGE_ROOT_PATH + "/" + AbstractPackageRegistry.getRelativeInstallationPath(pkg.getKey()) + ".zip";
-                etcPath = Text.getRelativeParent(etcPath, 1);
-```
-
-### IgnoreResultOfCall
-Result of `JcrPackageManagerImpl.getInternalRegistry()` is ignored
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
             // re-add all the packages in /etc/packages
             for (Map.Entry<PackageId, String> pkg : subPackages.entrySet()) {
                 mgr.getInternalRegistry();
@@ -7550,63 +7633,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPacka
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+Result of `JcrPackageManagerImpl.getInternalRegistry()` is ignored
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
 #### Snippet
 ```java
-
-    private void createDirectory(SyncResult res, Entry e) throws RepositoryException {
-        e.file.mkdir();
-        syncLog.log("A file://%s/", e.getFsPath());
-        res.addEntry(e.getJcrPath(), e.getFsPath(), SyncResult.Operation.UPDATE_FS);
-```
-
-### IgnoreResultOfCall
-Result of `File.setLastModified()` is ignored
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-            if (preserveFileDate) {
-                Calendar lastModified = e.node.getProperty("jcr:content/jcr:lastModified").getDate();
-                e.file.setLastModified(lastModified.getTimeInMillis());
-            }
-            syncLog.log("%s file://%s", action, e.file.getAbsolutePath());
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-            }
-        }
-        directory.delete();
-        syncLog.log("D file://%s/", directory.getAbsolutePath());
-        res.addEntry(jcrPath, directory.getAbsolutePath(), SyncResult.Operation.DELETE_FS);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-                context.getDataFile(config.homePath());
-        if (!homeDir.exists()) {
-            homeDir.mkdirs();
-        }
-        log.info("Jackrabbit Filevault FS Package Registry initialized with home location {}", homeDir.getPath());
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-        }
-        if (!keepFile) {
-            file.delete();
-        }
-        entry = null;
+                    continue;
+                }
+                mgr.getInternalRegistry();
+                String etcPath = DEFAULT_PACKAGE_ROOT_PATH + "/" + AbstractPackageRegistry.getRelativeInstallationPath(pkg.getKey()) + ".zip";
+                etcPath = Text.getRelativeParent(etcPath, 1);
 ```
 
 ### IgnoreResultOfCall
@@ -7634,6 +7669,18 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+        }
+        if (!keepFile) {
+            file.delete();
+        }
+        entry = null;
+```
+
+### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
 #### Snippet
@@ -7643,6 +7690,42 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
             file.mkdir();
         } else {
             try {
+```
+
+### IgnoreResultOfCall
+Result of `File.setLastModified()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaFile.java`
+#### Snippet
+```java
+            if (preserveFileDate) {
+                ZipEntry entry = parent.getZip().getEntry(relPath);
+                file.setLastModified(entry.getTime());
+            }
+        } finally {
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaFile.java`
+#### Snippet
+```java
+            File parentDir = parent.getZip().getZipFile().getParentFile();
+            tmpFile = File.createTempFile(".vlt-", ".tmp", parentDir);
+            tmpFile.createNewFile();
+            copyToSilent(tmpFile, true);
+        }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/UpdateableZipFile.java`
+#### Snippet
+```java
+    public void delete() {
+        if (file.exists()) {
+            file.delete();
+        }
+        toDelete.clear();
 ```
 
 ### IgnoreResultOfCall
@@ -7670,15 +7753,15 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/file/FileMe
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/UpdateableZipFile.java`
+Result of `File.mkdirs()` is ignored
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
 #### Snippet
 ```java
-    public void delete() {
-        if (file.exists()) {
-            file.delete();
+                context.getDataFile(config.homePath());
+        if (!homeDir.exists()) {
+            homeDir.mkdirs();
         }
-        toDelete.clear();
+        log.info("Jackrabbit Filevault FS Package Registry initialized with home location {}", homeDir.getPath());
 ```
 
 ### IgnoreResultOfCall
@@ -7694,27 +7777,75 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/file/FileMe
 ```
 
 ### IgnoreResultOfCall
-Result of `File.setLastModified()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaFile.java`
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
 #### Snippet
 ```java
-            if (preserveFileDate) {
-                ZipEntry entry = parent.getZip().getEntry(relPath);
-                file.setLastModified(entry.getTime());
-            }
-        } finally {
+        // copy and delete files
+        FileUtils.copyFile(fileMine, work);
+        fileMine.delete();
+        new File(dir, theirs.getName()).delete();
+        new File(dir, base.getName()).delete();
 ```
 
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaFile.java`
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
 #### Snippet
 ```java
-            File parentDir = parent.getZip().getZipFile().getParentFile();
-            tmpFile = File.createTempFile(".vlt-", ".tmp", parentDir);
-            tmpFile.createNewFile();
-            copyToSilent(tmpFile, true);
-        }
+        FileUtils.copyFile(fileMine, work);
+        fileMine.delete();
+        new File(dir, theirs.getName()).delete();
+        new File(dir, base.getName()).delete();
+
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
+#### Snippet
+```java
+        fileMine.delete();
+        new File(dir, theirs.getName()).delete();
+        new File(dir, base.getName()).delete();
+
+        // remove infos
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
+#### Snippet
+```java
+
+        // delete the .x files
+        new File(fileWork.getParentFile(), base.getName()).delete();
+        new File(fileWork.getParentFile(), mine.getName()).delete();
+        new File(fileWork.getParentFile(), theirs.getName()).delete();
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
+#### Snippet
+```java
+        // delete the .x files
+        new File(fileWork.getParentFile(), base.getName()).delete();
+        new File(fileWork.getParentFile(), mine.getName()).delete();
+        new File(fileWork.getParentFile(), theirs.getName()).delete();
+
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
+#### Snippet
+```java
+        new File(fileWork.getParentFile(), base.getName()).delete();
+        new File(fileWork.getParentFile(), mine.getName()).delete();
+        new File(fileWork.getParentFile(), theirs.getName()).delete();
+
+        // copy the tmp file to the base
 ```
 
 ### IgnoreResultOfCall
@@ -7765,151 +7896,7 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.ja
             base.setName(null);
 ```
 
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-
-        // delete the .x files
-        new File(fileWork.getParentFile(), base.getName()).delete();
-        new File(fileWork.getParentFile(), mine.getName()).delete();
-        new File(fileWork.getParentFile(), theirs.getName()).delete();
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        // delete the .x files
-        new File(fileWork.getParentFile(), base.getName()).delete();
-        new File(fileWork.getParentFile(), mine.getName()).delete();
-        new File(fileWork.getParentFile(), theirs.getName()).delete();
-
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        new File(fileWork.getParentFile(), base.getName()).delete();
-        new File(fileWork.getParentFile(), mine.getName()).delete();
-        new File(fileWork.getParentFile(), theirs.getName()).delete();
-
-        // copy the tmp file to the base
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        // copy and delete files
-        FileUtils.copyFile(fileMine, work);
-        fileMine.delete();
-        new File(dir, theirs.getName()).delete();
-        new File(dir, base.getName()).delete();
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        FileUtils.copyFile(fileMine, work);
-        fileMine.delete();
-        new File(dir, theirs.getName()).delete();
-        new File(dir, base.getName()).delete();
-
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        fileMine.delete();
-        new File(dir, theirs.getName()).delete();
-        new File(dir, base.getName()).delete();
-
-        // remove infos
-```
-
-### IgnoreResultOfCall
-Result of `File.setLastModified()` is ignored
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
-#### Snippet
-```java
-            long lastMod = remote.lastModified();
-            if (lastMod > 0) {
-                local.setLastModified(lastMod);
-            }
-        } catch (IOException e) {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckoutCli.java`
-#### Snippet
-```java
-        }
-        if (!localFile.exists()) {
-            localFile.mkdir();
-        }
-        VltContext vCtx = app.createVaultContext(localFile);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExport.java`
-#### Snippet
-```java
-            if (type.equals("platform")) {
-                if (!localFile.exists()) {
-                    localFile.mkdirs();
-                }
-                exporter = new PlatformExporter(localFile);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckout.java`
-#### Snippet
-```java
-        }
-        if (!localFile.exists()) {
-            localFile.mkdir();
-        }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
-#### Snippet
-```java
-            if (type.equals("platform")) {
-                if (!localFile.exists()) {
-                    localFile.mkdirs();
-                }
-                exporter = new PlatformExporter(localFile);
-```
-
 ## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-                    if (messages != null && !messages.isEmpty()) {
-                        enrichedMessages.addAll(ValidationViolation.wrapMessages(entry.getKey(), messages, filePath, basePath, nodePathAndLineNumber.getKey(),
-                                nodePathAndLineNumber.getValue().intValue(), 0));
-                    }
-                } catch (RuntimeException e) {
-```
-
 ### UnnecessaryUnboxing
 Unnecessary unboxing
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/CliHelpFormatter.java`
@@ -7934,19 +7921,19 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
                             } catch (Exception e) {
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `toString()` only delegates to its super method
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/ParseException.java`
+### UnnecessaryUnboxing
+Unnecessary unboxing
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
 #### Snippet
 ```java
-     * {@inheritDoc}
-     */
-    public String toString() {
-        return super.toString(); // + " (" + systemId + ", line " + lineNumber +", col " + colNumber +")";
-    }
+                    if (messages != null && !messages.isEmpty()) {
+                        enrichedMessages.addAll(ValidationViolation.wrapMessages(entry.getKey(), messages, filePath, basePath, nodePathAndLineNumber.getKey(),
+                                nodePathAndLineNumber.getValue().intValue(), 0));
+                    }
+                } catch (RuntimeException e) {
 ```
 
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getPomProperties()` is identical to its super method
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
@@ -7956,6 +7943,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
 
     public PomProperties getPomProperties() {
         return new PomProperties("org.apache.jackrabbit.vault", "vault-cli");
+    }
+```
+
+### RedundantMethodOverride
+Method `toString()` only delegates to its super method
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/ParseException.java`
+#### Snippet
+```java
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return super.toString(); // + " (" + systemId + ", line " + lineNumber +", col " + colNumber +")";
     }
 ```
 
@@ -8073,326 +8072,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddres
 ## RuleId[id=NestedAssignment]
 ### NestedAssignment
 Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
-#### Snippet
-```java
-                        byte[] buffer = new byte[8192];
-                        int read;
-                        while ((read = in.read(buffer)) >= 0) {
-                            out.write(buffer, 0, read);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
-#### Snippet
-```java
-        try (ZipInputStream zin = new ZipInputStream(in)) {
-            ZipEntry entry;
-            while ((entry = zin.getNextEntry()) != null) {
-                String name = entry.getName();
-                String[] names = Text.explode(name, '/');
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
-#### Snippet
-```java
-        int read;
-        int total = 0;
-        while ((read = in.read(decompressed, pos, decompressed.length - pos)) > 0) {
-            total += read;
-            pos += read;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
-#### Snippet
-```java
-        int read;
-        int total = 0;
-        while ((read = in.read(buffer)) > 0) {
-            raf.write(buffer, 0, read);
-            total += read;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
-#### Snippet
-```java
-        ZipEntry entry;
-        boolean hasRoot = false;
-        while ((entry = zin.getNextEntry()) != null) {
-            String name = entry.getName();
-            boolean isMeta = name.startsWith(Constants.META_DIR + "/");
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AbstractArtifact.java`
-#### Snippet
-```java
-            byte[] buffer = new byte[8192];
-            int read;
-            while ((read = in.read(buffer)) >= 0) {
-                out.write(buffer, 0, read);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-        if (pathMapping != null) {
-            filter = filter.translate(pathMapping);
-            this.archive = archive = new MappedArchive(archive, pathMapping);
-            this.archive.open(true);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/NodeStash.java`
-#### Snippet
-```java
-                try {
-                    Node root = session.getNode(rootPath);
-                    return tmpNode = root.addNode("tmp" + System.currentTimeMillis(), JcrConstants.NT_UNSTRUCTURED);
-                } catch (RepositoryException e) {
-                    log.debug("unable to create temporary stash location below {}.", rootPath);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.java`
-#### Snippet
-```java
-                    if (ret == 0 && pos == end) {
-                        // in this case we didn't get more, so flush
-                        pos = end = 0;
-                        continue;
-                    } else if (ret == -1) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
-#### Snippet
-```java
-        byte[] buffer = new byte[8192];
-        int read;
-        while ((read = in.read(buffer)) > 0) {
-            md.update(buffer, 0, read);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MD5.java`
-#### Snippet
-```java
-        byte[] buffer = new byte[8192];
-        int read;
-        while ((read = in.read(buffer)) > 0) {
-            md.update(buffer, 0, read);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-
-        // add snipples
-        while ((pos = str.indexOf(ch, lastpos)) >= 0) {
-            if (pos - lastpos > 0 || respectEmpty) {
-                strings.add(str.substring(lastpos, pos));
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-                groupId = name.substring(0, idx);
-                name = name.substring(idx + 1);
-            } else if ((idx = groupId.lastIndexOf('/')) >=0 && isVersion) {
-                groupId = segs[0].substring(0, idx);
-                name = segs[0].substring(idx + 1);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/DependencyUtil.java`
-#### Snippet
-```java
-                        throw new CyclicDependencyException();
-                    } else if (res == null) {
-                        result.put(id, res = false);
-                    }
-                    resolve(entry.getValue(), list, result);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-        }
-        boolean contained;
-        if ((contained = contains(path)) || isAncestor(path)) {
-            if (contained) {
-                tracker.track("A", path);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-     */
-    public void load(final InputStream in) throws IOException, ConfigurationException {
-        byte[] tmpSource = source = IOUtils.toByteArray(in);
-        try (InputStream inCopy = getSource()) {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-        lines.clear();
-        String line;
-        while ((line = br.readLine()) != null) {
-            Line l = new Line(line, lineNo++);
-            lines.put(l.name, l);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-        String action = "A";
-        if (ntFile == null) {
-            e.node = ntFile = e.parentNode.addNode(e.jcrName, NodeType.NT_FILE);
-            content = ntFile.addNode(Node.JCR_CONTENT, NodeType.NT_RESOURCE);
-        } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntries.java`
-#### Snippet
-```java
-        for (VltEntry e: entries.values()) {
-            if (e.isDirty()) {
-                return dirty = true;
-            }
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-            try (BufferedReader in = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    if (line.startsWith(Hunk3.MARKER_B[0])
-                            || line.startsWith(Hunk3.MARKER_L[0])
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/UpdateableZipFile.java`
-#### Snippet
-```java
-        byte[] buffer = new byte[8192];
-        int read;
-        while ((read = in.read(buffer)) >= 0) {
-            out.write(buffer, 0, read);
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
-#### Snippet
-```java
-        for (VltEntryInfo info: infos.values()) {
-            if (((XmlEntryInfo) info).isDirty()) {
-                return dirty = true;
-            }
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElementsFactory.java`
-#### Snippet
-```java
-        StringBuffer word = new StringBuffer();
-        int c;
-        while ((c=r.read()) >=0 && lines.size()<MAX_ELEMENTS) {
-            if (Character.isLetterOrDigit((char) c)) {
-                if (gutter.length() > 0) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropList.java`
-#### Snippet
-```java
-                        .withName("Options:")
-                        .withOption(OPT_QUIET)
-                        .withOption(optRecursive = new DefaultOptionBuilder()
-                                .withShortName("R")
-                                .withLongName("recursive")
-                                .withDescription("descend recursively")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropList.java`
-#### Snippet
-```java
-                                .withDescription("descend recursively")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to list the properties from")
-                                .withMinimum(1)
-                                .create())
-                        .create()
-                )
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
-#### Snippet
-```java
-
-            // add the change to the using set and unchain it
-            using[highIdx] = lastUsing[highIdx] = changes[highIdx];
-            changes[highIdx] = changes[highIdx].next;
-            lastUsing[highIdx].next = null;
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDelete.java`
 #### Snippet
 ```java
@@ -8424,64 +8103,14 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDelete.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElementsFactory.java`
 #### Snippet
 ```java
-                        .withOption(OPT_VERBOSE)
-                        .withOption(OPT_QUIET)
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-                                .withDescription("force overwrite of local files")
-                                .create())
-                        .withOption(optNonRecursive = new DefaultOptionBuilder()
-                                .withShortName("N")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
-#### Snippet
-```java
-                                .withDescription("force overwrite of local files")
-                                .create())
-                        .withOption(optNonRecursive = new DefaultOptionBuilder()
-                                .withShortName("N")
-                                .withLongName("non-recursive")
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
-#### Snippet
-```java
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to update")
-                                .withMinimum(0)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsAggregate.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optType = new DefaultOptionBuilder()
-                                .withShortName("t")
-                                .withDescription("display the artfiact type")
-                                .create())
-                        .withOption(argPath)
-                        .create())
+        StringBuffer word = new StringBuffer();
+        int c;
+        while ((c=r.read()) >=0 && lines.size()<MAX_ELEMENTS) {
+            if (Character.isLetterOrDigit((char) c)) {
+                if (gutter.length() > 0) {
 ```
 
 ### NestedAssignment
@@ -8534,6 +8163,143 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdFormatCli.java`
                                 .create()
                         )
                         .create())
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropList.java`
+#### Snippet
+```java
+                        .withName("Options:")
+                        .withOption(OPT_QUIET)
+                        .withOption(optRecursive = new DefaultOptionBuilder()
+                                .withShortName("R")
+                                .withLongName("recursive")
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropList.java`
+#### Snippet
+```java
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("file or directory to list the properties from")
+                                .withMinimum(1)
+                                .create())
+                        .create()
+                )
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
+#### Snippet
+```java
+
+            // add the change to the using set and unchain it
+            using[highIdx] = lastUsing[highIdx] = changes[highIdx];
+            changes[highIdx] = changes[highIdx].next;
+            lastUsing[highIdx].next = null;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsAggregate.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(optType = new DefaultOptionBuilder()
+                                .withShortName("t")
+                                .withDescription("display the artfiact type")
+                                .create())
+                        .withOption(argPath)
+                        .create())
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
+#### Snippet
+```java
+                        .withOption(OPT_VERBOSE)
+                        .withOption(OPT_QUIET)
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+                                .withDescription("force overwrite of local files")
+                                .create())
+                        .withOption(optNonRecursive = new DefaultOptionBuilder()
+                                .withShortName("N")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
+#### Snippet
+```java
+                                .withDescription("force overwrite of local files")
+                                .create())
+                        .withOption(optNonRecursive = new DefaultOptionBuilder()
+                                .withShortName("N")
+                                .withLongName("non-recursive")
+                                .withDescription("operate on single directory")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdUpdate.java`
+#### Snippet
+```java
+                                .withDescription("operate on single directory")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("file or directory to update")
+                                .withMinimum(0)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckout.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+                                .withDescription("force checkout to overwrite local files if they already exist.")
+                                .create())
+                        .withOption(OPT_VERBOSE)
+                        .withOption(OPT_QUIET)
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdVaultDebug.java`
+#### Snippet
+```java
+                        .withOption(OPT_VERBOSE)
+                        .withOption(OPT_QUIET)
+                        .withOption(argCommand = new ArgumentBuilder()
+                                .withName("cmd")
+                                .withDescription("command")
+                                .withMinimum(0)
+                                .create()
+                        )
+                        .create()
 ```
 
 ### NestedAssignment
@@ -8611,40 +8377,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdMount.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
-#### Snippet
-```java
-                                .create())
-                        */
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("local-path")
-                                .withDescription("the local path")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
-#### Snippet
-```java
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
-                                .withDescription("the jcr path")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
 #### Snippet
 ```java
@@ -8694,15 +8426,33 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdVaultDebug.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
 #### Snippet
 ```java
-                        .withOption(OPT_VERBOSE)
-                        .withOption(OPT_QUIET)
-                        .withOption(argCommand = new ArgumentBuilder()
-                                .withName("cmd")
-                                .withDescription("command")
+                                .create())
+                        */
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("local-path")
+                                .withDescription("the local path")
                                 .withMinimum(0)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .withOption(argJcrPath = new ArgumentBuilder()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImport.java`
+#### Snippet
+```java
+                                .create()
+                        )
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(0)
+                                .withMaximum(1)
                                 .create()
                         )
                         .create()
@@ -8734,6 +8484,23 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRm.java`
                                 .withName("path")
                                 .withDescription("the jcrfs path")
                                 .withMinimum(1)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSave.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(0)
                                 .withMaximum(1)
                                 .create()
                         )
@@ -8778,26 +8545,19 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckoutCli.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCat.java`
 #### Snippet
 ```java
-                                boolean isAnotherValidatorInterested = genericMetaInfDataValidators.values().stream().filter(t-> !t.equals(validator)).anyMatch(x -> x.shouldValidateMetaInfData(filePath, basePath));
-                                if (isAnotherValidatorInterested) {
-                                    currentInput = resettableInputStream = new ResettableInputStream(input);
-                                }
-                            } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-                                boolean isAnotherValidatorInterested = genericJcrDataValidators.values().stream().filter(t-> !t.equals(validator)).anyMatch(x -> x.shouldValidateJcrData(filePath, basePath));
-                                if (isAnotherValidatorInterested) {
-                                    currentInput = resettableInputStream = new ResettableInputStream(input);
-                                }
-                            } else {
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(1)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
 ```
 
 ### NestedAssignment
@@ -8886,21 +8646,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExport.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckout.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-                                .withDescription("force checkout to overwrite local files if they already exist.")
-                                .create())
-                        .withOption(OPT_VERBOSE)
-                        .withOption(OPT_QUIET)
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExport.java`
 #### Snippet
 ```java
@@ -8918,13 +8663,52 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExport.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSave.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
 #### Snippet
 ```java
                 .withChildren(new GroupBuilder()
                         .withName("Options:")
+                        .withOption(optRecursive = new DefaultOptionBuilder()
+                                .withShortName("r")
+                                .withDescription("limit depth")
+                                .withArgument(new ArgumentBuilder()
+                                        .withName("depth")
+                                        .withDescription("limit tree to <depth>")
+                                        .withMinimum(1)
+                                        .withMaximum(1)
+                                        .withValidator(NumberValidator.getIntegerInstance())
+                                        .create())
+                                .create())
+                        .withOption(argPath = new ArgumentBuilder()
+                                        .withName("path")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
+#### Snippet
+```java
+                                        .create())
+                                */
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("local-path")
+                                .withDescription("the local path")
+                                .withMinimum(1)
+                                .withMaximum(1)
+                                .create()
+                        )
                         .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
+#### Snippet
+```java
+                                .create()
+                        )
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcrl-path")
                                 .withDescription("the jcr path")
                                 .withMinimum(0)
                                 .withMaximum(1)
@@ -8935,19 +8719,34 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSave.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCat.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
+#### Snippet
+```java
+                                        .create())
+                                .create())
+                        .withOption(argPath = new ArgumentBuilder()
+                                        .withName("path")
+                                        .withDescription("the path of the tree")
+                                        .withMinimum(0)
+                                        .withMaximum(1)
+                                        .create())
+                        .create())
+                .create();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
 #### Snippet
 ```java
                 .withChildren(new GroupBuilder()
                         .withName("Options:")
+                        .withOption(optKeepChanges = new DefaultOptionBuilder()
+                                .withShortName("k")
+                                .withDescription("keep changes")
+                                .create())
                         .withOption(argJcrPath = new ArgumentBuilder()
                                 .withName("jcr-path")
-                                .withDescription("the jcr path")
-                                .withMinimum(1)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
 ```
 
 ### NestedAssignment
@@ -8984,6 +8783,23 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
                                 .create())
                         .withOption(argMountpoint = new ArgumentBuilder()
                                 .withName("uri")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
+#### Snippet
+```java
+                                .withDescription("keep changes")
+                                .create())
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(0)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
 ```
 
 ### NestedAssignment
@@ -9039,41 +8855,34 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdConnect.java`
 #### Snippet
 ```java
                 .withChildren(new GroupBuilder()
                         .withName("Options:")
-                        .withOption(optRecursive = new DefaultOptionBuilder()
-                                .withShortName("r")
-                                .withDescription("limit depth")
-                                .withArgument(new ArgumentBuilder()
-                                        .withName("depth")
-                                        .withDescription("limit tree to <depth>")
-                                        .withMinimum(1)
-                                        .withMaximum(1)
-                                        .withValidator(NumberValidator.getIntegerInstance())
-                                        .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withShortName("f")
+                                .withDescription("force reconnect if already connected")
                                 .create())
-                        .withOption(argPath = new ArgumentBuilder()
-                                        .withName("path")
+                        .withOption(argURI = new ArgumentBuilder()
+                                .withName("rmiuri")
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdConnect.java`
 #### Snippet
 ```java
-                                        .create())
+                                .withDescription("force reconnect if already connected")
                                 .create())
-                        .withOption(argPath = new ArgumentBuilder()
-                                        .withName("path")
-                                        .withDescription("the path of the tree")
-                                        .withMinimum(0)
-                                        .withMaximum(1)
-                                        .create())
-                        .create())
-                .create();
+                        .withOption(argURI = new ArgumentBuilder()
+                                .withName("rmiuri")
+                                .withDescription("the rmi uri of the repository")
+                                .withMinimum(0)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
 ```
 
 ### NestedAssignment
@@ -9138,70 +8947,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsJcrFs.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optKeepChanges = new DefaultOptionBuilder()
-                                .withShortName("k")
-                                .withDescription("keep changes")
-                                .create())
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
-#### Snippet
-```java
-                                .withDescription("keep changes")
-                                .create())
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
-                                .withDescription("the jcr path")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdConnect.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withShortName("f")
-                                .withDescription("force reconnect if already connected")
-                                .create())
-                        .withOption(argURI = new ArgumentBuilder()
-                                .withName("rmiuri")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdConnect.java`
-#### Snippet
-```java
-                                .withDescription("force reconnect if already connected")
-                                .create())
-                        .withOption(argURI = new ArgumentBuilder()
-                                .withName("rmiuri")
-                                .withDescription("the rmi uri of the repository")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropGet.java`
 #### Snippet
 ```java
@@ -9247,119 +8992,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropGet.java`
                                 .create())
                         .create()
                 )
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
-#### Snippet
-```java
-                                        .create())
-                                */
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("local-path")
-                                .withDescription("the local path")
-                                .withMinimum(1)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
-#### Snippet
-```java
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcrl-path")
-                                .withDescription("the jcr path")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
-#### Snippet
-```java
-                        .withOption(OPT_VERBOSE)
-                        .withOption(OPT_QUIET)
-                        .withOption(optNonRecursive = new DefaultOptionBuilder()
-                                .withShortName("N")
-                                .withLongName("non-recursive")
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
-#### Snippet
-```java
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-                                .withDescription("force operation to run")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
-#### Snippet
-```java
-                                .withDescription("force operation to run")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("local file or directory to add")
-                                .withMinimum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInfo.java`
-#### Snippet
-```java
-                        .withOption(OPT_VERBOSE)
-                        .withOption(OPT_QUIET)
-                        .withOption(optRecursive = new DefaultOptionBuilder()
-                                .withShortName("R")
-                                .withLongName("recursive")
-                                .withDescription("operate recursive")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInfo.java`
-#### Snippet
-```java
-                                .withDescription("operate recursive")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to display info")
-                                .withMinimum(0)
-                                .create()
-                        )
-                        .create()
 ```
 
 ### NestedAssignment
@@ -9430,16 +9062,78 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPropSet.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInvalidate.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInfo.java`
 #### Snippet
 ```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
-                                .withDescription("the jcr path")
+                        .withOption(OPT_VERBOSE)
+                        .withOption(OPT_QUIET)
+                        .withOption(optRecursive = new DefaultOptionBuilder()
+                                .withShortName("R")
+                                .withLongName("recursive")
+                                .withDescription("operate recursive")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInfo.java`
+#### Snippet
+```java
+                                .withDescription("operate recursive")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("file or directory to display info")
+                                .withMinimum(0)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
+#### Snippet
+```java
+                        .withOption(OPT_VERBOSE)
+                        .withOption(OPT_QUIET)
+                        .withOption(optNonRecursive = new DefaultOptionBuilder()
+                                .withShortName("N")
+                                .withLongName("non-recursive")
+                                .withDescription("operate on single directory")
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
+#### Snippet
+```java
+                                .withDescription("operate on single directory")
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+                                .withDescription("force operation to run")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdAdd.java`
+#### Snippet
+```java
+                                .withDescription("force operation to run")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("local file or directory to add")
                                 .withMinimum(1)
-                                .withMaximum(1)
                                 .create()
                         )
                         .create()
@@ -9626,6 +9320,23 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRcp.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdInvalidate.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(1)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSync.java`
 #### Snippet
 ```java
@@ -9658,138 +9369,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdSync.java`
                             .create())
                         .withOption(argCommand)
                         .withOption(argLocalPath)
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
-#### Snippet
-```java
-                        .withName("Options:")
-                        .withOption(OPT_QUIET)
-                        .withOption(optRecursive = new DefaultOptionBuilder()
-                                .withShortName("R")
-                                .withLongName("recursive")
-                                .withDescription("descend recursively")
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
-#### Snippet
-```java
-                                .withDescription("descend recursively")
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withLongName("force")
-                                .withDescription("resolve even if contains conflict markers")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
-#### Snippet
-```java
-                                .withDescription("resolve even if contains conflict markers")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to resolve")
-                                .withMinimum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optCreds = new DefaultOptionBuilder()
-                                .withShortName("c")
-                                .withLongName("credentials")
-                                .withDescription("simple connection credentials")
-                                .withArgument(new ArgumentBuilder()
-                                        .withName("user:pass")
-                                        .withMinimum(0)
-                                        .withMaximum(1)
-                                        .create())
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withShortName("f")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
-#### Snippet
-```java
-                                        .create())
-                                .create())
-                        .withOption(optForce = new DefaultOptionBuilder()
-                                .withShortName("f")
-                                .withLongName("force")
-                                .withDescription("force relogin if already logged in")
-                                .create())
-                        .withOption(argWorkspace = new ArgumentBuilder()
-                                        .withName("workspace")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
-#### Snippet
-```java
-                                .withDescription("force relogin if already logged in")
-                                .create())
-                        .withOption(argWorkspace = new ArgumentBuilder()
-                                        .withName("workspace")
-                                        .withMinimum(0)
-                                        .withMaximum(1)
-                                        .create())
-                                .create())
-                        .create();
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDiff.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(optNonRecursive = new DefaultOptionBuilder()
-                                .withShortName("N")
-                                .withLongName("non-recursive")
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDiff.java`
-#### Snippet
-```java
-                                .withDescription("operate on single directory")
-                                .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to display the diffs from")
-                                .withMinimum(0)
-                                .create()
-                        )
-                        .create()
 ```
 
 ### NestedAssignment
@@ -9858,6 +9437,53 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdStatus.java`
 
 ### NestedAssignment
 Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
+#### Snippet
+```java
+                        .withName("Options:")
+                        .withOption(OPT_QUIET)
+                        .withOption(optRecursive = new DefaultOptionBuilder()
+                                .withShortName("R")
+                                .withLongName("recursive")
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
+#### Snippet
+```java
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withLongName("force")
+                                .withDescription("resolve even if contains conflict markers")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdResolved.java`
+#### Snippet
+```java
+                                .withDescription("resolve even if contains conflict markers")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("file or directory to resolve")
+                                .withMinimum(1)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
 #### Snippet
 ```java
@@ -9869,22 +9495,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
                                 .create())
                         .withOption(optUUID = new DefaultOptionBuilder()
                                 .withShortName("u")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
-#### Snippet
-```java
-                        .withName("Options:")
-                        .withOption(OPT_VERBOSE)
-                        .withOption(optSync = new DefaultOptionBuilder()
-                                .withShortName("s")
-                                .withLongName("sync")
-                                .withDescription("put local files under vault control.")
-                                .create())
-                        .withOption(optSysView = new DefaultOptionBuilder()
-                                .withLongName("sysview")
 ```
 
 ### NestedAssignment
@@ -9919,65 +9529,31 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDiff.java`
 #### Snippet
 ```java
-                                .withDescription("put local files under vault control.")
-                                .create())
-                        .withOption(optSysView = new DefaultOptionBuilder()
-                                .withLongName("sysview")
-                                .withDescription("specifies that the indicated local file has the sysview format")
-                                .create())
-                        .withOption(argMountpoint = new ArgumentBuilder()
-                                .withName("uri")
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
-#### Snippet
-```java
-                                .withDescription("specifies that the indicated local file has the sysview format")
-                                .create())
-                        .withOption(argMountpoint = new ArgumentBuilder()
-                                .withName("uri")
-                                .withDescription("mountpoint uri")
-                                .withMinimum(1)
-                                .withMaximum(1)
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(optNonRecursive = new DefaultOptionBuilder()
+                                .withShortName("N")
+                                .withLongName("non-recursive")
+                                .withDescription("operate on single directory")
                                 .create())
                         .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("local-path")
+                                .withName("file")
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDiff.java`
 #### Snippet
 ```java
-                                .withMaximum(1)
+                                .withDescription("operate on single directory")
                                 .create())
                         .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("local-path")
-                                .withDescription("the local path")
+                                .withName("file")
+                                .withDescription("file or directory to display the diffs from")
                                 .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
-#### Snippet
-```java
-                                .create()
-                        )
-                        .withOption(argJcrPath = new ArgumentBuilder()
-                                .withName("jcr-path")
-                                .withDescription("the jcr path")
-                                .withMinimum(0)
-                                .withMaximum(1)
                                 .create()
                         )
                         .create()
@@ -10030,6 +9606,91 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDump.java`
                                 .create())
                         .create())
                 .create();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(optCreds = new DefaultOptionBuilder()
+                                .withShortName("c")
+                                .withLongName("credentials")
+                                .withDescription("simple connection credentials")
+                                .withArgument(new ArgumentBuilder()
+                                        .withName("user:pass")
+                                        .withMinimum(0)
+                                        .withMaximum(1)
+                                        .create())
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withShortName("f")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
+#### Snippet
+```java
+                                        .create())
+                                .create())
+                        .withOption(optForce = new DefaultOptionBuilder()
+                                .withShortName("f")
+                                .withLongName("force")
+                                .withDescription("force relogin if already logged in")
+                                .create())
+                        .withOption(argWorkspace = new ArgumentBuilder()
+                                        .withName("workspace")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLogin.java`
+#### Snippet
+```java
+                                .withDescription("force relogin if already logged in")
+                                .create())
+                        .withOption(argWorkspace = new ArgumentBuilder()
+                                        .withName("workspace")
+                                        .withMinimum(0)
+                                        .withMaximum(1)
+                                        .create())
+                                .create())
+                        .create();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRevert.java`
+#### Snippet
+```java
+                        .withName("Options:")
+                        .withOption(OPT_QUIET)
+                        .withOption(optRecursive = new DefaultOptionBuilder()
+                                .withShortName("R")
+                                .withLongName("recursive")
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRevert.java`
+#### Snippet
+```java
+                                .withDescription("descend recursively")
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("file")
+                                .withDescription("file or directory to revert")
+                                .withMinimum(1)
+                                .create()
+                        )
+                        .create()
 ```
 
 ### NestedAssignment
@@ -10138,31 +9799,100 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCommit.java`
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRevert.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
 #### Snippet
 ```java
                         .withName("Options:")
-                        .withOption(OPT_QUIET)
-                        .withOption(optRecursive = new DefaultOptionBuilder()
-                                .withShortName("R")
-                                .withLongName("recursive")
-                                .withDescription("descend recursively")
+                        .withOption(OPT_VERBOSE)
+                        .withOption(optSync = new DefaultOptionBuilder()
+                                .withShortName("s")
+                                .withLongName("sync")
+                                .withDescription("put local files under vault control.")
                                 .create())
-                        .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
+                        .withOption(optSysView = new DefaultOptionBuilder()
+                                .withLongName("sysview")
 ```
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRevert.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
 #### Snippet
 ```java
-                                .withDescription("descend recursively")
+                                .withDescription("put local files under vault control.")
+                                .create())
+                        .withOption(optSysView = new DefaultOptionBuilder()
+                                .withLongName("sysview")
+                                .withDescription("specifies that the indicated local file has the sysview format")
+                                .create())
+                        .withOption(argMountpoint = new ArgumentBuilder()
+                                .withName("uri")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
+#### Snippet
+```java
+                                .withDescription("specifies that the indicated local file has the sysview format")
+                                .create())
+                        .withOption(argMountpoint = new ArgumentBuilder()
+                                .withName("uri")
+                                .withDescription("mountpoint uri")
+                                .withMinimum(1)
+                                .withMaximum(1)
                                 .create())
                         .withOption(argLocalPath = new ArgumentBuilder()
-                                .withName("file")
-                                .withDescription("file or directory to revert")
+                                .withName("local-path")
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
+#### Snippet
+```java
+                                .withMaximum(1)
+                                .create())
+                        .withOption(argLocalPath = new ArgumentBuilder()
+                                .withName("local-path")
+                                .withDescription("the local path")
+                                .withMinimum(0)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .withOption(argJcrPath = new ArgumentBuilder()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdImportCli.java`
+#### Snippet
+```java
+                                .create()
+                        )
+                        .withOption(argJcrPath = new ArgumentBuilder()
+                                .withName("jcr-path")
+                                .withDescription("the jcr path")
+                                .withMinimum(0)
+                                .withMaximum(1)
+                                .create()
+                        )
+                        .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdExec.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(argMacro = new ArgumentBuilder()
+                                .withName("macro")
+                                .withDescription(
+                                        "specifies the command stored in the environment property" +
+                                        " 'macro.<macro>'.")
                                 .withMinimum(1)
+                                .withMaximum(1)
                                 .create()
                         )
                         .create()
@@ -10187,17 +9917,15 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/Cm
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdExec.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdHelp.java`
 #### Snippet
 ```java
                 .withChildren(new GroupBuilder()
                         .withName("Options:")
-                        .withOption(argMacro = new ArgumentBuilder()
-                                .withName("macro")
-                                .withDescription(
-                                        "specifies the command stored in the environment property" +
-                                        " 'macro.<macro>'.")
-                                .withMinimum(1)
+                        .withOption(argCommand = new ArgumentBuilder()
+                                .withName("command")
+                                .withDescription("prints the help for the given command")
+                                .withMinimum(0)
                                 .withMaximum(1)
                                 .create()
                         )
@@ -10241,23 +9969,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/Cm
 
 ### NestedAssignment
 Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdHelp.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(argCommand = new ArgumentBuilder()
-                                .withName("command")
-                                .withDescription("prints the help for the given command")
-                                .withMinimum(0)
-                                .withMaximum(1)
-                                .create()
-                        )
-                        .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/CmdCtx.java`
 #### Snippet
 ```java
@@ -10271,6 +9982,23 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/Cm
                                 .create()
                         )
                         .create()
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/platform/CmdCd.java`
+#### Snippet
+```java
+                .withChildren(new GroupBuilder()
+                        .withName("Options:")
+                        .withOption(argPath = new ArgumentBuilder()
+                                        .withName("path")
+                                        .withDescription("destination path. changes to root directory if missing.")
+                                        .withMinimum(0)
+                                        .withMaximum(1)
+                                        .create())
+                        .create())
+                .create();
 ```
 
 ### NestedAssignment
@@ -10306,23 +10034,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/Cm
                                 .create()
                         )
                         .create()
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/platform/CmdCd.java`
-#### Snippet
-```java
-                .withChildren(new GroupBuilder()
-                        .withName("Options:")
-                        .withOption(argPath = new ArgumentBuilder()
-                                        .withName("path")
-                                        .withDescription("destination path. changes to root directory if missing.")
-                                        .withMinimum(0)
-                                        .withMaximum(1)
-                                        .create())
-                        .create())
-                .create();
 ```
 
 ### NestedAssignment
@@ -10441,6 +10152,294 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/platform/Cm
                 .create();
 ```
 
+### NestedAssignment
+Result of assignment expression used
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+        lines.clear();
+        String line;
+        while ((line = br.readLine()) != null) {
+            Line l = new Line(line, lineNo++);
+            lines.put(l.name, l);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
+#### Snippet
+```java
+                        byte[] buffer = new byte[8192];
+                        int read;
+                        while ((read = in.read(buffer)) >= 0) {
+                            out.write(buffer, 0, read);
+                        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+        String action = "A";
+        if (ntFile == null) {
+            e.node = ntFile = e.parentNode.addNode(e.jcrName, NodeType.NT_FILE);
+            content = ntFile.addNode(Node.JCR_CONTENT, NodeType.NT_RESOURCE);
+        } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+                                boolean isAnotherValidatorInterested = genericJcrDataValidators.values().stream().filter(t-> !t.equals(validator)).anyMatch(x -> x.shouldValidateJcrData(filePath, basePath));
+                                if (isAnotherValidatorInterested) {
+                                    currentInput = resettableInputStream = new ResettableInputStream(input);
+                                }
+                            } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+                                boolean isAnotherValidatorInterested = genericMetaInfDataValidators.values().stream().filter(t-> !t.equals(validator)).anyMatch(x -> x.shouldValidateMetaInfData(filePath, basePath));
+                                if (isAnotherValidatorInterested) {
+                                    currentInput = resettableInputStream = new ResettableInputStream(input);
+                                }
+                            } else {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+#### Snippet
+```java
+        try (ZipInputStream zin = new ZipInputStream(in)) {
+            ZipEntry entry;
+            while ((entry = zin.getNextEntry()) != null) {
+                String name = entry.getName();
+                String[] names = Text.explode(name, '/');
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+#### Snippet
+```java
+        int read;
+        int total = 0;
+        while ((read = in.read(buffer)) > 0) {
+            raf.write(buffer, 0, read);
+            total += read;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+#### Snippet
+```java
+        int read;
+        int total = 0;
+        while ((read = in.read(decompressed, pos, decompressed.length - pos)) > 0) {
+            total += read;
+            pos += read;
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
+#### Snippet
+```java
+        ZipEntry entry;
+        boolean hasRoot = false;
+        while ((entry = zin.getNextEntry()) != null) {
+            String name = entry.getName();
+            boolean isMeta = name.startsWith(Constants.META_DIR + "/");
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AbstractArtifact.java`
+#### Snippet
+```java
+            byte[] buffer = new byte[8192];
+            int read;
+            while ((read = in.read(buffer)) >= 0) {
+                out.write(buffer, 0, read);
+            }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+        if (pathMapping != null) {
+            filter = filter.translate(pathMapping);
+            this.archive = archive = new MappedArchive(archive, pathMapping);
+            this.archive.open(true);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/NodeStash.java`
+#### Snippet
+```java
+                try {
+                    Node root = session.getNode(rootPath);
+                    return tmpNode = root.addNode("tmp" + System.currentTimeMillis(), JcrConstants.NT_UNSTRUCTURED);
+                } catch (RepositoryException e) {
+                    log.debug("unable to create temporary stash location below {}.", rootPath);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.java`
+#### Snippet
+```java
+                    if (ret == 0 && pos == end) {
+                        // in this case we didn't get more, so flush
+                        pos = end = 0;
+                        continue;
+                    } else if (ret == -1) {
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+
+        // add snipples
+        while ((pos = str.indexOf(ch, lastpos)) >= 0) {
+            if (pos - lastpos > 0 || respectEmpty) {
+                strings.add(str.substring(lastpos, pos));
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
+#### Snippet
+```java
+        byte[] buffer = new byte[8192];
+        int read;
+        while ((read = in.read(buffer)) > 0) {
+            md.update(buffer, 0, read);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MD5.java`
+#### Snippet
+```java
+        byte[] buffer = new byte[8192];
+        int read;
+        while ((read = in.read(buffer)) > 0) {
+            md.update(buffer, 0, read);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+        }
+        boolean contained;
+        if ((contained = contains(path)) || isAncestor(path)) {
+            if (contained) {
+                tracker.track("A", path);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+     */
+    public void load(final InputStream in) throws IOException, ConfigurationException {
+        byte[] tmpSource = source = IOUtils.toByteArray(in);
+        try (InputStream inCopy = getSource()) {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+                groupId = name.substring(0, idx);
+                name = name.substring(idx + 1);
+            } else if ((idx = groupId.lastIndexOf('/')) >=0 && isVersion) {
+                groupId = segs[0].substring(0, idx);
+                name = segs[0].substring(idx + 1);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/DependencyUtil.java`
+#### Snippet
+```java
+                        throw new CyclicDependencyException();
+                    } else if (res == null) {
+                        result.put(id, res = false);
+                    }
+                    resolve(entry.getValue(), list, result);
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntries.java`
+#### Snippet
+```java
+        for (VltEntry e: entries.values()) {
+            if (e.isDirty()) {
+                return dirty = true;
+            }
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+            try (BufferedReader in = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    if (line.startsWith(Hunk3.MARKER_B[0])
+                            || line.startsWith(Hunk3.MARKER_L[0])
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/UpdateableZipFile.java`
+#### Snippet
+```java
+        byte[] buffer = new byte[8192];
+        int read;
+        while ((read = in.read(buffer)) >= 0) {
+            out.write(buffer, 0, read);
+        }
+```
+
+### NestedAssignment
+Result of assignment expression used
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntry.java`
+#### Snippet
+```java
+        for (VltEntryInfo info: infos.values()) {
+            if (((XmlEntryInfo) info).isDirty()) {
+                return dirty = true;
+            }
+        }
+```
+
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `processedInfos` are updated, but never queried
@@ -10455,6 +10454,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 ```
 
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `currentInput` is accessed in both synchronized and unsynchronized contexts
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ResettableInputStream.java`
+#### Snippet
+```java
+    private final Path tmpFile;
+    private final OutputStream tmpOutputStream ;
+    private InputStream currentInput; // might already point to a buffered one
+    private boolean isAtStart;
+
+```
+
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `isAtStart` is accessed in both synchronized and unsynchronized contexts
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ResettableInputStream.java`
+#### Snippet
+```java
+    private final OutputStream tmpOutputStream ;
+    private InputStream currentInput; // might already point to a buffered one
+    private boolean isAtStart;
+
+    /**
+```
+
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `pos` is accessed in both synchronized and unsynchronized contexts
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
@@ -10503,30 +10526,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
     /**
 ```
 
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `isAtStart` is accessed in both synchronized and unsynchronized contexts
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ResettableInputStream.java`
-#### Snippet
-```java
-    private final OutputStream tmpOutputStream ;
-    private InputStream currentInput; // might already point to a buffered one
-    private boolean isAtStart;
-
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentInput` is accessed in both synchronized and unsynchronized contexts
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ResettableInputStream.java`
-#### Snippet
-```java
-    private final Path tmpFile;
-    private final OutputStream tmpOutputStream ;
-    private InputStream currentInput; // might already point to a buffered one
-    private boolean isAtStart;
-
-```
-
 ## RuleId[id=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
 `v >>> 0` can be replaced with 'v'
@@ -10540,21 +10539,116 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MD5.java`
 
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-20-13-29-00.213.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=DuplicateThrows]
 ### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/WorkspaceFilterDeserializer.java`
+#### Snippet
+```java
+
+    @Override
+    public WorkspaceFilter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        if (p.nextValue() != JsonToken.VALUE_STRING) {
+            throw new JsonParseException("Expected string value", p.getCurrentLocation());
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
+        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
+        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
+        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
+        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
+#### Snippet
+```java
+            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
+            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
+                    throws RepositoryException, NamespaceExceptionInNodeName;
+    @NotNull JcrNodeTypeMetaData addUnknownChildNode(@NotNull NameResolver nameResolver, @NotNull NodeContext nodeContext, @NotNull String name) throws IllegalNameException, NamespaceException;
+    
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
+#### Snippet
+```java
+    @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren();
+    Optional<JcrNodeTypeMetaData> getNode(NamePathResolver nameResolver, String path)
+            throws ItemNotFoundException, RepositoryException;
+    @NotNull JcrNodeTypeMetaData getOrCreateNode(NamePathResolver nameResolver, @NotNull NodeContext nodeContext, String path) throws RepositoryException;
+    
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.NamespaceException', in the throws list already.
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
+            boolean isImplicit, @NotNull NodeContext context, @NotNull String name, @Nullable Name... nodeTypes)
+            throws ConstraintViolationException, NoSuchNodeTypeException, NamespaceExceptionInNodeName, NamespaceException,
+            IllegalNameException {
+
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
+            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
+            throws IllegalNameException, RepositoryException, NamespaceExceptionInNodeName {
+
+        List<Name> types = getTypes(nameResolver, primaryType, mixinTypes);
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
+            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
+            throws IllegalNameException, RepositoryException, NamespaceExceptionInNodeName {
+
+        List<Name> types = getTypes(nameResolver, primaryType, mixinTypes);
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerProvider.java`
+#### Snippet
+```java
+    }
+
+    public void registerNodeTypes(Reader reader) throws InvalidNodeTypeDefinitionException, NodeTypeExistsException, UnsupportedRepositoryOperationException, ParseException, RepositoryException, IOException {
+        CndImporter.registerNodeTypes(reader, null, nodeTypeManager, namespaceRegistry, getJcrValueFactory(), false);
+    }
+```
+
+### DuplicateThrows
 There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerProvider.java`
 #### Snippet
@@ -10580,14 +10674,50 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerP
 
 ### DuplicateThrows
 There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerProvider.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
 #### Snippet
 ```java
     }
 
-    public void registerNodeTypes(Reader reader) throws InvalidNodeTypeDefinitionException, NodeTypeExistsException, UnsupportedRepositoryOperationException, ParseException, RepositoryException, IOException {
-        CndImporter.registerNodeTypes(reader, null, nodeTypeManager, namespaceRegistry, getJcrValueFactory(), false);
+    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
+        List<Value> binaryValues = new ArrayList<>(values.length);
+        if (!isReferenceProperty) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
     }
+
+    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
+        List<Value> binaryValues = new ArrayList<>(values.length);
+        if (!isReferenceProperty) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+    }
+
+    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
+        List<Value> binaryValues = new ArrayList<>(values.length);
+        if (!isReferenceProperty) {
+```
+
+### DuplicateThrows
+There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+    }
+
+    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
+        List<Value> binaryValues = new ArrayList<>(values.length);
+        if (!isReferenceProperty) {
 ```
 
 ### DuplicateThrows
@@ -10652,54 +10782,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/DefaultP
 
 ### DuplicateThrows
 There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-    }
-
-    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
-        List<Value> binaryValues = new ArrayList<>(values.length);
-        if (!isReferenceProperty) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-    }
-
-    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
-        List<Value> binaryValues = new ArrayList<>(values.length);
-        if (!isReferenceProperty) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-    }
-
-    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
-        List<Value> binaryValues = new ArrayList<>(values.length);
-        if (!isReferenceProperty) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-    }
-
-    private boolean applyBinary(Node node, Value... existingValues) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
-        List<Value> binaryValues = new ArrayList<>(values.length);
-        if (!isReferenceProperty) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
 #### Snippet
 ```java
@@ -10744,105 +10826,45 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorks
     private static void saveRules(Node setNode, List<FilterSet.Entry<PathFilter>> entries, String propertyName) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
         List<String> rules = new LinkedList<>();
         for (FilterSet.Entry<PathFilter> e: entries) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/WorkspaceFilterDeserializer.java`
-#### Snippet
-```java
-
-    @Override
-    public WorkspaceFilter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        if (p.nextValue() != JsonToken.VALUE_STRING) {
-            throw new JsonParseException("Expected string value", p.getCurrentLocation());
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
-#### Snippet
-```java
-    }
-
-    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
-        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
-        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
-#### Snippet
-```java
-    }
-
-    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
-        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
-        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
-#### Snippet
-```java
-    @NotNull Collection<@NotNull ? extends JcrNodeTypeMetaData> getChildren();
-    Optional<JcrNodeTypeMetaData> getNode(NamePathResolver nameResolver, String path)
-            throws ItemNotFoundException, RepositoryException;
-    @NotNull JcrNodeTypeMetaData getOrCreateNode(NamePathResolver nameResolver, @NotNull NodeContext nodeContext, String path) throws RepositoryException;
-    
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaData.java`
-#### Snippet
-```java
-            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
-            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
-                    throws RepositoryException, NamespaceExceptionInNodeName;
-    @NotNull JcrNodeTypeMetaData addUnknownChildNode(@NotNull NameResolver nameResolver, @NotNull NodeContext nodeContext, @NotNull String name) throws IllegalNameException, NamespaceException;
-    
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
-            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
-            throws IllegalNameException, RepositoryException, NamespaceExceptionInNodeName {
-
-        List<Name> types = getTypes(nameResolver, primaryType, mixinTypes);
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.RepositoryException', in the throws list already.
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
-            @NotNull NodeContext nodeContext, @NotNull String primaryType, String... mixinTypes)
-            throws IllegalNameException, RepositoryException, NamespaceExceptionInNodeName {
-
-        List<Name> types = getTypes(nameResolver, primaryType, mixinTypes);
-```
-
-### DuplicateThrows
-There is a more general exception, 'javax.jcr.NamespaceException', in the throws list already.
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-            @NotNull NodeTypeDefinitionProvider nodeTypeDefinitionProvider, @NotNull ItemDefinitionProvider itemDefinitionProvider,
-            boolean isImplicit, @NotNull NodeContext context, @NotNull String name, @Nullable Name... nodeTypes)
-            throws ConstraintViolationException, NoSuchNodeTypeException, NamespaceExceptionInNodeName, NamespaceException,
-            IllegalNameException {
-
 ```
 
 ## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+The value `lines1.length` assigned to `end1` is never used
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
+#### Snippet
+```java
+                    if (c.line0 <= end0) {
+                        end0 = lines0.length;
+                        end1 = lines1.length;
+                        c = c.nextChange;
+                    } else {
+```
+
+### UnusedAssignment
+Variable `value` initializer `""` is redundant
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
+#### Snippet
+```java
+                "                                                             "+
+                "                                                             ";
+        String value="";
+
+        private boolean alignRight;
+```
+
+### UnusedAssignment
+Variable `type` initializer `SerializationType.UNKOWN` is redundant
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
+#### Snippet
+```java
+    public static SerializationType analyze(InputSource source) throws IOException {
+        Reader r = source.getCharacterStream();
+        SerializationType type = SerializationType.UNKOWN;
+        if (r == null) {
+            if (source.getEncoding() == null) {
+```
+
 ### UnusedAssignment
 Variable `lineFeed` initializer `null` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
@@ -10880,18 +10902,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorks
 ```
 
 ### UnusedAssignment
-Variable `type` initializer `SerializationType.UNKOWN` is redundant
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
-#### Snippet
-```java
-    public static SerializationType analyze(InputSource source) throws IOException {
-        Reader r = source.getCharacterStream();
-        SerializationType type = SerializationType.UNKOWN;
-        if (r == null) {
-            if (source.getEncoding() == null) {
-```
-
-### UnusedAssignment
 Variable `temp` initializer `null` is redundant
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
 #### Snippet
@@ -10903,31 +10913,19 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
             temp = tmpFile.openTempFile();
 ```
 
-### UnusedAssignment
-The value `lines1.length` assigned to `end1` is never used
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
-#### Snippet
-```java
-                    if (c.line0 <= end0) {
-                        end0 = lines0.length;
-                        end1 = lines1.length;
-                        c = c.nextChange;
-                    } else {
-```
-
-### UnusedAssignment
-Variable `value` initializer `""` is redundant
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
-#### Snippet
-```java
-                "                                                             "+
-                "                                                             ";
-        String value="";
-
-        private boolean alignRight;
-```
-
 ## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
+#### Snippet
+```java
+        String cmd = data.optString(PARAM_CMD, "");
+        RcpTask task;
+        final String id = data.optString(PARAM_ID, null);;
+        try {
+            // --------------------------------------------------------------------------------------------< create >---
+```
+
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileInputStream.java`
@@ -11012,91 +11010,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageM
             success = true;
 ```
 
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
-#### Snippet
-```java
-        String cmd = data.optString(PARAM_CMD, "");
-        RcpTask task;
-        final String id = data.optString(PARAM_ID, null);;
-        try {
-            // --------------------------------------------------------------------------------------------< create >---
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Can be replaced with 'String.valueOf()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/Lexer.java`
-#### Snippet
-```java
-                return String.valueOf(st.nval);
-            } else {
-                return new String(new char[] {(char) tokenType});
-            }
-        } catch (IOException e) {
-```
-
-### StringOperationCanBeSimplified
-Call to `substring()` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-        int p = 0, q = value.indexOf("${");                // Find first ${
-        while (q != -1) {
-            result.append(value.substring(p, q));          // Text before ${
-            p = q;
-            q = value.indexOf("}", q + 2);                 // Find }
-```
-
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            }
-        }
-        result.append(value.substring(p, value.length())); // Trailing text
-
-        return result.toString();
-```
-
-### StringOperationCanBeSimplified
-Call to `substring()` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-        StringBuffer sb = new StringBuffer(text.length());
-        while (pos != -1) {
-            sb.append(text.substring(lastPos, pos));
-            sb.append(newString);
-            lastPos = pos + oldString.length();
-```
-
-### StringOperationCanBeSimplified
-Call to `substring()` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-    public static String escapeIllegalXpathSearchChars(String s) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(s.substring(0, (s.length() - 1)));
-        char c = s.charAt(s.length() - 1);
-        // NOTE: keep this in sync with _ESCAPED_CHAR below!
-```
-
-### StringOperationCanBeSimplified
-Call to `substring()` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-                    }
-                    if (i > 0) {
-                        buf.append(text.substring(pos, i));
-                    }
-                    pos = i + 1;
-```
-
 ### StringOperationCanBeSimplified
 Call to `substring()` is redundant
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
@@ -11133,6 +11047,78 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.
             }
 ```
 
+### StringOperationCanBeSimplified
+Can be replaced with 'String.valueOf()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/Lexer.java`
+#### Snippet
+```java
+                return String.valueOf(st.nval);
+            } else {
+                return new String(new char[] {(char) tokenType});
+            }
+        } catch (IOException e) {
+```
+
+### StringOperationCanBeSimplified
+Call to `substring()` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+        StringBuffer sb = new StringBuffer(text.length());
+        while (pos != -1) {
+            sb.append(text.substring(lastPos, pos));
+            sb.append(newString);
+            lastPos = pos + oldString.length();
+```
+
+### StringOperationCanBeSimplified
+Call to `substring()` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+                    }
+                    if (i > 0) {
+                        buf.append(text.substring(pos, i));
+                    }
+                    pos = i + 1;
+```
+
+### StringOperationCanBeSimplified
+Call to `substring()` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+    public static String escapeIllegalXpathSearchChars(String s) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(s.substring(0, (s.length() - 1)));
+        char c = s.charAt(s.length() - 1);
+        // NOTE: keep this in sync with _ESCAPED_CHAR below!
+```
+
+### StringOperationCanBeSimplified
+Call to `substring()` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+        int p = 0, q = value.indexOf("${");                // Find first ${
+        while (q != -1) {
+            result.append(value.substring(p, q));          // Text before ${
+            p = q;
+            q = value.indexOf("}", q + 2);                 // Find }
+```
+
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            }
+        }
+        result.append(value.substring(p, value.length())); // Trailing text
+
+        return result.toString();
+```
+
 ## RuleId[id=MethodOverloadsParentMethod]
 ### MethodOverloadsParentMethod
 Method `doExecute()` overloads a compatible method of a superclass, when overriding might have been intended
@@ -11162,18 +11148,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AbstractCmdLs.java`
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipNioArchive.java`
-#### Snippet
-```java
-    private static final class EntryImpl implements Entry {
-
-        protected final Path path;
-
-        private Map<String, EntryImpl> children;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedPropertiesValidator.java`
 #### Snippet
 ```java
@@ -11182,18 +11156,6 @@ public final class AdvancedPropertiesValidator implements GenericMetaInfDataVali
     protected static final String MESSAGE_INVALID_PROPERTIES_XML = "Invalid properties.xml";
 
     static final Path PROPERTIES_XML_PATH = Paths.get(Constants.VAULT_DIR).resolve(Constants.PROPERTIES_XML);
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
-    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
-    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
-    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
-    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11225,11 +11187,11 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
 #### Snippet
 ```java
-    protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE_OF_TYPE = "Package of type '%s' must only contain sub packages of type '%s' but found subpackage of type '%s'!";
-    protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE = "Package of type '%s' is not supposed to contain any subpackages!";
-    protected static final String MESSAGE_DEPENDENCY = "Package of type '%s' must not have package dependencies but found dependencies '%s'!";
-    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
-    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
+    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
+    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
+    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
+    protected static final String SLING_OSGI_CONFIG = NODETYPE_SLING_OSGI_CONFIG;
+    protected static final Path PATH_HOOKS = Paths.get(Constants.VAULT_DIR, Constants.HOOKS_DIR);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11237,11 +11199,23 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
 #### Snippet
 ```java
+    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
+    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
     protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
     protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
     protected static final String SLING_OSGI_CONFIG = NODETYPE_SLING_OSGI_CONFIG;
-    protected static final Path PATH_HOOKS = Paths.get(Constants.VAULT_DIR, Constants.HOOKS_DIR);
-    private final @NotNull PackageType type;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
+    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
+    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
+    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
+    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11261,6 +11235,42 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
 #### Snippet
 ```java
+    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
+    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
+    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
+    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
+    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_DEPENDENCY = "Package of type '%s' must not have package dependencies but found dependencies '%s'!";
+    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
+    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
+    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
+    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
+    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
+    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
+    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
+    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
     protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE = "Package of type '%s' is not supposed to contain any subpackages!";
     protected static final String MESSAGE_DEPENDENCY = "Package of type '%s' must not have package dependencies but found dependencies '%s'!";
     protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
@@ -11273,23 +11283,11 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
 #### Snippet
 ```java
-    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
-    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
-    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
-    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
-    protected static final String SLING_OSGI_CONFIG = NODETYPE_SLING_OSGI_CONFIG;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
-    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
-    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
-    protected static final String SLING_OSGI_CONFIG = NODETYPE_SLING_OSGI_CONFIG;
-    protected static final Path PATH_HOOKS = Paths.get(Constants.VAULT_DIR, Constants.HOOKS_DIR);
+    protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE_OF_TYPE = "Package of type '%s' must only contain sub packages of type '%s' but found subpackage of type '%s'!";
+    protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE = "Package of type '%s' is not supposed to contain any subpackages!";
+    protected static final String MESSAGE_DEPENDENCY = "Package of type '%s' must not have package dependencies but found dependencies '%s'!";
+    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
+    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11302,18 +11300,6 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
     protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
     protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
     protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
-    protected static final String MESSAGE_APP_CONTENT = "Package of type '%s' is not supposed to contain content below root nodes %s!";
-    protected static final String MESSAGE_NO_APP_CONTENT_FOUND = "Package of type '%s' is not supposed to contain content outside root nodes %s!";
-    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
-    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11333,23 +11319,11 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
 #### Snippet
 ```java
-    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
-    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
-    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
-    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
-    protected static final String MESSAGE_ONLY_OSGI_BUNDLE_OR_CONFIG_OR_SUBPACKAGE_ALLOWED = "Package of type '%s' is not supposed to contain anything but OSGi bundles/configurations and subpackages!";
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_DEPENDENCY = "Package of type '%s' must not have package dependencies but found dependencies '%s'!";
-    protected static final String MESSAGE_LEGACY_TYPE = "Package of type '%s' is legacy. Use one of the other types instead!";
-    protected static final String MESSAGE_PACKAGE_HOOKS = "Package of type '%s' must not contain package hooks but has '%s'!";
-    protected static final String MESSAGE_NO_PACKAGE_TYPE_SET = "No package type set, make sure that property 'packageType' is set in the properties.xml!";
-    protected static final String MESSAGE_NO_OSGI_BUNDLE_OR_CONFIG_ALLOWED = "Package of type '%s' is not supposed to contain OSGi bundles or configurations!";
+    protected static final String MESSAGE_PROHIBITED_MUTABLE_PACKAGE_TYPE = "All mutable package types are prohibited and this package is of mutable type '%s'";
+    protected static final String MESSAGE_PROHIBITED_IMMUTABLE_PACKAGE_TYPE = "All immutable package types are prohibited and this package is of immutable type '%s'";
+    protected static final String SLING_OSGI_CONFIG = NODETYPE_SLING_OSGI_CONFIG;
+    protected static final Path PATH_HOOKS = Paths.get(Constants.VAULT_DIR, Constants.HOOKS_DIR);
+    private final @NotNull PackageType type;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11362,6 +11336,66 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 	protected static final String MESSAGE_FILTER_HAS_INCLUDE_EXCLUDES = "Package of type '%s' is not supposed to contain includes/excludes below any of its filters!";
     protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE_OF_TYPE = "Package of type '%s' must only contain sub packages of type '%s' but found subpackage of type '%s'!";
     protected static final String MESSAGE_UNSUPPORTED_SUB_PACKAGE = "Package of type '%s' is not supposed to contain any subpackages!";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
+    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
+    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
+    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED_BUT_VALID_ROOT = "Ancestor node '%s' is not covered by any of the filter rules but that node is a given root (either by a dependency or by the known roots). Remove the file(s) representing that node!";
+    protected static final String MESSAGE_NODE_BELOW_CLEANUP_FILTER = "Node '%s' is covered by a 'cleanup' filter rule. That filter type is only supposed to be used for removing nodes during import!";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_ORPHANED_FILTER_ENTRIES = "Found orphaned filter entries: %s";
+    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
+    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
+    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+public final class AdvancedFilterValidator implements GenericMetaInfDataValidator, FilterValidator, DocumentViewXmlValidator, JcrPathValidator {
+
+    protected static final String MESSAGE_ORPHANED_FILTER_ENTRIES = "Found orphaned filter entries: %s";
+    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
+    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
+    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
+    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
+    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
+    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
+    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
+    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED_BUT_VALID_ROOT = "Ancestor node '%s' is not covered by any of the filter rules but that node is a given root (either by a dependency or by the known roots). Remove the file(s) representing that node!";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11393,11 +11427,11 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
 #### Snippet
 ```java
+
     protected static final String MESSAGE_ORPHANED_FILTER_ENTRIES = "Found orphaned filter entries: %s";
     protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
     protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
     protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11405,11 +11439,11 @@ Class member declared `protected` in 'final' class
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
 #### Snippet
 ```java
+    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
+    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
+    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
     protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
     protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
-    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
-    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
-    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED_BUT_VALID_ROOT = "Ancestor node '%s' is not covered by any of the filter rules but that node is a given root (either by a dependency or by the known roots). Remove the file(s) representing that node!";
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11426,62 +11460,14 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipNioArchive.java`
 #### Snippet
 ```java
-    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
-    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
-    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
-```
+    private static final class EntryImpl implements Entry {
 
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
-    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
-    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_COVERED_BUT_EXCLUDED = "Filter root's ancestor '%s' is defined by dependency '%s' but excluded by its patterns.";
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
-```
+        protected final Path path;
 
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-public final class AdvancedFilterValidator implements GenericMetaInfDataValidator, FilterValidator, DocumentViewXmlValidator, JcrPathValidator {
-
-    protected static final String MESSAGE_ORPHANED_FILTER_ENTRIES = "Found orphaned filter entries: %s";
-    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
-    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    protected static final String MESSAGE_FILTER_ROOT_ANCESTOR_UNDEFINED = "Filter root's ancestor '%s' is not covered by any of the specified dependencies nor a valid root.";
-    protected static final String MESSAGE_NODE_NOT_CONTAINED = "Node '%s' is not contained in any of the filter rules";
-    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED = "Ancestor node '%s' is not covered by any of the filter rules. Preferably depend on a package that provides this node or include it in the filter rules!";
-    protected static final String MESSAGE_ANCESTOR_NODE_NOT_COVERED_BUT_VALID_ROOT = "Ancestor node '%s' is not covered by any of the filter rules but that node is a given root (either by a dependency or by the known roots). Remove the file(s) representing that node!";
-    protected static final String MESSAGE_NODE_BELOW_CLEANUP_FILTER = "Node '%s' is covered by a 'cleanup' filter rule. That filter type is only supposed to be used for removing nodes during import!";
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-
-    protected static final String MESSAGE_ORPHANED_FILTER_ENTRIES = "Found orphaned filter entries: %s";
-    protected static final String MESSAGE_INVALID_PATTERN = "Invalid pattern given ('%s') which will never match for any descendants of the root path '%s'.";
-    protected static final String MESSAGE_ROOT_PATH_NOT_ABSOLUTE = "Root path must be absolute, but does not start with a '/': '%s'.";
-    protected static final String MESSAGE_INVALID_FILTER_XML = "Invalid filter.xml";
+        private Map<String, EntryImpl> children;
 ```
 
 ## RuleId[id=SwitchStatementWithConfusingDeclaration]
@@ -11660,6 +11646,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/Defau
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parentDocViewNode'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ValidatorDocViewParserHandler.java`
+#### Snippet
+```java
+    }
+
+    private void callValidators(boolean isStart, String nodePath, DocViewNode2 docViewNode, Optional<DocViewNode2> parentDocViewNode, int lineNumber,
+            int columnNumber) {
+        violations.add(new ValidationViolation(ValidationMessageSeverity.DEBUG, "Validate node '" + docViewNode + "' " + (isStart ? "start" : "end")));
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentDocViewNode'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/DocViewParserHandler.java`
 #### Snippet
 ```java
@@ -11682,19 +11680,43 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/DocViewParserHand
     /**
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentDocViewNode'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ValidatorDocViewParserHandler.java`
+## RuleId[id=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
 #### Snippet
 ```java
-    }
-
-    private void callValidators(boolean isStart, String nodePath, DocViewNode2 docViewNode, Optional<DocViewNode2> parentDocViewNode, int lineNumber,
-            int columnNumber) {
-        violations.add(new ValidationViolation(ValidationMessageSeverity.DEBUG, "Validate node '" + docViewNode + "' " + (isStart ? "start" : "end")));
+        Reader r = null;
+        try {
+            r = new InputStreamReader(FileUtils.openInputStream(file), "utf-8");
+            load(r);
+        } finally {
 ```
 
-## RuleId[id=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+                Reader r = null;
+                try {
+                    r = new InputStreamReader(in, "utf-8");
+                    load(r);
+                } finally {
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+        Writer w = null;
+        try {
+            w = new OutputStreamWriter(FileUtils.openOutputStream(file), "utf-8");
+            for (Line l: lines.values()) {
+                w.write(l.getLine());
+```
+
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
@@ -11733,18 +11755,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/Jackr
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-            NodeTypeInstaller installer = ServiceProviderFactory.getProvider().getDefaultNodeTypeInstaller(session);
-            CNDReader types = ServiceProviderFactory.getProvider().getCNDReader();
-            types.read(new InputStreamReader(in, "utf8"), DEFAULT_NODETYPES, null);
-            installer.install(null, types);
-        } catch (Exception e) {
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 #### Snippet
 ```java
@@ -11757,6 +11767,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+            NodeTypeInstaller installer = ServiceProviderFactory.getProvider().getDefaultNodeTypeInstaller(session);
+            CNDReader types = ServiceProviderFactory.getProvider().getCNDReader();
+            types.read(new InputStreamReader(in, "utf8"), DEFAULT_NODETYPES, null);
+            installer.install(null, types);
+        } catch (Exception e) {
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVaultFsConfig.java`
 #### Snippet
 ```java
@@ -11765,6 +11787,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVault
             return new String(source, "utf-8");
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException(e);
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+            Cipher cipher = Cipher.getInstance("DES");
+            byte[] keyBytes = key.getEncoded();
+            byte[] data = s.getBytes("utf-8");
+            ByteArrayOutputStream out = new ByteArrayOutputStream(keyBytes.length + data.length);
+            out.write(keyBytes);
 ```
 
 ### CharsetObjectCanBeUsed
@@ -11793,18 +11827,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultMetaIn
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-            Cipher cipher = Cipher.getInstance("DES");
-            byte[] keyBytes = key.getEncoded();
-            byte[] data = s.getBytes("utf-8");
-            ByteArrayOutputStream out = new ByteArrayOutputStream(keyBytes.length + data.length);
-            out.write(keyBytes);
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
 #### Snippet
 ```java
@@ -11825,42 +11847,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorksp
             return new String(source, "utf-8");
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException(e);
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-                Reader r = null;
-                try {
-                    r = new InputStreamReader(in, "utf-8");
-                    load(r);
-                } finally {
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-        Writer w = null;
-        try {
-            w = new OutputStreamWriter(FileUtils.openOutputStream(file), "utf-8");
-            for (Line l: lines.values()) {
-                w.write(l.getLine());
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-        Reader r = null;
-        try {
-            r = new InputStreamReader(FileUtils.openInputStream(file), "utf-8");
-            load(r);
-        } finally {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -11886,42 +11872,6 @@ in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryF
             System.out.printf("Connecting via JCR remoting to %s%n", address.getSpecificURI().toString());
             return new RepositoryFactoryImpl().getRepository(parameters);
         } catch (IOException e) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DefaultProgressListener.java`
-#### Snippet
-```java
-
-    public DefaultProgressListener() {
-        this(new PrintWriter(System.out));
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-            CredentialsStore credsProvider)
-                    throws IOException {
-        this(cwd, localFile, repProvider, credsProvider, System.out, null);
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
-#### Snippet
-```java
-        buf.append(") ").append(prefix);
-        buf.append(doc.getElements()[i]);
-        System.out.println(buf);
-    }
-
 ```
 
 ### SystemOutErr
@@ -12022,6 +11972,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdFormatCli.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
+#### Snippet
+```java
+        buf.append(") ").append(prefix);
+        buf.append(doc.getElements()[i]);
+        System.out.println(buf);
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
 #### Snippet
 ```java
@@ -12030,54 +11992,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdGet.java`
             System.out.println(local.getName() + "  " + local.length() + " bytes.");
             long lastMod = remote.lastModified();
             if (lastMod > 0) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
-#### Snippet
-```java
-                Collection<? extends VaultFile> related = file.getRelated();
-                if (related == null) {
-                    System.out.println("(null)");                    
-                } else {
-                    for (VaultFile f: related) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
-#### Snippet
-```java
-                } else {
-                    for (VaultFile f: related) {
-                        System.out.println(f.getPath());
-                    }
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
-#### Snippet
-```java
-                try {
-                    r.load(file);
-                    DumpContext dCtx = new DumpContext(new PrintWriter(System.out));
-                    r.dump(dCtx, false);
-                    dCtx.flush();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
-#### Snippet
-```java
-                    dCtx.flush();
-                    
-                    IOUtils.copy(r.getSource(), System.out);
-                } catch (Exception e) {
-                    e.printStackTrace();
 ```
 
 ### SystemOutErr
@@ -12130,6 +12044,54 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCat.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
+#### Snippet
+```java
+                Collection<? extends VaultFile> related = file.getRelated();
+                if (related == null) {
+                    System.out.println("(null)");                    
+                } else {
+                    for (VaultFile f: related) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
+#### Snippet
+```java
+                } else {
+                    for (VaultFile f: related) {
+                        System.out.println(f.getPath());
+                    }
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
+#### Snippet
+```java
+                try {
+                    r.load(file);
+                    DumpContext dCtx = new DumpContext(new PrintWriter(System.out));
+                    r.dump(dCtx, false);
+                    dCtx.flush();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDebug.java`
+#### Snippet
+```java
+                    dCtx.flush();
+                    
+                    IOUtils.copy(r.getSource(), System.out);
+                } catch (Exception e) {
+                    e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
 #### Snippet
 ```java
@@ -12138,18 +12100,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdTree.java`
                     System.out.println(indent + pfx + "-- " + files[i].getName());
                     String ind = i == files.length -1 ? "    " : "|   ";
                     if (depth > 0) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
-#### Snippet
-```java
-            try {
-                node.getSession().refresh(cl.hasOption(optKeepChanges));
-                System.out.println("Modifications refreshed.");
-            } catch (RepositoryException e) {
-                throw new ExecutionException("Error while refreshing: " + e);
 ```
 
 ### SystemOutErr
@@ -12178,14 +12128,14 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdRefresh.java`
 #### Snippet
 ```java
-                    SimpleCredentials simpleCredentials = (SimpleCredentials) creds;
-                    if (simpleCredentials.getPassword().length == 0) {
-                        System.out.printf("Please enter password for user %s connecting to %s: ",
-                                simpleCredentials.getUserID(), mountpoint);
-                        String password = new jline.ConsoleReader().readLine('*');
+            try {
+                node.getSession().refresh(cl.hasOption(optKeepChanges));
+                System.out.println("Modifications refreshed.");
+            } catch (RepositoryException e) {
+                throw new ExecutionException("Error while refreshing: " + e);
 ```
 
 ### SystemOutErr
@@ -12198,6 +12148,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
             return new VltContext(cwd, localFile, repProvider, credentialsStore, System.out, options);
         } catch (IOException e) {
             throw new ExecutionException(e);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+                    SimpleCredentials simpleCredentials = (SimpleCredentials) creds;
+                    if (simpleCredentials.getPassword().length == 0) {
+                        System.out.printf("Please enter password for user %s connecting to %s: ",
+                                simpleCredentials.getUserID(), mountpoint);
+                        String password = new jline.ConsoleReader().readLine('*');
 ```
 
 ### SystemOutErr
@@ -12298,6 +12260,42 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/Cm
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+            rootLogger.setLevel(Level.toLevel(level));
+            getEnv().setProperty(KEY_LOGLEVEL, level);
+            System.out.println("Log level set to '" + logLevel + "'");
+        } catch (Throwable e) {
+            System.err.println("Error while setting log level: " + e);
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+            System.out.println("Log level set to '" + logLevel + "'");
+        } catch (Throwable e) {
+            System.err.println("Error while setting log level: " + e);
+        }
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+
+    public void printVersion() {
+        System.out.println(getVersionString());
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/examples/CmdHello.java`
 #### Snippet
 ```java
@@ -12358,36 +12356,24 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DefaultProgressListener.java`
 #### Snippet
 ```java
-            rootLogger.setLevel(Level.toLevel(level));
-            getEnv().setProperty(KEY_LOGLEVEL, level);
-            System.out.println("Log level set to '" + logLevel + "'");
-        } catch (Throwable e) {
-            System.err.println("Error while setting log level: " + e);
-```
 
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
-#### Snippet
-```java
-            System.out.println("Log level set to '" + logLevel + "'");
-        } catch (Throwable e) {
-            System.err.println("Error while setting log level: " + e);
-        }
+    public DefaultProgressListener() {
+        this(new PrintWriter(System.out));
     }
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
 #### Snippet
 ```java
-
-    public void printVersion() {
-        System.out.println(getVersionString());
+            CredentialsStore credsProvider)
+                    throws IOException {
+        this(cwd, localFile, repProvider, credsProvider, System.out, null);
     }
 
 ```
@@ -12468,6 +12454,66 @@ import org.jetbrains.annotations.NotNull;
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
+Constructor `SimpleCredentialsMixin()` of an abstract class should not be declared 'public'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/SimpleCredentialsMixin.java`
+#### Snippet
+```java
+public abstract class SimpleCredentialsMixin {
+    @JsonCreator
+    public SimpleCredentialsMixin(@JsonProperty("userID")String userID, @JsonProperty("password")char[] password) {}
+}
+
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `ConnectionOptionsMixin()` of an abstract class should not be declared 'public'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/ConnectionOptionsMixin.java`
+#### Snippet
+```java
+public abstract class ConnectionOptionsMixin {
+    @JsonCreator
+    public ConnectionOptionsMixin(
+            @JsonProperty("useSystemProperties")boolean isUseSystemPropertes, 
+            @JsonProperty("maxConnections")int maxConnections, 
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RepositoryAddressMixin()` of an abstract class should not be declared 'public'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryAddressMixin.java`
+#### Snippet
+```java
+public abstract class RepositoryAddressMixin {
+    @JsonCreator
+    public RepositoryAddressMixin(@JsonProperty("uri")@NotNull URI uri) {}
+    
+    @JsonIgnore
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `RepositoryCopierMixin()` of an abstract class should not be declared 'public'
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryCopierMixin.java`
+#### Snippet
+```java
+public abstract class RepositoryCopierMixin {
+    @JsonCreator
+    public RepositoryCopierMixin() {}
+
+    @JsonIgnore
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `VaultFsConsoleExecutionContext()` of an abstract class should not be declared 'public'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsConsoleExecutionContext.java`
+#### Snippet
+```java
+    private final VaultFsApp app;
+
+    public VaultFsConsoleExecutionContext(VaultFsApp app, String name) {
+        super(app, name);
+        this.app = app;
+```
+
+### NonProtectedConstructorInAbstractClass
 Constructor `FilterSet()` of an abstract class should not be declared 'public'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/FilterSet.java`
 #### Snippet
@@ -12515,1087 +12561,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
         if (securityConfig != null) {
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `ConnectionOptionsMixin()` of an abstract class should not be declared 'public'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/ConnectionOptionsMixin.java`
-#### Snippet
-```java
-public abstract class ConnectionOptionsMixin {
-    @JsonCreator
-    public ConnectionOptionsMixin(
-            @JsonProperty("useSystemProperties")boolean isUseSystemPropertes, 
-            @JsonProperty("maxConnections")int maxConnections, 
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `SimpleCredentialsMixin()` of an abstract class should not be declared 'public'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/SimpleCredentialsMixin.java`
-#### Snippet
-```java
-public abstract class SimpleCredentialsMixin {
-    @JsonCreator
-    public SimpleCredentialsMixin(@JsonProperty("userID")String userID, @JsonProperty("password")char[] password) {}
-}
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RepositoryCopierMixin()` of an abstract class should not be declared 'public'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryCopierMixin.java`
-#### Snippet
-```java
-public abstract class RepositoryCopierMixin {
-    @JsonCreator
-    public RepositoryCopierMixin() {}
-
-    @JsonIgnore
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RepositoryAddressMixin()` of an abstract class should not be declared 'public'
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryAddressMixin.java`
-#### Snippet
-```java
-public abstract class RepositoryAddressMixin {
-    @JsonCreator
-    public RepositoryAddressMixin(@JsonProperty("uri")@NotNull URI uri) {}
-    
-    @JsonIgnore
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `VaultFsConsoleExecutionContext()` of an abstract class should not be declared 'public'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsConsoleExecutionContext.java`
-#### Snippet
-```java
-    private final VaultFsApp app;
-
-    public VaultFsConsoleExecutionContext(VaultFsApp app, String name) {
-        super(app, name);
-        this.app = app;
-```
-
 ## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
-#### Snippet
-```java
-                return -1;
-            }
-            len = Math.min(len, (int) (end-pos));
-            raf.seek(pos);
-            int read = raf.read(b, off, len);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `n`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
-#### Snippet
-```java
-                return -1;
-            }
-            n = Math.min(n, end - pos);
-            pos+= n;
-            return n;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/ItemFilterSet.java`
-#### Snippet
-```java
-    public boolean contains(Item item, String path, int depth) throws RepositoryException {
-        if (path == null) {
-            path = item.getPath();
-        }
-        if (!covers(path)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-        if (path.charAt(0) != '/') {
-            if (this.path.endsWith("/")) {
-                path = this.path + path;
-            } else {
-                path = this.path + "/" + path;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-                path = this.path + path;
-            } else {
-                path = this.path + "/" + path;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parent`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-            String elem = pathElems[i];
-            if (elem.equals("/")) {
-                parent = getRoot();
-            } else if (elem.equals("..")) {
-                parent = parent.getParent();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parent`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-                parent = getRoot();
-            } else if (elem.equals("..")) {
-                parent = parent.getParent();
-            } else {
-                parent = parent.getChild(elem);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parent`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-                parent = parent.getParent();
-            } else {
-                parent = parent.getChild(elem);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-                throw new IOException("Path not under mountpoint.");
-            }
-            path = path.substring(rootPath.length());
-        }
-        return getFile(root, path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `config`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-            throws RepositoryException {
-        if (config == null) {
-            config = getDefaultConfig();
-        }
-        if (wspFilter == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `wspFilter`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-        }
-        if (wspFilter == null) {
-            wspFilter = getDefaultWorkspaceFilter();
-        }
-        Node rootNode = session.getNode(mountpoint.getPath());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `config`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-    throws RepositoryException {
-        if (config == null) {
-            config = getDefaultConfig();
-        }
-        if (wspFilter == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `wspFilter`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-        }
-        if (wspFilter == null) {
-            wspFilter = getDefaultWorkspaceFilter();
-        }
-        Node rootNode;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `archive`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-        if (pathMapping != null) {
-            filter = filter.translate(pathMapping);
-            this.archive = archive = new MappedArchive(archive, pathMapping);
-            this.archive.open(true);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `parentPath`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-
-        if ("/".equals(parentPath)) {
-            parentPath = "";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `absPath`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-                return null;
-            }
-            absPath = absPath.substring(path.length());
-            TxInfo root = this;
-            for (String name: Text.explode(absPath, '/')) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `info`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-            // remap the child tree in case some of the nodes where moved during import (e.g. authorizable)
-            // todo: this could be a problem during error recovery
-            info = info.remap(imp.getRemapped());
-        }
-        log.trace("committed {}", info.path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
-#### Snippet
-```java
-        if (prop.getDefinition().isMultiple()) {
-            if (index < 0) {
-                index = 0;
-            }
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `index`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
-#### Snippet
-```java
-        } else {
-            if (index >=0) {
-                index = -1;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewSAXHandler.java`
-#### Snippet
-```java
-                }
-            }
-            name = name.substring(0, idx);
-        }
-        return new SimpleEntry<>(name, index);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-    public boolean includes(Node root, Node parent, Property property, String path) throws RepositoryException {
-        if (path == null) {
-            path = property.getPath();
-        }
-        return contentFilter.contains(property, path, PathUtil.getDepth(path) - root.getDepth());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-    public boolean includes(Node root, Node node, String path) throws RepositoryException {
-        if (path == null) {
-            path = node.getPath();
-        }
-        return contentFilter.contains(node, path, PathUtil.getDepth(path) - root.getDepth());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/FileAggregator.java`
-#### Snippet
-```java
-    public boolean includes(Node root, Node node, String path) throws RepositoryException {
-        if (path == null) {
-            path = node.getPath();
-        }
-        int depth = PathUtil.getDepth(path) - root.getDepth();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `elem`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVaultFsConfig.java`
-#### Snippet
-```java
-        while (elem != null && elem.getNodeType() != Node.DOCUMENT_NODE) {
-            path = " > " + elem.getNodeName() + path;
-            elem = elem.getParentNode();
-        }
-        throw new ConfigurationException(msg + ". Location: " + name + path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `nodePath`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
-#### Snippet
-```java
-    private void include(Node node, String nodePath) throws RepositoryException {
-        if (nodePath == null) {
-            nodePath = node.getPath();
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `ni`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-                    }
-                }
-                ni = ni.cloneWithDifferentProperties(preprocessedProperties);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-            if (node.isNodeType(JcrConstants.NT_FILE)) {
-                if (node.hasNode(JcrConstants.JCR_CONTENT)) {
-                    node = node.getNode(JcrConstants.JCR_CONTENT);
-                } else {
-                    node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-                    node = node.getNode(JcrConstants.JCR_CONTENT);
-                } else {
-                    node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
-                }
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `node`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-            }
-        } else {
-            node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `action`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
-#### Snippet
-```java
-    private void print(Mode mode, String action, String path, String msg) {
-        try {
-            action = Text.encodeIllegalXMLCharacters(action);
-            path = Text.encodeIllegalXMLCharacters(path);
-            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
-#### Snippet
-```java
-        try {
-            action = Text.encodeIllegalXMLCharacters(action);
-            path = Text.encodeIllegalXMLCharacters(path);
-            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
-            out.write("<span class=\"");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `msg`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
-#### Snippet
-```java
-            action = Text.encodeIllegalXMLCharacters(action);
-            path = Text.encodeIllegalXMLCharacters(path);
-            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
-            out.write("<span class=\"");
-            out.write(action);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `level`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-                idx = len;
-            }
-            level--;
-        }
-        return level >= 0 ? "" : path.substring(0, idx);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `level`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-                return "";
-            }
-            level--;
-        }
-        return (idx == 0) ? "/" : path.substring(0, idx);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-    public static String getRelativeParent(String path, int level, boolean ignoreTrailingSlash) {
-        if (ignoreTrailingSlash && path.endsWith("/") && path.length() > 1) {
-            path = path.substring(0, path.length()-1);
-        }
-        return getRelativeParent(path, level);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-    public static String getName(String path, boolean ignoreTrailingSlash) {
-        if (ignoreTrailingSlash && path != null && path.endsWith("/") && path.length() > 1) {
-            path = path.substring(0, path.length()-1);
-        }
-        return getName(path);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            if (a > -1 && b > -1) {
-                buffer.append((char) (a * 16 + b));
-                name = name.substring(i + 3);
-            } else {
-                buffer.append('%');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            } else {
-                buffer.append('%');
-                name = name.substring(i + 1);
-            }
-            i = name.indexOf('%');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MimeTypes.java`
-#### Snippet
-```java
-
-    public static boolean matches(String name, String mimeType, String defaultType) {
-        name = name.substring(name.lastIndexOf('.') + 1);
-        MimeType mt = byExtension.get(name);
-        if (mt != null && mt.mimeType.equals(mimeType)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MimeTypes.java`
-#### Snippet
-```java
-     */
-    public static String getMimeType(String name, String defaultType) {
-        name = name.substring(name.lastIndexOf('.') + 1);
-        MimeType mt = byExtension.get(name);
-        if (mt == null) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `recursive`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
-#### Snippet
-```java
-                    } else {
-                        overwrite = false;
-                        recursive = false;
-                        track(dstPath, "%06d -", ++totalNodes);
-                    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
-#### Snippet
-```java
-        if (type == PropertyType.UNDEFINED) {
-            if (NameConstants.JCR_PRIMARYTYPE.equals(name) || NameConstants.JCR_MIXINTYPES.equals(name)) {
-                type = PropertyType.NAME;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `groupId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-    public Dependency(@NotNull String groupId, @NotNull String name, @Nullable VersionRange range) {
-        if (groupId.startsWith(PackageId.ETC_PACKAGES_PREFIX)) {
-            groupId = groupId.substring(PackageId.ETC_PACKAGES_PREFIX.length());
-        }
-        this.groupId = groupId;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `low`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
-#### Snippet
-```java
-    public VersionRange(Version low, boolean lowIncl, Version high, boolean highIncl) {
-        if (low == Version.EMPTY) {
-            low = null;
-        }
-        if (high == Version.EMPTY) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `high`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
-#### Snippet
-```java
-        }
-        if (high == Version.EMPTY) {
-            high = null;
-        }
-        // check if range is valid
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-    public PackageId(String path, Version version) {
-        fromPath = true;
-        path = path.trim();
-        int idx = path.lastIndexOf('.');
-        if (idx > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-            String ext = path.substring(idx);
-            if (".zip".equalsIgnoreCase(ext) || ".jar".equalsIgnoreCase(ext)) {
-                path = path.substring(0, idx);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        }
-        if (version != null && path.endsWith('-'+version.toString())) {
-            path = path.substring(0, path.length() - version.toString().length() - 1);
-        }
-        idx = path.lastIndexOf('/');
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `version`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        // sanitize version
-        if (version == null || version.toString().length() == 0) {
-            version = Version.EMPTY;
-        }
-        this.version = version;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        // validate group
-        if (group.equals(ETC_PACKAGES)) {
-            group = "";
-        } else if (group.startsWith(ETC_PACKAGES_PREFIX)) {
-            group = group.substring(ETC_PACKAGES_PREFIX.length());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-            group = "";
-        } else if (group.startsWith(ETC_PACKAGES_PREFIX)) {
-            group = group.substring(ETC_PACKAGES_PREFIX.length());
-        } else if (group.startsWith("/")) {
-            group = group.substring(1);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-            group = group.substring(ETC_PACKAGES_PREFIX.length());
-        } else if (group.startsWith("/")) {
-            group = group.substring(1);
-        }
-        this.group = group;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-    public PackageId(String path) {
-        fromPath = true;
-        path = path.trim();
-        int idx = path.lastIndexOf('.');
-        if (idx > 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-            String ext = path.substring(idx);
-            if (".zip".equalsIgnoreCase(ext) || ".jar".equalsIgnoreCase(ext)) {
-                path = path.substring(0, idx);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-        if (type == PropertyType.UNDEFINED) {
-            if ("jcr:primaryType".equals(name) || "jcr:mixinTypes".equals(name)) {
-                type = PropertyType.NAME;
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
-#### Snippet
-```java
-        boolean success = false;
-        if (file == null) {
-            file = File.createTempFile("filevault", ".zip");
-            isTmp = true;
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
-#### Snippet
-```java
-        try {
-            if (file == null) {
-                file = File.createTempFile("filevault", ".zip");
-                isTmp = true;
-            }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defNode`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
-#### Snippet
-```java
-        DefaultWorkspaceFilter wsp = new DefaultWorkspaceFilter();
-        if (defNode.hasNode(JcrPackageDefinitionImpl.NN_FILTER)) {
-            defNode = defNode.getNode(JcrPackageDefinitionImpl.NN_FILTER);
-        }
-        for (NodeIterator filters = defNode.getNodes(); filters.hasNext();) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `now`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-        try {
-            if (now == null) {
-                now = Calendar.getInstance();
-            }
-            defNode.setProperty(PN_BUILD_COUNT, String.valueOf(getBuildCount() + 1));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `now`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-        try {
-            if (now == null) {
-                now = Calendar.getInstance();
-            }
-            defNode.setProperty(PN_BUILD_COUNT, String.valueOf(getBuildCount() + 1));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-        } else {
-            if (group.equals(pkgRoot.getPath())) {
-                group = "";
-            } else if (group.startsWith(pkgRoot.getPath() + "/")) {
-                group = group.substring(pkgRoot.getPath().length() + 1);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `group`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-                group = "";
-            } else if (group.startsWith(pkgRoot.getPath() + "/")) {
-                group = group.substring(pkgRoot.getPath().length() + 1);
-            }
-            if (group.startsWith("/")) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `folder`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            throws RepositoryException, IOException {
-        if (folder == null) {
-            folder = getPackageRoot();
-        }
-        return registry.createNew(folder, new PackageId(name), null, true);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `archive`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-        if (!options.isNonRecursive()) {
-            spfArchive = new SubPackageFilterArchive(archive);
-            archive = spfArchive;
-        } else {
-            archive = new ArchiveWrapper(archive);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `archive`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            archive = spfArchive;
-        } else {
-            archive = new ArchiveWrapper(archive);
-        }
-        Set<PackageId> ids = new HashSet<>();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-        while (!file.equals(fileRoot)) {
-            s.insert(0, PlatformNameFormat.getRepositoryName(file.getName())).insert(0, '/');
-            file = file.getParentFile();
-        }
-        return s.toString();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-        String ext = Text.getName(name, '.');
-        if ("zip".equals(ext) || "jar".equals(ext)) {
-            name = name.substring(0, name.length() - 4);
-        }
-        if (!PackageId.isValid(group, name, version)) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `glob`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
-#### Snippet
-```java
-    private static Pattern createPatternFromGlob(String glob) {
-        // only support * and ?
-        glob = glob.replace(".", "\\.");
-        glob = glob.replace("*", ".*");
-        glob = glob.replace("?", ".+");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `glob`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
-#### Snippet
-```java
-        // only support * and ?
-        glob = glob.replace(".", "\\.");
-        glob = glob.replace("*", ".*");
-        glob = glob.replace("?", ".+");
-        return Pattern.compile(glob);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `glob`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
-#### Snippet
-```java
-        glob = glob.replace(".", "\\.");
-        glob = glob.replace("*", ".*");
-        glob = glob.replace("?", ".+");
-        return Pattern.compile(glob);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `root`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
-#### Snippet
-```java
-            return;
-        }
-        root = root.replace('\\', '/');
-        StringBuffer reg = new StringBuffer("^");
-        reg.append(root).append("/");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-
-    public VltException error(String path, String msg) {
-        path = getCwdRelativePath(path);
-        return new VltException(path, true, msg, null);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-
-    public VltException exception(String path, String msg, Throwable cause) {
-        path = getCwdRelativePath(path);
-        return new VltException(path, false, msg, cause);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-    public void printAction(String path, FileAction action, String contentType) {
-        if (!quiet && (verbose || action != FileAction.VOID)) {
-            path = getCwdRelativePath(path);
-            if (action == FileAction.ADDED && contentType != null) {
-                stdout.printf("%s %s (%s)%n", action.letter, path, contentType);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `date`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntryInfo.java`
-#### Snippet
-```java
-    public void setDate(long date) {
-        // round to second
-        date -= date % 1000;
-        if (date != this.date) {
-            this.date = date;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `action`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-            if (diff.hasConflicts()) {
-                entry.conflict(file, baseFile, tmpFile);
-                action = FileAction.CONFLICTED;
-            } else {
-                // make the tmp file the new base
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `action`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-                tmpFile.moveTo(baseFile);
-                base.update(baseFile, true);
-                action = FileAction.MERGED;
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `action`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-            work.update(file, true);
-            if (oldMd5.equals(work.getMd5())) {
-                action = FileAction.VOID;
-            }
-            // check if remote file provided a last modified
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Update.java`
-#### Snippet
-```java
-                return;
-            } else {
-                file = new VltFile(dir, remoteFile.getName(), null);
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/VltTree.java`
-#### Snippet
-```java
-            // if recursive, treat directories as such
-            dir = file;
-            file = null;
-        } else {
-            // if non recursive, treat directories as files
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/RemoteStatus.java`
-#### Snippet
-```java
-        if (file == null) {
-            // would be an addition
-            file = new VltFile(dir, remoteFile.getName(), null);
-            action = FileAction.ADDED;
-        } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `file`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
-#### Snippet
-```java
-            // refetch file
-            if (file == null) {
-                file = files.getFile(remoteFile.getName());
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/DocViewPropertyValueFactory.java`
-#### Snippet
-```java
-        if (type == PropertyType.UNDEFINED) {
-            // simulate behaviour of DocViewProperty.apply(...) which leverages setProperty(String name, String value)
-            type = PropertyType.STRING;
-        }
-        return valueFactory.createValue(value, type);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `input`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/EnhancedBufferedInputStream.java`
-#### Snippet
-```java
-    public static InputStream tryUnwrap(InputStream input) {
-        while (input instanceof EnhancedBufferedInputStream) {
-            input = EnhancedBufferedInputStream.class.cast(input).getDelegate();
-        }
-        return input;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `nodeContext`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-                    if (currentNodeTypeMetaData.getPrimaryNodeType().equals(NameConstants.NT_FILE)) {
-                        // create new node context
-                        nodeContext = new NodeContextImpl(nodeContext.getNodePath() + "/" + JcrConstants.JCR_CONTENT,
-                                nodeContext.getFilePath(), nodeContext.getBasePath());
-                        messages.addAll(
-```
-
 ### AssignmentToMethodParameter
 Assignment to method parameter `showBase`
 in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Hunk3.java`
@@ -13606,18 +12572,6 @@ in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Hunk3.java`
             showBase = left == null && right == null;
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `df`
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
-#### Snippet
-```java
-                first = c;
-            }
-            df = df.nextChange;
-        }
-        return first;
 ```
 
 ### AssignmentToMethodParameter
@@ -13633,51 +12587,15 @@ in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+Assignment to method parameter `df`
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
 #### Snippet
 ```java
-        Value value;
-        if (type == PropertyType.UNDEFINED) {
-            type = PropertyType.STRING;
+                first = c;
+            }
+            df = df.nextChange;
         }
-        try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-        switch(format) {
-        case CFG:
-            name = name.substring(0, name.length() - ".cfg".length());
-            break;
-        case CFG_JSON:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-            break;
-        case CFG_JSON:
-            name = name.substring(0, name.length() - ".cfg.json".length());
-            break;
-        case CONFIG:
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-            break;
-        case CONFIG:
-            name = name.substring(0, name.length() - ".config".length());
-            break;
-        default:
+        return first;
 ```
 
 ### AssignmentToMethodParameter
@@ -13824,7 +12742,1267 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
                 String path = c.getProperty(AbstractApplication.KEY_PATH);
 ```
 
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/DocViewPropertyValueFactory.java`
+#### Snippet
+```java
+        if (type == PropertyType.UNDEFINED) {
+            // simulate behaviour of DocViewProperty.apply(...) which leverages setProperty(String name, String value)
+            type = PropertyType.STRING;
+        }
+        return valueFactory.createValue(value, type);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `input`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/EnhancedBufferedInputStream.java`
+#### Snippet
+```java
+    public static InputStream tryUnwrap(InputStream input) {
+        while (input instanceof EnhancedBufferedInputStream) {
+            input = EnhancedBufferedInputStream.class.cast(input).getDelegate();
+        }
+        return input;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `nodeContext`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+                    if (currentNodeTypeMetaData.getPrimaryNodeType().equals(NameConstants.NT_FILE)) {
+                        // create new node context
+                        nodeContext = new NodeContextImpl(nodeContext.getNodePath() + "/" + JcrConstants.JCR_CONTENT,
+                                nodeContext.getFilePath(), nodeContext.getBasePath());
+                        messages.addAll(
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+        switch(format) {
+        case CFG:
+            name = name.substring(0, name.length() - ".cfg".length());
+            break;
+        case CFG_JSON:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+            break;
+        case CFG_JSON:
+            name = name.substring(0, name.length() - ".cfg.json".length());
+            break;
+        case CONFIG:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+            break;
+        case CONFIG:
+            name = name.substring(0, name.length() - ".config".length());
+            break;
+        default:
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+        Value value;
+        if (type == PropertyType.UNDEFINED) {
+            type = PropertyType.STRING;
+        }
+        try {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+        while (!file.equals(fileRoot)) {
+            s.insert(0, PlatformNameFormat.getRepositoryName(file.getName())).insert(0, '/');
+            file = file.getParentFile();
+        }
+        return s.toString();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `n`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+#### Snippet
+```java
+                return -1;
+            }
+            n = Math.min(n, end - pos);
+            pos+= n;
+            return n;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `len`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+#### Snippet
+```java
+                return -1;
+            }
+            len = Math.min(len, (int) (end-pos));
+            raf.seek(pos);
+            int read = raf.read(b, off, len);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/ItemFilterSet.java`
+#### Snippet
+```java
+    public boolean contains(Item item, String path, int depth) throws RepositoryException {
+        if (path == null) {
+            path = item.getPath();
+        }
+        if (!covers(path)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+        if (path.charAt(0) != '/') {
+            if (this.path.endsWith("/")) {
+                path = this.path + path;
+            } else {
+                path = this.path + "/" + path;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+                path = this.path + path;
+            } else {
+                path = this.path + "/" + path;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `info`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+            // remap the child tree in case some of the nodes where moved during import (e.g. authorizable)
+            // todo: this could be a problem during error recovery
+            info = info.remap(imp.getRemapped());
+        }
+        log.trace("committed {}", info.path);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `archive`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+        if (pathMapping != null) {
+            filter = filter.translate(pathMapping);
+            this.archive = archive = new MappedArchive(archive, pathMapping);
+            this.archive.open(true);
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parentPath`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+
+        if ("/".equals(parentPath)) {
+            parentPath = "";
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `absPath`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+                return null;
+            }
+            absPath = absPath.substring(path.length());
+            TxInfo root = this;
+            for (String name: Text.explode(absPath, '/')) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `config`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+    throws RepositoryException {
+        if (config == null) {
+            config = getDefaultConfig();
+        }
+        if (wspFilter == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `wspFilter`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+        }
+        if (wspFilter == null) {
+            wspFilter = getDefaultWorkspaceFilter();
+        }
+        Node rootNode;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `config`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+            throws RepositoryException {
+        if (config == null) {
+            config = getDefaultConfig();
+        }
+        if (wspFilter == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `wspFilter`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+        }
+        if (wspFilter == null) {
+            wspFilter = getDefaultWorkspaceFilter();
+        }
+        Node rootNode = session.getNode(mountpoint.getPath());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parent`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+            String elem = pathElems[i];
+            if (elem.equals("/")) {
+                parent = getRoot();
+            } else if (elem.equals("..")) {
+                parent = parent.getParent();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parent`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+                parent = getRoot();
+            } else if (elem.equals("..")) {
+                parent = parent.getParent();
+            } else {
+                parent = parent.getChild(elem);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `parent`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+                parent = parent.getParent();
+            } else {
+                parent = parent.getChild(elem);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+                throw new IOException("Path not under mountpoint.");
+            }
+            path = path.substring(rootPath.length());
+        }
+        return getFile(root, path);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
+#### Snippet
+```java
+        if (prop.getDefinition().isMultiple()) {
+            if (index < 0) {
+                index = 0;
+            }
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `index`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
+#### Snippet
+```java
+        } else {
+            if (index >=0) {
+                index = -1;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewSAXHandler.java`
+#### Snippet
+```java
+                }
+            }
+            name = name.substring(0, idx);
+        }
+        return new SimpleEntry<>(name, index);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/FileAggregator.java`
+#### Snippet
+```java
+    public boolean includes(Node root, Node node, String path) throws RepositoryException {
+        if (path == null) {
+            path = node.getPath();
+        }
+        int depth = PathUtil.getDepth(path) - root.getDepth();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+    public boolean includes(Node root, Node parent, Property property, String path) throws RepositoryException {
+        if (path == null) {
+            path = property.getPath();
+        }
+        return contentFilter.contains(property, path, PathUtil.getDepth(path) - root.getDepth());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+    public boolean includes(Node root, Node node, String path) throws RepositoryException {
+        if (path == null) {
+            path = node.getPath();
+        }
+        return contentFilter.contains(node, path, PathUtil.getDepth(path) - root.getDepth());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `elem`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVaultFsConfig.java`
+#### Snippet
+```java
+        while (elem != null && elem.getNodeType() != Node.DOCUMENT_NODE) {
+            path = " > " + elem.getNodeName() + path;
+            elem = elem.getParentNode();
+        }
+        throw new ConfigurationException(msg + ". Location: " + name + path);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `nodePath`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
+#### Snippet
+```java
+    private void include(Node node, String nodePath) throws RepositoryException {
+        if (nodePath == null) {
+            nodePath = node.getPath();
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `level`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+                idx = len;
+            }
+            level--;
+        }
+        return level >= 0 ? "" : path.substring(0, idx);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `level`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+                return "";
+            }
+            level--;
+        }
+        return (idx == 0) ? "/" : path.substring(0, idx);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            if (a > -1 && b > -1) {
+                buffer.append((char) (a * 16 + b));
+                name = name.substring(i + 3);
+            } else {
+                buffer.append('%');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            } else {
+                buffer.append('%');
+                name = name.substring(i + 1);
+            }
+            i = name.indexOf('%');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+    public static String getName(String path, boolean ignoreTrailingSlash) {
+        if (ignoreTrailingSlash && path != null && path.endsWith("/") && path.length() > 1) {
+            path = path.substring(0, path.length()-1);
+        }
+        return getName(path);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+    public static String getRelativeParent(String path, int level, boolean ignoreTrailingSlash) {
+        if (ignoreTrailingSlash && path.endsWith("/") && path.length() > 1) {
+            path = path.substring(0, path.length()-1);
+        }
+        return getRelativeParent(path, level);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `action`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
+#### Snippet
+```java
+    private void print(Mode mode, String action, String path, String msg) {
+        try {
+            action = Text.encodeIllegalXMLCharacters(action);
+            path = Text.encodeIllegalXMLCharacters(path);
+            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
+#### Snippet
+```java
+        try {
+            action = Text.encodeIllegalXMLCharacters(action);
+            path = Text.encodeIllegalXMLCharacters(path);
+            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
+            out.write("<span class=\"");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `msg`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
+#### Snippet
+```java
+            action = Text.encodeIllegalXMLCharacters(action);
+            path = Text.encodeIllegalXMLCharacters(path);
+            msg = msg == null ? null : Text.encodeIllegalXMLCharacters(msg);
+            out.write("<span class=\"");
+            out.write(action);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+            if (node.isNodeType(JcrConstants.NT_FILE)) {
+                if (node.hasNode(JcrConstants.JCR_CONTENT)) {
+                    node = node.getNode(JcrConstants.JCR_CONTENT);
+                } else {
+                    node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+                    node = node.getNode(JcrConstants.JCR_CONTENT);
+                } else {
+                    node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
+                }
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `node`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+            }
+        } else {
+            node = node.addNode(JcrConstants.JCR_CONTENT, JcrConstants.NT_RESOURCE);
+        }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `ni`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+                    }
+                }
+                ni = ni.cloneWithDifferentProperties(preprocessedProperties);
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MimeTypes.java`
+#### Snippet
+```java
+     */
+    public static String getMimeType(String name, String defaultType) {
+        name = name.substring(name.lastIndexOf('.') + 1);
+        MimeType mt = byExtension.get(name);
+        if (mt == null) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/MimeTypes.java`
+#### Snippet
+```java
+
+    public static boolean matches(String name, String mimeType, String defaultType) {
+        name = name.substring(name.lastIndexOf('.') + 1);
+        MimeType mt = byExtension.get(name);
+        if (mt != null && mt.mimeType.equals(mimeType)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+        if (type == PropertyType.UNDEFINED) {
+            if ("jcr:primaryType".equals(name) || "jcr:mixinTypes".equals(name)) {
+                type = PropertyType.NAME;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `low`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
+#### Snippet
+```java
+    public VersionRange(Version low, boolean lowIncl, Version high, boolean highIncl) {
+        if (low == Version.EMPTY) {
+            low = null;
+        }
+        if (high == Version.EMPTY) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `high`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/VersionRange.java`
+#### Snippet
+```java
+        }
+        if (high == Version.EMPTY) {
+            high = null;
+        }
+        // check if range is valid
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `groupId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+    public Dependency(@NotNull String groupId, @NotNull String name, @Nullable VersionRange range) {
+        if (groupId.startsWith(PackageId.ETC_PACKAGES_PREFIX)) {
+            groupId = groupId.substring(PackageId.ETC_PACKAGES_PREFIX.length());
+        }
+        this.groupId = groupId;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `recursive`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
+#### Snippet
+```java
+                    } else {
+                        overwrite = false;
+                        recursive = false;
+                        track(dstPath, "%06d -", ++totalNodes);
+                    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `type`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
+#### Snippet
+```java
+        if (type == PropertyType.UNDEFINED) {
+            if (NameConstants.JCR_PRIMARYTYPE.equals(name) || NameConstants.JCR_MIXINTYPES.equals(name)) {
+                type = PropertyType.NAME;
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+    public PackageId(String path) {
+        fromPath = true;
+        path = path.trim();
+        int idx = path.lastIndexOf('.');
+        if (idx > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+            String ext = path.substring(idx);
+            if (".zip".equalsIgnoreCase(ext) || ".jar".equalsIgnoreCase(ext)) {
+                path = path.substring(0, idx);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+    public PackageId(String path, Version version) {
+        fromPath = true;
+        path = path.trim();
+        int idx = path.lastIndexOf('.');
+        if (idx > 0) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+            String ext = path.substring(idx);
+            if (".zip".equalsIgnoreCase(ext) || ".jar".equalsIgnoreCase(ext)) {
+                path = path.substring(0, idx);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        }
+        if (version != null && path.endsWith('-'+version.toString())) {
+            path = path.substring(0, path.length() - version.toString().length() - 1);
+        }
+        idx = path.lastIndexOf('/');
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `version`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        // sanitize version
+        if (version == null || version.toString().length() == 0) {
+            version = Version.EMPTY;
+        }
+        this.version = version;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        // validate group
+        if (group.equals(ETC_PACKAGES)) {
+            group = "";
+        } else if (group.startsWith(ETC_PACKAGES_PREFIX)) {
+            group = group.substring(ETC_PACKAGES_PREFIX.length());
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+            group = "";
+        } else if (group.startsWith(ETC_PACKAGES_PREFIX)) {
+            group = group.substring(ETC_PACKAGES_PREFIX.length());
+        } else if (group.startsWith("/")) {
+            group = group.substring(1);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+            group = group.substring(ETC_PACKAGES_PREFIX.length());
+        } else if (group.startsWith("/")) {
+            group = group.substring(1);
+        }
+        this.group = group;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `defNode`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
+#### Snippet
+```java
+        DefaultWorkspaceFilter wsp = new DefaultWorkspaceFilter();
+        if (defNode.hasNode(JcrPackageDefinitionImpl.NN_FILTER)) {
+            defNode = defNode.getNode(JcrPackageDefinitionImpl.NN_FILTER);
+        }
+        for (NodeIterator filters = defNode.getNodes(); filters.hasNext();) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
+#### Snippet
+```java
+        boolean success = false;
+        if (file == null) {
+            file = File.createTempFile("filevault", ".zip");
+            isTmp = true;
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerImpl.java`
+#### Snippet
+```java
+        try {
+            if (file == null) {
+                file = File.createTempFile("filevault", ".zip");
+                isTmp = true;
+            }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `now`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        try {
+            if (now == null) {
+                now = Calendar.getInstance();
+            }
+            defNode.setProperty(PN_BUILD_COUNT, String.valueOf(getBuildCount() + 1));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `now`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        try {
+            if (now == null) {
+                now = Calendar.getInstance();
+            }
+            defNode.setProperty(PN_BUILD_COUNT, String.valueOf(getBuildCount() + 1));
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `folder`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            throws RepositoryException, IOException {
+        if (folder == null) {
+            folder = getPackageRoot();
+        }
+        return registry.createNew(folder, new PackageId(name), null, true);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+        } else {
+            if (group.equals(pkgRoot.getPath())) {
+                group = "";
+            } else if (group.startsWith(pkgRoot.getPath() + "/")) {
+                group = group.substring(pkgRoot.getPath().length() + 1);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `group`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+                group = "";
+            } else if (group.startsWith(pkgRoot.getPath() + "/")) {
+                group = group.substring(pkgRoot.getPath().length() + 1);
+            }
+            if (group.startsWith("/")) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `archive`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+        if (!options.isNonRecursive()) {
+            spfArchive = new SubPackageFilterArchive(archive);
+            archive = spfArchive;
+        } else {
+            archive = new ArchiveWrapper(archive);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `archive`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            archive = spfArchive;
+        } else {
+            archive = new ArchiveWrapper(archive);
+        }
+        Set<PackageId> ids = new HashSet<>();
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `glob`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
+#### Snippet
+```java
+    private static Pattern createPatternFromGlob(String glob) {
+        // only support * and ?
+        glob = glob.replace(".", "\\.");
+        glob = glob.replace("*", ".*");
+        glob = glob.replace("?", ".+");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `glob`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
+#### Snippet
+```java
+        // only support * and ?
+        glob = glob.replace(".", "\\.");
+        glob = glob.replace("*", ".*");
+        glob = glob.replace("?", ".+");
+        return Pattern.compile(glob);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `glob`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
+#### Snippet
+```java
+        glob = glob.replace(".", "\\.");
+        glob = glob.replace("*", ".*");
+        glob = glob.replace("?", ".+");
+        return Pattern.compile(glob);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
+#### Snippet
+```java
+
+    public VltException error(String path, String msg) {
+        path = getCwdRelativePath(path);
+        return new VltException(path, true, msg, null);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
+#### Snippet
+```java
+
+    public VltException exception(String path, String msg, Throwable cause) {
+        path = getCwdRelativePath(path);
+        return new VltException(path, false, msg, cause);
+    }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
+#### Snippet
+```java
+    public void printAction(String path, FileAction action, String contentType) {
+        if (!quiet && (verbose || action != FileAction.VOID)) {
+            path = getCwdRelativePath(path);
+            if (action == FileAction.ADDED && contentType != null) {
+                stdout.printf("%s %s (%s)%n", action.letter, path, contentType);
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `name`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+        String ext = Text.getName(name, '.');
+        if ("zip".equals(ext) || "jar".equals(ext)) {
+            name = name.substring(0, name.length() - 4);
+        }
+        if (!PackageId.isValid(group, name, version)) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `date`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/XmlEntryInfo.java`
+#### Snippet
+```java
+    public void setDate(long date) {
+        // round to second
+        date -= date % 1000;
+        if (date != this.date) {
+            this.date = date;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `root`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
+#### Snippet
+```java
+            return;
+        }
+        root = root.replace('\\', '/');
+        StringBuffer reg = new StringBuffer("^");
+        reg.append(root).append("/");
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `action`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+            if (diff.hasConflicts()) {
+                entry.conflict(file, baseFile, tmpFile);
+                action = FileAction.CONFLICTED;
+            } else {
+                // make the tmp file the new base
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `action`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+                tmpFile.moveTo(baseFile);
+                base.update(baseFile, true);
+                action = FileAction.MERGED;
+            }
+
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `action`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+            work.update(file, true);
+            if (oldMd5.equals(work.getMd5())) {
+                action = FileAction.VOID;
+            }
+            // check if remote file provided a last modified
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Update.java`
+#### Snippet
+```java
+                return;
+            } else {
+                file = new VltFile(dir, remoteFile.getName(), null);
+            }
+        }
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/VltTree.java`
+#### Snippet
+```java
+            // if recursive, treat directories as such
+            dir = file;
+            file = null;
+        } else {
+            // if non recursive, treat directories as files
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/RemoteStatus.java`
+#### Snippet
+```java
+        if (file == null) {
+            // would be an addition
+            file = new VltFile(dir, remoteFile.getName(), null);
+            action = FileAction.ADDED;
+        } else {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `file`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
+#### Snippet
+```java
+            // refetch file
+            if (file == null) {
+                file = files.getFile(remoteFile.getName());
+            }
+
+```
+
 ## RuleId[id=ReturnNull]
+### ReturnNull
+Return of `null`
+in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryFactory.java`
+#### Snippet
+```java
+    public Repository createRepository(RepositoryAddress address, ConnectionOptions connectionOptions) throws RepositoryException {
+        if (!SCHEMES.contains(address.getSpecificURI().getScheme())) {
+            return null;
+        }
+        try {
+```
+
+### ReturnNull
+Return of `null`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/AbstractCommand.java`
+#### Snippet
+```java
+
+    public String getExample() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/examples/HelloWorldApp.java`
+#### Snippet
+```java
+    public Console getConsole() {
+        // we do not have interactive console
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OakIndexDefinitionValidatorFactory.java`
+#### Snippet
+```java
+                return getPathOfNotAllowedIndexDefinition(containerContext);
+            } else {
+                return null;
+            }
+        }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DependencyValidator.java`
+#### Snippet
+```java
+    @Override
+    public Collection<ValidationMessage> done() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedPropertiesValidator.java`
+#### Snippet
+```java
+    @Override
+    public Collection<ValidationMessage> done() {
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+            break;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+            break;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+        ValidationMessage message = null;
+        if (containerPackageType == null) {
+            return null;
+        }
+        switch (containerPackageType) {
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    public Collection<ValidationMessage> validate(@NotNull WorkspaceFilter filter) {
+        if (isSubPackage) {
+            return null; // not relevant for sub packages
+        }
+        Collection<ValidationMessage> messages = new LinkedList<>();
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+            return Collections.singleton(new ValidationMessage(severityForOrphanedFilterEntries, String.format(MESSAGE_ORPHANED_FILTER_ENTRIES, orphanEntries.toString())));
+        } else {
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+                    new ValidationMessage(severityForUncoveredAncestorNode,  String.format(MESSAGE_ANCESTOR_NODE_NOT_COVERED, danglingNodePath)));
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+}
+```
+
+### ReturnNull
+Return of `null`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+        public String getJcrPath() throws RepositoryException {
+            if (parentNode == null && node == null) {
+                return null;
+            }
+            return node == null
+```
+
+### ReturnNull
+Return of `null`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+            log.info("Filter file missing: {}", filterFile.getAbsolutePath());
+        }
+        return null;
+    }
+
+```
+
 ### ReturnNull
 Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/FileArchive.java`
@@ -13851,18 +14029,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.
 
 ### ReturnNull
 Return of `null`
-in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryFactory.java`
-#### Snippet
-```java
-    public Repository createRepository(RepositoryAddress address, ConnectionOptions connectionOptions) throws RepositoryException {
-        if (!SCHEMES.contains(address.getSpecificURI().getScheme())) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipArchive.java`
 #### Snippet
 ```java
@@ -13871,6 +14037,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipArchive.java`
                     return null;
                 }
             }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
+#### Snippet
+```java
+        @Override
+        public Entry getChild(String name) {
+            return children == null ? null : children.get(name);
+        }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
+#### Snippet
+```java
+
+            public InputStream getByteStream() {
+                return ve.data == null ? null : new ByteArrayInputStream(ve.data);
+            }
+
 ```
 
 ### ReturnNull
@@ -13911,43 +14101,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/JcrArchive.java`
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
-#### Snippet
-```java
-
-            public InputStream getByteStream() {
-                return ve.data == null ? null : new ByteArrayInputStream(ve.data);
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
-#### Snippet
-```java
-        @Override
-        public Entry getChild(String name) {
-            return children == null ? null : children.get(name);
-        }
-
-```
-
-### ReturnNull
-Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/SerializationType.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/ArtifactSetImpl.java`
 #### Snippet
 ```java
             }
@@ -13967,66 +14121,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/Jackr
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/SubPackageFilterArchive.java`
-#### Snippet
-```java
-                return new FilterEntry(e, 2);
-            } else if (level == 2 && "packages".equals(e.getName())) {
-                return null;
-            } else {
-                return e;
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregatorProvider.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
-#### Snippet
-```java
-
-    public String getContentType() {
-        return artifact == null ? null : artifact.getContentType();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
-#### Snippet
-```java
-
-    public Aggregate getAggregate() {
-        return node == null ? null : node.getAggregate();
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
-#### Snippet
-```java
-    public String getRepoRelPath() {
-        if (artifact == null) {
-            return null;
-        } else {
-            String relPath = artifact.getRelativePath();
 ```
 
 ### ReturnNull
@@ -14055,14 +14149,86 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.j
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
+#### Snippet
+```java
+
+    public String getContentType() {
+        return artifact == null ? null : artifact.getContentType();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
+#### Snippet
+```java
+    public String getRepoRelPath() {
+        if (artifact == null) {
+            return null;
+        } else {
+            String relPath = artifact.getRelativePath();
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
+#### Snippet
+```java
+
+    public Aggregate getAggregate() {
+        return node == null ? null : node.getAggregate();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregatorProvider.java`
 #### Snippet
 ```java
             }
-            if (!absPath.startsWith(path + "/")) {
-                return null;
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/ArtifactSetImpl.java`
+#### Snippet
+```java
             }
-            absPath = absPath.substring(path.length());
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/SubPackageFilterArchive.java`
+#### Snippet
+```java
+                return new FilterEntry(e, 2);
+            } else if (level == 2 && "packages".equals(e.getName())) {
+                return null;
+            } else {
+                return e;
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+            return s.nodeExists(parentPath)
+                    ? s.getNode(parentPath)
+                    : null;
+        }
+
 ```
 
 ### ReturnNull
@@ -14082,11 +14248,11 @@ Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 #### Snippet
 ```java
-            return s.nodeExists(parentPath)
-                    ? s.getNode(parentPath)
-                    : null;
-        }
-
+            }
+            if (!absPath.startsWith(path + "/")) {
+                return null;
+            }
+            absPath = absPath.substring(path.length());
 ```
 
 ### ReturnNull
@@ -14158,7 +14324,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/Registry.java
         }
         return null;
     }
-
+}
 ```
 
 ### ReturnNull
@@ -14170,7 +14336,55 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/Registry.java
         }
         return null;
     }
-}
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.warn("Unable to encrypt string: " + e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+        } catch (Exception e) {
+            log.warn("Unable to decrypt data: " + e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ExportRoot.java`
+#### Snippet
+```java
+    public static ExportRoot findRoot(File cwd) {
+        if (cwd == null) {
+            return null;
+        }
+        // find root
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ExportRoot.java`
+#### Snippet
+```java
+        if (jcrRoot == null) {
+            log.info("could not find " + Constants.ROOT_DIR + " along the ancestors of {}", cwd.getPath());
+            return null;
+        }
+        return new ExportRoot(jcrRoot.getParentFile());
 ```
 
 ### ReturnNull
@@ -14259,66 +14473,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ConfigHelper.
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-                return adapter;
-            }
-            return parent == null ? null : parent.getAdapter();
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ExportRoot.java`
-#### Snippet
-```java
-    public static ExportRoot findRoot(File cwd) {
-        if (cwd == null) {
-            return null;
-        }
-        // find root
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ExportRoot.java`
-#### Snippet
-```java
-        if (jcrRoot == null) {
-            log.info("could not find " + Constants.ROOT_DIR + " along the ancestors of {}", cwd.getPath());
-            return null;
-        }
-        return new ExportRoot(jcrRoot.getParentFile());
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            log.warn("Unable to decrypt data: " + e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            log.warn("Unable to encrypt string: " + e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/FileInputSource.java`
 #### Snippet
 ```java
@@ -14343,36 +14497,36 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
 #### Snippet
 ```java
-            Node<E> c = n.get(name, create);
-            if (c == null) {
-                return null;
+                return adapter;
             }
-            n = c;
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
-#### Snippet
-```java
-        Node<E> n = get(path, false);
-        if (n == null) {
-            return null;
+            return parent == null ? null : parent.getAdapter();
         }
-        E previous = n.elem;
+
 ```
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
 #### Snippet
 ```java
-    public E get(String path) {
-        Node<E> n = get(path, false);
-        return n == null ? null : n.elem;
+    public String getValue(String name) {
+        DocViewProperty prop = props.get(name);
+        return prop == null ? null : prop.values[0];
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
+#### Snippet
+```java
+    public String[] getValues(String name) {
+        DocViewProperty prop = props.get(name);
+        return prop == null ? null : prop.values;
     }
 
 ```
@@ -14399,6 +14553,42 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryProvider
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+#### Snippet
+```java
+            Node<E> c = n.get(name, create);
+            if (c == null) {
+                return null;
+            }
+            n = c;
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+#### Snippet
+```java
+    public E get(String path) {
+        Node<E> n = get(path, false);
+        return n == null ? null : n.elem;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+#### Snippet
+```java
+        Node<E> n = get(path, false);
+        if (n == null) {
+            return null;
+        }
+        E previous = n.elem;
 ```
 
 ### ReturnNull
@@ -14439,14 +14629,26 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/HollowVa
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
 #### Snippet
 ```java
-    public static PackageId fromString(String str) {
-        if (str == null || str.length() == 0) {
+     */
+    public File getFile() {
+        return (archive instanceof ZipArchive) ? ((ZipArchive) archive).getFile() : null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
+#### Snippet
+```java
+            return getArchive().getMetaInf();
+        } catch (Exception e) {
             return null;
         }
-        String[] segs = str.split(":");
+    }
 ```
 
 ### ReturnNull
@@ -14475,62 +14677,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageP
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
 #### Snippet
 ```java
-            return getArchive().getMetaInf();
-        } catch (Exception e) {
+    public static PackageId fromString(String str) {
+        if (str == null || str.length() == 0) {
             return null;
         }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
-#### Snippet
-```java
-     */
-    public File getFile() {
-        return (archive instanceof ZipArchive) ? ((ZipArchive) archive).getFile() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-    public String getValue(String name) {
-        DocViewProperty prop = props.get(name);
-        return prop == null ? null : prop.values[0];
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-    public String[] getValues(String name) {
-        DocViewProperty prop = props.get(name);
-        return prop == null ? null : prop.values;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
+        String[] segs = str.split(":");
 ```
 
 ### ReturnNull
@@ -14559,11 +14713,71 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageM
 
 ### ReturnNull
 Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
+#### Snippet
+```java
+            }
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
+#### Snippet
+```java
+        NodeList nodeList = element.getElementsByTagName(name);
+        if (nodeList.getLength() == 0) {
+            return null;
+        }
+        return (Element)nodeList.item(0);
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
+#### Snippet
+```java
+        Element childElement = getFirstElementByTagName(TAG_OPTIONS, element);
+        if (childElement == null) {
+            return null;
+        }
+        final PackageTaskOptions options;
+```
+
+### ReturnNull
+Return of `null`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
 #### Snippet
 ```java
     public SubPackageHandling getSubPackageHandling() {
         // not stored
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        } catch (RepositoryException e) {
+            log.warn("Error during getInstallationPath()", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+     */
+    public String getGenerator() {
         return null;
     }
 
@@ -14595,11 +14809,23 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
 #### Snippet
 ```java
-     */
-    public String getGenerator() {
+        VaultAuthConfig.RepositoryConfig cfg = config.getRepoConfig(getLookupId(mountpoint));
+        if (cfg == null) {
+            return null;
+        }
+        return cfg.getCredsConfig().getCredentials();
+```
+
+### ReturnNull
+Return of `null`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
+#### Snippet
+```java
+            }
+        }
         return null;
     }
 
@@ -14607,48 +14833,12 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
 #### Snippet
 ```java
-        } catch (RepositoryException e) {
-            log.warn("Error during getInstallationPath()", e);
-            return null;
-        }
-    }
-```
 
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
-#### Snippet
-```java
-        NodeList nodeList = element.getElementsByTagName(name);
-        if (nodeList.getLength() == 0) {
-            return null;
-        }
-        return (Element)nodeList.item(0);
-```
-
-### ReturnNull
-Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskOptionsSerializer.java`
-#### Snippet
-```java
-        Element childElement = getFirstElementByTagName(TAG_OPTIONS, element);
-        if (childElement == null) {
-            return null;
-        }
-        final PackageTaskOptions options;
-```
-
-### ReturnNull
-Return of `null`
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-            log.info("Filter file missing: {}", filterFile.getAbsolutePath());
-        }
-        return null;
+    public MetaInf getMetaInf() {
+        return exportRoot.isValid() ? exportRoot.getMetaInf() : null;
     }
 
 ```
@@ -14667,66 +14857,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 
 ### ReturnNull
 Return of `null`
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-        public String getJcrPath() throws RepositoryException {
-            if (parentNode == null && node == null) {
-                return null;
-            }
-            return node == null
-```
-
-### ReturnNull
-Return of `null`
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
-#### Snippet
-```java
-        VaultAuthConfig.RepositoryConfig cfg = config.getRepoConfig(getLookupId(mountpoint));
-        if (cfg == null) {
-            return null;
-        }
-        return cfg.getCredsConfig().getCredentials();
-```
-
-### ReturnNull
-Return of `null`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltContext.java`
-#### Snippet
-```java
-
-    public MetaInf getMetaInf() {
-        return exportRoot.isValid() ? exportRoot.getMetaInf() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
 #### Snippet
 ```java
@@ -14747,18 +14877,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
         return null;
     }
 
-```
-
-### ReturnNull
-Return of `null`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaDir.java`
-#### Snippet
-```java
-        InputStream in = zip.getInputStream(ADDRESS_FILE_NAME);
-        if (in == null) {
-            return null;
-        }
-        try {
 ```
 
 ### ReturnNull
@@ -14775,14 +14893,14 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMeta
 
 ### ReturnNull
 Return of `null`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/ZipMetaDir.java`
 #### Snippet
 ```java
-            if (subPkg == null) {
-                log.error("Package {}: Newly extracted subpackage is gone: {}", containerPackageId, subPid);
-                return null;
-            } else {
-                subPackage = (JcrPackageImpl) subPkg.getJcrPackage();
+        InputStream in = zip.getInputStream(ADDRESS_FILE_NAME);
+        if (in == null) {
+            return null;
+        }
+        try {
 ```
 
 ### ReturnNull
@@ -14835,14 +14953,14 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/zip/Updatea
 
 ### ReturnNull
 Return of `null`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/file/FileMetaDir.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
 #### Snippet
 ```java
-        File mpFile = new File(dir, ADDRESS_FILE_NAME);
-        if (!mpFile.canRead()) {
-            return null;
-        }
-        List lines = FileUtils.readLines(mpFile, Constants.ENCODING);
+            if (subPkg == null) {
+                log.error("Package {}: Newly extracted subpackage is gone: {}", containerPackageId, subPid);
+                return null;
+            } else {
+                subPackage = (JcrPackageImpl) subPkg.getJcrPackage();
 ```
 
 ### ReturnNull
@@ -14855,6 +14973,18 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/file/FileMe
             return null;
         }
     }
+```
+
+### ReturnNull
+Return of `null`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/xml/file/FileMetaDir.java`
+#### Snippet
+```java
+        File mpFile = new File(dir, ADDRESS_FILE_NAME);
+        if (!mpFile.canRead()) {
+            return null;
+        }
+        List lines = FileUtils.readLines(mpFile, Constants.ENCODING);
 ```
 
 ### ReturnNull
@@ -14893,175 +15023,7 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
 
 ```
 
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OakIndexDefinitionValidatorFactory.java`
-#### Snippet
-```java
-                return getPathOfNotAllowedIndexDefinition(containerContext);
-            } else {
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DependencyValidator.java`
-#### Snippet
-```java
-    @Override
-    public Collection<ValidationMessage> done() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedPropertiesValidator.java`
-#### Snippet
-```java
-    @Override
-    public Collection<ValidationMessage> done() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-        ValidationMessage message = null;
-        if (containerPackageType == null) {
-            return null;
-        }
-        switch (containerPackageType) {
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-            break;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-            break;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-                    new ValidationMessage(severityForUncoveredAncestorNode,  String.format(MESSAGE_ANCESTOR_NODE_NOT_COVERED, danglingNodePath)));
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-            return Collections.singleton(new ValidationMessage(severityForOrphanedFilterEntries, String.format(MESSAGE_ORPHANED_FILTER_ENTRIES, orphanEntries.toString())));
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    public Collection<ValidationMessage> validate(@NotNull WorkspaceFilter filter) {
-        if (isSubPackage) {
-            return null; // not relevant for sub packages
-        }
-        Collection<ValidationMessage> messages = new LinkedList<>();
-```
-
-### ReturnNull
-Return of `null`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/commands/AbstractCommand.java`
-#### Snippet
-```java
-
-    public String getExample() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/examples/HelloWorldApp.java`
-#### Snippet
-```java
-    public Console getConsole() {
-        // we do not have interactive console
-        return null;
-    }
-
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `modifierRoot` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-
-    private TxInfo postFilter(TxInfo root) {
-        TxInfo modifierRoot = root;
-        if (filter.contains(modifierRoot.path)){
-            return modifierRoot;
-```
-
-### UnnecessaryLocalVariable
-Local variable `principal` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-
-        Principal getPrincipal(final String principalName) {
-            Principal principal = new Principal() {
-                public String getName() {
-                    return principalName;
-```
-
 ### UnnecessaryLocalVariable
 Local variable `childNode` is redundant
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
@@ -15084,6 +15046,30 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
         JcrNodeTypeMetaDataImpl childNode = addChildNode(nameResolver, effectiveNodeTypeProvider, nodeTypeDefinitionProvider,
                 itemDefinitionProvider, true, nodeContext, Text.getName(nodeContext.getNodePath()), implicitNodeType);
         return childNode;
+```
+
+### UnnecessaryLocalVariable
+Local variable `modifierRoot` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+
+    private TxInfo postFilter(TxInfo root) {
+        TxInfo modifierRoot = root;
+        if (filter.contains(modifierRoot.path)){
+            return modifierRoot;
+```
+
+### UnnecessaryLocalVariable
+Local variable `principal` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+
+        Principal getPrincipal(final String principalName) {
+            Principal principal = new Principal() {
+                public String getName() {
+                    return principalName;
 ```
 
 ## RuleId[id=UseCompareMethod]
@@ -15238,18 +15224,6 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/Valida
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-                            "Unexpected path filter found: " + pathFilterEntry.getFilter() + ". Must be of type DefaultPathFilter!");
-                }
-                DefaultPathFilter defaultPathFilter = DefaultPathFilter.class.cast(pathFilterEntry.getFilter());
-                defaultPathFilter.getPattern();
-                if (!isRegexValidForRootPath(defaultPathFilter.getPattern(), pathFilterSet.getRoot())) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/EnhancedBufferedInputStream.java`
 #### Snippet
 ```java
@@ -15270,6 +15244,18 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/u
             FileInputStream fis = FileInputStream.class.cast(unwrappedInput);
             fis.getChannel().position(0);
             currentInput = new EnhancedBufferedInputStream(unwrappedInput);
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+                            "Unexpected path filter found: " + pathFilterEntry.getFilter() + ". Must be of type DefaultPathFilter!");
+                }
+                DefaultPathFilter defaultPathFilter = DefaultPathFilter.class.cast(pathFilterEntry.getFilter());
+                defaultPathFilter.getPattern();
+                if (!isRegexValidForRootPath(defaultPathFilter.getPattern(), pathFilterSet.getRoot())) {
 ```
 
 ### RedundantClassCall
@@ -15336,26 +15322,16 @@ in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerI
 ## RuleId[id=RedundantArrayCreation]
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JackrabbitUserManagement.java`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskImpl.java`
 #### Snippet
 ```java
-                        }
-                    } catch (RepositoryException e) {
-                        log.error("Error while adding authorizable '{}' to group '{}': {}", new Object[]{memberId, id, e});
-                    }
-                }
-```
-
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JackrabbitUserManagement.java`
-#### Snippet
-```java
-                log.warn("unable to add authorizable '{}' to group '{}'. No such node.", uuid, id);
-            } catch (RepositoryException e) {
-                log.warn("unable to add authorizable '{}' to group '{}'. Internal Error: {}", new Object[]{uuid, id, e});
-            }
-        }
+    public void run() {
+        result = new ResultImpl(Result.State.RUNNING);
+        log.info("Starting repository copy task id={}. From {} to {}.", new Object[] {
+                id, src.toString(), dst
+        });
+        try {
+            rcp.copy(srcSession, src.getPath(), dstSession, dst, recursive);
 ```
 
 ### RedundantArrayCreation
@@ -15384,16 +15360,39 @@ in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.j
 
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskImpl.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JackrabbitUserManagement.java`
 #### Snippet
 ```java
-    public void run() {
-        result = new ResultImpl(Result.State.RUNNING);
-        log.info("Starting repository copy task id={}. From {} to {}.", new Object[] {
-                id, src.toString(), dst
-        });
-        try {
-            rcp.copy(srcSession, src.getPath(), dstSession, dst, recursive);
+                        }
+                    } catch (RepositoryException e) {
+                        log.error("Error while adding authorizable '{}' to group '{}': {}", new Object[]{memberId, id, e});
+                    }
+                }
+```
+
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JackrabbitUserManagement.java`
+#### Snippet
+```java
+                log.warn("unable to add authorizable '{}' to group '{}'. No such node.", uuid, id);
+            } catch (RepositoryException e) {
+                log.warn("unable to add authorizable '{}' to group '{}'. Internal Error: {}", new Object[]{uuid, id, e});
+            }
+        }
+```
+
+## RuleId[id=UnnecessaryEmptyArrayUsage]
+### UnnecessaryEmptyArrayUsage
+Zero length array can be changed to constant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/CompositePackageRegistry.java`
+#### Snippet
+```java
+            }
+        }
+        return dependentPackageIds.toArray(new PackageId[0]);
+    }
+
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -15459,19 +15458,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
             default:
 ```
 
-## RuleId[id=UnnecessaryEmptyArrayUsage]
-### UnnecessaryEmptyArrayUsage
-Zero length array can be changed to constant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/CompositePackageRegistry.java`
-#### Snippet
-```java
-            }
-        }
-        return dependentPackageIds.toArray(new PackageId[0]);
-    }
-
-```
-
 ## RuleId[id=DuplicateExpressions]
 ### DuplicateExpressions
 Multiple occurrences of `Paths.get("")`
@@ -15522,6 +15508,54 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuffer buf` can be replaced with 'String'
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
+#### Snippet
+```java
+     */
+    private void dump(int b, int l, int r, String prefix, int i, Document doc) {
+        StringBuffer buf = new StringBuffer();
+        buf.append("(").append(b);
+        buf.append(", ").append(l);
+```
+
+### StringBufferReplaceableByString
+`StringBuffer info` can be replaced with 'String'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+                rep = repProvider.getRepository(new RepositoryAddress(uri), options);
+                setProperty(KEY_URI, uri);
+                StringBuffer info = new StringBuffer();
+                info.append(rep.getDescriptor(Repository.REP_NAME_DESC)).append(' ');
+                info.append(rep.getDescriptor(Repository.REP_VERSION_DESC));
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("Entry");
+            sb.append("{fsName='").append(file.getName()).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("SyncSpec");
+        sb.append("{fileRoot=").append(fileRoot);
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder str` can be replaced with 'String'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/JackrabbitPrivilegeInstaller.java`
@@ -15582,55 +15616,31 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
             sb.append("{name='").append(name).append('\'');
 ```
 
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("SyncSpec");
-        sb.append("{fileRoot=").append(fileRoot);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("Entry");
-            sb.append("{fsName='").append(file.getName()).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuffer buf` can be replaced with 'String'
+## RuleId[id=NonShortCircuitBoolean]
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `hasConflicts |= conflict`
 in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
 #### Snippet
 ```java
-     */
-    private void dump(int b, int l, int r, String prefix, int i, Document doc) {
-        StringBuffer buf = new StringBuffer();
-        buf.append("(").append(b);
-        buf.append(", ").append(l);
+            // and create new hunk
+            hunk = new Hunk3(baseRange, leftRange, rightRange, hunk);
+            hasConflicts |= conflict;
+            //System.out.println(hunks.getLast().toString());
+        } /* while */
 ```
 
-### StringBufferReplaceableByString
-`StringBuffer info` can be replaced with 'String'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `allTypesMatch &= sibling.isNodeType(requiredPrimaryNodeType.getName())`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
 #### Snippet
 ```java
-                rep = repProvider.getRepository(new RepositoryAddress(uri), options);
-                setProperty(KEY_URI, uri);
-                StringBuffer info = new StringBuffer();
-                info.append(rep.getDescriptor(Repository.REP_NAME_DESC)).append(' ');
-                info.append(rep.getDescriptor(Repository.REP_VERSION_DESC));
+                // check type: due to inheritance multiple primary node types need to be checked
+                for (NodeType requiredPrimaryNodeType : requiredPrimaryNodeTypes) {
+                    allTypesMatch &= sibling.isNodeType(requiredPrimaryNodeType.getName());
+                }
+                // check name
 ```
 
-## RuleId[id=NonShortCircuitBoolean]
 ### NonShortCircuitBoolean
 Non-short-circuit boolean expression `modified |= prop.apply(node)`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
@@ -15655,92 +15665,199 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
                         // be lenient in case of mode != replace
 ```
 
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `allTypesMatch &= sibling.isNodeType(requiredPrimaryNodeType.getName())`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-                // check type: due to inheritance multiple primary node types need to be checked
-                for (NodeType requiredPrimaryNodeType : requiredPrimaryNodeTypes) {
-                    allTypesMatch &= sibling.isNodeType(requiredPrimaryNodeType.getName());
-                }
-                // check name
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `hasConflicts |= conflict`
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff3.java`
-#### Snippet
-```java
-            // and create new hunk
-            hunk = new Hunk3(baseRange, leftRange, rightRange, hunk);
-            hasConflicts |= conflict;
-            //System.out.println(hunks.getLast().toString());
-        } /* while */
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `ConnectionOptionsMixin` has no concrete subclass
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/ConnectionOptionsMixin.java`
-#### Snippet
-```java
-        creatorVisibility = JsonAutoDetect.Visibility.NONE,
-        fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class ConnectionOptionsMixin {
-    @JsonCreator
-    public ConnectionOptionsMixin(
-```
-
-### AbstractClassNeverImplemented
-Abstract class `SimpleCredentialsMixin` has no concrete subclass
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/SimpleCredentialsMixin.java`
-#### Snippet
-```java
-        creatorVisibility = JsonAutoDetect.Visibility.NONE,
-        fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class SimpleCredentialsMixin {
-    @JsonCreator
-    public SimpleCredentialsMixin(@JsonProperty("userID")String userID, @JsonProperty("password")char[] password) {}
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RepositoryCopierMixin` has no concrete subclass
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryCopierMixin.java`
-#### Snippet
-```java
-        creatorVisibility = JsonAutoDetect.Visibility.NONE,
-        fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class RepositoryCopierMixin {
-    @JsonCreator
-    public RepositoryCopierMixin() {}
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RepositoryAddressMixin` has no concrete subclass
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryAddressMixin.java`
-#### Snippet
-```java
-        creatorVisibility = JsonAutoDetect.Visibility.NONE,
-        fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public abstract class RepositoryAddressMixin {
-    @JsonCreator
-    public RepositoryAddressMixin(@JsonProperty("uri")@NotNull URI uri) {}
-```
-
-### AbstractClassNeverImplemented
-Abstract class `AbstractDependencyResolver` has no concrete subclass
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
- * This class is not thread-safe.
- */
-public abstract class AbstractDependencyResolver implements DependencyResolver {
-
-    /**
-```
-
 ## RuleId[id=BoundedWildcard]
+### BoundedWildcard
+Can generalize to `? extends T`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/TypedMapWrapper.java`
+#### Snippet
+```java
+    }
+
+    private <T> Optional<T> getTyped(String key, Class<T> clazz) {
+        Object object = get(key);
+        if (clazz.isInstance(object)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends RcpTaskImpl`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    private void loadTasksCredentials(Map<String, RcpTaskImpl> tasks, File dataFile) throws IOException {
+        Properties props = new Properties();
+        try (FileInputStream inputStream = new FileInputStream(dataFile)) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
+        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
+        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
+```
+
+### BoundedWildcard
+Can generalize to `? extends PathFilterSet`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OakIndexDefinitionValidator.java`
+#### Snippet
+```java
+    }
+
+    public Collection<ValidationMessage> collectIndexPaths(List<PathFilterSet> pathFilters) {
+        Collection<ValidationMessage> violations = new LinkedList<>();
+        for (PathFilterSet pathFilter : pathFilters) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageInfo`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DependencyValidator.java`
+#### Snippet
+```java
+    private final ValidationMessageSeverity severityForUnresolvedDependencies;
+    
+    public DependencyValidator(@NotNull ValidationMessageSeverity severity, ValidationMessageSeverity severityForUnresolvedDependencies, Collection<PackageInfo> dependenciesMetaInfo) {
+        this.dependenciesMetaInfo = dependenciesMetaInfo;
+        this.severity = severity;
+```
+
+### BoundedWildcard
+Can generalize to `? extends PropertiesValidator`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedPropertiesValidator.java`
+#### Snippet
+```java
+    }
+
+    public void setPropertiesValidators(Map<String, PropertiesValidator> propertiesValidators) {
+        this.propertiesValidators.putAll(propertiesValidators);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
+#### Snippet
+```java
+
+    protected Collection<ValidationMessage> validateDocumentViewXml(InputStream input, @NotNull Path filePath, @NotNull Path basePath, String rootNodePath,
+            Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
+        List<ValidationMessage> enrichedMessages = new LinkedList<>();
+        enrichedMessages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Detected DocView..."));
+```
+
+### BoundedWildcard
+Can generalize to `? super Integer`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
+#### Snippet
+```java
+
+    protected Collection<ValidationMessage> validateDocumentViewXml(InputStream input, @NotNull Path filePath, @NotNull Path basePath, String rootNodePath,
+            Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
+        List<ValidationMessage> enrichedMessages = new LinkedList<>();
+        enrichedMessages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Detected DocView..."));
+```
+
+### BoundedWildcard
+Can generalize to `? extends DocumentViewXmlValidator`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
+#### Snippet
+```java
+    }
+
+    public void setDocumentViewXmlValidators(Map<String, DocumentViewXmlValidator> documentViewXmlValidators) {
+        this.docViewValidators.putAll(documentViewXmlValidators);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Reader`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/util/classloaderurl/URLFactory.java`
+#### Snippet
+```java
+    }
+
+    public static void processUrlStreams(List<String> urls, Consumer<Reader> readerProcessor) {
+        for (String url : urls) {
+            try (Reader reader = new InputStreamReader(URLFactory.createURL(url).openStream(), StandardCharsets.US_ASCII)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PathFilterSet`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    }
+
+    private Collection<ValidationMessage> validatePathFilterSets(Collection<PathFilterSet> pathFilterSets, boolean checkRoots) {
+        Collection<ValidationMessage> messages = new LinkedList<>();
+        for (PathFilterSet pathFilterSet : pathFilterSets) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageInfo`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    private final Map<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterSets;
+
+    public AdvancedFilterValidator(@NotNull DocumentBuilderFactory factory, @NotNull ValidationMessageSeverity defaultSeverity, @NotNull ValidationMessageSeverity severityForUncoveredAncestorNodes, @NotNull ValidationMessageSeverity severityForUndefinedFilterRootAncestors, @NotNull ValidationMessageSeverity severityForOrphanedFilterEntries, boolean isSubPackage, @NotNull Collection<PackageInfo> dependenciesMetaInfo, @NotNull WorkspaceFilter filter, @NotNull Collection<String> validRoots) {
+        this.factory = factory;
+        this.isSubPackage = isSubPackage;
+```
+
+### BoundedWildcard
+Can generalize to `? extends FilterValidator`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    }
+
+    public void setFilterValidators(Map<String, FilterValidator> filterValidators) {
+        this.filterValidators.putAll(filterValidators);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends DocViewProperty2`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ValidatorDocViewParserHandler.java`
+#### Snippet
+```java
+    }
+
+    private void validatePropertyValues(Collection<DocViewProperty2> properties, String nodePath, int lineNumber, int columnNumber) {
+        for (DocViewProperty2 property : properties) {
+            if (property.getType() != PropertyType.UNDEFINED) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends OsgiConfigurationValidator`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+    }
+
+    public void setOsgiConfigurationValidators(Map<String, OsgiConfigurationValidator> osgiConfigurationValidators) {
+        this.osgiConfigurationValidators.putAll(osgiConfigurationValidators);
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+    }
+
+    static <@NotNull T> @NotNull Map<@NotNull String, @NotNull T> filterValidatorsByClass(@NotNull Map<@NotNull String, @NotNull Validator> allValidators, @NotNull Class<T> type) {
+        return allValidators.entrySet().stream()
+                .filter(x -> type.isInstance(x.getValue()))
+```
+
 ### BoundedWildcard
 Can generalize to `? super String`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
@@ -15758,11 +15875,11 @@ Can generalize to `? extends QNodeTypeDefinition`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/DefaultNodeTypeSet.java`
 #### Snippet
 ```java
+    }
 
-    public DefaultNodeTypeSet(String systemId,
-                              Collection<QNodeTypeDefinition> nodeTypes,
-                              NamespaceMapping nsMapping) {
-        this.systemId = systemId;
+    public void add(Collection<QNodeTypeDefinition> set, NamespaceMapping nsMapping) {
+        for (QNodeTypeDefinition tpl: set) {
+            log.trace("adding {}", tpl.getName());
 ```
 
 ### BoundedWildcard
@@ -15770,11 +15887,11 @@ Can generalize to `? extends QNodeTypeDefinition`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/DefaultNodeTypeSet.java`
 #### Snippet
 ```java
-    }
 
-    public void add(Collection<QNodeTypeDefinition> set, NamespaceMapping nsMapping) {
-        for (QNodeTypeDefinition tpl: set) {
-            log.trace("adding {}", tpl.getName());
+    public DefaultNodeTypeSet(String systemId,
+                              Collection<QNodeTypeDefinition> nodeTypes,
+                              NamespaceMapping nsMapping) {
+        this.systemId = systemId;
 ```
 
 ### BoundedWildcard
@@ -15826,15 +15943,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JcrSysViewTr
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+Can generalize to `? super String`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
 #### Snippet
 ```java
-        }
 
-        T getPolicy(Class<T> clz, Principal principal) throws RepositoryException {
-            if (acMgr instanceof JackrabbitAccessControlManager) {
-                for (AccessControlPolicy p : ((JackrabbitAccessControlManager) acMgr).getPolicies(principal)) {
+
+    private boolean processChange(Change change, Map<String, TxInfo> modified, boolean ignoreMP)
+            throws RepositoryException, IOException {
+        switch (change.type) {
 ```
 
 ### BoundedWildcard
@@ -15844,9 +15961,45 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitAC
 ```java
         }
 
-        T getPolicy(Class<T> clz) throws RepositoryException {
-            for (AccessControlPolicy p : acMgr.getPolicies(accessControlledPath)) {
-                if (clz.isAssignableFrom(p.getClass())) {
+        T getApplicablePolicy(Class<T> clz, Principal principal) throws RepositoryException {
+            if (acMgr instanceof JackrabbitAccessControlManager) {
+                for (AccessControlPolicy p : ((JackrabbitAccessControlManager) acMgr).getApplicablePolicies(principal)) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+        }
+
+        T getApplicablePolicy(Class<T> clz) throws RepositoryException {
+            AccessControlPolicyIterator iter = acMgr.getApplicablePolicies(accessControlledPath);
+            while (iter.hasNext()) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+    }
+
+    private void addPathIfExists(List<String> paths, String path) throws RepositoryException {
+        if (session.nodeExists(path)) {
+            paths.add(path);
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+        }
+
+        T getPolicy(Class<T> clz, Principal principal) throws RepositoryException {
+            if (acMgr instanceof JackrabbitAccessControlManager) {
+                for (AccessControlPolicy p : ((JackrabbitAccessControlManager) acMgr).getPolicies(principal)) {
 ```
 
 ### BoundedWildcard
@@ -15892,45 +16045,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitAC
 ```java
         }
 
-        T getApplicablePolicy(Class<T> clz) throws RepositoryException {
-            AccessControlPolicyIterator iter = acMgr.getApplicablePolicies(accessControlledPath);
-            while (iter.hasNext()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-        }
-
-        T getApplicablePolicy(Class<T> clz, Principal principal) throws RepositoryException {
-            if (acMgr instanceof JackrabbitAccessControlManager) {
-                for (AccessControlPolicy p : ((JackrabbitAccessControlManager) acMgr).getApplicablePolicies(principal)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-    }
-
-    private void addPathIfExists(List<String> paths, String path) throws RepositoryException {
-        if (session.nodeExists(path)) {
-            paths.add(path);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
-#### Snippet
-```java
-    }
-
-    private void addNamespace(Set<String> prefixes, String name) throws RepositoryException {
-        int idx = name.indexOf(':');
-        if (idx > 0) {
+        T getPolicy(Class<T> clz) throws RepositoryException {
+            for (AccessControlPolicy p : acMgr.getPolicies(accessControlledPath)) {
+                if (clz.isAssignableFrom(p.getClass())) {
 ```
 
 ### BoundedWildcard
@@ -15946,6 +16063,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.j
 ```
 
 ### BoundedWildcard
+Can generalize to `? super String`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateImpl.java`
+#### Snippet
+```java
+    }
+
+    private void addNamespace(Set<String> prefixes, String name) throws RepositoryException {
+        int idx = name.indexOf(':');
+        if (idx > 0) {
+```
+
+### BoundedWildcard
 Can generalize to `? extends DocViewProperty2`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
 #### Snippet
@@ -15955,18 +16084,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
     private void logIgnoredProtectedProperties(EffectiveNodeType effectiveNodeType, String nodePath, Collection<DocViewProperty2> properties, Set<Name> importedProtectedProperties) {
         // logging for protected properties which are not considered during import
         properties.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-
-
-    private boolean processChange(Change change, Map<String, TxInfo> modified, boolean ignoreMP)
-            throws RepositoryException, IOException {
-        switch (change.type) {
 ```
 
 ### BoundedWildcard
@@ -16066,15 +16183,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/Packagin
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends FilterSet.Entry`
+Can generalize to `? extends PathFilterSet`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
 #### Snippet
 ```java
     }
 
-    private static void saveRules(Node setNode, List<FilterSet.Entry<PathFilter>> entries, String propertyName) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
-        List<String> rules = new LinkedList<>();
-        for (FilterSet.Entry<PathFilter> e: entries) {
+    private static PathFilterSet getSetForRoot(List<PathFilterSet> filterSets, String root) {
+        for (PathFilterSet set : filterSets) {
+            if (set.getRoot().equals(root)) {
 ```
 
 ### BoundedWildcard
@@ -16090,27 +16207,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorks
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PathFilterSet`
+Can generalize to `? extends FilterSet.Entry`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrWorkspaceFilter.java`
 #### Snippet
 ```java
     }
 
-    private static PathFilterSet getSetForRoot(List<PathFilterSet> filterSets, String root) {
-        for (PathFilterSet set : filterSets) {
-            if (set.getRoot().equals(root)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs
-     */
-    void setSubPackages(Collection<PackageId> subPackageIds) throws RepositoryException {
-        String[] subIds = new String[subPackageIds.size()];
-        int i =0;
+    private static void saveRules(Node setNode, List<FilterSet.Entry<PathFilter>> entries, String propertyName) throws ValueFormatException, VersionException, LockException, ConstraintViolationException, RepositoryException {
+        List<String> rules = new LinkedList<>();
+        for (FilterSet.Entry<PathFilter> e: entries) {
 ```
 
 ### BoundedWildcard
@@ -16123,6 +16228,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
     private <T> void readOption(Element element, String tagName, Class<T> type, Consumer<T> consumer) {
         Element childElement = getFirstElementByTagName(tagName, element);
         if (childElement != null) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs
+     */
+    void setSubPackages(Collection<PackageId> subPackageIds) throws RepositoryException {
+        String[] subIds = new String[subPackageIds.size()];
+        int i =0;
 ```
 
 ### BoundedWildcard
@@ -16144,9 +16261,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```java
     }
 
-    public CompositePackageRegistry(List<PackageRegistry> registries) throws IOException {
-        this.registries = registries;
-        this.primaryRegistry = registries.get(0);
+    private void enforcePackageIdsUniqueness(List<PackageRegistry> registries) throws IOException {
+        for (int n=0; n<registries.size(); n++) {
+            for (int i=n+1; i<registries.size(); i++) {
 ```
 
 ### BoundedWildcard
@@ -16156,21 +16273,9 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```java
     }
 
-    private void enforcePackageIdsUniqueness(List<PackageRegistry> registries) throws IOException {
-        for (int n=0; n<registries.size(); n++) {
-            for (int i=n+1; i<registries.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super JcrPackage`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-     * @throws RepositoryException if an error occurs
-     */
-    private void listPackages(Node root, List<JcrPackage> packages,
-                              WorkspaceFilter filter, boolean built, boolean shallow)
-            throws RepositoryException {
+    public CompositePackageRegistry(List<PackageRegistry> registries) throws IOException {
+        this.registries = registries;
+        this.primaryRegistry = registries.get(0);
 ```
 
 ### BoundedWildcard
@@ -16198,6 +16303,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```
 
 ### BoundedWildcard
+Can generalize to `? super JcrPackage`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+     * @throws RepositoryException if an error occurs
+     */
+    private void listPackages(Node root, List<JcrPackage> packages,
+                              WorkspaceFilter filter, boolean built, boolean shallow)
+            throws RepositoryException {
+```
+
+### BoundedWildcard
 Can generalize to `? super PackageId`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
 #### Snippet
@@ -16207,6 +16324,90 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
     private void listPackages(Node root, Set<PackageId> packages) throws RepositoryException {
         for (NodeIterator iter = root.getNodes(); iter.hasNext();) {
             Node child = iter.nextNode();
+```
+
+### BoundedWildcard
+Can generalize to `? extends PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+
+    @Override
+    public ExecutionPlanBuilder with(Set<PackageId> externalPackages) {
+        this.externalPackages = new HashSet<>(externalPackages);
+        return ExecutionPlanBuilderImpl.this;
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageTask`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageTask`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
+```
+
+### BoundedWildcard
+Can generalize to `? super PackageId`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
+#### Snippet
+```java
+    }
+
+    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
+        if (resolved.contains(id)) {
+            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
 ```
 
 ### BoundedWildcard
@@ -16234,102 +16435,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/TypedMapWrapper.java`
-#### Snippet
-```java
-    }
-
-    private <T> Optional<T> getTyped(String key, Class<T> clazz) {
-        Object object = get(key);
-        if (clazz.isInstance(object)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageTask`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveInstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> installTasks, Set<PackageId> resolved, PackageTask.Type type, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public ExecutionPlanBuilder with(Set<PackageId> externalPackages) {
-        this.externalPackages = new HashSet<>(externalPackages);
-        return ExecutionPlanBuilderImpl.this;
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageTask`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
-Can generalize to `? super PackageId`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/ExecutionPlanBuilderImpl.java`
-#### Snippet
-```java
-    }
-
-    private void resolveUninstall(PackageId id, List<PackageTask> packageTasks, Map<PackageId, PackageTask> uninstallTasks, Set<PackageId> resolved, @Nullable PackageTaskOptions option) throws IOException, PackageException {
-        if (resolved.contains(id)) {
-            throw new CyclicDependencyException("Package has cyclic dependencies: " + id);
-```
-
-### BoundedWildcard
 Can generalize to `? super Archive.Entry`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
 #### Snippet
@@ -16353,378 +16458,68 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/VltTree.java
             add(file);
 ```
 
-### BoundedWildcard
-Can generalize to `? super String`
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+## RuleId[id=AbstractClassNeverImplemented]
+### AbstractClassNeverImplemented
+Abstract class `SimpleCredentialsMixin` has no concrete subclass
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/SimpleCredentialsMixin.java`
 #### Snippet
 ```java
-    }
-
-    private void persistTasks(Dictionary<String, Object> configProperties, File dataFile) throws RepositoryException, JsonGenerationException, JsonMappingException, IOException {
-        serializedTasks = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tasks);
-        configProperties.put(PROP_TASKS_SERIALIZATION, serializedTasks);
+        creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public abstract class SimpleCredentialsMixin {
+    @JsonCreator
+    public SimpleCredentialsMixin(@JsonProperty("userID")String userID, @JsonProperty("password")char[] password) {}
 ```
 
-### BoundedWildcard
-Can generalize to `? extends RcpTaskImpl`
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskManagerImpl.java`
+### AbstractClassNeverImplemented
+Abstract class `RepositoryAddressMixin` has no concrete subclass
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryAddressMixin.java`
 #### Snippet
 ```java
-    }
-
-    private void loadTasksCredentials(Map<String, RcpTaskImpl> tasks, File dataFile) throws IOException {
-        Properties props = new Properties();
-        try (FileInputStream inputStream = new FileInputStream(dataFile)) {
+        creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public abstract class RepositoryAddressMixin {
+    @JsonCreator
+    public RepositoryAddressMixin(@JsonProperty("uri")@NotNull URI uri) {}
 ```
 
-### BoundedWildcard
-Can generalize to `? extends PathFilterSet`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OakIndexDefinitionValidator.java`
+### AbstractClassNeverImplemented
+Abstract class `ConnectionOptionsMixin` has no concrete subclass
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/ConnectionOptionsMixin.java`
 #### Snippet
 ```java
-    }
-
-    public Collection<ValidationMessage> collectIndexPaths(List<PathFilterSet> pathFilters) {
-        Collection<ValidationMessage> violations = new LinkedList<>();
-        for (PathFilterSet pathFilter : pathFilters) {
+        creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public abstract class ConnectionOptionsMixin {
+    @JsonCreator
+    public ConnectionOptionsMixin(
 ```
 
-### BoundedWildcard
-Can generalize to `? extends PackageInfo`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DependencyValidator.java`
+### AbstractClassNeverImplemented
+Abstract class `RepositoryCopierMixin` has no concrete subclass
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RepositoryCopierMixin.java`
 #### Snippet
 ```java
-    private final ValidationMessageSeverity severityForUnresolvedDependencies;
-    
-    public DependencyValidator(@NotNull ValidationMessageSeverity severity, ValidationMessageSeverity severityForUnresolvedDependencies, Collection<PackageInfo> dependenciesMetaInfo) {
-        this.dependenciesMetaInfo = dependenciesMetaInfo;
-        this.severity = severity;
+        creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.ANY)
+public abstract class RepositoryCopierMixin {
+    @JsonCreator
+    public RepositoryCopierMixin() {}
 ```
 
-### BoundedWildcard
-Can generalize to `? extends DocumentViewXmlValidator`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
+### AbstractClassNeverImplemented
+Abstract class `AbstractDependencyResolver` has no concrete subclass
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
 #### Snippet
 ```java
-    }
+ * This class is not thread-safe.
+ */
+public abstract class AbstractDependencyResolver implements DependencyResolver {
 
-    public void setDocumentViewXmlValidators(Map<String, DocumentViewXmlValidator> documentViewXmlValidators) {
-        this.docViewValidators.putAll(documentViewXmlValidators);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
-#### Snippet
-```java
-
-    protected Collection<ValidationMessage> validateDocumentViewXml(InputStream input, @NotNull Path filePath, @NotNull Path basePath, String rootNodePath,
-            Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
-        List<ValidationMessage> enrichedMessages = new LinkedList<>();
-        enrichedMessages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Detected DocView..."));
-```
-
-### BoundedWildcard
-Can generalize to `? super Integer`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidator.java`
-#### Snippet
-```java
-
-    protected Collection<ValidationMessage> validateDocumentViewXml(InputStream input, @NotNull Path filePath, @NotNull Path basePath, String rootNodePath,
-            Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
-        List<ValidationMessage> enrichedMessages = new LinkedList<>();
-        enrichedMessages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Detected DocView..."));
-```
-
-### BoundedWildcard
-Can generalize to `? extends PropertiesValidator`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedPropertiesValidator.java`
-#### Snippet
-```java
-    }
-
-    public void setPropertiesValidators(Map<String, PropertiesValidator> propertiesValidators) {
-        this.propertiesValidators.putAll(propertiesValidators);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PathFilterSet`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    }
-
-    private Collection<ValidationMessage> validatePathFilterSets(Collection<PathFilterSet> pathFilterSets, boolean checkRoots) {
-        Collection<ValidationMessage> messages = new LinkedList<>();
-        for (PathFilterSet pathFilterSet : pathFilterSets) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends FilterValidator`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    }
-
-    public void setFilterValidators(Map<String, FilterValidator> filterValidators) {
-        this.filterValidators.putAll(filterValidators);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PackageInfo`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    private final Map<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterSets;
-
-    public AdvancedFilterValidator(@NotNull DocumentBuilderFactory factory, @NotNull ValidationMessageSeverity defaultSeverity, @NotNull ValidationMessageSeverity severityForUncoveredAncestorNodes, @NotNull ValidationMessageSeverity severityForUndefinedFilterRootAncestors, @NotNull ValidationMessageSeverity severityForOrphanedFilterEntries, boolean isSubPackage, @NotNull Collection<PackageInfo> dependenciesMetaInfo, @NotNull WorkspaceFilter filter, @NotNull Collection<String> validRoots) {
-        this.factory = factory;
-        this.isSubPackage = isSubPackage;
-```
-
-### BoundedWildcard
-Can generalize to `? super Reader`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/util/classloaderurl/URLFactory.java`
-#### Snippet
-```java
-    }
-
-    public static void processUrlStreams(List<String> urls, Consumer<Reader> readerProcessor) {
-        for (String url : urls) {
-            try (Reader reader = new InputStreamReader(URLFactory.createURL(url).openStream(), StandardCharsets.US_ASCII)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DocViewProperty2`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/util/ValidatorDocViewParserHandler.java`
-#### Snippet
-```java
-    }
-
-    private void validatePropertyValues(Collection<DocViewProperty2> properties, String nodePath, int lineNumber, int columnNumber) {
-        for (DocViewProperty2 property : properties) {
-            if (property.getType() != PropertyType.UNDEFINED) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends OsgiConfigurationValidator`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-    }
-
-    public void setOsgiConfigurationValidators(Map<String, OsgiConfigurationValidator> osgiConfigurationValidators) {
-        this.osgiConfigurationValidators.putAll(osgiConfigurationValidators);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-    }
-
-    static <@NotNull T> @NotNull Map<@NotNull String, @NotNull T> filterValidatorsByClass(@NotNull Map<@NotNull String, @NotNull Validator> allValidators, @NotNull Class<T> type) {
-        return allValidators.entrySet().stream()
-                .filter(x -> type.isInstance(x.getValue()))
+    /**
 ```
 
 ## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-     * the (virtual) jcr root. 
-     */
-    public final static String JCR_ROOT = "/jcr:root";
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `synchronized static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/Registry.java`
-#### Snippet
-```java
-    private final Map<String, Class<? extends ArtifactHandler>> handlers;
-
-    public synchronized static Registry getInstance() {
-        if (instance == null) {
-            instance = new Registry();
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
-    }
-  
-    abstract protected void doWrite(ContentHandler handler) throws SAXException;
-    
-    protected void write(XMLStreamWriter writer) throws XMLStreamException {
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
-    }
-
-    abstract protected void doLoad(Element child) throws ConfigurationException;
-
-    public boolean load(File configFile) throws IOException, ConfigurationException {
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
-    protected double version = getSupportedVersion();
-
-    abstract protected String getRootElemName();
-
-    abstract protected double getSupportedVersion();
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
-    abstract protected String getRootElemName();
-
-    abstract protected double getSupportedVersion();
-
-    public void load(Element doc) throws ConfigurationException {
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract protected`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
-    }
-
-    abstract protected void doWrite(XMLStreamWriter writer) throws XMLStreamException;
-}
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
-#### Snippet
-```java
- */
-@ProviderType
-abstract public class AbstractConfig {
-
-    protected static Logger log = LoggerFactory.getLogger(AbstractConfig.class);
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-     * key length
-     */
-    private final static int KEY_LENGTH = 8;
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-     * encryption prefix
-     */
-    private final static String PREFIX = "{DES}";
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
-#### Snippet
-```java
-public class SHA1 {
-
-    public final static SHA1 NULL = new SHA1(0,0,0,0,0);
-
-    private final int w0;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
-#### Snippet
-```java
-     * Archive root path for packages
-     */
-    public final static String ARCHIVE_PACKAGE_ROOT_PATH = "/jcr_root" + DEFAULT_PACKAGE_ROOT_PATH;
-    
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-     * root path for packages
-     */
-    public final static String ARCHIVE_PACKAGE_ROOT_PATH = "/jcr_root/etc/packages";
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
-#### Snippet
-```java
-    private static final Logger log = LoggerFactory.getLogger(PackageTaskImpl.class);
-
-    final static PackageTaskImpl MARKER = new PackageTaskImpl(new PackageId("", "" ,""), Type.INSTALL, null);
-
-    private final PackageId id;
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-     * suggested folder types
-     */
-    private final static String[] FOLDER_TYPES = {"sling:Folder", "nt:folder", "nt:unstructured", null};
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/AbstractAction.java`
-#### Snippet
-```java
- *
- */
-abstract public class AbstractAction implements Action {
-
-    private boolean onlyControlled;
-```
-
 ### MissortedModifiers
 Missorted modifiers `abstract public`
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsConsoleExecutionContext.java`
@@ -16735,18 +16530,6 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsConsoleExecut
 abstract public class VaultFsConsoleExecutionContext extends ConsoleExecutionContext {
 
     protected static Logger log = LoggerFactory.getLogger(VaultFsConsoleExecutionContext.class);
-```
-
-### MissortedModifiers
-Missorted modifiers `abstract public`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AbstractCmdLs.java`
-#### Snippet
-```java
- *
- */
-abstract public class AbstractCmdLs extends AbstractJcrFsCommand {
-
-    protected static final int F_MASK = 0x0f;
 ```
 
 ### MissortedModifiers
@@ -16771,6 +16554,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AbstractCmdLs.java`
     abstract protected void formatFile(ConsoleFile file, Table.Row row, int flags);
 
     private void ls(ConsoleFile file, int flags, int maxDepth)
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AbstractCmdLs.java`
+#### Snippet
+```java
+ *
+ */
+abstract public class AbstractCmdLs extends AbstractJcrFsCommand {
+
+    protected static final int F_MASK = 0x0f;
 ```
 
 ### MissortedModifiers
@@ -16820,6 +16615,197 @@ abstract public class ExtendedOption implements CliCommand {
     private final Option option = new DefaultOptionBuilder()
 ```
 
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+     * the (virtual) jcr root. 
+     */
+    public final static String JCR_ROOT = "/jcr:root";
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `synchronized static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/Registry.java`
+#### Snippet
+```java
+    private final Map<String, Class<? extends ArtifactHandler>> handlers;
+
+    public synchronized static Registry getInstance() {
+        if (instance == null) {
+            instance = new Registry();
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+    abstract protected String getRootElemName();
+
+    abstract protected double getSupportedVersion();
+
+    public void load(Element doc) throws ConfigurationException {
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+    protected double version = getSupportedVersion();
+
+    abstract protected String getRootElemName();
+
+    abstract protected double getSupportedVersion();
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+    }
+  
+    abstract protected void doWrite(ContentHandler handler) throws SAXException;
+    
+    protected void write(XMLStreamWriter writer) throws XMLStreamException {
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+    }
+
+    abstract protected void doWrite(XMLStreamWriter writer) throws XMLStreamException;
+}
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract protected`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+    }
+
+    abstract protected void doLoad(Element child) throws ConfigurationException;
+
+    public boolean load(File configFile) throws IOException, ConfigurationException {
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+#### Snippet
+```java
+ */
+@ProviderType
+abstract public class AbstractConfig {
+
+    protected static Logger log = LoggerFactory.getLogger(AbstractConfig.class);
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+     * encryption prefix
+     */
+    private final static String PREFIX = "{DES}";
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+     * key length
+     */
+    private final static int KEY_LENGTH = 8;
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
+#### Snippet
+```java
+public class SHA1 {
+
+    public final static SHA1 NULL = new SHA1(0,0,0,0,0);
+
+    private final int w0;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/AbstractPackageRegistry.java`
+#### Snippet
+```java
+     * Archive root path for packages
+     */
+    public final static String ARCHIVE_PACKAGE_ROOT_PATH = "/jcr_root" + DEFAULT_PACKAGE_ROOT_PATH;
+    
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
+#### Snippet
+```java
+    private static final Logger log = LoggerFactory.getLogger(PackageTaskImpl.class);
+
+    final static PackageTaskImpl MARKER = new PackageTaskImpl(new PackageId("", "" ,""), Type.INSTALL, null);
+
+    private final PackageId id;
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+     * root path for packages
+     */
+    public final static String ARCHIVE_PACKAGE_ROOT_PATH = "/jcr_root/etc/packages";
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+     * suggested folder types
+     */
+    private final static String[] FOLDER_TYPES = {"sling:Folder", "nt:folder", "nt:unstructured", null};
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `abstract public`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/AbstractAction.java`
+#### Snippet
+```java
+ *
+ */
+abstract public class AbstractAction implements Action {
+
+    private boolean onlyControlled;
+```
+
 ## RuleId[id=InstanceofIncompatibleInterface]
 ### InstanceofIncompatibleInterface
 'instanceof' incompatible interface `InstallHookProcessorFactory`
@@ -16846,6 +16832,19 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
             }
 ```
 
+## RuleId[id=WhileLoopSpinsOnField]
+### WhileLoopSpinsOnField
+`while` loop spins on field
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
+#### Snippet
+```java
+        waitLock.lock();
+        try {
+            while (enabled) {
+                SyncHandler[] specs = syncHandlers;
+                try {
+```
+
 ## RuleId[id=MalformedFormatString]
 ### MalformedFormatString
 Too many arguments for format string (found: 2, expected: 1)
@@ -16859,17 +16858,17 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
             } catch (RepositoryException e) {
 ```
 
-## RuleId[id=WhileLoopSpinsOnField]
-### WhileLoopSpinsOnField
-`while` loop spins on field
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
+## RuleId[id=UnnecessarySuperQualifier]
+### UnnecessarySuperQualifier
+Qualifier `super` is unnecessary in this context
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
 #### Snippet
 ```java
-        waitLock.lock();
-        try {
-            while (enabled) {
-                SyncHandler[] specs = syncHandlers;
-                try {
+                // ignore
+            }
+            super.setContentType(ct);
+        }
+        return ct;
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -16897,20 +16896,19 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
                     configurationMap.put(property.getName().getLocalName(), data);
 ```
 
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
+## RuleId[id=UseOfPropertiesAsHashtable]
+### UseOfPropertiesAsHashtable
+Call to `Hashtable.put()` on properties object
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
 #### Snippet
 ```java
-                // ignore
+            String key = (String) iter.next();
+            if (!props.containsKey(key)) {
+                props.put(key, globalEnv.getProperty(key));
             }
-            super.setContentType(ct);
         }
-        return ct;
 ```
 
-## RuleId[id=UseOfPropertiesAsHashtable]
 ### UseOfPropertiesAsHashtable
 Call to `Hashtable.put()` on properties object
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.java`
@@ -17007,18 +17005,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/PropList.jav
             }
 ```
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
-#### Snippet
-```java
-            String key = (String) iter.next();
-            if (!props.containsKey(key)) {
-                props.put(key, globalEnv.getProperty(key));
-            }
-        }
-```
-
 ## RuleId[id=EmptyMethod]
 ### EmptyMethod
 Method only calls its super
@@ -17094,15 +17080,87 @@ in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks
 
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
+Field initialization to `false` is redundant
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Diff.java`
 #### Snippet
 ```java
-    private byte[] lineFeed = null;
+     */
+    @Deprecated
+    public boolean heuristic = false;
 
-    private MD5 md5 = null;
+    /**
+```
 
-    private long length;
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Diff.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public boolean no_discards = false;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryFactory.java`
+#### Snippet
+```java
+    private final Map<String, Integer> depthMap = new HashMap<String, Integer>();
+
+    private int defaultDepth = 0;
+
+    public int getDepth(Path path, PathResolver resolver) throws NamespaceException {
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
+#### Snippet
+```java
+     * the number of changes
+     */
+    private int numDelta = 0;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
+#### Snippet
+```java
+        private Table.Col[] cols;
+
+        private int pos = 0;
+        public Row(int numCols) {
+            cols = new Table.Col[numCols];
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/CliHelpFormatter.java`
+#### Snippet
+```java
+    private boolean showUsage = true;
+
+    private boolean skipToplevel = false;
+
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
+#### Snippet
+```java
+     * indicates console is running
+     */
+    private boolean running = false;
+
+
 ```
 
 ### RedundantFieldInitialization
@@ -17118,15 +17176,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryFactory.java`
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/VaultFileCopy.java`
 #### Snippet
 ```java
-    private final Map<String, Integer> depthMap = new HashMap<String, Integer>();
+    private byte[] lineFeed = null;
 
-    private int defaultDepth = 0;
+    private MD5 md5 = null;
 
-    public int getDepth(Path path, PathResolver resolver) throws NamespaceException {
+    private long length;
 ```
 
 ### RedundantFieldInitialization
@@ -17166,30 +17224,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.jav
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
-#### Snippet
-```java
-    private boolean patchKeepInRepo = true;
-
-    private boolean nonRecursive = false;
-
-    private boolean dryRun;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
-#### Snippet
-```java
-    private AccessControlHandling acHandling = null;
-
-    private AccessControlHandling cugHandling = null;
-
-    private ImportMode importMode;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
 #### Snippet
@@ -17199,18 +17233,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.jav
     private DependencyHandling dependencyHandling = null;
 
     private IdConflictPolicy idConflictPolicy = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
-#### Snippet
-```java
-    private ClassLoader hookClassLoader;
-
-    private PathMapping pathMapping = null;
-
-    private DependencyHandling dependencyHandling = null;
 ```
 
 ### RedundantFieldInitialization
@@ -17230,11 +17252,47 @@ Field initialization to `null` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
 #### Snippet
 ```java
+    private ClassLoader hookClassLoader;
+
+    private PathMapping pathMapping = null;
+
+    private DependencyHandling dependencyHandling = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
+#### Snippet
+```java
     private IdConflictPolicy idConflictPolicy = null;
 
     private Boolean overwritePrimaryTypesOfFolders = null;
 
     /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
+#### Snippet
+```java
+    private AccessControlHandling acHandling = null;
+
+    private AccessControlHandling cugHandling = null;
+
+    private ImportMode importMode;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ImportOptions.java`
+#### Snippet
+```java
+    private boolean patchKeepInRepo = true;
+
+    private boolean nonRecursive = false;
+
+    private boolean dryRun;
 ```
 
 ### RedundantFieldInitialization
@@ -17274,18 +17332,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-
-    /** If {@link #hasErrors} = {@code true} this one contains the first exception during package import */
-    private Exception firstException = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `false` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 #### Snippet
@@ -17295,6 +17341,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
     private boolean hasErrors = false;
 
     /** If {@link #hasErrors} = {@code true} this one contains the first exception during package import */
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+
+    /** If {@link #hasErrors} = {@code true} this one contains the first exception during package import */
+    private Exception firstException = null;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -17311,24 +17369,24 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JcrSysViewTr
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AbstractArtifactHandler.java`
-#### Snippet
-```java
-     * todo: would be better to pass via some kind of import context
-     */
-    protected AccessControlHandling cugHandling = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/ImportInfoImpl.java`
 #### Snippet
 ```java
     private final TreeMap<String, Info> infos = new TreeMap<String, Info>(new PathComparator());
 
     private MultiPathMapping mapping = null;
+
+    /**
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/AbstractArtifactHandler.java`
+#### Snippet
+```java
+     * todo: would be better to pass via some kind of import context
+     */
+    protected AccessControlHandling cugHandling = null;
 
     /**
 ```
@@ -17362,9 +17420,9 @@ Field initialization to `false` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
 #### Snippet
 ```java
-     * flag indicating if this aggregator aggregates children
+     * the 'default' aggregator flag
      */
-    private boolean fullCoverage = false;
+    private boolean isDefault = false;
 
     /**
 ```
@@ -17374,23 +17432,11 @@ Field initialization to `false` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
 #### Snippet
 ```java
-     * the 'default' aggregator flag
+     * flag indicating if this aggregator aggregates children
      */
-    private boolean isDefault = false;
+    private boolean fullCoverage = false;
 
     /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-     * the current namespace state
-     */
-    private DocViewSAXHandler.Namespace nsStack = null;
-
-    private int rootDepth;
 ```
 
 ### RedundantFieldInitialization
@@ -17422,18 +17468,6 @@ Field initialization to `0` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.java`
 #### Snippet
 ```java
-    private byte[] lineSpool;
-
-    private int pos = 0;
-
-    private int end = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.java`
-#### Snippet
-```java
     private int pos = 0;
 
     private int end = 0;
@@ -17455,6 +17489,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.ja
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineInputStream.java`
+#### Snippet
+```java
+    private byte[] lineSpool;
+
+    private int pos = 0;
+
+    private int end = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListener.java`
 #### Snippet
 ```java
@@ -17463,6 +17509,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/HtmlProgressListen
     private long lastScrolled = 0;
 
     public HtmlProgressListener(Writer out) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+     * the current namespace state
+     */
+    private DocViewSAXHandler.Namespace nsStack = null;
+
+    private int rootDepth;
 ```
 
 ### RedundantFieldInitialization
@@ -17478,6 +17536,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/LineOutputStream.j
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+
+    // this list is only kept as reference for source generation.
+    private List<PathFilterSet> referenceFilterSets = null;
+
+    public static final String ATTR_VERSION = "version";
+```
+
+### RedundantFieldInitialization
 Field initialization to `0` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/FormattingXmlStreamWriter.java`
 #### Snippet
@@ -17487,6 +17557,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/Form
     private int depth = 0;
     private Attribute bufferedAttribute;
 
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/FormattingXmlStreamWriter.java`
+#### Snippet
+```java
+
+    int numNamespaceDeclarations = 0;
+    int numAttributes = 0;
+    private int depth = 0;
+    private Attribute bufferedAttribute;
 ```
 
 ### RedundantFieldInitialization
@@ -17503,26 +17585,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/Form
 
 ### RedundantFieldInitialization
 Field initialization to `0` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/xml/serialize/FormattingXmlStreamWriter.java`
-#### Snippet
-```java
-
-    int numNamespaceDeclarations = 0;
-    int numAttributes = 0;
-    private int depth = 0;
-    private Attribute bufferedAttribute;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
 #### Snippet
 ```java
-    private int batchSize = 1024;
+    private transient int totalNodes = 0;
 
-    private long throttle = 0;
+    private transient long totalSize = 0;
 
-    private transient String resumeFrom;
+    private transient long currentSize = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -17542,11 +17612,23 @@ Field initialization to `0` is redundant
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
 #### Snippet
 ```java
+    private int batchSize = 1024;
+
+    private long throttle = 0;
+
+    private transient String resumeFrom;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
+#### Snippet
+```java
+    protected ProgressTrackerListener tracker;
+
+    private transient int numNodes = 0;
+
     private transient int totalNodes = 0;
-
-    private transient long totalSize = 0;
-
-    private transient long currentSize = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -17574,27 +17656,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.j
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
-#### Snippet
-```java
-    protected ProgressTrackerListener tracker;
-
-    private transient int numNodes = 0;
-
-    private transient int totalNodes = 0;
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
 #### Snippet
 ```java
+    private FSPackageRegistry registry;
 
-    // this list is only kept as reference for source generation.
-    private List<PathFilterSet> referenceFilterSets = null;
+    private VaultPackage vltPkg = null;
 
-    public static final String ATTR_VERSION = "version";
+    private PackageId id;
 ```
 
 ### RedundantFieldInitialization
@@ -17607,18 +17677,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
     private boolean isInitialized = false;
 
     /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
-#### Snippet
-```java
-    private FSPackageRegistry registry;
-
-    private VaultPackage vltPkg = null;
-
-    private PackageId id;
 ```
 
 ### RedundantFieldInitialization
@@ -17657,78 +17715,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Sync.java`
         private Set<String> roots = new LinkedHashSet<String>();
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Diff.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean heuristic = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Diff.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean no_discards = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
-#### Snippet
-```java
-     * the number of changes
-     */
-    private int numDelta = 0;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/CliHelpFormatter.java`
-#### Snippet
-```java
-    private boolean showUsage = true;
-
-    private boolean skipToplevel = false;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
-#### Snippet
-```java
-        private Table.Col[] cols;
-
-        private int pos = 0;
-        public Row(int numCols) {
-            cols = new Table.Col[numCols];
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
-#### Snippet
-```java
-     * indicates console is running
-     */
-    private boolean running = false;
-
-
-```
-
 ## RuleId[id=GroovyUnusedAssignment]
 ### GroovyUnusedAssignment
 Variable is not used
@@ -17743,6 +17729,18 @@ vaultPipeline('ubuntu', 11, '3', {
 ```
 
 ## RuleId[id=RedundantImplements]
+### RedundantImplements
+Redundant interface declaration `Map`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/TypedMapWrapper.java`
+#### Snippet
+```java
+ * The method names are inspired by <a href="https://sling.apache.org/apidocs/sling8/org/apache/sling/commons/json/JSONObject.html">org.apache.sling.commons.json.JSONObject</a>.
+ */
+public class TypedMapWrapper extends AbstractMap<String,Object> implements Map<String, Object> {
+
+    private final Map<String, Object> wrappedMap;
+```
+
 ### RedundantImplements
 Redundant interface declaration `Dumpable`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/PathFilter.java`
@@ -17781,24 +17779,24 @@ public abstract class AbstractArtifactHandler implements ArtifactHandler, Dumpab
 
 ### RedundantImplements
 Redundant interface declaration `Dumpable`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-/**
- */
-public class GenericAggregator implements Aggregator, Dumpable {
-
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Dumpable`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/FileAggregator.java`
 #### Snippet
 ```java
  * is created.
  */
 public class FileAggregator implements Aggregator, Dumpable {
+
+    /**
+```
+
+### RedundantImplements
+Redundant interface declaration `Dumpable`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+/**
+ */
+public class GenericAggregator implements Aggregator, Dumpable {
 
     /**
 ```
@@ -17827,32 +17825,43 @@ public abstract class AbstractPackageRegistry implements PackageRegistry, Intern
     public static final class SecurityConfig {
 ```
 
-### RedundantImplements
-Redundant interface declaration `Map`
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/TypedMapWrapper.java`
-#### Snippet
-```java
- * The method names are inspired by <a href="https://sling.apache.org/apidocs/sling8/org/apache/sling/commons/json/JSONObject.html">org.apache.sling.commons.json.JSONObject</a>.
- */
-public class TypedMapWrapper extends AbstractMap<String,Object> implements Map<String, Object> {
-
-    private final Map<String, Object> wrappedMap;
-```
-
-## RuleId[id=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `NamespaceExceptionInNodeName` does not end with 'Exception'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NamespaceExceptionInNodeName.java`
-#### Snippet
-```java
-import javax.jcr.NamespaceException;
-
-public class NamespaceExceptionInNodeName extends NamespaceException {
-
-    /**
-```
-
 ## RuleId[id=InstanceofCatchParameter]
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+                    loggedUnknownNodeTypeMessages.add(e.getMessage());
+                }
+                if (e instanceof NamespaceExceptionInNodeName) {
+                    // now register namespace with an arbitrary namespace url
+                    NameParser.parse(nodeName, new OnDemandRegisterNamespaceResolverWrapper(ntManagerProvider),
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+                        }
+                    } catch (RuntimeException e) {
+                        if (!(e instanceof ValidatorException)) {
+                            throw new ValidatorException(entry.getKey(), filePath, e);
+                        } else {
+```
+
+### InstanceofCatchParameter
+'instanceof' on 'catch' parameter `e`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+                        }
+                    } catch (RuntimeException e) {
+                        if (!(e instanceof ValidatorException)) {
+                            throw new ValidatorException(entry.getKey(), filePath, e);
+                        }
+```
+
 ### InstanceofCatchParameter
 'instanceof' on 'catch' parameter `e`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
@@ -17877,43 +17886,32 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVault
                 } else {
 ```
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+## RuleId[id=ExceptionNameDoesntEndWithException]
+### ExceptionNameDoesntEndWithException
+Exception class name `NamespaceExceptionInNodeName` does not end with 'Exception'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NamespaceExceptionInNodeName.java`
 #### Snippet
 ```java
-                    loggedUnknownNodeTypeMessages.add(e.getMessage());
-                }
-                if (e instanceof NamespaceExceptionInNodeName) {
-                    // now register namespace with an arbitrary namespace url
-                    NameParser.parse(nodeName, new OnDemandRegisterNamespaceResolverWrapper(ntManagerProvider),
-```
+import javax.jcr.NamespaceException;
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-                        }
-                    } catch (RuntimeException e) {
-                        if (!(e instanceof ValidatorException)) {
-                            throw new ValidatorException(entry.getKey(), filePath, e);
-                        }
-```
+public class NamespaceExceptionInNodeName extends NamespaceException {
 
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-                        }
-                    } catch (RuntimeException e) {
-                        if (!(e instanceof ValidatorException)) {
-                            throw new ValidatorException(entry.getKey(), filePath, e);
-                        } else {
+    /**
 ```
 
 ## RuleId[id=ArrayEquality]
+### ArrayEquality
+Array objects are compared using `!=`, not 'Arrays.equals()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+                    Dependency[] oldDeps = def.getDependencies();
+                    Dependency[] newDeps = DependencyUtil.addExact(oldDeps, pack.getId());
+                    if (oldDeps != newDeps) {
+                        def.setDependencies(newDeps, false);
+                    }
+```
+
 ### ArrayEquality
 Array objects are compared using `!=`, not 'Arrays.equals()'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
@@ -17938,221 +17936,17 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
                 }
 ```
 
-### ArrayEquality
-Array objects are compared using `!=`, not 'Arrays.equals()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-                    Dependency[] oldDeps = def.getDependencies();
-                    Dependency[] newDeps = DependencyUtil.addExact(oldDeps, pack.getId());
-                    if (oldDeps != newDeps) {
-                        def.setDependencies(newDeps, false);
-                    }
-```
-
 ## RuleId[id=StringBufferReplaceableByStringBuilder]
 ### StringBufferReplaceableByStringBuilder
 `StringBuffer buf` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AbstractArtifact.java`
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Hunk3.java`
 #### Snippet
 ```java
      */
-    public String toString() {
-        StringBuffer buf = new StringBuffer(type.toString());
-        buf.append('(').append(repoRelPath).append(')');
-        return buf.toString();
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer n` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
-#### Snippet
-```java
-            Value[] values = prop.getValues();
-            for (int i=0; i<values.length; i++) {
-                StringBuffer n = new StringBuffer(relPath);
-                n.append('[').append(i).append(']');
-                list.add(new PropertyValueArtifact(parent, n.toString(), ext, type, prop, i, lastModified));
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer b` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/ParseException.java`
-#### Snippet
-```java
-     */
-    public String getMessage() {
-        StringBuffer b = new StringBuffer(super.getMessage());
-        String delim = " (";
-        if (systemId != null && !"".equals(systemId)) {
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer ret` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
-#### Snippet
-```java
-            return parent == null ? "" : parent;
-        }
-        StringBuffer ret = new StringBuffer();
-        if (parent != null) {
-            ret.append(parent);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
-#### Snippet
-```java
-            i++;
-        }
-        StringBuffer buf = new StringBuffer();
-        String delim = "";
-        // go p1.length - i levels up to the common ancestor
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer result` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-                                          boolean ignoreMissing)
-            throws IllegalArgumentException {
-        StringBuffer result = new StringBuffer();
-
-        // Value:
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-        }
-        int lastPos = 0;
-        StringBuffer sb = new StringBuffer(text.length());
-        while (pos != -1) {
-            sb.append(text.substring(lastPos, pos));
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-     */
-    public static String implode(String[] arr, String delim) {
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < arr.length; i++) {
-            if (i > 0) {
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buffer` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-     */
-    public static String unescapeIllegalJcrChars(String name) {
-        StringBuffer buffer = new StringBuffer(name.length());
-        int i = name.indexOf('%');
-        while (i > -1 && i + 2 < name.length()) {
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer out` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            BitSet validChars = isPath ? URISaveEx : URISave;
-            byte[] bytes = string.getBytes("utf-8");
-            StringBuffer out = new StringBuffer(bytes.length);
-            for (byte aByte : bytes) {
-                int c = aByte & 0xff;
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buffer` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-     */
-    public static String escapeIllegalJcrChars(String name) {
-        StringBuffer buffer = new StringBuffer(name.length() * 2);
-        for (int i = 0; i < name.length(); i++) {
-            char ch = name.charAt(i);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer res` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-        MessageDigest md = MessageDigest.getInstance(algorithm);
-        byte[] digest = md.digest(data);
-        StringBuffer res = new StringBuffer(digest.length * 2);
-        for (byte b : digest) {
-            res.append(hexTable[(b >> 4) & 15]);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer sb` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-     */
-    public static String escapeIllegalXpathSearchChars(String s) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(s.substring(0, (s.length() - 1)));
-        char c = s.charAt(s.length() - 1);
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("null argument");
-        }
-        StringBuffer buf = null;
-        int length = text.length();
-        int pos = 0;
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer path` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
-#### Snippet
-```java
-    public String getRootPath() {
-        Node<E> n = root;
-        StringBuffer path = new StringBuffer();
-        while (n.elem == null && n.children.size() == 1) {
-            n = n.children.values().iterator().next();
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer msg` may be declared as 'StringBuilder'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryProvider.java`
-#### Snippet
-```java
-            }
-        }
-        StringBuffer msg = new StringBuffer("URL scheme ");
-        msg.append(address.getURI().getScheme());
-        msg.append(" not supported. only");
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer reg` may be declared as 'StringBuilder'
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
-#### Snippet
-```java
-        }
-        root = root.replace('\\', '/');
-        StringBuffer reg = new StringBuffer("^");
-        reg.append(root).append("/");
-        for (int i=0; i<pattern.length(); i++) {
+    public static String getMarker(String[] fmt, Document doc) {
+        StringBuffer buf = new StringBuffer(fmt[0]);
+        if (doc != null && doc.getSource() != null && doc.getSource().getLabel() != null) {
+            buf.append(doc.getSource().getLabel());
 ```
 
 ### StringBufferReplaceableByStringBuilder
@@ -18177,18 +17971,6 @@ in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElements
         StringBuffer word = new StringBuffer();
         int c;
         while ((c=r.read()) >=0 && lines.size()<MAX_ELEMENTS) {
-```
-
-### StringBufferReplaceableByStringBuilder
-`StringBuffer buf` may be declared as 'StringBuilder'
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/Hunk3.java`
-#### Snippet
-```java
-     */
-    public static String getMarker(String[] fmt, Document doc) {
-        StringBuffer buf = new StringBuffer(fmt[0]);
-        if (doc != null && doc.getSource() != null && doc.getSource().getLabel() != null) {
-            buf.append(doc.getSource().getLabel());
 ```
 
 ### StringBufferReplaceableByStringBuilder
@@ -18240,6 +18022,18 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Text.j
 ```
 
 ### StringBufferReplaceableByStringBuilder
+`StringBuffer sep` may be declared as 'StringBuilder'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+#### Snippet
+```java
+    protected HelpFormatter getAppHelpFormatter() {
+        CliHelpFormatter hf = CliHelpFormatter.create();
+        StringBuffer sep = new StringBuffer(hf.getPageWidth());
+        while (sep.length() < hf.getPageWidth()) {
+            sep.append("-");
+```
+
+### StringBufferReplaceableByStringBuilder
 `StringBuffer out` may be declared as 'StringBuilder'
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
 #### Snippet
@@ -18252,15 +18046,207 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.jav
 ```
 
 ### StringBufferReplaceableByStringBuilder
-`StringBuffer sep` may be declared as 'StringBuilder'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/AbstractApplication.java`
+`StringBuffer buf` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AbstractArtifact.java`
 #### Snippet
 ```java
-    protected HelpFormatter getAppHelpFormatter() {
-        CliHelpFormatter hf = CliHelpFormatter.create();
-        StringBuffer sep = new StringBuffer(hf.getPageWidth());
-        while (sep.length() < hf.getPageWidth()) {
-            sep.append("-");
+     */
+    public String toString() {
+        StringBuffer buf = new StringBuffer(type.toString());
+        buf.append('(').append(repoRelPath).append(')');
+        return buf.toString();
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer n` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/PropertyValueArtifact.java`
+#### Snippet
+```java
+            Value[] values = prop.getValues();
+            for (int i=0; i<values.length; i++) {
+                StringBuffer n = new StringBuffer(relPath);
+                n.append('[').append(i).append(']');
+                list.add(new PropertyValueArtifact(parent, n.toString(), ext, type, prop, i, lastModified));
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer b` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/legacycnd/ParseException.java`
+#### Snippet
+```java
+     */
+    public String getMessage() {
+        StringBuffer b = new StringBuffer(super.getMessage());
+        String delim = " (";
+        if (systemId != null && !"".equals(systemId)) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+        }
+        int lastPos = 0;
+        StringBuffer sb = new StringBuffer(text.length());
+        while (pos != -1) {
+            sb.append(text.substring(lastPos, pos));
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer res` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+        MessageDigest md = MessageDigest.getInstance(algorithm);
+        byte[] digest = md.digest(data);
+        StringBuffer res = new StringBuffer(digest.length * 2);
+        for (byte b : digest) {
+            res.append(hexTable[(b >> 4) & 15]);
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buf` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("null argument");
+        }
+        StringBuffer buf = null;
+        int length = text.length();
+        int pos = 0;
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buffer` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+     */
+    public static String escapeIllegalJcrChars(String name) {
+        StringBuffer buffer = new StringBuffer(name.length() * 2);
+        for (int i = 0; i < name.length(); i++) {
+            char ch = name.charAt(i);
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buffer` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+     */
+    public static String unescapeIllegalJcrChars(String name) {
+        StringBuffer buffer = new StringBuffer(name.length());
+        int i = name.indexOf('%');
+        while (i > -1 && i + 2 < name.length()) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer sb` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+     */
+    public static String escapeIllegalXpathSearchChars(String s) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(s.substring(0, (s.length() - 1)));
+        char c = s.charAt(s.length() - 1);
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer out` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            BitSet validChars = isPath ? URISaveEx : URISave;
+            byte[] bytes = string.getBytes("utf-8");
+            StringBuffer out = new StringBuffer(bytes.length);
+            for (byte aByte : bytes) {
+                int c = aByte & 0xff;
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buf` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+     */
+    public static String implode(String[] arr, String delim) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < arr.length; i++) {
+            if (i > 0) {
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer result` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+                                          boolean ignoreMissing)
+            throws IllegalArgumentException {
+        StringBuffer result = new StringBuffer();
+
+        // Value:
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer buf` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
+#### Snippet
+```java
+            i++;
+        }
+        StringBuffer buf = new StringBuffer();
+        String delim = "";
+        // go p1.length - i levels up to the common ancestor
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer ret` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
+#### Snippet
+```java
+            return parent == null ? "" : parent;
+        }
+        StringBuffer ret = new StringBuffer();
+        if (parent != null) {
+            ret.append(parent);
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer msg` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryProvider.java`
+#### Snippet
+```java
+            }
+        }
+        StringBuffer msg = new StringBuffer("URL scheme ");
+        msg.append(address.getURI().getScheme());
+        msg.append(" not supported. only");
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer path` may be declared as 'StringBuilder'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+#### Snippet
+```java
+    public String getRootPath() {
+        Node<E> n = root;
+        StringBuffer path = new StringBuffer();
+        while (n.elem == null && n.children.size() == 1) {
+            n = n.children.values().iterator().next();
+```
+
+### StringBufferReplaceableByStringBuilder
+`StringBuffer reg` may be declared as 'StringBuilder'
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
+#### Snippet
+```java
+        }
+        root = root.replace('\\', '/');
+        StringBuffer reg = new StringBuffer("^");
+        reg.append(root).append("/");
+        for (int i=0; i<pattern.length(); i++) {
 ```
 
 ## RuleId[id=NonFinalFieldOfException]
@@ -18291,230 +18277,26 @@ public class NoSuchPackageException extends PackageException {
 ## RuleId[id=ZeroLengthArrayInitialization]
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
+in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
 #### Snippet
 ```java
-        if (decompressed != null) {
-            // keep array so isBuffered works after closing
-            decompressed = new byte[0];
+        int idx = credentialsAsString.indexOf(':');
+        if (idx < 0) {
+            creds = new SimpleCredentials(credentialsAsString, new char[0]);
+        } else {
+            creds = new SimpleCredentials(
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/LineElementsFactory.java`
+#### Snippet
+```java
+            throws IOException {
+        if (r == null) {
+            return new Document.Element[0];
         }
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
-#### Snippet
-```java
-            int idx = userinfo.indexOf(':');
-            if (idx < 0) {
-                return new SimpleCredentials(userinfo, new char[0]);
-            } else {
-                return new SimpleCredentials(
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-
-        Privilege[] getPrivileges(AccessControlManager acMgr) throws RepositoryException {
-            return AccessControlUtils.privilegesFromNames(acMgr, privileges.toArray(new String[0]));
-        }
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-                Optional<DocViewProperty2> prop = docViewNode.getProperty(NAME_REP_MEMBERS);
-                if (prop.isPresent()) {
-                    importInfo.registerMemberships(id, prop.get().getStringValues().toArray(new String[0]));
-                }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
-#### Snippet
-```java
-                            new SimpleCredentials(
-                                    name,
-                                    pass == null ? new char[0] : pass.toCharArray()));
-                }
-            }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-    public static String[] explode(String str, int ch, boolean respectEmpty) {
-        if (str == null || str.length() == 0) {
-            return new String[0];
-        }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackagingService.java`
-#### Snippet
-```java
-
-        // todo: should somehow pass the package roots
-        return new JcrPackageManagerImpl(session, new String[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
-#### Snippet
-```java
-            }
-            if (type == PropertyType.UNDEFINED) {
-                node.setProperty(qualifiedName, values.toArray(new String[0]));
-            } else {
-                node.setProperty(qualifiedName, values.toArray(new String[0]), type);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
-#### Snippet
-```java
-                node.setProperty(qualifiedName, values.toArray(new String[0]));
-            } else {
-                node.setProperty(qualifiedName, values.toArray(new String[0]), type);
-            }
-            // assume modified
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
-#### Snippet
-```java
-            String qualifiedName = getQualifiedName(node.getSession(), name);
-            if (isMultiValue) {
-                node.setProperty(qualifiedName, binaryValues.toArray(new Value[0]));
-            } else {
-                node.setProperty(qualifiedName, binaryValues.get(0));
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-            label += "[" + node.getIndex() + "]";
-        }
-        return new DocViewNode(node.getName().toString(), label, node.getIdentifier().orElse(null), node.getProperties().stream().collect(Collectors.toMap(p -> p.getName().toString(),  DocViewProperty::fromDocViewProperty2)), node.getMixinTypes().toArray(new String[0]), node.getPrimaryType().orElse(null));
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-
-    public static DocViewProperty fromDocViewProperty2(DocViewProperty2 property) {
-        return new DocViewProperty(property.getName().toString(), property.getStringValues().toArray(new String[0]), property.isMultiValue(), property.getType(), property.isReferenceProperty());
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-            }
-            if (isMulti) {
-                node.setProperty(name, binaryValues.toArray(new Value[0]));
-            } else {
-                node.setProperty(name, binaryValues.get(0));
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
-#### Snippet
-```java
-            isBinaryRef = false;
-        }
-        return new DocViewProperty(name, strValues.toArray(new String[0]), isMulti, type, isBinaryRef);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/AdminPermissionChecker.java`
-#### Snippet
-```java
-     */
-    public static boolean hasAdministrativePermissions(@NotNull Session session, String... additionalAdminAuthorizableIdsOrPrincipalNames) throws RepositoryException {
-        List<String> additionalAdminIdsOrPrincipalNames = Arrays.asList(Optional.ofNullable(additionalAdminAuthorizableIdsOrPrincipalNames).orElse(new String[0]));
-        final JackrabbitSession jackrabbitSession;
-        if (session instanceof JackrabbitSession) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerMBeanImpl.java`
-#### Snippet
-```java
-                session = repository.loginAdministrative(null);
-                // todo: find a way to use the sling packaging service instead
-                JcrPackageManager pkgMgr = new JcrPackageManagerImpl(session, new String[0]);
-                for (JcrPackage pkg: pkgMgr.listPackages()) {
-                    try {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/CompositePackageRegistry.java`
-#### Snippet
-```java
-            }
-        }
-        return dependentPackageIds.toArray(new PackageId[0]);
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
-#### Snippet
-```java
-    private Session session;
-
-    private SyncHandler[] syncHandlers = new SyncHandler[0];
-
-    private boolean enabled;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
-#### Snippet
-```java
-                return new SimpleCredentials(userPass.substring(0, idx), userPass.substring(idx + 1).toCharArray());
-            } else {
-                return new SimpleCredentials(userPass, new char[0]);
-            }
-        }
+        ArrayList lines = new ArrayList();
 ```
 
 ### ZeroLengthArrayInitialization
@@ -18531,14 +18313,14 @@ in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpTaskImpl.jav
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `vault-rcp/src/main/java/org/apache/jackrabbit/vault/rcp/impl/RcpServlet.java`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
 #### Snippet
 ```java
-        int idx = credentialsAsString.indexOf(':');
-        if (idx < 0) {
-            creds = new SimpleCredentials(credentialsAsString, new char[0]);
+            defaultCreds = new SimpleCredentials(creds.substring(0, idx), creds.substring(idx + 1).toCharArray());
         } else {
-            creds = new SimpleCredentials(
+            defaultCreds = new SimpleCredentials(creds, new char[0]);
+        }
+        try {
 ```
 
 ### ZeroLengthArrayInitialization
@@ -18591,26 +18373,230 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/LineElementsFactory.java`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/VaultSyncServiceImpl.java`
 #### Snippet
 ```java
-            throws IOException {
-        if (r == null) {
-            return new Document.Element[0];
-        }
-        ArrayList lines = new ArrayList();
+    private Session session;
+
+    private SyncHandler[] syncHandlers = new SyncHandler[0];
+
+    private boolean enabled;
 ```
 
 ### ZeroLengthArrayInitialization
 Allocation of zero length array
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/ZipStreamArchive.java`
 #### Snippet
 ```java
-            defaultCreds = new SimpleCredentials(creds.substring(0, idx), creds.substring(idx + 1).toCharArray());
-        } else {
-            defaultCreds = new SimpleCredentials(creds, new char[0]);
+        if (decompressed != null) {
+            // keep array so isBuffered works after closing
+            decompressed = new byte[0];
         }
-        try {
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/RepositoryAddress.java`
+#### Snippet
+```java
+            int idx = userinfo.indexOf(':');
+            if (idx < 0) {
+                return new SimpleCredentials(userinfo, new char[0]);
+            } else {
+                return new SimpleCredentials(
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredentialsConfig.java`
+#### Snippet
+```java
+                            new SimpleCredentials(
+                                    name,
+                                    pass == null ? new char[0] : pass.toCharArray()));
+                }
+            }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+
+        Privilege[] getPrivileges(AccessControlManager acMgr) throws RepositoryException {
+            return AccessControlUtils.privilegesFromNames(acMgr, privileges.toArray(new String[0]));
+        }
+    }
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+    public static String[] explode(String str, int ch, boolean respectEmpty) {
+        if (str == null || str.length() == 0) {
+            return new String[0];
+        }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
+#### Snippet
+```java
+                Optional<DocViewProperty2> prop = docViewNode.getProperty(NAME_REP_MEMBERS);
+                if (prop.isPresent()) {
+                    importInfo.registerMemberships(id, prop.get().getStringValues().toArray(new String[0]));
+                }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
+#### Snippet
+```java
+            label += "[" + node.getIndex() + "]";
+        }
+        return new DocViewNode(node.getName().toString(), label, node.getIdentifier().orElse(null), node.getProperties().stream().collect(Collectors.toMap(p -> p.getName().toString(),  DocViewProperty::fromDocViewProperty2)), node.getMixinTypes().toArray(new String[0]), node.getPrimaryType().orElse(null));
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+            isBinaryRef = false;
+        }
+        return new DocViewProperty(name, strValues.toArray(new String[0]), isMulti, type, isBinaryRef);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+
+    public static DocViewProperty fromDocViewProperty2(DocViewProperty2 property) {
+        return new DocViewProperty(property.getName().toString(), property.getStringValues().toArray(new String[0]), property.isMultiValue(), property.getType(), property.isReferenceProperty());
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty.java`
+#### Snippet
+```java
+            }
+            if (isMulti) {
+                node.setProperty(name, binaryValues.toArray(new Value[0]));
+            } else {
+                node.setProperty(name, binaryValues.get(0));
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackagingService.java`
+#### Snippet
+```java
+
+        // todo: should somehow pass the package roots
+        return new JcrPackageManagerImpl(session, new String[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
+#### Snippet
+```java
+            String qualifiedName = getQualifiedName(node.getSession(), name);
+            if (isMultiValue) {
+                node.setProperty(qualifiedName, binaryValues.toArray(new Value[0]));
+            } else {
+                node.setProperty(qualifiedName, binaryValues.get(0));
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
+#### Snippet
+```java
+            }
+            if (type == PropertyType.UNDEFINED) {
+                node.setProperty(qualifiedName, values.toArray(new String[0]));
+            } else {
+                node.setProperty(qualifiedName, values.toArray(new String[0]), type);
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewProperty2.java`
+#### Snippet
+```java
+                node.setProperty(qualifiedName, values.toArray(new String[0]));
+            } else {
+                node.setProperty(qualifiedName, values.toArray(new String[0]), type);
+            }
+            // assume modified
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/AdminPermissionChecker.java`
+#### Snippet
+```java
+     */
+    public static boolean hasAdministrativePermissions(@NotNull Session session, String... additionalAdminAuthorizableIdsOrPrincipalNames) throws RepositoryException {
+        List<String> additionalAdminIdsOrPrincipalNames = Arrays.asList(Optional.ofNullable(additionalAdminAuthorizableIdsOrPrincipalNames).orElse(new String[0]));
+        final JackrabbitSession jackrabbitSession;
+        if (session instanceof JackrabbitSession) {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerMBeanImpl.java`
+#### Snippet
+```java
+                session = repository.loginAdministrative(null);
+                // todo: find a way to use the sling packaging service instead
+                JcrPackageManager pkgMgr = new JcrPackageManagerImpl(session, new String[0]);
+                for (JcrPackage pkg: pkgMgr.listPackages()) {
+                    try {
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/CompositePackageRegistry.java`
+#### Snippet
+```java
+            }
+        }
+        return dependentPackageIds.toArray(new PackageId[0]);
+    }
+
+```
+
+### ZeroLengthArrayInitialization
+Allocation of zero length array
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/ConfigCredentialsStore.java`
+#### Snippet
+```java
+                return new SimpleCredentials(userPass.substring(0, idx), userPass.substring(idx + 1).toCharArray());
+            } else {
+                return new SimpleCredentials(userPass, new char[0]);
+            }
+        }
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -18627,6 +18613,150 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `jcrPath .equals("/")` is always `true`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
+#### Snippet
+```java
+        }
+        if (localPath == null) {
+            if (jcrPath .equals("/")) {
+                localPath = Text.getName(addr.toString());
+            } else {
+```
+
+### ConstantValue
+Condition `message == null` is always `false` when reached
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
+#### Snippet
+```java
+        result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
+        result = prime * result + line;
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((nodePath == null) ? 0 : nodePath.hashCode());
+        result = prime * result + ((severity == null) ? 0 : severity.hashCode());
+```
+
+### ConstantValue
+Condition `severity == null` is always `false` when reached
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
+#### Snippet
+```java
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((nodePath == null) ? 0 : nodePath.hashCode());
+        result = prime * result + ((severity == null) ? 0 : severity.hashCode());
+        return result;
+    }
+```
+
+### ConstantValue
+Condition `severity != null` is always `true`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "ValidationMessage [" + (severity != null ? "severity=" + severity + ", " : "")
+                + (message != null ? "message=" + message + ", " : "") + "line=" + line + ", column=" + column + ", "
+                + (throwable != null ? "throwable=" + throwable + ", " : "") + (nodePath != null ? "nodePath=" + nodePath + ", " : "")
+```
+
+### ConstantValue
+Condition `message != null` is always `true`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
+#### Snippet
+```java
+    public String toString() {
+        return "ValidationMessage [" + (severity != null ? "severity=" + severity + ", " : "")
+                + (message != null ? "message=" + message + ", " : "") + "line=" + line + ", column=" + column + ", "
+                + (throwable != null ? "throwable=" + throwable + ", " : "") + (nodePath != null ? "nodePath=" + nodePath + ", " : "")
+                + (filePath != null ? "filePath=" + filePath + ", " : "") + (basePath != null ? "basePath=" + basePath : "") + "]";
+```
+
+### ConstantValue
+Value `isFolder` is always 'true'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+        boolean isImplicit = isImplicit(nodeContext.getNodePath());
+        if (isFolder) {
+            messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FOLDER));
+            //
+            if (!nodeContext.getNodePath().equals("/")) {
+```
+
+### ConstantValue
+Value `isFolder` is always 'false'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+                if (fileName.endsWith(ValidationExecutor.EXTENSION_BINARY)) {
+                    // create parent if it does not exist yet
+                    messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FOLDER));
+                    String propertyName = fileName.substring(0, fileName.length() - ValidationExecutor.EXTENSION_BINARY.length());
+                    messages.addAll(addProperty(nodeContext, propertyName, false, DUMMY_BINARY_VALUE));
+```
+
+### ConstantValue
+Value `isFolder` is always 'false'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+                } else {
+                    // if binary node is not yet there
+                    messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FILE));
+                    // if a NT_FILE create a jcr:content sub node of type NT_RESOURCE
+                    if (currentNodeTypeMetaData.getPrimaryNodeType().equals(NameConstants.NT_FILE)) {
+```
+
+### ConstantValue
+Value `isFolder` is always 'false'
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+#### Snippet
+```java
+                                nodeContext.getFilePath(), nodeContext.getBasePath());
+                        messages.addAll(
+                                getOrCreateNewNode(nodeContext, isFolder, isImplicit(nodeContext.getNodePath()), true, JcrConstants.NT_RESOURCE));
+                    }
+                    messages.addAll(addProperty(nodeContext, JcrConstants.JCR_DATA, false, DUMMY_BINARY_VALUE));
+```
+
+### ConstantValue
+Condition `groupId != null` is always `true`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
+                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
+                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
+```
+
+### ConstantValue
+Condition `artifactId != null` is always `true`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
+#### Snippet
+```java
+        public String toString() {
+            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
+                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
+                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
+                    + "]";
+```
+
+### ConstantValue
+Condition `packaging != null` is always `true`
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
+#### Snippet
+```java
+            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
+                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
+                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
+                    + "]";
+        }
+```
+
 ### ConstantValue
 Condition `filter.getFilterSets() != null` is always `true`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
@@ -18652,6 +18782,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 ```
 
 ### ConstantValue
+Condition `txInfo == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                    txInfo.out.getArtifacts().add(change.isa);
+                }
+                if (txInfo == null) {
+                    return false;
+                }
+```
+
+### ConstantValue
+Condition `false && change.isa.getSerializationType() == SerializationType.XML_DOCVIEW` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                    repoPath += repoName;
+                    assertInFilter(repoPath);
+                    if (false && change.isa.getSerializationType() == SerializationType.XML_DOCVIEW) {
+                        // special case that full coverage is below a intermediate
+                        // ignore and wait for next cycle
+```
+
+### ConstantValue
 Condition `name != null` is always `true`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultSettings.java`
 #### Snippet
@@ -18664,14 +18818,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultSettings
 ```
 
 ### ConstantValue
-Condition `cfg != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultAuthConfig.java`
+Condition `v == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
 #### Snippet
 ```java
         }
-        RepositoryConfig cfg = RepositoryConfig.load(child);
-        if (cfg != null) {
-            repoConfigs.put(cfg.uri, cfg);
+        String v = doc.getAttribute(ATTR_VERSION);
+        if (v == null || v.equals("")) {
+            v = "1.0";
         }
 ```
 
@@ -18700,26 +18854,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultAuthConf
 ```
 
 ### ConstantValue
-Condition `v == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractConfig.java`
+Condition `cfg != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultAuthConfig.java`
 #### Snippet
 ```java
         }
-        String v = doc.getAttribute(ATTR_VERSION);
-        if (v == null || v.equals("")) {
-            v = "1.0";
-        }
-```
-
-### ConstantValue
-Condition `v == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVaultFsConfig.java`
-#### Snippet
-```java
-        }
-        String v = doc.getAttribute(ATTR_VERSION);
-        if (v == null || v.equals("")) {
-            v = "1.0";
+        RepositoryConfig cfg = RepositoryConfig.load(child);
+        if (cfg != null) {
+            repoConfigs.put(cfg.uri, cfg);
         }
 ```
 
@@ -18736,51 +18878,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/CredentialsCo
 ```
 
 ### ConstantValue
-Condition `className == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ConfigHelper.java`
+Condition `v == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVaultFsConfig.java`
 #### Snippet
 ```java
-
-        String className = elem.getAttribute("class");
-        if (className == null || className.equals("")) {
-            className = (String) defaultClasses.get(elem.getNodeName());
         }
-```
-
-### ConstantValue
-Condition `prop != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
-#### Snippet
-```java
-        for (DocViewProperty2 prop : ni.getProperties()) {
-            String name = npResolver.getJCRName(prop.getName());
-            if (prop != null && !isPropertyProtected(effectiveNodeType, prop) && (overwriteExistingProperties || !node.hasProperty(name)) && wspFilter.includesProperty(node.getPath() + "/" + npResolver.getJCRName(prop.getName()))) {
-                // check if property is allowed
-                try {
-```
-
-### ConstantValue
-Condition `txInfo == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                    txInfo.out.getArtifacts().add(change.isa);
-                }
-                if (txInfo == null) {
-                    return false;
-                }
-```
-
-### ConstantValue
-Condition `false && change.isa.getSerializationType() == SerializationType.XML_DOCVIEW` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                    repoPath += repoName;
-                    assertInFilter(repoPath);
-                    if (false && change.isa.getSerializationType() == SerializationType.XML_DOCVIEW) {
-                        // special case that full coverage is below a intermediate
-                        // ignore and wait for next cycle
+        String v = doc.getAttribute(ATTR_VERSION);
+        if (v == null || v.equals("")) {
+            v = "1.0";
+        }
 ```
 
 ### ConstantValue
@@ -18805,6 +18911,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ExportRoot.ja
             if (!metaDir.isDirectory()) {
                 throw new IOException("Unable to create " + metaDir.getAbsolutePath());
             }
+```
+
+### ConstantValue
+Condition `type == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
+#### Snippet
+```java
+    private void processHandler(Element elem) throws ConfigurationException {
+        String type = elem.getAttribute("type");
+        if (type == null || type.equals("")) {
+            type = "generic";
+        }
 ```
 
 ### ConstantValue
@@ -18844,14 +18962,14 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig
 ```
 
 ### ConstantValue
-Condition `type == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
+Condition `className == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ConfigHelper.java`
 #### Snippet
 ```java
-    private void processHandler(Element elem) throws ConfigurationException {
-        String type = elem.getAttribute("type");
-        if (type == null || type.equals("")) {
-            type = "generic";
+
+        String className = elem.getAttribute("class");
+        if (className == null || className.equals("")) {
+            className = (String) defaultClasses.get(elem.getNodeName());
         }
 ```
 
@@ -18868,75 +18986,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
 ```
 
 ### ConstantValue
-Value `isMultiple` is always 'true'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/EffectiveNodeType.java`
+Condition `prop != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImporter.java`
 #### Snippet
 ```java
-        // This replicates the logic from https://github.com/apache/jackrabbit-oak/blob/274f92402a12978040939965e92ee4519f2ce1c3/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/nodetype/EffectiveNodeTypeImpl.java#L365
-        // single values are covered by multivalue property definitions as well (but not vice-versa)
-        return getApplicablePropertyDefinition(pd -> ((!isMultiple) || isMultiple == pd.isMultiple()) && (type == pd.getRequiredType() || UNDEFINED == type || UNDEFINED == pd.getRequiredType()), name);
-    }
-
-```
-
-### ConstantValue
-Condition `name != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "DocViewNode2 [" + (name != null ? "name=" + name + ", " : "") + "index=" + index + ", "
-                + (properties != null ? "properties=" + properties : "") + "]";
-    }
-```
-
-### ConstantValue
-Condition `properties != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
-#### Snippet
-```java
-    public String toString() {
-        return "DocViewNode2 [" + (name != null ? "name=" + name + ", " : "") + "index=" + index + ", "
-                + (properties != null ? "properties=" + properties : "") + "]";
-    }
-
-```
-
-### ConstantValue
-Condition `str != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
-#### Snippet
-```java
-     */
-    public boolean isSnapshot() {
-        return str != null && (str.endsWith("SNAPSHOT"));
-    }
-}
-```
-
-### ConstantValue
-Condition `dep != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
-#### Snippet
-```java
-        StringBuilder b = new StringBuilder();
-        for (Dependency dep: deps) {
-            if (dep != null) {
-                b.append(delim).append(dep);
-                delim=",";
-```
-
-### ConstantValue
-Condition `nameStart == len` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-        }
-
-        if (nameStart == len || state == STATE_NAME_START) {
-            throw new IllegalArgumentException("Local name must not be empty");
-        }
+        for (DocViewProperty2 prop : ni.getProperties()) {
+            String name = npResolver.getJCRName(prop.getName());
+            if (prop != null && !isPropertyProtected(effectiveNodeType, prop) && (overwriteExistingProperties || !node.hasProperty(name)) && wspFilter.includesProperty(node.getPath() + "/" + npResolver.getJCRName(prop.getName()))) {
+                // check if property is allowed
+                try {
 ```
 
 ### ConstantValue
@@ -18988,15 +19046,39 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
 ```
 
 ### ConstantValue
-Condition `pattern == null` is always `false`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+Value `isMultiple` is always 'true'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/EffectiveNodeType.java`
 #### Snippet
 ```java
-    protected PathFilter readFilter(Element elem) throws ConfigurationException {
-        String pattern = elem.getAttribute("pattern");
-        if (pattern == null || "".equals(pattern)) {
-            throw new ConfigurationException("Filter pattern must not be empty");
-        }
+        // This replicates the logic from https://github.com/apache/jackrabbit-oak/blob/274f92402a12978040939965e92ee4519f2ce1c3/oak-core/src/main/java/org/apache/jackrabbit/oak/plugins/nodetype/EffectiveNodeTypeImpl.java#L365
+        // single values are covered by multivalue property definitions as well (but not vice-versa)
+        return getApplicablePropertyDefinition(pd -> ((!isMultiple) || isMultiple == pd.isMultiple()) && (type == pd.getRequiredType() || UNDEFINED == type || UNDEFINED == pd.getRequiredType()), name);
+    }
+
+```
+
+### ConstantValue
+Condition `name != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "DocViewNode2 [" + (name != null ? "name=" + name + ", " : "") + "index=" + index + ", "
+                + (properties != null ? "properties=" + properties : "") + "]";
+    }
+```
+
+### ConstantValue
+Condition `properties != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
+#### Snippet
+```java
+    public String toString() {
+        return "DocViewNode2 [" + (name != null ? "name=" + name + ", " : "") + "index=" + index + ", "
+                + (properties != null ? "properties=" + properties : "") + "]";
+    }
+
 ```
 
 ### ConstantValue
@@ -19044,6 +19126,54 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorksp
         String v = doc.getAttribute(ATTR_VERSION);
         if (v == null || "".equals(v)) {
             v = "1.0";
+        }
+```
+
+### ConstantValue
+Condition `pattern == null` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+    protected PathFilter readFilter(Element elem) throws ConfigurationException {
+        String pattern = elem.getAttribute("pattern");
+        if (pattern == null || "".equals(pattern)) {
+            throw new ConfigurationException("Filter pattern must not be empty");
+        }
+```
+
+### ConstantValue
+Condition `str != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
+#### Snippet
+```java
+     */
+    public boolean isSnapshot() {
+        return str != null && (str.endsWith("SNAPSHOT"));
+    }
+}
+```
+
+### ConstantValue
+Condition `dep != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Dependency.java`
+#### Snippet
+```java
+        StringBuilder b = new StringBuilder();
+        for (Dependency dep: deps) {
+            if (dep != null) {
+                b.append(delim).append(dep);
+                delim=",";
+```
+
+### ConstantValue
+Condition `nameStart == len` is always `false`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+        }
+
+        if (nameStart == len || state == STATE_NAME_START) {
+            throw new IllegalArgumentException("Local name must not be empty");
         }
 ```
 
@@ -19228,6 +19358,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 ```
 
 ### ConstantValue
+Condition `id != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "PackageTaskImpl [" + (id != null ? "id=" + id + ", " : "") + (type != null ? "type=" + type + ", " : "")
+                + (options != null ? "option=" + options + ", " : "") + (state != null ? "state=" + state + ", " : "")
+                + (error != null ? "error=" + error : "") + "]";
+```
+
+### ConstantValue
+Condition `type != null` is always `true`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return "PackageTaskImpl [" + (id != null ? "id=" + id + ", " : "") + (type != null ? "type=" + type + ", " : "")
+                + (options != null ? "option=" + options + ", " : "") + (state != null ? "state=" + state + ", " : "")
+                + (error != null ? "error=" + error : "") + "]";
+```
+
+### ConstantValue
 Condition `id == null` is always `false`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
 #### Snippet
@@ -19261,30 +19415,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
         result = prime * result + ((type == null) ? 0 : type.hashCode());
         return result;
     }
-```
-
-### ConstantValue
-Condition `id != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "PackageTaskImpl [" + (id != null ? "id=" + id + ", " : "") + (type != null ? "type=" + type + ", " : "")
-                + (options != null ? "option=" + options + ", " : "") + (state != null ? "state=" + state + ", " : "")
-                + (error != null ? "error=" + error : "") + "]";
-```
-
-### ConstantValue
-Condition `type != null` is always `true`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/PackageTaskImpl.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "PackageTaskImpl [" + (id != null ? "id=" + id + ", " : "") + (type != null ? "type=" + type + ", " : "")
-                + (options != null ? "option=" + options + ", " : "") + (state != null ? "state=" + state + ", " : "")
-                + (error != null ? "error=" + error : "") + "]";
 ```
 
 ### ConstantValue
@@ -19444,18 +19574,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
 ```
 
 ### ConstantValue
-Value `nonRecursive` is always 'false'
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
-#### Snippet
-```java
-        if (file.canDescend() && !nonRecursive) {
-            VltDirectory dir = file.descend();
-            dir.apply(action, Collections.<String>emptyList(), nonRecursive);
-            dir.close();
-        }
-```
-
-### ConstantValue
 Value `remoteFile` is always 'null'
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
 #### Snippet
@@ -19492,147 +19610,15 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
 ```
 
 ### ConstantValue
-Condition `message == null` is always `false` when reached
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
+Value `nonRecursive` is always 'false'
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltDirectory.java`
 #### Snippet
 ```java
-        result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-        result = prime * result + line;
-        result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + ((nodePath == null) ? 0 : nodePath.hashCode());
-        result = prime * result + ((severity == null) ? 0 : severity.hashCode());
-```
-
-### ConstantValue
-Condition `severity == null` is always `false` when reached
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
-#### Snippet
-```java
-        result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + ((nodePath == null) ? 0 : nodePath.hashCode());
-        result = prime * result + ((severity == null) ? 0 : severity.hashCode());
-        return result;
-    }
-```
-
-### ConstantValue
-Condition `severity != null` is always `true`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return "ValidationMessage [" + (severity != null ? "severity=" + severity + ", " : "")
-                + (message != null ? "message=" + message + ", " : "") + "line=" + line + ", column=" + column + ", "
-                + (throwable != null ? "throwable=" + throwable + ", " : "") + (nodePath != null ? "nodePath=" + nodePath + ", " : "")
-```
-
-### ConstantValue
-Condition `message != null` is always `true`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidationMessage.java`
-#### Snippet
-```java
-    public String toString() {
-        return "ValidationMessage [" + (severity != null ? "severity=" + severity + ", " : "")
-                + (message != null ? "message=" + message + ", " : "") + "line=" + line + ", column=" + column + ", "
-                + (throwable != null ? "throwable=" + throwable + ", " : "") + (nodePath != null ? "nodePath=" + nodePath + ", " : "")
-                + (filePath != null ? "filePath=" + filePath + ", " : "") + (basePath != null ? "basePath=" + basePath : "") + "]";
-```
-
-### ConstantValue
-Value `isFolder` is always 'true'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-        boolean isImplicit = isImplicit(nodeContext.getNodePath());
-        if (isFolder) {
-            messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FOLDER));
-            //
-            if (!nodeContext.getNodePath().equals("/")) {
-```
-
-### ConstantValue
-Value `isFolder` is always 'false'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-                if (fileName.endsWith(ValidationExecutor.EXTENSION_BINARY)) {
-                    // create parent if it does not exist yet
-                    messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FOLDER));
-                    String propertyName = fileName.substring(0, fileName.length() - ValidationExecutor.EXTENSION_BINARY.length());
-                    messages.addAll(addProperty(nodeContext, propertyName, false, DUMMY_BINARY_VALUE));
-```
-
-### ConstantValue
-Value `isFolder` is always 'false'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-                } else {
-                    // if binary node is not yet there
-                    messages.addAll(getOrCreateNewNode(nodeContext, isFolder, isImplicit, true, JcrConstants.NT_FILE));
-                    // if a NT_FILE create a jcr:content sub node of type NT_RESOURCE
-                    if (currentNodeTypeMetaData.getPrimaryNodeType().equals(NameConstants.NT_FILE)) {
-```
-
-### ConstantValue
-Value `isFolder` is always 'false'
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-                                nodeContext.getFilePath(), nodeContext.getBasePath());
-                        messages.addAll(
-                                getOrCreateNewNode(nodeContext, isFolder, isImplicit(nodeContext.getNodePath()), true, JcrConstants.NT_RESOURCE));
-                    }
-                    messages.addAll(addProperty(nodeContext, JcrConstants.JCR_DATA, false, DUMMY_BINARY_VALUE));
-```
-
-### ConstantValue
-Condition `groupId != null` is always `true`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
-                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
-                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
-```
-
-### ConstantValue
-Condition `artifactId != null` is always `true`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
-        public String toString() {
-            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
-                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
-                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
-                    + "]";
-```
-
-### ConstantValue
-Condition `packaging != null` is always `true`
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/context/AbstractDependencyResolver.java`
-#### Snippet
-```java
-            return "MavenCoordinates [" + (groupId != null ? "groupId=" + groupId + ", " : "")
-                    + (artifactId != null ? "artifactId=" + artifactId + ", " : "") + (version != null ? "version=" + version + ", " : "")
-                    + (packaging != null ? "packaging=" + packaging + ", " : "") + (classifier != null ? "classifier=" + classifier : "")
-                    + "]";
+        if (file.canDescend() && !nonRecursive) {
+            VltDirectory dir = file.descend();
+            dir.apply(action, Collections.<String>emptyList(), nonRecursive);
+            dir.close();
         }
-```
-
-### ConstantValue
-Condition `jcrPath .equals("/")` is always `true`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdExportCli.java`
-#### Snippet
-```java
-        }
-        if (localPath == null) {
-            if (jcrPath .equals("/")) {
-                localPath = Text.getName(addr.toString());
-            } else {
 ```
 
 ## RuleId[id=MethodOverridesStaticMethod]
@@ -19649,6 +19635,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/SimpleCredent
 ```
 
 ## RuleId[id=IOResource]
+### IOResource
+'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElementsFactory.java`
+#### Snippet
+```java
+            r = (BufferedReader) text;
+        } else {
+            r = new BufferedReader(text);
+        }
+        ArrayList lines = new ArrayList();
+```
+
+### IOResource
+'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+    }
+    private void load(Reader r) throws IOException {
+        BufferedReader br = new BufferedReader(r);
+        int lineNo=1;
+        lines.clear();
+```
+
 ### IOResource
 'MappedArchive' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
@@ -19685,30 +19695,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
         Set<PackageId> ids = new HashSet<>();
 ```
 
-### IOResource
-'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-    }
-    private void load(Reader r) throws IOException {
-        BufferedReader br = new BufferedReader(r);
-        int lineNo=1;
-        lines.clear();
-```
-
-### IOResource
-'BufferedReader' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/WordsElementsFactory.java`
-#### Snippet
-```java
-            r = (BufferedReader) text;
-        } else {
-            r = new BufferedReader(text);
-        }
-        ArrayList lines = new ArrayList();
-```
-
 ## RuleId[id=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
@@ -19723,6 +19709,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewImpor
 ```
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
+### UtilityClassWithoutPrivateConstructor
+Class `Text` has only 'static' members, and lacks a 'private' constructor
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Text.java`
+#### Snippet
+```java
+ * {@code Text}...
+ */
+public class Text {
+
+    public static String[] parseLine(String line) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SyncConstants` has only 'static' members, and lacks a 'private' constructor
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConstants.java`
+#### Snippet
+```java
+ * {@code SyncConstants}...
+ */
+public class SyncConstants {
+
+    public static final String SYNCLOG_FILE_NAME = ".vlt-sync.log";
+```
+
 ### UtilityClassWithoutPrivateConstructor
 Class `Mounter` has only 'static' members, and lacks a 'private' constructor
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/Mounter.java`
@@ -19843,977 +19853,41 @@ public class JcrWorkspaceFilter  {
     public static DefaultWorkspaceFilter loadFilter(Node defNode) throws RepositoryException {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `SyncConstants` has only 'static' members, and lacks a 'private' constructor
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConstants.java`
-#### Snippet
-```java
- * {@code SyncConstants}...
- */
-public class SyncConstants {
-
-    public static final String SYNCLOG_FILE_NAME = ".vlt-sync.log";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Text` has only 'static' members, and lacks a 'private' constructor
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Text.java`
-#### Snippet
-```java
- * {@code Text}...
- */
-public class Text {
-
-    public static String[] parseLine(String line) {
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getByteStream` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/JcrArchive.java`
+Variable is already assigned to this value
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
 #### Snippet
 ```java
-        for (Entry entry: dir.getChildren()) {
-            VaultInputSource src = getInputSource(entry);
-            try (InputStream input = src.getByteStream()) {
-                inf.load(input, src.getSystemId());
-            }
-```
-
-### DataFlowIssue
-Argument `in` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
-#### Snippet
-```java
-            NodeTypeInstaller installer = ServiceProviderFactory.getProvider().getDefaultNodeTypeInstaller(session);
-            CNDReader types = ServiceProviderFactory.getProvider().getCNDReader();
-            types.read(new InputStreamReader(in, "utf8"), DEFAULT_NODETYPES, null);
-            installer.install(null, types);
-        } catch (Exception e) {
-```
-
-### DataFlowIssue
-Method invocation `getByteStream` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-            } else {
-                log.debug("Copying patch {} to {}", name, target.getPath());
-                try (InputStream in = archive.getInputSource(e).getByteStream();
-                     OutputStream out = FileUtils.openOutputStream(target)) {
-                    IOUtils.copy(in, out);
-```
-
-### DataFlowIssue
-Argument `archive.getJcrRoot()` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-
-        track("Collecting import information...", "");
-        TxInfo root = prepare(archive.getJcrRoot(), parentPath, new SessionNamespaceResolver(session));
-        if (filter!=null && filter.getFilterSets() != null && filter.getFilterSets().size() > 0 ) {
-            root = postFilter(root);
-```
-
-### DataFlowIssue
-Argument `is` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-                    // this can either be an generic exported docview or a 'user-xml' that is imported as file
-                    // btw: this only works for input sources that can refetch their input stream
-                    if (DocViewParser.isDocView(is)) {
-                        // in this case, the extension was added by the exporter.
-                        repoName = repoBase;
+                while (c != null) {
+                    if (c.line0 <= end0) {
+                        end0 = lines0.length;
+                        end1 = lines1.length;
+                        c = c.nextChange;
 ```
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
 #### Snippet
 ```java
+                    if (c.line0 <= end0) {
+                        end0 = lines0.length;
+                        end1 = lines1.length;
+                        c = c.nextChange;
                     } else {
-                        ext = "";
-                        serType = SerializationType.GENERIC;
-                        type = ArtifactType.FILE;
-                    }
 ```
 
 ### DataFlowIssue
-Method invocation `getByteStream` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+Dereference of `files` may produce `NullPointerException`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/platform/PlatformFile.java`
 #### Snippet
 ```java
-                } else if (".cnd".equals(ext)) {
-                    if (opts.getCndPattern().matcher(repoPath).matches()) {
-                        InputStream in = is.getByteStream();
-                        try (Reader r = new InputStreamReader(in, "utf8")) {
-                            CNDReader reader = ServiceProviderFactory.getProvider().getCNDReader();
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
-#### Snippet
-```java
-                    type = ArtifactType.FILE;
-                } else if (".binary".equals(ext)) {
-                    serType = SerializationType.GENERIC;
-                    type = ArtifactType.BINARY;
-                    repoName = repoBase;
-```
-
-### DataFlowIssue
-Dereference of `state` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
-#### Snippet
-```java
-    public void startNode(DocViewNode2 node) {
-        State state = states.peek();
-        switch (state) {
-            case INITIAL:
-                String primaryType = node.getPrimaryType().orElseThrow(() -> new IllegalStateException("Error while reading access control content: Missing 'jcr:primaryType'"));
-```
-
-### DataFlowIssue
-Method invocation `getArtifacts` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                            }
-                        }
-                    } else if (info.out.getArtifacts().isEmpty() && info.aggregate != null) {
-                        // delete entire node if aggregate is still attached
-                        if (info.aggregate.isAttached()) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
-#### Snippet
-```java
-                    } else {
-                        // force generic
-                        serType = SerializationType.GENERIC;
-                    }
-                } else if (ext.equals(".binary")) {
-```
-
-### DataFlowIssue
-Dereference of `n` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
-#### Snippet
-```java
-        E previous;
-        Node<E> n = get(path, true);
-        previous = n.elem;
-        n.elem = elem;
-        return previous;
-```
-
-### DataFlowIssue
-Argument `this.getClass().getResourceAsStream("/default-nodetypes.cnd")` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerProvider.java`
-#### Snippet
-```java
-        if (registerDefaultNodeTypes) {
-            try (Reader reader = new InputStreamReader(
-                    this.getClass().getResourceAsStream("/default-nodetypes.cnd"),
-                    StandardCharsets.US_ASCII)) {
-                registerNodeTypes(reader);
-```
-
-### DataFlowIssue
-Method invocation `getSession` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
-#### Snippet
-```java
-            track("", "Intermediate saving %d nodes (%d kB)...", numNodes, currentSize/1000);
-            long now = System.currentTimeMillis();
-            autoSave.save(dst.getSession(), true);
-            long end = System.currentTimeMillis();
-            track("", "Done in %d ms. Total time: %d, total nodes %d, %d kB", end-now, end-start, totalNodes, totalSize/1000);
-```
-
-### DataFlowIssue
-Method invocation `indexOf` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
-#### Snippet
-```java
-                segs.add(s);
-            } else {
-                int dash = s.indexOf('-');
-                if (dash < 0) {
-                    segs.add(s);
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/DependencyUtil.java`
-#### Snippet
-```java
-        Map<PackageId, JcrPackage> byId = new LinkedHashMap<PackageId, JcrPackage>();
-        for (JcrPackage pack: packages) {
-            PackageId id = pack.getDefinition().getId();
-            list.put(id, pack.getDefinition().getDependencies());
-            byId.put(id, pack);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-                    // therefore reset the nameStart and change state.
-                    state = STATE_NAME;
-                    nameStart = 0;
-                } else if (state == STATE_NAME_START) {
-                    state = STATE_NAME;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-                        // normal local name.
-                        state = STATE_NAME;
-                        nameStart = 0;
-                    } else {
-                        throw new IllegalArgumentException(
-```
-
-### DataFlowIssue
-Argument `archive.getInputSource(entry)` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/InstallHookProcessorImpl.java`
-#### Snippet
-```java
-                    // only respect .jar files
-                    if (entry.getName().endsWith(".jar")) {
-                        registerHook(archive.getInputSource(entry), classLoader);
-                    }
-                }
-```
-
-### DataFlowIssue
-Method invocation `toUri` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/InstallHookProcessorImpl.java`
-#### Snippet
-```java
-                            // 2nd fallback is the thread context classloader
-                            urlClassLoader = URLClassLoader.newInstance(
-                                    new URL[] { jarFile.toUri().toURL() },
-                                    Thread.currentThread().getContextClassLoader());
-                            loadMainClass(urlClassLoader);
-```
-
-### DataFlowIssue
-@Nullable method 'read' always returns a non-null value
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/DefaultPackageInfo.java`
-#### Snippet
-```java
-     * @return the package info if the package is valid, otherwise {@code null}.
-     * @throws IOException if an error occurs. */
-    public static @Nullable PackageInfo read(@NotNull File file) throws IOException {
-        DefaultPackageInfo info = new DefaultPackageInfo(null, null, PackageType.MIXED);
-        if (!file.exists()) {
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
-        for (JcrPackage pkg: mgr.listPackages(originalFilter)) {
-            if (pkg.isValid() && pkg.getSize() > 0) {
-                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
-        for (JcrPackage pkg: mgr.listPackages(originalFilter)) {
-            if (pkg.isValid() && pkg.getSize() > 0) {
-                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
-        for (JcrPackage pkg: mgr.listPackages(filter)) {
-            if (pkg.isValid() && pkg.getSize() > 0) {
-                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
-#### Snippet
-```java
-        for (JcrPackage pkg: mgr.listPackages(filter)) {
-            if (pkg.isValid() && pkg.getSize() > 0) {
-                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerMBeanImpl.java`
-#### Snippet
-```java
-                    try {
-                        Object[] values = {
-                                pkg.getDefinition().getId().toString(),
-                                pkg.getSize(),
-                                pkg.isInstalled(),
-```
-
-### DataFlowIssue
-Method invocation `getInstallationTime` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
-#### Snippet
-```java
-        Long installTime;
-        try {
-            installTime = registry.getInstallState(getId()).getInstallationTime();
-            if (installTime == null) {
-                cal = null;
-```
-
-### DataFlowIssue
-Argument `pkg.getDefNode()` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrRegisteredPackage.java`
-#### Snippet
-```java
-    public WorkspaceFilter getWorkspaceFilter() {
-        try {
-            return JcrWorkspaceFilter.loadFilter(pkg.getDefNode());
-        } catch (RepositoryException e) {
-            throw new IllegalStateException(e);
-```
-
-### DataFlowIssue
-Expression `registry.getPrimaryPackageRoot(true)` might evaluate to null but is returned by the method declared as @NotNull
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-    @Override
-    public Node getPackageRoot() throws RepositoryException {
-        return registry.getPrimaryPackageRoot(true);
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            for (JcrPackage p : subs) {
-                // check if not include itself
-                if (p.getDefinition().getId().equals(id)) {
-                    throw new PackageException("A package cannot include itself. Check filter definition.");
-                }
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-    public void remove(JcrPackage pack) throws RepositoryException {
-        try {
-            registry.remove(pack.getDefinition().getId());
-        } catch (IOException e) {
-            throw unwrapRepositoryException(e);
-```
-
-### DataFlowIssue
-Method invocation `sealForRewrap` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-        pack.verifyId(true, false);
-        JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) pack.getDefinition();
-        def.sealForRewrap(now);
-
-        ExportOptions opts = new ExportOptions();
-```
-
-### DataFlowIssue
-Method invocation `getNode` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-            // update this content
-            Node packNode = pack.getNode();
-            Node contentNode = packNode.getNode(JcrConstants.JCR_CONTENT);
-            try (InputStream in = FileUtils.openInputStream(dst.getFile())) {
-                // stay jcr 1.0 compatible
-```
-
-### DataFlowIssue
-Argument `in` might be null
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
-#### Snippet
-```java
-                        for (Archive.Entry e: spfArchive.getSubPackageEntries()) {
-                            try (InputStream in = spfArchive.openInputStream(e);
-                                    Archive subArchive = new ZipStreamArchive(in)) {
-                                PackageId[] subIds = extract(subArchive, options, replace);
-                                ids.addAll(Arrays.asList(subIds));
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-                                continue;
-                            }
-                            PackageId id = pack.getDefinition().getId();
-                            if (dependency.matches(id)) {
-                                if (bestId == null || id.getVersion().compareTo(bestId.getVersion()) > 0) {
-```
-
-### DataFlowIssue
-Method invocation `isUnwrapped` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-            throw new PackageException("Package is not valid.");
-        }
-        if (pack.getSize() > 0 && !pack.getDefinition().isUnwrapped()) {
-            throw new PackageException("Package definition not unwrapped.");
-        }
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-
-        JcrPackageDefinition def = pack.getDefinition();
-        PackageId id = def.getId();
-        PackageId newId = new PackageId(
-                group == null ? id.getGroup() : group,
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-        );
-        String dstPath = getInstallationPath(newId) + ".zip";
-        if (id.equals(newId) && pack.getNode().getPath().equals(dstPath)) {
-            log.debug("Package id not changed. won't rename.");
-            return pack;
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-
-        // only move if not already at correct location
-        if (!pack.getNode().getPath().equals(dstPath)) {
-            if (session.nodeExists(dstPath)) {
-                throw new PackageException("Node at " + dstPath + " already exists.");
-```
-
-### DataFlowIssue
-Method invocation `remove` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-                try (JcrPackage snap = pack.getSnapshot()) {
-                    if (snap != null) {
-                        snap.getNode().remove();
-                    }
-                }
-```
-
-### DataFlowIssue
-Method invocation `remove` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
-#### Snippet
-```java
-                    }
-                }
-                pack.getNode().remove();
-            }
-            session.save();
-```
-
-### DataFlowIssue
-Dereference of `dir.listFiles(fileFilter)` may produce `NullPointerException`
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
-#### Snippet
-```java
-        }
-        if (dir.isDirectory()) {
-            for (File file: dir.listFiles(fileFilter)) {
-                Entry e = fsEntries.get(file.getName());
-                if (e == null) {
-```
-
-### DataFlowIssue
-Method invocation `getProperty` may produce `NullPointerException`
-in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
-#### Snippet
-```java
-        // read the properties from the package
-        Properties props = ctx.getPackage().getMetaInf().getProperties();
-        String copyFrom = props.getProperty(PROP_COPY_FROM, "");
-        if (copyFrom.length() == 0) {
-            throw new PackageException("hook-example needs " + PROP_COPY_FROM + " property set in properties.xml");
-```
-
-### DataFlowIssue
-Method invocation `getFilter` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-        }
-        try (VaultPackage vltPkg = pkg.getPackage()) {
-            WorkspaceFilter filter = getInstallState(vltPkg.getId()).getFilter();
-            switch(scope) {
-                case APPLICATION_SCOPED:
-```
-
-### DataFlowIssue
-Method invocation `getFilterSets` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-            // As for JcrPackageImpl subpackages need to get an implicit autoDependency to the parent in case they have own content
-            boolean hasOwnContent = false;
-            for (PathFilterSet root : pkg.getArchive().getMetaInf().getFilter().getFilterSets()) {
-                // todo: find better way to detect subpackages
-                if (!Text.isDescendantOrEqual(DEFAULT_PACKAGE_ROOT_PATH, root.getRoot())) {
-```
-
-### DataFlowIssue
-Method invocation `isExternal` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-    
-            if (Files.exists(pkgFile)) {
-                if (replace && !state.isExternal()) {
-                    Files.delete(pkgFile);
-                } else {
-```
-
-### DataFlowIssue
-Method invocation `getDependencies` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
-#### Snippet
-```java
-        for (PackageId subId : state.getSubPackages().keySet()) {
-            FSInstallState subState = getInstallState(subId);
-            allDependencies.addAll(subState.getDependencies());
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `getIgnoredNames` may produce `NullPointerException`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
-#### Snippet
-```java
-        this.entries = entries;
-        globalIgnores = new HashSet<String>(
-                dir.getContext().getMetaInf().getSettings().getIgnoredNames());
-        globalIgnores.add(Ignored.FILE_NAME);
-        loadIgnored(dir.getDirectory());
-```
-
-### DataFlowIssue
-Dereference of `dir.listFiles()` may produce `NullPointerException`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
-#### Snippet
-```java
-
-    public Ignored scan(File dir) throws VltException, IOException, ConfigurationException {
-        for (File file: dir.listFiles()) {
-            String name = file.getName();
-            if (settings != null && settings.isIgnored(name)) {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
-#### Snippet
-```java
-                }
-            } else {
-                state = State.VOID;
-            }
+    public ConsoleFile[] listFiles() throws IOException {
+        File[] files = file.listFiles();
+        if (files.length == 0) {
+            return ConsoleFile.EMPTY_ARRAY;
         } else {
-```
-
-### DataFlowIssue
-Method invocation `getDependencies` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            if (hasOwnContent) {
-                // add dependency to this package
-                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
-                Dependency[] newDeps = DependencyUtil.addExact(oldDeps, containerPackageId);
-                if (oldDeps != newDeps) {
-```
-
-### DataFlowIssue
-Method invocation `getDependencies` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            } else {
-                // add parent dependencies to this package
-                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
-                Dependency[] newDeps = oldDeps;
-                for (Dependency d: getDefinition().getDependencies()) {
-```
-
-### DataFlowIssue
-Method invocation `getDependencies` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
-                Dependency[] newDeps = oldDeps;
-                for (Dependency d: getDefinition().getDependencies()) {
-                    newDeps = DependencyUtil.add(newDeps, d);
-                }
-```
-
-### DataFlowIssue
-Method invocation `getBoolean` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        ImportOptions opts = options.copy();
-        // check for disable intermediate saves (GRANITE-1047)
-        if (this.getDefinition().getBoolean(JcrPackageDefinition.PN_DISABLE_INTERMEDIATE_SAVE) ) {
-            // MAX_VALUE disables saving completely, therefore we have to use a lower value!
-            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
-```
-
-### DataFlowIssue
-Method invocation `prepareExtract` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
-        }
-        InstallContextImpl ctx = pack.prepareExtract(node.getSession(), opts, mgr.getSecurityConfig(), mgr.isStrictByDefault(),
-                mgr.overwritePrimaryTypesOfFoldersByDefault(), mgr.getDefaultIdConflictPolicy());
-        JcrPackage snap = null;
-```
-
-### DataFlowIssue
-Method invocation `getSession` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
-        }
-        InstallContextImpl ctx = pack.prepareExtract(node.getSession(), opts, mgr.getSecurityConfig(), mgr.isStrictByDefault(),
-                mgr.overwritePrimaryTypesOfFoldersByDefault(), mgr.getDefaultIdConflictPolicy());
-        JcrPackage snap = null;
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-                if (p.isValid()) {
-                    JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) p.getDefinition();
-                    PackageId pId = def.getId();
-
-                    // check if package is at the correct location
-```
-
-### DataFlowIssue
-Method invocation `clearLastUnpacked` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-
-                    // ensure that sub package is marked as not-installed. it might contain wrong data in vlt:definition (JCRVLT-114)
-                    def.clearLastUnpacked(false);
-
-                    // add dependency to the parent package if required
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            for (JcrPackageImpl p: subPacks) {
-                boolean skip = false;
-                PackageId id = p.getDefinition().getId();
-                SubPackageHandling.Option option = sb.getOption(id);
-                String msg = null;
-```
-
-### DataFlowIssue
-Method invocation `setSubPackages` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            // register sub packages in snapshot and on package for uninstall
-            if (snap != null) {
-                ((JcrPackageDefinitionImpl) snap.getDefinition()).setSubPackages(subIds);
-            }
-            if (def != null) {
-```
-
-### DataFlowIssue
-Method invocation `getFilterSets` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        // check if filter has root outside /etc/packages
-        boolean hasOwnContent = false;
-        for (PathFilterSet root: a.getMetaInf().getFilter().getFilterSets()) {
-            // todo: find better way to detect subpackages
-            if (!Text.isDescendantOrEqual(DEFAULT_PACKAGE_ROOT_PATH, root.getRoot())) {
-```
-
-### DataFlowIssue
-Method invocation `getSession` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        // check if package has nodetype no installed in the repository
-        if (!hasOwnContent) {
-            DefaultNamePathResolver npResolver = new DefaultNamePathResolver(getNode().getSession());
-            NodeTypeManager ntMgr = getNode().getSession().getWorkspace().getNodeTypeManager();
-            loop0: for (NodeTypeSet cnd: a.getMetaInf().getNodeTypes()) {
-```
-
-### DataFlowIssue
-Method invocation `getByteStream` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        for (Archive.Entry e: entries) {
-            VaultInputSource in = a.getInputSource(e);
-            try (InputStream ins = in.getByteStream()) {
-                try {
-                    PackageId id = extractSubpackage(pId, ins, opts, processed, hasOwnContent);
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            return;
-        }
-        PackageId[] usage = mgr.usage(getDefinition().getId());
-        if (usage.length > 0 && opts.getDependencyHandling() == DependencyHandling.STRICT) {
-            String msg = String.format("Refusing to uninstall package %s. it is still used by: %s", def.getId(), Arrays.toString(usage));
-```
-
-### DataFlowIssue
-Method invocation `getSubPackages` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        List<PackageId> subPackages = snap == null
-                ? def.getSubPackages()
-                : ((JcrPackageDefinitionImpl) snap.getDefinition()).getSubPackages();
-
-        if (snap == null) {
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-                throw new PackageException("Unable to uninstall package. No snapshot present.");
-            }
-            log.warn("Unable to revert package content {}. Snapshot missing.", getDefinition().getId());
-            if (opts.getListener() != null) {
-                opts.getListener().onMessage(ProgressTrackerListener.Mode.TEXT, "Unable to revert package content. Snapshot missing.", "");
-```
-
-### DataFlowIssue
-Method invocation `getSession` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-
-        } else {
-            Session s = getNode().getSession();
-            // check for recursive uninstall
-            if (!opts.isNonRecursive() && subPackages.size() > 0) {
-```
-
-### DataFlowIssue
-Method invocation `remove` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            opts.setImportMode(ImportMode.REPLACE);
-            snap.extract(opts);
-            snap.getNode().remove();
-            s.save();
-        }
-```
-
-### DataFlowIssue
-Method invocation `clearLastUnpacked` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        // revert installed flags on this package
-        JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) getDefinition();
-        def.clearLastUnpacked(true);
-
-        mgr.dispatch(PackageEvent.Type.UNINSTALL, def.getId(), null);
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            JcrPackageDefinition d1 = getDefinition();
-            JcrPackageDefinition d2 = o.getDefinition();
-            return d1.getId().compareTo(d2.getId());
-        } catch (Exception e) {
-            log.error("error during compare: {}", e.toString());
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            JcrPackageDefinition d1 = getDefinition();
-            JcrPackageDefinition d2 = o.getDefinition();
-            return d1.getId().compareTo(d2.getId());
-        } catch (Exception e) {
-            log.error("error during compare: {}", e.toString());
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        PackageId[] ret = processed.toArray(new PackageId[processed.size()]);
-        Arrays.sort(ret);
-        mgr.dispatch(PackageEvent.Type.EXTRACT_SUB_PACKAGES, getDefinition().getId(), ret);
-        return ret;
-    }
-```
-
-### DataFlowIssue
-Method invocation `getLength` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        try {
-            assertValid();
-            return getData().getLength();
-        } catch (RepositoryException e) {
-            log.error("Error during getSize()", e);
-```
-
-### DataFlowIssue
-Method invocation `getBinary` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-            } else {
-                File tmpFile = File.createTempFile("vaultpack", ".zip");
-                Binary bin = getData().getBinary();
-                try (FileOutputStream out = FileUtils.openOutputStream(tmpFile); 
-                    InputStream in = bin.getStream()) {
-```
-
-### DataFlowIssue
-Method invocation `getMetaInf` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        }
-        JcrPackageDefinitionImpl myDef = (JcrPackageDefinitionImpl) getDefinition();
-        WorkspaceFilter filter = myDef.getMetaInf().getFilter();
-        if (filter == null || filter.getFilterSets().isEmpty()) {
-            log.info("Refusing to create snapshot {} due to empty filters", id);
-```
-
-### DataFlowIssue
-Method invocation `setId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-        try {
-            JcrPackageDefinitionImpl snapDef = (JcrPackageDefinitionImpl) snap.getDefinition();
-            snapDef.setId(id, false);
-            snapDef.setFilter(filter, false);
-            snapDef.set(JcrPackageDefinition.PN_DESCRIPTION, "Snapshot of package " + myDef.getId().toString(), false);
-```
-
-### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
-#### Snippet
-```java
-     */
-    private PackageId getSnapshotId() throws RepositoryException {
-        PackageId id = getDefinition().getId();
-        String group = id.getGroup();
-        if (group.length() == 0) {
-```
-
-### DataFlowIssue
-Dereference of `localDir.listFiles()` may produce `NullPointerException`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Sync.java`
-#### Snippet
-```java
-                    mountPoint);
-            // check if empty
-            if (localDir.listFiles().length > 0) {
-                throw new VltException("Aborting initialization since directory is not empty.");
-            }
-```
-
-### DataFlowIssue
-Method invocation `dump` may produce `NullPointerException`
-in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Checkout.java`
-#### Snippet
-```java
-                DumpContext dc = new DumpContext(new PrintWriter(ctx.getStdout()));
-                dc.println("Filter");
-                ctx.getMetaInf().getFilter().dump(dc, true);
-                dc.outdent();
-                dc.flush();
 ```
 
 ### DataFlowIssue
@@ -20913,18 +19987,6 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ### DataFlowIssue
-Expression `primaryNodeType` might evaluate to null but is returned by the method declared as @NotNull
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-    @Override
-    public Name getPrimaryNodeType() {
-        return primaryNodeType;
-    }
-
-```
-
-### DataFlowIssue
 Dereference of `currentNode` may produce `NullPointerException`
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
 #### Snippet
@@ -20961,39 +20023,15 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ### DataFlowIssue
-Argument `finalizeValidationForSiblings(nodeContext)` might be null
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
+Expression `primaryNodeType` might evaluate to null but is returned by the method declared as @NotNull
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
 #### Snippet
 ```java
-            //
-            if (!nodeContext.getNodePath().equals("/")) {
-                messages.addAll(finalizeValidationForSiblings(nodeContext));
-            }
-        } else {
-```
-
-### DataFlowIssue
-@Nullable method 'finalizeValidationForSubtree' always returns a non-null value
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
+    @Override
+    public Name getPrimaryNodeType() {
+        return primaryNodeType;
     }
 
-    private @Nullable Collection<ValidationMessage> finalizeValidationForSubtree(JcrNodeTypeMetaData node, NodeContext nodeContext) throws NamespaceException {
-        Collection<ValidationMessage> messages = new ArrayList<>();
-        messages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Finalize validation for subtree at " + nodeContext));
-```
-
-### DataFlowIssue
-Argument `finalizeValidationForSubtree(child, nodeContext)` might be null
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
-#### Snippet
-```java
-        messages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Finalize validation for subtree at " + nodeContext));
-        for (JcrNodeTypeMetaData child : node.getChildren()) {
-            messages.addAll(finalizeValidationForSubtree(child, nodeContext));
-            messages.addAll(child.finalizeValidation(ntManagerProvider.getNamePathResolver(), ntManagerProvider.getNodeTypeDefinitionProvider(),
-                    ntManagerProvider.getItemDefinitionProvider(), defaultSeverity, severityForDefaultNodeTypeViolations, filter));
 ```
 
 ### DataFlowIssue
@@ -21021,42 +20059,1086 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
+@Nullable method 'finalizeValidationForSubtree' always returns a non-null value
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
 #### Snippet
 ```java
-                while (c != null) {
-                    if (c.line0 <= end0) {
-                        end0 = lines0.length;
-                        end1 = lines1.length;
-                        c = c.nextChange;
+    }
+
+    private @Nullable Collection<ValidationMessage> finalizeValidationForSubtree(JcrNodeTypeMetaData node, NodeContext nodeContext) throws NamespaceException {
+        Collection<ValidationMessage> messages = new ArrayList<>();
+        messages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Finalize validation for subtree at " + nodeContext));
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `vault-diff/src/main/java/org/apache/jackrabbit/vault/util/diff/DocumentDiff.java`
+Argument `finalizeValidationForSubtree(child, nodeContext)` might be null
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
 #### Snippet
 ```java
-                    if (c.line0 <= end0) {
-                        end0 = lines0.length;
-                        end1 = lines1.length;
-                        c = c.nextChange;
-                    } else {
+        messages.add(new ValidationMessage(ValidationMessageSeverity.DEBUG, "Finalize validation for subtree at " + nodeContext));
+        for (JcrNodeTypeMetaData child : node.getChildren()) {
+            messages.addAll(finalizeValidationForSubtree(child, nodeContext));
+            messages.addAll(child.finalizeValidation(ntManagerProvider.getNamePathResolver(), ntManagerProvider.getNodeTypeDefinitionProvider(),
+                    ntManagerProvider.getItemDefinitionProvider(), defaultSeverity, severityForDefaultNodeTypeViolations, filter));
 ```
 
 ### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/platform/PlatformFile.java`
+Argument `finalizeValidationForSiblings(nodeContext)` might be null
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/NodeTypeValidator.java`
 #### Snippet
 ```java
-    public ConsoleFile[] listFiles() throws IOException {
-        File[] files = file.listFiles();
-        if (files.length == 0) {
-            return ConsoleFile.EMPTY_ARRAY;
+            //
+            if (!nodeContext.getNodePath().equals("/")) {
+                messages.addAll(finalizeValidationForSiblings(nodeContext));
+            }
         } else {
 ```
 
+### DataFlowIssue
+Method invocation `getProperty` may produce `NullPointerException`
+in `vault-hook-example/src/main/java/org/apache/jackrabbit/vault/packaging/hooks/ExampleHook.java`
+#### Snippet
+```java
+        // read the properties from the package
+        Properties props = ctx.getPackage().getMetaInf().getProperties();
+        String copyFrom = props.getProperty(PROP_COPY_FROM, "");
+        if (copyFrom.length() == 0) {
+            throw new PackageException("hook-example needs " + PROP_COPY_FROM + " property set in properties.xml");
+```
+
+### DataFlowIssue
+Dereference of `dir.listFiles(fileFilter)` may produce `NullPointerException`
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/TreeSync.java`
+#### Snippet
+```java
+        }
+        if (dir.isDirectory()) {
+            for (File file: dir.listFiles(fileFilter)) {
+                Entry e = fsEntries.get(file.getName());
+                if (e == null) {
+```
+
+### DataFlowIssue
+Method invocation `getByteStream` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/JcrArchive.java`
+#### Snippet
+```java
+        for (Entry entry: dir.getChildren()) {
+            VaultInputSource src = getInputSource(entry);
+            try (InputStream input = src.getByteStream()) {
+                inf.load(input, src.getSystemId());
+            }
+```
+
+### DataFlowIssue
+Argument `is` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+                    // this can either be an generic exported docview or a 'user-xml' that is imported as file
+                    // btw: this only works for input sources that can refetch their input stream
+                    if (DocViewParser.isDocView(is)) {
+                        // in this case, the extension was added by the exporter.
+                        repoName = repoBase;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+                    } else {
+                        ext = "";
+                        serType = SerializationType.GENERIC;
+                        type = ArtifactType.FILE;
+                    }
+```
+
+### DataFlowIssue
+Method invocation `getByteStream` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+                } else if (".cnd".equals(ext)) {
+                    if (opts.getCndPattern().matcher(repoPath).matches()) {
+                        InputStream in = is.getByteStream();
+                        try (Reader r = new InputStreamReader(in, "utf8")) {
+                            CNDReader reader = ServiceProviderFactory.getProvider().getCNDReader();
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+                    type = ArtifactType.FILE;
+                } else if (".binary".equals(ext)) {
+                    serType = SerializationType.GENERIC;
+                    type = ArtifactType.BINARY;
+                    repoName = repoBase;
+```
+
+### DataFlowIssue
+Argument `archive.getJcrRoot()` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+
+        track("Collecting import information...", "");
+        TxInfo root = prepare(archive.getJcrRoot(), parentPath, new SessionNamespaceResolver(session));
+        if (filter!=null && filter.getFilterSets() != null && filter.getFilterSets().size() > 0 ) {
+            root = postFilter(root);
+```
+
+### DataFlowIssue
+Method invocation `getByteStream` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
+#### Snippet
+```java
+            } else {
+                log.debug("Copying patch {} to {}", name, target.getPath());
+                try (InputStream in = archive.getInputSource(e).getByteStream();
+                     OutputStream out = FileUtils.openOutputStream(target)) {
+                    IOUtils.copy(in, out);
+```
+
+### DataFlowIssue
+Argument `in` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/AggregateManagerImpl.java`
+#### Snippet
+```java
+            NodeTypeInstaller installer = ServiceProviderFactory.getProvider().getDefaultNodeTypeInstaller(session);
+            CNDReader types = ServiceProviderFactory.getProvider().getCNDReader();
+            types.read(new InputStreamReader(in, "utf8"), DEFAULT_NODETYPES, null);
+            installer.install(null, types);
+        } catch (Exception e) {
+```
+
+### DataFlowIssue
+Method invocation `getArtifacts` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                            }
+                        }
+                    } else if (info.out.getArtifacts().isEmpty() && info.aggregate != null) {
+                        // delete entire node if aggregate is still attached
+                        if (info.aggregate.isAttached()) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/TransactionImpl.java`
+#### Snippet
+```java
+                    } else {
+                        // force generic
+                        serType = SerializationType.GENERIC;
+                    }
+                } else if (ext.equals(".binary")) {
+```
+
+### DataFlowIssue
+Dereference of `state` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/JackrabbitACLImporter.java`
+#### Snippet
+```java
+    public void startNode(DocViewNode2 node) {
+        State state = states.peek();
+        switch (state) {
+            case INITIAL:
+                String primaryType = node.getPrimaryType().orElseThrow(() -> new IllegalStateException("Error while reading access control content: Missing 'jcr:primaryType'"));
+```
+
+### DataFlowIssue
+Argument `this.getClass().getResourceAsStream("/default-nodetypes.cnd")` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/StandaloneManagerProvider.java`
+#### Snippet
+```java
+        if (registerDefaultNodeTypes) {
+            try (Reader reader = new InputStreamReader(
+                    this.getClass().getResourceAsStream("/default-nodetypes.cnd"),
+                    StandardCharsets.US_ASCII)) {
+                registerNodeTypes(reader);
+```
+
+### DataFlowIssue
+Dereference of `n` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Tree.java`
+#### Snippet
+```java
+        E previous;
+        Node<E> n = get(path, true);
+        previous = n.elem;
+        n.elem = elem;
+        return previous;
+```
+
+### DataFlowIssue
+Method invocation `indexOf` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Version.java`
+#### Snippet
+```java
+                segs.add(s);
+            } else {
+                int dash = s.indexOf('-');
+                if (dash < 0) {
+                    segs.add(s);
+```
+
+### DataFlowIssue
+Method invocation `getSession` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/RepositoryCopier.java`
+#### Snippet
+```java
+            track("", "Intermediate saving %d nodes (%d kB)...", numNodes, currentSize/1000);
+            long now = System.currentTimeMillis();
+            autoSave.save(dst.getSession(), true);
+            long end = System.currentTimeMillis();
+            track("", "Done in %d ms. Total time: %d, total nodes %d, %d kB", end-now, end-start, totalNodes, totalSize/1000);
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/DependencyUtil.java`
+#### Snippet
+```java
+        Map<PackageId, JcrPackage> byId = new LinkedHashMap<PackageId, JcrPackage>();
+        for (JcrPackage pack: packages) {
+            PackageId id = pack.getDefinition().getId();
+            list.put(id, pack.getDefinition().getDependencies());
+            byId.put(id, pack);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+                    // therefore reset the nameStart and change state.
+                    state = STATE_NAME;
+                    nameStart = 0;
+                } else if (state == STATE_NAME_START) {
+                    state = STATE_NAME;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+                        // normal local name.
+                        state = STATE_NAME;
+                        nameStart = 0;
+                    } else {
+                        throw new IllegalArgumentException(
+```
+
+### DataFlowIssue
+Method invocation `toUri` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/InstallHookProcessorImpl.java`
+#### Snippet
+```java
+                            // 2nd fallback is the thread context classloader
+                            urlClassLoader = URLClassLoader.newInstance(
+                                    new URL[] { jarFile.toUri().toURL() },
+                                    Thread.currentThread().getContextClassLoader());
+                            loadMainClass(urlClassLoader);
+```
+
+### DataFlowIssue
+Argument `archive.getInputSource(entry)` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/InstallHookProcessorImpl.java`
+#### Snippet
+```java
+                    // only respect .jar files
+                    if (entry.getName().endsWith(".jar")) {
+                        registerHook(archive.getInputSource(entry), classLoader);
+                    }
+                }
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
+#### Snippet
+```java
+        for (JcrPackage pkg: mgr.listPackages(originalFilter)) {
+            if (pkg.isValid() && pkg.getSize() > 0) {
+                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
+#### Snippet
+```java
+        for (JcrPackage pkg: mgr.listPackages(originalFilter)) {
+            if (pkg.isValid() && pkg.getSize() > 0) {
+                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
+#### Snippet
+```java
+        for (JcrPackage pkg: mgr.listPackages(filter)) {
+            if (pkg.isValid() && pkg.getSize() > 0) {
+                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/SubPackageExportProcessor.java`
+#### Snippet
+```java
+        for (JcrPackage pkg: mgr.listPackages(filter)) {
+            if (pkg.isValid() && pkg.getSize() > 0) {
+                subPackages.put(pkg.getDefinition().getId(), pkg.getNode().getPath());
+            }
+        }
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/PackageManagerMBeanImpl.java`
+#### Snippet
+```java
+                    try {
+                        Object[] values = {
+                                pkg.getDefinition().getId().toString(),
+                                pkg.getSize(),
+                                pkg.isInstalled(),
+```
+
+### DataFlowIssue
+@Nullable method 'read' always returns a non-null value
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/DefaultPackageInfo.java`
+#### Snippet
+```java
+     * @return the package info if the package is valid, otherwise {@code null}.
+     * @throws IOException if an error occurs. */
+    public static @Nullable PackageInfo read(@NotNull File file) throws IOException {
+        DefaultPackageInfo info = new DefaultPackageInfo(null, null, PackageType.MIXED);
+        if (!file.exists()) {
+```
+
+### DataFlowIssue
+Method invocation `getInstallationTime` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSRegisteredPackage.java`
+#### Snippet
+```java
+        Long installTime;
+        try {
+            installTime = registry.getInstallState(getId()).getInstallationTime();
+            if (installTime == null) {
+                cal = null;
+```
+
+### DataFlowIssue
+Argument `pkg.getDefNode()` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrRegisteredPackage.java`
+#### Snippet
+```java
+    public WorkspaceFilter getWorkspaceFilter() {
+        try {
+            return JcrWorkspaceFilter.loadFilter(pkg.getDefNode());
+        } catch (RepositoryException e) {
+            throw new IllegalStateException(e);
+```
+
+### DataFlowIssue
+Method invocation `sealForRewrap` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+        pack.verifyId(true, false);
+        JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) pack.getDefinition();
+        def.sealForRewrap(now);
+
+        ExportOptions opts = new ExportOptions();
+```
+
+### DataFlowIssue
+Method invocation `getNode` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            // update this content
+            Node packNode = pack.getNode();
+            Node contentNode = packNode.getNode(JcrConstants.JCR_CONTENT);
+            try (InputStream in = FileUtils.openInputStream(dst.getFile())) {
+                // stay jcr 1.0 compatible
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+    public void remove(JcrPackage pack) throws RepositoryException {
+        try {
+            registry.remove(pack.getDefinition().getId());
+        } catch (IOException e) {
+            throw unwrapRepositoryException(e);
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+            for (JcrPackage p : subs) {
+                // check if not include itself
+                if (p.getDefinition().getId().equals(id)) {
+                    throw new PackageException("A package cannot include itself. Check filter definition.");
+                }
+```
+
+### DataFlowIssue
+Expression `registry.getPrimaryPackageRoot(true)` might evaluate to null but is returned by the method declared as @NotNull
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+    @Override
+    public Node getPackageRoot() throws RepositoryException {
+        return registry.getPrimaryPackageRoot(true);
+    }
+
+```
+
+### DataFlowIssue
+Argument `in` might be null
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageManagerImpl.java`
+#### Snippet
+```java
+                        for (Archive.Entry e: spfArchive.getSubPackageEntries()) {
+                            try (InputStream in = spfArchive.openInputStream(e);
+                                    Archive subArchive = new ZipStreamArchive(in)) {
+                                PackageId[] subIds = extract(subArchive, options, replace);
+                                ids.addAll(Arrays.asList(subIds));
+```
+
+### DataFlowIssue
+Method invocation `getIgnoredNames` may produce `NullPointerException`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/FileList.java`
+#### Snippet
+```java
+        this.entries = entries;
+        globalIgnores = new HashSet<String>(
+                dir.getContext().getMetaInf().getSettings().getIgnoredNames());
+        globalIgnores.add(Ignored.FILE_NAME);
+        loadIgnored(dir.getDirectory());
+```
+
+### DataFlowIssue
+Method invocation `remove` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+                try (JcrPackage snap = pack.getSnapshot()) {
+                    if (snap != null) {
+                        snap.getNode().remove();
+                    }
+                }
+```
+
+### DataFlowIssue
+Method invocation `remove` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+                    }
+                }
+                pack.getNode().remove();
+            }
+            session.save();
+```
+
+### DataFlowIssue
+Method invocation `isUnwrapped` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+            throw new PackageException("Package is not valid.");
+        }
+        if (pack.getSize() > 0 && !pack.getDefinition().isUnwrapped()) {
+            throw new PackageException("Package definition not unwrapped.");
+        }
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+
+        JcrPackageDefinition def = pack.getDefinition();
+        PackageId id = def.getId();
+        PackageId newId = new PackageId(
+                group == null ? id.getGroup() : group,
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+        );
+        String dstPath = getInstallationPath(newId) + ".zip";
+        if (id.equals(newId) && pack.getNode().getPath().equals(dstPath)) {
+            log.debug("Package id not changed. won't rename.");
+            return pack;
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+
+        // only move if not already at correct location
+        if (!pack.getNode().getPath().equals(dstPath)) {
+            if (session.nodeExists(dstPath)) {
+                throw new PackageException("Node at " + dstPath + " already exists.");
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/JcrPackageRegistry.java`
+#### Snippet
+```java
+                                continue;
+                            }
+                            PackageId id = pack.getDefinition().getId();
+                            if (dependency.matches(id)) {
+                                if (bestId == null || id.getVersion().compareTo(bestId.getVersion()) > 0) {
+```
+
+### DataFlowIssue
+Dereference of `dir.listFiles()` may produce `NullPointerException`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
+#### Snippet
+```java
+
+    public Ignored scan(File dir) throws VltException, IOException, ConfigurationException {
+        for (File file: dir.listFiles()) {
+            String name = file.getName();
+            if (settings != null && settings.isIgnored(name)) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/VltFile.java`
+#### Snippet
+```java
+                }
+            } else {
+                state = State.VOID;
+            }
+        } else {
+```
+
+### DataFlowIssue
+Method invocation `getFilter` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+        }
+        try (VaultPackage vltPkg = pkg.getPackage()) {
+            WorkspaceFilter filter = getInstallState(vltPkg.getId()).getFilter();
+            switch(scope) {
+                case APPLICATION_SCOPED:
+```
+
+### DataFlowIssue
+Method invocation `getDependencies` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+        for (PackageId subId : state.getSubPackages().keySet()) {
+            FSInstallState subState = getInstallState(subId);
+            allDependencies.addAll(subState.getDependencies());
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `isExternal` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+    
+            if (Files.exists(pkgFile)) {
+                if (replace && !state.isExternal()) {
+                    Files.delete(pkgFile);
+                } else {
+```
+
+### DataFlowIssue
+Method invocation `getFilterSets` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
+#### Snippet
+```java
+            // As for JcrPackageImpl subpackages need to get an implicit autoDependency to the parent in case they have own content
+            boolean hasOwnContent = false;
+            for (PathFilterSet root : pkg.getArchive().getMetaInf().getFilter().getFilterSets()) {
+                // todo: find better way to detect subpackages
+                if (!Text.isDescendantOrEqual(DEFAULT_PACKAGE_ROOT_PATH, root.getRoot())) {
+```
+
+### DataFlowIssue
+Method invocation `getSubPackages` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        List<PackageId> subPackages = snap == null
+                ? def.getSubPackages()
+                : ((JcrPackageDefinitionImpl) snap.getDefinition()).getSubPackages();
+
+        if (snap == null) {
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+                throw new PackageException("Unable to uninstall package. No snapshot present.");
+            }
+            log.warn("Unable to revert package content {}. Snapshot missing.", getDefinition().getId());
+            if (opts.getListener() != null) {
+                opts.getListener().onMessage(ProgressTrackerListener.Mode.TEXT, "Unable to revert package content. Snapshot missing.", "");
+```
+
+### DataFlowIssue
+Method invocation `getSession` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+
+        } else {
+            Session s = getNode().getSession();
+            // check for recursive uninstall
+            if (!opts.isNonRecursive() && subPackages.size() > 0) {
+```
+
+### DataFlowIssue
+Method invocation `remove` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            opts.setImportMode(ImportMode.REPLACE);
+            snap.extract(opts);
+            snap.getNode().remove();
+            s.save();
+        }
+```
+
+### DataFlowIssue
+Method invocation `clearLastUnpacked` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        // revert installed flags on this package
+        JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) getDefinition();
+        def.clearLastUnpacked(true);
+
+        mgr.dispatch(PackageEvent.Type.UNINSTALL, def.getId(), null);
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        PackageId[] ret = processed.toArray(new PackageId[processed.size()]);
+        Arrays.sort(ret);
+        mgr.dispatch(PackageEvent.Type.EXTRACT_SUB_PACKAGES, getDefinition().getId(), ret);
+        return ret;
+    }
+```
+
+### DataFlowIssue
+Method invocation `getLength` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        try {
+            assertValid();
+            return getData().getLength();
+        } catch (RepositoryException e) {
+            log.error("Error during getSize()", e);
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+     */
+    private PackageId getSnapshotId() throws RepositoryException {
+        PackageId id = getDefinition().getId();
+        String group = id.getGroup();
+        if (group.length() == 0) {
+```
+
+### DataFlowIssue
+Method invocation `getBoolean` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        ImportOptions opts = options.copy();
+        // check for disable intermediate saves (GRANITE-1047)
+        if (this.getDefinition().getBoolean(JcrPackageDefinition.PN_DISABLE_INTERMEDIATE_SAVE) ) {
+            // MAX_VALUE disables saving completely, therefore we have to use a lower value!
+            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
+```
+
+### DataFlowIssue
+Method invocation `prepareExtract` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
+        }
+        InstallContextImpl ctx = pack.prepareExtract(node.getSession(), opts, mgr.getSecurityConfig(), mgr.isStrictByDefault(),
+                mgr.overwritePrimaryTypesOfFoldersByDefault(), mgr.getDefaultIdConflictPolicy());
+        JcrPackage snap = null;
+```
+
+### DataFlowIssue
+Method invocation `getSession` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            opts.setAutoSaveThreshold(Integer.MAX_VALUE - 1);
+        }
+        InstallContextImpl ctx = pack.prepareExtract(node.getSession(), opts, mgr.getSecurityConfig(), mgr.isStrictByDefault(),
+                mgr.overwritePrimaryTypesOfFoldersByDefault(), mgr.getDefaultIdConflictPolicy());
+        JcrPackage snap = null;
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+                if (p.isValid()) {
+                    JcrPackageDefinitionImpl def = (JcrPackageDefinitionImpl) p.getDefinition();
+                    PackageId pId = def.getId();
+
+                    // check if package is at the correct location
+```
+
+### DataFlowIssue
+Method invocation `clearLastUnpacked` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+
+                    // ensure that sub package is marked as not-installed. it might contain wrong data in vlt:definition (JCRVLT-114)
+                    def.clearLastUnpacked(false);
+
+                    // add dependency to the parent package if required
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            for (JcrPackageImpl p: subPacks) {
+                boolean skip = false;
+                PackageId id = p.getDefinition().getId();
+                SubPackageHandling.Option option = sb.getOption(id);
+                String msg = null;
+```
+
+### DataFlowIssue
+Method invocation `setSubPackages` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            // register sub packages in snapshot and on package for uninstall
+            if (snap != null) {
+                ((JcrPackageDefinitionImpl) snap.getDefinition()).setSubPackages(subIds);
+            }
+            if (def != null) {
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            JcrPackageDefinition d1 = getDefinition();
+            JcrPackageDefinition d2 = o.getDefinition();
+            return d1.getId().compareTo(d2.getId());
+        } catch (Exception e) {
+            log.error("error during compare: {}", e.toString());
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            JcrPackageDefinition d1 = getDefinition();
+            JcrPackageDefinition d2 = o.getDefinition();
+            return d1.getId().compareTo(d2.getId());
+        } catch (Exception e) {
+            log.error("error during compare: {}", e.toString());
+```
+
+### DataFlowIssue
+Method invocation `getFilterSets` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        // check if filter has root outside /etc/packages
+        boolean hasOwnContent = false;
+        for (PathFilterSet root: a.getMetaInf().getFilter().getFilterSets()) {
+            // todo: find better way to detect subpackages
+            if (!Text.isDescendantOrEqual(DEFAULT_PACKAGE_ROOT_PATH, root.getRoot())) {
+```
+
+### DataFlowIssue
+Method invocation `getSession` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        // check if package has nodetype no installed in the repository
+        if (!hasOwnContent) {
+            DefaultNamePathResolver npResolver = new DefaultNamePathResolver(getNode().getSession());
+            NodeTypeManager ntMgr = getNode().getSession().getWorkspace().getNodeTypeManager();
+            loop0: for (NodeTypeSet cnd: a.getMetaInf().getNodeTypes()) {
+```
+
+### DataFlowIssue
+Method invocation `getByteStream` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        for (Archive.Entry e: entries) {
+            VaultInputSource in = a.getInputSource(e);
+            try (InputStream ins = in.getByteStream()) {
+                try {
+                    PackageId id = extractSubpackage(pId, ins, opts, processed, hasOwnContent);
+```
+
+### DataFlowIssue
+Method invocation `getBinary` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            } else {
+                File tmpFile = File.createTempFile("vaultpack", ".zip");
+                Binary bin = getData().getBinary();
+                try (FileOutputStream out = FileUtils.openOutputStream(tmpFile); 
+                    InputStream in = bin.getStream()) {
+```
+
+### DataFlowIssue
+Method invocation `getId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            return;
+        }
+        PackageId[] usage = mgr.usage(getDefinition().getId());
+        if (usage.length > 0 && opts.getDependencyHandling() == DependencyHandling.STRICT) {
+            String msg = String.format("Refusing to uninstall package %s. it is still used by: %s", def.getId(), Arrays.toString(usage));
+```
+
+### DataFlowIssue
+Method invocation `getMetaInf` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        }
+        JcrPackageDefinitionImpl myDef = (JcrPackageDefinitionImpl) getDefinition();
+        WorkspaceFilter filter = myDef.getMetaInf().getFilter();
+        if (filter == null || filter.getFilterSets().isEmpty()) {
+            log.info("Refusing to create snapshot {} due to empty filters", id);
+```
+
+### DataFlowIssue
+Method invocation `setId` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+        try {
+            JcrPackageDefinitionImpl snapDef = (JcrPackageDefinitionImpl) snap.getDefinition();
+            snapDef.setId(id, false);
+            snapDef.setFilter(filter, false);
+            snapDef.set(JcrPackageDefinition.PN_DESCRIPTION, "Snapshot of package " + myDef.getId().toString(), false);
+```
+
+### DataFlowIssue
+Method invocation `getDependencies` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            if (hasOwnContent) {
+                // add dependency to this package
+                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
+                Dependency[] newDeps = DependencyUtil.addExact(oldDeps, containerPackageId);
+                if (oldDeps != newDeps) {
+```
+
+### DataFlowIssue
+Method invocation `getDependencies` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+            } else {
+                // add parent dependencies to this package
+                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
+                Dependency[] newDeps = oldDeps;
+                for (Dependency d: getDefinition().getDependencies()) {
+```
+
+### DataFlowIssue
+Method invocation `getDependencies` may produce `NullPointerException`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageImpl.java`
+#### Snippet
+```java
+                Dependency[] oldDeps = subPackage.getDefinition().getDependencies();
+                Dependency[] newDeps = oldDeps;
+                for (Dependency d: getDefinition().getDependencies()) {
+                    newDeps = DependencyUtil.add(newDeps, d);
+                }
+```
+
+### DataFlowIssue
+Dereference of `localDir.listFiles()` may produce `NullPointerException`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Sync.java`
+#### Snippet
+```java
+                    mountPoint);
+            // check if empty
+            if (localDir.listFiles().length > 0) {
+                throw new VltException("Aborting initialization since directory is not empty.");
+            }
+```
+
+### DataFlowIssue
+Method invocation `dump` may produce `NullPointerException`
+in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Checkout.java`
+#### Snippet
+```java
+                DumpContext dc = new DumpContext(new PrintWriter(ctx.getStdout()));
+                dc.println("Filter");
+                ctx.getMetaInf().getFilter().dump(dc, true);
+                dc.outdent();
+                dc.flush();
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'validateJcrPath' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/JcrPathValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default @Nullable Collection<ValidationMessage> validateJcrPath(@NotNull NodeContext nodeContext, boolean isFolder) { 
+        return validateJcrPath(nodeContext.getFilePath()); 
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'validateMetaInfData' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericMetaInfDataValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default @Nullable Collection<ValidationMessage> validateMetaInfData(@NotNull InputStream input, @NotNull Path filePath) throws IOException {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'shouldValidateMetaInfData' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericMetaInfDataValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default boolean shouldValidateMetaInfData(@NotNull Path filePath) {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'validateEnd' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/DocumentViewXmlValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default @Nullable Collection<ValidationMessage> validateEnd(@NotNull DocViewNode node, @NotNull NodeContext nodeContext, boolean isRoot) {
+        return null;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'validateMetaInfPath' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/MetaInfPathValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated 
+    default @Nullable Collection<ValidationMessage> validateMetaInfPath(@NotNull Path filePath) { 
+        throw new UnsupportedOperationException();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'shouldValidateJcrData' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericJcrDataValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default boolean shouldValidateJcrData(@NotNull Path filePath) {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'validateJcrData' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericJcrDataValidator.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default @Nullable Collection<ValidationMessage> validateJcrData(@NotNull InputStream input, @NotNull Path filePath, @NotNull Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'OPTION_SEVERITY_FOR_UNCOVERED_FILTER_ROOT_ANCESTORS' is still used
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidatorFactory.java`
+#### Snippet
+```java
+    public static final String OPTION_SEVERITY_FOR_UNCOVERED_ANCESTOR_NODES = "severityForUncoveredAncestorNodes";
+    @Deprecated
+    private static final Object OPTION_SEVERITY_FOR_UNCOVERED_FILTER_ROOT_ANCESTORS = "severityForUncoveredFilterRootAncestors"; // TODO: confusing naming
+    private static final Object OPTION_SEVERITY_FOR_UNDEFINED_FILTER_ROOT_ANCESTORS = "severityForUndefinedFilterRootAncestors";
+    public static final String OPTION_SEVERITY_FOR_ORPHANED_FILTER_RULES = "severityForOrphanedFilterRules";
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'SHA1' is still used
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
@@ -21067,54 +21149,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/SHA1.java`
 public class SHA1 {
 
     public final static SHA1 NULL = new SHA1(0,0,0,0,0);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'verifyId' is still used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    boolean verifyId(boolean autoFix, boolean autoSave) throws RepositoryException;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getInstallationPath' is still used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public String getInstallationPath() {
-        StringBuilder b = new StringBuilder(ETC_PACKAGES_PREFIX);
-        if (group.length() > 0) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ETC_PACKAGES' is still used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String ETC_PACKAGES = "/etc/packages";
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ETC_PACKAGES_PREFIX' is still used
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String ETC_PACKAGES_PREFIX = "/etc/packages/";
-
-    public static final PackageId[] EMPTY = new PackageId[0];
 ```
 
 ### DeprecatedIsStillUsed
@@ -21154,6 +21188,54 @@ public class DocViewProperty {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'verifyId' is still used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    boolean verifyId(boolean autoFix, boolean autoSave) throws RepositoryException;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ETC_PACKAGES' is still used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String ETC_PACKAGES = "/etc/packages";
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ETC_PACKAGES_PREFIX' is still used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String ETC_PACKAGES_PREFIX = "/etc/packages/";
+
+    public static final PackageId[] EMPTY = new PackageId[0];
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getInstallationPath' is still used
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public String getInstallationPath() {
+        StringBuilder b = new StringBuilder(ETC_PACKAGES_PREFIX);
+        if (group.length() > 0) {
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'FSPackageRegistry' is still used
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSPackageRegistry.java`
 #### Snippet
@@ -21175,102 +21257,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
     public FSPackageRegistry(@NotNull File homeDir, InstallationScope scope) throws IOException {
        this(homeDir, scope, null);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'validateJcrPath' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/JcrPathValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default @Nullable Collection<ValidationMessage> validateJcrPath(@NotNull NodeContext nodeContext, boolean isFolder) { 
-        return validateJcrPath(nodeContext.getFilePath()); 
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'validateEnd' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/DocumentViewXmlValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default @Nullable Collection<ValidationMessage> validateEnd(@NotNull DocViewNode node, @NotNull NodeContext nodeContext, boolean isRoot) {
-        return null;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'validateMetaInfData' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericMetaInfDataValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default @Nullable Collection<ValidationMessage> validateMetaInfData(@NotNull InputStream input, @NotNull Path filePath) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'shouldValidateMetaInfData' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericMetaInfDataValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default boolean shouldValidateMetaInfData(@NotNull Path filePath) {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'validateMetaInfPath' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/MetaInfPathValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated 
-    default @Nullable Collection<ValidationMessage> validateMetaInfPath(@NotNull Path filePath) { 
-        throw new UnsupportedOperationException();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'validateJcrData' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericJcrDataValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default @Nullable Collection<ValidationMessage> validateJcrData(@NotNull InputStream input, @NotNull Path filePath, @NotNull Map<String, Integer> nodePathsAndLineNumbers) throws IOException {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'shouldValidateJcrData' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/GenericJcrDataValidator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    default boolean shouldValidateJcrData(@NotNull Path filePath) {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'OPTION_SEVERITY_FOR_UNCOVERED_FILTER_ROOT_ANCESTORS' is still used
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidatorFactory.java`
-#### Snippet
-```java
-    public static final String OPTION_SEVERITY_FOR_UNCOVERED_ANCESTOR_NODES = "severityForUncoveredAncestorNodes";
-    @Deprecated
-    private static final Object OPTION_SEVERITY_FOR_UNCOVERED_FILTER_ROOT_ANCESTORS = "severityForUncoveredFilterRootAncestors"; // TODO: confusing naming
-    private static final Object OPTION_SEVERITY_FOR_UNDEFINED_FILTER_ROOT_ANCESTORS = "severityForUndefinedFilterRootAncestors";
-    public static final String OPTION_SEVERITY_FOR_ORPHANED_FILTER_RULES = "severityForOrphanedFilterRules";
 ```
 
 ## RuleId[id=Convert2MethodRef]
@@ -21353,6 +21339,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/AbstractExporter.
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is map
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorSettings.java`
+#### Snippet
+```java
+     * Returns the additional options.
+     * 
+     * @return list of options relevant for this validator
+     */
+    @NotNull Map<String, String> getOptions();
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is map
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/ImportInfo.java`
 #### Snippet
 ```java
@@ -21387,19 +21385,55 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.ja
      * @throws PackageException if an error during packaging occurs
 ```
 
-### MismatchedJavadocCode
-Method is specified to return list but the return type is map
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/ValidatorSettings.java`
+## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
 #### Snippet
 ```java
-     * Returns the additional options.
-     * 
-     * @return list of options relevant for this validator
-     */
-    @NotNull Map<String, String> getOptions();
+            char c = p.charAt(i);
+            if (c == '$') {
+                c = p.charAt(++i);
+                if (c == '{') {
+                    int j = p.indexOf('}', i);
 ```
 
-## RuleId[id=AssignmentToForLoopParameter]
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `i`
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
+#### Snippet
+```java
+                    }
+                    out.append(prop);
+                    i = j;
+                } else {
+                    out.append('$');
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `k`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            byte b = utf8[k];
+            if (b == escape) {
+                out.write((decodeDigit(utf8[++k]) << 4) & 0xff + decodeDigit(utf8[++k]) & 0xff);
+            }
+            else {
+```
+
+### AssignmentToForLoopParameter
+Assignment to for-loop parameter `k`
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
+#### Snippet
+```java
+            byte b = utf8[k];
+            if (b == escape) {
+                out.write((decodeDigit(utf8[++k]) << 4) & 0xff + decodeDigit(utf8[++k]) & 0xff);
+            }
+            else {
+```
+
 ### AssignmentToForLoopParameter
 Assignment to for-loop parameter `i`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat.java`
@@ -21436,54 +21470,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PlatformNameFormat
                             buffer.append('_');
 ```
 
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `k`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            byte b = utf8[k];
-            if (b == escape) {
-                out.write((decodeDigit(utf8[++k]) << 4) & 0xff + decodeDigit(utf8[++k]) & 0xff);
-            }
-            else {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `k`
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
-#### Snippet
-```java
-            byte b = utf8[k];
-            if (b == escape) {
-                out.write((decodeDigit(utf8[++k]) << 4) & 0xff + decodeDigit(utf8[++k]) & 0xff);
-            }
-            else {
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
-#### Snippet
-```java
-            char c = p.charAt(i);
-            if (c == '$') {
-                c = p.charAt(++i);
-                if (c == '{') {
-                    int j = p.indexOf('}', i);
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/Console.java`
-#### Snippet
-```java
-                    }
-                    out.append(prop);
-                    i = j;
-                } else {
-                    out.append('$');
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -21495,6 +21481,150 @@ in `vault-davex/src/main/java/org/apache/jackrabbit/vault/davex/DAVExRepositoryF
             System.out.printf("Connecting via JCR remoting to %s%n", address.getSpecificURI().toString());
             return new RepositoryFactoryImpl().getRepository(parameters);
         } catch (IOException e) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+            RepositoryAddress mp =
+                    new RepositoryAddress(uri.toString());
+            log.info("Mounting JcrFs on {}", mp.toString());
+
+            ExportRoot exportRoot = ExportRoot.findRoot(getPlatformFile("", true));
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+                info.append(rep.getDescriptor(Repository.REP_NAME_DESC)).append(' ');
+                info.append(rep.getDescriptor(Repository.REP_VERSION_DESC));
+                log.info("Connected to {} ({})", uri, info.toString());
+            } catch (Exception e) {
+                rep = null;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AggregateCFile.java`
+#### Snippet
+```java
+            return new AggregateCFile(node);
+        } catch (RepositoryException e) {
+            throw new IOException("Error while retrieving file: " + e.toString());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
+#### Snippet
+```java
+                    StringBuffer buf = new StringBuffer();
+                    addCause(buf, e.getCause(), null);
+                    log.error("{}: {}", c.getName(), buf.toString(), e);
+
+                }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
+#### Snippet
+```java
+                StringBuffer buf = new StringBuffer();
+                addCause(buf, e, null);
+                log.error("{}: {}", c.getName(), buf.toString(), e);
+                return true;
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
+#### Snippet
+```java
+            if (packageType != PackageType.CONTENT) {
+                message = new ValidationMessage(severity, String.format(MESSAGE_UNSUPPORTED_SUB_PACKAGE_OF_TYPE, containerPackageType,
+                        PackageType.CONTENT.toString(), packageType));
+            }
+            break;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/util/classloaderurl/CndUtil.java`
+#### Snippet
+```java
+                    } else {
+                        for (String nodetype : slingNodetypes.split(",")) {
+                            resolvedUrls.add(jarUrl.toString() + nodetype.trim());
+                        }
+                    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+                        includeEntries.append(", ");
+                    }
+                    includeEntries.append(pathFilterEntry.getFilter().toString());
+                }
+                orphanEntries.append(includeEntries).append("] below root '").append(entry.getKey().getRoot()).append("'");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+        }
+        if (orphanEntries.length() > 0) {
+            return Collections.singleton(new ValidationMessage(severityForOrphanedFilterEntries, String.format(MESSAGE_ORPHANED_FILTER_ENTRIES, orphanEntries.toString())));
+        } else {
+            return null;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
+#### Snippet
+```java
+                    save();
+                } catch (IOException e) {
+                    log.warn("Unable to save initial config: " + e.toString());
+                }
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+                return filter;
+            } catch (Exception e) {
+                log.error("Error while loading sync filter: " + e.toString());
+            }
+        } else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            // ignore
+            log.warn("Error while loading config: " + e.toString());
+        }
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -21547,42 +21677,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncConfig.java`
-#### Snippet
-```java
-                    save();
-                } catch (IOException e) {
-                    log.warn("Unable to save initial config: " + e.toString());
-                }
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-                return filter;
-            } catch (Exception e) {
-                log.error("Error while loading sync filter: " + e.toString());
-            }
-        } else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            // ignore
-            log.warn("Error while loading config: " + e.toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/meta/Ignored.java`
 #### Snippet
 ```java
@@ -21603,114 +21697,6 @@ in `vault-vlt/src/main/java/org/apache/jackrabbit/vault/vlt/actions/Info.java`
             out.printf("   URL: %s%n", addr.toString());
             print(out, "  Work", e.work());
             print(out, "  Base", e.base());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/PackageTypeValidator.java`
-#### Snippet
-```java
-            if (packageType != PackageType.CONTENT) {
-                message = new ValidationMessage(severity, String.format(MESSAGE_UNSUPPORTED_SUB_PACKAGE_OF_TYPE, containerPackageType,
-                        PackageType.CONTENT.toString(), packageType));
-            }
-            break;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-                        includeEntries.append(", ");
-                    }
-                    includeEntries.append(pathFilterEntry.getFilter().toString());
-                }
-                orphanEntries.append(includeEntries).append("] below root '").append(entry.getKey().getRoot()).append("'");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-        }
-        if (orphanEntries.length() > 0) {
-            return Collections.singleton(new ValidationMessage(severityForOrphanedFilterEntries, String.format(MESSAGE_ORPHANED_FILTER_ENTRIES, orphanEntries.toString())));
-        } else {
-            return null;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/util/classloaderurl/CndUtil.java`
-#### Snippet
-```java
-                    } else {
-                        for (String nodetype : slingNodetypes.split(",")) {
-                            resolvedUrls.add(jarUrl.toString() + nodetype.trim());
-                        }
-                    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/AggregateCFile.java`
-#### Snippet
-```java
-            return new AggregateCFile(node);
-        } catch (RepositoryException e) {
-            throw new IOException("Error while retrieving file: " + e.toString());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
-#### Snippet
-```java
-            RepositoryAddress mp =
-                    new RepositoryAddress(uri.toString());
-            log.info("Mounting JcrFs on {}", mp.toString());
-
-            ExportRoot exportRoot = ExportRoot.findRoot(getPlatformFile("", true));
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
-#### Snippet
-```java
-                info.append(rep.getDescriptor(Repository.REP_NAME_DESC)).append(' ');
-                info.append(rep.getDescriptor(Repository.REP_VERSION_DESC));
-                log.info("Connected to {} ({})", uri, info.toString());
-            } catch (Exception e) {
-                rep = null;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
-#### Snippet
-```java
-                    StringBuffer buf = new StringBuffer();
-                    addCause(buf, e.getCause(), null);
-                    log.error("{}: {}", c.getName(), buf.toString(), e);
-
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/ExecutionContext.java`
-#### Snippet
-```java
-                StringBuffer buf = new StringBuffer();
-                addCause(buf, e, null);
-                log.error("{}: {}", c.getName(), buf.toString(), e);
-                return true;
-            }
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -21777,6 +21763,42 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/InstallH
 ## RuleId[id=StringEqualsEmptyString]
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
+#### Snippet
+```java
+        if (jcrPath == null) {
+            jcrPath = Text.getName(name);
+            if (jcrPath.equals("")) {
+                jcrPath = name;
+            }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
+#### Snippet
+```java
+        mode = Table.Col.SPACES.substring(0, indent * 2) + mode;
+        try {
+            if (node.getName().equals("")) {
+                mode += "/";
+            }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDump.java`
+#### Snippet
+```java
+        if (fs == null) {
+            VaultFsApp.log.info("Not mounted.");
+        } else if (path != null && !path.equals("")) {
+            if (cl.hasOption(optConfig) || cl.hasOption(optFilter)) {
+                ConsoleFile f = ctx.getCurrentFile();
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/FilterSet.java`
 #### Snippet
 ```java
@@ -21789,18 +21811,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/api/FilterSet.java`
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
-#### Snippet
-```java
-    public VaultFile getFile(VaultFile parent, String path)
-            throws IOException, RepositoryException {
-        if (path == null || path.equals("") || path.equals(".")) {
-            return parent;
-        } else if (path.equals("/")) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.java`
 #### Snippet
 ```java
@@ -21809,6 +21819,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileImpl.j
         if (rootPath.equals("")) {
             this.name = rootPath;
             // bit of a hack since we know how the root artifacts look like
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/VaultFileSystemImpl.java`
+#### Snippet
+```java
+    public VaultFile getFile(VaultFile parent, String path)
+            throws IOException, RepositoryException {
+        if (path == null || path.equals("") || path.equals(".")) {
+            return parent;
+        } else if (path.equals("/")) {
 ```
 
 ### StringEqualsEmptyString
@@ -21849,6 +21871,30 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/AbstractVault
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
+#### Snippet
+```java
+    private void processHandler(Element elem) throws ConfigurationException {
+        String type = elem.getAttribute("type");
+        if (type == null || type.equals("")) {
+            type = "generic";
+        }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
+#### Snippet
+```java
+    private void processAggregate(Element elem) throws ConfigurationException {
+        String type = elem.getAttribute("type");
+        if (type == null || type.equals("")) {
+            type = "generic";
+        }
+```
+
+### StringEqualsEmptyString
+`equals("")` can be replaced with 'isEmpty()'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ConfigHelper.java`
 #### Snippet
 ```java
@@ -21873,30 +21919,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/ConfigHelper.
 
 ### StringEqualsEmptyString
 `equals("")` can be replaced with 'isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
-#### Snippet
-```java
-    private void processAggregate(Element elem) throws ConfigurationException {
-        String type = elem.getAttribute("type");
-        if (type == null || type.equals("")) {
-            type = "generic";
-        }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/VaultFsConfig11.java`
-#### Snippet
-```java
-    private void processHandler(Element elem) throws ConfigurationException {
-        String type = elem.getAttribute("type");
-        if (type == null || type.equals("")) {
-            type = "generic";
-        }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
 #### Snippet
 ```java
@@ -21912,10 +21934,10 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/PathUtil.java`
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
 #### Snippet
 ```java
-    protected PathFilter readFilter(Element elem) throws ConfigurationException {
-        String pattern = elem.getAttribute("pattern");
-        if (pattern == null || "".equals(pattern)) {
-            throw new ConfigurationException("Filter pattern must not be empty");
+        }
+        String v = doc.getAttribute(ATTR_VERSION);
+        if (v == null || "".equals(v)) {
+            v = "1.0";
         }
 ```
 
@@ -21924,10 +21946,10 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorksp
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
 #### Snippet
 ```java
-        }
-        String v = doc.getAttribute(ATTR_VERSION);
-        if (v == null || "".equals(v)) {
-            v = "1.0";
+    protected PathFilter readFilter(Element elem) throws ConfigurationException {
+        String pattern = elem.getAttribute("pattern");
+        if (pattern == null || "".equals(pattern)) {
+            throw new ConfigurationException("Filter pattern must not be empty");
         }
 ```
 
@@ -21967,187 +21989,7 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPacka
                 return null;
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdPut.java`
-#### Snippet
-```java
-        if (jcrPath == null) {
-            jcrPath = Text.getName(name);
-            if (jcrPath.equals("")) {
-                jcrPath = name;
-            }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdLsRepo.java`
-#### Snippet
-```java
-        mode = Table.Col.SPACES.substring(0, indent * 2) + mode;
-        try {
-            if (node.getName().equals("")) {
-                mode += "/";
-            }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdDump.java`
-#### Snippet
-```java
-        if (fs == null) {
-            VaultFsApp.log.info("Not mounted.");
-        } else if (path != null && !path.equals("")) {
-            if (cl.hasOption(optConfig) || cl.hasOption(optFilter)) {
-                ConsoleFile f = ctx.getCurrentFile();
-```
-
 ## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewSAXHandler.java`
-#### Snippet
-```java
-            if (idx2 > 0) {
-                try {
-                    index = Integer.valueOf(name.substring(idx + 1, idx2));
-                } catch (NumberFormatException e) {
-                    // ignore
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-
-    public void setHasFullCoverage(String hasFullCoverage) {
-        this.fullCoverage = Boolean.valueOf(hasFullCoverage);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-     */
-    public void setFullCoverage(String fullCoverage) {
-        this.fullCoverage = Boolean.valueOf(fullCoverage);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
-#### Snippet
-```java
-     */
-    public void setIsDefault(String aDefault) {
-        isDefault = Boolean.valueOf(aDefault);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/NodeTypeItemFilter.java`
-#### Snippet
-```java
-     */
-    public void setRespectSupertype(String respectSupertype) {
-        this.respectSupertype = Boolean.valueOf(respectSupertype);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/DeclaringTypeItemFilter.java`
-#### Snippet
-```java
-     */
-    public void setPropsOnly(String propsOnly) {
-        this.propsOnly = Boolean.valueOf(propsOnly);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsNodeFilter.java`
-#### Snippet
-```java
-     */
-    public void setIsNode(String polarity) {
-        isNode = Boolean.valueOf(polarity);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsMandatoryFilter.java`
-#### Snippet
-```java
-
-    public void setIsMandatory(String node) {
-        isMandatory = Boolean.valueOf(node);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsMandatoryFilter.java`
-#### Snippet
-```java
-
-    public void setCondition(String node) {
-        isMandatory = Boolean.valueOf(node);
-    }
-
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
-#### Snippet
-```java
-            throw new ConfigurationException("Filter pattern must not be empty");
-        }
-        boolean matchProperties = Boolean.valueOf(elem.getAttribute("matchProperties"));
-        if (matchProperties) {
-            return new DefaultPropertyPathFilter(pattern);
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
-#### Snippet
-```java
-        try {
-            String bc = get(PN_BUILD_COUNT);
-            return bc == null ? 0 : Long.valueOf(bc);
-        } catch (NumberFormatException e) {
-            log.warn("Wrong build count in {}.", getId(), e);
-```
-
-### UnnecessaryBoxing
-Redundant boxing, `Long.parseLong()` call can be used instead
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSInstallState.java`
-#### Snippet
-```java
-            long size = 0;
-            if (doc.hasAttribute(ATTR_SIZE)) {
-                size = Long.valueOf(doc.getAttribute(ATTR_SIZE));
-            }
-            FSPackageStatus status = FSPackageStatus.valueOf(doc.getAttribute(ATTR_PACKAGE_STATUS).toUpperCase());
-```
-
 ### UnnecessaryBoxing
 Redundant boxing, `Boolean.parseBoolean()` call can be used instead
 in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/DocumentViewParserValidatorFactory.java`
@@ -22232,19 +22074,151 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/impl/u
     }
 ```
 
-## RuleId[id=ConditionCoveredByFurtherCondition]
-### ConditionCoveredByFurtherCondition
-Condition 'prev == null' covered by subsequent condition 'prev != Type.CRE'
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/ImportInfoImpl.java`
+### UnnecessaryBoxing
+Redundant boxing, `Integer.parseInt()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewSAXHandler.java`
 #### Snippet
 ```java
-    public void onModified(String path) {
-        Type prev = getOrCreateInfo(path).type;
-        if (prev == null || prev != Type.CRE) {
-            addMod(path, Type.MOD, null);
-        }
+            if (idx2 > 0) {
+                try {
+                    index = Integer.valueOf(name.substring(idx + 1, idx2));
+                } catch (NumberFormatException e) {
+                    // ignore
 ```
 
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+     */
+    public void setIsDefault(String aDefault) {
+        isDefault = Boolean.valueOf(aDefault);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+     */
+    public void setFullCoverage(String fullCoverage) {
+        this.fullCoverage = Boolean.valueOf(fullCoverage);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/aggregator/GenericAggregator.java`
+#### Snippet
+```java
+
+    public void setHasFullCoverage(String hasFullCoverage) {
+        this.fullCoverage = Boolean.valueOf(hasFullCoverage);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/NodeTypeItemFilter.java`
+#### Snippet
+```java
+     */
+    public void setRespectSupertype(String respectSupertype) {
+        this.respectSupertype = Boolean.valueOf(respectSupertype);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsMandatoryFilter.java`
+#### Snippet
+```java
+
+    public void setCondition(String node) {
+        isMandatory = Boolean.valueOf(node);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsMandatoryFilter.java`
+#### Snippet
+```java
+
+    public void setIsMandatory(String node) {
+        isMandatory = Boolean.valueOf(node);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/DeclaringTypeItemFilter.java`
+#### Snippet
+```java
+     */
+    public void setPropsOnly(String propsOnly) {
+        this.propsOnly = Boolean.valueOf(propsOnly);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/filter/IsNodeFilter.java`
+#### Snippet
+```java
+     */
+    public void setIsNode(String polarity) {
+        isNode = Boolean.valueOf(polarity);
+    }
+
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/config/DefaultWorkspaceFilter.java`
+#### Snippet
+```java
+            throw new ConfigurationException("Filter pattern must not be empty");
+        }
+        boolean matchProperties = Boolean.valueOf(elem.getAttribute("matchProperties"));
+        if (matchProperties) {
+            return new DefaultPropertyPathFilter(pattern);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/JcrPackageDefinitionImpl.java`
+#### Snippet
+```java
+        try {
+            String bc = get(PN_BUILD_COUNT);
+            return bc == null ? 0 : Long.valueOf(bc);
+        } catch (NumberFormatException e) {
+            log.warn("Wrong build count in {}.", getId(), e);
+```
+
+### UnnecessaryBoxing
+Redundant boxing, `Long.parseLong()` call can be used instead
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl/FSInstallState.java`
+#### Snippet
+```java
+            long size = 0;
+            if (doc.hasAttribute(ATTR_SIZE)) {
+                size = Long.valueOf(doc.getAttribute(ATTR_SIZE));
+            }
+            FSPackageStatus status = FSPackageStatus.valueOf(doc.getAttribute(ATTR_PACKAGE_STATUS).toUpperCase());
+```
+
+## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
 Condition 'jcrPath.length() == 0' covered by subsequent condition '!jcrPath.startsWith(...)'
 in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckoutCli.java`
@@ -22257,7 +22231,163 @@ in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/CmdCheckoutCli.java`
         }
 ```
 
+### ConditionCoveredByFurtherCondition
+Condition 'prev == null' covered by subsequent condition 'prev != Type.CRE'
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/ImportInfoImpl.java`
+#### Snippet
+```java
+    public void onModified(String path) {
+        Type prev = getOrCreateInfo(path).type;
+        if (prev == null || prev != Type.CRE) {
+            addMod(path, Type.MOD, null);
+        }
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `jline` is unnecessary, and can be replaced with an import
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
+#### Snippet
+```java
+                        System.out.printf("Please enter password for user %s connecting to %s: ",
+                                simpleCredentials.getUserID(), mountpoint);
+                        String password = new jline.ConsoleReader().readLine('*');
+                        creds = new SimpleCredentials(simpleCredentials.getUserID(), password.toCharArray());
+                    }
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    public Collection<ValidationMessage> done() {
+        StringBuilder orphanEntries = new StringBuilder();
+        for (java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> entry : this.orphanedFilterSets.entrySet()) {
+            // separator!
+            if (orphanEntries.length() > 0) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+    private void removeFromOrphanedFilterEntries(@NotNull String nodePath) {
+        // find all filter roots which match
+        Iterator<java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>>> iter = orphanedFilterSets.entrySet().iterator();
+        while (iter.hasNext()) {
+            java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterEntry = iter.next();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.util` is unnecessary and can be removed
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
+#### Snippet
+```java
+        Iterator<java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>>> iter = orphanedFilterSets.entrySet().iterator();
+        while (iter.hasNext()) {
+            java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterEntry = iter.next();
+            if (orphanedFilterEntry.getKey().contains(nodePath)) {
+                Iterator<Entry<PathFilter>> includeIterator = orphanedFilterEntry.getValue().iterator();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.spi` is unnecessary and can be removed
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
+#### Snippet
+```java
+
+    /** Similar to
+     * {@link EffectiveNodeType#checkAddNodeConstraints(Name, org.apache.jackrabbit.spi.QNodeTypeDefinition, ItemDefinitionProvider)}
+     * 
+     * @param parentEffectiveNodeType
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
+#### Snippet
+```java
+ * recognized:
+ * <ul>
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
+#### Snippet
+```java
+ * <ul>
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
+ * </ul>
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
+#### Snippet
+```java
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
+ * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
+ * </ul>
+ * Please note, that the docview serialization is recognized if the first
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `java.io` is unnecessary and can be removed
+in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
+#### Snippet
+```java
+     * @param source the source to analyze
+     * @return the serialization type
+     * @throws java.io.IOException if an I/O error occurs
+     */
+    public static SerializationType analyze(InputSource source) throws IOException {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.felix.cm.file` is unnecessary, and can be replaced with an import
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+            switch(serializationType) {
+            case CONFIG:
+                return convertToMap(org.apache.felix.cm.file.ConfigurationHandler.read(input));
+            case CFG:
+                Properties properties = new Properties();
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.felix.cm.json` is unnecessary, and can be replaced with an import
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
+#### Snippet
+```java
+            case CFG_JSON:
+                Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
+                ConfigurationReader configReader = org.apache.felix.cm.json.Configurations.buildReader().build(reader);
+                return convertToMap(configReader.readConfiguration());
+            default:
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.validation.spi` is unnecessary and can be removed
+in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
+#### Snippet
+```java
+/** 
+ * Provides methods to call all registered validators. This instance is bound to the {@link ValidationContext} being given in the 
+ * {@link ValidationExecutorFactory#createValidationExecutor(org.apache.jackrabbit.vault.validation.spi.ValidationContext, boolean, boolean, Map)}.
+ * This class is thread-safe (i.e. methods can be used from different threads on the same instance). 
+ * @see ValidationExecutorFactory
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.jackrabbit.vault.util` is unnecessary and can be removed
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/MemoryArchive.java`
@@ -22295,18 +22425,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/spi/impl/jcr20/Jackr
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.fs.impl.io` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewAdapter.java`
-#### Snippet
-```java
-
-/**
- * {@code DocViewAdapter} is used by the {@link org.apache.jackrabbit.vault.fs.impl.io.DocViewImporter} to handle
- * special content that is not importable using "normal" JCR calls. For example users and other protected content
- * needs to be imported using the {@link javax.jcr.Session#importXML(String, java.io.InputStream, int)} or similar.
-```
-
-### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.jackrabbit.vault.fs.config` is unnecessary and can be removed
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
 #### Snippet
@@ -22340,6 +22458,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/io/Importer.java`
      * @throws javax.jcr.RepositoryException if an repository error occurs
      *
      * @since 2.3.20
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.fs.impl.io` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/fs/impl/io/DocViewAdapter.java`
+#### Snippet
+```java
+
+/**
+ * {@code DocViewAdapter} is used by the {@link org.apache.jackrabbit.vault.fs.impl.io.DocViewImporter} to handle
+ * special content that is not importable using "normal" JCR calls. For example users and other protected content
+ * needs to be imported using the {@link javax.jcr.Session#importXML(String, java.io.InputStream, int)} or similar.
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22392,6 +22522,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/Text.java`
 
 ### UnnecessaryFullyQualifiedName
 Qualifier `org.apache.jackrabbit.vault.util` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
+#### Snippet
+```java
+/**
+ * Helper class that represents a JCR node abstraction encapsulating multiple
+ * {@link org.apache.jackrabbit.vault.util.DocViewProperty properties}.
+ * @deprecated Use {@link DocViewNode2} instead.
+ */
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.util` is unnecessary and can be removed
 in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode2.java`
 #### Snippet
 ```java
@@ -22412,18 +22554,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageProper
      * @see org.apache.jackrabbit.vault.fs.io.AccessControlHandling
      */
     String NAME_AC_HANDLING = "acHandling";
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.packaging` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
-#### Snippet
-```java
-     * Checks if this package is installed.
-     *
-     * Note: the default implementation only checks the {@link org.apache.jackrabbit.vault.packaging.JcrPackageDefinition#getLastUnpacked()}
-     * date. If the package is replaced since it was installed. this method will return {@code false}.
-     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22460,6 +22590,18 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/Packaging.jav
      * @throws javax.jcr.RepositoryException if an error occurs
      * 
      * @since 2.3.0
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.packaging` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/JcrPackage.java`
+#### Snippet
+```java
+     * Checks if this package is installed.
+     *
+     * Note: the default implementation only checks the {@link org.apache.jackrabbit.vault.packaging.JcrPackageDefinition#getLastUnpacked()}
+     * date. If the package is replaced since it was installed. this method will return {@code false}.
+     *
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22511,15 +22653,27 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/SubPackageHan
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
+Qualifier `javax.jcr` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
 #### Snippet
 ```java
-    /**
-     * Parses the {@code jcrName} (either qualified or expanded) and validates it.
-     * @throws java.lang.IllegalArgumentException if the name is not valid
-     */
-    private static void assertValidJcrName(String jcrName) throws IllegalArgumentException {
+     * @param defaultIdConflictPolicy the default {@link IdConflictPolicy} to use if no policy is set in {@code opts}. May be {@code null}.
+     *
+     * @throws javax.jcr.RepositoryException if a repository error during installation occurs.
+     * @throws org.apache.jackrabbit.vault.packaging.PackageException if an error during packaging occurs
+     * @throws IllegalStateException if the package is not valid.
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.jackrabbit.vault.packaging` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
+#### Snippet
+```java
+     *
+     * @throws javax.jcr.RepositoryException if a repository error during installation occurs.
+     * @throws org.apache.jackrabbit.vault.packaging.PackageException if an error during packaging occurs
+     * @throws IllegalStateException if the package is not valid.
+     * @return installation context
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22547,39 +22701,15 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVault
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `javax.jcr` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
+Qualifier `java.lang` is unnecessary and can be removed
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/PackageId.java`
 #### Snippet
 ```java
-     * @param defaultIdConflictPolicy the default {@link IdConflictPolicy} to use if no policy is set in {@code opts}. May be {@code null}.
-     *
-     * @throws javax.jcr.RepositoryException if a repository error during installation occurs.
-     * @throws org.apache.jackrabbit.vault.packaging.PackageException if an error during packaging occurs
-     * @throws IllegalStateException if the package is not valid.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.packaging` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/impl/ZipVaultPackage.java`
-#### Snippet
-```java
-     *
-     * @throws javax.jcr.RepositoryException if a repository error during installation occurs.
-     * @throws org.apache.jackrabbit.vault.packaging.PackageException if an error during packaging occurs
-     * @throws IllegalStateException if the package is not valid.
-     * @return installation context
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.util` is unnecessary and can be removed
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/DocViewNode.java`
-#### Snippet
-```java
-/**
- * Helper class that represents a JCR node abstraction encapsulating multiple
- * {@link org.apache.jackrabbit.vault.util.DocViewProperty properties}.
- * @deprecated Use {@link DocViewNode2} instead.
- */
+    /**
+     * Parses the {@code jcrName} (either qualified or expanded) and validates it.
+     * @throws java.lang.IllegalArgumentException if the name is not valid
+     */
+    private static void assertValidJcrName(String jcrName) throws IllegalArgumentException {
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -22618,150 +22748,6 @@ in `vault-core/src/main/java/org/apache/jackrabbit/vault/packaging/registry/impl
                     writer.writeAttribute(ATTR_PACKAGE_ID, entry.getKey().toString());
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
-#### Snippet
-```java
- * recognized:
- * <ul>
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
-#### Snippet
-```java
- * <ul>
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
- * </ul>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.fs.api` is unnecessary and can be removed
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
-#### Snippet
-```java
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#GENERIC} if the source is not a valid XML
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_GENERIC} if the XML type is not known. eg. a user-xml
- * <li> {@link org.apache.jackrabbit.vault.fs.api.SerializationType#XML_DOCVIEW} if the XML is a docview serialization
- * </ul>
- * Please note, that the docview serialization is recognized if the first
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.io` is unnecessary and can be removed
-in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/XmlAnalyzer.java`
-#### Snippet
-```java
-     * @param source the source to analyze
-     * @return the serialization type
-     * @throws java.io.IOException if an I/O error occurs
-     */
-    public static SerializationType analyze(InputSource source) throws IOException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    private void removeFromOrphanedFilterEntries(@NotNull String nodePath) {
-        // find all filter roots which match
-        Iterator<java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>>> iter = orphanedFilterSets.entrySet().iterator();
-        while (iter.hasNext()) {
-            java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterEntry = iter.next();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-        Iterator<java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>>> iter = orphanedFilterSets.entrySet().iterator();
-        while (iter.hasNext()) {
-            java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> orphanedFilterEntry = iter.next();
-            if (orphanedFilterEntry.getKey().contains(nodePath)) {
-                Iterator<Entry<PathFilter>> includeIterator = orphanedFilterEntry.getValue().iterator();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/AdvancedFilterValidator.java`
-#### Snippet
-```java
-    public Collection<ValidationMessage> done() {
-        StringBuilder orphanEntries = new StringBuilder();
-        for (java.util.Map.Entry<PathFilterSet, List<Entry<PathFilter>>> entry : this.orphanedFilterSets.entrySet()) {
-            // separator!
-            if (orphanEntries.length() > 0) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.spi` is unnecessary and can be removed
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/nodetype/JcrNodeTypeMetaDataImpl.java`
-#### Snippet
-```java
-
-    /** Similar to
-     * {@link EffectiveNodeType#checkAddNodeConstraints(Name, org.apache.jackrabbit.spi.QNodeTypeDefinition, ItemDefinitionProvider)}
-     * 
-     * @param parentEffectiveNodeType
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.felix.cm.file` is unnecessary, and can be replaced with an import
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-            switch(serializationType) {
-            case CONFIG:
-                return convertToMap(org.apache.felix.cm.file.ConfigurationHandler.read(input));
-            case CFG:
-                Properties properties = new Properties();
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.felix.cm.json` is unnecessary, and can be replaced with an import
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/impl/OsgiConfigurationParserValidator.java`
-#### Snippet
-```java
-            case CFG_JSON:
-                Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
-                ConfigurationReader configReader = org.apache.felix.cm.json.Configurations.buildReader().build(reader);
-                return convertToMap(configReader.readConfiguration());
-            default:
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.jackrabbit.vault.validation.spi` is unnecessary and can be removed
-in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/ValidationExecutor.java`
-#### Snippet
-```java
-/** 
- * Provides methods to call all registered validators. This instance is bound to the {@link ValidationContext} being given in the 
- * {@link ValidationExecutorFactory#createValidationExecutor(org.apache.jackrabbit.vault.validation.spi.ValidationContext, boolean, boolean, Map)}.
- * This class is thread-safe (i.e. methods can be used from different threads on the same instance). 
- * @see ValidationExecutorFactory
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jline` is unnecessary, and can be replaced with an import
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/cli/VaultFsApp.java`
-#### Snippet
-```java
-                        System.out.printf("Please enter password for user %s connecting to %s: ",
-                                simpleCredentials.getUserID(), mountpoint);
-                        String password = new jline.ConsoleReader().readLine('*');
-                        creds = new SimpleCredentials(simpleCredentials.getUserID(), password.toCharArray());
-                    }
-```
-
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
@@ -22790,15 +22776,15 @@ in `vault-validation/src/main/java/org/apache/jackrabbit/vault/validation/spi/im
 
 ## RuleId[id=Convert2Lambda]
 ### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/InputStreamPump.java`
+Anonymous new Comparator() can be replaced with lambda
+in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
 #### Snippet
 ```java
-        in = new PipedInputStream(out, 8192);
 
-        pumpThread = new Thread(new Runnable() {
-            public void run() {
-                try {
+    public void sort(final int col) {
+        Collections.sort(rows, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                Row r1 = (Row) o1;
 ```
 
 ### Convert2Lambda
@@ -22814,15 +22800,15 @@ in `vault-sync/src/main/java/org/apache/jackrabbit/vault/sync/impl/SyncHandler.j
 ```
 
 ### Convert2Lambda
-Anonymous new Comparator() can be replaced with lambda
-in `vault-cli/src/main/java/org/apache/jackrabbit/vault/util/console/util/Table.java`
+Anonymous new Runnable() can be replaced with lambda
+in `vault-core/src/main/java/org/apache/jackrabbit/vault/util/InputStreamPump.java`
 #### Snippet
 ```java
+        in = new PipedInputStream(out, 8192);
 
-    public void sort(final int col) {
-        Collections.sort(rows, new Comparator() {
-            public int compare(Object o1, Object o2) {
-                Row r1 = (Row) o1;
+        pumpThread = new Thread(new Runnable() {
+            public void run() {
+                try {
 ```
 
 ## RuleId[id=UnnecessaryContinue]
