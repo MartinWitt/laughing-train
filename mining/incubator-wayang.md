@@ -1,7 +1,7 @@
 # incubator-wayang 
  
 # Bad smells
-I found 1406 bad smells with 143 repairable:
+I found 1405 bad smells with 143 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | BoundedWildcard | 168 | false |
@@ -105,7 +105,6 @@ I found 1406 bad smells with 143 repairable:
 | UnnecessaryUnboxing | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | CallToStringConcatCanBeReplacedByOperator | 1 | false |
 | CastConflictsWithInstanceof | 1 | false |
 | TypeParameterHidesVisibleType | 1 | false |
@@ -470,18 +469,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/S3Fi
 ```
 
 ### CommentedOutCode
-Commented out code (5 lines)
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/StageAssignmentTraversal.java`
-#### Snippet
-```java
-//                    if (outputChannel.isInterStageCapable()) continue;
-                    // TODO: We cannot "exchange" Channels so easily any more.
-//                    if (!task.getOperator().getPlatform().getChannelManager()
-//                            .exchangeWithInterstageCapable(outputChannel)) {
-//                        StageAssignmentTraversal.logger.warn("Could not exchange {} with an interstage-capable channel.",
-```
-
-### CommentedOutCode
 Commented out code (57 lines)
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/StageAssignmentTraversal.java`
 #### Snippet
@@ -491,6 +478,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 //    private static class ExecutionStageAdapter implements InterimStage {
 //
 //        private final ExecutionStage executionStage;
+```
+
+### CommentedOutCode
+Commented out code (5 lines)
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/StageAssignmentTraversal.java`
+#### Snippet
+```java
+//                    if (outputChannel.isInterStageCapable()) continue;
+                    // TODO: We cannot "exchange" Channels so easily any more.
+//                    if (!task.getOperator().getPlatform().getChannelManager()
+//                            .exchangeWithInterstageCapable(outputChannel)) {
+//                        StageAssignmentTraversal.logger.warn("Could not exchange {} with an interstage-capable channel.",
 ```
 
 ### CommentedOutCode
@@ -506,18 +505,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/profiling/Ca
 ```
 
 ### CommentedOutCode
-Commented out code (507 lines)
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadProfileEstimators.java`
-#### Snippet
-```java
-
-
-//    /**
-//     * Let this class try to find a suitable {@link DynamicLoadProfileEstimator} for the given {@link ExecutionOperator}.
-//     *
-```
-
-### CommentedOutCode
 Commented out code (2 lines)
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadProfileEstimators.java`
 #### Snippet
@@ -527,6 +514,18 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadPro
 //        DynamicLoadEstimator ramEstimator =
 //                DynamicLoadEstimator.createFor(configKey, "ram", spec.getString("ram"), optimizationSpace);
         DynamicLoadEstimator diskEstimator = !spec.has("disk") ?
+```
+
+### CommentedOutCode
+Commented out code (507 lines)
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadProfileEstimators.java`
+#### Snippet
+```java
+
+
+//    /**
+//     * Let this class try to find a suitable {@link DynamicLoadProfileEstimator} for the given {@link ExecutionOperator}.
+//     *
 ```
 
 ### CommentedOutCode
@@ -578,15 +577,15 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimiz
 ```
 
 ### CommentedOutCode
-Commented out code (60 lines)
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
+Commented out code (35 lines)
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
 #### Snippet
 ```java
-    }
+            }
 
-//    /**
-//     * Calculate the fitness as the arithmetic mean the individual fitnesses of the estimation subjects.
-//     */
+//            // Now find all InputSlots that are fed by the OutputSlot and whose Operators have not yet been executed.
+//            Collection<InputSlot<?>> consumerInputs = this.findWayangPlanInputSlotFor(producerOutput);
+//
 ```
 
 ### CommentedOutCode
@@ -602,15 +601,15 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.jav
 ```
 
 ### CommentedOutCode
-Commented out code (35 lines)
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
+Commented out code (60 lines)
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
 #### Snippet
 ```java
-            }
+    }
 
-//            // Now find all InputSlots that are fed by the OutputSlot and whose Operators have not yet been executed.
-//            Collection<InputSlot<?>> consumerInputs = this.findWayangPlanInputSlotFor(producerOutput);
-//
+//    /**
+//     * Calculate the fitness as the arithmetic mean the individual fitnesses of the estimation subjects.
+//     */
 ```
 
 ### CommentedOutCode
@@ -638,6 +637,18 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/sgd/SGDImpl.java`
 ```
 
 ### CommentedOutCode
+Commented out code (8 lines)
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIESelfJoinOperator.java`
+#### Snippet
+```java
+
+        //get this from the user (SOMEHOW)
+        /*ArrayList<String> attSymbols = new ArrayList<String>();
+        attSymbols.add("<");//prim
+        attSymbols.add(">");//ref
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/myMergeSort.java`
 #### Snippet
@@ -650,15 +661,15 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 ```
 
 ### CommentedOutCode
-Commented out code (8 lines)
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIESelfJoinOperator.java`
+Commented out code (2 lines)
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/BitSetJoin.java`
 #### Snippet
 ```java
+            Tuple2<List2AttributesObjectSkinny<Type0, Type1>, List2AttributesObjectSkinny<Type0, Type1>> arg0)
+            throws Exception {
+        // ArrayList<Tuple2<Long, Long>> output = new ArrayList<Tuple2<Long,
+        // Long>>(1);
 
-        //get this from the user (SOMEHOW)
-        /*ArrayList<String> attSymbols = new ArrayList<String>();
-        attSymbols.add("<");//prim
-        attSymbols.add(">");//ref
 ```
 
 ### CommentedOutCode
@@ -683,18 +694,6 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
                 // result.add(lst2[j++]);
                 // j++;
                 System.arraycopy(lst2, j, result, k, (lst2.length - j));
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/BitSetJoin.java`
-#### Snippet
-```java
-            Tuple2<List2AttributesObjectSkinny<Type0, Type1>, List2AttributesObjectSkinny<Type0, Type1>> arg0)
-            throws Exception {
-        // ArrayList<Tuple2<Long, Long>> output = new ArrayList<Tuple2<Long,
-        // Long>>(1);
-
 ```
 
 ### CommentedOutCode
@@ -861,11 +860,11 @@ Qualifier `CrossPlatformExecutor` on 'this' is unnecessary in this context
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
-
-        // Have the execution done.
-        CrossPlatformExecutor.this.logger.info("Having {} execute {}:\n{}", executor, stage, stage.getPlanAsString("> "));
-        long startTime = System.currentTimeMillis();
-        executor.execute(stage, optimizationContext, this);
+                t.join();
+            } catch (InterruptedException e) {
+                CrossPlatformExecutor.this.logger.error("Thread Interrupted!", e);
+            }
+        }
 ```
 
 ### UnnecessaryQualifierForThis
@@ -873,11 +872,11 @@ Qualifier `CrossPlatformExecutor` on 'this' is unnecessary in this context
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
-        executor.execute(stage, optimizationContext, this);
-        long finishTime = System.currentTimeMillis();
-        CrossPlatformExecutor.this.logger.info("Executed {} in {}.", stage, Formats.formatDuration(finishTime - startTime, true));
+        // Clear the list of created threads
+        parallelExecutionThreads.clear();
+        CrossPlatformExecutor.this.logger.info("Parallel execution ended!");
+    }
 
-        // Remember that we have executed the stage.
 ```
 
 ### UnnecessaryQualifierForThis
@@ -897,11 +896,11 @@ Qualifier `CrossPlatformExecutor` on 'this' is unnecessary in this context
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
-                t.join();
-            } catch (InterruptedException e) {
-                CrossPlatformExecutor.this.logger.error("Thread Interrupted!", e);
-            }
-        }
+
+        // Have the execution done.
+        CrossPlatformExecutor.this.logger.info("Having {} execute {}:\n{}", executor, stage, stage.getPlanAsString("> "));
+        long startTime = System.currentTimeMillis();
+        executor.execute(stage, optimizationContext, this);
 ```
 
 ### UnnecessaryQualifierForThis
@@ -909,11 +908,11 @@ Qualifier `CrossPlatformExecutor` on 'this' is unnecessary in this context
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
-        // Clear the list of created threads
-        parallelExecutionThreads.clear();
-        CrossPlatformExecutor.this.logger.info("Parallel execution ended!");
-    }
+        executor.execute(stage, optimizationContext, this);
+        long finishTime = System.currentTimeMillis();
+        CrossPlatformExecutor.this.logger.info("Executed {} in {}.", stage, Formats.formatDuration(finishTime - startTime, true));
 
+        // Remember that we have executed the stage.
 ```
 
 ### UnnecessaryQualifierForThis
@@ -1166,9 +1165,9 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/Subp
 ```java
      * @return the new instance
      */
-    public static final SubplanPattern createSingleton(OperatorPattern operatorPattern) {
-        return fromOperatorPatterns(operatorPattern, operatorPattern);
-    }
+    public static final SubplanPattern fromOperatorPatterns(OperatorPattern inputOperatorPattern,
+                                                            OperatorPattern outputOperatorPattern) {
+        return new SubplanPattern(inputOperatorPattern, outputOperatorPattern);
 ```
 
 ### FinalStaticMethod
@@ -1178,9 +1177,9 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/Subp
 ```java
      * @return the new instance
      */
-    public static final SubplanPattern fromOperatorPatterns(OperatorPattern inputOperatorPattern,
-                                                            OperatorPattern outputOperatorPattern) {
-        return new SubplanPattern(inputOperatorPattern, outputOperatorPattern);
+    public static final SubplanPattern createSingleton(OperatorPattern operatorPattern) {
+        return fromOperatorPatterns(operatorPattern, operatorPattern);
+    }
 ```
 
 ### FinalStaticMethod
@@ -1196,6 +1195,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
 ```
 
 ## RuleId[id=NullableProblems]
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
+#### Snippet
+```java
+  final DataSource dataSource;
+  final @Nullable String catalog;
+  final @Nullable String schema;
+  public final SqlDialect dialect;
+  final JdbcConvention convention;
+```
+
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
@@ -1218,18 +1229,6 @@ public class JdbcSchema implements Schema {
   final @Nullable String catalog;
   final @Nullable String schema;
   public final SqlDialect dialect;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
-#### Snippet
-```java
-  final DataSource dataSource;
-  final @Nullable String catalog;
-  final @Nullable String schema;
-  public final SqlDialect dialect;
-  final JdbcConvention convention;
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -1309,7 +1308,7 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSer
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/FileStorage.java`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/JDBCStorage.java`
 #### Snippet
 ```java
     @Override
@@ -1321,7 +1320,7 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/FileStorage.java`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/JDBCStorage.java`
 #### Snippet
 ```java
     @Override
@@ -1333,7 +1332,7 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/JDBCStorage.java`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/FileStorage.java`
 #### Snippet
 ```java
     @Override
@@ -1345,7 +1344,7 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/JDBCStorage.java`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/FileStorage.java`
 #### Snippet
 ```java
     @Override
@@ -1493,7 +1492,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/BinaryOperato
 ## RuleId[id=ClassNameSameAsAncestorName]
 ### ClassNameSameAsAncestorName
 Class name `CardinalityEstimator` is the same as one of its superclass' names
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/TextFileSource.java`
 #### Snippet
 ```java
      * Custom {@link org.apache.wayang.core.optimizer.cardinality.CardinalityEstimator} for {@link FlatMapOperator}s.
@@ -1505,7 +1504,7 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### ClassNameSameAsAncestorName
 Class name `CardinalityEstimator` is the same as one of its superclass' names
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/TextFileSource.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
 #### Snippet
 ```java
      * Custom {@link org.apache.wayang.core.optimizer.cardinality.CardinalityEstimator} for {@link FlatMapOperator}s.
@@ -1564,18 +1563,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/CrossPr
 ```
 
 ### ClassNameSameAsAncestorName
-Class name `Activator` is the same as one of its superclass' names
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
-#### Snippet
-```java
-     * Takes care of creating {@link ExecutionTask}s and {@link Channel}s.
-     */
-    public class Activator extends AbstractTopologicalTraversal.Activator<Activation> {
-
-        private final Activation[] activations;
-```
-
-### ClassNameSameAsAncestorName
 Class name `Activation` is the same as one of its superclass' names
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
 #### Snippet
@@ -1585,6 +1572,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
     public static class Activation extends AbstractTopologicalTraversal.Activation<Activator> {
 
         private final int inputIndex;
+```
+
+### ClassNameSameAsAncestorName
+Class name `Activator` is the same as one of its superclass' names
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
+#### Snippet
+```java
+     * Takes care of creating {@link ExecutionTask}s and {@link Channel}s.
+     */
+    public class Activator extends AbstractTopologicalTraversal.Activator<Activation> {
+
+        private final Activation[] activations;
 ```
 
 ### ClassNameSameAsAncestorName
@@ -1651,18 +1650,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/File
 
 ## RuleId[id=OptionalAssignedToNull]
 ### OptionalAssignedToNull
-Null is used for 'Optional' type in return statement
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/TopDownPlanVisitor.java`
-#### Snippet
-```java
-            return Optional.ofNullable(this.process(occupant.getOwner(), occupant, payload));
-        } else {
-            return null;
-        }
-    }
-```
-
-### OptionalAssignedToNull
 Optional value is compared with null
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/TopDownPlanVisitor.java`
 #### Snippet
@@ -1672,6 +1659,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
         if (returnOptional != null) {
             return returnOptional.orElse(null);
         }
+```
+
+### OptionalAssignedToNull
+Null is used for 'Optional' type in return statement
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/TopDownPlanVisitor.java`
+#### Snippet
+```java
+            return Optional.ofNullable(this.process(occupant.getOwner(), occupant, payload));
+        } else {
+            return null;
+        }
+    }
 ```
 
 ### OptionalAssignedToNull
@@ -2679,11 +2678,11 @@ Result of assignment expression used
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
 #### Snippet
 ```java
-            Queue<ExecutionStage> stagedStages = new LinkedList<>(executionPlan.getStartingStages());
-            ExecutionStage nextStage;
-            while ((nextStage = stagedStages.poll()) != null) {
-                sb.append(nextStage).append(":\n");
-                nextStage.getPlanAsString(sb, "* ");
+                .orElseThrow(() -> new WayangException("Could not find an execution plan."));
+        this.logger.info("Picked {} as best plan.", bestPlanImplementation);
+        return this.planImplementation = bestPlanImplementation;
+    }
+
 ```
 
 ### NestedAssignment
@@ -2691,11 +2690,11 @@ Result of assignment expression used
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
 #### Snippet
 ```java
-                .orElseThrow(() -> new WayangException("Could not find an execution plan."));
-        this.logger.info("Picked {} as best plan.", bestPlanImplementation);
-        return this.planImplementation = bestPlanImplementation;
-    }
-
+            Queue<ExecutionStage> stagedStages = new LinkedList<>(executionPlan.getStartingStages());
+            ExecutionStage nextStage;
+            while ((nextStage = stagedStages.poll()) != null) {
+                sb.append(nextStage).append(":\n");
+                nextStage.getPlanAsString(sb, "* ");
 ```
 
 ### NestedAssignment
@@ -2917,13 +2916,13 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jd
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `resultReference` is accessed in both synchronized and unsynchronized contexts
+Field `logger` is accessed in both synchronized and unsynchronized contexts
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
-     * it is {@code null}.
+     * Logger.
      */
-    private AtomicReference<PlanEnumeration> resultReference;
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     /**
 ```
@@ -2941,28 +2940,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 ```
 
 ### FieldAccessedSynchronizedAndUnsynchronized
-Field `logger` is accessed in both synchronized and unsynchronized contexts
+Field `resultReference` is accessed in both synchronized and unsynchronized contexts
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
-     * Logger.
+     * it is {@code null}.
      */
-    private Logger logger = LogManager.getLogger(this.getClass());
+    private AtomicReference<PlanEnumeration> resultReference;
 
     /**
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-21-09-14-27.702.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
 ```
 
 ## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
@@ -3019,7 +3005,7 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `numExpectedIterations` initializer `0` is redundant
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
 #### Snippet
 ```java
     protected final PredicateDescriptor<Collection<ConvergenceType>> criterionDescriptor;
@@ -3031,7 +3017,7 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### UnusedAssignment
 Variable `numExpectedIterations` initializer `0` is redundant
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
 #### Snippet
 ```java
     protected final PredicateDescriptor<Collection<ConvergenceType>> criterionDescriptor;
@@ -3039,6 +3025,18 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
     private Integer numExpectedIterations = 0;
 
     private State state;
+```
+
+### UnusedAssignment
+Variable `resourceUtilization` initializer `1d` is redundant
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/costs/LoadProfile.java`
+#### Snippet
+```java
+     * The resource utilization of this load profile.
+     */
+    private double resourceUtilization = 1d;
+
+    /**
 ```
 
 ### UnusedAssignment
@@ -3075,18 +3073,6 @@ public class ReaderIterator <Output> implements Iterator<Output> {
     private Output nextObj = null;
     private boolean eos = false;
     private boolean fst = false;
-```
-
-### UnusedAssignment
-Variable `resourceUtilization` initializer `1d` is redundant
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/costs/LoadProfile.java`
-#### Snippet
-```java
-     * The resource utilization of this load profile.
-     */
-    private double resourceUtilization = 1d;
-
-    /**
 ```
 
 ### UnusedAssignment
@@ -3270,18 +3256,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 ```
 
 ### UnusedAssignment
-Variable `iteration_generate` initializer `0` is redundant
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
-#### Snippet
-```java
-    private int iterationCounter = 0;
-
-    private int iteration_generate = 0;
-
-    private int iteration_expanded = 0;
-```
-
-### UnusedAssignment
 Variable `listOfListObject` initializer `null` is redundant
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIEJoinOperator.java`
 #### Snippet
@@ -3339,6 +3313,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
         JavaPairRDD<Long, Long> tmpOut1 = null;
 
         tmpOut1 = listOfListObject.flatMapToPair(new BitSetJoin<Type0, Type1>(list1ASC,
+```
+
+### UnusedAssignment
+Variable `iteration_generate` initializer `0` is redundant
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
+#### Snippet
+```java
+    private int iterationCounter = 0;
+
+    private int iteration_generate = 0;
+
+    private int iteration_expanded = 0;
 ```
 
 ## RuleId[id=GroovyUnnecessaryReturn]
@@ -3690,6 +3676,18 @@ Unnecessary `String.valueOf()` call
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
+        for (int i = 1; i <= numActiveStages; ++i) {
+            // TODO: Better pass the stage to the thread rather than letting the thread retrieve the stage itself (to avoid concurrency issues).
+            Thread thread = new Thread(new ParallelExecutionThread(isBreakpointsDisabled, "T" + String.valueOf(i), this));
+            // Start thread execution
+            thread.start();
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `String.valueOf()` call
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
+#### Snippet
+```java
 
             StageActivator stageActivator;
             this.crossPlatformExecutor.logger.info("Thread " + String.valueOf(this.threadId) + " started");
@@ -3707,18 +3705,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Cro
                         Thread thread = new Thread(new ParallelExecutionThread(this.thread_isBreakpointDisabled, "T" + String.valueOf(i) + "@" + this.threadId, this.crossPlatformExecutor));
                         thread.start();
                         synchronized (this.crossPlatformExecutor) {
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `String.valueOf()` call
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
-#### Snippet
-```java
-        for (int i = 1; i <= numActiveStages; ++i) {
-            // TODO: Better pass the stage to the thread rather than letting the thread retrieve the stage itself (to avoid concurrency issues).
-            Thread thread = new Thread(new ParallelExecutionThread(isBreakpointsDisabled, "T" + String.valueOf(i), this));
-            // Start thread execution
-            thread.start();
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -4135,14 +4121,14 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaTsvFileSink.java`
 #### Snippet
 ```java
-    public void save(Collection<Experiment> experiments, OutputStream outputStream) throws IOException {
-        try {
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            this.save(experiments, writer);
-        } catch (UnsupportedEncodingException e) {
+        try (final BufferedWriter writer = new BufferedWriter(
+                new OutputStreamWriter(
+                        fileSystem.create(path), "UTF-8"
+                )
+        )) {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -4159,14 +4145,14 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaTsvFileSink.java`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
 #### Snippet
 ```java
-        try (final BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(
-                        fileSystem.create(path), "UTF-8"
-                )
-        )) {
+    public void save(Collection<Experiment> experiments, OutputStream outputStream) throws IOException {
+        try {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            this.save(experiments, writer);
+        } catch (UnsupportedEncodingException e) {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -4247,18 +4233,6 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
 #### Snippet
 ```java
-
-    public static void printRecord(Record record) {
-        System.out.println(record.toString());
-    }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
-#### Snippet
-```java
         operators.forEach(o -> sw.append(o.toString()));
 
         System.out.println(sw.toString());
@@ -4268,14 +4242,38 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/ut
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LocalCallbackSink.java`
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
 #### Snippet
 ```java
-     */
-    public LocalCallbackSink(Class<T> typeClass ){
-        this((FunctionDescriptor.SerializableConsumer<T>)System.out::println, typeClass);
+
+    public static void printRecord(Record record) {
+        System.out.println(record.toString());
     }
 
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
+#### Snippet
+```java
+            Util.enumVal(TableType.OTHER, tableTypeName2);
+        if (tableType == TableType.OTHER  && tableTypeName2 != null) {
+          System.out.println("Unknown table type: " + tableTypeName2);
+        }
+        final JdbcTable table =
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/JavaCSVTableSource.java`
+#### Snippet
+```java
+            return (T) new Record(objects);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        throw new IllegalStateException(String.format("Error while parsing CSV file %s at line %s", sourcePath, s));
 ```
 
 ### SystemOutErr
@@ -4304,26 +4302,14 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/JavaCSVTableSource.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LocalCallbackSink.java`
 #### Snippet
 ```java
-            return (T) new Record(objects);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        throw new IllegalStateException(String.format("Error while parsing CSV file %s at line %s", sourcePath, s));
-```
+     */
+    public LocalCallbackSink(Class<T> typeClass ){
+        this((FunctionDescriptor.SerializableConsumer<T>)System.out::println, typeClass);
+    }
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
-#### Snippet
-```java
-            Util.enumVal(TableType.OTHER, tableTypeName2);
-        if (tableType == TableType.OTHER  && tableTypeName2 != null) {
-          System.out.println("Unknown table type: " + tableTypeName2);
-        }
-        final JdbcTable table =
 ```
 
 ### SystemOutErr
@@ -4360,90 +4346,6 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
                     System.out.println(size);
                     chunk = Arrays.copyOfRange(chunk, 0, size);
                 }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessReceiver.java`
-#### Snippet
-```java
-
-    public void print(){
-        iterator.forEachRemaining(x -> System.out.println(x.toString()));
-
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
-#### Snippet
-```java
-             */
-            else if (obj instanceof Byte[] || obj instanceof byte[]) {
-                System.out.println("Writing Bytes");
-                writeBytes(obj, dataOut);
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
-#### Snippet
-```java
-        throws IOException {
-
-        System.out.println("iterator being send");
-        int buffer = 0;
-        for (Iterator<Input> it = iter; it.hasNext(); ) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
-#### Snippet
-```java
-        //write(serializedUDF.toByteArray(), dataOut);
-        writeBytes(serializedUDF.toByteArray(), dataOut);
-        System.out.println("UDF written");
-
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
-#### Snippet
-```java
-
-            } catch (Exception e) {
-                System.out.println(e);
-                throw new WayangException("Python worker failed to connect back.", e);
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
-#### Snippet
-```java
-            }
-        } catch (Exception e){
-            System.out.println(e);
-            throw new WayangException("Python worker failed");
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
-#### Snippet
-```java
-            this.socket.close();
-            this.serverSocket.close();
-            System.out.println("Everything closed");
-        } catch (IOException e) {
-            e.printStackTrace();
 ```
 
 ### SystemOutErr
@@ -4492,6 +4394,162 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/S3Fi
     System.out.println(s3.preFoldersExits(s3.getS3Pair(url)));
 
    // System.out.println(s3.getFileSize(url));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessReceiver.java`
+#### Snippet
+```java
+
+    public void print(){
+        iterator.forEachRemaining(x -> System.out.println(x.toString()));
+
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
+        //write(serializedUDF.toByteArray(), dataOut);
+        writeBytes(serializedUDF.toByteArray(), dataOut);
+        System.out.println("UDF written");
+
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
+             */
+            else if (obj instanceof Byte[] || obj instanceof byte[]) {
+                System.out.println("Writing Bytes");
+                writeBytes(obj, dataOut);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
+        throws IOException {
+
+        System.out.println("iterator being send");
+        int buffer = 0;
+        for (Iterator<Input> it = iter; it.hasNext(); ) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
+#### Snippet
+```java
+            this.socket.close();
+            this.serverSocket.close();
+            System.out.println("Everything closed");
+        } catch (IOException e) {
+            e.printStackTrace();
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
+#### Snippet
+```java
+
+            } catch (Exception e) {
+                System.out.println(e);
+                throw new WayangException("Python worker failed to connect back.", e);
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
+#### Snippet
+```java
+            }
+        } catch (Exception e){
+            System.out.println(e);
+            throw new WayangException("Python worker failed");
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+    private void modifyFilters(String[] commandLine) {
+        if (commandLine.length == 1) {
+            System.out.println("filter <name|platform|operator> <regex>");
+            System.out.println("filter clear");
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+        if (commandLine.length == 1) {
+            System.out.println("filter <name|platform|operator> <regex>");
+            System.out.println("filter clear");
+            return;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+                return;
+            case "name":
+                System.out.println("Not supported.");
+//                predicate = pe -> pe.getOperatorContexts().stream()
+//                        .map(operatorContext -> operatorContext.getOperator().getName())
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+                break;
+            case "operator":
+                System.out.println("Not supported.");
+//                predicate = pe -> pe.getOperatorContexts().stream()
+//                        .map(operatorContext -> operatorContext.getOperator().getClass().getSimpleName())
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+                break;
+            case "platform":
+                System.out.println("Not supported.");
+//                predicate = pe -> pe.getOperatorContexts().stream()
+//                        .map(operatorContext -> ((ExecutionOperator) operatorContext.getOperator()).getPlatform())
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+                break;
+            default:
+                System.out.println("Unknown filter type.");
+                return;
+        }
 ```
 
 ### SystemOutErr
@@ -4583,6 +4641,42 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
 #### Snippet
 ```java
+    private void modifySorting(String[] commandLine) {
+        if (commandLine.length == 1) {
+            System.out.println("sort <est|run|delta> [asc|desc]");
+            System.out.println("sort clear");
+            return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+        if (commandLine.length == 1) {
+            System.out.println("sort <est|run|delta> [asc|desc]");
+            System.out.println("sort clear");
+            return;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
+                break;
+            default:
+                System.out.println("Unknown filter type.");
+                return;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
                 .map(PartialExecution::getMeasuredExecutionTime)
                 .reduce(0L, (a, b) -> a + b);
         System.out.printf("Found %d partial executions.\n", this.createPartialExecutionStream().count());
@@ -4628,114 +4722,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.j
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-    private void modifySorting(String[] commandLine) {
-        if (commandLine.length == 1) {
-            System.out.println("sort <est|run|delta> [asc|desc]");
-            System.out.println("sort clear");
-            return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-        if (commandLine.length == 1) {
-            System.out.println("sort <est|run|delta> [asc|desc]");
-            System.out.println("sort clear");
-            return;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-                break;
-            default:
-                System.out.println("Unknown filter type.");
-                return;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-    private void modifyFilters(String[] commandLine) {
-        if (commandLine.length == 1) {
-            System.out.println("filter <name|platform|operator> <regex>");
-            System.out.println("filter clear");
-            return;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-        if (commandLine.length == 1) {
-            System.out.println("filter <name|platform|operator> <regex>");
-            System.out.println("filter clear");
-            return;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-                return;
-            case "name":
-                System.out.println("Not supported.");
-//                predicate = pe -> pe.getOperatorContexts().stream()
-//                        .map(operatorContext -> operatorContext.getOperator().getName())
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-                break;
-            case "operator":
-                System.out.println("Not supported.");
-//                predicate = pe -> pe.getOperatorContexts().stream()
-//                        .map(operatorContext -> operatorContext.getOperator().getClass().getSimpleName())
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-                break;
-            case "platform":
-                System.out.println("Not supported.");
-//                predicate = pe -> pe.getOperatorContexts().stream()
-//                        .map(operatorContext -> ((ExecutionOperator) operatorContext.getOperator()).getPlatform())
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-                break;
-            default:
-                System.out.println("Unknown filter type.");
-                return;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/util/ProfilingUtils.java`
 #### Snippet
 ```java
@@ -4744,66 +4730,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/util/ProfilingUtil
             System.out.printf("Sleeping for %s.\n", Formats.formatDuration(millis));
             Thread.sleep(millis);
         } catch (InterruptedException e) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
-#### Snippet
-```java
-    public static void main(String[] args) {
-        if (args.length < 2) {
-            System.err.printf("Usage: java %s <operator to profile> [<cardinality n>[,<cardinality n>]*]+ \n", Main.class);
-            System.exit(1);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
-#### Snippet
-```java
-//            }
-            default:
-                System.out.println("Unknown operator: " + operator);
-                return;
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
-#### Snippet
-```java
-        }
-
-        System.out.println();
-        System.out.println(WayangCollections.getAny(results).getCsvHeader());
-        results.forEach(result -> System.out.println(result.toCsvString()));
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
-#### Snippet
-```java
-
-        System.out.println();
-        System.out.println(WayangCollections.getAny(results).getCsvHeader());
-        results.forEach(result -> System.out.println(result.toCsvString()));
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
-#### Snippet
-```java
-        System.out.println();
-        System.out.println(WayangCollections.getAny(results).getCsvHeader());
-        results.forEach(result -> System.out.println(result.toCsvString()));
-    }
-
 ```
 
 ### SystemOutErr
@@ -4903,12 +4829,252 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
 ```
 
 ### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
+#### Snippet
+```java
+    public static void main(String[] args) {
+        if (args.length < 2) {
+            System.err.printf("Usage: java %s <operator to profile> [<cardinality n>[,<cardinality n>]*]+ \n", Main.class);
+            System.exit(1);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
+#### Snippet
+```java
+//            }
+            default:
+                System.out.println("Unknown operator: " + operator);
+                return;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
+#### Snippet
+```java
+        }
+
+        System.out.println();
+        System.out.println(WayangCollections.getAny(results).getCsvHeader());
+        results.forEach(result -> System.out.println(result.toCsvString()));
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
+#### Snippet
+```java
+
+        System.out.println();
+        System.out.println(WayangCollections.getAny(results).getCsvHeader());
+        results.forEach(result -> System.out.println(result.toCsvString()));
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
+#### Snippet
+```java
+        System.out.println();
+        System.out.println(WayangCollections.getAny(results).getCsvHeader());
+        results.forEach(result -> System.out.println(result.toCsvString()));
+    }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+    public String profile(int sizeInMB) {
+        long writeNanos = this.profileWriting(sizeInMB);
+        System.out.println("Sleeping for 10 sec...");
+        ProfilingUtils.sleep(10000);
+        long readNanos = this.profileReading(sizeInMB);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+
+        // Write the requested amount of MB and measure.
+        System.out.printf("Start reading %d MB... ", sizeInMB);
+        long startReadTime = System.nanoTime();
+        long readBytes = 0; // for sanity checking
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+            while ((b = inputStream.read(mb)) != -1) readBytes += b;
+        } catch (IOException e) {
+            System.err.println("Profile reading failed.");
+            e.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        }
+        long endReadTime = System.nanoTime();
+        System.out.println("done.");
+        long expectedBytes = sizeInMB * 1024L * 1024L;
+        if (expectedBytes != readBytes) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        long expectedBytes = sizeInMB * 1024L * 1024L;
+        if (expectedBytes != readBytes) {
+            System.out.printf("Warning: Expected %d bytes, but found %d.\n", expectedBytes, readBytes);
+            sizeInMB = (int) readBytes / 1024 / 1024;
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        }
+
+        System.out.printf("Reading %d MB from %s completed in %s.\n",
+                sizeInMB, this.testFileURl, Formats.formatDuration((endReadTime - startReadTime) / 1000 / 1000, true)
+        );
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+
+        // Write the requested amount of MB and measure.
+        System.out.printf("Start writing %d MB... ", sizeInMB);
+        long startWriteTime = System.nanoTime();
+        int writtenInMB = 0;
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e) {
+            System.err.println("Profile writing failed.");
+            e.printStackTrace();
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        }
+        long endWriteTime = System.nanoTime();
+        System.out.printf("done.");
+
+        System.out.printf("Writing %d MB to %s completed in %s.\n",
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        System.out.printf("done.");
+
+        System.out.printf("Writing %d MB to %s completed in %s.\n",
+                sizeInMB, this.testFileURl, Formats.formatDuration((endWriteTime - startWriteTime) / 1000 / 1000, true)
+        );
+```
+
+### SystemOutErr
+Uses of `System.err` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+    public static void main(String[] args) {
+        if (args.length != 2) {
+            System.err.printf(
+                    "Usage: java ... %s <URL to profile> <MB to use>[,<MB to use>]*\n",
+                    DiskProfiler.class
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        }
+
+        System.out.println();
+        System.out.println("size_in_mb,write_nanos,read_nanos");
+        measurementCsvRows.forEach(System.out::println);
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+
+        System.out.println();
+        System.out.println("size_in_mb,write_nanos,read_nanos");
+        measurementCsvRows.forEach(System.out::println);
+    }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+#### Snippet
+```java
+        System.out.println();
+        System.out.println("size_in_mb,write_nanos,read_nanos");
+        measurementCsvRows.forEach(System.out::println);
+    }
+}
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-benchmark/code/main/java/org/apache/wayang/apps/sgd/SGDImpl.java`
+#### Snippet
+```java
+    public boolean test(Collection<Tuple2<Double, Double>> collection) {
+        Tuple2<Double, Double> input = WayangCollections.getSingle(collection);
+        System.out.println("Running iteration: " + current_iteration);
+        return (input.field0 < accuracy * Math.max(input.field1, 1.0) || current_iteration > max_iterations);
+    }
+```
+
+### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-
-    private static OperatorProfiler.Result profile(SourceProfiler sourceProfiler, int cardinality) {
+                                                   int cardinality0,
+                                                   int cardinality1) {
         System.out.println("Running garbage collector...");
         for (int i = 0; i < GC_RUNS; i++) {
             System.gc();
@@ -4921,7 +5087,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 ```java
         ProfilingUtils.sleep(1000);
 
-        System.out.printf("Profiling %s with %d data quanta.\n", sourceProfiler, cardinality);
+        System.out.printf("Profiling %s with %dx%d data quanta.\n", binaryOperatorProfiler.getOperator(), cardinality0, cardinality1);
         final StopWatch stopWatch = createStopWatch();
 
 ```
@@ -4935,7 +5101,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 
         System.out.println("Prepare...");
         final TimeMeasurement preparation = stopWatch.start("Preparation");
-        sourceProfiler.prepare(cardinality);
+        binaryOperatorProfiler.prepare(cardinality0, cardinality1);
 ```
 
 ### SystemOutErr
@@ -4947,103 +5113,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 
         System.out.println("Execute...");
         final TimeMeasurement execution = stopWatch.start("Execution");
-        final OperatorProfiler.Result result = sourceProfiler.run();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        execution.stop();
-
-        System.out.println("Measurement:");
-        System.out.println(result);
-        System.out.println(stopWatch.toPrettyString());
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-
-        System.out.println("Measurement:");
-        System.out.println(result);
-        System.out.println(stopWatch.toPrettyString());
-        System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        System.out.println("Measurement:");
-        System.out.println(result);
-        System.out.println(stopWatch.toPrettyString());
-        System.out.println();
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        System.out.println(result);
-        System.out.println(stopWatch.toPrettyString());
-        System.out.println();
-
-        return result;
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-
-    private static OperatorProfiler.Result profile(SinkProfiler sinkProfiler, int cardinality) {
-        System.out.println("Running garbage collector...");
-        for (int i = 0; i < GC_RUNS; i++) {
-            System.gc();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        ProfilingUtils.sleep(1000);
-
-        System.out.printf("Profiling %s with %d data quanta.\n", sinkProfiler, cardinality);
-        final StopWatch stopWatch = createStopWatch();
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        final StopWatch stopWatch = createStopWatch();
-
-        System.out.println("Prepare...");
-        final TimeMeasurement preparation = stopWatch.start("Preparation");
-        sinkProfiler.prepare(cardinality);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        preparation.stop();
-
-        System.out.println("Execute...");
-        final TimeMeasurement execution = stopWatch.start("Execution");
-        final OperatorProfiler.Result result = sinkProfiler.run();
+        final OperatorProfiler.Result result = binaryOperatorProfiler.run();
 ```
 
 ### SystemOutErr
@@ -5159,8 +5229,8 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-                                                   int cardinality0,
-                                                   int cardinality1) {
+
+    private static OperatorProfiler.Result profile(SinkProfiler sinkProfiler, int cardinality) {
         System.out.println("Running garbage collector...");
         for (int i = 0; i < GC_RUNS; i++) {
             System.gc();
@@ -5173,7 +5243,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 ```java
         ProfilingUtils.sleep(1000);
 
-        System.out.printf("Profiling %s with %dx%d data quanta.\n", binaryOperatorProfiler.getOperator(), cardinality0, cardinality1);
+        System.out.printf("Profiling %s with %d data quanta.\n", sinkProfiler, cardinality);
         final StopWatch stopWatch = createStopWatch();
 
 ```
@@ -5187,7 +5257,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 
         System.out.println("Prepare...");
         final TimeMeasurement preparation = stopWatch.start("Preparation");
-        binaryOperatorProfiler.prepare(cardinality0, cardinality1);
+        sinkProfiler.prepare(cardinality);
 ```
 
 ### SystemOutErr
@@ -5199,7 +5269,7 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 
         System.out.println("Execute...");
         final TimeMeasurement execution = stopWatch.start("Execution");
-        final OperatorProfiler.Result result = binaryOperatorProfiler.run();
+        final OperatorProfiler.Result result = sinkProfiler.run();
 ```
 
 ### SystemOutErr
@@ -5348,182 +5418,98 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
 
-        // Write the requested amount of MB and measure.
-        System.out.printf("Start reading %d MB... ", sizeInMB);
-        long startReadTime = System.nanoTime();
-        long readBytes = 0; // for sanity checking
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-            while ((b = inputStream.read(mb)) != -1) readBytes += b;
-        } catch (IOException e) {
-            System.err.println("Profile reading failed.");
-            e.printStackTrace();
-        }
+    private static OperatorProfiler.Result profile(SourceProfiler sourceProfiler, int cardinality) {
+        System.out.println("Running garbage collector...");
+        for (int i = 0; i < GC_RUNS; i++) {
+            System.gc();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-        }
-        long endReadTime = System.nanoTime();
-        System.out.println("done.");
-        long expectedBytes = sizeInMB * 1024L * 1024L;
-        if (expectedBytes != readBytes) {
+        ProfilingUtils.sleep(1000);
+
+        System.out.printf("Profiling %s with %d data quanta.\n", sourceProfiler, cardinality);
+        final StopWatch stopWatch = createStopWatch();
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-        long expectedBytes = sizeInMB * 1024L * 1024L;
-        if (expectedBytes != readBytes) {
-            System.out.printf("Warning: Expected %d bytes, but found %d.\n", expectedBytes, readBytes);
-            sizeInMB = (int) readBytes / 1024 / 1024;
-        }
+        final StopWatch stopWatch = createStopWatch();
+
+        System.out.println("Prepare...");
+        final TimeMeasurement preparation = stopWatch.start("Preparation");
+        sourceProfiler.prepare(cardinality);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-        }
+        preparation.stop();
 
-        System.out.printf("Reading %d MB from %s completed in %s.\n",
-                sizeInMB, this.testFileURl, Formats.formatDuration((endReadTime - startReadTime) / 1000 / 1000, true)
-        );
+        System.out.println("Execute...");
+        final TimeMeasurement execution = stopWatch.start("Execution");
+        final OperatorProfiler.Result result = sourceProfiler.run();
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
+        execution.stop();
 
-        // Write the requested amount of MB and measure.
-        System.out.printf("Start writing %d MB... ", sizeInMB);
-        long startWriteTime = System.nanoTime();
-        int writtenInMB = 0;
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-            }
-        } catch (IOException e) {
-            System.err.println("Profile writing failed.");
-            e.printStackTrace();
-        }
+        System.out.println("Measurement:");
+        System.out.println(result);
+        System.out.println(stopWatch.toPrettyString());
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-        }
-        long endWriteTime = System.nanoTime();
-        System.out.printf("done.");
 
-        System.out.printf("Writing %d MB to %s completed in %s.\n",
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-        System.out.printf("done.");
-
-        System.out.printf("Writing %d MB to %s completed in %s.\n",
-                sizeInMB, this.testFileURl, Formats.formatDuration((endWriteTime - startWriteTime) / 1000 / 1000, true)
-        );
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-    public String profile(int sizeInMB) {
-        long writeNanos = this.profileWriting(sizeInMB);
-        System.out.println("Sleeping for 10 sec...");
-        ProfilingUtils.sleep(10000);
-        long readNanos = this.profileReading(sizeInMB);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-    public static void main(String[] args) {
-        if (args.length != 2) {
-            System.err.printf(
-                    "Usage: java ... %s <URL to profile> <MB to use>[,<MB to use>]*\n",
-                    DiskProfiler.class
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
-#### Snippet
-```java
-        }
-
+        System.out.println("Measurement:");
+        System.out.println(result);
+        System.out.println(stopWatch.toPrettyString());
         System.out.println();
-        System.out.println("size_in_mb,write_nanos,read_nanos");
-        measurementCsvRows.forEach(System.out::println);
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-
+        System.out.println("Measurement:");
+        System.out.println(result);
+        System.out.println(stopWatch.toPrettyString());
         System.out.println();
-        System.out.println("size_in_mb,write_nanos,read_nanos");
-        measurementCsvRows.forEach(System.out::println);
-    }
+
 ```
 
 ### SystemOutErr
 Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/hardware/DiskProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
+        System.out.println(result);
+        System.out.println(stopWatch.toPrettyString());
         System.out.println();
-        System.out.println("size_in_mb,write_nanos,read_nanos");
-        measurementCsvRows.forEach(System.out::println);
-    }
-}
-```
 
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-benchmark/code/main/java/org/apache/wayang/apps/sgd/SGDImpl.java`
-#### Snippet
-```java
-    public boolean test(Collection<Tuple2<Double, Double>> collection) {
-        Tuple2<Double, Double> input = WayangCollections.getSingle(collection);
-        System.out.println("Running iteration: " + current_iteration);
-        return (input.field0 < accuracy * Math.max(input.field1, 1.0) || current_iteration > max_iterations);
-    }
+        return result;
 ```
 
 ### SystemOutErr
@@ -5572,6 +5558,150 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/tpch/Main.java`
                     System.err.format("Unknown platform: \"%s\"\n", platform);
                     System.exit(3);
                     return;
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+    public void run() {
+        if (this.optimizationSpace.getNumDimensions() == 0) {
+            System.out.println("There is nothing to optimize - all estimators are specified in the configuration.");
+            System.exit(0);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+                final Set<String> templateKeys = this.getLoadProfileEstimatorTemplateKeys(representative);
+                if (group.size() < 2) {
+                    System.out.printf("Few measurement points for %s\n", templateKeys);
+                }
+                if (representative.getAtomicExecutionGroups().size() > 3) {
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+                }
+                if (representative.getAtomicExecutionGroups().size() > 3) {
+                    System.out.printf("Many subjects for %s\n", templateKeys);
+                }
+
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+                long maxExecTime = group.stream().mapToLong(PartialExecution::getMeasuredExecutionTime).max().getAsLong();
+                if (maxExecTime - minExecTime < 1000) {
+                    System.out.printf("Narrow training data for %s\n", templateKeys);
+                    continue;
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+                // Check if we actually have a good model.
+                if (partialExecutionDeviations.isEmpty()) {
+                    System.out.printf("All %d executions are explained well by the current model.\n", this.partialExecutions.size());
+                    break;
+                }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+
+                // Remove the worst PartialExecutions.
+                System.out.printf("The current model is not explaining well %d of %d measured executions.\n",
+                        partialExecutionDeviations.size(),
+                        this.partialExecutions.size()
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+                            partialExecution, this.platformOverheads, this.configuration
+                    );
+                    System.out.printf("Removing %s... (estimated %s, deviation %,.2f)\n",
+                            format(partialExecution), Formats.formatDuration(Math.round(timeEstimate)), deviation
+                    );
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+
+        if (optimizer.getActivatedGenes().isEmpty()) {
+            System.out.println("There is an optimization task without optimizable genes. It will be skipped");
+            return new Tuple<>(currentGeneration, individuals);
+        }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+
+        int updateFrequency = (int) this.configuration.getLongProperty("wayang.profiler.ga.intermediateupdate", 10000);
+        System.out.printf("Optimizing %d variables on %d partial executions (e.g., %s).\n",
+                optimizer.getActivatedGenes().cardinality(),
+                optimizer.getData().size(),
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+            // Print status.
+            if (i % maxStableGenerations == 0) {
+                System.out.printf(
+                        "Fittest individual of generation %,d (%,d): %,.4f\n",
+                        i,
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+
+            if (updateFrequency > 0 && i > 0 && i % updateFrequency == 0) {
+                System.out.println("Intermediate update:");
+                this.printResults(optimizer, individuals.get(0));
+            }
+```
+
+### SystemOutErr
+Uses of `System.out` should probably be replaced with more robust logging
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
+#### Snippet
+```java
+        }
+
+        System.out.printf(
+                "Final fittest individual of generation %,d (%,d): %,.4f\n",
+                i,
 ```
 
 ### SystemOutErr
@@ -5692,150 +5822,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimiz
         this.printLearnedConfiguration(optimizer, individual, System.out);
     }
 
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-
-        if (optimizer.getActivatedGenes().isEmpty()) {
-            System.out.println("There is an optimization task without optimizable genes. It will be skipped");
-            return new Tuple<>(currentGeneration, individuals);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-
-        int updateFrequency = (int) this.configuration.getLongProperty("wayang.profiler.ga.intermediateupdate", 10000);
-        System.out.printf("Optimizing %d variables on %d partial executions (e.g., %s).\n",
-                optimizer.getActivatedGenes().cardinality(),
-                optimizer.getData().size(),
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-            // Print status.
-            if (i % maxStableGenerations == 0) {
-                System.out.printf(
-                        "Fittest individual of generation %,d (%,d): %,.4f\n",
-                        i,
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-
-            if (updateFrequency > 0 && i > 0 && i % updateFrequency == 0) {
-                System.out.println("Intermediate update:");
-                this.printResults(optimizer, individuals.get(0));
-            }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-        }
-
-        System.out.printf(
-                "Final fittest individual of generation %,d (%,d): %,.4f\n",
-                i,
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-    public void run() {
-        if (this.optimizationSpace.getNumDimensions() == 0) {
-            System.out.println("There is nothing to optimize - all estimators are specified in the configuration.");
-            System.exit(0);
-        }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-                final Set<String> templateKeys = this.getLoadProfileEstimatorTemplateKeys(representative);
-                if (group.size() < 2) {
-                    System.out.printf("Few measurement points for %s\n", templateKeys);
-                }
-                if (representative.getAtomicExecutionGroups().size() > 3) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-                }
-                if (representative.getAtomicExecutionGroups().size() > 3) {
-                    System.out.printf("Many subjects for %s\n", templateKeys);
-                }
-
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-                long maxExecTime = group.stream().mapToLong(PartialExecution::getMeasuredExecutionTime).max().getAsLong();
-                if (maxExecTime - minExecTime < 1000) {
-                    System.out.printf("Narrow training data for %s\n", templateKeys);
-                    continue;
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-                // Check if we actually have a good model.
-                if (partialExecutionDeviations.isEmpty()) {
-                    System.out.printf("All %d executions are explained well by the current model.\n", this.partialExecutions.size());
-                    break;
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-
-                // Remove the worst PartialExecutions.
-                System.out.printf("The current model is not explaining well %d of %d measured executions.\n",
-                        partialExecutionDeviations.size(),
-                        this.partialExecutions.size()
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimizerApp.java`
-#### Snippet
-```java
-                            partialExecution, this.platformOverheads, this.configuration
-                    );
-                    System.out.printf("Removing %s... (estimated %s, deviation %,.2f)\n",
-                            format(partialExecution), Formats.formatDuration(Math.round(timeEstimate)), deviation
-                    );
 ```
 
 ### SystemOutErr
@@ -6093,30 +6079,6 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/wordcount/Main.java`
 
 ## RuleId[id=NonProtectedConstructorInAbstractClass]
 ### NonProtectedConstructorInAbstractClass
-Constructor `Measurement()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/model/Measurement.java`
-#### Snippet
-```java
-    }
-
-    public Measurement(String id) {
-        this.id = id;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `Storage()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
-#### Snippet
-```java
-     * @param uri Object or URI where experiments are persisted
-     */
-    public Storage(URI uri){
-        this.storageFile = uri;
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `JdbcFilterOperator()` of an abstract class should not be declared 'public'
 in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcFilterOperator.java`
 #### Snippet
@@ -6145,18 +6107,6 @@ Constructor `JdbcTableSource()` of an abstract class should not be declared 'pub
 in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcTableSource.java`
 #### Snippet
 ```java
-     * @param that that should be copied
-     */
-    public JdbcTableSource(JdbcTableSource that) {
-        super(that);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `JdbcTableSource()` of an abstract class should not be declared 'public'
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcTableSource.java`
-#### Snippet
-```java
      * @see TableSource#TableSource(String, String...)
      */
     public JdbcTableSource(String tableName, String... columnNames) {
@@ -6165,39 +6115,15 @@ in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/o
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `CollectionProvider()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/CollectionProvider.java`
-#### Snippet
-```java
-    protected final Configuration configuration;
-
-    public CollectionProvider(Configuration configuration) {
-        this(configuration, null);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `CollectionProvider()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/CollectionProvider.java`
-#### Snippet
-```java
-    }
-
-    public CollectionProvider(Configuration configuration, CollectionProvider parent) {
-        this.configuration = configuration;
-        this.parent = parent;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `JdbcProjectionOperator()` of an abstract class should not be declared 'public'
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcProjectionOperator.java`
+Constructor `JdbcTableSource()` of an abstract class should not be declared 'public'
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcTableSource.java`
 #### Snippet
 ```java
      * @param that that should be copied
      */
-    public JdbcProjectionOperator(MapOperator<Record, Record> that) {
+    public JdbcTableSource(JdbcTableSource that) {
         super(that);
-        if (!(that.getFunctionDescriptor() instanceof ProjectionDescriptor)) {
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6217,11 +6143,83 @@ Constructor `JdbcProjectionOperator()` of an abstract class should not be declar
 in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcProjectionOperator.java`
 #### Snippet
 ```java
+     * @param that that should be copied
+     */
+    public JdbcProjectionOperator(MapOperator<Record, Record> that) {
+        super(that);
+        if (!(that.getFunctionDescriptor() instanceof ProjectionDescriptor)) {
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `JdbcProjectionOperator()` of an abstract class should not be declared 'public'
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/operators/JdbcProjectionOperator.java`
+#### Snippet
+```java
     }
 
     public JdbcProjectionOperator(ProjectionDescriptor<Record, Record> functionDescriptor) {
         super(functionDescriptor);
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Measurement()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/model/Measurement.java`
+#### Snippet
+```java
+    }
+
+    public Measurement(String id) {
+        this.id = id;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `Storage()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
+#### Snippet
+```java
+     * @param uri Object or URI where experiments are persisted
+     */
+    public Storage(URI uri){
+        this.storageFile = uri;
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CollectionProvider()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/CollectionProvider.java`
+#### Snippet
+```java
+    }
+
+    public CollectionProvider(Configuration configuration, CollectionProvider parent) {
+        this.configuration = configuration;
+        this.parent = parent;
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `CollectionProvider()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/CollectionProvider.java`
+#### Snippet
+```java
+    protected final Configuration configuration;
+
+    public CollectionProvider(Configuration configuration) {
+        this(configuration, null);
+    }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `UnarySink()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/UnarySink.java`
+#### Snippet
+```java
+     * @see OperatorBase#OperatorBase(OperatorBase)
+     */
+    public UnarySink(UnarySink<T> that) {
+        super(that);
+        this.inputSlots[0] = new InputSlot<>("in", this, that.getType());
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6246,18 +6244,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
     public UnarySink(DataSetType<T> type, boolean isSupportingBroadcastInputs) {
         super(1, 0, isSupportingBroadcastInputs);
         this.inputSlots[0] = new InputSlot<>("in", this, type);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `UnarySink()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/UnarySink.java`
-#### Snippet
-```java
-     * @see OperatorBase#OperatorBase(OperatorBase)
-     */
-    public UnarySink(UnarySink<T> that) {
-        super(that);
-        this.inputSlots[0] = new InputSlot<>("in", this, that.getType());
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6301,11 +6287,11 @@ Constructor `OperatorBase()` of an abstract class should not be declared 'public
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorBase.java`
 #### Snippet
 ```java
-    }
+    private String name;
 
-    public OperatorBase(int numInputSlots, int numOutputSlots, boolean isSupportingBroadcastInputs) {
-        this(new InputSlot[numInputSlots], new OutputSlot[numOutputSlots], isSupportingBroadcastInputs);
-    }
+    public OperatorBase(InputSlot<?>[] inputSlots, OutputSlot<?>[] outputSlots, boolean isSupportingBroadcastInputs) {
+        this.container = null;
+        this.isSupportingBroadcastInputs = isSupportingBroadcastInputs;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6313,11 +6299,11 @@ Constructor `OperatorBase()` of an abstract class should not be declared 'public
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorBase.java`
 #### Snippet
 ```java
-    private String name;
+    }
 
-    public OperatorBase(InputSlot<?>[] inputSlots, OutputSlot<?>[] outputSlots, boolean isSupportingBroadcastInputs) {
-        this.container = null;
-        this.isSupportingBroadcastInputs = isSupportingBroadcastInputs;
+    public OperatorBase(int numInputSlots, int numOutputSlots, boolean isSupportingBroadcastInputs) {
+        this(new InputSlot[numInputSlots], new OutputSlot[numOutputSlots], isSupportingBroadcastInputs);
+    }
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6351,9 +6337,9 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/Agg
 ```java
     }
 
-    public AggregationDescriptor(Class<InputType> inputTypeClass,
-                                 Class<OutputType> outputTypeClass,
-                                 LoadProfileEstimator loadProfileEstimator) {
+    public AggregationDescriptor(Class<InputType> inputTypeClass, Class<OutputType> outputTypeClass) {
+        this(inputTypeClass, outputTypeClass, new NestableLoadProfileEstimator(
+                LoadEstimator.createFallback(1, 1),
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6387,21 +6373,9 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/Agg
 ```java
     }
 
-    public AggregationDescriptor(Class<InputType> inputTypeClass, Class<OutputType> outputTypeClass) {
-        this(inputTypeClass, outputTypeClass, new NestableLoadProfileEstimator(
-                LoadEstimator.createFallback(1, 1),
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `OptimizationContext()` of an abstract class should not be declared 'public'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/OptimizationContext.java`
-#### Snippet
-```java
-     * @param operator the single {@link Operator} of this instance
-     */
-    public OptimizationContext(Job job, Operator operator) {
-        this(
-                job,
+    public AggregationDescriptor(Class<InputType> inputTypeClass,
+                                 Class<OutputType> outputTypeClass,
+                                 LoadProfileEstimator loadProfileEstimator) {
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6412,6 +6386,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/Op
      * Create a new, plain instance.
      */
     public OptimizationContext(Job job) {
+        this(
+                job,
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `OptimizationContext()` of an abstract class should not be declared 'public'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/OptimizationContext.java`
+#### Snippet
+```java
+     * @param operator the single {@link Operator} of this instance
+     */
+    public OptimizationContext(Job job, Operator operator) {
         this(
                 job,
 ```
@@ -6465,18 +6451,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/sampling/Reser
 ```
 
 ### NonProtectedConstructorInAbstractClass
-Constructor `OperatorProfiler()` of an abstract class should not be declared 'public'
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/OperatorProfiler.java`
-#### Snippet
-```java
-    private List<Long> inputCardinalities;
-
-    public OperatorProfiler(Supplier<JavaExecutionOperator> operatorGenerator,
-                            Supplier<?>... dataQuantumGenerators) {
-        this.operatorGenerator = operatorGenerator;
-```
-
-### NonProtectedConstructorInAbstractClass
 Constructor `SourceProfiler()` of an abstract class should not be declared 'public'
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/SourceProfiler.java`
 #### Snippet
@@ -6486,6 +6460,18 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/SourceProfile
     public SourceProfiler(Supplier<JavaExecutionOperator> operatorGenerator, Supplier<?>... dataQuantumGenerators) {
         super(operatorGenerator, dataQuantumGenerators);
     }
+```
+
+### NonProtectedConstructorInAbstractClass
+Constructor `OperatorProfiler()` of an abstract class should not be declared 'public'
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/OperatorProfiler.java`
+#### Snippet
+```java
+    private List<Long> inputCardinalities;
+
+    public OperatorProfiler(Supplier<JavaExecutionOperator> operatorGenerator,
+                            Supplier<?>... dataQuantumGenerators) {
+        this.operatorGenerator = operatorGenerator;
 ```
 
 ### NonProtectedConstructorInAbstractClass
@@ -6514,6 +6500,18 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/SparkOperato
 
 ## RuleId[id=AssignmentToMethodParameter]
 ### AssignmentToMethodParameter
+Assignment to method parameter `path`
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/operators/GiraphPageRankOperator.java`
+#### Snippet
+```java
+    public void setPathOut(String path, Configuration configuration){
+        if(path == null && configuration != null) {
+            path = configuration.getStringProperty("wayang.giraph.hdfs.tempdir");
+        }
+        this.path_out = path;
+```
+
+### AssignmentToMethodParameter
 Assignment to method parameter `fields`
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/rel/WayangTableScan.java`
 #### Snippet
@@ -6523,6 +6521,18 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/re
             fields = new int[size];
             for (int i = 0; i < size; i++) {
                 fields[i] = i;
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `typeString`
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
+#### Snippet
+```java
+      if (close >= 0) {
+        String rest = typeString.substring(open + 1, close);
+        typeString = typeString.substring(0, open);
+        int comma = rest.indexOf(",");
+        if (comma >= 0) {
 ```
 
 ### AssignmentToMethodParameter
@@ -6559,30 +6569,6 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
         millis /= 60;
         long h = millis % 60;
         return String.format("%d:%02d:%02d.%03d", h, m, s, ms);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `typeString`
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
-#### Snippet
-```java
-      if (close >= 0) {
-        String rest = typeString.substring(open + 1, close);
-        typeString = typeString.substring(0, open);
-        int comma = rest.indexOf(",");
-        if (comma >= 0) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/operators/GiraphPageRankOperator.java`
-#### Snippet
-```java
-    public void setPathOut(String path, Configuration configuration){
-        if(path == null && configuration != null) {
-            path = configuration.getStringProperty("wayang.giraph.hdfs.tempdir");
-        }
-        this.path_out = path;
 ```
 
 ### AssignmentToMethodParameter
@@ -6742,18 +6728,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimiz
 ```
 
 ### AssignmentToMethodParameter
-Assignment to method parameter `mutationProb`
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
-#### Snippet
-```java
-
-        // Make at least one mutation more likely.
-        if (mutationProb > 0d) mutationProb = Math.max(mutationProb, 1 / activatedGenes.cardinality());
-
-        final double smoothing = 1d;
-```
-
-### AssignmentToMethodParameter
 Assignment to method parameter `maturity`
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
 #### Snippet
@@ -6763,6 +6737,18 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.jav
         maturity = 1d;
         this.maturity[index] = maturity;
         if (Double.isNaN(this.minMaturity) || this.minMaturity > maturity) {
+```
+
+### AssignmentToMethodParameter
+Assignment to method parameter `mutationProb`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
+#### Snippet
+```java
+
+        // Make at least one mutation more likely.
+        if (mutationProb > 0d) mutationProb = Math.max(mutationProb, 1 / activatedGenes.cardinality());
+
+        final double smoothing = 1d;
 ```
 
 ### AssignmentToMethodParameter
@@ -6883,6 +6869,18 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/data/Recor
     public String getString(int index) {
         Object field = this.values[index];
         return field == null ? null : field.toString();
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/execution/JdbcExecutor.java`
+#### Snippet
+```java
+        return consumer.getStage() == stage && consumer.getOperator() instanceof JdbcExecutionOperator ?
+                consumer :
+                null;
     }
 
 ```
@@ -7093,54 +7091,6 @@ in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commo
 
 ### ReturnNull
 Return of `null`
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/execution/JdbcExecutor.java`
-#### Snippet
-```java
-        return consumer.getStage() == stage && consumer.getOperator() instanceof JdbcExecutionOperator ?
-                consumer :
-                null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-            } else if (length == END_OF_DATA_SECTION) {
-                this.eos = true;
-                return null;
-            }
-        } catch (EOFException e){
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-        } catch (EOFException e){
-            this.eos = true;
-            return null;
-        } catch (IOException e) {
-            //e.printStackTrace();
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/ExecutionOperator.java`
 #### Snippet
 ```java
@@ -7264,18 +7214,6 @@ Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
 #### Snippet
 ```java
-            return this.producer.getOperator();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
-#### Snippet
-```java
                 .map(sibling -> {
                     final OutputSlot<?> output = sibling.getProducerSlot();
                     if (output == null) return null;
@@ -7297,14 +7235,14 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executi
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializable.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
 #### Snippet
 ```java
-        @Override
-        public WayangJsonObj serialize(T serializable) {
-            if (serializable == null) return null;
-            return serializable.toJson();
+            return this.producer.getOperator();
         }
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -7317,6 +7255,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSer
             if (json == null || json.equals(WayangJsonObj.NULL)) return null;
             try {
                 final Method fromJsonMethod = cls.getMethod("fromJson", WayangJsonObj.class);
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializable.java`
+#### Snippet
+```java
+        @Override
+        public WayangJsonObj serialize(T serializable) {
+            if (serializable == null) return null;
+            return serializable.toJson();
+        }
 ```
 
 ### ReturnNull
@@ -7357,18 +7307,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/LocalFileSystem.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            logger.warn("Could not determine local temp directory.", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configuration.java`
 #### Snippet
 ```java
@@ -7393,50 +7331,14 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configur
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/json/WayangJsonArray.java`
-#### Snippet
-```java
-            return new WayangJsonObj((ObjectNode) v);
-          }else if(v instanceof NullNode) {
-            return null;
-          } else if(v instanceof TextNode){
-            return ((TextNode)v).asText();
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static <T> T deserialize(WayangJsonObj wayangJsonObj) {
-        if (isJsonNull(wayangJsonObj)) return null;
-        return deserialize(wayangJsonObj, JsonSerializable.uncheckedSerializer());
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray) {
-        if (isJsonNull(wayangJsonArray)) return null;
-        List<T> result = new ArrayList<>(wayangJsonArray.length());
-        for (Object jsonElement : wayangJsonArray) {
-```
-
-### ReturnNull
-Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
 #### Snippet
 ```java
      */
-    public static <T> WayangJsonArray serializeAll(Collection<T> collection, boolean isPolymorph, JsonSerializer<T> serializer) {
-        if (collection == null) return null;
-        WayangJsonArray wayangJsonArray = new WayangJsonArray();
-        for (T serializable : collection) {
+    public static <T> T deserialize(WayangJsonObj wayangJsonObj, JsonSerializer<T> serializer) {
+        if (isJsonNull(wayangJsonObj)) return null;
+        return serializer.deserialize(wayangJsonObj);
+    }
 ```
 
 ### ReturnNull
@@ -7481,9 +7383,9 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSer
 #### Snippet
 ```java
      */
-    public static <T> T deserialize(WayangJsonObj wayangJsonObj, JsonSerializer<T> serializer) {
-        if (isJsonNull(wayangJsonObj)) return null;
-        return serializer.deserialize(wayangJsonObj);
+    public static <T> T deserialize(WayangJsonObj wayangJsonObj, JsonSerializer<T> serializer, Class<? extends T> cls) {
+        if (wayangJsonObj == null || wayangJsonObj.equals(WayangJsonObj.NULL)) return null;
+        return serializer.deserialize(wayangJsonObj, cls);
     }
 ```
 
@@ -7493,10 +7395,10 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSer
 #### Snippet
 ```java
      */
-    public static <T> T deserialize(WayangJsonObj wayangJsonObj, JsonSerializer<T> serializer, Class<? extends T> cls) {
-        if (wayangJsonObj == null || wayangJsonObj.equals(WayangJsonObj.NULL)) return null;
-        return serializer.deserialize(wayangJsonObj, cls);
-    }
+    public static <T> WayangJsonArray serializeAll(Collection<T> collection, boolean isPolymorph, JsonSerializer<T> serializer) {
+        if (collection == null) return null;
+        WayangJsonArray wayangJsonArray = new WayangJsonArray();
+        for (T serializable : collection) {
 ```
 
 ### ReturnNull
@@ -7516,11 +7418,59 @@ Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
 #### Snippet
 ```java
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray) {
+        if (isJsonNull(wayangJsonArray)) return null;
+        List<T> result = new ArrayList<>(wayangJsonArray.length());
+        for (Object jsonElement : wayangJsonArray) {
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    public static <T> T deserialize(WayangJsonObj wayangJsonObj) {
+        if (isJsonNull(wayangJsonObj)) return null;
+        return deserialize(wayangJsonObj, JsonSerializable.uncheckedSerializer());
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
+#### Snippet
+```java
      */
     public static Object deserialize(Object json) {
         if (isJsonNull(json)) return null;
         else if (isUnconvertedInstance(json)) return json;
         else if (json instanceof WayangJsonObj) return deserialize((WayangJsonObj) json);
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/LocalFileSystem.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            logger.warn("Could not determine local temp directory.", e);
+            return null;
+        }
+    }
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/json/WayangJsonArray.java`
+#### Snippet
+```java
+            return new WayangJsonObj((ObjectNode) v);
+          }else if(v instanceof NullNode) {
+            return null;
+          } else if(v instanceof TextNode){
+            return ((TextNode)v).asText();
 ```
 
 ### ReturnNull
@@ -7544,7 +7494,7 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/json/Wa
     if(value == null){
       return null;
     }
-    if(!value.isArray()) {
+    if(!value.isObject()) {
 ```
 
 ### ReturnNull
@@ -7568,7 +7518,7 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/json/Wa
     if(value == null){
       return null;
     }
-    if(!value.isObject()) {
+    if(!value.isArray()) {
 ```
 
 ### ReturnNull
@@ -7612,18 +7562,6 @@ Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/ReflectionUtils.java`
 #### Snippet
 ```java
-            logger.error(String.format("Could not determine JAR file declaring %s.", cls), e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/ReflectionUtils.java`
-#### Snippet
-```java
             return parameterizedType.getActualTypeArguments()[index];
         }
         return null;
@@ -7645,11 +7583,11 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/Reflect
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Junction.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/ReflectionUtils.java`
 #### Snippet
 ```java
+            logger.error(String.format("Could not determine JAR file declaring %s.", cls), e);
         }
-
         return null;
     }
 
@@ -7665,6 +7603,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Jun
         this.targetChannels = WayangCollections.map(this.targetInputs, input -> null);
 
         // Get hold of an OptimizationContext.
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Junction.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
 ```
 
 ### ReturnNull
@@ -7693,25 +7643,13 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Exe
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/AggregateOptimizationContext.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
 #### Snippet
 ```java
-    public LoopContext getNestedLoopContext(LoopSubplan loopSubplan) {
-        assert this.optimizationContexts.stream().allMatch(opCtx -> opCtx.getNestedLoopContext(loopSubplan) == null);
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/costs/LoadProfileEstimator.java`
-#### Snippet
-```java
-    default String getTemplateKey() {
-        final String configKey = this.getConfigurationKey();
-        return configKey == null ? null : configKey + ".template";
-    }
+                return this.currentIteration.getChannelInstance(channel);
+            }
+            return null;
+        }
 
 ```
 
@@ -7741,13 +7679,25 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Cro
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/CrossPlatformExecutor.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/AggregateOptimizationContext.java`
 #### Snippet
 ```java
-                return this.currentIteration.getChannelInstance(channel);
-            }
-            return null;
-        }
+    public LoopContext getNestedLoopContext(LoopSubplan loopSubplan) {
+        assert this.optimizationContexts.stream().allMatch(opCtx -> opCtx.getNestedLoopContext(loopSubplan) == null);
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/costs/LoadProfileEstimator.java`
+#### Snippet
+```java
+    default String getTemplateKey() {
+        final String configKey = this.getConfigurationKey();
+        return configKey == null ? null : configKey + ".template";
+    }
 
 ```
 
@@ -7816,18 +7766,6 @@ Return of `null`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/ChannelConversionGraph.java`
 #### Snippet
 ```java
-        private Set<ChannelDescriptor> getSuccessorChannelDescriptors(ChannelDescriptor descriptor) {
-            final Channel channel = this.existingChannels.get(descriptor);
-            if (channel == null || this.openChannelDescriptors.contains(descriptor)) return null;
-
-            Set<ChannelDescriptor> result = new HashSet<>();
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/ChannelConversionGraph.java`
-#### Snippet
-```java
             maxSettledIndices += ithTree.settledDestinationIndices.cardinality();
             if (maxSettledIndices > combinationSettledIndices.cardinality()) {
                 return null;
@@ -7845,6 +7783,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ch
                 return null;
             }
 
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/ChannelConversionGraph.java`
+#### Snippet
+```java
+        private Set<ChannelDescriptor> getSuccessorChannelDescriptors(ChannelDescriptor descriptor) {
+            final Channel channel = this.existingChannels.get(descriptor);
+            if (channel == null || this.openChannelDescriptors.contains(descriptor)) return null;
+
+            Set<ChannelDescriptor> result = new HashSet<>();
 ```
 
 ### ReturnNull
@@ -7873,6 +7823,42 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 
 ### ReturnNull
 Return of `null`
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+            } else if (length == END_OF_DATA_SECTION) {
+                this.eos = true;
+                return null;
+            }
+        } catch (EOFException e){
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+        } catch (EOFException e){
+            this.eos = true;
+            return null;
+        } catch (IOException e) {
+            //e.printStackTrace();
+```
+
+### ReturnNull
+Return of `null`
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadProfileEstimators.java`
 #### Snippet
 ```java
@@ -7885,14 +7871,14 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/DynamicLoadPro
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
 #### Snippet
 ```java
-            if (!isEnumeratable) {
-                this.logger.trace("Cannot enumerate branch with {}.", currentOperator);
-                return null;
-            }
-            branch.add(currentOperator);
+    private LoopImplementation.IterationImplementation findIterationImplementation(OutputSlot<?> output) {
+        PlanImplementation planImplementation = this.planImplementation;
+        if (this.planImplementation.getJunction(output) != null) return null;
+        LoopImplementation.IterationImplementation iterationImplementation = null;
+
 ```
 
 ### ReturnNull
@@ -7909,14 +7895,26 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 
 ### ReturnNull
 Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlowCompiler.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
-    private LoopImplementation.IterationImplementation findIterationImplementation(OutputSlot<?> output) {
-        PlanImplementation planImplementation = this.planImplementation;
-        if (this.planImplementation.getJunction(output) != null) return null;
-        LoopImplementation.IterationImplementation iterationImplementation = null;
+            if (!isEnumeratable) {
+                this.logger.trace("Cannot enumerate branch with {}.", currentOperator);
+                return null;
+            }
+            branch.add(currentOperator);
+```
 
+### ReturnNull
+Return of `null`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanImplementation.java`
+#### Snippet
+```java
+            // NB: Join semantics at this point weaved in.
+            if (concatenation.isSettledAlternativesContradicting(targetPlan)) {
+                return null;
+            }
+            concatenation.operators.addAll(targetPlan.operators);
 ```
 
 ### ReturnNull
@@ -7941,18 +7939,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
             if (loopImplementation == null) return null;
 
             // Enter the LoopSubplan.
-```
-
-### ReturnNull
-Return of `null`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanImplementation.java`
-#### Snippet
-```java
-            // NB: Join semantics at this point weaved in.
-            if (concatenation.isSettledAlternativesContradicting(targetPlan)) {
-                return null;
-            }
-            concatenation.operators.addAll(targetPlan.operators);
 ```
 
 ### ReturnNull
@@ -8126,6 +8112,30 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/op
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `executionPlan` is redundant
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
+#### Snippet
+```java
+
+        // Get initial execution plan.
+        ExecutionPlan executionPlan = this.createInitialExecutionPlan();
+        return executionPlan;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `partialExecution` is redundant
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/ExecutorTemplate.java`
+#### Snippet
+```java
+        if (executionLineageNodes.isEmpty()) return null;
+
+        final PartialExecution partialExecution = PartialExecution.createFromMeasurement(
+                executionDuration, executionLineageNodes, this.getConfiguration()
+        );
+```
+
+### UnnecessaryLocalVariable
 Local variable `it` is redundant
 in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
 #### Snippet
@@ -8162,30 +8172,6 @@ in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/exec
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `executionPlan` is redundant
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
-#### Snippet
-```java
-
-        // Get initial execution plan.
-        ExecutionPlan executionPlan = this.createInitialExecutionPlan();
-        return executionPlan;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `partialExecution` is redundant
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/ExecutorTemplate.java`
-#### Snippet
-```java
-        if (executionLineageNodes.isEmpty()) return null;
-
-        final PartialExecution partialExecution = PartialExecution.createFromMeasurement(
-                executionDuration, executionLineageNodes, this.getConfiguration()
-        );
-```
-
-### UnnecessaryLocalVariable
 Local variable `g1` is redundant
 in `wayang-benchmark/code/main/java/org/apache/wayang/apps/sgd/SGDImpl.java`
 #### Snippet
@@ -8210,18 +8196,6 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/sgd/SGDImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `jjj` is redundant
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/myMergeSort.java`
-#### Snippet
-```java
-        if (c.compare(src.get(mid - 1)._1(), src.get(mid)._1()) <= 0) {
-            //System.arraycopy(src, low, dest, destLow, length);
-            int jjj = destLow;
-            for (int iii = low; iii < length; iii++) {
-                dest.set(jjj, src.get(iii));
-```
-
-### UnnecessaryLocalVariable
 Local variable `it` is redundant
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIESelfJoinOperator.java`
 #### Snippet
@@ -8231,6 +8205,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
                     Iterator<Input> it = input;
                     ArrayList<Integer> out = new ArrayList<Integer>(1);
                     int i = 0;
+```
+
+### UnnecessaryLocalVariable
+Local variable `jjj` is redundant
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/myMergeSort.java`
+#### Snippet
+```java
+        if (c.compare(src.get(mid - 1)._1(), src.get(mid)._1()) <= 0) {
+            //System.arraycopy(src, low, dest, destLow, length);
+            int jjj = destLow;
+            for (int iii = low; iii < length; iii++) {
+                dest.set(jjj, src.get(iii));
 ```
 
 ### UnnecessaryLocalVariable
@@ -8270,18 +8256,6 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `tuple2` is redundant
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkTsvFileSink.java`
-#### Snippet
-```java
-                    public String map(Type dataQuantum) throws Exception {
-                        this.dataQuantum = dataQuantum;
-                        Tuple2 tuple2 = (Tuple2) dataQuantum;
-                        return String.valueOf(tuple2.field0) + '\t' + String.valueOf(tuple2.field1);                    }
-                }).setParallelism(flinkExecutor.getNumDefaultPartitions());
-```
-
-### UnnecessaryLocalVariable
 Local variable `it` is redundant
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIEJoinOperator.java`
 #### Snippet
@@ -8303,6 +8277,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
                     Iterator<Input> it = input;
                     ArrayList<Integer> out = new ArrayList<Integer>(1);
                     int i = 0;
+```
+
+### UnnecessaryLocalVariable
+Local variable `tuple2` is redundant
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkTsvFileSink.java`
+#### Snippet
+```java
+                    public String map(Type dataQuantum) throws Exception {
+                        this.dataQuantum = dataQuantum;
+                        Tuple2 tuple2 = (Tuple2) dataQuantum;
+                        return String.valueOf(tuple2.field0) + '\t' + String.valueOf(tuple2.field1);                    }
+                }).setParallelism(flinkExecutor.getNumDefaultPartitions());
 ```
 
 ### UnnecessaryLocalVariable
@@ -8348,11 +8334,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/ConsumerIteratorAdapter.java`
 #### Snippet
 ```java
-                    if (SLEEP_MILLIS > 0) {
-                        try {
-                            Thread.sleep(SLEEP_MILLIS);
-                        } catch (InterruptedException ignored) {
-                        }
+                if (SLEEP_MILLIS > 0) {
+                    try {
+                        Thread.sleep(SLEEP_MILLIS);
+                    } catch (InterruptedException ignored) {
+                    }
 ```
 
 ### BusyWait
@@ -8360,11 +8346,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/ConsumerIteratorAdapter.java`
 #### Snippet
 ```java
-                if (SLEEP_MILLIS > 0) {
-                    try {
-                        Thread.sleep(SLEEP_MILLIS);
-                    } catch (InterruptedException ignored) {
-                    }
+                    if (SLEEP_MILLIS > 0) {
+                        try {
+                            Thread.sleep(SLEEP_MILLIS);
+                        } catch (InterruptedException ignored) {
+                        }
 ```
 
 ## RuleId[id=PointlessBooleanExpression]
@@ -8517,18 +8503,6 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### StaticCallOnSubclass
 Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/PredicateDescriptor.java`
-#### Snippet
-```java
-                               ProbabilisticDoubleInterval selectivity,
-                               LoadProfileEstimator loadProfileEstimator) {
-        this(javaImplementation, BasicDataUnitType.createBasic(inputTypeClass), selectivity, loadProfileEstimator);
-    }
-
-```
-
-### StaticCallOnSubclass
-Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/ConsumerDescriptor.java`
 #### Snippet
 ```java
@@ -8541,24 +8515,12 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/Con
 
 ### StaticCallOnSubclass
 Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/TransformationDescriptor.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/PredicateDescriptor.java`
 #### Snippet
 ```java
-                                    Class<Output> outputTypeClass) {
-        this(javaImplementation,
-                BasicDataUnitType.createBasic(inputTypeClass),
-                BasicDataUnitType.createBasic(outputTypeClass));
-    }
-```
-
-### StaticCallOnSubclass
-Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/TransformationDescriptor.java`
-#### Snippet
-```java
-        this(javaImplementation,
-                BasicDataUnitType.createBasic(inputTypeClass),
-                BasicDataUnitType.createBasic(outputTypeClass));
+                               ProbabilisticDoubleInterval selectivity,
+                               LoadProfileEstimator loadProfileEstimator) {
+        this(javaImplementation, BasicDataUnitType.createBasic(inputTypeClass), selectivity, loadProfileEstimator);
     }
 
 ```
@@ -8588,6 +8550,30 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/Tra
 ```
 
 ### StaticCallOnSubclass
+Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/TransformationDescriptor.java`
+#### Snippet
+```java
+                                    Class<Output> outputTypeClass) {
+        this(javaImplementation,
+                BasicDataUnitType.createBasic(inputTypeClass),
+                BasicDataUnitType.createBasic(outputTypeClass));
+    }
+```
+
+### StaticCallOnSubclass
+Static method `createBasic()` declared in class 'org.apache.wayang.core.types.DataUnitType' but referenced via subclass 'org.apache.wayang.core.types.BasicDataUnitType'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/TransformationDescriptor.java`
+#### Snippet
+```java
+        this(javaImplementation,
+                BasicDataUnitType.createBasic(inputTypeClass),
+                BasicDataUnitType.createBasic(outputTypeClass));
+    }
+
+```
+
+### StaticCallOnSubclass
 Static method `getInstance()` declared in class 'java.util.Calendar' but referenced via subclass 'java.util.GregorianCalendar'
 in `wayang-benchmark/code/main/java/org/apache/wayang/apps/tpch/data/LineItemTuple.java`
 #### Snippet
@@ -8600,18 +8586,6 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/tpch/data/LineItemTup
 ```
 
 ## RuleId[id=LongLiteralsEndingWithLowercaseL]
-### LongLiteralsEndingWithLowercaseL
-'long' literal `0xfl` ends with lowercase 'l'
-in `wayang-benchmark/code/main/java/org/apache/wayang/apps/terasort/Unsigned16.java`
-#### Snippet
-```java
-    hi8 = 0;
-    lo8 = 0;
-    final long lastDigit = 0xfl << 60;
-    for (int i = 0; i < s.length(); ++i) {
-      int digit = getHexDigit(s.charAt(i));
-```
-
 ### LongLiteralsEndingWithLowercaseL
 'long' literal `0xffffffffl` ends with lowercase 'l'
 in `wayang-benchmark/code/main/java/org/apache/wayang/apps/terasort/Unsigned16.java`
@@ -8682,6 +8656,18 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/terasort/Unsigned16.j
     right[3] = (b.hi8 >>> 29) & 0x7fffffffl;
     right[4] = (b.hi8 >>> 60);
     // clear the cur value
+```
+
+### LongLiteralsEndingWithLowercaseL
+'long' literal `0xfl` ends with lowercase 'l'
+in `wayang-benchmark/code/main/java/org/apache/wayang/apps/terasort/Unsigned16.java`
+#### Snippet
+```java
+    hi8 = 0;
+    lo8 = 0;
+    final long lastDigit = 0xfl << 60;
+    for (int i = 0; i < s.length(); ++i) {
+      int digit = getHexDigit(s.charAt(i));
 ```
 
 ## RuleId[id=CastToIncompatibleInterface]
@@ -8882,15 +8868,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/De
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `this.outputCardinalityMarkers[outputIndex] |= !Objects.equals(this.outputCardinalities[outputIndex],...`
+Non-short-circuit boolean expression `aggregate[i] |= delta[i]`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/OptimizationContext.java`
 #### Snippet
 ```java
-         */
-        public void setOutputCardinality(int outputIndex, CardinalityEstimate cardinality) {
-            this.outputCardinalityMarkers[outputIndex] |= !Objects.equals(this.outputCardinalities[outputIndex], cardinality);
-            if (OptimizationContext.this.logger.isDebugEnabled() && this.outputCardinalityMarkers[outputIndex]) {
-                OptimizationContext.this.logger.debug(
+            assert aggregate.length == delta.length;
+            for (int i = 0; i < aggregate.length; i++) {
+                aggregate[i] |= delta[i];
+            }
+        }
 ```
 
 ### NonShortCircuitBoolean
@@ -8906,27 +8892,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/Op
 ```
 
 ### NonShortCircuitBoolean
-Non-short-circuit boolean expression `aggregate[i] |= delta[i]`
+Non-short-circuit boolean expression `this.outputCardinalityMarkers[outputIndex] |= !Objects.equals(this.outputCardinalities[outputIndex],...`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/OptimizationContext.java`
 #### Snippet
 ```java
-            assert aggregate.length == delta.length;
-            for (int i = 0; i < aggregate.length; i++) {
-                aggregate[i] |= delta[i];
-            }
-        }
-```
-
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `isStateChanged |= this.isActivated[inputIndex]`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
-#### Snippet
-```java
-            boolean isStateChanged = false;
-            for (int inputIndex = 0; inputIndex < this.isActivated.length; inputIndex++) {
-                isStateChanged |= this.isActivated[inputIndex];
-                this.isActivated[inputIndex] = false;
-            }
+         */
+        public void setOutputCardinality(int outputIndex, CardinalityEstimate cardinality) {
+            this.outputCardinalityMarkers[outputIndex] |= !Objects.equals(this.outputCardinalities[outputIndex], cardinality);
+            if (OptimizationContext.this.logger.isDebugEnabled() && this.outputCardinalityMarkers[outputIndex]) {
+                OptimizationContext.this.logger.debug(
 ```
 
 ### NonShortCircuitBoolean
@@ -8939,6 +8913,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
                 isUpdated |= activator.process(optimizationContext, configuration, activators);
             } while (!activators.isEmpty());
         } finally {
+```
+
+### NonShortCircuitBoolean
+Non-short-circuit boolean expression `isStateChanged |= this.isActivated[inputIndex]`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
+#### Snippet
+```java
+            boolean isStateChanged = false;
+            for (int inputIndex = 0; inputIndex < this.isActivated.length; inputIndex++) {
+                isStateChanged |= this.isActivated[inputIndex];
+                this.isActivated[inputIndex] = false;
+            }
 ```
 
 ### NonShortCircuitBoolean
@@ -9077,27 +9063,27 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InputType0`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CartesianOperator.java`
+Can generalize to `? extends T`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CollectionSource.java`
 #### Snippet
 ```java
-        extends BinaryToUnaryOperator<InputType0, InputType1, Tuple2<InputType0, InputType1>> {
+    protected final Collection<T> collection;
 
-    public CartesianOperator(Class<InputType0> inputType0Class, Class<InputType1> inputType1Class) {
-        super(DataSetType.createDefault(inputType0Class),
-                DataSetType.createDefault(inputType1Class),
+    public CollectionSource(Collection<T> collection, Class<T> typeClass) {
+        this(collection, DataSetType.createDefault(typeClass));
+    }
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends InputType1`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CartesianOperator.java`
+Can generalize to `? extends T`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CollectionSource.java`
 #### Snippet
 ```java
-        extends BinaryToUnaryOperator<InputType0, InputType1, Tuple2<InputType0, InputType1>> {
-
-    public CartesianOperator(Class<InputType0> inputType0Class, Class<InputType1> inputType1Class) {
-        super(DataSetType.createDefault(inputType0Class),
-                DataSetType.createDefault(inputType1Class),
+     * Creates a new instance without any data quanta.
+     */
+    public static <T> CollectionSource<T> singleton(T value, Class<T> typeClass) {
+        final CollectionSource<T> instance = new CollectionSource<>(Collections.singleton(value), typeClass);
+        instance.setName("{" + value + "}");
 ```
 
 ### BoundedWildcard
@@ -9125,27 +9111,27 @@ public class IntersectOperator<Type> extends BinaryToUnaryOperator<Type, Type, T
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CollectionSource.java`
+Can generalize to `? extends InputType0`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CartesianOperator.java`
 #### Snippet
 ```java
-     * Creates a new instance without any data quanta.
-     */
-    public static <T> CollectionSource<T> singleton(T value, Class<T> typeClass) {
-        final CollectionSource<T> instance = new CollectionSource<>(Collections.singleton(value), typeClass);
-        instance.setName("{" + value + "}");
+        extends BinaryToUnaryOperator<InputType0, InputType1, Tuple2<InputType0, InputType1>> {
+
+    public CartesianOperator(Class<InputType0> inputType0Class, Class<InputType1> inputType1Class) {
+        super(DataSetType.createDefault(inputType0Class),
+                DataSetType.createDefault(inputType1Class),
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CollectionSource.java`
+Can generalize to `? extends InputType1`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CartesianOperator.java`
 #### Snippet
 ```java
-    protected final Collection<T> collection;
+        extends BinaryToUnaryOperator<InputType0, InputType1, Tuple2<InputType0, InputType1>> {
 
-    public CollectionSource(Collection<T> collection, Class<T> typeClass) {
-        this(collection, DataSetType.createDefault(typeClass));
-    }
+    public CartesianOperator(Class<InputType0> inputType0Class, Class<InputType1> inputType1Class) {
+        super(DataSetType.createDefault(inputType0Class),
+                DataSetType.createDefault(inputType1Class),
 ```
 
 ### BoundedWildcard
@@ -9185,18 +9171,6 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Pair`
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcUtils.java`
-#### Snippet
-```java
-   * that will yield successive rows from that result set. */
-  static Function1<ResultSet, Function0<@Nullable Object[]>> rowBuilderFactory(
-      final List<Pair<ColumnMetaData.Rep, Integer>> list) {
-    ColumnMetaData.Rep[] reps =
-        Pair.left(list).toArray(new ColumnMetaData.Rep[0]);
-```
-
-### BoundedWildcard
 Can generalize to `? extends SqlDialectFactory`
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcUtils.java`
 #### Snippet
@@ -9225,6 +9199,18 @@ Can generalize to `? extends Pair`
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcUtils.java`
 #### Snippet
 ```java
+   * that will yield successive rows from that result set. */
+  static Function1<ResultSet, Function0<@Nullable Object[]>> rowBuilderFactory(
+      final List<Pair<ColumnMetaData.Rep, Integer>> list) {
+    ColumnMetaData.Rep[] reps =
+        Pair.left(list).toArray(new ColumnMetaData.Rep[0]);
+```
+
+### BoundedWildcard
+Can generalize to `? extends Pair`
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcUtils.java`
+#### Snippet
+```java
    * internal format (e.g. DATE represented as int). */
   static Function1<ResultSet, Function0<@Nullable Object[]>> rowBuilderFactory2(
       final List<Pair<ColumnMetaData.Rep, Integer>> list) {
@@ -9245,18 +9231,6 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/co
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LocalCallbackSink.java`
-#### Snippet
-```java
-     * @param typeClass     type of the incoming elements
-     */
-    public LocalCallbackSink(Consumer<T> callback, Class<T> typeClass) {
-        this(callback, DataSetType.createDefault(typeClass));
-    }
-```
-
-### BoundedWildcard
 Can generalize to `? extends RelDataType`
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/JavaCSVTableSource.java`
 #### Snippet
@@ -9269,27 +9243,15 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends TimeMeasurement`
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/instrumentation/StopWatch.java`
+Can generalize to `? extends T`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LocalCallbackSink.java`
 #### Snippet
 ```java
-  }
-
-  private int determineFirstColumnWidth(Collection<TimeMeasurement> rounds, int indentWidth, int numIndents, int bulletWidth) {
-    return rounds.stream()
-        .map(round -> this.determineFirstColumnWidth(round, indentWidth, numIndents, bulletWidth))
-```
-
-### BoundedWildcard
-Can generalize to `? extends Experiment`
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
-#### Snippet
-```java
-     * @param writer the {@link Writer}
+     * @param typeClass     type of the incoming elements
      */
-    public void save(Collection<Experiment> experiments, Writer writer) throws IOException {
-        try {
-            Gson gson = context.getGson();
+    public LocalCallbackSink(Consumer<T> callback, Class<T> typeClass) {
+        this(callback, DataSetType.createDefault(typeClass));
+    }
 ```
 
 ### BoundedWildcard
@@ -9314,30 +9276,6 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
         public StreamChunker(int chunkSize, BiConsumer<Object[], Integer> action) {
             this.action = action;
             this.chunk = new Object[chunkSize];
-```
-
-### BoundedWildcard
-Can generalize to `? extends InputType`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
-#### Snippet
-```java
-    }
-
-    public LoopOperator(Class<InputType> inputTypeClass, Class<ConvergenceType> convergenceTypeClass,
-                        PredicateDescriptor.SerializablePredicate<Collection<ConvergenceType>> criterionPredicate,
-                        Integer numExpectedIterations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConvergenceType`
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
-#### Snippet
-```java
-    }
-
-    public LoopOperator(Class<InputType> inputTypeClass, Class<ConvergenceType> convergenceTypeClass,
-                        PredicateDescriptor.SerializablePredicate<Collection<ConvergenceType>> criterionPredicate,
-                        Integer numExpectedIterations) {
 ```
 
 ### BoundedWildcard
@@ -9437,6 +9375,54 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends InputType`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
+#### Snippet
+```java
+    }
+
+    public LoopOperator(Class<InputType> inputTypeClass, Class<ConvergenceType> convergenceTypeClass,
+                        PredicateDescriptor.SerializablePredicate<Collection<ConvergenceType>> criterionPredicate,
+                        Integer numExpectedIterations) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends ConvergenceType`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/LoopOperator.java`
+#### Snippet
+```java
+    }
+
+    public LoopOperator(Class<InputType> inputTypeClass, Class<ConvergenceType> convergenceTypeClass,
+                        PredicateDescriptor.SerializablePredicate<Collection<ConvergenceType>> criterionPredicate,
+                        Integer numExpectedIterations) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends TimeMeasurement`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/instrumentation/StopWatch.java`
+#### Snippet
+```java
+  }
+
+  private int determineFirstColumnWidth(Collection<TimeMeasurement> rounds, int indentWidth, int numIndents, int bulletWidth) {
+    return rounds.stream()
+        .map(round -> this.determineFirstColumnWidth(round, indentWidth, numIndents, bulletWidth))
+```
+
+### BoundedWildcard
+Can generalize to `? extends Experiment`
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/storage/Storage.java`
+#### Snippet
+```java
+     * @param writer the {@link Writer}
+     */
+    public void save(Collection<Experiment> experiments, Writer writer) throws IOException {
+        try {
+            Gson gson = context.getGson();
+```
+
+### BoundedWildcard
 Can generalize to `? extends Value`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/ExplicitCollectionProvider.java`
 #### Snippet
@@ -9465,11 +9451,11 @@ Can generalize to `? super Configuration`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/FunctionalCollectionProvider.java`
 #### Snippet
 ```java
-    }
+    private final Function<Configuration, Collection<Value>> providerFunction;
 
-    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction,
-                                        Configuration configuration,
-                                        CollectionProvider parent) {
+    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction, Configuration configuration) {
+        super(configuration);
+        this.providerFunction = providerFunction;
 ```
 
 ### BoundedWildcard
@@ -9477,11 +9463,11 @@ Can generalize to `? extends Collection`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/FunctionalCollectionProvider.java`
 #### Snippet
 ```java
-    }
+    private final Function<Configuration, Collection<Value>> providerFunction;
 
-    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction,
-                                        Configuration configuration,
-                                        CollectionProvider parent) {
+    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction, Configuration configuration) {
+        super(configuration);
+        this.providerFunction = providerFunction;
 ```
 
 ### BoundedWildcard
@@ -9489,11 +9475,11 @@ Can generalize to `? super Configuration`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/FunctionalCollectionProvider.java`
 #### Snippet
 ```java
-    private final Function<Configuration, Collection<Value>> providerFunction;
+    }
 
-    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction, Configuration configuration) {
-        super(configuration);
-        this.providerFunction = providerFunction;
+    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction,
+                                        Configuration configuration,
+                                        CollectionProvider parent) {
 ```
 
 ### BoundedWildcard
@@ -9501,11 +9487,23 @@ Can generalize to `? extends Collection`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configuration/FunctionalCollectionProvider.java`
 #### Snippet
 ```java
-    private final Function<Configuration, Collection<Value>> providerFunction;
+    }
 
-    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction, Configuration configuration) {
-        super(configuration);
-        this.providerFunction = providerFunction;
+    public FunctionalCollectionProvider(Function<Configuration, Collection<Value>> providerFunction,
+                                        Configuration configuration,
+                                        CollectionProvider parent) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Operator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanMetrics.java`
+#### Snippet
+```java
+     * @return the number of {@link ExecutionOperator} combinations among the {@code operators}
+     */
+    private long collectFrom(Collection<Operator> operators) {
+        long numCombinations = 1L;
+        for (Operator operator : operators) {
 ```
 
 ### BoundedWildcard
@@ -9533,15 +9531,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configur
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Operator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanMetrics.java`
+Can generalize to `? extends OutputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OutputSlot.java`
 #### Snippet
 ```java
-     * @return the number of {@link ExecutionOperator} combinations among the {@code operators}
+     * Copy the {@link OutputSlot}s to a given {@link Operator}.
      */
-    private long collectFrom(Collection<Operator> operators) {
-        long numCombinations = 1L;
-        for (Operator operator : operators) {
+    public static void mock(List<OutputSlot<?>> outputs, Operator mock) {
+        if (outputs.size() != mock.getNumOutputs()) {
+            throw new IllegalArgumentException("Cannot mock inputs: Mismatching number of inputs.");
 ```
 
 ### BoundedWildcard
@@ -9557,18 +9555,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OutputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OutputSlot.java`
-#### Snippet
-```java
-     * Copy the {@link OutputSlot}s to a given {@link Operator}.
-     */
-    public static void mock(List<OutputSlot<?>> outputs, Operator mock) {
-        if (outputs.size() != mock.getNumOutputs()) {
-            throw new IllegalArgumentException("Cannot mock inputs: Mismatching number of inputs.");
-```
-
-### BoundedWildcard
 Can generalize to `? extends PlanTransformation`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/WayangPlan.java`
 #### Snippet
@@ -9578,6 +9564,30 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
     private int applyAndCountTransformations(Collection<PlanTransformation> transformations, int epoch) {
         return transformations.stream()
                 .mapToInt(transformation -> transformation.transform(this, epoch))
+```
+
+### BoundedWildcard
+Can generalize to `? extends InputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/InputSlot.java`
+#### Snippet
+```java
+     * Copy the {@link InputSlot}s to a given {@link Operator}.
+     */
+    public static void mock(List<InputSlot<?>> inputSlots, Operator mock, boolean isKeepBroadcastStatus) {
+        if (inputSlots.size() != mock.getNumInputs()) {
+            throw new IllegalArgumentException("Cannot mock inputs: Mismatching number of inputs.");
+```
+
+### BoundedWildcard
+Can generalize to `? super Activator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/traversal/AbstractTopologicalTraversal.java`
+#### Snippet
+```java
+         * @param activatorQueue accepts newly activated {@link CardinalityEstimator}s
+         */
+        protected void process(Queue<Activator<TActivation>> activatorQueue) {
+            assert this.isActivationComplete() : String.format("Cannot process %s: activation not complete.", this);
+            Collection<TActivation> successorActivations = this.doWork();
 ```
 
 ### BoundedWildcard
@@ -9642,14 +9652,26 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/configur
 
 ### BoundedWildcard
 Can generalize to `? extends InputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/InputSlot.java`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorContainers.java`
 #### Snippet
 ```java
-     * Copy the {@link InputSlot}s to a given {@link Operator}.
+     * @return whether it is worth wrapping
      */
-    public static void mock(List<InputSlot<?>> inputSlots, Operator mock, boolean isKeepBroadcastStatus) {
-        if (inputSlots.size() != mock.getNumInputs()) {
-            throw new IllegalArgumentException("Cannot mock inputs: Mismatching number of inputs.");
+    public static boolean canWrap(List<InputSlot<?>> inputs, List<OutputSlot<?>> outputs) {
+        // Play safe: we only propose not to wrap if we cover all Slots of an Operator.
+        Operator operator = null;
+```
+
+### BoundedWildcard
+Can generalize to `? extends OutputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorContainers.java`
+#### Snippet
+```java
+     * @return whether it is worth wrapping
+     */
+    public static boolean canWrap(List<InputSlot<?>> inputs, List<OutputSlot<?>> outputs) {
+        // Play safe: we only propose not to wrap if we cover all Slots of an Operator.
+        Operator operator = null;
 ```
 
 ### BoundedWildcard
@@ -9674,78 +9696,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
     public static void wrap(List<InputSlot<?>> inputs, List<OutputSlot<?>> outputs, OperatorContainer container) {
         final SlotMapping slotMapping = container.getSlotMapping();
         final Operator containerOperator = container.toOperator();
-```
-
-### BoundedWildcard
-Can generalize to `? extends InputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorContainers.java`
-#### Snippet
-```java
-     * @return whether it is worth wrapping
-     */
-    public static boolean canWrap(List<InputSlot<?>> inputs, List<OutputSlot<?>> outputs) {
-        // Play safe: we only propose not to wrap if we cover all Slots of an Operator.
-        Operator operator = null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends OutputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/OperatorContainers.java`
-#### Snippet
-```java
-     * @return whether it is worth wrapping
-     */
-    public static boolean canWrap(List<InputSlot<?>> inputs, List<OutputSlot<?>> outputs) {
-        // Play safe: we only propose not to wrap if we cover all Slots of an Operator.
-        Operator operator = null;
-```
-
-### BoundedWildcard
-Can generalize to `? super Activator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/traversal/AbstractTopologicalTraversal.java`
-#### Snippet
-```java
-         * @param activatorQueue accepts newly activated {@link CardinalityEstimator}s
-         */
-        protected void process(Queue<Activator<TActivation>> activatorQueue) {
-            assert this.isActivationComplete() : String.format("Cannot process %s: activation not complete.", this);
-            Collection<TActivation> successorActivations = this.doWork();
-```
-
-### BoundedWildcard
-Can generalize to `? super Channel`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
-#### Snippet
-```java
-     * Detaches this instance from all its {@link #siblings}.
-     */
-    public void removeSiblingsWhere(Predicate<Channel> condition) {
-        // Detach with siblings.
-        List<Channel> removedSiblings = new LinkedList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super InputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
-#### Snippet
-```java
-    }
-
-    public PlanTraversal followingInputsIf(Predicate<InputSlot<?>> inputFollowPredicate) {
-        this.inputFollowPredicate = inputFollowPredicate;
-        return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super OperatorContainer`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
-#### Snippet
-```java
-     * Criterion to control when to visit the {@link Operator}s contained in {@link CompositeOperator}s.
-     */
-    public PlanTraversal enteringContainersIf(Predicate<OperatorContainer> containerEnterCondition) {
-        this.containerEnterCondition = containerEnterCondition;
-        return this;
 ```
 
 ### BoundedWildcard
@@ -9761,15 +9711,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends OutputSlot`
+Can generalize to `? super OutputSlot`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
 #### Snippet
 ```java
-     * Override to control the traversal behavior.
-     */
-    protected void followOutputs(Stream<OutputSlot<?>> outputSlots) {
-        outputSlots
-                .filter(this.outputFollowPredicate)
+    }
+
+    public PlanTraversal followingOutputsIf(Predicate<OutputSlot<?>> outputFollowPredicate) {
+        this.outputFollowPredicate = outputFollowPredicate;
+        return this;
 ```
 
 ### BoundedWildcard
@@ -9785,6 +9735,42 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends OutputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
+#### Snippet
+```java
+     * Override to control the traversal behavior.
+     */
+    protected void followOutputs(Stream<OutputSlot<?>> outputSlots) {
+        outputSlots
+                .filter(this.outputFollowPredicate)
+```
+
+### BoundedWildcard
+Can generalize to `? super OperatorContainer`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
+#### Snippet
+```java
+     * Criterion to control when to visit the {@link Operator}s contained in {@link CompositeOperator}s.
+     */
+    public PlanTraversal enteringContainersIf(Predicate<OperatorContainer> containerEnterCondition) {
+        this.containerEnterCondition = containerEnterCondition;
+        return this;
+```
+
+### BoundedWildcard
+Can generalize to `? super InputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
+#### Snippet
+```java
+    }
+
+    public PlanTraversal followingInputsIf(Predicate<InputSlot<?>> inputFollowPredicate) {
+        this.inputFollowPredicate = inputFollowPredicate;
+        return this;
+```
+
+### BoundedWildcard
 Can generalize to `? super InputSlot`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
 #### Snippet
@@ -9797,15 +9783,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 ```
 
 ### BoundedWildcard
-Can generalize to `? super OutputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
+Can generalize to `? super Channel`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
 #### Snippet
 ```java
-    }
-
-    public PlanTraversal followingOutputsIf(Predicate<OutputSlot<?>> outputFollowPredicate) {
-        this.outputFollowPredicate = outputFollowPredicate;
-        return this;
+     * Detaches this instance from all its {@link #siblings}.
+     */
+    public void removeSiblingsWhere(Predicate<Channel> condition) {
+        // Detach with siblings.
+        List<Channel> removedSiblings = new LinkedList<>();
 ```
 
 ### BoundedWildcard
@@ -9845,15 +9831,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangA
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Expression`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/mathex/model/NamedFunction.java`
+Can generalize to `? extends T`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
 #### Snippet
 ```java
-    final List<Expression> arguments;
-
-    public NamedFunction(String name, List<Expression> arguments) {
-        this.name = name;
-        this.arguments = arguments;
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray, JsonSerializer<T> serializer, Class<T> cls) {
+        List<T> result = new ArrayList<>(wayangJsonArray.length());
+        for (Object jsonElement : wayangJsonArray) {
 ```
 
 ### BoundedWildcard
@@ -9887,21 +9873,21 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSer
 ```java
      */
     @SuppressWarnings("unchecked")
-    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray, JsonSerializer<T> serializer, Class<T> cls) {
+    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray, JsonSerializer<T> serializer) {
         List<T> result = new ArrayList<>(wayangJsonArray.length());
         for (Object jsonElement : wayangJsonArray) {
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/JsonSerializables.java`
+Can generalize to `? extends Expression`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/mathex/model/NamedFunction.java`
 #### Snippet
 ```java
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> deserializeAllAsList(WayangJsonArray wayangJsonArray, JsonSerializer<T> serializer) {
-        List<T> result = new ArrayList<>(wayangJsonArray.length());
-        for (Object jsonElement : wayangJsonArray) {
+    final List<Expression> arguments;
+
+    public NamedFunction(String name, List<Expression> arguments) {
+        this.name = name;
+        this.arguments = arguments;
 ```
 
 ### BoundedWildcard
@@ -9917,15 +9903,27 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/mathex/
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
+Can generalize to `? extends S`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
 #### Snippet
 ```java
-     * Provides the given {@code collection} as {@link List}, thereby checking if it is already a {@link List}.
+     * Return a new {@link List} with mapped values.
      */
-    public static <T> List<T> asList(Collection<T> collection) {
-        if (collection instanceof List<?>) {
-            return (List<T>) collection;
+    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
+        List<T> result = new ArrayList<>(list.size());
+        for (S element : list) {
+```
+
+### BoundedWildcard
+Can generalize to `? super S`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
+#### Snippet
+```java
+     * Return a new {@link List} with mapped values.
+     */
+    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
+        List<T> result = new ArrayList<>(list.size());
+        for (S element : list) {
 ```
 
 ### BoundedWildcard
@@ -9933,11 +9931,11 @@ Can generalize to `? extends T`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
 #### Snippet
 ```java
-     * Provides the given {@code iterable} as {@link Set}, thereby checking if it is already a {@link Set}.
+     * Return a new {@link List} with mapped values.
      */
-    public static <T> Set<T> asSet(Iterable<T> iterable) {
-        if (iterable instanceof Set<?>) {
-            return (Set<T>) iterable;
+    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
+        List<T> result = new ArrayList<>(list.size());
+        for (S element : list) {
 ```
 
 ### BoundedWildcard
@@ -9950,6 +9948,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangC
     public static <T> Set<T> asSet(Collection<T> collection) {
         if (collection instanceof Set<?>) {
             return (Set<T>) collection;
+```
+
+### BoundedWildcard
+Can generalize to `? extends T`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
+#### Snippet
+```java
+     * Provides the given {@code collection} as {@link List}, thereby checking if it is already a {@link List}.
+     */
+    public static <T> List<T> asList(Collection<T> collection) {
+        if (collection instanceof List<?>) {
+            return (List<T>) collection;
 ```
 
 ### BoundedWildcard
@@ -10013,39 +10023,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangC
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends S`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
-#### Snippet
-```java
-     * Return a new {@link List} with mapped values.
-     */
-    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
-        List<T> result = new ArrayList<>(list.size());
-        for (S element : list) {
-```
-
-### BoundedWildcard
-Can generalize to `? super S`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
-#### Snippet
-```java
-     * Return a new {@link List} with mapped values.
-     */
-    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
-        List<T> result = new ArrayList<>(list.size());
-        for (S element : list) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends T`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/WayangCollections.java`
 #### Snippet
 ```java
-     * Return a new {@link List} with mapped values.
+     * Provides the given {@code iterable} as {@link Set}, thereby checking if it is already a {@link Set}.
      */
-    public static <S, T> List<T> map(List<S> list, Function<S, T> mapFunction) {
-        List<T> result = new ArrayList<>(list.size());
-        for (S element : list) {
+    public static <T> Set<T> asSet(Iterable<T> iterable) {
+        if (iterable instanceof Set<?>) {
+            return (Set<T>) iterable;
 ```
 
 ### BoundedWildcard
@@ -10229,66 +10215,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Channel`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
-#### Snippet
-```java
-            ChannelDescriptor sourceChannelDescriptor,
-            ChannelDescriptor targetChannelDescriptor,
-            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
-            String name) {
-        super(sourceChannelDescriptor, targetChannelDescriptor);
-```
-
-### BoundedWildcard
-Can generalize to `? super Configuration`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
-#### Snippet
-```java
-            ChannelDescriptor sourceChannelDescriptor,
-            ChannelDescriptor targetChannelDescriptor,
-            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
-            String name) {
-        super(sourceChannelDescriptor, targetChannelDescriptor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionOperator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
-#### Snippet
-```java
-            ChannelDescriptor sourceChannelDescriptor,
-            ChannelDescriptor targetChannelDescriptor,
-            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
-            String name) {
-        super(sourceChannelDescriptor, targetChannelDescriptor);
-```
-
-### BoundedWildcard
-Can generalize to `? extends OptimizationContext`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
-#### Snippet
-```java
-     */
-    private void setCardinalityAndTimeEstimates(Channel sourceChannel,
-                                                Collection<OptimizationContext> optimizationContexts,
-                                                CardinalityEstimate optCardinality,
-                                                ExecutionTask task) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExecutionOperator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
-#### Snippet
-```java
-            ChannelDescriptor sourceChannelDescriptor,
-            ChannelDescriptor targetChannelDescriptor,
-            Supplier<ExecutionOperator> executionOperatorFactory,
-            String name) {
-        this(
-```
-
-### BoundedWildcard
 Can generalize to `? extends InputSlot`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/LoopHeadAlternativeCardinalityPusher.java`
 #### Snippet
@@ -10361,15 +10287,63 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends PartialExecution`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/profiling/ExecutionLog.java`
+Can generalize to `? extends ExecutionOperator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
 #### Snippet
 ```java
-     * @param partialExecutions that should be stored
+            ChannelDescriptor sourceChannelDescriptor,
+            ChannelDescriptor targetChannelDescriptor,
+            Supplier<ExecutionOperator> executionOperatorFactory,
+            String name) {
+        this(
+```
+
+### BoundedWildcard
+Can generalize to `? super Channel`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
+#### Snippet
+```java
+            ChannelDescriptor sourceChannelDescriptor,
+            ChannelDescriptor targetChannelDescriptor,
+            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
+            String name) {
+        super(sourceChannelDescriptor, targetChannelDescriptor);
+```
+
+### BoundedWildcard
+Can generalize to `? super Configuration`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
+#### Snippet
+```java
+            ChannelDescriptor sourceChannelDescriptor,
+            ChannelDescriptor targetChannelDescriptor,
+            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
+            String name) {
+        super(sourceChannelDescriptor, targetChannelDescriptor);
+```
+
+### BoundedWildcard
+Can generalize to `? extends ExecutionOperator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
+#### Snippet
+```java
+            ChannelDescriptor sourceChannelDescriptor,
+            ChannelDescriptor targetChannelDescriptor,
+            BiFunction<Channel, Configuration, ExecutionOperator> executionOperatorFactory,
+            String name) {
+        super(sourceChannelDescriptor, targetChannelDescriptor);
+```
+
+### BoundedWildcard
+Can generalize to `? extends OptimizationContext`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/channels/DefaultChannelConversion.java`
+#### Snippet
+```java
      */
-    public void storeAll(Iterable<PartialExecution> partialExecutions) throws IOException {
-        final PartialExecution.Serializer serializer = new PartialExecution.Serializer(this.configuration);
-        for (PartialExecution partialExecution : partialExecutions) {
+    private void setCardinalityAndTimeEstimates(Channel sourceChannel,
+                                                Collection<OptimizationContext> optimizationContexts,
+                                                CardinalityEstimate optCardinality,
+                                                ExecutionTask task) {
 ```
 
 ### BoundedWildcard
@@ -10385,27 +10359,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/profiling/Ex
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Activator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
+Can generalize to `? extends PartialExecution`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/profiling/ExecutionLog.java`
 #### Snippet
 ```java
-        }
-
-        public void fire(Queue<Activator> activatorQueue) {
-            assert !this.activator.isActivated[this.inputIndex]
-                    : String.format("%s is already activated at input %d.", this.activator.operator, this.inputIndex);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Activator`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
-#### Snippet
-```java
-    }
-
-    private void resetAll(Stream<Activator> activatorStream) {
-        activatorStream
-                .filter(Activator::reset)
+     * @param partialExecutions that should be stored
+     */
+    public void storeAll(Iterable<PartialExecution> partialExecutions) throws IOException {
+        final PartialExecution.Serializer serializer = new PartialExecution.Serializer(this.configuration);
+        for (PartialExecution partialExecution : partialExecutions) {
 ```
 
 ### BoundedWildcard
@@ -10433,6 +10395,30 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Activator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
+#### Snippet
+```java
+    }
+
+    private void resetAll(Stream<Activator> activatorStream) {
+        activatorStream
+                .filter(Activator::reset)
+```
+
+### BoundedWildcard
+Can generalize to `? super Activator`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/cardinality/CardinalityEstimationTraversal.java`
+#### Snippet
+```java
+        }
+
+        public void fire(Queue<Activator> activatorQueue) {
+            assert !this.activator.isActivated[this.inputIndex]
+                    : String.format("%s is already activated at input %d.", this.activator.operator, this.inputIndex);
+```
+
+### BoundedWildcard
 Can generalize to `? extends ExecutionTask`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/ExecutionTaskFlow.java`
 #### Snippet
@@ -10457,15 +10443,15 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/GeneticOptimiz
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Channel`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
+Can generalize to `? extends T`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/sampling/ReservoirSampler.java`
 #### Snippet
 ```java
-                          OptimizationContext optimizationContext,
-                          ExecutionPlan baseplan,
-                          Set<Channel> openChannels) {
 
-        this(wayangPlan.collectReachableTopLevelSources(),
+    @Override
+    public List<T> sample(Collection<T> set, Battle<T> battle, double selectionProbability) {
+        // Clear the reservoir.
+        for (int i = 0; i < this.reservoir.size(); i++) {
 ```
 
 ### BoundedWildcard
@@ -10481,15 +10467,15 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Variable`
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
+Can generalize to `? extends Channel`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
+                          OptimizationContext optimizationContext,
+                          ExecutionPlan baseplan,
+                          Set<Channel> openChannels) {
 
-    double estimateTime(PartialExecution partialExecution,
-                        Map<Platform, Variable> platformOverheads,
-                        Configuration configuration) {
-        final DoubleStream operatorEstimates = partialExecution.getAtomicExecutionGroups().stream()
+        this(wayangPlan.collectReachableTopLevelSources(),
 ```
 
 ### BoundedWildcard
@@ -10505,15 +10491,15 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.jav
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends T`
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/sampling/ReservoirSampler.java`
+Can generalize to `? extends Variable`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Individual.java`
 #### Snippet
 ```java
 
-    @Override
-    public List<T> sample(Collection<T> set, Battle<T> battle, double selectionProbability) {
-        // Clear the reservoir.
-        for (int i = 0; i < this.reservoir.size(); i++) {
+    double estimateTime(PartialExecution partialExecution,
+                        Map<Platform, Variable> platformOverheads,
+                        Configuration configuration) {
+        final DoubleStream operatorEstimates = partialExecution.getAtomicExecutionGroups().stream()
 ```
 
 ### BoundedWildcard
@@ -10526,6 +10512,30 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/sampling/Tourn
     public List<T> sample(Collection<T> set, Battle<T> battle, double selectionProbability) {
         ArrayList<T> arena = new ArrayList<>(set.size());
         arena.addAll(set);
+```
+
+### BoundedWildcard
+Can generalize to `? super InputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
+#### Snippet
+```java
+     */
+    static PlanEnumeration createFor(Operator inputOperator,
+                                     Predicate<InputSlot<?>> inputSlotPredicate,
+                                     Operator outputOperator,
+                                     Predicate<OutputSlot<?>> outputSlotPredicate) {
+```
+
+### BoundedWildcard
+Can generalize to `? super OutputSlot`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
+#### Snippet
+```java
+                                     Predicate<InputSlot<?>> inputSlotPredicate,
+                                     Operator outputOperator,
+                                     Predicate<OutputSlot<?>> outputSlotPredicate) {
+
+        final PlanEnumeration instance = new PlanEnumeration();
 ```
 
 ### BoundedWildcard
@@ -10562,30 +10572,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
     PlanImplementation concatenate(List<PlanImplementation> targetPlans,
                                    Junction junction,
                                    PlanImplementation outputPlanImplementation,
-```
-
-### BoundedWildcard
-Can generalize to `? super InputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
-#### Snippet
-```java
-     */
-    static PlanEnumeration createFor(Operator inputOperator,
-                                     Predicate<InputSlot<?>> inputSlotPredicate,
-                                     Operator outputOperator,
-                                     Predicate<OutputSlot<?>> outputSlotPredicate) {
-```
-
-### BoundedWildcard
-Can generalize to `? super OutputSlot`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
-#### Snippet
-```java
-                                     Predicate<InputSlot<?>> inputSlotPredicate,
-                                     Operator outputOperator,
-                                     Predicate<OutputSlot<?>> outputSlotPredicate) {
-
-        final PlanEnumeration instance = new PlanEnumeration();
 ```
 
 ### BoundedWildcard
@@ -10721,54 +10707,6 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends Tuple2`, Input>
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
-#### Snippet
-```java
-    }
-
-    public ArrayList<Tuple2<Data<Type0, Type1>, Input>> merge(ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst1,
-                                                              ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst2,
-                                                              boolean asc1, boolean asc2) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tuple2`, Input>
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
-#### Snippet
-```java
-
-    public ArrayList<Tuple2<Data<Type0, Type1>, Input>> merge(ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst1,
-                                                              ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst2,
-                                                              boolean asc1, boolean asc2) {
-        int totalSize = lst1.size() + lst2.size(); // every element in the set
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tuple2`, Input>
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
-#### Snippet
-```java
-    }
-
-    private ArrayList<Tuple2<Input, Input>> getViolationsNonSelf(ArrayList<Tuple2<Data<Type0, Type1>, Input>> cond1,
-                                                                 int[] permutationArray) {
-        ArrayList<Tuple2<Input, Input>> violation = new ArrayList<Tuple2<Input, Input>>(
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tuple2`, Input>
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
-#### Snippet
-```java
-    }
-
-    private ArrayList<Tuple2<Input, Input>> getViolationsSelf(ArrayList<Tuple2<Data<Type0, Type1>, Input>> cond1,
-                                                              int[] permutationArray) {
-        ArrayList<Tuple2<Input, Input>> violation = new ArrayList<Tuple2<Input, Input>>(
-```
-
-### BoundedWildcard
 Can generalize to `? super Input`
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/build2ListObject.java`
 #### Snippet
@@ -10817,6 +10755,54 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 ```
 
 ### BoundedWildcard
+Can generalize to `? extends Tuple2`, Input>
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
+#### Snippet
+```java
+    }
+
+    private ArrayList<Tuple2<Input, Input>> getViolationsSelf(ArrayList<Tuple2<Data<Type0, Type1>, Input>> cond1,
+                                                              int[] permutationArray) {
+        ArrayList<Tuple2<Input, Input>> violation = new ArrayList<Tuple2<Input, Input>>(
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tuple2`, Input>
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
+#### Snippet
+```java
+    }
+
+    public ArrayList<Tuple2<Data<Type0, Type1>, Input>> merge(ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst1,
+                                                              ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst2,
+                                                              boolean asc1, boolean asc2) {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tuple2`, Input>
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
+#### Snippet
+```java
+
+    public ArrayList<Tuple2<Data<Type0, Type1>, Input>> merge(ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst1,
+                                                              ArrayList<Tuple2<Data<Type0, Type1>, Input>> lst2,
+                                                              boolean asc1, boolean asc2) {
+        int totalSize = lst1.size() + lst2.size(); // every element in the set
+```
+
+### BoundedWildcard
+Can generalize to `? extends Tuple2`, Input>
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/BitSetJoin.java`
+#### Snippet
+```java
+    }
+
+    private ArrayList<Tuple2<Input, Input>> getViolationsNonSelf(ArrayList<Tuple2<Data<Type0, Type1>, Input>> cond1,
+                                                                 int[] permutationArray) {
+        ArrayList<Tuple2<Input, Input>> violation = new ArrayList<Tuple2<Input, Input>>(
+```
+
+### BoundedWildcard
 Can generalize to `? super T`
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/OutputFormatConsumer.java`
 #### Snippet
@@ -10838,6 +10824,30 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
     public WayangConvergenceCriterion(FunctionDescriptor.SerializablePredicate<Collection<T>> predicate){
         this.predicate = predicate;
         this.doWhile = false;
+```
+
+### BoundedWildcard
+Can generalize to `? super I`
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+#### Snippet
+```java
+
+
+    public <I, O> RichFlatMapFunction<I, O> compile(FunctionDescriptor.ExtendedSerializableFunction<I, Iterable<O>> flatMapDescriptor, FlinkExecutionContext exe) {
+
+        return new RichFlatMapFunction<I, O>() {
+```
+
+### BoundedWildcard
+Can generalize to `? extends Iterable`
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+#### Snippet
+```java
+
+
+    public <I, O> RichFlatMapFunction<I, O> compile(FunctionDescriptor.ExtendedSerializableFunction<I, Iterable<O>> flatMapDescriptor, FlinkExecutionContext exe) {
+
+        return new RichFlatMapFunction<I, O>() {
 ```
 
 ### BoundedWildcard
@@ -10877,30 +10887,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 ```
 
 ### BoundedWildcard
-Can generalize to `? super I`
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
-#### Snippet
-```java
-
-
-    public <I, O> RichFlatMapFunction<I, O> compile(FunctionDescriptor.ExtendedSerializableFunction<I, Iterable<O>> flatMapDescriptor, FlinkExecutionContext exe) {
-
-        return new RichFlatMapFunction<I, O>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Iterable`
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
-#### Snippet
-```java
-
-
-    public <I, O> RichFlatMapFunction<I, O> compile(FunctionDescriptor.ExtendedSerializableFunction<I, Iterable<O>> flatMapDescriptor, FlinkExecutionContext exe) {
-
-        return new RichFlatMapFunction<I, O>() {
-```
-
-### BoundedWildcard
 Can generalize to `? super InputType`
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/PredicateAdapter.java`
 #### Snippet
@@ -10910,30 +10896,6 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compile
     public PredicateAdapter(Predicate<InputType> predicate) {
         this.predicate = predicate;
     }
-```
-
-### BoundedWildcard
-Can generalize to `? super Iterable`
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/ExtendedMapPartitionsFunctionAdapter.java`
-#### Snippet
-```java
-
-    public ExtendedMapPartitionsFunctionAdapter(
-            FunctionDescriptor.ExtendedSerializableFunction<Iterable<InputType>, Iterable<OutputType>> extendedFunction,
-            SparkExecutionContext sparkExecutionContext) {
-        this.impl = extendedFunction;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Iterable`
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/ExtendedMapPartitionsFunctionAdapter.java`
-#### Snippet
-```java
-
-    public ExtendedMapPartitionsFunctionAdapter(
-            FunctionDescriptor.ExtendedSerializableFunction<Iterable<InputType>, Iterable<OutputType>> extendedFunction,
-            SparkExecutionContext sparkExecutionContext) {
-        this.impl = extendedFunction;
 ```
 
 ### BoundedWildcard
@@ -10974,26 +10936,26 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compile
 
 ### BoundedWildcard
 Can generalize to `? super Iterable`
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/MapPartitionsFunctionAdapter.java`
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/ExtendedMapPartitionsFunctionAdapter.java`
 #### Snippet
 ```java
-    private final Function<Iterable<InputType>, Iterable<OutputType>> function;
 
-    public MapPartitionsFunctionAdapter(Function<Iterable<InputType>, Iterable<OutputType>> function) {
-        this.function = function;
-    }
+    public ExtendedMapPartitionsFunctionAdapter(
+            FunctionDescriptor.ExtendedSerializableFunction<Iterable<InputType>, Iterable<OutputType>> extendedFunction,
+            SparkExecutionContext sparkExecutionContext) {
+        this.impl = extendedFunction;
 ```
 
 ### BoundedWildcard
 Can generalize to `? extends Iterable`
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/MapPartitionsFunctionAdapter.java`
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/ExtendedMapPartitionsFunctionAdapter.java`
 #### Snippet
 ```java
-    private final Function<Iterable<InputType>, Iterable<OutputType>> function;
 
-    public MapPartitionsFunctionAdapter(Function<Iterable<InputType>, Iterable<OutputType>> function) {
-        this.function = function;
-    }
+    public ExtendedMapPartitionsFunctionAdapter(
+            FunctionDescriptor.ExtendedSerializableFunction<Iterable<InputType>, Iterable<OutputType>> extendedFunction,
+            SparkExecutionContext sparkExecutionContext) {
+        this.impl = extendedFunction;
 ```
 
 ### BoundedWildcard
@@ -11016,6 +10978,30 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compile
     private java.util.function.Function<InputType, Iterable<OutputType>> function;
 
     public FlatMapFunctionAdapter(java.util.function.Function<InputType, Iterable<OutputType>> function) {
+        this.function = function;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? super Iterable`
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/MapPartitionsFunctionAdapter.java`
+#### Snippet
+```java
+    private final Function<Iterable<InputType>, Iterable<OutputType>> function;
+
+    public MapPartitionsFunctionAdapter(Function<Iterable<InputType>, Iterable<OutputType>> function) {
+        this.function = function;
+    }
+```
+
+### BoundedWildcard
+Can generalize to `? extends Iterable`
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/MapPartitionsFunctionAdapter.java`
+#### Snippet
+```java
+    private final Function<Iterable<InputType>, Iterable<OutputType>> function;
+
+    public MapPartitionsFunctionAdapter(Function<Iterable<InputType>, Iterable<OutputType>> function) {
         this.function = function;
     }
 ```
@@ -11071,60 +11057,12 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compile
 ## RuleId[id=MissortedModifiers]
 ### MissortedModifiers
 Missorted modifiers `final static`
-in `wayang-platforms/wayang-graphchi/src/main/java/org/apache/wayang/graphchi/GraphChi.java`
-#### Snippet
-```java
-public class GraphChi {
-
-    private final static GraphChiPlugin PLUGIN = new GraphChiPlugin();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/Sqlite3.java`
-#### Snippet
-```java
-public class Sqlite3 {
-
-    private final static Sqlite3Plugin PLUGIN = new Sqlite3Plugin();
-
-    private final static Sqlite3ConversionPlugin CONVERSION_PLUGIN = new Sqlite3ConversionPlugin();
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/Sqlite3.java`
-#### Snippet
-```java
-    private final static Sqlite3Plugin PLUGIN = new Sqlite3Plugin();
-
-    private final static Sqlite3ConversionPlugin CONVERSION_PLUGIN = new Sqlite3ConversionPlugin();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
 in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Giraph.java`
 #### Snippet
 ```java
  */
 public class Giraph {
     private final static GiraphPlugin PLUGIN = new GiraphPlugin();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final static`
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/Java.java`
-#### Snippet
-```java
-    private final static JavaGraphPlugin GRAPH_PLUGIN = new JavaGraphPlugin();
-
-    private final static JavaChannelConversionPlugin CONVERSION_PLUGIN = new JavaChannelConversionPlugin();
 
     /**
 ```
@@ -11151,6 +11089,54 @@ public class Java {
     private final static JavaBasicPlugin PLUGIN = new JavaBasicPlugin();
 
     private final static JavaGraphPlugin GRAPH_PLUGIN = new JavaGraphPlugin();
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/Java.java`
+#### Snippet
+```java
+    private final static JavaGraphPlugin GRAPH_PLUGIN = new JavaGraphPlugin();
+
+    private final static JavaChannelConversionPlugin CONVERSION_PLUGIN = new JavaChannelConversionPlugin();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `wayang-platforms/wayang-graphchi/src/main/java/org/apache/wayang/graphchi/GraphChi.java`
+#### Snippet
+```java
+public class GraphChi {
+
+    private final static GraphChiPlugin PLUGIN = new GraphChiPlugin();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/Sqlite3.java`
+#### Snippet
+```java
+    private final static Sqlite3Plugin PLUGIN = new Sqlite3Plugin();
+
+    private final static Sqlite3ConversionPlugin CONVERSION_PLUGIN = new Sqlite3ConversionPlugin();
+
+    /**
+```
+
+### MissortedModifiers
+Missorted modifiers `final static`
+in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/Sqlite3.java`
+#### Snippet
+```java
+public class Sqlite3 {
+
+    private final static Sqlite3Plugin PLUGIN = new Sqlite3Plugin();
+
+    private final static Sqlite3ConversionPlugin CONVERSION_PLUGIN = new Sqlite3ConversionPlugin();
 ```
 
 ### MissortedModifiers
@@ -11206,9 +11192,9 @@ Missorted modifiers `final private`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/SubplanPattern.java`
 #### Snippet
 ```java
-         * Collects all the matches.
+         * Operators that have been considered to match against this pattern's sink.
          */
-        final private List<SubplanMatch> matches = new LinkedList<>();
+        final private Set<Operator> visitedOutputOperators = new HashSet<>();
 
         /**
 ```
@@ -11218,9 +11204,9 @@ Missorted modifiers `final private`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/SubplanPattern.java`
 #### Snippet
 ```java
-         * Operators that have been considered to match against this pattern's sink.
+         * Collects all the matches.
          */
-        final private Set<Operator> visitedOutputOperators = new HashSet<>();
+        final private List<SubplanMatch> matches = new LinkedList<>();
 
         /**
 ```
@@ -11302,11 +11288,11 @@ Missorted modifiers `final static`
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/Spark.java`
 #### Snippet
 ```java
-public class Spark {
-
     private final static SparkBasicPlugin PLUGIN = new SparkBasicPlugin();
 
     private final static SparkGraphPlugin GRAPH_PLUGIN = new SparkGraphPlugin();
+
+    private final static SparkConversionPlugin CONVERSION_PLUGIN = new SparkConversionPlugin();
 ```
 
 ### MissortedModifiers
@@ -11326,11 +11312,11 @@ Missorted modifiers `final static`
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/Spark.java`
 #### Snippet
 ```java
+public class Spark {
+
     private final static SparkBasicPlugin PLUGIN = new SparkBasicPlugin();
 
     private final static SparkGraphPlugin GRAPH_PLUGIN = new SparkGraphPlugin();
-
-    private final static SparkConversionPlugin CONVERSION_PLUGIN = new SparkConversionPlugin();
 ```
 
 ## RuleId[id=ThrowablePrintedToSystemOut]
@@ -11425,30 +11411,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
-#### Snippet
-```java
-            // First, inspect the size of the file and its line sizes.
-            OptionalLong fileSize = FileSystems.getFileSize(ObjectFileSource.this.inputUrl);
-            if (!fileSize.isPresent()) {
-                ObjectFileSource.this.logger.warn("Could not determine size of {}... deliver fallback estimate.",
-                        ObjectFileSource.this.inputUrl);
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
-#### Snippet
-```java
-
-            OptionalDouble bytesPerLine = this.estimateBytesPerLine();
-            if (!bytesPerLine.isPresent()) {
-                ObjectFileSource.this.logger.warn("Could not determine average line size of {}... deliver fallback estimate.",
-                        ObjectFileSource.this.inputUrl);
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/TextFileSource.java`
 #### Snippet
 ```java
@@ -11473,14 +11435,26 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/FileSystems.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
 #### Snippet
 ```java
-        final Optional<FileSystem> fsOptional = getFileSystem(ostensibleInputFile);
+            // First, inspect the size of the file and its line sizes.
+            OptionalLong fileSize = FileSystems.getFileSize(ObjectFileSource.this.inputUrl);
+            if (!fileSize.isPresent()) {
+                ObjectFileSource.this.logger.warn("Could not determine size of {}... deliver fallback estimate.",
+                        ObjectFileSource.this.inputUrl);
+```
 
-        if (!fsOptional.isPresent()) {
-            LogManager.getLogger(FileSystems.class).warn("Could not inspect input file {}.", ostensibleInputFile);
-            return Collections.singleton(ostensibleInputFile);
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/ObjectFileSource.java`
+#### Snippet
+```java
+
+            OptionalDouble bytesPerLine = this.estimateBytesPerLine();
+            if (!bytesPerLine.isPresent()) {
+                ObjectFileSource.this.logger.warn("Could not determine average line size of {}... deliver fallback estimate.",
+                        ObjectFileSource.this.inputUrl);
 ```
 
 ### SimplifyOptionalCallChains
@@ -11517,6 +11491,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configur
         if (!fileSystem.isPresent()) {
             throw new WayangException(String.format("Could not access %s.", configurationUrl));
         }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/FileSystems.java`
+#### Snippet
+```java
+        final Optional<FileSystem> fsOptional = getFileSystem(ostensibleInputFile);
+
+        if (!fsOptional.isPresent()) {
+            LogManager.getLogger(FileSystems.class).warn("Could not inspect input file {}.", ostensibleInputFile);
+            return Collections.singleton(ostensibleInputFile);
 ```
 
 ### SimplifyOptionalCallChains
@@ -11717,26 +11703,26 @@ baseDirectory = project.model.pomFile.parent
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/platform/Sqlite3Platform.java`
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/channels/SqlQueryChannel.java`
 #### Snippet
 ```java
-    private static final String CONFIG_NAME = "sqlite3";
+    public class Instance extends AbstractChannelInstance {
 
-    private static Sqlite3Platform instance = null;
+        private String sqlQuery = null;
 
-    public static Sqlite3Platform getInstance() {
+        /**
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/model/measurement/TimeMeasurement.java`
+Field initialization to `null` is redundant
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/platform/JdbcPlatformTemplate.java`
 #### Snippet
 ```java
-     * The measured time in milliseconds.
-     */
-    private long millis = 0L;
+    }
 
-    /**
+    private Connection connection = null;
+
+    protected JdbcPlatformTemplate(String platformName, String configName) {
 ```
 
 ### RedundantFieldInitialization
@@ -11768,11 +11754,11 @@ Field initialization to `0` is redundant
 in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRandomSampleOperator.java`
 #### Snippet
 ```java
+
             ((StreamChannel.Instance) outputs[0]).accept(((JavaChannelInstance) inputs[0]).<Type>provideStream().filter(new Predicate<Type>() {
                         int streamIndex = 0;
                         int sampleIndex = 0;
 
-                @Override
 ```
 
 ### RedundantFieldInitialization
@@ -11780,11 +11766,11 @@ Field initialization to `0` is redundant
 in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRandomSampleOperator.java`
 #### Snippet
 ```java
-
             ((StreamChannel.Instance) outputs[0]).accept(((JavaChannelInstance) inputs[0]).<Type>provideStream().filter(new Predicate<Type>() {
                         int streamIndex = 0;
                         int sampleIndex = 0;
 
+                @Override
 ```
 
 ### RedundantFieldInitialization
@@ -11801,74 +11787,26 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
 
 ### RedundantFieldInitialization
 Field initialization to `null` is redundant
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/channels/SqlQueryChannel.java`
+in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/platform/Sqlite3Platform.java`
 #### Snippet
 ```java
-    public class Instance extends AbstractChannelInstance {
+    private static final String CONFIG_NAME = "sqlite3";
 
-        private String sqlQuery = null;
+    private static Sqlite3Platform instance = null;
 
-        /**
+    public static Sqlite3Platform getInstance() {
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/platform/JdbcPlatformTemplate.java`
+Field initialization to `0L` is redundant
+in `wayang-commons/wayang-utils-profile-db/src/main/java/org/apache/wayang/commons/util/profiledb/model/measurement/TimeMeasurement.java`
 #### Snippet
 ```java
-    }
+     * The measured time in milliseconds.
+     */
+    private long millis = 0L;
 
-    private Connection connection = null;
-
-    protected JdbcPlatformTemplate(String platformName, String configName) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-    private Output nextObj = null;
-    private boolean eos = false;
-    private boolean fst = false;
-    private DataInputStream stream = null;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-
-    private Output nextObj = null;
-    private boolean eos = false;
-    private boolean fst = false;
-    private DataInputStream stream = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-    private boolean eos = false;
-    private boolean fst = false;
-    private DataInputStream stream = null;
-
-    public ReaderIterator(DataInputStream stream) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
-#### Snippet
-```java
-public class ReaderIterator <Output> implements Iterator<Output> {
-
-    private Output nextObj = null;
-    private boolean eos = false;
-    private boolean fst = false;
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -11920,18 +11858,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
-#### Snippet
-```java
-     * Flag whether this instance should be instrumented to detect its actual cardinality.
-     */
-    private boolean isMarkedForInstrumentation = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
 Field initialization to `null` is redundant
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
 #### Snippet
@@ -11941,6 +11867,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
     private Callback traversalCallback = null;
 
     private Predicate<OutputSlot<?>> outputFollowPredicate = outputSlot -> true;
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executionplan/Channel.java`
+#### Snippet
+```java
+     * Flag whether this instance should be instrumented to detect its actual cardinality.
+     */
+    private boolean isMarkedForInstrumentation = false;
+
+    /**
 ```
 
 ### RedundantFieldInitialization
@@ -12112,6 +12050,54 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ch
 ```
 
 ### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+
+    private Output nextObj = null;
+    private boolean eos = false;
+    private boolean fst = false;
+    private DataInputStream stream = null;
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+    private boolean eos = false;
+    private boolean fst = false;
+    private DataInputStream stream = null;
+
+    public ReaderIterator(DataInputStream stream) {
+```
+
+### RedundantFieldInitialization
+Field initialization to `false` is redundant
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+    private Output nextObj = null;
+    private boolean eos = false;
+    private boolean fst = false;
+    private DataInputStream stream = null;
+
+```
+
+### RedundantFieldInitialization
+Field initialization to `null` is redundant
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ReaderIterator.java`
+#### Snippet
+```java
+public class ReaderIterator <Output> implements Iterator<Output> {
+
+    private Output nextObj = null;
+    private boolean eos = false;
+    private boolean fst = false;
+```
+
+### RedundantFieldInitialization
 Field initialization to `0d` is redundant
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/Variable.java`
 #### Snippet
@@ -12140,7 +12126,7 @@ Field initialization to `false` is redundant
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
-        private final OutputSlot<?> outputSlot;
+        private final PlanEnumeration[] activationCollector;
 
         protected boolean wasExecuted = false;
 
@@ -12152,7 +12138,7 @@ Field initialization to `false` is redundant
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumerator.java`
 #### Snippet
 ```java
-        private final PlanEnumeration[] activationCollector;
+        private final OutputSlot<?> outputSlot;
 
         protected boolean wasExecuted = false;
 
@@ -12188,18 +12174,6 @@ Field initialization to `null` is redundant
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
 #### Snippet
 ```java
-    public static final String INITIALIZATION_MS_CONFIG_KEY = "wayang.flink.init.ms";
-
-    private static FlinkPlatform instance = null;
-
-    private static final String[] REQUIRED_FLINK_PROPERTIES = {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
-#### Snippet
-```java
      * does not hold a counted reference, so it might be disposed.
      */
     private FlinkContextReference flinkContextReference = null;
@@ -12208,15 +12182,15 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platfor
 ```
 
 ### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
+Field initialization to `null` is redundant
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
 #### Snippet
 ```java
-     * Keeps track of the current iteration number.
-     */
-    private int iterationCounter = 0;
+    public static final String INITIALIZATION_MS_CONFIG_KEY = "wayang.flink.init.ms";
 
-    private int iteration_generate = 0;
+    private static FlinkPlatform instance = null;
+
+    private static final String[] REQUIRED_FLINK_PROPERTIES = {
 ```
 
 ### RedundantFieldInitialization
@@ -12241,6 +12215,18 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operato
     private int iteration_expanded = 0;
 
     int real_iteration;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
+#### Snippet
+```java
+     * Keeps track of the current iteration number.
+     */
+    private int iterationCounter = 0;
+
+    private int iteration_generate = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -12272,6 +12258,18 @@ Field initialization to `0` is redundant
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
 #### Snippet
 ```java
+    private Random rand;
+
+    private int partitionID = 0;
+    private int tupleID = 0;
+    private int nb_partitions = 0;
+```
+
+### RedundantFieldInitialization
+Field initialization to `0` is redundant
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
+#### Snippet
+```java
     private int partitionID = 0;
     private int tupleID = 0;
     private int nb_partitions = 0;
@@ -12289,18 +12287,6 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operato
     private int tupleID = 0;
     private int nb_partitions = 0;
     private List<Integer> partitions;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
-#### Snippet
-```java
-    private Random rand;
-
-    private int partitionID = 0;
-    private int tupleID = 0;
-    private int nb_partitions = 0;
 ```
 
 ### RedundantFieldInitialization
@@ -12354,18 +12340,6 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
 
 ### RedundantImplements
 Redundant interface declaration `Serializable`
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/KeySelectorDistinct.java`
-#### Snippet
-```java
- * Wrapper for {@Link KeySelector}
- */
-public class KeySelectorDistinct<T> implements KeySelector<T, String>, Serializable {
-
-    public String getKey(T value){
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/OutputFormatConsumer.java`
 #### Snippet
 ```java
@@ -12374,6 +12348,18 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 public class OutputFormatConsumer<T> implements OutputFormat<T>, Serializable {
 
     private ConsumerDescriptor.SerializableConsumer<T> tConsumer;
+```
+
+### RedundantImplements
+Redundant interface declaration `Serializable`
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/KeySelectorDistinct.java`
+#### Snippet
+```java
+ * Wrapper for {@Link KeySelector}
+ */
+public class KeySelectorDistinct<T> implements KeySelector<T, String>, Serializable {
+
+    public String getKey(T value){
 ```
 
 ### RedundantImplements
@@ -12743,18 +12729,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
 
 ### ConstantValue
 Condition `execOpOutputsWithContext != null` is always `true`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanImplementation.java`
-#### Snippet
-```java
-                final Tuple<OutputSlot<?>, PlanImplementation> execOpOutputWithCtx =
-                        WayangCollections.getSingleOrNull(execOpOutputsWithContext);
-                assert execOpOutputsWithContext != null : String.format("No outputs found for %s.", output);
-                execOutput = execOpOutputWithCtx.field0;
-                execOutputPlanImplementation = execOpOutputWithCtx.field1;
-```
-
-### ConstantValue
-Condition `execOpOutputsWithContext != null` is always `true`
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
 #### Snippet
 ```java
@@ -12763,6 +12737,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
             assert execOpOutputsWithContext != null && !execOpOutputsWithContext.isEmpty()
                     : String.format("No outputs found for %s.", output);
 
+```
+
+### ConstantValue
+Condition `execOpOutputsWithContext != null` is always `true`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanImplementation.java`
+#### Snippet
+```java
+                final Tuple<OutputSlot<?>, PlanImplementation> execOpOutputWithCtx =
+                        WayangCollections.getSingleOrNull(execOpOutputsWithContext);
+                assert execOpOutputsWithContext != null : String.format("No outputs found for %s.", output);
+                execOutput = execOpOutputWithCtx.field0;
+                execOutputPlanImplementation = execOpOutputWithCtx.field1;
 ```
 
 ### ConstantValue
@@ -12791,18 +12777,6 @@ in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/e
 ```
 
 ### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configuration.java`
-#### Snippet
-```java
-
-    public boolean getBooleanProperty(String key) {
-        return this.getOptionalBooleanProperty(key).get();
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
 `OptionalDouble.getAsDouble()` without 'isPresent()' check
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configuration.java`
 #### Snippet
@@ -12810,6 +12784,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configur
 
     public double getDoubleProperty(String key) {
         return this.getOptionalDoubleProperty(key).getAsDouble();
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Configuration.java`
+#### Snippet
+```java
+
+    public boolean getBooleanProperty(String key) {
+        return this.getOptionalBooleanProperty(key).get();
     }
 
 ```
@@ -13012,6 +12998,42 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/Counter
 
 ## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
+Class `ChannelConversions` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/channels/ChannelConversions.java`
+#### Snippet
+```java
+ * {@link ChannelConversion}s for the {@link GiraphPlatform}.
+ */
+public class ChannelConversions {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Giraph` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Giraph.java`
+#### Snippet
+```java
+ * Register for relevant components of this module.
+ */
+public class Giraph {
+    private final static GiraphPlugin PLUGIN = new GiraphPlugin();
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PageRankParameters` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
+#### Snippet
+```java
+ * Parameters for Basic PageRank implementation.
+ */
+public class PageRankParameters {
+
+    public enum PageRankEnum{
+```
+
+### UtilityClassWithoutPrivateConstructor
 Class `WayangBasics` has only 'static' members, and lacks a 'private' constructor
 in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/WayangBasics.java`
 #### Snippet
@@ -13033,6 +13055,102 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/mapping/Ma
 public class Mappings {
 
     public static Collection<Mapping> BASIC_MAPPINGS = Arrays.asList(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Mappings` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/mappings/Mappings.java`
+#### Snippet
+```java
+ * Register for {@link Mapping}s for this platform.
+ */
+public class Mappings {
+
+    public static final Collection<Mapping> ALL = Collections.singletonList(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `PrintUtils` has only 'static' members, and lacks a 'private' constructor
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
+#### Snippet
+```java
+import java.util.Collection;
+
+public class PrintUtils {
+
+    public static void print(String header, WayangPlan plan) {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `SchemaUtils` has only 'static' members, and lacks a 'private' constructor
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/schema/SchemaUtils.java`
+#### Snippet
+```java
+ * TODO: Automatically create calcite schema based on user provided configurations of table sources
+ */
+public class SchemaUtils {
+
+    private static Properties getPostgresProperties() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `CsvRowConverter` has only 'static' members, and lacks a 'private' constructor
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/CsvRowConverter.java`
+#### Snippet
+```java
+ *
+ */
+public class CsvRowConverter {
+
+
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Java` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/Java.java`
+#### Snippet
+```java
+ * Register for relevant components of this module.
+ */
+public class Java {
+
+    private final static JavaBasicPlugin PLUGIN = new JavaBasicPlugin();
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ConfigProperties` has only 'static' members, and lacks a 'private' constructor
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/optimizer/Optimizer.java`
+#### Snippet
+```java
+
+
+    public static class ConfigProperties {
+
+        public static Properties getDefaults() {
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Mappings` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/mapping/Mappings.java`
+#### Snippet
+```java
+ * Register for {@link Mapping}s for this platform.
+ */
+public class Mappings {
+
+    public static Collection<Mapping> BASIC_MAPPINGS = Arrays.asList(
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `ChannelConversions` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/channels/ChannelConversions.java`
+#### Snippet
+```java
+ * {@link ChannelConversion}s for the {@link JavaPlatform}.
+ */
+public class ChannelConversions {
+
+    public static final ChannelConversion STREAM_TO_COLLECTION = new DefaultChannelConversion(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -13084,18 +13202,6 @@ public class Sqlite3 {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Mappings` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/mapping/Mappings.java`
-#### Snippet
-```java
- * Register for the {@link Mapping}s supported for this platform.
- */
-public class Mappings {
-
-    public static final Collection<Mapping> ALL = Arrays.asList(
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `ChannelConversions` has only 'static' members, and lacks a 'private' constructor
 in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/channels/ChannelConversions.java`
 #### Snippet
@@ -13108,135 +13214,15 @@ public class ChannelConversions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `PrintUtils` has only 'static' members, and lacks a 'private' constructor
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
-#### Snippet
-```java
-import java.util.Collection;
-
-public class PrintUtils {
-
-    public static void print(String header, WayangPlan plan) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SchemaUtils` has only 'static' members, and lacks a 'private' constructor
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/schema/SchemaUtils.java`
-#### Snippet
-```java
- * TODO: Automatically create calcite schema based on user provided configurations of table sources
- */
-public class SchemaUtils {
-
-    private static Properties getPostgresProperties() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CsvRowConverter` has only 'static' members, and lacks a 'private' constructor
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/CsvRowConverter.java`
-#### Snippet
-```java
- *
- */
-public class CsvRowConverter {
-
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigProperties` has only 'static' members, and lacks a 'private' constructor
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/optimizer/Optimizer.java`
-#### Snippet
-```java
-
-
-    public static class ConfigProperties {
-
-        public static Properties getDefaults() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ChannelConversions` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/channels/ChannelConversions.java`
-#### Snippet
-```java
- * {@link ChannelConversion}s for the {@link GiraphPlatform}.
- */
-public class ChannelConversions {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Mappings` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/mappings/Mappings.java`
+in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/mapping/Mappings.java`
 #### Snippet
 ```java
- * Register for {@link Mapping}s for this platform.
+ * Register for the {@link Mapping}s supported for this platform.
  */
 public class Mappings {
 
-    public static final Collection<Mapping> ALL = Collections.singletonList(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Giraph` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Giraph.java`
-#### Snippet
-```java
- * Register for relevant components of this module.
- */
-public class Giraph {
-    private final static GiraphPlugin PLUGIN = new GiraphPlugin();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PageRankParameters` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
-#### Snippet
-```java
- * Parameters for Basic PageRank implementation.
- */
-public class PageRankParameters {
-
-    public enum PageRankEnum{
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Java` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/Java.java`
-#### Snippet
-```java
- * Register for relevant components of this module.
- */
-public class Java {
-
-    private final static JavaBasicPlugin PLUGIN = new JavaBasicPlugin();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Mappings` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/mapping/Mappings.java`
-#### Snippet
-```java
- * Register for {@link Mapping}s for this platform.
- */
-public class Mappings {
-
-    public static Collection<Mapping> BASIC_MAPPINGS = Arrays.asList(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ChannelConversions` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/channels/ChannelConversions.java`
-#### Snippet
-```java
- * {@link ChannelConversion}s for the {@link JavaPlatform}.
- */
-public class ChannelConversions {
-
-    public static final ChannelConversion STREAM_TO_COLLECTION = new DefaultChannelConversion(
+    public static final Collection<Mapping> ALL = Arrays.asList(
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -13468,18 +13454,6 @@ public class Main {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Main` has only 'static' members, and lacks a 'private' constructor
-in `wayang-benchmark/code/main/java/org/apache/wayang/apps/wordcount/Main.java`
-#### Snippet
-```java
- * Example Apache Wayang (incubating) App that does a word count -- the Hello World of Map/Reduce-like systems.
- */
-public class Main {
-
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `Mappings` has only 'static' members, and lacks a 'private' constructor
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/mapping/Mappings.java`
 #### Snippet
@@ -13499,6 +13473,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/IEJoin.
  * Provides {@link Plugin}s that enable usage of the {@link IEJoinOperator} and the {@link IESelfJoinOperator}.
  */
 public class IEJoin {
+
+    /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Main` has only 'static' members, and lacks a 'private' constructor
+in `wayang-benchmark/code/main/java/org/apache/wayang/apps/wordcount/Main.java`
+#### Snippet
+```java
+ * Example Apache Wayang (incubating) App that does a word count -- the Hello World of Map/Reduce-like systems.
+ */
+public class Main {
 
     /**
 ```
@@ -13576,18 +13562,6 @@ public class ChannelConversions {
 ```
 
 ### UtilityClassWithoutPrivateConstructor
-Class `Spark` has only 'static' members, and lacks a 'private' constructor
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/Spark.java`
-#### Snippet
-```java
- * Register for relevant components of this module.
- */
-public class Spark {
-
-    private final static SparkBasicPlugin PLUGIN = new SparkBasicPlugin();
-```
-
-### UtilityClassWithoutPrivateConstructor
 Class `OperatorProfilers` has only 'static' members, and lacks a 'private' constructor
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/OperatorProfilers.java`
 #### Snippet
@@ -13597,6 +13571,18 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/OperatorProf
 public class OperatorProfilers {
 
     /**
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `Spark` has only 'static' members, and lacks a 'private' constructor
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/Spark.java`
+#### Snippet
+```java
+ * Register for relevant components of this module.
+ */
+public class Spark {
+
+    private final static SparkBasicPlugin PLUGIN = new SparkBasicPlugin();
 ```
 
 ### UtilityClassWithoutPrivateConstructor
@@ -13624,6 +13610,18 @@ public class ChannelConversions {
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Unboxing of `stack_iteration.peek()` may produce `NullPointerException`
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
+#### Snippet
+```java
+        switch (name){
+            case ITERATION:
+                return stack_iteration.peek();
+            default:
+                throw new WayangException("Parameter for PageRank not exist");
+```
+
 ### DataFlowIssue
 Method invocation `at` may produce `NullPointerException`
 in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/mapping/PageRankMapping.java`
@@ -13665,18 +13663,6 @@ Argument `rexLiteral.getValueAs(o.getClass())` might be null
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/converter/WayangFilterVisitor.java`
 #### Snippet
 ```java
-        private boolean isGreaterThan(Object o, RexLiteral rexLiteral) {
-//            return rexLiteral.getValue().compareTo(o)< 0;
-            return ((Comparable)o).compareTo(rexLiteral.getValueAs(o.getClass())) > 0;
-
-        }
-```
-
-### DataFlowIssue
-Argument `rexLiteral.getValueAs(o.getClass())` might be null
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/converter/WayangFilterVisitor.java`
-#### Snippet
-```java
 
         private boolean isLessThan(Object o, RexLiteral rexLiteral) {
             return ((Comparable)o).compareTo(rexLiteral.getValueAs(o.getClass())) < 0;
@@ -13689,23 +13675,23 @@ Argument `rexLiteral.getValueAs(o.getClass())` might be null
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/converter/WayangFilterVisitor.java`
 #### Snippet
 ```java
+        private boolean isGreaterThan(Object o, RexLiteral rexLiteral) {
+//            return rexLiteral.getValue().compareTo(o)< 0;
+            return ((Comparable)o).compareTo(rexLiteral.getValueAs(o.getClass())) > 0;
+
+        }
+```
+
+### DataFlowIssue
+Argument `rexLiteral.getValueAs(o.getClass())` might be null
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/converter/WayangFilterVisitor.java`
+#### Snippet
+```java
         private boolean isEqualTo(Object o, RexLiteral rexLiteral) {
             try {
                 return ((Comparable)o).compareTo(rexLiteral.getValueAs(o.getClass())) == 0;
             } catch (Exception e) {
                 throw new IllegalStateException("Predicate not supported yet");
-```
-
-### DataFlowIssue
-Unboxing of `stack_iteration.peek()` may produce `NullPointerException`
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
-#### Snippet
-```java
-        switch (name){
-            case ITERATION:
-                return stack_iteration.peek();
-            default:
-                throw new WayangException("Parameter for PageRank not exist");
 ```
 
 ### DataFlowIssue
@@ -13757,6 +13743,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/ca
 ```
 
 ### DataFlowIssue
+Method invocation `getField0` may produce `NullPointerException`
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
+#### Snippet
+```java
+
+            basePlanGroups.putSingle(
+                    execOpOutputWithCtx.getField0(),
+                    new Tuple<>(basePlanImplementation, execOpOutputWithCtx.getField1())
+            );
+```
+
+### DataFlowIssue
 Argument `value` might be null
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanImplementation.java`
 #### Snippet
@@ -13778,18 +13776,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/en
                 execOutput = execOpOutputWithCtx.field0;
                 execOutputPlanImplementation = execOpOutputWithCtx.field1;
             }
-```
-
-### DataFlowIssue
-Method invocation `getField0` may produce `NullPointerException`
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/optimizer/enumeration/PlanEnumeration.java`
-#### Snippet
-```java
-
-            basePlanGroups.putSingle(
-                    execOpOutputWithCtx.getField0(),
-                    new Tuple<>(basePlanImplementation, execOpOutputWithCtx.getField1())
-            );
 ```
 
 ### DataFlowIssue
@@ -13954,11 +13940,11 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operato
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/data/Data.java`
 #### Snippet
 ```java
-     *
-     */
-    private static final long serialVersionUID = 2808795863775557984L;
-    long rowID;
-    Type0 value;
+            implements Serializable, java.util.Comparator<Data<Type0, Type1>> {
+
+        private static final long serialVersionUID = 1L;
+
+        boolean asc1;
 ```
 
 ### MissingSerialAnnotation
@@ -13966,11 +13952,11 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/data/Da
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/data/Data.java`
 #### Snippet
 ```java
-            implements Serializable, java.util.Comparator<Data<Type0, Type1>> {
-
-        private static final long serialVersionUID = 1L;
-
-        boolean asc1;
+     *
+     */
+    private static final long serialVersionUID = 2808795863775557984L;
+    long rowID;
+    Type0 value;
 ```
 
 ### MissingSerialAnnotation
@@ -14023,18 +14009,6 @@ public class revDataComparator implements Serializable, Comparator<Data> {
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/BitSetJoin.java`
-#### Snippet
-```java
-     *
-     */
-    private static final long serialVersionUID = 2953731260972596253L;
-
-    boolean list1ASC;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
 #### Snippet
 ```java
@@ -14043,6 +14017,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
     private static final long serialVersionUID = 3834945091845558509L;
     org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot;
     org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/BitSetJoin.java`
+#### Snippet
+```java
+     *
+     */
+    private static final long serialVersionUID = 2953731260972596253L;
+
+    boolean list1ASC;
 ```
 
 ### MissingSerialAnnotation
@@ -14108,18 +14094,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangp
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setLoadEstimators' is still used
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/FunctionDescriptor.java`
-#### Snippet
-```java
-     * @deprecated Use {@link #setLoadProfileEstimator(LoadProfileEstimator)} instead.
-     */
-    public void setLoadEstimators(LoadEstimator cpuEstimator, LoadEstimator ramEstimator) {
-        this.setLoadProfileEstimator(new NestableLoadProfileEstimator(
-                cpuEstimator,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'replace' is still used
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/PlanTransformation.java`
 #### Snippet
@@ -14129,6 +14103,18 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/Plan
     private void replace(WayangPlan plan, SubplanMatch match, Operator replacement) {
         // Disconnect the original input operator and insert the replacement input operator.
         final Operator originalInputOperator = match.getInputMatch().getOperator();
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setLoadEstimators' is still used
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/FunctionDescriptor.java`
+#### Snippet
+```java
+     * @deprecated Use {@link #setLoadProfileEstimator(LoadProfileEstimator)} instead.
+     */
+    public void setLoadEstimators(LoadEstimator cpuEstimator, LoadEstimator ramEstimator) {
+        this.setLoadProfileEstimator(new NestableLoadProfileEstimator(
+                cpuEstimator,
 ```
 
 ### DeprecatedIsStillUsed
@@ -14197,11 +14183,11 @@ Lambda can be replaced with method reference
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
 #### Snippet
 ```java
-                .map(outputSlot -> ((OutputSlot<Object>) outputSlot).getOccupiedSlots())
-                .flatMap(Collection::stream)
-                .filter(inputSlot -> inputSlot != null)
-                .filter(this.inputFollowDownstreamPredicate)
-                .forEach(inputSlot -> this.traverse(inputSlot.getOwner(), inputSlot, null));
+                .filter(this.inputFollowPredicate)
+                .map(InputSlot::getOccupant)
+                .filter(outputSlot -> outputSlot != null)
+                .forEach(outputSlot -> this.traverse(outputSlot.getOwner(), null, outputSlot));
+    }
 ```
 
 ### Convert2MethodRef
@@ -14209,11 +14195,11 @@ Lambda can be replaced with method reference
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/wayangplan/PlanTraversal.java`
 #### Snippet
 ```java
-                .filter(this.inputFollowPredicate)
-                .map(InputSlot::getOccupant)
-                .filter(outputSlot -> outputSlot != null)
-                .forEach(outputSlot -> this.traverse(outputSlot.getOwner(), null, outputSlot));
-    }
+                .map(outputSlot -> ((OutputSlot<Object>) outputSlot).getOccupiedSlots())
+                .flatMap(Collection::stream)
+                .filter(inputSlot -> inputSlot != null)
+                .filter(this.inputFollowDownstreamPredicate)
+                .forEach(inputSlot -> this.traverse(inputSlot.getOwner(), inputSlot, null));
 ```
 
 ### Convert2MethodRef
@@ -14314,30 +14300,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
-#### Snippet
-```java
-                ReflectionUtils::getDeclaringJar
-        ).filter(
-                element -> element != null
-        ).forEach(jars::add);
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
-#### Snippet
-```java
-            this.logger.warn("Non-local FlinkContext but not UDF JARs have been declared.");
-        } else {
-            udfJarPaths.stream().filter(a -> a != null).forEach(jars::add);
-        }
-
-```
-
-### Convert2MethodRef
-Lambda can be replaced with method reference
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/SparkIEJoinOperator.java`
 #### Snippet
 ```java
@@ -14410,13 +14372,25 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 
 ### Convert2MethodRef
 Lambda can be replaced with method reference
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
 #### Snippet
 ```java
+                ReflectionUtils::getDeclaringJar
+        ).filter(
+                element -> element != null
+        ).forEach(jars::add);
 
-    public <T> FilterFunction<T> compile(PredicateDescriptor.SerializablePredicate<T> predicateDescriptor) {
-        return t -> predicateDescriptor.test(t);
-    }
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/platform/FlinkPlatform.java`
+#### Snippet
+```java
+            this.logger.warn("Non-local FlinkContext but not UDF JARs have been declared.");
+        } else {
+            udfJarPaths.stream().filter(a -> a != null).forEach(jars::add);
+        }
 
 ```
 
@@ -14430,6 +14404,18 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
                             collector.collect(element);
                         }
                 );
+```
+
+### Convert2MethodRef
+Lambda can be replaced with method reference
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+#### Snippet
+```java
+
+    public <T> FilterFunction<T> compile(PredicateDescriptor.SerializablePredicate<T> predicateDescriptor) {
+        return t -> predicateDescriptor.test(t);
+    }
+
 ```
 
 ### Convert2MethodRef
@@ -14701,18 +14687,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 ```
 
 ### NonSerializableFieldInSerializableClass
-Non-serializable field 'iterativeDataSet' in a Serializable class
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
-#### Snippet
-```java
-    }
-
-    private IterativeDataSet<Type> iterativeDataSet;
-
-    private DataSetChannel.Instance previous;
-```
-
-### NonSerializableFieldInSerializableClass
 Non-serializable field 'previous' in a Serializable class
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
 #### Snippet
@@ -14722,6 +14696,18 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operato
     private DataSetChannel.Instance previous;
 
 
+```
+
+### NonSerializableFieldInSerializableClass
+Non-serializable field 'iterativeDataSet' in a Serializable class
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkRepeatExpandedOperator.java`
+#### Snippet
+```java
+    }
+
+    private IterativeDataSet<Type> iterativeDataSet;
+
+    private DataSetChannel.Instance previous;
 ```
 
 ### NonSerializableFieldInSerializableClass
@@ -14763,18 +14749,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operato
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
-#### Snippet
-```java
-            dataOut.writeInt(bytes.length);
-            dataOut.write(bytes);
-        } catch (SocketException e){
-
-        } catch (IOException e) {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/mathex/model/NamedFunction.java`
 #### Snippet
 ```java
@@ -14785,17 +14759,65 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/mathex/
         }
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
+            dataOut.writeInt(bytes.length);
+            dataOut.write(bytes);
+        } catch (SocketException e){
+
+        } catch (IOException e) {
+```
+
 ## RuleId[id=EnhancedSwitchMigration]
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/RepeatOperator.java`
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
 #### Snippet
 ```java
-    public boolean isReading(InputSlot<?> input) {
-        assert this.isOwnerOf(input);
-        switch (input.getIndex()) {
-            case INITIAL_INPUT_INDEX:
-            case ITERATION_INPUT_INDEX:
+
+    public static int getParameter(PageRankEnum name){
+        switch (name){
+            case ITERATION:
+                return stack_iteration.peek();
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
+#### Snippet
+```java
+
+    public static void setParameter(PageRankEnum name, Integer value){
+        switch (name){
+            case ITERATION:
+                stack_iteration.add(value);
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
+#### Snippet
+```java
+
+    public static boolean hasElement(PageRankEnum name){
+        switch (name){
+            case ITERATION:
+                return !stack_iteration.isEmpty();
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/PageRankOperator.java`
+#### Snippet
+```java
+    @Override
+    public Optional<CardinalityEstimator> createCardinalityEstimator(int outputIndex, Configuration configuration) {
+        switch (outputIndex) {
+            case 0:
+                return Optional.of((optimizationContext, inputEstimates) -> {
 ```
 
 ### EnhancedSwitchMigration
@@ -14824,14 +14846,14 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/PageRankOperator.java`
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/RepeatOperator.java`
 #### Snippet
 ```java
-    @Override
-    public Optional<CardinalityEstimator> createCardinalityEstimator(int outputIndex, Configuration configuration) {
-        switch (outputIndex) {
-            case 0:
-                return Optional.of((optimizationContext, inputEstimates) -> {
+    public boolean isReading(InputSlot<?> input) {
+        assert this.isOwnerOf(input);
+        switch (input.getIndex()) {
+            case INITIAL_INPUT_INDEX:
+            case ITERATION_INPUT_INDEX:
 ```
 
 ### EnhancedSwitchMigration
@@ -14872,18 +14894,6 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/co
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/CsvRowConverter.java`
-#### Snippet
-```java
-            return string;
-        }
-        switch (fieldType.getSqlTypeName()) {
-            case BOOLEAN:
-                if (string.length() == 0) {
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jdbc/JdbcSchema.java`
 #### Snippet
 ```java
@@ -14908,38 +14918,14 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/jd
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
+in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/sources/fs/CsvRowConverter.java`
 #### Snippet
 ```java
-
-    public static int getParameter(PageRankEnum name){
-        switch (name){
-            case ITERATION:
-                return stack_iteration.peek();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
-#### Snippet
-```java
-
-    public static boolean hasElement(PageRankEnum name){
-        switch (name){
-            case ITERATION:
-                return !stack_iteration.isEmpty();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/Algorithm/PageRankParameters.java`
-#### Snippet
-```java
-
-    public static void setParameter(PageRankEnum name, Integer value){
-        switch (name){
-            case ITERATION:
-                stack_iteration.add(value);
+            return string;
+        }
+        switch (fieldType.getSqlTypeName()) {
+            case BOOLEAN:
+                if (string.length() == 0) {
 ```
 
 ### EnhancedSwitchMigration
@@ -14952,6 +14938,66 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/mapping/Sa
                     switch (matchedOperator.getSampleMethod()) {
                         case ANY:
                         case RANDOM:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
+#### Snippet
+```java
+    @Override
+    public Optional<CardinalityEstimator> createCardinalityEstimator(int outputIndex, Configuration configuration) {
+        switch (outputIndex) {
+            case ITERATION_OUTPUT_INDEX:
+            case FINAL_OUTPUT_INDEX:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
+#### Snippet
+```java
+    public Collection<OutputSlot<?>> getForwards(InputSlot<?> input) {
+        assert this.isOwnerOf(input);
+        switch (input.getIndex()) {
+            case INITIAL_INPUT_INDEX:
+            case ITERATION_INPUT_INDEX:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
+#### Snippet
+```java
+    public boolean isReading(InputSlot<?> input) {
+        assert this.isOwnerOf(input);
+        switch (input.getIndex()) {
+            case CONVERGENCE_INPUT_INDEX:
+            case INITIAL_INPUT_INDEX:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRepeatOperator.java`
+#### Snippet
+```java
+    public List<ChannelDescriptor> getSupportedInputChannels(int index) {
+        assert index <= this.getNumInputs() || (index == 0 && this.getNumInputs() == 0);
+        switch (index) {
+            case INITIAL_INPUT_INDEX:
+            case ITERATION_INPUT_INDEX:
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRepeatOperator.java`
+#### Snippet
+```java
+
+        final JavaChannelInstance input;
+        switch (this.getState()) {
+            case NOT_STARTED:
+                assert inputs[INITIAL_INPUT_INDEX] != null;
 ```
 
 ### EnhancedSwitchMigration
@@ -14992,46 +15038,10 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaDoWhileOperator.java`
 #### Snippet
 ```java
-    @Override
-    public Optional<CardinalityEstimator> createCardinalityEstimator(int outputIndex, Configuration configuration) {
-        switch (outputIndex) {
-            case ITERATION_OUTPUT_INDEX:
-            case FINAL_OUTPUT_INDEX:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
-#### Snippet
-```java
-    public boolean isReading(InputSlot<?> input) {
-        assert this.isOwnerOf(input);
-        switch (input.getIndex()) {
-            case CONVERGENCE_INPUT_INDEX:
-            case INITIAL_INPUT_INDEX:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/DoWhileOperator.java`
-#### Snippet
-```java
-    public Collection<OutputSlot<?>> getForwards(InputSlot<?> input) {
-        assert this.isOwnerOf(input);
-        switch (input.getIndex()) {
-            case INITIAL_INPUT_INDEX:
-            case ITERATION_INPUT_INDEX:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRepeatOperator.java`
-#### Snippet
-```java
-
+        final Collection<ConvergenceType> convergenceCollection;
         final JavaChannelInstance input;
         switch (this.getState()) {
             case NOT_STARTED:
@@ -15040,7 +15050,7 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaRepeatOperator.java`
+in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaDoWhileOperator.java`
 #### Snippet
 ```java
     public List<ChannelDescriptor> getSupportedInputChannels(int index) {
@@ -15055,11 +15065,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaLoopOperator.java`
 #### Snippet
 ```java
-    public List<ChannelDescriptor> getSupportedInputChannels(int index) {
-        assert index <= this.getNumInputs() || (index == 0 && this.getNumInputs() == 0);
-        switch (index) {
-            case INITIAL_INPUT_INDEX:
-            case ITERATION_INPUT_INDEX:
+        final Collection<ConvergenceType> convergenceCollection;
+        final JavaChannelInstance input;
+        switch (this.getState()) {
+            case NOT_STARTED:
+                assert inputs[INITIAL_INPUT_INDEX] != null;
 ```
 
 ### EnhancedSwitchMigration
@@ -15079,35 +15089,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaLoopOperator.java`
 #### Snippet
 ```java
-        final Collection<ConvergenceType> convergenceCollection;
-        final JavaChannelInstance input;
-        switch (this.getState()) {
-            case NOT_STARTED:
-                assert inputs[INITIAL_INPUT_INDEX] != null;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaDoWhileOperator.java`
-#### Snippet
-```java
     public List<ChannelDescriptor> getSupportedInputChannels(int index) {
         assert index <= this.getNumInputs() || (index == 0 && this.getNumInputs() == 0);
         switch (index) {
             case INITIAL_INPUT_INDEX:
             case ITERATION_INPUT_INDEX:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/operators/JavaDoWhileOperator.java`
-#### Snippet
-```java
-        final Collection<ConvergenceType> convergenceCollection;
-        final JavaChannelInstance input;
-        switch (this.getState()) {
-            case NOT_STARTED:
-                assert inputs[INITIAL_INPUT_INDEX] != null;
 ```
 
 ### EnhancedSwitchMigration
@@ -15163,6 +15149,18 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
 #### Snippet
 ```java
+        }
+        Predicate<PartialExecution> predicate;
+        switch (commandLine[1]) {
+            case "clear":
+                this.filters.clear();
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
+#### Snippet
+```java
         while ((input = commandLine.readLine()) != null) {
             final String[] tokens = input.split("\\s+");
             switch (tokens[0]) {
@@ -15180,18 +15178,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.j
         switch (commandLine[1]) {
             case "clear":
                 this.sortCriterion = null;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/log/LogEvaluator.java`
-#### Snippet
-```java
-        }
-        Predicate<PartialExecution> predicate;
-        switch (commandLine[1]) {
-            case "clear":
-                this.filters.clear();
 ```
 
 ### EnhancedSwitchMigration
@@ -15232,18 +15218,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/Main.java`
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
-#### Snippet
-```java
-        List<OperatorProfiler.Result> results;
-
-        switch (operator) {
-            case "textsource":
-                results = profile(OperatorProfilers.createJavaTextFileSourceProfiler(), cardinalities);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
 in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/BinaryOperatorProfiler.java`
 #### Snippet
 ```java
@@ -15256,14 +15230,14 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/BinaryOperat
 
 ### EnhancedSwitchMigration
 Switch statement can be replaced with enhanced 'switch'
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/SparkOperatorProfiler.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/java/Profiler.java`
 #### Snippet
 ```java
-     */
-    protected <T> JavaRDD<T> prepareInputRdd(long cardinality, int inputIndex) {
-        switch (this.dataQuantumGeneratorLocation) {
-            case "worker":
-                return this.prepareInputRddInWorker(cardinality, inputIndex);
+        List<OperatorProfiler.Result> results;
+
+        switch (operator) {
+            case "textsource":
+                results = profile(OperatorProfilers.createJavaTextFileSourceProfiler(), cardinalities);
 ```
 
 ### EnhancedSwitchMigration
@@ -15276,6 +15250,18 @@ in `wayang-benchmark/code/main/java/org/apache/wayang/apps/grep/Grep.java`
     switch (platform){
       case "so":
         Runtime.getRuntime().exec(
+```
+
+### EnhancedSwitchMigration
+Switch statement can be replaced with enhanced 'switch'
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/spark/SparkOperatorProfiler.java`
+#### Snippet
+```java
+     */
+    protected <T> JavaRDD<T> prepareInputRdd(long cardinality, int inputIndex) {
+        switch (this.dataQuantumGeneratorLocation) {
+            case "worker":
+                return this.prepareInputRddInWorker(cardinality, inputIndex);
 ```
 
 ### EnhancedSwitchMigration
@@ -15463,11 +15449,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkLoopOperator.java`
 #### Snippet
 ```java
-        assert outputs.length == this.getNumOutputs();
-
-        switch (this.getState()) {
-            case NOT_STARTED:
-                DataSet<InputType> input_initial = ((DataSetChannel.Instance) inputs[INITIAL_INPUT_INDEX]).provideDataSet();
+    public List<ChannelDescriptor> getSupportedInputChannels(int index) {
+        assert index <= this.getNumInputs() || (index == 0 && this.getNumInputs() == 0);
+        switch (index) {
+            case INITIAL_INPUT_INDEX:
+            case ITERATION_INPUT_INDEX:
 ```
 
 ### EnhancedSwitchMigration
@@ -15475,11 +15461,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkLoopOperator.java`
 #### Snippet
 ```java
-    public List<ChannelDescriptor> getSupportedInputChannels(int index) {
-        assert index <= this.getNumInputs() || (index == 0 && this.getNumInputs() == 0);
-        switch (index) {
-            case INITIAL_INPUT_INDEX:
-            case ITERATION_INPUT_INDEX:
+        assert outputs.length == this.getNumOutputs();
+
+        switch (this.getState()) {
+            case NOT_STARTED:
+                DataSet<InputType> input_initial = ((DataSetChannel.Instance) inputs[INITIAL_INPUT_INDEX]).provideDataSet();
 ```
 
 ### EnhancedSwitchMigration
@@ -15511,11 +15497,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkLoopOperator.java`
 #### Snippet
 ```java
-    public List<ChannelDescriptor> getSupportedOutputChannels(int index) {
-        assert index <= this.getNumOutputs() || (index == 0 && this.getNumOutputs() == 0);
-        switch (index) {
-            case ITERATION_OUTPUT_INDEX:
-            case FINAL_OUTPUT_INDEX:
+        final Collection<ConvergenceType> convergenceCollection;
+        final RddChannel.Instance input;
+        switch (this.getState()) {
+            case NOT_STARTED:
+                assert inputs[INITIAL_INPUT_INDEX] != null;
 ```
 
 ### EnhancedSwitchMigration
@@ -15535,11 +15521,11 @@ Switch statement can be replaced with enhanced 'switch'
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkLoopOperator.java`
 #### Snippet
 ```java
-        final Collection<ConvergenceType> convergenceCollection;
-        final RddChannel.Instance input;
-        switch (this.getState()) {
-            case NOT_STARTED:
-                assert inputs[INITIAL_INPUT_INDEX] != null;
+    public List<ChannelDescriptor> getSupportedOutputChannels(int index) {
+        assert index <= this.getNumOutputs() || (index == 0 && this.getNumOutputs() == 0);
+        switch (index) {
+            case ITERATION_OUTPUT_INDEX:
+            case FINAL_OUTPUT_INDEX:
 ```
 
 ### EnhancedSwitchMigration
@@ -15618,6 +15604,18 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/execution/JdbcExecutor.java`
+#### Snippet
+```java
+
+            } else {
+                throw new WayangException(String.format("Unsupported JDBC execution task %s", nextTask.toString()));
+            }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/utils/PrintUtils.java`
 #### Snippet
 ```java
@@ -15640,16 +15638,17 @@ in `wayang-api/wayang-api-sql/src/main/java/org/apache/wayang/api/sql/calcite/ut
 
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `wayang-platforms/wayang-jdbc-template/src/main/java/org/apache/wayang/jdbc/execution/JdbcExecutor.java`
+## RuleId[id=Java9CollectionFactory]
+### Java9CollectionFactory
+Can be replaced with 'List.of()' call
+in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/function/ProjectionDescriptor.java`
 #### Snippet
 ```java
-
-            } else {
-                throw new WayangException(String.format("Unsupported JDBC execution task %s", nextTask.toString()));
-            }
-
+    public ProjectionDescriptor(BasicDataUnitType<Input> inputType, BasicDataUnitType<Output> outputType, String... fieldNames) {
+        this(createPojoJavaImplementation(fieldNames, inputType),
+                Collections.unmodifiableList(Arrays.asList(fieldNames)),
+                inputType,
+                outputType);
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -15699,19 +15698,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/platform/Pus
     private class TaskActivator {
 
         private final ExecutionTask task;
-```
-
-## RuleId[id=Java9CollectionFactory]
-### Java9CollectionFactory
-Can be replaced with 'List.of()' call
-in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/function/ProjectionDescriptor.java`
-#### Snippet
-```java
-    public ProjectionDescriptor(BasicDataUnitType<Input> inputType, BasicDataUnitType<Output> outputType, String... fieldNames) {
-        this(createPojoJavaImplementation(fieldNames, inputType),
-                Collections.unmodifiableList(Arrays.asList(fieldNames)),
-                inputType,
-                outputType);
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
@@ -15936,18 +15922,6 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/plan/executi
 
 ### MissingDeprecatedAnnotation
 Missing '@Deprecated' annotation
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/FunctionDescriptor.java`
-#### Snippet
-```java
-     * @deprecated Use {@link #setLoadProfileEstimator(LoadProfileEstimator)} instead.
-     */
-    public void setLoadEstimators(LoadEstimator cpuEstimator, LoadEstimator ramEstimator) {
-        this.setLoadProfileEstimator(new NestableLoadProfileEstimator(
-                cpuEstimator,
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
 in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/PlanTransformation.java`
 #### Snippet
 ```java
@@ -15958,7 +15932,31 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/mapping/Plan
         final Operator originalInputOperator = match.getInputMatch().getOperator();
 ```
 
+### MissingDeprecatedAnnotation
+Missing '@Deprecated' annotation
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/function/FunctionDescriptor.java`
+#### Snippet
+```java
+     * @deprecated Use {@link #setLoadProfileEstimator(LoadProfileEstimator)} instead.
+     */
+    public void setLoadEstimators(LoadEstimator cpuEstimator, LoadEstimator ramEstimator) {
+        this.setLoadProfileEstimator(new NestableLoadProfileEstimator(
+                cpuEstimator,
+```
+
 ## RuleId[id=UnnecessaryFullyQualifiedName]
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.wayang.core.util.fs` is unnecessary, and can be replaced with an import
+in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/operators/GiraphPageRankOperator.java`
+#### Snippet
+```java
+
+    private Stream<Tuple2<Long, Float>> createStream(String path) {
+        return org.apache.wayang.core.util.fs.FileUtils.streamLines(path).map(line -> {
+            String[] part = line.split("\t");
+            return new Tuple2<>(Long.parseLong(part[0]), Float.parseFloat(part[1]));
+```
+
 ### UnnecessaryFullyQualifiedName
 Qualifier `java.util` is unnecessary and can be removed
 in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/CollectionSource.java`
@@ -15969,18 +15967,6 @@ in `wayang-commons/wayang-basic/src/main/java/org/apache/wayang/basic/operators/
  * This source takes as input a Java {@link java.util.Collection}.
  */
 public class CollectionSource<T> extends UnarySource<T> implements ElementaryOperator {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.sqlite` is unnecessary, and can be replaced with an import
-in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/platform/Sqlite3Platform.java`
-#### Snippet
-```java
-    @Override
-    public String getJdbcDriverClassName() {
-        return org.sqlite.JDBC.class.getName();
-    }
-
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -15996,15 +15982,15 @@ in `wayang-platforms/wayang-java/src/main/java/org/apache/wayang/java/mapping/Te
 ```
 
 ### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.wayang.core.util.fs` is unnecessary, and can be replaced with an import
-in `wayang-platforms/wayang-giraph/src/main/java/org/apache/wayang/giraph/operators/GiraphPageRankOperator.java`
+Qualifier `org.sqlite` is unnecessary, and can be replaced with an import
+in `wayang-platforms/wayang-sqlite3/src/main/java/org/apache/wayang/sqlite3/platform/Sqlite3Platform.java`
 #### Snippet
 ```java
+    @Override
+    public String getJdbcDriverClassName() {
+        return org.sqlite.JDBC.class.getName();
+    }
 
-    private Stream<Tuple2<Long, Float>> createStream(String path) {
-        return org.apache.wayang.core.util.fs.FileUtils.streamLines(path).map(line -> {
-            String[] part = line.split("\t");
-            return new Tuple2<>(Long.parseLong(part[0]), Float.parseFloat(part[1]));
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16096,11 +16082,11 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/myMergeSort.java`
 #### Snippet
 ```java
-
-    private void swap(ArrayList<Tuple2<Data<Type0, Type1>, Input>> x, int a, int b) {
-        java.util.Collections.swap(x, a, b);
-    }
-
+                for (int j = i; j > low && c.compare((Tuple2<Data<Type0, Type1>, Input>) dest.get(j - 1), (Tuple2<Data<Type0, Type1>, Input>) dest.get(j)) > 0; j--) {
+                    //swap(dest, j, j - 1);
+                    java.util.Collections.swap(dest, j, j - 1);
+                    swapp(bDst, j, j - 1);
+                }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16108,11 +16094,11 @@ Qualifier `java.util` is unnecessary, and can be replaced with an import
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/java_helpers/myMergeSort.java`
 #### Snippet
 ```java
-                for (int j = i; j > low && c.compare((Tuple2<Data<Type0, Type1>, Input>) dest.get(j - 1), (Tuple2<Data<Type0, Type1>, Input>) dest.get(j)) > 0; j--) {
-                    //swap(dest, j, j - 1);
-                    java.util.Collections.swap(dest, j, j - 1);
-                    swapp(bDst, j, j - 1);
-                }
+
+    private void swap(ArrayList<Tuple2<Data<Type0, Type1>, Input>> x, int a, int b) {
+        java.util.Collections.swap(x, a, b);
+    }
+
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16132,35 +16118,59 @@ Qualifier `org.apache.spark.api.java.function` is unnecessary and can be removed
 in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
 #### Snippet
 ```java
-    org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
-
-    public extractData(org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
-        this.getXPivot = getXPivot;
-        this.getXRef = getXRef;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.spark.api.java.function` is unnecessary and can be removed
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
-#### Snippet
-```java
-    org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
-
-    public extractData(org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
-        this.getXPivot = getXPivot;
-        this.getXRef = getXRef;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.spark.api.java.function` is unnecessary and can be removed
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
-#### Snippet
-```java
     private static final long serialVersionUID = 3834945091845558509L;
     org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot;
     org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
 
     public extractData(org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.spark.api.java.function` is unnecessary and can be removed
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
+#### Snippet
+```java
+    org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
+
+    public extractData(org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
+        this.getXPivot = getXPivot;
+        this.getXRef = getXRef;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.spark.api.java.function` is unnecessary and can be removed
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/extractData.java`
+#### Snippet
+```java
+    org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
+
+    public extractData(org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
+        this.getXPivot = getXPivot;
+        this.getXRef = getXRef;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.spark.api.java.function` is unnecessary, and can be replaced with an import
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/build2ListObject.java`
+#### Snippet
+```java
+    Integer ex2;
+
+    public build2ListObject(boolean list1ASC, boolean list1ASCSec, org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
+        this.list1ASC = list1ASC;
+        this.list1ASCSec = list1ASCSec;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `org.apache.spark.api.java.function` is unnecessary, and can be replaced with an import
+in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/build2ListObject.java`
+#### Snippet
+```java
+    Integer ex2;
+
+    public build2ListObject(boolean list1ASC, boolean list1ASCSec, org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
+        this.list1ASC = list1ASC;
+        this.list1ASCSec = list1ASCSec;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16173,30 +16183,6 @@ in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operato
     org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef;
 
     boolean list1ASC;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.spark.api.java.function` is unnecessary, and can be replaced with an import
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/build2ListObject.java`
-#### Snippet
-```java
-    Integer ex2;
-
-    public build2ListObject(boolean list1ASC, boolean list1ASCSec, org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
-        this.list1ASC = list1ASC;
-        this.list1ASCSec = list1ASCSec;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.spark.api.java.function` is unnecessary, and can be replaced with an import
-in `wayang-plugins/wayang-iejoin/code/main/java/org/apache/wayang/iejoin/operators/spark_helpers/build2ListObject.java`
-#### Snippet
-```java
-    Integer ex2;
-
-    public build2ListObject(boolean list1ASC, boolean list1ASCSec, org.apache.spark.api.java.function.Function<Input, TypeXPivot> getXPivot, org.apache.spark.api.java.function.Function<Input, TypeXRef> getXRef) {
-        this.list1ASC = list1ASC;
-        this.list1ASCSec = list1ASCSec;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16228,11 +16214,11 @@ Qualifier `java.util.function` is unnecessary, and can be replaced with an impor
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/FlatMapFunctionAdapter.java`
 #### Snippet
 ```java
-public class FlatMapFunctionAdapter<InputType, OutputType> implements FlatMapFunction<InputType, OutputType> {
-
     private java.util.function.Function<InputType, Iterable<OutputType>> function;
 
     public FlatMapFunctionAdapter(java.util.function.Function<InputType, Iterable<OutputType>> function) {
+        this.function = function;
+    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16240,11 +16226,11 @@ Qualifier `java.util.function` is unnecessary, and can be replaced with an impor
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/compiler/FlatMapFunctionAdapter.java`
 #### Snippet
 ```java
+public class FlatMapFunctionAdapter<InputType, OutputType> implements FlatMapFunction<InputType, OutputType> {
+
     private java.util.function.Function<InputType, Iterable<OutputType>> function;
 
     public FlatMapFunctionAdapter(java.util.function.Function<InputType, Iterable<OutputType>> function) {
-        this.function = function;
-    }
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16348,18 +16334,6 @@ Qualifier `scala.collection` is unnecessary, and can be replaced with an import
 in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
 #### Snippet
 ```java
-}
-
-class TakeSampleFunction<V> extends AbstractFunction1<scala.collection.Iterator<V>, List<V>> implements Serializable {
-
-    private int start_id;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `scala.collection` is unnecessary, and can be replaced with an import
-in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
-#### Snippet
-```java
             Object samples = sparkContext.runJob(shuffledRDD.rdd(),
                     new TakeSampleFunction(tupleID, tupleID + sampleSize),
                     (scala.collection.Seq) JavaConversions.asScalaBuffer(pars), scala.reflect.ClassTag$.MODULE$.apply(List.class));
@@ -16377,6 +16351,18 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operato
                     (scala.collection.Seq) JavaConversions.asScalaBuffer(pars), scala.reflect.ClassTag$.MODULE$.apply(List.class));
 
             tupleID += sampleSize;
+```
+
+### UnnecessaryFullyQualifiedName
+Qualifier `scala.collection` is unnecessary, and can be replaced with an import
+in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operators/SparkShufflePartitionSampleOperator.java`
+#### Snippet
+```java
+}
+
+class TakeSampleFunction<V> extends AbstractFunction1<scala.collection.Iterator<V>, List<V>> implements Serializable {
+
+    private int start_id;
 ```
 
 ### UnnecessaryFullyQualifiedName
@@ -16430,6 +16416,18 @@ in `wayang-platforms/wayang-spark/code/main/java/org/apache/wayang/spark/operato
 ## RuleId[id=ThrowablePrintStackTrace]
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
+in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
+#### Snippet
+```java
+            this.monitor.updateProgress(partialProgress);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
 in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessReceiver.java`
 #### Snippet
 ```java
@@ -16457,6 +16455,30 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
 #### Snippet
 ```java
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+#### Snippet
+```java
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -16466,22 +16488,10 @@ in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/exec
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
+in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
 #### Snippet
 ```java
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/ProcessFeeder.java`
-#### Snippet
-```java
-
+            System.out.println("Everything closed");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -16502,26 +16512,14 @@ in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/exec
 
 ### ThrowablePrintStackTrace
 Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-api/wayang-api-python/src/main/java/org/apache/wayang/api/python/executor/PythonProcessCaller.java`
+in `wayang-profiler/code/main/java/org/apache/wayang/profiler/util/RrdAccessor.java`
 #### Snippet
 ```java
-            System.out.println("Everything closed");
+            return convertToJavaTimestamp(this.rrdDb.getLastUpdateTime());
         } catch (IOException e) {
             e.printStackTrace();
+            return -1;
         }
-    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/api/Job.java`
-#### Snippet
-```java
-            this.monitor.updateProgress(partialProgress);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 ```
 
 ### ThrowablePrintStackTrace
@@ -16533,18 +16531,6 @@ in `wayang-profiler/code/main/java/org/apache/wayang/profiler/util/RrdAccessor.j
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-profiler/code/main/java/org/apache/wayang/profiler/util/RrdAccessor.java`
-#### Snippet
-```java
-            return convertToJavaTimestamp(this.rrdDb.getLastUpdateTime());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return -1;
         }
 ```
 
@@ -16601,30 +16587,6 @@ Call to `printStackTrace()` should probably be replaced with more robust logging
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/criterion/WayangValue.java`
 #### Snippet
 ```java
-            result = bos.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/criterion/WayangValue.java`
-#### Snippet
-```java
-                bos.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/criterion/WayangValue.java`
-#### Snippet
-```java
             object = (T) in.readObject();
         } catch (IOException e) {
             e.printStackTrace();
@@ -16650,6 +16612,30 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compile
 #### Snippet
 ```java
                 }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/criterion/WayangValue.java`
+#### Snippet
+```java
+            result = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+```
+
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/criterion/WayangValue.java`
+#### Snippet
+```java
+                bos.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -16804,6 +16790,30 @@ in `wayang-commons/wayang-core/src/main/java/org/apache/wayang/core/util/fs/S3Fi
 ```
 
 ### Convert2Lambda
+Anonymous new MapPartitionFunction() can be replaced with lambda
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+#### Snippet
+```java
+    public <I, O> MapPartitionFunction<I, O> compile(MapPartitionsDescriptor<I, O> descriptor){
+        Function<Iterable<I>, Iterable<O>> function = descriptor.getJavaImplementation();
+        return new MapPartitionFunction<I, O>() {
+            @Override
+            public void mapPartition(Iterable<I> iterable, Collector<O> collector) throws Exception {
+```
+
+### Convert2Lambda
+Anonymous new ReduceFunction() can be replaced with lambda
+in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
+#### Snippet
+```java
+        // This is a dummy method but shows the intention of having something compilable in the descriptors.
+        BiFunction<T, T, T> reduce_function = descriptor.getJavaImplementation();
+        return new ReduceFunction<T>() {
+            @Override
+            public T reduce(T t, T t1) throws Exception {
+```
+
+### Convert2Lambda
 Anonymous new MapFunction, Tuple2\>() can be replaced with lambda
 in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operators/FlinkPageRankOperator.java`
 #### Snippet
@@ -16837,30 +16847,6 @@ in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/operato
                 new MapFunction<Tuple2<Long, Double>, org.apache.wayang.basic.data.Tuple2<Long, Float>>() {
                     @Override
                     public org.apache.wayang.basic.data.Tuple2<Long, Float> map(Tuple2<Long, Double> longDoubleTuple2) throws Exception {
-```
-
-### Convert2Lambda
-Anonymous new MapPartitionFunction() can be replaced with lambda
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
-#### Snippet
-```java
-    public <I, O> MapPartitionFunction<I, O> compile(MapPartitionsDescriptor<I, O> descriptor){
-        Function<Iterable<I>, Iterable<O>> function = descriptor.getJavaImplementation();
-        return new MapPartitionFunction<I, O>() {
-            @Override
-            public void mapPartition(Iterable<I> iterable, Collector<O> collector) throws Exception {
-```
-
-### Convert2Lambda
-Anonymous new ReduceFunction() can be replaced with lambda
-in `wayang-platforms/wayang-flink/code/main/java/org/apache/wayang/flink/compiler/FunctionCompiler.java`
-#### Snippet
-```java
-        // This is a dummy method but shows the intention of having something compilable in the descriptors.
-        BiFunction<T, T, T> reduce_function = descriptor.getJavaImplementation();
-        return new ReduceFunction<T>() {
-            @Override
-            public T reduce(T t, T t1) throws Exception {
 ```
 
 ### Convert2Lambda
