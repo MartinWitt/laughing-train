@@ -22,18 +22,6 @@ I found 37 bad smells with 3 repairable:
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
-#### Snippet
-```java
- * @since 3.3.0
- */
-@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
-public class CheckBuildPlanMojo extends AbstractMojo {
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
@@ -44,19 +32,19 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
 #### Snippet
 ```java
- * A helper to get JDK version from a JDK toolchain.
+ * @since 3.3.0
  */
-class JdkToolchainUtil {
-    static String getJavaVersion(Toolchain toolchain) {
-        String version = "unknown";
+@Mojo(name = "check-buildplan", threadSafe = true, requiresProject = true)
+public class CheckBuildPlanMojo extends AbstractMojo {
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
 ```
 
+## RuleId[id=UtilityClassWithoutPrivateConstructor]
 ### UtilityClassWithoutPrivateConstructor
 Class `PluginUtil` has only 'static' members, and lacks a 'private' constructor
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
@@ -67,6 +55,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
 class PluginUtil {
     static boolean isSkip(MavenProject project) {
         return isSkip(project, "install") || isSkip(project, "deploy");
+```
+
+### UtilityClassWithoutPrivateConstructor
+Class `JdkToolchainUtil` has only 'static' members, and lacks a 'private' constructor
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/JdkToolchainUtil.java`
+#### Snippet
+```java
+ * A helper to get JDK version from a JDK toolchain.
+ */
+class JdkToolchainUtil {
+    static String getJavaVersion(Toolchain toolchain) {
+        String version = "unknown";
 ```
 
 ## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
@@ -251,30 +251,6 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
 ```java
-            log.warn("unable to open jar file " + file, e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
-#### Snippet
-```java
         @Override
         public WorkspaceReader getWorkspaceReader() {
             return null;
@@ -312,6 +288,30 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 #### Snippet
 ```java
             log.warn("Unable to read " + entryName + " from " + jar, e);
+        }
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+        }
+
+        return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
+#### Snippet
+```java
+            log.warn("unable to open jar file " + file, e);
         }
         return null;
     }
@@ -428,6 +428,19 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         return "diffoscope " + relative(reference) + " " + relative(actual);
 ```
 
+## RuleId[id=UnnecessaryBoxing]
+### UnnecessaryBoxing
+Redundant boxing, `Boolean.parseBoolean()` call can be used instead
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
+#### Snippet
+```java
+            skip = project.getProperties().getProperty("maven." + id + ".skip");
+        }
+        return Boolean.valueOf(skip);
+    }
+
+```
+
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
@@ -463,18 +476,5 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
         referenceDir.mkdirs();
 
         // download or create reference buildinfo
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/PluginUtil.java`
-#### Snippet
-```java
-            skip = project.getProperties().getProperty("maven." + id + ".skip");
-        }
-        return Boolean.valueOf(skip);
-    }
-
 ```
 
