@@ -1,11 +1,11 @@
 # keyple-service-java-lib 
  
 # Bad smells
-I found 70 bad smells with 2 repairable:
+I found 73 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| IgnoreResultOfCall | 33 | false |
-| ReturnNull | 9 | false |
+| IgnoreResultOfCall | 35 | false |
+| ReturnNull | 10 | false |
 | DataFlowIssue | 5 | false |
 | DynamicRegexReplaceableByCompiledPattern | 3 | false |
 | BusyWait | 3 | false |
@@ -309,6 +309,30 @@ in `src/main/java/org/eclipse/keyple/core/service/ObservableLocalReaderAdapter.j
 
 ### ReturnNull
 Return of `null`
+in `src/main/java/org/eclipse/keyple/core/service/DistributedLocalServiceAdapter.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
+in `src/main/java/org/eclipse/keyple/core/service/DistributedLocalServiceAdapter.java`
+#### Snippet
+```java
+        }
+      }
+      return null;
+    }
+
+```
+
+### ReturnNull
+Return of `null`
 in `src/main/java/org/eclipse/keyple/core/service/RemotePoolPluginAdapter.java`
 #### Snippet
 ```java
@@ -321,25 +345,13 @@ in `src/main/java/org/eclipse/keyple/core/service/RemotePoolPluginAdapter.java`
 
 ### ReturnNull
 Return of `null`
-in `src/main/java/org/eclipse/keyple/core/service/DistributedLocalServiceAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/RemotePoolPluginAdapter.java`
 #### Snippet
 ```java
-        }
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/keyple/core/service/DistributedLocalServiceAdapter.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
+    Assert.getInstance().notNull(reader, "reader");
+    RemoteReaderAdapter remoteReader = (RemoteReaderAdapter) getReader(reader.getName());
+    return remoteReader != null ? remoteReader.getSelectedSmartCard() : null;
+  }
 
 ```
 
@@ -419,18 +431,6 @@ in `src/main/java/org/eclipse/keyple/core/service/ObservableLocalReaderAdapter.j
 ```
 
 ### BoundedWildcard
-Can generalize to `? extends CardSelectionResponseApi`
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
-#### Snippet
-```java
-   */
-  private CardSelectionResult processCardSelectionResponses(
-      List<CardSelectionResponseApi> cardSelectionResponses) {
-
-    Assert.getInstance().notEmpty(cardSelectionResponses, "cardSelectionResponses");
-```
-
-### BoundedWildcard
 Can generalize to `? extends CardSelectionRequestSpi`
 in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
 #### Snippet
@@ -440,6 +440,18 @@ in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
       List<CardSelectionRequestSpi> cardSelectionRequests,
       MultiSelectionProcessing multiSelectionProcessing,
       ChannelControl channelControl)
+```
+
+### BoundedWildcard
+Can generalize to `? extends CardSelectionResponseApi`
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+#### Snippet
+```java
+   */
+  private CardSelectionResult processCardSelectionResponses(
+      List<CardSelectionResponseApi> cardSelectionResponses) {
+
+    Assert.getInstance().notEmpty(cardSelectionResponses, "cardSelectionResponses");
 ```
 
 ## RuleId[id=ReplaceCallWithBinaryOperator]
@@ -483,14 +495,14 @@ in `build.gradle.kts`
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservationManagerAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionScenarioAdapter.java`
 #### Snippet
 ```java
-          observer != null ? observer.getClass().getSimpleName() : null);
-    }
-    Assert.getInstance().notNull(observer, "observer");
-    if (exceptionHandler == null) {
-      throw new IllegalStateException("No exception handler defined.");
+        .notEmpty(cardSelectionRequests, "cardSelectionRequests")
+        .notNull(multiSelectionProcessing, "multiSelectionProcessing")
+        .notNull(channelControl, "channelControl");
+
+    this.cardSelectionRequests = cardSelectionRequests;
 ```
 
 ### IgnoreResultOfCall
@@ -507,14 +519,14 @@ in `src/main/java/org/eclipse/keyple/core/service/ObservationManagerAdapter.java
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionScenarioAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/ObservationManagerAdapter.java`
 #### Snippet
 ```java
-        .notEmpty(cardSelectionRequests, "cardSelectionRequests")
-        .notNull(multiSelectionProcessing, "multiSelectionProcessing")
-        .notNull(channelControl, "channelControl");
-
-    this.cardSelectionRequests = cardSelectionRequests;
+          observer != null ? observer.getClass().getSimpleName() : null);
+    }
+    Assert.getInstance().notNull(observer, "observer");
+    if (exceptionHandler == null) {
+      throw new IllegalStateException("No exception handler defined.");
 ```
 
 ### IgnoreResultOfCall
@@ -554,6 +566,18 @@ in `src/main/java/org/eclipse/keyple/core/service/RemoteReaderAdapter.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/LocalPoolPluginAdapter.java`
+#### Snippet
+```java
+          readerGroupReference);
+    }
+    Assert.getInstance().notEmpty(readerGroupReference, "readerGroupReference");
+
+    ReaderSpi readerSpi;
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/LocalPoolPluginAdapter.java`
 #### Snippet
@@ -566,15 +590,27 @@ in `src/main/java/org/eclipse/keyple/core/service/LocalPoolPluginAdapter.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
+Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/LocalPoolPluginAdapter.java`
 #### Snippet
 ```java
-          readerGroupReference);
-    }
-    Assert.getInstance().notEmpty(readerGroupReference, "readerGroupReference");
+  @Override
+  public SmartCard getSelectedSmartCard(CardReader reader) {
+    Assert.getInstance().notNull(reader, "reader");
+    PoolReaderSpi poolReaderSpi =
+        (PoolReaderSpi) getReaderExtension(KeypleReaderExtension.class, reader.getName());
+```
 
-    ReaderSpi readerSpi;
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableLocalPluginAdapter.java`
+#### Snippet
+```java
+  @Override
+  public void removeObserver(PluginObserverSpi observer) {
+    Assert.getInstance().notNull(observer, "observer");
+    if (getObservationManager().getObservers().contains(observer)) {
+      super.removeObserver(observer);
 ```
 
 ### IgnoreResultOfCall
@@ -627,18 +663,6 @@ in `src/main/java/org/eclipse/keyple/core/service/SmartCardServiceAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableLocalPluginAdapter.java`
-#### Snippet
-```java
-  @Override
-  public void removeObserver(PluginObserverSpi observer) {
-    Assert.getInstance().notNull(observer, "observer");
-    if (getObservationManager().getObservers().contains(observer)) {
-      super.removeObserver(observer);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/AbstractObservableLocalPluginAdapter.java`
 #### Snippet
 ```java
@@ -654,11 +678,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
 #### Snippet
 ```java
-          detectionMode);
-    }
-    Assert.getInstance().notNull(detectionMode, "detectionMode");
-
-    // Build the input JSON data.
+  @Override
+  public void removeObserver(CardReaderObserverSpi observer) {
+    Assert.getInstance().notNull(observer, "observer");
+    if (observationManager.getObservers().contains(observer)) {
+      observationManager.removeObserver(observer);
 ```
 
 ### IgnoreResultOfCall
@@ -666,11 +690,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/ObservableRemoteReaderAdapter.java`
 #### Snippet
 ```java
-  @Override
-  public void removeObserver(CardReaderObserverSpi observer) {
-    Assert.getInstance().notNull(observer, "observer");
-    if (observationManager.getObservers().contains(observer)) {
-      observationManager.removeObserver(observer);
+          detectionMode);
+    }
+    Assert.getInstance().notNull(detectionMode, "detectionMode");
+
+    // Build the input JSON data.
 ```
 
 ### IgnoreResultOfCall
@@ -714,23 +738,11 @@ Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
 #### Snippet
 ```java
-      logger.debug("Plugin '{}' receives a plugin event : {}", getName(), jsonData);
+      logger.debug("Plugin '{}' unregisters the reader '{}'.", getName(), remoteReaderName);
     }
-    Assert.getInstance().notEmpty(jsonData, "jsonData");
+    Assert.getInstance().notEmpty(remoteReaderName, "remoteReaderName");
 
-    // Extract the event.
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
-#### Snippet
-```java
-          remoteReaderSpi != null ? remoteReaderSpi.getName() : null);
-    }
-    Assert.getInstance().notNull(remoteReaderSpi, "remoteReaderSpi");
-
-    // Create the reader.
+    CardReader reader = getReader(remoteReaderName);
 ```
 
 ### IgnoreResultOfCall
@@ -746,15 +758,111 @@ in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
+#### Snippet
+```java
+          remoteReaderSpi != null ? remoteReaderSpi.getName() : null);
+    }
+    Assert.getInstance().notNull(remoteReaderSpi, "remoteReaderSpi");
+
+    // Create the reader.
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/core/service/ObservableRemotePluginAdapter.java`
 #### Snippet
 ```java
-      logger.debug("Plugin '{}' unregisters the reader '{}'.", getName(), remoteReaderName);
+      logger.debug("Plugin '{}' receives a plugin event : {}", getName(), jsonData);
     }
-    Assert.getInstance().notEmpty(remoteReaderName, "remoteReaderName");
+    Assert.getInstance().notEmpty(jsonData, "jsonData");
 
-    CardReader reader = getReader(remoteReaderName);
+    // Extract the event.
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
+#### Snippet
+```java
+    // RL-CL-PROTOCOL.1
+    checkStatus();
+    Assert.getInstance().notEmpty(readerProtocol, "readerProtocol");
+    protocolAssociations.remove(readerProtocol);
+    if (!((ConfigurableReaderSpi) readerSpi).isProtocolSupported(readerProtocol)) {
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
+#### Snippet
+```java
+    Assert.getInstance()
+        .notNull(cardSelector.getAid(), "aid")
+        .isInRange(cardSelector.getAid().length, 0, 16, "aid");
+
+    if (readerSpi instanceof AutonomousSelectionReaderSpi) {
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
+#### Snippet
+```java
+    Assert.getInstance()
+        .notEmpty(readerProtocol, "readerProtocol")
+        .notEmpty(applicationProtocol, "applicationProtocol");
+    if (!((ConfigurableReaderSpi) readerSpi).isProtocolSupported(readerProtocol)) {
+      throw new ReaderProtocolNotSupportedException(readerProtocol);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+#### Snippet
+```java
+        .notNull(observableCardReader, "observableCardReader")
+        .notNull(detectionMode, "detectionMode")
+        .notNull(notificationMode, "notificationMode");
+
+    CardSelectionScenarioAdapter cardSelectionScenario =
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+#### Snippet
+```java
+  public int prepareSelection(CardSelection cardSelection) {
+
+    Assert.getInstance().notNull(cardSelection, "cardSelection");
+
+    /* keep the selection request */
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+#### Snippet
+```java
+  public CardSelectionResult processCardSelectionScenario(CardReader reader) {
+
+    Assert.getInstance().notNull(reader, "reader");
+
+    // Communicate with the card to make the actual selection
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+#### Snippet
+```java
+
+    Assert.getInstance()
+        .notNull(scheduledCardSelectionsResponse, "scheduledCardSelectionsResponse");
+
+    return processCardSelectionResponses(
 ```
 
 ### IgnoreResultOfCall
@@ -783,86 +891,14 @@ in `src/main/java/org/eclipse/keyple/core/service/RemotePoolPluginAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
+in `src/main/java/org/eclipse/keyple/core/service/RemotePoolPluginAdapter.java`
 #### Snippet
 ```java
-
-    Assert.getInstance()
-        .notNull(scheduledCardSelectionsResponse, "scheduledCardSelectionsResponse");
-
-    return processCardSelectionResponses(
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
-#### Snippet
-```java
-  public int prepareSelection(CardSelection cardSelection) {
-
-    Assert.getInstance().notNull(cardSelection, "cardSelection");
-
-    /* keep the selection request */
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
-#### Snippet
-```java
-        .notNull(observableCardReader, "observableCardReader")
-        .notNull(detectionMode, "detectionMode")
-        .notNull(notificationMode, "notificationMode");
-
-    CardSelectionScenarioAdapter cardSelectionScenario =
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/CardSelectionManagerAdapter.java`
-#### Snippet
-```java
-  public CardSelectionResult processCardSelectionScenario(CardReader reader) {
-
+  @Override
+  public SmartCard getSelectedSmartCard(CardReader reader) {
     Assert.getInstance().notNull(reader, "reader");
-
-    // Communicate with the card to make the actual selection
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
-#### Snippet
-```java
-    // RL-CL-PROTOCOL.1
-    checkStatus();
-    Assert.getInstance().notEmpty(readerProtocol, "readerProtocol");
-    protocolAssociations.remove(readerProtocol);
-    if (!((ConfigurableReaderSpi) readerSpi).isProtocolSupported(readerProtocol)) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance()
-        .notEmpty(readerProtocol, "readerProtocol")
-        .notEmpty(applicationProtocol, "applicationProtocol");
-    if (!((ConfigurableReaderSpi) readerSpi).isProtocolSupported(readerProtocol)) {
-      throw new ReaderProtocolNotSupportedException(readerProtocol);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/core/service/LocalReaderAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance()
-        .notNull(cardSelector.getAid(), "aid")
-        .isInRange(cardSelector.getAid().length, 0, 16, "aid");
-
-    if (readerSpi instanceof AutonomousSelectionReaderSpi) {
+    RemoteReaderAdapter remoteReader = (RemoteReaderAdapter) getReader(reader.getName());
+    return remoteReader != null ? remoteReader.getSelectedSmartCard() : null;
 ```
 
 ### IgnoreResultOfCall
