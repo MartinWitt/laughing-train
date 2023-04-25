@@ -36,6 +36,18 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
 Can generalize to `? super T`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
+#### Snippet
+```java
+  private final Subscriber<T> delegate;
+
+  DogTagSubscriber(RxDogTag.Configuration config, Subscriber<T> delegate) {
+    this.config = config;
+    this.delegate = delegate;
+```
+
+### BoundedWildcard
+Can generalize to `? super T`
 in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
 #### Snippet
 ```java
@@ -60,18 +72,6 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
 
 ### BoundedWildcard
 Can generalize to `? super T`
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
-#### Snippet
-```java
-  private final Subscriber<T> delegate;
-
-  DogTagSubscriber(RxDogTag.Configuration config, Subscriber<T> delegate) {
-    this.config = config;
-    this.delegate = delegate;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
 in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 #### Snippet
 ```java
@@ -83,15 +83,15 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super Throwable`
+Can generalize to `? super T`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-   * @param runnable the runnable to execute the underlying action that may throw
+   * not contain such element.
    */
-  static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
-    final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
-    try {
+  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
+    for (int index = array.length - 1; index >= 0; --index) {
+      if (predicate.test(array[index])) {
 ```
 
 ### BoundedWildcard
@@ -107,14 +107,14 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 ```
 
 ### BoundedWildcard
-Can generalize to `? super T`
+Can generalize to `? super Throwable`
 in `rxdogtag/src/main/java/rxdogtag2/RxDogTag.java`
 #### Snippet
 ```java
-   * not contain such element.
+   * @param runnable the runnable to execute the underlying action that may throw
    */
-  private static <T> int indexOfLast(T[] array, NonCheckingPredicate<T> predicate) {
-    for (int index = array.length - 1; index >= 0; --index) {
-      if (predicate.test(array[index])) {
+  static void guardedDelegateCall(NonCheckingConsumer<Throwable> errorConsumer, Runnable runnable) {
+    final Thread.UncaughtExceptionHandler h = Thread.currentThread().getUncaughtExceptionHandler();
+    try {
 ```
 
