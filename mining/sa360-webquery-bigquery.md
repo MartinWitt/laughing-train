@@ -226,18 +226,6 @@ public abstract class TransferConfig {
 ```
 
 ### AbstractClassNeverImplemented
-Abstract class `BigQueryConfig` has no concrete subclass
-in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
-#### Snippet
-```java
-/** Configuration for BigQuery Table information. */
-@AutoValue
-public abstract class BigQueryConfig {
-
-  public static Builder builder() {
-```
-
-### AbstractClassNeverImplemented
 Abstract class `Builder` has no concrete subclass
 in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
 #### Snippet
@@ -247,6 +235,18 @@ in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
   public abstract static class Builder {
 
     public abstract Builder setProjectId(String newProjectId);
+```
+
+### AbstractClassNeverImplemented
+Abstract class `BigQueryConfig` has no concrete subclass
+in `src/main/java/dswebquerytobigquery/BigQueryConfig.java`
+#### Snippet
+```java
+/** Configuration for BigQuery Table information. */
+@AutoValue
+public abstract class BigQueryConfig {
+
+  public static Builder builder() {
 ```
 
 ## RuleId[id=StringEqualsEmptyString]
