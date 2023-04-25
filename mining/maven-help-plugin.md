@@ -15,8 +15,8 @@ I found 51 bad smells with 17 repairable:
 | IgnoreResultOfCall | 2 | false |
 | SynchronizeOnNonFinalField | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | RegExpRedundantEscape | 1 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | ReturnNull | 1 | false |
 | ZeroLengthArrayInitialization | 1 | false |
@@ -40,10 +40,10 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
 
-        String deprecation = md.getDeprecated();
-        if (deprecation != null && deprecation.length() <= 0) {
-            deprecation = NO_REASON;
-        }
+            String deprecation = parameter.getDeprecated();
+            if (deprecation != null && deprecation.length() <= 0) {
+                deprecation = NO_REASON;
+            }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -52,10 +52,10 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
 
-            String deprecation = parameter.getDeprecated();
-            if (deprecation != null && deprecation.length() <= 0) {
-                deprecation = NO_REASON;
-            }
+        String deprecation = md.getDeprecated();
+        if (deprecation != null && deprecation.length() <= 0) {
+            deprecation = NO_REASON;
+        }
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -147,18 +147,6 @@ in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `lifecycleMappings` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     */
-    @Component
-    private Map<String, LifecycleMapping> lifecycleMappings;
-
-    // ----------------------------------------------------------------------
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `projects` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
 #### Snippet
@@ -166,18 +154,6 @@ in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
      */
     @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
     private List<MavenProject> projects;
-
-    // ----------------------------------------------------------------------
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `settingsProfiles` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
-    private List<org.apache.maven.settings.Profile> settingsProfiles;
 
     // ----------------------------------------------------------------------
 ```
@@ -194,17 +170,28 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
     /**
 ```
 
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `evaluator` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+### MismatchedCollectionQueryUpdate
+Contents of collection `settingsProfiles` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
+     */
+    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
+    private List<org.apache.maven.settings.Profile> settingsProfiles;
 
-    /** lazy loading evaluator variable */
-    private PluginParameterExpressionEvaluator evaluator;
+    // ----------------------------------------------------------------------
+```
 
-    /** lazy loading xstream variable */
+### MismatchedCollectionQueryUpdate
+Contents of collection `lifecycleMappings` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     */
+    @Component
+    private Map<String, LifecycleMapping> lifecycleMappings;
+
+    // ----------------------------------------------------------------------
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -218,6 +205,19 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
     private static final Pattern EXPRESSION = Pattern.compile("^\\$\\{([^}]+)\\}$");
 
     // ----------------------------------------------------------------------
+```
+
+## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
+### FieldAccessedSynchronizedAndUnsynchronized
+Field `evaluator` is accessed in both synchronized and unsynchronized contexts
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+
+    /** lazy loading evaluator variable */
+    private PluginParameterExpressionEvaluator evaluator;
+
+    /** lazy loading xstream variable */
 ```
 
 ## RuleId[id=RedundantFieldInitialization]
@@ -234,6 +234,18 @@ in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 ```
 
 ## RuleId[id=AssignmentToMethodParameter]
+### AssignmentToMethodParameter
+Assignment to method parameter `project`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+                }
+            }
+            project = project.getParent();
+        }
+    }
+```
+
 ### AssignmentToMethodParameter
 Assignment to method parameter `value`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
@@ -256,18 +268,6 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
             value = UNKNOWN;
         }
 
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `project`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-                }
-            }
-            project = project.getParent();
-        }
-    }
 ```
 
 ## RuleId[id=ReturnNull]
@@ -479,78 +479,6 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 
 ## RuleId[id=BoundedWildcard]
 ### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
 Can generalize to `? extends Profile`
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
@@ -560,6 +488,78 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
     private void writeProfilesDescription(StringBuilder sb, Map<String, Profile> profilesByIds, boolean active) {
         for (Profile p : profilesByIds.values()) {
             sb.append("  Profile Id: ").append(p.getId());
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
