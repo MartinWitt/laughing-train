@@ -6,16 +6,16 @@ I found 51 bad smells with 17 repairable:
 | --- | --- | --- |
 | UnnecessaryToStringCall | 15 | true |
 | BoundedWildcard | 7 | false |
+| PublicFieldAccessedInSynchronizedContext | 5 | false |
 | DynamicRegexReplaceableByCompiledPattern | 4 | false |
 | MismatchedCollectionQueryUpdate | 4 | false |
-| PublicFieldAccessedInSynchronizedContext | 4 | false |
 | AssignmentToMethodParameter | 3 | false |
 | NonStrictComparisonCanBeEquality | 2 | true |
 | SystemOutErr | 2 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 2 | false |
 | IgnoreResultOfCall | 2 | false |
 | SynchronizeOnNonFinalField | 1 | false |
 | UnnecessaryFullyQualifiedName | 1 | false |
+| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 | RedundantFieldInitialization | 1 | false |
 | ReturnNull | 1 | false |
@@ -28,9 +28,9 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 ```java
             // Maven 3: PluginParameterExpressionEvaluator gets the current project from the session:
             // synchronize in case another thread wants to fetch the real current project in between
-            synchronized ( session )
-            {
-                session.setCurrentProject( project );
+            synchronized (session) {
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -41,9 +41,9 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 ```java
 
         String deprecation = md.getDeprecated();
-        if ( deprecation != null && deprecation.length() <= 0 )
-        {
+        if (deprecation != null && deprecation.length() <= 0) {
             deprecation = NO_REASON;
+        }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -53,9 +53,9 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 ```java
 
             String deprecation = parameter.getDeprecated();
-            if ( deprecation != null && deprecation.length() <= 0 )
-            {
+            if (deprecation != null && deprecation.length() <= 0) {
                 deprecation = NO_REASON;
+            }
 ```
 
 ## RuleId[id=SystemOutErr]
@@ -64,9 +64,9 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-                if ( forceStdout )
-                {
-                    System.out.print( response.toString() );
+            } else {
+                if (forceStdout) {
+                    System.out.print(response.toString());
                     System.out.flush();
                 }
 ```
@@ -76,8 +76,8 @@ Uses of `System.out` should probably be replaced with more robust logging
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-                {
-                    System.out.print( response.toString() );
+                if (forceStdout) {
+                    System.out.print(response.toString());
                     System.out.flush();
                 }
             }
@@ -89,9 +89,9 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 #### Snippet
 ```java
-        {
+        if (verbose) {
             // tweak location tracking comment, that are put on a separate line by pretty print
-            effectivePom = effectivePom.replaceAll( "(?m)>\\s+<!--}", ">  <!-- " );
+            effectivePom = effectivePom.replaceAll("(?m)>\\s+<!--}", ">  <!-- ");
         }
 
 ```
@@ -101,9 +101,9 @@ in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 #### Snippet
 ```java
-                String commentStart = comment.substring( 0, dotIndex );
-                String commentEnd = comment.substring( dotIndex + 1 );
-                effectivePom = effectivePom.replace( "<!--", commentStart ).replace( "-->", commentEnd );
+                String commentStart = comment.substring(0, dotIndex);
+                String commentEnd = comment.substring(dotIndex + 1);
+                effectivePom = effectivePom.replace("<!--", commentStart).replace("-->", commentEnd);
             }
 
 ```
@@ -113,9 +113,9 @@ in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 #### Snippet
 ```java
-                String commentStart = comment.substring( 0, dotIndex );
-                String commentEnd = comment.substring( dotIndex + 1 );
-                effectivePom = effectivePom.replace( "<!--", commentStart ).replace( "-->", commentEnd );
+                String commentStart = comment.substring(0, dotIndex);
+                String commentEnd = comment.substring(dotIndex + 1);
+                effectivePom = effectivePom.replace("<!--", commentStart).replace("-->", commentEnd);
             }
 
 ```
@@ -125,11 +125,11 @@ in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-                {
-                    String name = jarEntry.getName().substring( 0, jarEntry.getName().indexOf( "." ) );
-                    name = name.replace( "/", "\\." );
+                    String name =
+                            jarEntry.getName().substring(0, jarEntry.getName().indexOf("."));
+                    name = name.replace("/", "\\.");
 
-                    if ( name.contains( packageFilter ) && !name.contains( "$" ) )
+                    if (name.contains(packageFilter) && !name.contains("$")) {
 ```
 
 ## RuleId[id=UnnecessaryFullyQualifiedName]
@@ -141,23 +141,11 @@ in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
     }
 
     protected org.eclipse.aether.resolution.ArtifactResult resolveArtifact(
-            org.eclipse.aether.artifact.Artifact artifact ) throws RepositoryException
-    {
+            org.eclipse.aether.artifact.Artifact artifact) throws RepositoryException {
+        RepositorySystemSession repositorySession = session.getRepositorySession();
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `projects` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${reactorProjects}", required = true, readonly = true )
-    private List<MavenProject> projects;
-
-    // ----------------------------------------------------------------------
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `lifecycleMappings` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
@@ -171,12 +159,24 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
+Contents of collection `projects` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+    private List<MavenProject> projects;
+
+    // ----------------------------------------------------------------------
+```
+
+### MismatchedCollectionQueryUpdate
 Contents of collection `settingsProfiles` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${settings.profiles}", readonly = true, required = true )
+    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
     private List<org.apache.maven.settings.Profile> settingsProfiles;
 
     // ----------------------------------------------------------------------
@@ -188,38 +188,13 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( defaultValue = "${reactorProjects}", required = true, readonly = true )
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
     private List<MavenProject> projects;
 
     /**
 ```
 
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-    private static final String NO_REASON = "No reason given";
-
-    private static final Pattern EXPRESSION = Pattern.compile( "^\\$\\{([^}]+)\\}$" );
-
-    // ----------------------------------------------------------------------
-```
-
 ## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `project` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter( defaultValue = "${project}", readonly = true, required = true )
-    private MavenProject project;
-
-    /**
-```
-
 ### FieldAccessedSynchronizedAndUnsynchronized
 Field `evaluator` is accessed in both synchronized and unsynchronized contexts
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
@@ -232,6 +207,19 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
     /** lazy loading xstream variable */
 ```
 
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+    private static final String NO_REASON = "No reason given";
+
+    private static final Pattern EXPRESSION = Pattern.compile("^\\$\\{([^}]+)\\}$");
+
+    // ----------------------------------------------------------------------
+```
+
 ## RuleId[id=RedundantFieldInitialization]
 ### RedundantFieldInitialization
 Field initialization to `false` is redundant
@@ -239,7 +227,7 @@ in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter( property = "verbose", defaultValue = "false" )
+    @Parameter(property = "verbose", defaultValue = "false")
     private boolean verbose = false;
 
     // ----------------------------------------------------------------------
@@ -251,8 +239,8 @@ Assignment to method parameter `value`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
-        if ( StringUtils.isEmpty( value ) )
-        {
+
+        if (StringUtils.isEmpty(value)) {
             value = UNKNOWN;
         }
 
@@ -263,8 +251,8 @@ Assignment to method parameter `value`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
-        if ( StringUtils.isEmpty( value ) )
-        {
+            throws MojoFailureException, MojoExecutionException {
+        if (StringUtils.isEmpty(value)) {
             value = UNKNOWN;
         }
 
@@ -288,8 +276,8 @@ Return of `null`
 in `src/main/java/org/apache/maven/plugins/help/EffectiveSettingsMojo.java`
 #### Snippet
 ```java
-        if ( settings == null )
-        {
+    private static Settings copySettings(Settings settings) {
+        if (settings == null) {
             return null;
         }
 
@@ -301,11 +289,11 @@ Allocation of zero length array
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
-                urls.add( new File( artifact ).toURI().toURL() );
             }
-            try ( URLClassLoader classLoader = new URLClassLoader( urls.toArray( new URL[0] ),
-                    getClass().getClassLoader() ) )
-            {
+            try (URLClassLoader classLoader =
+                    new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader())) {
+                return MavenReport.class.isAssignableFrom(Class.forName(md.getImplementation(), false, classLoader));
+            }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -314,11 +302,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/SystemMojo.java`
 #### Snippet
 ```java
-            sb.append( "Generated by Maven Help Plugin" ).append( LS );
-            sb.append( "See: https://maven.apache.org/plugins/maven-help-plugin/" ).append( LS ).append( LS );
-            sb.append( message.toString() );
+                    .append(LS)
+                    .append(LS);
+            sb.append(message.toString());
 
-            try
+            try {
 ```
 
 ### UnnecessaryToStringCall
@@ -326,11 +314,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
 #### Snippet
 ```java
-            sb.append( "Generated by Maven Help Plugin" ).append( LS );
-            sb.append( "See: https://maven.apache.org/plugins/maven-help-plugin/" ).append( LS ).append( LS );
-            sb.append( message.toString() );
+                    .append(LS)
+                    .append(LS);
+            sb.append(message.toString());
 
-            try
+            try {
 ```
 
 ### UnnecessaryToStringCall
@@ -338,11 +326,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof String )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Boolean )
+        // handle primitives objects
+        else if (obj instanceof String) {
+            response.append(obj.toString());
+        } else if (obj instanceof Boolean) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -350,11 +338,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Boolean )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Byte )
+            response.append(obj.toString());
+        } else if (obj instanceof Boolean) {
+            response.append(obj.toString());
+        } else if (obj instanceof Byte) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -362,11 +350,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Byte )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Character )
+            response.append(obj.toString());
+        } else if (obj instanceof Byte) {
+            response.append(obj.toString());
+        } else if (obj instanceof Character) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -374,11 +362,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Character )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Double )
+            response.append(obj.toString());
+        } else if (obj instanceof Character) {
+            response.append(obj.toString());
+        } else if (obj instanceof Double) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -386,11 +374,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Double )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Float )
+            response.append(obj.toString());
+        } else if (obj instanceof Double) {
+            response.append(obj.toString());
+        } else if (obj instanceof Float) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -398,11 +386,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Float )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Integer )
+            response.append(obj.toString());
+        } else if (obj instanceof Float) {
+            response.append(obj.toString());
+        } else if (obj instanceof Integer) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -410,11 +398,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Integer )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Long )
+            response.append(obj.toString());
+        } else if (obj instanceof Integer) {
+            response.append(obj.toString());
+        } else if (obj instanceof Long) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -422,11 +410,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Long )
-        {
-            response.append( obj.toString() );
-        }
-        else if ( obj instanceof Short )
+            response.append(obj.toString());
+        } else if (obj instanceof Long) {
+            response.append(obj.toString());
+        } else if (obj instanceof Short) {
+            response.append(obj.toString());
 ```
 
 ### UnnecessaryToStringCall
@@ -434,9 +422,9 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-        else if ( obj instanceof Short )
-        {
-            response.append( obj.toString() );
+            response.append(obj.toString());
+        } else if (obj instanceof Short) {
+            response.append(obj.toString());
         }
         // handle specific objects
 ```
@@ -448,7 +436,7 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 ```java
             }
 
-            response.append( sWriter.toString() );
+            response.append(sWriter.toString());
         }
         // handle Maven Settings object
 ```
@@ -460,9 +448,9 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 ```java
             }
 
-            response.append( sWriter.toString() );
-        }
-        else
+            response.append(sWriter.toString());
+        } else {
+            // others Maven objects
 ```
 
 ### UnnecessaryToStringCall
@@ -470,11 +458,11 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-            if ( getLog().isInfoEnabled() )
-            {
-                getLog().info( LS + response.toString() );
-            }
-            else
+        } else {
+            if (getLog().isInfoEnabled()) {
+                getLog().info(LS + response.toString());
+            } else {
+                if (forceStdout) {
 ```
 
 ### UnnecessaryToStringCall
@@ -482,9 +470,9 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-                if ( forceStdout )
-                {
-                    System.out.print( response.toString() );
+            } else {
+                if (forceStdout) {
+                    System.out.print(response.toString());
                     System.out.flush();
                 }
 ```
@@ -495,11 +483,11 @@ Can generalize to `? super String`
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
-     * @param activeProfiles Map to add the active profiles to.
      */
-    private void addProjectPomProfiles( MavenProject project, Map<String, Profile> allProfiles,
-                                        Map<String, Profile> activeProfiles )
-    {
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
 ```
 
 ### BoundedWildcard
@@ -507,11 +495,11 @@ Can generalize to `? super Profile`
 in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
-     * @param activeProfiles Map to add the active profiles to.
      */
-    private void addProjectPomProfiles( MavenProject project, Map<String, Profile> allProfiles,
-                                        Map<String, Profile> activeProfiles )
-    {
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
 ```
 
 ### BoundedWildcard
@@ -520,10 +508,10 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
      */
-    private void addProjectPomProfiles( MavenProject project, Map<String, Profile> allProfiles,
-                                        Map<String, Profile> activeProfiles )
-    {
-        if ( project == null )
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
 ```
 
 ### BoundedWildcard
@@ -532,10 +520,34 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 #### Snippet
 ```java
      */
-    private void addProjectPomProfiles( MavenProject project, Map<String, Profile> allProfiles,
-                                        Map<String, Profile> activeProfiles )
-    {
-        if ( project == null )
+    private void addProjectPomProfiles(
+            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
+        if (project == null) {
+            // shouldn't happen as this mojo requires a project
+```
+
+### BoundedWildcard
+Can generalize to `? super String`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
+```
+
+### BoundedWildcard
+Can generalize to `? super Profile`
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     * @param allProfiles Map to add the profiles to.
+     */
+    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
+        getLog().debug("Attempting to read profiles from settings.xml...");
+        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
 ```
 
 ### BoundedWildcard
@@ -545,33 +557,9 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 ```java
     // ----------------------------------------------------------------------
 
-    private void writeProfilesDescription( StringBuilder sb, Map<String, Profile> profilesByIds, boolean active )
-    {
-        for ( Profile p : profilesByIds.values() )
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles( Map<String, Profile> allProfiles )
-    {
-        getLog().debug( "Attempting to read profiles from settings.xml..." );
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles( Map<String, Profile> allProfiles )
-    {
-        getLog().debug( "Attempting to read profiles from settings.xml..." );
+    private void writeProfilesDescription(StringBuilder sb, Map<String, Profile> profilesByIds, boolean active) {
+        for (Profile p : profilesByIds.values()) {
+            sb.append("  Profile Id: ").append(p.getId());
 ```
 
 ## RuleId[id=PublicFieldAccessedInSynchronizedContext]
@@ -582,9 +570,9 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 ```java
             // Maven 3: PluginParameterExpressionEvaluator gets the current project from the session:
             // synchronize in case another thread wants to fetch the real current project in between
-            synchronized ( session )
-            {
-                session.setCurrentProject( project );
+            synchronized (session) {
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -592,11 +580,23 @@ Non-private field `session` accessed in synchronized context
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-            synchronized ( session )
-            {
-                session.setCurrentProject( project );
-                evaluator = new PluginParameterExpressionEvaluator( session, mojoExecution );
-                session.setCurrentProject( currentProject );
+            // synchronize in case another thread wants to fetch the real current project in between
+            synchronized (session) {
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
+                session.setCurrentProject(currentProject);
+```
+
+### PublicFieldAccessedInSynchronizedContext
+Non-private field `project` accessed in synchronized context
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+            // synchronize in case another thread wants to fetch the real current project in between
+            synchronized (session) {
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
+                session.setCurrentProject(currentProject);
 ```
 
 ### PublicFieldAccessedInSynchronizedContext
@@ -604,10 +604,10 @@ Non-private field `session` accessed in synchronized context
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-            {
-                session.setCurrentProject( project );
-                evaluator = new PluginParameterExpressionEvaluator( session, mojoExecution );
-                session.setCurrentProject( currentProject );
+            synchronized (session) {
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
+                session.setCurrentProject(currentProject);
             }
 ```
 
@@ -616,9 +616,9 @@ Non-private field `session` accessed in synchronized context
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-                session.setCurrentProject( project );
-                evaluator = new PluginParameterExpressionEvaluator( session, mojoExecution );
-                session.setCurrentProject( currentProject );
+                session.setCurrentProject(project);
+                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
+                session.setCurrentProject(currentProject);
             }
         }
 ```
@@ -632,8 +632,8 @@ in `src/main/java/org/apache/maven/plugins/help/AbstractEffectiveMojo.java`
         }
 
         output.getParentFile().mkdirs();
-        try ( Writer out = WriterFactory.newXmlWriter( output ) )
-        {
+        try (Writer out = WriterFactory.newXmlWriter(output)) {
+            out.write(content);
 ```
 
 ### IgnoreResultOfCall
@@ -644,7 +644,7 @@ in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
         }
 
         output.getParentFile().mkdirs();
-        try ( Writer out = WriterFactory.newPlatformWriter( output ) )
-        {
+        try (Writer out = WriterFactory.newPlatformWriter(output)) {
+            out.write(content);
 ```
 
